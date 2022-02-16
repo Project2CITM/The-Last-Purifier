@@ -45,7 +45,6 @@ bool ModuleWindow::Init(pugi::xml_node& config)
 		if (fullscreen == true) flags |= SDL_WINDOW_FULLSCREEN;
 		if (borderless == true) flags |= SDL_WINDOW_BORDERLESS;
 		if (resizable == true) flags |= SDL_WINDOW_RESIZABLE;
-		flags |= SDL_WINDOW_HIDDEN;
 		if (fullscreen_window == true) flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
 
 		window = SDL_CreateWindow(App->GetTitle(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);

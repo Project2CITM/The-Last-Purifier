@@ -23,12 +23,14 @@ bool ModulePhysics::Start()
 {
 	LOG("Creating Physics 2D environment");
 
-	world = new b2World(b2Vec2(GRAVITY_X, -GRAVITY_Y));
+	world = new b2World(b2Vec2(0, -10));
 	b2BodyDef bd;
 	mouseBody = world->CreateBody(&bd);
 
-	world->SetContactListener(this);
+	LOG("Tedt¡¡");
 
+	world->SetContactListener(this);
+	
 	return true;
 }
  
@@ -47,8 +49,9 @@ UpdateStatus ModulePhysics::Update()
 
 UpdateStatus ModulePhysics::PostUpdate()
 {
-	/*if (!App->debug->debugTakeObject)
-		return UPDATE_CONTINUE;*/
+	/*
+	if (!App->debug->debugTakeObject)
+		return UPDATE_CONTINUE;
 
 	// If mouse button 1 is pressed ...
 	for (b2Body* b = world->GetBodyList(); b; b = b->GetNext())
@@ -97,10 +100,7 @@ UpdateStatus ModulePhysics::PostUpdate()
 				nextPos.y = PIXELS_TO_METER(nextPos.y);
 
 				mouseJoint->SetTarget(nextPos);
-				// -------------------------------------------
-				/*App->renderer->DrawLine(METERS_TO_PIXELS(mouseJoint->GetAnchorA().x), METERS_TO_PIXELS(mouseJoint->GetAnchorA().y),
-					METERS_TO_PIXELS(mouseJoint->GetAnchorB().x), METERS_TO_PIXELS(mouseJoint->GetAnchorB().y),
-					255, 0, 0);*/
+			
 			}
 
 			if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_UP && b->GetJointList() != nullptr && mouseJoint != nullptr)
@@ -110,7 +110,7 @@ UpdateStatus ModulePhysics::PostUpdate()
 			}
 		}
 	}
-
+	*/
 	return UPDATE_CONTINUE;
 }
 
