@@ -114,6 +114,8 @@
     <ClInclude Include="ModuleWindow.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="RenderObject.hpp" />
+    <ClInclude Include="Room.h" />
+    <ClInclude Include="RoomManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>
@@ -136,6 +138,8 @@
     <ClCompile Include="ModuleTextures.cpp" />
     <ClCompile Include="ModuleUI.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
+    <ClCompile Include="Room.cpp" />
+    <ClCompile Include="RoomManager.cpp" />
     <ClCompile Include="Scene.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

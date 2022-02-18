@@ -96,6 +96,12 @@
     <ClInclude Include="External\PugiXml\src\pugiconfig.hpp">
       <Filter>Archivos de origen\PugiXml</Filter>
     </ClInclude>
+    <ClInclude Include="Room.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="RoomManager.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Log.cpp">
@@ -154,6 +160,12 @@
     </ClCompile>
     <ClCompile Include="External\PugiXml\src\pugixml.cpp">
       <Filter>Archivos de origen\PugiXml</Filter>
+    </ClCompile>
+    <ClCompile Include="Room.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="RoomManager.cpp">
+      <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
