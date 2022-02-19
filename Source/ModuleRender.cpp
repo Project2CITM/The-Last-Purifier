@@ -11,7 +11,8 @@ ModuleRender::ModuleRender(Application* app, bool start_enabled) : Module(app, s
 	camera = new Camera(App);
 	camera->x = camera->y = 0;
 
-	renderLayers.resize(4);
+	// Init renderLayers
+	renderLayers.resize(MAX_RENDERLAYERS);
 }
 
 // Destructor
@@ -79,17 +80,17 @@ UpdateStatus ModuleRender::Update()
 UpdateStatus ModuleRender::PostUpdate()
 {
 	// Sorting layers
-	for (int i = 0; i < renderLayers.size(); i++)
+	for (int i = 0; i < renderLayers.size(); ++i)
 	{
-		SortRenderObjects(renderLayers[i]);
+		if (renderLayers[i].sort) SortingObjectsInLayer(renderLayers[i].renderObjects);
 	}
 
 	//Draw
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < MAX_RENDERLAYERS; ++i)
 	{
-		for (int j = 0, count = renderLayers[i].size(); j < count; ++j)
+		for (int j = 0, length = renderLayers[i].renderObjects.size(); j < length; ++j)
 		{
-			renderLayers[i][j].Draw(renderer);
+			renderLayers[i].renderObjects[j].Draw(renderer);
 		}
 	}
 
@@ -98,8 +99,10 @@ UpdateStatus ModuleRender::PostUpdate()
 	//	App->physics->ShapesRender();
 	//}
 	
+	// Update the screen
 	SDL_RenderPresent(renderer);
 
+	// Clear layers
 	ClearRederQueue();
 
 	return UPDATE_CONTINUE;
@@ -127,9 +130,10 @@ void ModuleRender::AddTextureRenderQueue(SDL_Texture* texture, iPoint pos, SDL_R
 
 	RenderObject renderObject;
 
-	renderObject.InitAsTexture(texture, destRect, section, layer, orderInlayer, flip, rotation, scale, speed);
+	//If texture in UI layer, it moves alongside the camera-> , speed = 0;
+	if (uiLayer >= 0 && layer == uiLayer) speed = 0;
 
-	if (layer == 2 || layer == 3) renderObject.speedRegardCamera = 0;	//If texture in UI layer, it moves alongside the camera-> Therefor, speed = 0;
+	renderObject.InitAsTexture(texture, destRect, section, layer, orderInlayer, flip, rotation, scale, speed);
 
 	renderObject.destRect.x = (int)(-camera->x * speed) + pos.x * App->window->scale * zoom;
 	renderObject.destRect.y = (int)(-camera->y * speed) + pos.y * App->window->scale * zoom;
@@ -149,78 +153,50 @@ void ModuleRender::AddTextureRenderQueue(SDL_Texture* texture, iPoint pos, SDL_R
 	renderObject.destRect.h *= scale * App->window->scale * zoom;
 
 	//LOG("direction in memory : %#x", renderObject.texture);
-	try 
-	{
-		renderLayers[layer].push_back(renderObject);
-	}
-	catch (const exception& e)
-	{
-		LOG("ERRRROR");
-	}	
+	renderLayers[layer].renderObjects.push_back(renderObject);
 }
-
-void ModuleRender::AddTextureRenderQueue(RenderObject obj)
-{
-	RenderObject object = obj;
-
-	object.destRect.x = (int)(-camera->x * object.speedRegardCamera) + object.destRect.x * App->window->scale;
-	object.destRect.y = (int)(-camera->y * object.speedRegardCamera) + object.destRect.y * App->window->scale;
-
-	if (object.section.w != 0 && object.section.h != 0)
-	{
-		object.destRect.w = object.section.w;
-		object.destRect.h = object.section.h;
-	}
-	else
-	{
-		// Collect the texture size into rect.w and rect.h variables
-		SDL_QueryTexture(object.texture, nullptr, nullptr, &object.destRect.w, &object.destRect.h);
-	}
-
-	object.destRect.w *= object.scale * App->window->scale;
-	object.destRect.h *= object.scale * App->window->scale;
-
-	renderLayers[object.layer].push_back(object);
-}
-
-void ModuleRender::AddRectRenderQueue(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a, int layer, float orderInlayer, bool filled, float speed)
+	
+void ModuleRender::AddRectRenderQueue(const SDL_Rect& rect, SDL_Color color, int layer, float orderInlayer, bool filled, float speed)
 {
 	RenderObject renderR;
 
 	SDL_Rect rec = { (-camera->x * speed) + rect.x * App->window->scale, (-camera->y * speed) + rect.y * App->window->scale,
 		rect.w * App->window->scale, rect.h * App->window->scale };
 
-	renderR.InitAsRect(rec, { r,g,b,a }, filled, layer, orderInlayer, speed);
+	renderR.InitAsRect(rec, { color.r,color.g,color.b,color.a }, filled, layer, orderInlayer, speed);
 
-	renderLayers[layer].push_back(renderR);
+	renderLayers[layer].renderObjects.push_back(renderR);
 }
 
-void ModuleRender::ClearRederQueue()
+void ModuleRender::AddRenderObjectRenderQueue(RenderObject renderObject)
 {
-	for (int i = 0; i < 4; i++)
+	if (uiLayer >= 0 && renderObject.layer == uiLayer)
 	{
-		renderLayers[i].clear();
+		//If texture in UI layer, it moves alongside the camera-> , speed = 0;
+		renderObject.speedRegardCamera = 0;
 	}
+
+	renderObject.destRect.x = (int)(-camera->x * renderObject.speedRegardCamera) + renderObject.destRect.x * App->window->scale;
+	renderObject.destRect.y = (int)(-camera->y * renderObject.speedRegardCamera) + renderObject.destRect.y * App->window->scale;
+
+	if (renderObject.section.h != 0 && renderObject.section.w != 0)
+	{
+		renderObject.destRect.w = renderObject.section.w;
+		renderObject.destRect.h = renderObject.section.h;
+	}
+	else
+	{
+		// Collect the texture size into rect.w and rect.h variables
+		SDL_QueryTexture(renderObject.texture, nullptr, nullptr, &renderObject.destRect.w, &renderObject.destRect.h);
+	}
+
+	renderObject.destRect.w *= renderObject.scale * App->window->scale;
+	renderObject.destRect.h *= renderObject.scale * App->window->scale;
+
+	renderLayers[renderObject.layer].renderObjects.push_back(renderObject);
 }
 
-int ModuleRender::RoundToInt(int num)
-{
-	float divisionRes;
-	divisionRes = (float)num / (float)gamePixels;
-
-	divisionRes = lround((double)divisionRes);
-
-
-
-	return (int)(divisionRes * gamePixels);
-}
-
-void ModuleRender::ToggleVsync(bool vsync)
-{
-	App->vsync = vsync;
-}
-
-void ModuleRender::SortRenderObjects(vector<RenderObject> &obj)
+void ModuleRender::SortingObjectsInLayer(vector<RenderObject>& obj)
 {
 	int less = 0;
 	int objSize = obj.size();
@@ -238,13 +214,35 @@ void ModuleRender::SortRenderObjects(vector<RenderObject> &obj)
 	}
 }
 
+void ModuleRender::ClearRederQueue()
+{
+	for (int i = 0; i < MAX_RENDERLAYERS; ++i)
+	{
+		renderLayers[i].renderObjects.clear();
+	}
+}
+
+int ModuleRender::RoundToInt(int num)
+{
+	float divisionRes;
+	divisionRes = (float)num / (float)gamePixels;
+
+	divisionRes = lround((double)divisionRes);
+
+	return (int)(divisionRes * gamePixels);
+}
+
+void ModuleRender::ToggleVsync(bool vsync)
+{
+	App->vsync = vsync;
+}
+
 void ModuleRender::CameraMove(iPoint pos)
 {
 	camera->x = pos.x + (SCREEN_WIDTH / 2);	//	Camera position = target position
 
 	camera->y = pos.y;
 }
-
 
 void ModuleRender::GetSaveData(pugi::xml_document& save)
 {

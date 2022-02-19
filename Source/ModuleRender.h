@@ -6,7 +6,15 @@
 #include "RenderObject.hpp"
 #include "Camera.h"
 
+#define MAX_RENDERLAYERS 4
+
 using namespace std;
+
+struct RenderLayer
+{
+	bool sort = false;
+	std::vector<RenderObject> renderObjects;
+};
 
 class ModuleRender : public Module
 {
@@ -28,19 +36,19 @@ public:
 	bool CleanUp();
 
 	void AddTextureRenderQueue(SDL_Texture* texture, iPoint pos, SDL_Rect section = {0,0,0,0}, float scale = 1, int layer = 0, float orderInlayer = 0.0f, float rotation = 0, SDL_RendererFlip flip = SDL_FLIP_NONE, float speed = 1.0f);// Speed = 1.0f = Fullscreen camera
-	void AddRectRenderQueue(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, int layer = 1, float orderInlayer = 0.0f, bool filled = true, float speed = 1.0f);
+	void AddRectRenderQueue(const SDL_Rect& rect, SDL_Color color, int layer = 1, float orderInlayer = 0.0f, bool filled = true, float speed = 1.0f);
+	void AddRenderObjectRenderQueue(RenderObject renderObject);
 	void ClearRederQueue();
 
 	int RoundToInt(int num);
 
 	void ToggleVsync(bool vsync);
 
-#pragma region OBSOLETE
+	#pragma region OBSOLETE
 	/// <summary>
 	/// DO NOT USE!!!!
 	/// </summary>
 	/// <param name="obj"></param>
-	void AddTextureRenderQueue(RenderObject obj);
 	bool Blit(SDL_Texture* texture, int x, int y, float scale = 1, SDL_Rect* section = NULL, float speed = 1.0f, double angle = 0, SDL_RendererFlip flip = SDL_FLIP_NONE, int pivot_x = INT_MAX, int pivot_y = INT_MAX);
 	bool DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool filled = true, bool use_camera = true);
 	bool DrawLine(int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool adjust = false, bool use_camera = true);
@@ -49,12 +57,14 @@ public:
 #pragma endregion
 
 private:
-	vector<vector<RenderObject>> renderLayers;
+	std::vector<RenderLayer> renderLayers;
+
+	uint uiLayer = MAX_RENDERLAYERS;
 
 	int gamePixels = 16; // The pixels per texutre used on this game
 
 private:
-	void SortRenderObjects(vector<RenderObject>& obj);
+	void SortingObjectsInLayer(vector<RenderObject>& obj);
 	void GetSaveData(pugi::xml_document& save) override;
 };
 
