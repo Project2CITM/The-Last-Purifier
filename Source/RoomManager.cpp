@@ -13,8 +13,8 @@ void RoomManager::Update()
 
 void RoomManager::PostUpdate()
 {
-	app->renderer->AddRectRenderQueue(SDL_Rect{ 0, 0, MAX_ROOMS_COLUMNS * MAX_ROOM_TILES_COLUMNS * ROOM_SCALE, 
-													  MAX_ROOMS_ROWS * MAX_ROOM_TILES_ROWS * ROOM_SCALE}, 0, 170, 230);
+	app->renderer->AddRectRenderQueue(SDL_Rect{ 0, 0, MAX_ROOMS_COLUMNS * MAX_ROOM_TILES_COLUMNS * ROOM_SCALE,
+													  MAX_ROOMS_ROWS * MAX_ROOM_TILES_ROWS * ROOM_SCALE }, SDL_Color{ 0, 170, 230, 255});
 	DrawRooms();
 }
 
@@ -54,7 +54,7 @@ void RoomManager::DrawRooms()
 	while (currentRoom != nullptr) {
 		app->renderer->AddRectRenderQueue(SDL_Rect{ currentRoom->data->roomPosition.x * MAX_ROOM_TILES_COLUMNS * ROOM_SCALE, 
 													currentRoom->data->roomPosition.y * MAX_ROOM_TILES_ROWS* ROOM_SCALE,
-													MAX_ROOM_TILES_COLUMNS * ROOM_SCALE, MAX_ROOM_TILES_ROWS * ROOM_SCALE }, 255, 192, 203);
+													MAX_ROOM_TILES_COLUMNS* ROOM_SCALE, MAX_ROOM_TILES_ROWS* ROOM_SCALE }, SDL_Color{ 255, 192, 203, 255});
 		currentRoom = currentRoom->next;
 	}
 }

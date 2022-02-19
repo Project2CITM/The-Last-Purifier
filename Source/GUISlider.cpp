@@ -155,7 +155,7 @@ void GUISlider::PostUpdate()
 	}
 	else
 	{
-		_app->renderer->AddRectRenderQueue(SDL_Rect{ position.x,position.y,boxShape.w,boxShape.h }, defaultColor.r, defaultColor.g, defaultColor.b, defaultColor.a, 3,0);
+		_app->renderer->AddRectRenderQueue(SDL_Rect{ position.x,position.y,boxShape.w,boxShape.h }, SDL_Color{ defaultColor.r, defaultColor.g, defaultColor.b, defaultColor.a }, 3, 0);
 	}
 
 	if (btn != nullptr)

@@ -53,7 +53,7 @@ bool ModuleRender::Init(pugi::xml_node& config)
 // PreUpdate: clear buffer
 UpdateStatus ModuleRender::PreUpdate()
 {
-	SDL_SetRenderDrawColor(renderer, 0, 0, 1, 0);
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 	SDL_RenderClear(renderer);
 	return UPDATE_CONTINUE;
 }
