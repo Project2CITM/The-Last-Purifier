@@ -10,20 +10,34 @@ TestScene::~TestScene()
 
 bool TestScene::Start()
 {
-    return false;
+    roomManager.Start();
+
+    return true;
 }
 
 bool TestScene::PreUpdate()
 {
-    rm.PreUpdate();
+
+    return true;
 }
 
 bool TestScene::Update()
 {
-    rm.Update();
+    roomManager.Update();
+
+    return true;
 }
 
 bool TestScene::PostUpdate()
 {
-    rm.PostUpdate();
+    roomManager.PostUpdate();
+
+    return true;
+}
+
+bool TestScene::CleanUp()
+{
+    roomManager.CleanUp();
+
+    return false;
 }

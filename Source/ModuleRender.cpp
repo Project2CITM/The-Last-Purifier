@@ -87,7 +87,7 @@ UpdateStatus ModuleRender::PostUpdate()
 	//Draw
 	for (int i = 0; i < 4; i++)
 	{
-		for (int j = 0, count = renderLayers[i].size(); i < count; ++i)
+		for (int j = 0, count = renderLayers[i].size(); j < count; ++j)
 		{
 			renderLayers[i][j].Draw(renderer);
 		}

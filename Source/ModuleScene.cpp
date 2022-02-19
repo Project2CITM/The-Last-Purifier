@@ -2,10 +2,13 @@
 #include "ModuleScene.h"
 #include "Application.h"
 #include "ModuleAudio.h"
+#include "TestScene.h"
 
 ModuleScene::ModuleScene(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name = "scenes";
+
+	scenes[0] = new TestScene(app);
 
 	//scenes[0] = new SceneMainMenu(app);
 	//scenes[1] = new SceneGameOver(app);
@@ -35,7 +38,7 @@ bool ModuleScene::Start()
 		return ret;
 	}
 
-	//currentScene->Start();
+	currentScene->Start();
 	
 	App->audio->PlayMusic("Assets/audio/music/pixelMusic.mp3", 2);
 
@@ -53,7 +56,7 @@ UpdateStatus ModuleScene::PreUpdate()
 		return UpdateStatus::UPDATE_CONTINUE;
 	}
 
-	//currentScene->PreUpdate();
+	currentScene->PreUpdate();
 
 	return UpdateStatus::UPDATE_CONTINUE;
 }
@@ -72,10 +75,10 @@ UpdateStatus ModuleScene::Update()
 		return UpdateStatus::UPDATE_CONTINUE;
 	}
 
-	/*if (!currentScene->Update())
+	if (!currentScene->Update())
 	{
 		return UpdateStatus::UPDATE_STOP;
-	}*/
+	}
 
 	return UpdateStatus::UPDATE_CONTINUE;
 }
@@ -87,7 +90,7 @@ UpdateStatus ModuleScene::PostUpdate()
 		return UpdateStatus::UPDATE_CONTINUE;
 	}
 
-	//currentScene->PostUpdate();
+	currentScene->PostUpdate();
 
 	if (fadeRot != 0)
 	{
@@ -133,13 +136,13 @@ bool ModuleScene::StartChangeScene()
 
 		if (scenes[changeTo] == nullptr) return false;
 
-		//currentScene->CleanUp();
+		currentScene->CleanUp();
 
 		App->renderer->ClearRederQueue();
 
 		currentScene = scenes[changeTo];
 
-		//currentScene->Start();
+		currentScene->Start();
 	}
 
 	return true;
@@ -202,7 +205,7 @@ bool ModuleScene::CleanUp()
 	{
 		if (scenes[i] != nullptr)
 		{
-			//scenes[i]->CleanUp();	//CleanUp all scenes (in case the Application is shut down)
+			scenes[i]->CleanUp();	//CleanUp all scenes (in case the Application is shut down)
 			delete scenes[i];
 			scenes[i] = nullptr;
 		}

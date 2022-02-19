@@ -102,6 +102,9 @@
     <ClInclude Include="RoomManager.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="TestScene.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Log.cpp">
@@ -165,6 +168,9 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="RoomManager.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="TestScene.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>

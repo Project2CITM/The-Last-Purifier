@@ -7,14 +7,22 @@
 #define MAX_ROOM_TILES_ROWS 15
 //#define MAX_ROOM_ENEMIES 5
 
+struct Door {
+	iPoint pos;
+	bool open = true;
+};
+
 class Room
 {
+public:
+	void CreateDoors();
+	void CloseDoors();
+	void OpenDoors();
+
+public:
+	List<Door*> doors;
 	char roomDesign[MAX_ROOM_TILES_ROWS][MAX_ROOM_TILES_COLUMNS];
 	iPoint roomPosition; 	//in map, not pixels
-	//iPoint roomEnemyPositions[MAX_ROOM_ENEMIES];
-
-	void DrawRoom();
-	//void SpawnRoomEnemies();
 };
 
 #endif //_ROOM_H_

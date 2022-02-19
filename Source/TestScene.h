@@ -1,5 +1,3 @@
-#pragma once
-
 #include "Scene.h"
 
 #include "RoomManager.h"
@@ -20,8 +18,10 @@ public:
 
 	bool PostUpdate() override;
 
+	bool CleanUp() override;
+
 private:
 
-	RoomManager rm;
+	RoomManager roomManager = RoomManager(_app);
 };
 

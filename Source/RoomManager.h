@@ -6,14 +6,30 @@
 
 #define MAX_ROOMS_COLUMNS 8
 #define MAX_ROOMS_ROWS 8
+#define ROOM_SCALE 3
 
-class RoomManager : public GameObject{
+class RoomManager{
 	
 public:
+	RoomManager(Application* app) {
+		this->app = app;
+	}
+
+	void Start();
+	void Update();
+	void PostUpdate();
+	void CleanUp();
+
 	void GenerateMap(short RoomNumber);
+	void CreateDoors();
+	void CreateRoom(iPoint mapPosition);
+
+	void DrawRooms();
 
 public:
+	Application* app = nullptr;
 	List<Room*> rooms;
+	Room* roomPositions[MAX_ROOMS_COLUMNS][MAX_ROOMS_ROWS];
 	SDL_Texture* tile_texture = nullptr;
 };
 
