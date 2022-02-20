@@ -5,6 +5,7 @@
 
 #define MAX_ROOM_TILES_COLUMNS 25
 #define MAX_ROOM_TILES_ROWS 15
+#define TILE_SIZE 3
 //#define MAX_ROOM_ENEMIES 5
 
 struct Door {
@@ -15,9 +16,10 @@ struct Door {
 class Room
 {
 public:
-	void CreateDoors();
 	void CloseDoors();
 	void OpenDoors();
+
+	void CleanUp();
 
 public:
 	List<Door*> doors;

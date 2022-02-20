@@ -1,10 +1,5 @@
 #include "Room.h"
 
-void Room::CreateDoors()
-{
-
-}
-
 void Room::CloseDoors()
 {
 	ListItem<Door*>* currentDoor = doors.start;
@@ -21,4 +16,9 @@ void Room::OpenDoors()
 		currentDoor->data->open = true;
 		currentDoor = currentDoor->next;
 	}
+}
+
+void Room::CleanUp()
+{
+	doors.clearPtr();
 }

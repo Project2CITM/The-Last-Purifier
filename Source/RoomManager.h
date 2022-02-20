@@ -7,7 +7,6 @@
 
 #define MAX_ROOMS_COLUMNS 8
 #define MAX_ROOMS_ROWS 8
-#define ROOM_SCALE 3
 
 class RoomManager{
 	
@@ -27,6 +26,7 @@ public:
 	Room* CreateRoom(iPoint mapPosition);
 
 	void DrawRooms();
+	void DrawDoors();
 
 public:
 	Application* app = nullptr;

@@ -2,7 +2,7 @@
 
 void RoomManager::Start()
 {
-	GenerateMap(20);
+	GenerateMap(25);
 	//incloure textures
 	CreateDoors();
 }
@@ -13,16 +13,24 @@ void RoomManager::Update()
 
 void RoomManager::PostUpdate()
 {
-	app->renderer->AddRectRenderQueue(SDL_Rect{ 0, 0, MAX_ROOMS_COLUMNS * MAX_ROOM_TILES_COLUMNS * ROOM_SCALE,
-													  MAX_ROOMS_ROWS * MAX_ROOM_TILES_ROWS * ROOM_SCALE }, SDL_Color{ 0, 170, 230, 255});
+	app->renderer->AddRectRenderQueue(SDL_Rect{ 0, 0, MAX_ROOMS_COLUMNS * MAX_ROOM_TILES_COLUMNS * TILE_SIZE,
+													  MAX_ROOMS_ROWS * MAX_ROOM_TILES_ROWS * TILE_SIZE }, SDL_Color{ 0, 170, 230, 255});
 	DrawRooms();
+	DrawDoors();
 }
 
 void RoomManager::CleanUp()
 {
+	ListItem<Room*>* currentRoom = rooms.start;
+	while (currentRoom != nullptr) {
+		currentRoom->data->CleanUp();
+		currentRoom = currentRoom->next;
+	}
+
 	rooms.clearPtr();
 }
 
+//FUNCTIONS
 void RoomManager::GenerateMap(short RoomNumber)
 {
 	if (RoomNumber < 1 || RoomNumber > MAX_ROOMS_ROWS * MAX_ROOMS_COLUMNS)
@@ -74,7 +82,40 @@ void RoomManager::CreateDoors()
 {
 	ListItem<Room*>* currentRoom = rooms.start;
 	while (currentRoom != nullptr) {
-		currentRoom->data->CreateDoors();
+		Room* cr = currentRoom->data;
+
+		//Right Door
+		if (roomPositions[cr->roomPosition.x + 1][cr->roomPosition.y] != nullptr && cr->roomPosition.x + 1 < MAX_ROOMS_COLUMNS) {
+			Door* d = new Door();
+			d->pos.x = (cr->roomPosition.x + 1) * MAX_ROOM_TILES_COLUMNS * TILE_SIZE - TILE_SIZE;
+			d->pos.y = cr->roomPosition.y * MAX_ROOM_TILES_ROWS * TILE_SIZE + (MAX_ROOM_TILES_ROWS * TILE_SIZE / 2);
+			cr->doors.add(d);
+		}
+
+		//Bottom Door
+		if (roomPositions[cr->roomPosition.x][cr->roomPosition.y + 1] != nullptr && cr->roomPosition.y + 1 < MAX_ROOMS_ROWS) {
+			Door* d = new Door();
+			d->pos.x = cr->roomPosition.x * MAX_ROOM_TILES_COLUMNS * TILE_SIZE + (MAX_ROOM_TILES_COLUMNS * TILE_SIZE / 2);
+			d->pos.y = (cr->roomPosition.y + 1) * MAX_ROOM_TILES_ROWS * TILE_SIZE - TILE_SIZE;
+			cr->doors.add(d);
+		}
+
+		//Left Door
+		if (roomPositions[cr->roomPosition.x - 1][cr->roomPosition.y] != nullptr && cr->roomPosition.x - 1 >= 0) {
+			Door* d = new Door();
+			d->pos.x = cr->roomPosition.x * MAX_ROOM_TILES_COLUMNS * TILE_SIZE;
+			d->pos.y = cr->roomPosition.y * MAX_ROOM_TILES_ROWS * TILE_SIZE + (MAX_ROOM_TILES_ROWS * TILE_SIZE / 2);
+			cr->doors.add(d);
+		}
+
+		//Top Door
+		if (roomPositions[cr->roomPosition.x][cr->roomPosition.y - 1] != nullptr && cr->roomPosition.y - 1 >= 0) {
+			Door* d = new Door();
+			d->pos.x = cr->roomPosition.x * MAX_ROOM_TILES_COLUMNS * TILE_SIZE + (MAX_ROOM_TILES_COLUMNS * TILE_SIZE / 2);
+			d->pos.y = cr->roomPosition.y * MAX_ROOM_TILES_ROWS * TILE_SIZE;
+			cr->doors.add(d);
+		}
+
 		currentRoom = currentRoom->next;
 	}
 }
@@ -84,7 +125,6 @@ Room* RoomManager::CreateRoom(iPoint mapPosition)
 	Room* r = new Room();
 	r->roomPosition = mapPosition;
 	//r->roomDesign = 
-	r->CreateDoors();
 	rooms.add(r);
 	roomPositions[mapPosition.x][mapPosition.y] = r;
 	return r;
@@ -98,13 +138,27 @@ void RoomManager::DrawRooms()
 
 	ListItem<Room*>* currentRoom = rooms.start;
 	while (currentRoom != nullptr) {
-		app->renderer->AddRectRenderQueue(SDL_Rect{ currentRoom->data->roomPosition.x * MAX_ROOM_TILES_COLUMNS * ROOM_SCALE, 
-													currentRoom->data->roomPosition.y * MAX_ROOM_TILES_ROWS* ROOM_SCALE,
-													MAX_ROOM_TILES_COLUMNS* ROOM_SCALE, MAX_ROOM_TILES_ROWS* ROOM_SCALE }, 
+		app->renderer->AddRectRenderQueue(SDL_Rect{ currentRoom->data->roomPosition.x * MAX_ROOM_TILES_COLUMNS * TILE_SIZE,
+													currentRoom->data->roomPosition.y * MAX_ROOM_TILES_ROWS* TILE_SIZE,
+													MAX_ROOM_TILES_COLUMNS* TILE_SIZE, MAX_ROOM_TILES_ROWS* TILE_SIZE },
 													c);
 		c.r -= 255/rn;
 		c.g -= 255/rn;
 		c.b -= 255/rn;
+		currentRoom = currentRoom->next;
+	}
+}
+
+void RoomManager::DrawDoors()
+{
+	ListItem<Room*>* currentRoom = rooms.start;
+	while (currentRoom != nullptr) {
+		ListItem<Door*>* currentDoor = currentRoom->data->doors.start;
+		while (currentDoor != nullptr) {
+			app->renderer->AddRectRenderQueue(SDL_Rect{ currentDoor->data->pos.x, currentDoor->data->pos.y, TILE_SIZE, TILE_SIZE },
+				SDL_Color{ 255, 0, 255, 255 }, 1, 0.0f, false);
+			currentDoor = currentDoor->next;
+		}
 		currentRoom = currentRoom->next;
 	}
 }
