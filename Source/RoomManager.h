@@ -3,6 +3,7 @@
 
 #include "Room.h"
 #include "GameObject.h"
+#include "Timer.h"
 
 #define MAX_ROOMS_COLUMNS 8
 #define MAX_ROOMS_ROWS 8
@@ -21,8 +22,9 @@ public:
 	void CleanUp();
 
 	void GenerateMap(short RoomNumber);
+	bool CheckAdjacentSpace(Room* r);
 	void CreateDoors();
-	void CreateRoom(iPoint mapPosition);
+	Room* CreateRoom(iPoint mapPosition);
 
 	void DrawRooms();
 

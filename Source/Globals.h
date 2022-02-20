@@ -68,6 +68,6 @@ enum UpdateStatus
 #define WIN_BORDERLESS false
 #define WIN_FULLSCREEN_DESKTOP false
 #define VSYNC true
-#define TITLE "UP"
+#define TITLE "PROJECT 2"
 
 #endif // !__GLOBALS_H__

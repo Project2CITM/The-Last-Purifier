@@ -297,11 +297,11 @@ void Application::UpdateTitle()
 
 	string vsyncMessage = vsync ? "true" : "false";
 
-	printTitle = title + " | FPS: " + to_string(fps) +
+	/*printTitle = title + " | FPS: " + to_string(fps) +
 		" | Avg.FPS: " + to_string(averageFps) +
 		" | Last dt: " + to_string(dt * 1000) +
 		"ms | Vsync: " + vsyncMessage;
 
 	// Print new title
-	window->SetTitle(printTitle.c_str());
+	window->SetTitle(printTitle.c_str());*/
 }
