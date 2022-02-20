@@ -93,5 +93,3 @@ iPoint Camera::GetCenter()
 {
 	return {x + pivotX, y + pivotY };
 }
-
-

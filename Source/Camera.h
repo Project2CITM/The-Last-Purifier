@@ -1,4 +1,4 @@
-#ifndef __CAMERA_H__
+#ifndef  __CAMERA_H__
 #define  __CAMERA_H__
 
 #include "Point.h"

@@ -8,7 +8,7 @@
 struct SDL_Texture;
 class PhysBody;
 
-#define MAX_GAMEOBJECT_TEXTURES 10
+#define MAX_GAMEOBJECT_TEXTURES 5
 
 class GameObject 
 {
@@ -20,7 +20,7 @@ public:
 
 	GameObject(GameObject& obj);
 
-	~GameObject();
+	virtual ~GameObject();
 
 	virtual void OnCollisionEnter(PhysBody* col);
 	virtual void OnCollisionExit(PhysBody* col);

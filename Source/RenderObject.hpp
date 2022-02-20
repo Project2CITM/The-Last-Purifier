@@ -4,6 +4,7 @@
 #include <string>
 #include "External/SDL/include/SDL.h"
 #include "Globals.h"
+#include "Point.h"
 
 enum RenderType
 {
@@ -39,13 +40,11 @@ public:
 					printf_s("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
 				}
 			}
-
 			return true;
 			break;
 		case RenderType::RENDER_RECT:
 			SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 			SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
-
 			if (filled)
 			{
 				SDL_RenderFillRect(renderer, &destRect);
@@ -56,12 +55,19 @@ public:
 			}
 			return true;
 			break;
+		case RenderType::RENDER_CIRCLE:
+			SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+			SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
+			SDL_RenderDrawPoints(renderer, points, 360);
+			return true;
+			break;
 		}
 	}
 
 	void InitAsTexture(SDL_Texture* texture, SDL_Rect destRect, SDL_Rect section, int layer, float orderInLayer,
 		SDL_RendererFlip flip, float rotation, float scale, float speedRegardCamera)
 	{
+		this->name = "texture";
 		this->texture = texture;
 		this->section = section;
 		this->flip = flip;
@@ -77,16 +83,31 @@ public:
 	void InitAsRect(SDL_Rect destRect, SDL_Color color = { 0,0,0,255 }, bool filled = false, int layer = 0, float orderInLayer = 0.0f,
 		float speedRegardCamera = 1.0f)
 	{
+		this->name = "rect";
 		this->color = color;
 		this->filled = filled;
 		this->destRect = destRect;
 		this->type = RENDER_RECT;
 		this->layer = layer;
 		this->orderInLayer = orderInLayer;
-		this->scale = scale;
+		this->speedRegardCamera = speedRegardCamera;		
+	}
+
+	void InitAsCircle(iPoint pos, int radius, SDL_Color color = { 0,0,0,255 }, int layer = 0, float orderInLayer = 0.0f, 
+		float speedRegardCamera = 1.0f)
+	{
+		this->name = "circle";
+		this->radius = radius;
+		this->color = color;
+		this->destRect.x = pos.x;
+		this->destRect.y = pos.y;
+		this->type = RENDER_CIRCLE;
+		this->layer = layer;
+		this->orderInLayer = orderInLayer;
 		this->speedRegardCamera = speedRegardCamera;
 	}
 
+	#pragma region Global parameter
 	SDL_Rect destRect = { 0,0,0,0 };
 	RenderType type;
 	int layer = 0;
@@ -95,18 +116,26 @@ public:
 	float speedRegardCamera = 1.0f;
 	bool draw = true;
 	std::string name = "null";
+	#pragma endregion
 
-	// Rect
-	SDL_Color color = { 0,0,0,0 };
-	bool filled = false;
-
-	// Texture
+	#pragma region Texture parameter
 	SDL_Texture* texture = nullptr;
 	SDL_Rect section = { 0,0,0,0 };
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
 	float rotation = 0.0f;
 	int textureCenterX = 0;
 	int textureCenterY = 0;
+	#pragma endregion
+
+	#pragma region Rect parameter
+	SDL_Color color = { 0,0,0,0 };
+	bool filled = false;
+	#pragma endregion
+
+	#pragma region Circle parameter
+	int radius;
+	SDL_Point points[360];
+	#pragma endregion
 };
 
 #endif //__REDEROBJECT_H__

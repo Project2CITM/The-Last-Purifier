@@ -30,6 +30,9 @@ bool TestScene::Update()
 
 bool TestScene::PostUpdate()
 {
+    // Test draw circle
+    // _app->renderer->AddCircleRenderQueue(iPoint{ 50, 50 }, 40, SDL_Color{ 50,0,0,255 }, 2, 50);
+
     roomManager.PostUpdate();
 
     return true;

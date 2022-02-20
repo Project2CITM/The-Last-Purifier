@@ -160,6 +160,9 @@ void ModuleRender::AddRectRenderQueue(const SDL_Rect& rect, SDL_Color color, int
 {
 	RenderObject renderR;
 
+	//If texture in UI layer, it moves alongside the camera-> , speed = 0;
+	if (uiLayer >= 0 && layer == uiLayer) speed = 0;
+
 	SDL_Rect rec = { (-camera->x * speed) + rect.x * App->window->scale, (-camera->y * speed) + rect.y * App->window->scale,
 		rect.w * App->window->scale, rect.h * App->window->scale };
 
@@ -168,30 +171,57 @@ void ModuleRender::AddRectRenderQueue(const SDL_Rect& rect, SDL_Color color, int
 	renderLayers[layer].renderObjects.push_back(renderR);
 }
 
-void ModuleRender::AddRenderObjectRenderQueue(RenderObject renderObject)
+void ModuleRender::AddCircleRenderQueue(const iPoint pos, int radius, SDL_Color color, int layer, float orderInLayer, float speedRegardCamera)
 {
-	if (uiLayer >= 0 && renderObject.layer == uiLayer)
+	RenderObject renderC;
+
+	renderC.InitAsCircle(pos, radius, color, layer, orderInLayer, speedRegardCamera);
+
+	float factor = (float)M_PI / 180.0f;
+
+	for (uint i = 0; i < 360; ++i)
 	{
-		//If texture in UI layer, it moves alongside the camera-> , speed = 0;
-		renderObject.speedRegardCamera = 0;
+		renderC.points[i].x = (int)(-camera->x + renderC.destRect.x * App->window->scale + radius * cos(i * factor) * App->window->scale);
+		renderC.points[i].y = (int)(-camera->y + renderC.destRect.y * App->window->scale + radius * sin(i * factor) * App->window->scale);
 	}
 
+	renderLayers[layer].renderObjects.push_back(renderC);
+}
+
+void ModuleRender::AddRenderObjectRenderQueue(RenderObject renderObject)
+{
+	// If texture in UI layer, it moves alongside the camera-> , speed = 0;
+	if (uiLayer >= 0 && renderObject.layer == uiLayer) renderObject.speedRegardCamera = 0;
+	
+	// Adjust destination position using camera and screen size
 	renderObject.destRect.x = (int)(-camera->x * renderObject.speedRegardCamera) + renderObject.destRect.x * App->window->scale;
 	renderObject.destRect.y = (int)(-camera->y * renderObject.speedRegardCamera) + renderObject.destRect.y * App->window->scale;
 
-	if (renderObject.section.h != 0 && renderObject.section.w != 0)
+	switch (renderObject.type)
 	{
-		renderObject.destRect.w = renderObject.section.w;
-		renderObject.destRect.h = renderObject.section.h;
+	case RENDER_TEXTURE:
+		if (renderObject.section.h != 0 && renderObject.section.w != 0)
+		{
+			renderObject.destRect.w = renderObject.section.w;
+			renderObject.destRect.h = renderObject.section.h;
+		}
+		else
+		{
+			// Collect the texture size into rect.w and rect.h variables
+			SDL_QueryTexture(renderObject.texture, nullptr, nullptr, &renderObject.destRect.w, &renderObject.destRect.h);
+		}
+		renderObject.destRect.w *= renderObject.scale * App->window->scale;
+		renderObject.destRect.h *= renderObject.scale * App->window->scale;
+		break;
+	case RENDER_CIRCLE:
+		float factor = (float)M_PI / 180.0f;
+		for (uint i = 0; i < 360; ++i)
+		{
+			renderObject.points[i].x = (int)(-camera->x + renderObject.destRect.x * App->window->scale + renderObject.radius * cos(i * factor) * App->window->scale);
+			renderObject.points[i].y = (int)(-camera->y + renderObject.destRect.y * App->window->scale + renderObject.radius * sin(i * factor) * App->window->scale);
+		}
+		break;
 	}
-	else
-	{
-		// Collect the texture size into rect.w and rect.h variables
-		SDL_QueryTexture(renderObject.texture, nullptr, nullptr, &renderObject.destRect.w, &renderObject.destRect.h);
-	}
-
-	renderObject.destRect.w *= renderObject.scale * App->window->scale;
-	renderObject.destRect.h *= renderObject.scale * App->window->scale;
 
 	renderLayers[renderObject.layer].renderObjects.push_back(renderObject);
 }
@@ -237,13 +267,6 @@ void ModuleRender::ToggleVsync(bool vsync)
 	App->vsync = vsync;
 }
 
-void ModuleRender::CameraMove(iPoint pos)
-{
-	camera->x = pos.x + (SCREEN_WIDTH / 2);	//	Camera position = target position
-
-	camera->y = pos.y;
-}
-
 void ModuleRender::GetSaveData(pugi::xml_document& save)
 {
 	pugi::xml_node n = save.child("game_state").child("renderer");
@@ -253,77 +276,6 @@ void ModuleRender::GetSaveData(pugi::xml_document& save)
 }
 
 #pragma region OBSOLETE NOT USE!!!!!
-
-// Blit to screen
-bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, float scale, SDL_Rect* section, float speed, double angle, SDL_RendererFlip flip, int pivot_x, int pivot_y)
-{
-	bool ret = true;
-	SDL_Rect rect;
-	rect.x = (int) (camera->x * speed) + x * SCREEN_SIZE;
-	rect.y = (int) (camera->y * speed) + y * SCREEN_SIZE;
-
-	if(section != NULL)
-	{
-		rect.w = section->w;
-		rect.h = section->h;
-	}
-	else
-	{
-		SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
-	}
-
-	rect.w *= SCREEN_SIZE;
-	rect.h *= SCREEN_SIZE;
-
-	rect.w *= scale;
-	rect.h *= scale;
-
-	SDL_Point* p = NULL;
-	SDL_Point pivot;
-
-	if(pivot_x != INT_MAX && pivot_y != INT_MAX)
-	{
-		pivot.x = pivot_x;
-		pivot.y = pivot_y;
-		p = &pivot;
-	}
-
-	if(SDL_RenderCopyEx(renderer, texture, section, &rect, angle, p, flip) != 0)
-	{
-		LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
-		ret = false;
-	}
-
-	return ret;
-}
-
-bool ModuleRender::DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool filled, bool use_camera)
-{
-	bool ret = true;
-
-	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
-	SDL_SetRenderDrawColor(renderer, r, g, b, a);
-
-	SDL_Rect rec(rect);
-	if(use_camera)
-	{
-		rec.x = (int)(camera->x + rect.x * App->window->scale);
-		rec.y = (int)(camera->y + rect.y * App->window->scale);
-		rec.w *= App->window->scale;
-		rec.h *= App->window->scale;
-	}
-
-	int result = (filled) ? SDL_RenderFillRect(renderer, &rec) : SDL_RenderDrawRect(renderer, &rec);
-	
-	if(result != 0)
-	{
-		LOG("Cannot draw quad to screen. SDL_RenderFillRect error: %s", SDL_GetError());
-		ret = false;
-	}
-
-	return ret;
-}
-
 bool ModuleRender::DrawLine(int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool adjust, bool use_camera)
 {
 	bool ret = true;
@@ -354,34 +306,4 @@ bool ModuleRender::DrawLine(int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Ui
 
 	return ret;
 }
-
-bool ModuleRender::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool use_camera)
-{
-	bool ret = true;
-
-	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
-	SDL_SetRenderDrawColor(renderer, r, g, b, a);
-
-	int result = -1;
-	SDL_Point points[360];
-
-	float factor = (float) M_PI / 180.0f;
-
-	for(uint i = 0; i < 360; ++i)
-	{
-		points[i].x = (int)(-camera->x + x * App->window->scale + radius * cos(i * factor) * App->window->scale);
-		points[i].y = (int)(-camera->y + y * App->window->scale + radius * sin(i * factor) * App->window->scale);
-	}
-
-	result = SDL_RenderDrawPoints(renderer, points, 360);
-
-	if(result != 0)
-	{
-		LOG("Cannot draw quad to screen. SDL_RenderFillRect error: %s", SDL_GetError());
-		ret = false;
-	}
-
-	return ret;
-}
-
 #pragma endregion
