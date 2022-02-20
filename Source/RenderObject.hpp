@@ -61,6 +61,11 @@ public:
 			SDL_RenderDrawPoints(renderer, points, 360);
 			return true;
 			break;
+		case RenderType::RENDER_LINE:
+			SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+			SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
+			SDL_RenderDrawLine(renderer, pos1.x, pos1.y, pos2.x, pos2.y);
+			break;
 		}
 	}
 
@@ -107,6 +112,20 @@ public:
 		this->speedRegardCamera = speedRegardCamera;
 	}
 
+	void InitAsLine(iPoint pos1, iPoint pos2, bool adjust = true, SDL_Color color = { 0,0,0,255 }, int layer = 0, float orderInLayer = 0.0f,
+		float speedRegardCamera = 1.0f)
+	{
+		this->name = "line";
+		this->color = color;
+		this->pos1 = pos1;
+		this->pos2 = pos2;
+		this->type = RENDER_LINE;
+		this->adjust = adjust;
+		this->layer = layer;
+		this->orderInLayer = orderInLayer;
+		this->speedRegardCamera = speedRegardCamera;
+	}
+
 	#pragma region Global parameter
 	SDL_Rect destRect = { 0,0,0,0 };
 	RenderType type;
@@ -135,6 +154,12 @@ public:
 	#pragma region Circle parameter
 	int radius;
 	SDL_Point points[360];
+	#pragma endregion
+
+	#pragma region Line parameter
+	bool adjust = true;
+	iPoint pos1 = { 0, 0};
+	iPoint pos2 = { 0, 0};
 	#pragma endregion
 };
 

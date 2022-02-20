@@ -380,13 +380,14 @@ void ModulePhysics::ShapesRender()
 				{
 					v = b->GetWorldPoint(polygonShape->GetVertex(i));
 					if (i > 0)
-						App->renderer->DrawLine(METERS_TO_PIXELS(prev.x), METERS_TO_PIXELS(prev.y), METERS_TO_PIXELS(v.x), METERS_TO_PIXELS(v.y), 255, 100, 100, 255, g->gameObject->adjustToGrid);
-
+						App->renderer->AddLineRenderQueue(iPoint{ METERS_TO_PIXELS(prev.x), METERS_TO_PIXELS(prev.y) }, iPoint{ METERS_TO_PIXELS(v.x), METERS_TO_PIXELS(v.y) },
+							g->gameObject->adjustToGrid, SDL_Color{ 255, 100, 100, 255}, 4, 100);
 					prev = v;
 				}
 
 				v = b->GetWorldPoint(polygonShape->GetVertex(0));
-				App->renderer->DrawLine(METERS_TO_PIXELS(prev.x), METERS_TO_PIXELS(prev.y), METERS_TO_PIXELS(v.x), METERS_TO_PIXELS(v.y), 255, 100, 100, 255, g->gameObject->adjustToGrid);
+				App->renderer->AddLineRenderQueue(iPoint{ METERS_TO_PIXELS(prev.x), METERS_TO_PIXELS(prev.y) }, iPoint{ METERS_TO_PIXELS(v.x), METERS_TO_PIXELS(v.y) },
+					g->gameObject->adjustToGrid, SDL_Color{ 255, 100, 100, 255}, 4, 100);
 			}
 			break;
 
@@ -414,7 +415,8 @@ void ModulePhysics::ShapesRender()
 					// TODO BUG!!!!
 					v = b->GetWorldPoint(shape->m_vertices[i]);
 					if (i > 0)
-						App->renderer->DrawLine(METERS_TO_PIXELS(prev.x), METERS_TO_PIXELS(prev.y), METERS_TO_PIXELS(v.x), METERS_TO_PIXELS(v.y), color.r, color.g, color.b, color.a, g->gameObject->adjustToGrid);
+						App->renderer->AddLineRenderQueue(iPoint{ METERS_TO_PIXELS(prev.x), METERS_TO_PIXELS(prev.y) }, iPoint{ METERS_TO_PIXELS(v.x), METERS_TO_PIXELS(v.y) },
+							g->gameObject->adjustToGrid, color, 4, 100);
 					prev = v;
 				
 				}
@@ -422,7 +424,8 @@ void ModulePhysics::ShapesRender()
 				if (bb->chainLoop)
 				{
 					v = b->GetWorldPoint(shape->m_vertices[0]);
-					App->renderer->DrawLine(METERS_TO_PIXELS(prev.x), METERS_TO_PIXELS(prev.y), METERS_TO_PIXELS(v.x), METERS_TO_PIXELS(v.y), color.r, color.g, color.b, color.a);
+					App->renderer->AddLineRenderQueue(iPoint{ METERS_TO_PIXELS(prev.x), METERS_TO_PIXELS(prev.y) }, iPoint{ METERS_TO_PIXELS(v.x), METERS_TO_PIXELS(v.y) },
+						false, color, 4, 100);
 				}
 			}
 			break;
@@ -435,7 +438,8 @@ void ModulePhysics::ShapesRender()
 
 				v1 = b->GetWorldPoint(shape->m_vertex0);
 				v1 = b->GetWorldPoint(shape->m_vertex1);
-				App->renderer->DrawLine(METERS_TO_PIXELS(v1.x), METERS_TO_PIXELS(v1.y), METERS_TO_PIXELS(v2.x), METERS_TO_PIXELS(v2.y), 100, 100, 255);
+				App->renderer->AddLineRenderQueue(iPoint{ METERS_TO_PIXELS(v1.x), METERS_TO_PIXELS(v1.y) }, iPoint{ METERS_TO_PIXELS(v2.x), METERS_TO_PIXELS(v2.y) },
+					false, SDL_Color{ 100, 100, 255, 255}, 4, 100);
 			}
 			break;
 			}

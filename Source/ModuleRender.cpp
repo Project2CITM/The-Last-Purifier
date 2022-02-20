@@ -171,11 +171,14 @@ void ModuleRender::AddRectRenderQueue(const SDL_Rect& rect, SDL_Color color, int
 	renderLayers[layer].renderObjects.push_back(renderR);
 }
 
-void ModuleRender::AddCircleRenderQueue(const iPoint pos, int radius, SDL_Color color, int layer, float orderInLayer, float speedRegardCamera)
+void ModuleRender::AddCircleRenderQueue(const iPoint pos, int radius, SDL_Color color, int layer, float orderInLayer, float speed)
 {
 	RenderObject renderC;
 
-	renderC.InitAsCircle(pos, radius, color, layer, orderInLayer, speedRegardCamera);
+	//If texture in UI layer, it moves alongside the camera-> , speed = 0;
+	if (uiLayer >= 0 && layer == uiLayer) speed = 0;
+
+	renderC.InitAsCircle(pos, radius, color, layer, orderInLayer, speed);
 
 	float factor = (float)M_PI / 180.0f;
 
@@ -186,6 +189,31 @@ void ModuleRender::AddCircleRenderQueue(const iPoint pos, int radius, SDL_Color 
 	}
 
 	renderLayers[layer].renderObjects.push_back(renderC);
+}
+
+void ModuleRender::AddLineRenderQueue(iPoint pos1, iPoint pos2, bool adjust, SDL_Color color, int layer, float orderInLayer, float speed)
+{
+	RenderObject renderL;
+
+	//If texture in UI layer, it moves alongside the camera-> , speed = 0;
+	if (uiLayer >= 0 && layer == uiLayer) speed = 0;
+
+	if (gamePixels != 0 && adjust)
+	{
+		pos1.x = RoundToInt(pos1.x);
+		pos1.y = RoundToInt(pos1.y);
+		pos2.x = RoundToInt(pos2.x);
+		pos2.y = RoundToInt(pos2.y);
+	}
+
+	pos1.x = -camera->x + pos1.x * App->window->scale;
+	pos1.y = -camera->y + pos1.y * App->window->scale;
+	pos2.x = -camera->x + pos2.x * App->window->scale;
+	pos2.y = -camera->y + pos2.y * App->window->scale;
+
+	renderL.InitAsLine(pos1, pos2, adjust, color, layer, orderInLayer, speed);
+
+	renderLayers[layer].renderObjects.push_back(renderL);
 }
 
 void ModuleRender::AddRenderObjectRenderQueue(RenderObject renderObject)
@@ -200,6 +228,7 @@ void ModuleRender::AddRenderObjectRenderQueue(RenderObject renderObject)
 	switch (renderObject.type)
 	{
 	case RENDER_TEXTURE:
+	{
 		if (renderObject.section.h != 0 && renderObject.section.w != 0)
 		{
 			renderObject.destRect.w = renderObject.section.w;
@@ -213,7 +242,9 @@ void ModuleRender::AddRenderObjectRenderQueue(RenderObject renderObject)
 		renderObject.destRect.w *= renderObject.scale * App->window->scale;
 		renderObject.destRect.h *= renderObject.scale * App->window->scale;
 		break;
+	}
 	case RENDER_CIRCLE:
+	{
 		float factor = (float)M_PI / 180.0f;
 		for (uint i = 0; i < 360; ++i)
 		{
@@ -221,6 +252,22 @@ void ModuleRender::AddRenderObjectRenderQueue(RenderObject renderObject)
 			renderObject.points[i].y = (int)(-camera->y + renderObject.destRect.y * App->window->scale + renderObject.radius * sin(i * factor) * App->window->scale);
 		}
 		break;
+	}
+	case RenderType::RENDER_LINE:
+	{
+		if (gamePixels != 0 && renderObject.adjust)
+		{
+			renderObject.pos1.x = RoundToInt(renderObject.pos1.x);
+			renderObject.pos1.y = RoundToInt(renderObject.pos1.y);
+			renderObject.pos2.x = RoundToInt(renderObject.pos2.x);
+			renderObject.pos2.y = RoundToInt(renderObject.pos2.y);
+		}
+		renderObject.pos1.x = -camera->x + renderObject.pos1.x * App->window->scale;
+		renderObject.pos1.y = -camera->y + renderObject.pos1.y * App->window->scale;
+		renderObject.pos2.x = -camera->x + renderObject.pos2.x * App->window->scale;
+		renderObject.pos2.y = -camera->y + renderObject.pos2.y * App->window->scale;
+		break;
+	}
 	}
 
 	renderLayers[renderObject.layer].renderObjects.push_back(renderObject);
@@ -274,36 +321,3 @@ void ModuleRender::GetSaveData(pugi::xml_document& save)
 	n.child("camera").attribute("x") = camera->x;
 	n.child("camera").attribute("y") = camera->y;
 }
-
-#pragma region OBSOLETE NOT USE!!!!!
-bool ModuleRender::DrawLine(int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool adjust, bool use_camera)
-{
-	bool ret = true;
-
-	if (gamePixels != 0 && adjust)
-	{
-		x1 = RoundToInt(x1);
-		y1 = RoundToInt(y1);
-		x2 = RoundToInt(x2);
-		y2 = RoundToInt(y2);
-	}
-
-	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
-	SDL_SetRenderDrawColor(renderer, r, g, b, a);
-
-	int result = -1;
-
-	if(use_camera)
-		result = SDL_RenderDrawLine(renderer, -camera->x + x1 * App->window->scale, -camera->y + y1 * App->window->scale, -camera->x + x2 * App->window->scale, -camera->y + y2 * App->window->scale);
-	else
-		result = SDL_RenderDrawLine(renderer, x1 * App->window->scale, y1 * App->window->scale, x2 * App->window->scale, y2 * App->window->scale);
-
-	if(result != 0)
-	{
-		LOG("Cannot draw quad to screen. SDL_RenderFillRect error: %s", SDL_GetError());
-		ret = false;
-	}
-
-	return ret;
-}
-#pragma endregion

@@ -81,7 +81,6 @@ public:
 	void SetLinearVelocity(iPoint vel);
 
 protected:
-
 	void InitRenderObjectWithXml(std::string texName = "null", int index = 0);
 
 private :

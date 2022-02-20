@@ -38,20 +38,13 @@ public:
 	void AddTextureRenderQueue(SDL_Texture* texture, iPoint pos, SDL_Rect section = {0,0,0,0}, float scale = 1, int layer = 0, float orderInlayer = 0.0f, float rotation = 0, SDL_RendererFlip flip = SDL_FLIP_NONE, float speed = 1.0f);// Speed = 1.0f = Fullscreen camera
 	void AddRectRenderQueue(const SDL_Rect& rect, SDL_Color color = { 0,0,0,255 }, int layer = 1, float orderInlayer = 0.0f, bool filled = true, float speed = 1.0f);
 	void AddCircleRenderQueue(const iPoint pos, int radius, SDL_Color color = { 0,0,0,255 }, int layer = 0, float orderInLayer = 0.0f, float speedRegardCamera = 1.0f);
+	void AddLineRenderQueue(iPoint pos1, iPoint pos2, bool adjust = true, SDL_Color color = { 0,0,0,255 }, int layer = 0, float orderInLayer = 0.0f, float speedRegardCamera = 1.0f);
 	void AddRenderObjectRenderQueue(RenderObject renderObject);
 	void ClearRederQueue();
 
 	int RoundToInt(int num);
 
 	void ToggleVsync(bool vsync);
-
-	#pragma region OBSOLETE
-	/// <summary>
-	/// DO NOT USE!!!!
-	/// </summary>
-	/// <param name="obj"></param>
-	bool DrawLine(int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool adjust = false, bool use_camera = true);
-	#pragma endregion
 
 private:
 	std::vector<RenderLayer> renderLayers;
