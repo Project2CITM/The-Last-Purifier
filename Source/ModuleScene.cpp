@@ -3,6 +3,7 @@
 #include "Application.h"
 #include "ModuleAudio.h"
 #include "TestScene.h"
+#include "ModuleWindow.h"
 
 ModuleScene::ModuleScene(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -40,11 +41,11 @@ bool ModuleScene::Start()
 
 	currentScene->Start();
 	
-	App->audio->PlayMusic("Assets/audio/music/pixelMusic.mp3", 2);
+	//App->audio->PlayMusic("Assets/audio/music/pixelMusic.mp3", 2);
 
-	Mix_VolumeMusic(App->saveF.child("game_state").child("settings").attribute("music").as_float() * 60);
+	//Mix_VolumeMusic(App->saveF.child("game_state").child("settings").attribute("music").as_float() * 60);
 
-	fadePanel = App->textures->Load("Assets/textures/Menu/fadePanel.png");
+	//fadePanel = App->textures->Load("Assets/textures/Menu/fadePanel.png");
 
 	return ret;
 }
@@ -92,10 +93,7 @@ UpdateStatus ModuleScene::PostUpdate()
 
 	currentScene->PostUpdate();
 
-	if (fadeRot != 0)
-	{
-		App->renderer->AddTextureRenderQueue(fadePanel, { -640,-1280 }, { 0,0,0,0 }, 2, 3, 500, fadeRot, SDL_RendererFlip::SDL_FLIP_NONE, 0);;
-	}
+	if (fade != 0) App->renderer->AddRectRenderQueue(SDL_Rect{ 0,0,(int)App->window->width,(int)App->window->height }, SDL_Color{ 0,0,0,255 }, 4, 200);
 
 	return UpdateStatus::UPDATE_CONTINUE;
 }
@@ -121,6 +119,8 @@ bool ModuleScene::ChangeCurrentSceneRequest(uint index)
 
 	if (scenes[changeTo] == nullptr) return false;
 
+	fadeSpeed = 1.0f;
+
 	return true;
 }
 
@@ -143,6 +143,12 @@ bool ModuleScene::StartChangeScene()
 		currentScene = scenes[changeTo];
 
 		currentScene->Start();
+
+		fadeSpeed = -1.0f;
+
+		changeTo = -1;
+
+		changeState = SCENECHANGESTATES::fade_out;
 	}
 
 	return true;
@@ -150,19 +156,27 @@ bool ModuleScene::StartChangeScene()
 
 void ModuleScene::ChangeSceneSteptoStep()
 {
-	fadeRot+=2;
+	fade += fadeSpeed;
 
-	switch (fadeRot)
+	fade = fade > 255 ? 255 : fade < 0 ? 0 : fade;
+
+	switch (changeState)
 	{
-	case 90:
-		changeSceneRequest = true;
+	case SCENECHANGESTATES::idle:
+
 		break;
-	case 180:
-		isChangingScene = false;
-
-		fadeRot = 0;
-
-		changeTo = -1;
+	case SCENECHANGESTATES::fade_in:
+		if (fade >= 255)
+		{
+			changeSceneRequest = true;
+			changeState = SCENECHANGESTATES::idle;
+		}
+		break;
+	case SCENECHANGESTATES::fade_out:
+		if (fade <= 0)
+		{
+			changeState = SCENECHANGESTATES::idle;
+		}
 		break;
 	}
 }

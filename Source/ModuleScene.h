@@ -16,6 +16,13 @@ enum SCENES
 	LEVEL_2
 };
 
+enum class SCENECHANGESTATES 
+{
+	idle,
+	fade_in,
+	fade_out
+};
+
 class ModuleScene : public Module
 {
 public:
@@ -61,9 +68,13 @@ private:
 
 	void ChangeSceneSteptoStep();
 
-	SDL_Texture* fadePanel = nullptr;
+	//SDL_Texture* fadePanel = nullptr;
 
-	int fadeRot = 0;
+	float fade = 0;
+
+	float fadeSpeed = 1.0f;
+
+	SCENECHANGESTATES changeState = SCENECHANGESTATES::idle;
 
 	bool changeSceneRequest = false;
 public:
