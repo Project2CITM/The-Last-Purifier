@@ -150,7 +150,7 @@ PhysBody* ModulePhysics::CreateRectangle(iPoint pos, int width, int height, Game
 
 	b2Body* b = world->CreateBody(&body);
 	b2PolygonShape box;
-	box.SetAsBox(PIXELS_TO_METER(width) * 0.5f, PIXELS_TO_METER(height) * 0.5f);
+	box.SetAsBox(PIXELS_TO_METER(width), PIXELS_TO_METER(height));
 
 	b2FixtureDef fixture;
 	fixture.shape = &box;
@@ -160,8 +160,8 @@ PhysBody* ModulePhysics::CreateRectangle(iPoint pos, int width, int height, Game
 
 	PhysBody* pbody = new PhysBody();
 	pbody->body = b;
-	pbody->width = width * 0.5f;
-	pbody->height = height * 0.5f;
+	pbody->width = width;
+	pbody->height = height;
 
 	pbody->body->SetUserData(pbody);
 
@@ -351,7 +351,7 @@ void ModulePhysics::ShapesRender()
 	{
 		// If GameObject not enable, not render
 		PhysBody* pb = (PhysBody*)b->GetUserData();
-		if (pb && !pb->gameObject->enable) continue;
+		//if (pb && !pb->gameObject->enable) continue;
 
 		// Render object collision
 		for (b2Fixture* f = b->GetFixtureList(); f; f = f->GetNext())

@@ -2,22 +2,32 @@
 #define __ROOM_H__
 
 #include "GameObject.h"
+#include "ModulePhysics.h"
 
 #define MAX_ROOM_TILES_COLUMNS 25
 #define MAX_ROOM_TILES_ROWS 15
 #define TILE_SIZE 3
 //#define MAX_ROOM_ENEMIES 5
 
+enum class DoorOrientations {
+	RIGHT,
+	BOTTOM,
+	LEFT,
+	TOP
+};
+
 struct Door {
+	DoorOrientations orientation;
 	iPoint pos;
 	bool open = true;
+	PhysBody* collider = nullptr;
 };
 
 class Room
 {
 public:
-	void CloseDoors();
-	void OpenDoors();
+	void CloseDoors(Application* app);
+	void OpenDoors(Application* app);
 
 	void CleanUp();
 

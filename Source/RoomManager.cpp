@@ -5,6 +5,7 @@ void RoomManager::Start()
 	GenerateMap(25);
 	//incloure textures
 	CreateDoors();
+	rooms[10]->CloseDoors(app);
 }
 
 void RoomManager::Update()
@@ -17,6 +18,7 @@ void RoomManager::PostUpdate()
 													  MAX_ROOMS_ROWS * MAX_ROOM_TILES_ROWS * TILE_SIZE }, SDL_Color{ 0, 170, 230, 255});
 	DrawRooms();
 	DrawDoors();
+
 }
 
 void RoomManager::CleanUp()
@@ -87,6 +89,7 @@ void RoomManager::CreateDoors()
 		//Right Door
 		if (roomPositions[cr->roomPosition.x + 1][cr->roomPosition.y] != nullptr && cr->roomPosition.x + 1 < MAX_ROOMS_COLUMNS) {
 			Door* d = new Door();
+			d->orientation = DoorOrientations::RIGHT;
 			d->pos.x = (cr->roomPosition.x + 1) * MAX_ROOM_TILES_COLUMNS * TILE_SIZE - TILE_SIZE;
 			d->pos.y = cr->roomPosition.y * MAX_ROOM_TILES_ROWS * TILE_SIZE + (MAX_ROOM_TILES_ROWS * TILE_SIZE / 2);
 			cr->doors.add(d);
@@ -95,6 +98,7 @@ void RoomManager::CreateDoors()
 		//Bottom Door
 		if (roomPositions[cr->roomPosition.x][cr->roomPosition.y + 1] != nullptr && cr->roomPosition.y + 1 < MAX_ROOMS_ROWS) {
 			Door* d = new Door();
+			d->orientation = DoorOrientations::BOTTOM;
 			d->pos.x = cr->roomPosition.x * MAX_ROOM_TILES_COLUMNS * TILE_SIZE + (MAX_ROOM_TILES_COLUMNS * TILE_SIZE / 2);
 			d->pos.y = (cr->roomPosition.y + 1) * MAX_ROOM_TILES_ROWS * TILE_SIZE - TILE_SIZE;
 			cr->doors.add(d);
@@ -103,6 +107,7 @@ void RoomManager::CreateDoors()
 		//Left Door
 		if (roomPositions[cr->roomPosition.x - 1][cr->roomPosition.y] != nullptr && cr->roomPosition.x - 1 >= 0) {
 			Door* d = new Door();
+			d->orientation = DoorOrientations::LEFT;
 			d->pos.x = cr->roomPosition.x * MAX_ROOM_TILES_COLUMNS * TILE_SIZE;
 			d->pos.y = cr->roomPosition.y * MAX_ROOM_TILES_ROWS * TILE_SIZE + (MAX_ROOM_TILES_ROWS * TILE_SIZE / 2);
 			cr->doors.add(d);
@@ -111,6 +116,7 @@ void RoomManager::CreateDoors()
 		//Top Door
 		if (roomPositions[cr->roomPosition.x][cr->roomPosition.y - 1] != nullptr && cr->roomPosition.y - 1 >= 0) {
 			Door* d = new Door();
+			d->orientation = DoorOrientations::TOP;
 			d->pos.x = cr->roomPosition.x * MAX_ROOM_TILES_COLUMNS * TILE_SIZE + (MAX_ROOM_TILES_COLUMNS * TILE_SIZE / 2);
 			d->pos.y = cr->roomPosition.y * MAX_ROOM_TILES_ROWS * TILE_SIZE;
 			cr->doors.add(d);
@@ -157,6 +163,14 @@ void RoomManager::DrawDoors()
 		while (currentDoor != nullptr) {
 			app->renderer->AddRectRenderQueue(SDL_Rect{ currentDoor->data->pos.x, currentDoor->data->pos.y, TILE_SIZE, TILE_SIZE },
 				SDL_Color{ 255, 0, 255, 255 }, 1, 0.0f, false);
+			
+			if (currentDoor->data->collider != nullptr) {
+				iPoint npos;
+				currentDoor->data->collider->GetCenterPosition(npos.x, npos.y);
+				app->renderer->AddRectRenderQueue(SDL_Rect{ npos.x, npos.y, currentDoor->data->collider->width, currentDoor->data->collider->height },
+					SDL_Color{ 255, 255, 255, 255 }, 1, 0.0f, false);
+			}
+
 			currentDoor = currentDoor->next;
 		}
 		currentRoom = currentRoom->next;
