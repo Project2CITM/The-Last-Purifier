@@ -22,7 +22,7 @@ public:
 
 	void GenerateMap(short RoomNumber);
 	int CheckAdjacentSpace(Room* r);
-	int CheckAdjacentRooms(iPoint p);
+	int CheckAdjacentSpace(iPoint p);
 	void CreateDoors();
 	Room* CreateRoom(iPoint mapPosition);
 
@@ -34,6 +34,7 @@ public:
 	List<Room*> rooms;
 	Room* roomPositions[MAX_ROOMS_COLUMNS][MAX_ROOMS_ROWS];
 	SDL_Texture* tile_texture = nullptr;
+	iPoint bossRoom = iPoint(-1, -1);
 };
 
 #endif //__ROOMMANAGER_H_

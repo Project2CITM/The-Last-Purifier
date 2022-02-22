@@ -70,18 +70,32 @@ void RoomManager::GenerateMap(short RoomNumber)
 
 	//BOSS ROOM
 	iPoint bossRoomPos = iPoint(-1, -1);
-	int adjacentRooms = 1;
+	iPoint startRoomPos = rooms[0]->roomPosition;
+	int adjacentSpaces = 3;
+	iPoint distanceRadius = iPoint(rooms[0]->roomPosition.x - (MAX_ROOMS_COLUMNS / 2), rooms[0]->roomPosition.y - (MAX_ROOMS_ROWS / 2));
 	do {	//check all rooms that have 3 spaces left
 		for (int i = 0; i < MAX_ROOMS_COLUMNS; ++i) {
 			for (int j = 0; j < MAX_ROOMS_ROWS; ++j) {
-				if (CheckAdjacentRooms(iPoint(i, j)) == adjacentRooms) {
-					bossRoomPos = iPoint(i, j);
+				if (bossRoomPos != iPoint(-1, -1)) {
+					//if the room is nearer than the last one, don't check
+					if (((bossRoomPos.x - startRoomPos.x) * (bossRoomPos.x - startRoomPos.x) + (bossRoomPos.y - startRoomPos.y) * (bossRoomPos.y - startRoomPos.y))
+						< ((i - startRoomPos.x) * (i - startRoomPos.x) + (j - startRoomPos.y) * (j - startRoomPos.y))) {
+						if (CheckAdjacentSpace(iPoint(i, j)) == adjacentSpaces && roomPositions[i][j] == nullptr) {
+							bossRoomPos = iPoint(i, j);
+						}
+					}
+				}
+				else {
+					if (CheckAdjacentSpace(iPoint(i, j)) == adjacentSpaces && roomPositions[i][j] == nullptr) {
+						bossRoomPos = iPoint(i, j);
+					}
 				}
 			}
 		}
-		adjacentRooms++;
+		adjacentSpaces--;
 	} while (bossRoomPos == iPoint(-1,-1));
 	
+	bossRoom = bossRoomPos;
 	CreateRoom(bossRoomPos);
 }
 
@@ -106,25 +120,45 @@ int RoomManager::CheckAdjacentSpace(Room* r)
 	return freespaces;	
 }
 
-int RoomManager::CheckAdjacentRooms(iPoint p)
+int RoomManager::CheckAdjacentSpace(iPoint p)
 {
 	int x = p.x;
 	int y = p.y;
-	int adjacentRooms = 4;
+	int spaces = 0;
 
-	if (roomPositions[x + 1][y] != nullptr && !x + 1 >= 0 && x + 1 < MAX_ROOMS_COLUMNS)
-		adjacentRooms--;
+	if (x + 1 >= 0 && x + 1 < MAX_ROOMS_COLUMNS) {
+		if (roomPositions[x + 1][y] == nullptr)
+			spaces++;
+	}
+	else {
+		spaces++;
+	}
 
-	if (roomPositions[x][y + 1] != nullptr && y + 1 >= 0 && y + 1 < MAX_ROOMS_ROWS)
-		adjacentRooms--;
+	if (y + 1 >= 0 && y + 1 < MAX_ROOMS_ROWS) {
+		if (roomPositions[x][y + 1] == nullptr)
+			spaces++;
+	}
+	else {
+		spaces++;
+	}
+	
+	if (x - 1 >= 0 && x - 1 < MAX_ROOMS_COLUMNS) {
+		if (roomPositions[x - 1][y] == nullptr)
+			spaces++;
+	}
+	else {
+		spaces++;
+	}
+	
+	if (y - 1 >= 0 && y - 1 < MAX_ROOMS_ROWS) {
+		if (roomPositions[x][y - 1] == nullptr)
+			spaces++;
+	}
+	else {
+		spaces++;
+	}
 
-	if (roomPositions[x - 1][y] != nullptr && x - 1 >= 0 && x - 1 < MAX_ROOMS_COLUMNS)
-		adjacentRooms--;
-
-	if (roomPositions[x][y - 1] != nullptr && y - 1 >= 0 && y - 1 < MAX_ROOMS_ROWS)
-		adjacentRooms--;
-
-	return adjacentRooms;
+	return spaces;
 }
 
 void RoomManager::CreateDoors()
@@ -191,6 +225,9 @@ void RoomManager::DrawRooms()
 
 	ListItem<Room*>* currentRoom = rooms.start;
 	while (currentRoom != nullptr) {
+		if (currentRoom->data->roomPosition == bossRoom)
+			c = SDL_Color{ 255, 10, 10, 255 };
+
 		app->renderer->AddRectRenderQueue(SDL_Rect{ currentRoom->data->roomPosition.x * MAX_ROOM_TILES_COLUMNS * TILE_SIZE,
 													currentRoom->data->roomPosition.y * MAX_ROOM_TILES_ROWS* TILE_SIZE,
 													MAX_ROOM_TILES_COLUMNS* TILE_SIZE, MAX_ROOM_TILES_ROWS* TILE_SIZE },
