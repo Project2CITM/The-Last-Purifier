@@ -2,10 +2,11 @@
 
 void RoomManager::Start()
 {
-	GenerateMap(25);
-	//incloure textures
+	GenerateMap(20);
 	CreateDoors();
-	rooms[10]->CloseDoors(app);
+
+	//incloure textures
+
 }
 
 void RoomManager::Update()
@@ -43,9 +44,9 @@ void RoomManager::GenerateMap(short RoomNumber)
 	p.x = rand() % MAX_ROOMS_ROWS;
 	p.y = rand() % MAX_ROOMS_COLUMNS;
 	Room* r = CreateRoom(p);
-	while (RoomNumber > 1) {
+	while (RoomNumber > 2) {	//first already created, last is BOSS
 		iPoint pos = r->roomPosition;
-		if (CheckAdjacentSpace(r)) {	//there is space next to the current room to spawn another
+		if (CheckAdjacentSpace(r) > 0) {	//there is space next to the current room to spawn another
 			short random = rand() % 4;
 			switch (random) {
 			case 0:
@@ -65,19 +66,65 @@ void RoomManager::GenerateMap(short RoomNumber)
 		else {	//room is trapped, chose another one
 			r = rooms.At(rand() % rooms.count())->data;
 		}
-		
 	}
+
+	//BOSS ROOM
+	iPoint bossRoomPos = iPoint(-1, -1);
+	int adjacentRooms = 1;
+	do {	//check all rooms that have 3 spaces left
+		for (int i = 0; i < MAX_ROOMS_COLUMNS; ++i) {
+			for (int j = 0; j < MAX_ROOMS_ROWS; ++j) {
+				if (CheckAdjacentRooms(iPoint(i, j)) == adjacentRooms) {
+					bossRoomPos = iPoint(i, j);
+				}
+			}
+		}
+		adjacentRooms++;
+	} while (bossRoomPos == iPoint(-1,-1));
+	
+	CreateRoom(bossRoomPos);
 }
 
-bool RoomManager::CheckAdjacentSpace(Room* r)
+int RoomManager::CheckAdjacentSpace(Room* r)
 {
 	int x = r->roomPosition.x;
 	int y = r->roomPosition.y;
+	int freespaces = 0;
 
-	return (roomPositions[x + 1][y] == nullptr && x+1 >= 0 && x+1 < MAX_ROOMS_COLUMNS) ||
-		(roomPositions[x][y + 1] == nullptr && y + 1 >= 0 && y + 1 < MAX_ROOMS_ROWS) ||
-		(roomPositions[x - 1][y] == nullptr && x - 1 >= 0 && x - 1 < MAX_ROOMS_COLUMNS) ||
-		(roomPositions[x][y - 1] == nullptr && y - 1 >= 0 && y - 1 < MAX_ROOMS_ROWS);
+	if (roomPositions[x + 1][y] == nullptr && x + 1 >= 0 && x + 1 < MAX_ROOMS_COLUMNS)
+		freespaces++;
+
+	if (roomPositions[x][y + 1] == nullptr && y + 1 >= 0 && y + 1 < MAX_ROOMS_ROWS)
+		freespaces++;
+
+	if (roomPositions[x - 1][y] == nullptr && x - 1 >= 0 && x - 1 < MAX_ROOMS_COLUMNS)
+		freespaces++;
+
+	if (roomPositions[x][y - 1] == nullptr && y - 1 >= 0 && y - 1 < MAX_ROOMS_ROWS)
+		freespaces++;
+
+	return freespaces;	
+}
+
+int RoomManager::CheckAdjacentRooms(iPoint p)
+{
+	int x = p.x;
+	int y = p.y;
+	int adjacentRooms = 4;
+
+	if (roomPositions[x + 1][y] != nullptr && !x + 1 >= 0 && x + 1 < MAX_ROOMS_COLUMNS)
+		adjacentRooms--;
+
+	if (roomPositions[x][y + 1] != nullptr && y + 1 >= 0 && y + 1 < MAX_ROOMS_ROWS)
+		adjacentRooms--;
+
+	if (roomPositions[x - 1][y] != nullptr && x - 1 >= 0 && x - 1 < MAX_ROOMS_COLUMNS)
+		adjacentRooms--;
+
+	if (roomPositions[x][y - 1] != nullptr && y - 1 >= 0 && y - 1 < MAX_ROOMS_ROWS)
+		adjacentRooms--;
+
+	return adjacentRooms;
 }
 
 void RoomManager::CreateDoors()

@@ -21,7 +21,8 @@ public:
 	void CleanUp();
 
 	void GenerateMap(short RoomNumber);
-	bool CheckAdjacentSpace(Room* r);
+	int CheckAdjacentSpace(Room* r);
+	int CheckAdjacentRooms(iPoint p);
 	void CreateDoors();
 	Room* CreateRoom(iPoint mapPosition);
 
