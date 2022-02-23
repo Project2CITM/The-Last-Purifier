@@ -5,8 +5,9 @@
 #include "GameObject.h"
 #include "Timer.h"
 
-#define MAX_ROOMS_COLUMNS 8
-#define MAX_ROOMS_ROWS 8
+
+#define MAX_ROOMS_COLUMNS 19
+#define MAX_ROOMS_ROWS 11
 
 class RoomManager{
 	

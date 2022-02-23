@@ -6,7 +6,7 @@
 
 #define MAX_ROOM_TILES_COLUMNS 25
 #define MAX_ROOM_TILES_ROWS 15
-#define TILE_SIZE 3
+#define TILE_SIZE 1
 //#define MAX_ROOM_ENEMIES 5
 
 enum class DoorOrientations {
