@@ -2,11 +2,10 @@
 
 void RoomManager::Start()
 {
-	GenerateMap(20);
-	CreateDoors();
-
 	//incloure textures
-
+	
+	GenerateMap(50);
+	CreateDoors();
 }
 
 void RoomManager::Update()
@@ -24,6 +23,11 @@ void RoomManager::PostUpdate()
 
 void RoomManager::CleanUp()
 {
+	for (int i = 0; i < MAX_ROOMS_COLUMNS; ++i) {
+		for (int j = 0; j < MAX_ROOMS_ROWS; j++) {
+			roomPositions[i][j] = nullptr;
+		}
+	}
 	ListItem<Room*>* currentRoom = rooms.start;
 	while (currentRoom != nullptr) {
 		currentRoom->data->CleanUp();
@@ -43,8 +47,10 @@ void RoomManager::GenerateMap(short RoomNumber)
 	srand(time(NULL));
 	//Generate first room
 	iPoint p;
-	p.x = rand() % MAX_ROOMS_ROWS;
-	p.y = rand() % MAX_ROOMS_COLUMNS;
+	/*p.x = rand() % MAX_ROOMS_COLUMNS;
+	p.y = rand() % MAX_ROOMS_ROWS;*/
+	p.x = MAX_ROOMS_COLUMNS / 2;
+	p.y = MAX_ROOMS_ROWS / 2;
 	Room* r = CreateRoom(p);
 
 	//Create all rooms except the first and Boss room
@@ -63,7 +69,7 @@ void RoomManager::GenerateMap(short RoomNumber)
 				pos.y--;	break;
 			}
 			//if the room is not out of boundaries and not occupied, create one
-			if ((pos.x < MAX_ROOMS_ROWS && pos.x >= 0 && pos.y < MAX_ROOMS_COLUMNS && pos.y >= 0) && roomPositions[pos.x][pos.y] == nullptr) {
+			if ((pos.x < MAX_ROOMS_COLUMNS && pos.x >= 0 && pos.y < MAX_ROOMS_ROWS && pos.y >= 0) && roomPositions[pos.x][pos.y] == nullptr) {
 				r = CreateRoom(iPoint(pos.x, pos.y));
 				--RoomNumber;
 			}

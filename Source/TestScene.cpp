@@ -17,6 +17,10 @@ bool TestScene::Start()
 
 bool TestScene::PreUpdate()
 {
+    if (_app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+        roomManager.CleanUp();
+        roomManager.Start();
+    }
 
     return true;
 }
