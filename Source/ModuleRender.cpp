@@ -79,6 +79,8 @@ UpdateStatus ModuleRender::Update()
 // PostUpdate present buffer to screen
 UpdateStatus ModuleRender::PostUpdate()
 {
+	App->physics->ShapesRender();
+
 	// Sorting layers
 	for (int i = 0; i < renderLayers.size(); ++i)
 	{
@@ -132,11 +134,7 @@ void ModuleRender::AddTextureRenderQueue(SDL_Texture* texture, iPoint pos, SDL_R
 		SDL_QueryTexture(texture, nullptr, nullptr, &section.w, &section.h);
 	}
 
-	if (!InScreen(SDL_Rect{ pos.x, pos.y, section.w, section.h }))
-	{
-		return;
-	}
-
+	if (!InScreen(SDL_Rect{ pos.x, pos.y, section.w, section.h })) return;
 	SDL_Rect destRect = { 0,0 };
 
 	RenderObject renderObject;
@@ -165,6 +163,8 @@ void ModuleRender::AddRectRenderQueue(const SDL_Rect& rect, SDL_Color color, int
 
 	//If texture in UI layer, it moves alongside the camera-> , speed = 0;
 	if (uiLayer >= 0 && layer == uiLayer) speed = 0;
+
+	if (!InScreen(rect)) return;
 
 	SDL_Rect rec = { (-camera->x * speed) + rect.x * App->window->scale, (-camera->y * speed) + rect.y * App->window->scale,
 		rect.w * App->window->scale, rect.h * App->window->scale };
@@ -302,13 +302,31 @@ void ModuleRender::ClearRederQueue()
 	}
 }
 
-bool ModuleRender::InScreen(SDL_Rect rect)
+bool ModuleRender::InScreen(const SDL_Rect& rect)
 {
-	//*if (rect.x + rect.w < camera->x || rect.x > camera->x + )
+	return true;
 
+	/*int a1 = rect.x + rect.w;
+	int a2 = rect.x;
+	int a3 = rect.y + rect.h;
+	int a4 = rect.y;
 
+	int b1 = camera->x;
+	int b2 = camera->x + App->window->width;
+	int b3 = camera->y;
+	int b4 = camera->y + App->window->height;
 
+	if (a1 < b1 || a2 > b2 ||
+		a3 < b3 || a4 > b4)
+	{
+		return false;
+	}*/
 
+	/*if (rect.x + rect.w < camera->x || rect.x > camera->x + App->window->width ||
+		rect.y + rect.h < camera->y || rect.y > camera->y + App->window->height)
+	{
+		return false;
+	}*/
 
 	return true;
 }

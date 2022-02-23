@@ -381,13 +381,13 @@ void ModulePhysics::ShapesRender()
 					v = b->GetWorldPoint(polygonShape->GetVertex(i));
 					if (i > 0)
 						App->renderer->AddLineRenderQueue(iPoint{ METERS_TO_PIXELS(prev.x), METERS_TO_PIXELS(prev.y) }, iPoint{ METERS_TO_PIXELS(v.x), METERS_TO_PIXELS(v.y) },
-							g->gameObject->adjustToGrid, SDL_Color{ 255, 100, 100, 255}, 4, 100);
+							true, SDL_Color{ 255, 100, 100, 255}, 4, 100);
 					prev = v;
 				}
 
 				v = b->GetWorldPoint(polygonShape->GetVertex(0));
 				App->renderer->AddLineRenderQueue(iPoint{ METERS_TO_PIXELS(prev.x), METERS_TO_PIXELS(prev.y) }, iPoint{ METERS_TO_PIXELS(v.x), METERS_TO_PIXELS(v.y) },
-					g->gameObject->adjustToGrid, SDL_Color{ 255, 100, 100, 255}, 4, 100);
+					true, SDL_Color{ 255, 100, 100, 255}, 4, 100);
 			}
 			break;
 
@@ -416,7 +416,7 @@ void ModulePhysics::ShapesRender()
 					v = b->GetWorldPoint(shape->m_vertices[i]);
 					if (i > 0)
 						App->renderer->AddLineRenderQueue(iPoint{ METERS_TO_PIXELS(prev.x), METERS_TO_PIXELS(prev.y) }, iPoint{ METERS_TO_PIXELS(v.x), METERS_TO_PIXELS(v.y) },
-							g->gameObject->adjustToGrid, color, 4, 100);
+							true, color, 4, 100);
 					prev = v;
 				
 				}
@@ -483,6 +483,7 @@ b2Vec2 PhysBody::GetPosition()
 void PhysBody::GetCenterPosition(int& x, int& y) const
 {
 	b2Vec2 pos = body->GetPosition();
+
 	x = METERS_TO_PIXELS(pos.x);
 	y = METERS_TO_PIXELS(pos.y);
 }

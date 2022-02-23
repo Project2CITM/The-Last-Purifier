@@ -6,7 +6,7 @@
 #include "RenderObject.hpp"
 #include "Camera.h"
 
-#define MAX_RENDERLAYERS 4
+#define MAX_RENDERLAYERS 5
 
 using namespace std;
 
@@ -42,7 +42,7 @@ public:
 	void AddRenderObjectRenderQueue(RenderObject renderObject);
 	void ClearRederQueue();
 
-	bool InScreen(SDL_Rect rect);
+	bool InScreen(const SDL_Rect& rect);
 
 	int RoundToInt(int num);
 
@@ -51,7 +51,7 @@ public:
 private:
 	std::vector<RenderLayer> renderLayers;
 
-	uint uiLayer = MAX_RENDERLAYERS;
+	uint uiLayer = MAX_RENDERLAYERS - 1;;
 
 	int gamePixels = 16; // The pixels per texutre used on this game
 

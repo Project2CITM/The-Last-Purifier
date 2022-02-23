@@ -79,22 +79,19 @@ private:
 	bool changeSceneRequest = false;
 public:
 
-	int index = 2;
-
-	Scene* currentScene = nullptr;
-
-	SCENES currentSceneState = MAIN_MENU;
+	SCENES currentScene = MAIN_MENU;
 
 	Scene* scenes[SCENES_NUM] = { nullptr };
 
 	bool isChangingScene = false;
+
 	int changeTo = -1;
 
-	int playerX = 0, playerY = 0;
+	//int playerX = 0, playerY = 0;
 
-	int lastLevel = 0;
+	//int lastLevel = 0;
 
-	int characterIndex = 0;
+	//int characterIndex = 0;
 };
 
 #endif // __MODULE_SCENE_H__

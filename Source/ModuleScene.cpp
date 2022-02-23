@@ -30,16 +30,16 @@ bool ModuleScene::Init(pugi::xml_node& config)
 
 bool ModuleScene::Start()
 {
-	currentScene = scenes[0];
+	scenes[currentScene] = scenes[0];
 
 	bool ret = true;
 
-	if (currentScene == nullptr)
+	if (scenes[currentScene] == nullptr)
 	{
 		return ret;
 	}
 
-	currentScene->Start();
+	scenes[currentScene]->Start();
 	
 	//App->audio->PlayMusic("Assets/audio/music/pixelMusic.mp3", 2);
 
@@ -52,19 +52,19 @@ bool ModuleScene::Start()
 
 UpdateStatus ModuleScene::PreUpdate()
 {
-	if (currentScene == nullptr)
+	if (scenes[currentScene] == nullptr)
 	{
 		return UpdateStatus::UPDATE_CONTINUE;
 	}
 
-	currentScene->PreUpdate();
+	scenes[currentScene]->PreUpdate();
 
 	return UpdateStatus::UPDATE_CONTINUE;
 }
 
 UpdateStatus ModuleScene::Update()
 {
-	if (currentScene == nullptr)
+	if (scenes[currentScene] == nullptr)
 	{
 		return UpdateStatus::UPDATE_CONTINUE;
 	}
@@ -76,7 +76,7 @@ UpdateStatus ModuleScene::Update()
 		return UpdateStatus::UPDATE_CONTINUE;
 	}
 
-	if (!currentScene->Update())
+	if (!scenes[currentScene]->Update())
 	{
 		return UpdateStatus::UPDATE_STOP;
 	}
@@ -86,12 +86,12 @@ UpdateStatus ModuleScene::Update()
 
 UpdateStatus ModuleScene::PostUpdate()
 {
-	if (currentScene == nullptr)
+	if (scenes[currentScene] == nullptr)
 	{
 		return UpdateStatus::UPDATE_CONTINUE;
 	}
 
-	currentScene->PostUpdate();
+	scenes[currentScene]->PostUpdate();
 
 	if (fade != 0) App->renderer->AddRectRenderQueue(SDL_Rect{ 0,0,(int)App->window->width,(int)App->window->height }, SDL_Color{ 0,0,0,255 }, 4, 200);
 
@@ -100,7 +100,7 @@ UpdateStatus ModuleScene::PostUpdate()
 
 UpdateStatus ModuleScene::EndUpdate()
 {
-	if (currentScene == nullptr)
+	if (scenes[currentScene] == nullptr)
 	{
 		return UpdateStatus::UPDATE_CONTINUE;
 	}
@@ -130,19 +130,17 @@ bool ModuleScene::StartChangeScene()
 	{
 		changeSceneRequest = false;
 
-		currentSceneState = (SCENES)changeTo;
-
-		this->index = changeTo;
+		//this->index = changeTo;
 
 		if (scenes[changeTo] == nullptr) return false;
 
-		currentScene->CleanUp();
+		scenes[currentScene]->CleanUp();
 
 		App->renderer->ClearRederQueue();
 
-		currentScene = scenes[changeTo];
+		currentScene = (SCENES)changeTo;
 
-		currentScene->Start();
+		scenes[currentScene]->Start();
 
 		fadeSpeed = -1.0f;
 
