@@ -27,6 +27,18 @@ bool TestScene::PreUpdate()
 
 bool TestScene::Update()
 {
+    if (_app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+        roomManager.mapMovement.x += 10;
+
+    if (_app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+        roomManager.mapMovement.x -= 10;
+
+    if (_app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+        roomManager.mapMovement.y += 10;
+
+    if (_app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+        roomManager.mapMovement.y -= 10;
+
     roomManager.Update();
 
     return true;
