@@ -126,6 +126,17 @@ bool ModuleRender::CleanUp()
 
 void ModuleRender::AddTextureRenderQueue(SDL_Texture* texture, iPoint pos, SDL_Rect section, float scale, int layer, float orderInlayer, float rotation, SDL_RendererFlip flip, float speed)
 {
+	if (section.w == 0 || section.h == 0)
+	{
+		// Collect the texture size into section.w and section.h variables
+		SDL_QueryTexture(texture, nullptr, nullptr, &section.w, &section.h);
+	}
+
+	if (!InScreen(SDL_Rect{ pos.x, pos.y, section.w, section.h }))
+	{
+		return;
+	}
+
 	SDL_Rect destRect = { 0,0 };
 
 	RenderObject renderObject;
@@ -138,16 +149,8 @@ void ModuleRender::AddTextureRenderQueue(SDL_Texture* texture, iPoint pos, SDL_R
 	renderObject.destRect.x = (int)(-camera->x * speed) + pos.x * App->window->scale * zoom;
 	renderObject.destRect.y = (int)(-camera->y * speed) + pos.y * App->window->scale * zoom;
 
-	if (section.h != 0 && section.w != 0)
-	{
-		renderObject.destRect.w = section.w;
-		renderObject.destRect.h = section.h;
-	}
-	else
-	{
-		// Collect the texture size into rect.w and rect.h variables
-		SDL_QueryTexture(texture, nullptr, nullptr, &renderObject.destRect.w, &renderObject.destRect.h);
-	}
+	renderObject.destRect.w = section.w;
+	renderObject.destRect.h = section.h;
 
 	renderObject.destRect.w *= scale * App->window->scale * zoom;
 	renderObject.destRect.h *= scale * App->window->scale * zoom;
@@ -297,6 +300,17 @@ void ModuleRender::ClearRederQueue()
 	{
 		renderLayers[i].renderObjects.clear();
 	}
+}
+
+bool ModuleRender::InScreen(SDL_Rect rect)
+{
+	//*if (rect.x + rect.w < camera->x || rect.x > camera->x + )
+
+
+
+
+
+	return true;
 }
 
 int ModuleRender::RoundToInt(int num)

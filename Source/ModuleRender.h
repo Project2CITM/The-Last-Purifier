@@ -42,6 +42,8 @@ public:
 	void AddRenderObjectRenderQueue(RenderObject renderObject);
 	void ClearRederQueue();
 
+	bool InScreen(SDL_Rect rect);
+
 	int RoundToInt(int num);
 
 	void ToggleVsync(bool vsync);
