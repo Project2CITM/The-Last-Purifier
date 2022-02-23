@@ -36,15 +36,19 @@ void RoomManager::CleanUp()
 //FUNCTIONS
 void RoomManager::GenerateMap(short RoomNumber)
 {
+	//if the Room number is too big or too little
 	if (RoomNumber < 1 || RoomNumber > MAX_ROOMS_ROWS * MAX_ROOMS_COLUMNS)
 		return;
 
 	srand(time(NULL));
+	//Generate first room
 	iPoint p;
 	p.x = rand() % MAX_ROOMS_ROWS;
 	p.y = rand() % MAX_ROOMS_COLUMNS;
 	Room* r = CreateRoom(p);
-	while (RoomNumber > 2) {	//first already created, last is BOSS
+
+	//Create all rooms except the first and Boss room
+	while (RoomNumber > 2) {
 		iPoint pos = r->roomPosition;
 		if (CheckAdjacentSpace(r) > 0) {	//there is space next to the current room to spawn another
 			short random = rand() % 4;
@@ -58,6 +62,7 @@ void RoomManager::GenerateMap(short RoomNumber)
 			case 3:
 				pos.y--;	break;
 			}
+			//if the room is not out of boundaries and not occupied, create one
 			if ((pos.x < MAX_ROOMS_ROWS && pos.x >= 0 && pos.y < MAX_ROOMS_COLUMNS && pos.y >= 0) && roomPositions[pos.x][pos.y] == nullptr) {
 				r = CreateRoom(iPoint(pos.x, pos.y));
 				--RoomNumber;
@@ -69,17 +74,19 @@ void RoomManager::GenerateMap(short RoomNumber)
 	}
 
 	//BOSS ROOM
-	iPoint bossRoomPos = iPoint(-1, -1);
+	iPoint bossRoomPos = iPoint(-1, -1);	//initialize the Boss room position
 	iPoint startRoomPos = rooms[0]->roomPosition;
-	int adjacentSpaces = 3;
-	iPoint distanceRadius = iPoint(rooms[0]->roomPosition.x - (MAX_ROOMS_COLUMNS / 2), rooms[0]->roomPosition.y - (MAX_ROOMS_ROWS / 2));
+	int adjacentSpaces = 3;	//Blank spaces that the Boss room should have
+
 	do {	//check all rooms that have 3 spaces left
 		for (int i = 0; i < MAX_ROOMS_COLUMNS; ++i) {
 			for (int j = 0; j < MAX_ROOMS_ROWS; ++j) {
+				//if the boss room is not initialized, do it
 				if (bossRoomPos != iPoint(-1, -1)) {
-					//if the room is nearer than the last one, don't check
+					//if the room is nearer to the start than the last one, don't check
 					if (((bossRoomPos.x - startRoomPos.x) * (bossRoomPos.x - startRoomPos.x) + (bossRoomPos.y - startRoomPos.y) * (bossRoomPos.y - startRoomPos.y))
 						< ((i - startRoomPos.x) * (i - startRoomPos.x) + (j - startRoomPos.y) * (j - startRoomPos.y))) {
+						//check the space is not ocupied, and the number of spaces adjacent to it is correct
 						if (CheckAdjacentSpace(iPoint(i, j)) == adjacentSpaces && roomPositions[i][j] == nullptr) {
 							bossRoomPos = iPoint(i, j);
 						}
@@ -99,6 +106,7 @@ void RoomManager::GenerateMap(short RoomNumber)
 	CreateRoom(bossRoomPos);
 }
 
+//Check the number of blank spaces next to the room
 int RoomManager::CheckAdjacentSpace(Room* r)
 {
 	int x = r->roomPosition.x;
@@ -120,6 +128,7 @@ int RoomManager::CheckAdjacentSpace(Room* r)
 	return freespaces;	
 }
 
+//Check the number of blank spaces next to the room
 int RoomManager::CheckAdjacentSpace(iPoint p)
 {
 	int x = p.x;
@@ -217,14 +226,15 @@ Room* RoomManager::CreateRoom(iPoint mapPosition)
 	return r;
 }
 
+//Pseudo-print the rooms
 void RoomManager::DrawRooms()
 {
 	uint rn = rooms.count();
 	SDL_Color c = SDL_Color{ 255, 255, 255, 255 };
-	//SDL_Color c = SDL_Color{ 255, 190, 200, 255 };
 
 	ListItem<Room*>* currentRoom = rooms.start;
 	while (currentRoom != nullptr) {
+		//change boss room color
 		if (currentRoom->data->roomPosition == bossRoom)
 			c = SDL_Color{ 255, 10, 10, 255 };
 
@@ -239,6 +249,7 @@ void RoomManager::DrawRooms()
 	}
 }
 
+//Pseudo-print the doors
 void RoomManager::DrawDoors()
 {
 	ListItem<Room*>* currentRoom = rooms.start;
