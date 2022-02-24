@@ -43,6 +43,13 @@ public:
 
 	void Update()
 	{
+		// if the animation doesn't loop and has reached its end, don't update
+		if (!loop && current_frame >= last_frame-1)
+		{
+			current_frame = last_frame-1;
+			return;
+		}
+
 		if (hasIdle) {
 			current_frame = 0;
 		}
@@ -50,6 +57,7 @@ public:
 			current_frame += speed;
 			if (current_frame >= last_frame && loop) current_frame = 0;
 		}
+		printf("CurrentFrame: %f\n", current_frame);
 	}
 
 	SDL_Rect& GetCurrentFrame()
@@ -63,7 +71,7 @@ public:
 
 	bool HasFinished()
 	{
-		if (current_frame > last_frame - 1 && !loop)
+		if (current_frame >= last_frame - 1 && !loop)
 		{
 			return true;
 		}

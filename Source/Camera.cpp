@@ -27,22 +27,22 @@ void Camera::Update()
 
 	//if (!App->debug->debugCamera) return;
 
-	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 	{
 		y -= cameraSpeed;
 		printf_s("Camera_X: %d, Camera_Y: %d\n", x, y);
 	}
-	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
 	{
 		y += cameraSpeed;
 		printf_s("Camera_X: %d, Camera_Y: %d\n", x, y);
 	}
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 	{
 		x -= cameraSpeed;
 		printf_s("Camera_X: %d, Camera_Y: %d\n",x, y);
 	}
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 	{
 		x += cameraSpeed;
 		printf_s("Camera_X: %d, Camera_Y: %d\n", x, y);

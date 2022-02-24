@@ -28,7 +28,6 @@ public:
 
 	void Reset()
 	{
-		printf("Reset\n");
 		mStartTicks = SDL_GetTicks();
 		mElapsedTicks = 0;
 		mDeltaTime = 0.0f;

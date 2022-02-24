@@ -79,6 +79,8 @@ UpdateStatus ModuleRender::Update()
 // PostUpdate present buffer to screen
 UpdateStatus ModuleRender::PostUpdate()
 {
+	App->physics->ShapesRender();
+
 	// Sorting layers
 	for (int i = 0; i < renderLayers.size(); ++i)
 	{
@@ -94,11 +96,6 @@ UpdateStatus ModuleRender::PostUpdate()
 		}
 	}
 
-	//if (App->debug->debugCollisionView)
-	//{
-	//	App->physics->ShapesRender();
-	//}
-	
 	// Update the screen
 	SDL_RenderPresent(renderer);
 
