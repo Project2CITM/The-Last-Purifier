@@ -1,6 +1,7 @@
 #include "GameObject.h"
 #include "ModulePhysics.h"
 
+
 GameObject::GameObject()
 {
 }
@@ -140,6 +141,14 @@ iPoint GameObject::GetPosition()
 	}
 
 	return this->position;
+}
+
+iPoint GameObject::GetScreenPosition()
+{
+	iPoint pos = GetPosition();
+	pos.x = (int)(-_app->renderer->camera->x + pos.x * _app->window->scale);
+	pos.y = (int)(-_app->renderer->camera->y + pos.y * _app->window->scale);
+	return pos;
 }
 
 b2Vec2 GameObject::GetLinearVelocity()

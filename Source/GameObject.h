@@ -55,6 +55,8 @@ public:
 	/// <returns>position en pixel</returns>
 	iPoint GetPosition();
 
+	iPoint GetScreenPosition();
+
 	/// <summary>
 	/// Si exixte pBody devuelve position de pBody, si no {0,0}
 	/// </summary>
