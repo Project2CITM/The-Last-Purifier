@@ -40,7 +40,7 @@ public:
 	int x = 0;
 	int y = 0;
 
-	int cameraSpeed = -20;
+	int cameraSpeed = 20;
 
 	// mas grande, mas lento se mueve la camera
 	int cameraDelay = 0;

@@ -18,7 +18,6 @@ void RoomManager::PostUpdate()
 												MAX_ROOMS_ROWS * MAX_ROOM_TILES_ROWS * TILE_SIZE }, SDL_Color{ 0, 170, 230, 255});
 	DrawRooms();
 	DrawDoors();
-
 }
 
 void RoomManager::CleanUp()
