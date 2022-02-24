@@ -69,15 +69,16 @@ public:
 		}
 	}
 
-	void InitAsTexture(SDL_Texture* texture, SDL_Rect destRect, SDL_Rect section, int layer, float orderInLayer,
-		SDL_RendererFlip flip, float rotation, float scale, float speedRegardCamera)
+	void InitAsTexture(SDL_Texture* texture, iPoint pos, SDL_Rect section, float scale = 1, int layer = 1, float orderInLayer = 1,
+		float rotation = 0, SDL_RendererFlip flip = SDL_FLIP_NONE, float speedRegardCamera = 1.0f)
 	{
 		this->name = "texture";
 		this->texture = texture;
 		this->section = section;
 		this->flip = flip;
 		this->rotation = rotation;
-		this->destRect = destRect;
+		this->destRect.x = pos.x;
+		this->destRect.y = pos.y;
 		this->type = RENDER_TEXTURE;
 		this->layer = layer;
 		this->orderInLayer = orderInLayer;
@@ -85,7 +86,7 @@ public:
 		this->speedRegardCamera = speedRegardCamera;
 	}
 
-	void InitAsRect(SDL_Rect destRect, SDL_Color color = { 0,0,0,255 }, bool filled = false, int layer = 0, float orderInLayer = 0.0f,
+	void InitAsRect(SDL_Rect destRect, SDL_Color color = { 0,0,0,255 }, bool filled = true, int layer = 0, float orderInLayer = 0.0f,
 		float speedRegardCamera = 1.0f)
 	{
 		this->name = "rect";

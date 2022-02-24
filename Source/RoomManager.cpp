@@ -261,8 +261,8 @@ void RoomManager::DrawDoors()
 	while (currentRoom != nullptr) {
 		ListItem<Door*>* currentDoor = currentRoom->data->doors.start;
 		while (currentDoor != nullptr) {
-			app->renderer->AddRectRenderQueue(SDL_Rect{currentDoor->data->pos.x, currentDoor->data->pos.y, TILE_SIZE, TILE_SIZE },
-				SDL_Color{ 255, 100, 255, 255 }, 1, 0.0f, false);
+			app->renderer->AddRectRenderQueue(SDL_Rect{ currentDoor->data->pos.x, currentDoor->data->pos.y, TILE_SIZE, TILE_SIZE },
+				SDL_Color{ 255, 100, 255, 255 }, false, 1, 0.0f);
 
 			//if (currentDoor->data->collider != nullptr) {
 			//	iPoint npos;

@@ -93,7 +93,7 @@ UpdateStatus ModuleScene::PostUpdate()
 
 	scenes[currentScene]->PostUpdate();
 
-	if (fade != 0) App->renderer->AddRectRenderQueue(SDL_Rect{ 0,0,(int)App->window->width,(int)App->window->height }, SDL_Color{ 0,0,0,255 }, 4, 200);
+	if (fade != 0) App->renderer->AddRectRenderQueue(SDL_Rect{ 0,0,(int)App->window->width,(int)App->window->height }, SDL_Color{ 0,0,0,255 }, true, 4, 200);
 
 	return UpdateStatus::UPDATE_CONTINUE;
 }

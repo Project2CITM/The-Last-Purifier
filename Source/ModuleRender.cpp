@@ -129,15 +129,17 @@ void ModuleRender::AddTextureRenderQueue(SDL_Texture* texture, iPoint pos, SDL_R
 		SDL_QueryTexture(texture, nullptr, nullptr, &section.w, &section.h);
 	}
 
-	if (!InScreen(SDL_Rect{ pos.x, pos.y, section.w, section.h })) return;
-	SDL_Rect destRect = { 0,0 };
+	if (!InScreen(SDL_Rect{ pos.x, pos.y, (int)(section.w * scale), (int)(section.h * scale) })) return;
 
 	RenderObject renderObject;
+
+	// Limit layer
+	layer = layer > uiLayer ? uiLayer : layer < 0 ? 0 : layer;
 
 	//If texture in UI layer, it moves alongside the camera-> , speed = 0;
 	if (uiLayer >= 0 && layer == uiLayer) speed = 0;
 
-	renderObject.InitAsTexture(texture, destRect, section, layer, orderInlayer, flip, rotation, scale, speed);
+	renderObject.InitAsTexture(texture, pos, section, scale, layer, orderInlayer, rotation, flip, speed);
 
 	renderObject.destRect.x = (int)(-camera->x * speed) + pos.x * App->window->scale;
 	renderObject.destRect.y = (int)(-camera->y * speed) + pos.y * App->window->scale;
@@ -152,15 +154,18 @@ void ModuleRender::AddTextureRenderQueue(SDL_Texture* texture, iPoint pos, SDL_R
 	renderLayers[layer].renderObjects.push_back(renderObject);
 }
 	
-void ModuleRender::AddRectRenderQueue(const SDL_Rect& rect, SDL_Color color, int layer, float orderInlayer, bool filled, float speed)
+void ModuleRender::AddRectRenderQueue(const SDL_Rect& rect, SDL_Color color, bool filled, int layer, float orderInlayer, float speed)
 {
-	RenderObject renderR;
-
-	//If texture in UI layer, it moves alongside the camera-> , speed = 0;
-	if (uiLayer >= 0 && layer == uiLayer) speed = 0;
-
 	// Detect if the rect is in the screen
 	if (!InScreen(rect)) return;
+
+	RenderObject renderR;
+
+	// Limit layer
+	layer = layer > uiLayer ? uiLayer : layer < 0 ? 0 : layer;
+
+	// If texture in UI layer, it moves alongside the camera-> , speed = 0;
+	if (uiLayer > 0 && layer == uiLayer) speed = 0;
 
 	SDL_Rect rec = { (-camera->x * speed) + rect.x * App->window->scale, (-camera->y * speed) + rect.y * App->window->scale,
 		rect.w * App->window->scale, rect.h * App->window->scale };
@@ -172,12 +177,15 @@ void ModuleRender::AddRectRenderQueue(const SDL_Rect& rect, SDL_Color color, int
 
 void ModuleRender::AddCircleRenderQueue(const iPoint pos, int radius, SDL_Color color, int layer, float orderInLayer, float speed)
 {
+	if (!InScreen(SDL_Rect{ pos.x - radius,pos.y - radius,radius * 2,radius * 2 })) return;
+
 	RenderObject renderC;
+
+	// Limit layer
+	layer = layer > uiLayer ? uiLayer : layer < 0 ? 0 : layer;
 
 	//If texture in UI layer, it moves alongside the camera-> , speed = 0;
 	if (uiLayer >= 0 && layer == uiLayer) speed = 0;
-
-	if (!InScreen(SDL_Rect{ pos.x - radius,pos.y - radius,radius * 2,radius * 2 })) return;
 
 	renderC.InitAsCircle(pos, radius, color, layer, orderInLayer, speed);
 
@@ -199,11 +207,6 @@ void ModuleRender::AddCircleRenderQueue(const iPoint pos, int radius, SDL_Color 
 
 void ModuleRender::AddLineRenderQueue(iPoint pos1, iPoint pos2, bool adjust, SDL_Color color, int layer, float orderInLayer, float speed)
 {
-	RenderObject renderL;
-
-	//If texture in UI layer, it moves alongside the camera-> , speed = 0;
-	if (uiLayer >= 0 && layer == uiLayer) speed = 0;
-
 	if (gamePixels != 0 && adjust)
 	{
 		pos1.x = RoundToInt(pos1.x);
@@ -214,6 +217,14 @@ void ModuleRender::AddLineRenderQueue(iPoint pos1, iPoint pos2, bool adjust, SDL
 
 	// Detect if the line is in the screen
 	if (!InScreen(SDL_Rect{ pos1.x,pos1.y,1,1 }) && !InScreen(SDL_Rect{ pos2.x,pos2.y,1,1 })) return;
+
+	RenderObject renderL;
+
+	// Limit layer
+	layer = layer > uiLayer ? uiLayer : layer < 0 ? 0 : layer;
+
+	//If texture in UI layer, it moves alongside the camera-> , speed = 0;
+	if (uiLayer >= 0 && layer == uiLayer) speed = 0;
 
 	pos1.x = -camera->x + pos1.x * App->window->scale;
 	pos1.y = -camera->y + pos1.y * App->window->scale;
@@ -227,17 +238,33 @@ void ModuleRender::AddLineRenderQueue(iPoint pos1, iPoint pos2, bool adjust, SDL
 
 void ModuleRender::AddRenderObjectRenderQueue(RenderObject renderObject)
 {
+	// Limit layer
+	renderObject.layer = renderObject.layer > uiLayer ? uiLayer : renderObject.layer < 0 ? 0 : renderObject.layer;
+
 	// If texture in UI layer, it moves alongside the camera-> , speed = 0;
 	if (uiLayer >= 0 && renderObject.layer == uiLayer) renderObject.speedRegardCamera = 0;
 	
-	// Adjust destination position using camera and screen size
-	renderObject.destRect.x = (int)(-camera->x * renderObject.speedRegardCamera) + renderObject.destRect.x * App->window->scale;
-	renderObject.destRect.y = (int)(-camera->y * renderObject.speedRegardCamera) + renderObject.destRect.y * App->window->scale;
-
 	switch (renderObject.type)
 	{
+	case RENDER_RECT:
+	{
+		if (!InScreen(renderObject.destRect)) return;
+
+		// Adjust destination rect using camera and screen scale
+		renderObject.destRect.x = (int)(-camera->x * renderObject.speedRegardCamera) + renderObject.destRect.x * App->window->scale;
+		renderObject.destRect.y = (int)(-camera->y * renderObject.speedRegardCamera) + renderObject.destRect.y * App->window->scale;
+		renderObject.destRect.w *= renderObject.scale * App->window->scale;
+		renderObject.destRect.h *= renderObject.scale * App->window->scale;
+		break;
+	}
 	case RENDER_TEXTURE:
 	{
+		if (!InScreen(SDL_Rect{ renderObject.destRect.x, renderObject.destRect.y,
+			(int)(renderObject.section.w * renderObject.scale), (int)(renderObject.section.h * renderObject.scale) })) return;
+
+		// Adjust destination position using camera and screen size
+		renderObject.destRect.x = (int)(-camera->x * renderObject.speedRegardCamera) + renderObject.destRect.x * App->window->scale;
+		renderObject.destRect.y = (int)(-camera->y * renderObject.speedRegardCamera) + renderObject.destRect.y * App->window->scale;
 		if (renderObject.section.h != 0 && renderObject.section.w != 0)
 		{
 			renderObject.destRect.w = renderObject.section.w;
@@ -254,6 +281,9 @@ void ModuleRender::AddRenderObjectRenderQueue(RenderObject renderObject)
 	}
 	case RENDER_CIRCLE:
 	{
+		if (!InScreen(SDL_Rect{ renderObject.destRect.x - renderObject.radius,renderObject.destRect.y - renderObject.radius,
+			renderObject.radius * 2,renderObject.radius * 2 })) return;
+
 		float factor = (float)M_PI / 180.0f;
 		for (uint i = 0; i < 360; ++i)
 		{
@@ -271,6 +301,10 @@ void ModuleRender::AddRenderObjectRenderQueue(RenderObject renderObject)
 			renderObject.pos2.x = RoundToInt(renderObject.pos2.x);
 			renderObject.pos2.y = RoundToInt(renderObject.pos2.y);
 		}
+
+		if (!InScreen(SDL_Rect{ renderObject.pos1.x, renderObject.pos1.y,1,1 }) &&
+			!InScreen(SDL_Rect{ renderObject.pos2.x,renderObject.pos2.y,1,1 })) return;
+
 		renderObject.pos1.x = -camera->x + renderObject.pos1.x * App->window->scale;
 		renderObject.pos1.y = -camera->y + renderObject.pos1.y * App->window->scale;
 		renderObject.pos2.x = -camera->x + renderObject.pos2.x * App->window->scale;
@@ -279,6 +313,7 @@ void ModuleRender::AddRenderObjectRenderQueue(RenderObject renderObject)
 	}
 	}
 
+	// Add in layer
 	renderLayers[renderObject.layer].renderObjects.push_back(renderObject);
 }
 

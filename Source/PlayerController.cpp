@@ -10,8 +10,8 @@ void PlayerController::Start()
 	// Charge Player Sprites and animations---------------------------------------------
 
 	// Charge texture
-	renderObjects[0].InitAsTexture(_app->textures->Load("Assets/Sprites/Player/Knight/KnightAnims.png"), { 0,0,0,0 }, { 0,0,0,0 }, 1, 1, 
-		SDL_RendererFlip::SDL_FLIP_NONE, 0, 1.0f, 1.0f);
+	renderObjects[0].InitAsTexture(_app->textures->Load("Assets/Sprites/Player/Knight/KnightAnims.png"), { 0,0 }, { 0,0,0,0 }, 1.0f, 1, 1,
+		0, SDL_RendererFlip::SDL_FLIP_NONE, 1.0f);
 
 	renderObjects[0].textureCenterX = 32;
 	renderObjects[0].textureCenterY = 15;
