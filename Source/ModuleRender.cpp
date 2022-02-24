@@ -159,12 +159,11 @@ void ModuleRender::AddRectRenderQueue(const SDL_Rect& rect, SDL_Color color, int
 	//If texture in UI layer, it moves alongside the camera-> , speed = 0;
 	if (uiLayer >= 0 && layer == uiLayer) speed = 0;
 
+	// Detect if the rect is in the screen
 	if (!InScreen(rect)) return;
 
 	SDL_Rect rec = { (-camera->x * speed) + rect.x * App->window->scale, (-camera->y * speed) + rect.y * App->window->scale,
 		rect.w * App->window->scale, rect.h * App->window->scale };
-
-	//if (!InScreen(rec)) return;
 
 	renderR.InitAsRect(rec, { color.r,color.g,color.b,color.a }, filled, layer, orderInlayer, speed);
 
@@ -178,14 +177,21 @@ void ModuleRender::AddCircleRenderQueue(const iPoint pos, int radius, SDL_Color 
 	//If texture in UI layer, it moves alongside the camera-> , speed = 0;
 	if (uiLayer >= 0 && layer == uiLayer) speed = 0;
 
+	if (!InScreen(SDL_Rect{ pos.x - radius,pos.y - radius,radius * 2,radius * 2 })) return;
+
 	renderC.InitAsCircle(pos, radius, color, layer, orderInLayer, speed);
 
 	float factor = (float)M_PI / 180.0f;
 
 	for (uint i = 0; i < 360; ++i)
-	{
-		renderC.points[i].x = (int)(-camera->x + renderC.destRect.x * App->window->scale + radius * cos(i * factor) * App->window->scale);
-		renderC.points[i].y = (int)(-camera->y + renderC.destRect.y * App->window->scale + radius * sin(i * factor) * App->window->scale);
+	{		
+		float factorX = radius * cos(i * factor);
+		int temp = (int)(-camera->x + renderC.destRect.x * App->window->scale + (int)factorX * App->window->scale);
+		renderC.points[i].x = (int)(-camera->x + renderC.destRect.x * App->window->scale + (int)factorX * App->window->scale);
+		renderC.points[i].y = (int)(-camera->y + renderC.destRect.y * App->window->scale + (int)(radius * sin(i * factor)) * App->window->scale);
+		
+		/*renderC.points[i].x = (int)(-camera->x + renderC.destRect.x * App->window->scale + radius * cos(i * factor) * App->window->scale);
+		renderC.points[i].y = (int)(-camera->y + renderC.destRect.y * App->window->scale + radius * sin(i * factor) * App->window->scale);*/
 	}
 
 	renderLayers[layer].renderObjects.push_back(renderC);
@@ -205,6 +211,9 @@ void ModuleRender::AddLineRenderQueue(iPoint pos1, iPoint pos2, bool adjust, SDL
 		pos2.x = RoundToInt(pos2.x);
 		pos2.y = RoundToInt(pos2.y);
 	}
+
+	// Detect if the line is in the screen
+	if (!InScreen(SDL_Rect{ pos1.x,pos1.y,1,1 }) && !InScreen(SDL_Rect{ pos2.x,pos2.y,1,1 })) return;
 
 	pos1.x = -camera->x + pos1.x * App->window->scale;
 	pos1.y = -camera->y + pos1.y * App->window->scale;
@@ -304,10 +313,10 @@ bool ModuleRender::InScreen(const SDL_Rect& rect)
 	// When finished, remove this line
 	return true;
 
-	int a1 = rect.x + rect.w * App->window->scale;
-	int a2 = rect.x;
-	int a3 = rect.y + rect.h * App->window->scale;
-	int a4 = rect.y;
+	int a1 = (rect.x + rect.w) * App->window->scale;
+	int a2 = rect.x * App->window->scale;
+	int a3 = (rect.y + rect.h) * App->window->scale;
+	int a4 = rect.y * App->window->scale;
 
 	int b1 = camera->x;
 	int b2 = camera->x + App->window->width;

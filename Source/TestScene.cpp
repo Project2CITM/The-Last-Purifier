@@ -47,15 +47,15 @@ bool TestScene::Update()
 bool TestScene::PostUpdate()
 {
     // Test draw circle
-     //_app->renderer->AddCircleRenderQueue(iPoint{ 50, 50 }, 40, SDL_Color{ 50,0,0,255 }, 2, 50);
+    _app->renderer->AddCircleRenderQueue(iPoint{ 50,50 }, 50, SDL_Color{ 255,255,255,255 }, 2, 50);
 
     // Test draw line  
-    //_app->renderer->AddLineRenderQueue(iPoint{ 50,50 }, iPoint{ 100,50 }, true, SDL_Color{ 50,0,0,255 }, 2, 50);
+    //_app->renderer->AddLineRenderQueue(iPoint{ 50,50 }, iPoint{ 100,50 }, true, SDL_Color{ 255,255,255,255 }, 2, 50);
 
     // Tesst draw Rect
-    //_app->renderer->AddRectRenderQueue(SDL_Rect{ 0,0,50,50 }, SDL_Color{0,0,255,255},2,50);
+    //_app->renderer->AddRectRenderQueue(SDL_Rect{ 50,50,50,50 }, SDL_Color{0,0,255,255},2,50);
 
-    roomManager.PostUpdate();
+    //roomManager.PostUpdate();
     //_app->physics->ShapesRender();
    
     return true;
