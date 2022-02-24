@@ -48,6 +48,18 @@ void PlayerController::Start()
 
 void PlayerController::PreUpdate()
 {
+	// Check dash cooldown
+	if (isDashing)
+	{
+		dashCounter--;
+		// If Cooldown is done, you stop dashing
+		if (dashCounter <= 0)
+		{
+			isDashing = false;
+			pBody->body->SetLinearVelocity({ 0,0 });
+		}
+	}
+
 	// Get Movement Input
 	MovementUpdate();
 
@@ -78,12 +90,23 @@ void PlayerController::CleanUp()
 
 void PlayerController::MovementUpdate()
 {
+	// By default, the player is always IDLE
 	animManager.DoAnimation((uint)PlayerAnim::IDLE);
 
 	if (_app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
-		animManager.DoAnimation((uint)PlayerAnim::DASH);
+		if (!isDashing)
+		{
+			animations[(int)PlayerAnim::DASH].Reset();
+			animManager.DoAnimation((uint)PlayerAnim::DASH);
+			DashOn();
+		}
+		
 	}
+
+	// If we are dashing, all other movement is disabled
+	if (isDashing) return;
+
 	// Horizontal
 	if (_app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
@@ -128,4 +151,22 @@ void PlayerController::MovementUpdate()
 		reducedVelocity.y *= 0.7f;
 		pBody->body->SetLinearVelocity(reducedVelocity);
 	}
+}
+
+void PlayerController::DashOn()
+{
+	isDashing = true;
+	dashCounter = dashTime;
+
+	b2Vec2 dir = { GetPlayerToMouseVector().x * dashDistance, GetPlayerToMouseVector().y * dashDistance};
+
+	pBody->body->SetLinearVelocity(dir);
+}
+
+fPoint PlayerController::GetPlayerToMouseVector()
+{
+	fPoint vec = { (float)(_app->input->GetMouseX() - GetScreenPosition().x), (float)(_app->input->GetMouseY() - GetScreenPosition().y ) };
+	vec = vec.Normalize();
+
+	return vec;
 }

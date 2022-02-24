@@ -57,7 +57,6 @@ public:
 			current_frame += speed;
 			if (current_frame >= last_frame && loop) current_frame = 0;
 		}
-		printf("CurrentFrame: %f\n", current_frame);
 	}
 
 	SDL_Rect& GetCurrentFrame()
