@@ -22,7 +22,7 @@ public:
 	SDL_Renderer* renderer = nullptr;
 	Camera* camera = nullptr;
 
-	int zoom = 1;
+	//int zoom = 1;
 
 	SDL_DisplayMode displayMode;
 public:

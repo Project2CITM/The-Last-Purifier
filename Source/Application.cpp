@@ -132,7 +132,7 @@ UpdateStatus Application::Update()
 
 	deltaTime = globalTime.getDeltaTime();
 
-	printf("A1: %f\n", globalTime.getDeltaTime());
+	//printf("A1: %f\n", globalTime.getDeltaTime());
 
 	if ((deltaTime <= frameTime) && vsync)
 	{
@@ -140,7 +140,7 @@ UpdateStatus Application::Update()
 		sleepTime = (frameTime - deltaTime) * 1000;
 		Sleep(sleepTime);
 	}
-	printf("A2: %f\n", globalTime.getDeltaTime());
+	//printf("A2: %f\n", globalTime.getDeltaTime());
 	
 	// Update info for title
 	UpdateTitle();
@@ -287,7 +287,7 @@ void Application::UpdateTitle()
 
 	dt = globalTime.getDeltaTime();
 
-	printf("Title: %f\n", dt);
+	//printf("Title: %f\n", dt);
 
 	double fps = 1 / dt;
 

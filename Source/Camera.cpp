@@ -54,8 +54,8 @@ void Camera::UpdatePosition()
 	if (target == nullptr || App->scene->isChangingScene) return;
 
 	// Update Y
-	int targetPosY = target->GetPosition().y * App->window->scale * App->renderer->zoom;
-	targetPosY = (targetPosY - pivotY * App->renderer->zoom) * moveY;
+	int targetPosY = target->GetPosition().y * App->window->scale;
+	targetPosY = (targetPosY - pivotY) * moveY;
 
 	int distance = abs(targetPosY - y);
 
@@ -66,7 +66,7 @@ void Camera::UpdatePosition()
 	else if (distance != 0) targetPosY > y ? y += distance / cameraDelay : targetPosY < y ? y -= distance / cameraDelay : y = y;
 
 	// Update X
-	int targetPosX = target->GetPosition().x * App->window->scale * App->renderer->zoom;
+	int targetPosX = target->GetPosition().x * App->window->scale;
 	targetPosX = (targetPosX - pivotX * App->window->scale) * moveX;
 
 	distance = abs(targetPosX - x);
