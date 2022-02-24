@@ -3,7 +3,7 @@
 void RoomManager::Start()
 {
 	//incloure textures
-	
+
 	GenerateMap(25);
 	CreateDoors();
 }
@@ -14,11 +14,10 @@ void RoomManager::Update()
 
 void RoomManager::PostUpdate()
 {
-	app->renderer->AddRectRenderQueue(SDL_Rect{ mapMovement.x, mapMovement.y, MAX_ROOMS_COLUMNS * MAX_ROOM_TILES_COLUMNS * TILE_SIZE,
+	app->renderer->AddRectRenderQueue(SDL_Rect{ 0, 0, MAX_ROOMS_COLUMNS * MAX_ROOM_TILES_COLUMNS * TILE_SIZE,
 												MAX_ROOMS_ROWS * MAX_ROOM_TILES_ROWS * TILE_SIZE }, SDL_Color{ 0, 170, 230, 255});
 	DrawRooms();
 	DrawDoors();
-
 }
 
 void RoomManager::CleanUp()
@@ -107,7 +106,7 @@ void RoomManager::GenerateMap(short RoomNumber)
 		}
 		adjacentSpaces--;
 	} while (bossRoomPos == iPoint(-1,-1));
-	
+
 	bossRoom = bossRoomPos;
 	CreateRoom(bossRoomPos);
 }
@@ -131,7 +130,7 @@ int RoomManager::CheckAdjacentSpace(Room* r)
 	if (roomPositions[x][y - 1] == nullptr && y - 1 >= 0 && y - 1 < MAX_ROOMS_ROWS)
 		freespaces++;
 
-	return freespaces;	
+	return freespaces;
 }
 
 //Check the number of blank spaces next to the room
@@ -156,7 +155,7 @@ int RoomManager::CheckAdjacentSpace(iPoint p)
 	else {
 		spaces++;
 	}
-	
+
 	if (x - 1 >= 0 && x - 1 < MAX_ROOMS_COLUMNS) {
 		if (roomPositions[x - 1][y] == nullptr)
 			spaces++;
@@ -164,7 +163,7 @@ int RoomManager::CheckAdjacentSpace(iPoint p)
 	else {
 		spaces++;
 	}
-	
+
 	if (y - 1 >= 0 && y - 1 < MAX_ROOMS_ROWS) {
 		if (roomPositions[x][y - 1] == nullptr)
 			spaces++;
@@ -226,7 +225,7 @@ Room* RoomManager::CreateRoom(iPoint mapPosition)
 {
 	Room* r = new Room();
 	r->roomPosition = mapPosition;
-	//r->roomDesign = 
+	//r->roomDesign =
 	rooms.add(r);
 	roomPositions[mapPosition.x][mapPosition.y] = r;
 	return r;
@@ -244,8 +243,8 @@ void RoomManager::DrawRooms()
 		if (currentRoom->data->roomPosition == bossRoom)
 			c = SDL_Color{ 255, 10, 10, 255 };
 
-		app->renderer->AddRectRenderQueue(SDL_Rect{ mapMovement.x + currentRoom->data->roomPosition.x * MAX_ROOM_TILES_COLUMNS * TILE_SIZE,
-													mapMovement.y + currentRoom->data->roomPosition.y * MAX_ROOM_TILES_ROWS* TILE_SIZE,
+		app->renderer->AddRectRenderQueue(SDL_Rect{ currentRoom->data->roomPosition.x * MAX_ROOM_TILES_COLUMNS * TILE_SIZE,
+													currentRoom->data->roomPosition.y * MAX_ROOM_TILES_ROWS* TILE_SIZE,
 													MAX_ROOM_TILES_COLUMNS* TILE_SIZE, MAX_ROOM_TILES_ROWS* TILE_SIZE },
 													c);
 		c.r -= 255/rn;
@@ -262,15 +261,17 @@ void RoomManager::DrawDoors()
 	while (currentRoom != nullptr) {
 		ListItem<Door*>* currentDoor = currentRoom->data->doors.start;
 		while (currentDoor != nullptr) {
-			app->renderer->AddRectRenderQueue(SDL_Rect{ mapMovement.x + currentDoor->data->pos.x, mapMovement.y + currentDoor->data->pos.y, TILE_SIZE, TILE_SIZE },
+			app->renderer->AddRectRenderQueue(SDL_Rect{currentDoor->data->pos.x, currentDoor->data->pos.y, TILE_SIZE, TILE_SIZE },
 				SDL_Color{ 255, 100, 255, 255 }, 1, 0.0f, false);
-			
-			/*if (currentDoor->data->collider != nullptr) {
-				iPoint npos;
-				currentDoor->data->collider->GetCenterPosition(npos.x, npos.y);
-				app->renderer->AddRectRenderQueue(SDL_Rect{ mapMovement.x + npos.x, mapMovement.y + npos.y, currentDoor->data->collider->width, currentDoor->data->collider->height },
-					SDL_Color{ 255, 255, 255, 255 }, 1, 0.0f, false);
-			}*/
+
+			//if (currentDoor->data->collider != nullptr) {
+			//	iPoint npos;
+			//	currentDoor->data->collider->GetCenterPosition(npos.x, npos.y);
+			//	app->renderer->AddRectRenderQueue(SDL_Rect{ npos.x, npos.y, currentDoor->data->collider->width, currentDoor->data->collider->height },
+			//		SDL_Color{ 255, 255, 255, 255 }, 1, 0.0f, false);
+			//}
+
+			app->physics->ShapesRender();
 
 			currentDoor = currentDoor->next;
 		}

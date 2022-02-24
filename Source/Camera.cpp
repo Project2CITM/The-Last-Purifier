@@ -30,22 +30,22 @@ void Camera::Update()
 	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 	{
 		y -= cameraSpeed;
-		printf_s("Camera_X: %d, Camera_Y: %d\n", x, y);
+		//printf_s("Camera_X: %d, Camera_Y: %d\n", x, y);
 	}
 	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
 	{
 		y += cameraSpeed;
-		printf_s("Camera_X: %d, Camera_Y: %d\n", x, y);
+		//printf_s("Camera_X: %d, Camera_Y: %d\n", x, y);
 	}
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 	{
 		x -= cameraSpeed;
-		printf_s("Camera_X: %d, Camera_Y: %d\n",x, y);
+		//printf_s("Camera_X: %d, Camera_Y: %d\n",x, y);
 	}
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 	{
 		x += cameraSpeed;
-		printf_s("Camera_X: %d, Camera_Y: %d\n", x, y);
+		//printf_s("Camera_X: %d, Camera_Y: %d\n", x, y);
 	}
 }
 
@@ -54,8 +54,8 @@ void Camera::UpdatePosition()
 	if (target == nullptr || App->scene->isChangingScene) return;
 
 	// Update Y
-	int targetPosY = target->GetPosition().y * App->window->scale * App->renderer->zoom;
-	targetPosY = (targetPosY - pivotY * App->renderer->zoom) * moveY;
+	int targetPosY = target->GetPosition().y * App->window->scale;
+	targetPosY = (targetPosY - pivotY) * moveY;
 
 	int distance = abs(targetPosY - y);
 
@@ -66,7 +66,7 @@ void Camera::UpdatePosition()
 	else if (distance != 0) targetPosY > y ? y += distance / cameraDelay : targetPosY < y ? y -= distance / cameraDelay : y = y;
 
 	// Update X
-	int targetPosX = target->GetPosition().x * App->window->scale * App->renderer->zoom;
+	int targetPosX = target->GetPosition().x * App->window->scale;
 	targetPosX = (targetPosX - pivotX * App->window->scale) * moveX;
 
 	distance = abs(targetPosX - x);

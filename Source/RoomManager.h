@@ -36,7 +36,6 @@ public:
 	Room* roomPositions[MAX_ROOMS_COLUMNS][MAX_ROOMS_ROWS];
 	SDL_Texture* tile_texture = nullptr;
 	iPoint bossRoom = iPoint(-1, -1);
-	iPoint mapMovement = iPoint(-MAX_ROOMS_COLUMNS / 2 * MAX_ROOM_TILES_COLUMNS * TILE_SIZE, -MAX_ROOMS_ROWS / 2 * MAX_ROOM_TILES_ROWS * TILE_SIZE);
 };
 
 #endif //__ROOMMANAGER_H_

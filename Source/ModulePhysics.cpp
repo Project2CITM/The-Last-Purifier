@@ -27,7 +27,7 @@ bool ModulePhysics::Start()
 	b2BodyDef bd;
 	mouseBody = world->CreateBody(&bd);
 
-	LOG("Tedt¡¡");
+	LOG("Tedtï¿½ï¿½");
 
 	world->SetContactListener(this);
 	
@@ -379,13 +379,18 @@ void ModulePhysics::ShapesRender()
 				{
 					v = b->GetWorldPoint(polygonShape->GetVertex(i));
 					if (i > 0)
+					{
 						App->renderer->AddLineRenderQueue(iPoint{ METERS_TO_PIXELS(prev.x), METERS_TO_PIXELS(prev.y) }, iPoint{ METERS_TO_PIXELS(v.x), METERS_TO_PIXELS(v.y) },
+							true, SDL_Color{ 255, 100, 100, 255}, 4, 100);
+
 							g->gameObject->adjustToGrid, SDL_Color{ 255, 100, 100, 255},3, 100);
+					}
 					prev = v;
 				}
 
 				v = b->GetWorldPoint(polygonShape->GetVertex(0));
 				App->renderer->AddLineRenderQueue(iPoint{ METERS_TO_PIXELS(prev.x), METERS_TO_PIXELS(prev.y) }, iPoint{ METERS_TO_PIXELS(v.x), METERS_TO_PIXELS(v.y) },
+					true, SDL_Color{ 255, 100, 100, 255}, 4, 100);
 					g->gameObject->adjustToGrid, SDL_Color{ 255, 100, 100, 255}, 3, 100);
 			}
 			break;
@@ -414,8 +419,11 @@ void ModulePhysics::ShapesRender()
 					// TODO BUG!!!!
 					v = b->GetWorldPoint(shape->m_vertices[i]);
 					if (i > 0)
+					{
 						App->renderer->AddLineRenderQueue(iPoint{ METERS_TO_PIXELS(prev.x), METERS_TO_PIXELS(prev.y) }, iPoint{ METERS_TO_PIXELS(v.x), METERS_TO_PIXELS(v.y) },
-							g->gameObject->adjustToGrid, color, 3, 100);
+							true, color, 4, 100);
+						g->gameObject->adjustToGrid, color, 3, 100);
+					}
 					prev = v;
 				
 				}
@@ -482,6 +490,7 @@ b2Vec2 PhysBody::GetPosition()
 void PhysBody::GetCenterPosition(int& x, int& y) const
 {
 	b2Vec2 pos = body->GetPosition();
+
 	x = METERS_TO_PIXELS(pos.x);
 	y = METERS_TO_PIXELS(pos.y);
 }

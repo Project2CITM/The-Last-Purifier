@@ -95,7 +95,7 @@ UpdateStatus ModuleRender::PostUpdate()
 			renderLayers[i].renderObjects[j].Draw(renderer);
 		}
 	}
-
+	
 	// Update the screen
 	SDL_RenderPresent(renderer);
 
@@ -129,11 +129,7 @@ void ModuleRender::AddTextureRenderQueue(SDL_Texture* texture, iPoint pos, SDL_R
 		SDL_QueryTexture(texture, nullptr, nullptr, &section.w, &section.h);
 	}
 
-	if (!InScreen(SDL_Rect{ pos.x, pos.y, section.w, section.h }))
-	{
-		return;
-	}
-
+	if (!InScreen(SDL_Rect{ pos.x, pos.y, section.w, section.h })) return;
 	SDL_Rect destRect = { 0,0 };
 
 	RenderObject renderObject;
@@ -143,14 +139,14 @@ void ModuleRender::AddTextureRenderQueue(SDL_Texture* texture, iPoint pos, SDL_R
 
 	renderObject.InitAsTexture(texture, destRect, section, layer, orderInlayer, flip, rotation, scale, speed);
 
-	renderObject.destRect.x = (int)(-camera->x * speed) + pos.x * App->window->scale * zoom;
-	renderObject.destRect.y = (int)(-camera->y * speed) + pos.y * App->window->scale * zoom;
+	renderObject.destRect.x = (int)(-camera->x * speed) + pos.x * App->window->scale;
+	renderObject.destRect.y = (int)(-camera->y * speed) + pos.y * App->window->scale;
 
 	renderObject.destRect.w = section.w;
 	renderObject.destRect.h = section.h;
 
-	renderObject.destRect.w *= scale * App->window->scale * zoom;
-	renderObject.destRect.h *= scale * App->window->scale * zoom;
+	renderObject.destRect.w *= scale * App->window->scale;
+	renderObject.destRect.h *= scale * App->window->scale;
 
 	//LOG("direction in memory : %#x", renderObject.texture);
 	renderLayers[layer].renderObjects.push_back(renderObject);
@@ -163,8 +159,12 @@ void ModuleRender::AddRectRenderQueue(const SDL_Rect& rect, SDL_Color color, int
 	//If texture in UI layer, it moves alongside the camera-> , speed = 0;
 	if (uiLayer >= 0 && layer == uiLayer) speed = 0;
 
+	if (!InScreen(rect)) return;
+
 	SDL_Rect rec = { (-camera->x * speed) + rect.x * App->window->scale, (-camera->y * speed) + rect.y * App->window->scale,
 		rect.w * App->window->scale, rect.h * App->window->scale };
+
+	//if (!InScreen(rec)) return;
 
 	renderR.InitAsRect(rec, { color.r,color.g,color.b,color.a }, filled, layer, orderInlayer, speed);
 
@@ -299,13 +299,22 @@ void ModuleRender::ClearRederQueue()
 	}
 }
 
-bool ModuleRender::InScreen(SDL_Rect rect)
+bool ModuleRender::InScreen(const SDL_Rect& rect)
 {
-	//*if (rect.x + rect.w < camera->x || rect.x > camera->x + )
+	// When finished, remove this line
+	return true;
 
+	int a1 = rect.x + rect.w * App->window->scale;
+	int a2 = rect.x;
+	int a3 = rect.y + rect.h * App->window->scale;
+	int a4 = rect.y;
 
+	int b1 = camera->x;
+	int b2 = camera->x + App->window->width;
+	int b3 = camera->y;
+	int b4 = camera->y + App->window->height;
 
-
+	if (a1 < b1 || a2 > b2 || a3 < b3 || a4 > b4) return false;
 
 	return true;
 }
