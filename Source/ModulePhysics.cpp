@@ -23,11 +23,11 @@ bool ModulePhysics::Start()
 {
 	LOG("Creating Physics 2D environment");
 
-	world = new b2World(b2Vec2(0, -10));
+	world = new b2World(b2Vec2(0, 0));
 	b2BodyDef bd;
 	mouseBody = world->CreateBody(&bd);
 
-	LOG("Tedt¡¡");
+	LOG("Tedtï¿½ï¿½");
 
 	world->SetContactListener(this);
 	
@@ -36,8 +36,7 @@ bool ModulePhysics::Start()
  
 UpdateStatus ModulePhysics::PreUpdate()
 {
-	/*if(!App->debug->debugPause && !physPause)
-	world->Step(App->frameTime, 6, 2);*/
+	world->Step(App->frameTime, 6, 2);
 
 	return UPDATE_CONTINUE;
 }
@@ -178,7 +177,7 @@ PhysBody* ModulePhysics::CreateRectangleSensor(iPoint pos, int width, int height
 
 	b2Body* b = world->CreateBody(&body);
 	b2PolygonShape box;
-	box.SetAsBox(PIXELS_TO_METER(width) * 0.5f, PIXELS_TO_METER(height) * 0.5f);
+	box.SetAsBox(PIXELS_TO_METER(width), PIXELS_TO_METER(height));
 
 	b2FixtureDef fixture;
 	fixture.shape = &box;
@@ -188,8 +187,8 @@ PhysBody* ModulePhysics::CreateRectangleSensor(iPoint pos, int width, int height
 
 	PhysBody* pbody = new PhysBody();
 	pbody->body = b;
-	pbody->width = width * 0.5f;
-	pbody->height = height * 0.5f;
+	pbody->width = width;
+	pbody->height = height;
 
 	pbody->body->SetUserData(pbody);
 
@@ -380,14 +379,16 @@ void ModulePhysics::ShapesRender()
 				{
 					v = b->GetWorldPoint(polygonShape->GetVertex(i));
 					if (i > 0)
+					{
 						App->renderer->AddLineRenderQueue(iPoint{ METERS_TO_PIXELS(prev.x), METERS_TO_PIXELS(prev.y) }, iPoint{ METERS_TO_PIXELS(v.x), METERS_TO_PIXELS(v.y) },
-							true, SDL_Color{ 255, 100, 100, 255}, 4, 100);
+							g->gameObject->adjustToGrid, SDL_Color{ 255, 100, 100, 255 }, 3, 100);
+					}
 					prev = v;
 				}
 
 				v = b->GetWorldPoint(polygonShape->GetVertex(0));
 				App->renderer->AddLineRenderQueue(iPoint{ METERS_TO_PIXELS(prev.x), METERS_TO_PIXELS(prev.y) }, iPoint{ METERS_TO_PIXELS(v.x), METERS_TO_PIXELS(v.y) },
-					true, SDL_Color{ 255, 100, 100, 255}, 4, 100);
+					g->gameObject->adjustToGrid, SDL_Color{ 255, 100, 100, 255 }, 3, 100);					
 			}
 			break;
 
@@ -415,8 +416,10 @@ void ModulePhysics::ShapesRender()
 					// TODO BUG!!!!
 					v = b->GetWorldPoint(shape->m_vertices[i]);
 					if (i > 0)
+					{
 						App->renderer->AddLineRenderQueue(iPoint{ METERS_TO_PIXELS(prev.x), METERS_TO_PIXELS(prev.y) }, iPoint{ METERS_TO_PIXELS(v.x), METERS_TO_PIXELS(v.y) },
-							true, color, 4, 100);
+							g->gameObject->adjustToGrid, color, 3, 100);					
+					}
 					prev = v;
 				
 				}
@@ -425,7 +428,7 @@ void ModulePhysics::ShapesRender()
 				{
 					v = b->GetWorldPoint(shape->m_vertices[0]);
 					App->renderer->AddLineRenderQueue(iPoint{ METERS_TO_PIXELS(prev.x), METERS_TO_PIXELS(prev.y) }, iPoint{ METERS_TO_PIXELS(v.x), METERS_TO_PIXELS(v.y) },
-						false, color, 4, 100);
+						false, color, 3, 100);
 				}
 			}
 			break;
@@ -439,7 +442,7 @@ void ModulePhysics::ShapesRender()
 				v1 = b->GetWorldPoint(shape->m_vertex0);
 				v1 = b->GetWorldPoint(shape->m_vertex1);
 				App->renderer->AddLineRenderQueue(iPoint{ METERS_TO_PIXELS(v1.x), METERS_TO_PIXELS(v1.y) }, iPoint{ METERS_TO_PIXELS(v2.x), METERS_TO_PIXELS(v2.y) },
-					false, SDL_Color{ 100, 100, 255, 255}, 4, 100);
+					false, SDL_Color{ 100, 100, 255, 255}, 3, 100);
 			}
 			break;
 			}

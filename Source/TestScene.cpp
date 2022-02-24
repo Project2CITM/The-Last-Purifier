@@ -1,4 +1,5 @@
 #include "TestScene.h"
+#include "PlayerController.h"
 
 TestScene::TestScene(Application* app):Scene(app,"testScene")
 {
@@ -10,7 +11,13 @@ TestScene::~TestScene()
 
 bool TestScene::Start()
 {
+    PlayerController* playerController = new PlayerController("test", "test", _app);
+    gameObjects.add(playerController);
+
+
     roomManager.Start();
+
+    Scene::Start();
 
     return true;
 }
@@ -21,7 +28,8 @@ bool TestScene::PreUpdate()
         roomManager.CleanUp();
         roomManager.Start();
     }
-
+    
+    Scene::PreUpdate();
     return true;
 }
 
@@ -40,7 +48,7 @@ bool TestScene::Update()
     //    roomManager.mapMovement.y += 10;
 
     roomManager.Update();
-
+    Scene::Update();
     return true;
 }
 
@@ -58,12 +66,14 @@ bool TestScene::PostUpdate()
     //roomManager.PostUpdate();
     //_app->physics->ShapesRender();
    
+    Scene::PostUpdate();
     return true;
 }
 
 bool TestScene::CleanUp()
 {
     roomManager.CleanUp();
+    Scene::CleanUp();
 
     return false;
 }
