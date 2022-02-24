@@ -381,17 +381,14 @@ void ModulePhysics::ShapesRender()
 					if (i > 0)
 					{
 						App->renderer->AddLineRenderQueue(iPoint{ METERS_TO_PIXELS(prev.x), METERS_TO_PIXELS(prev.y) }, iPoint{ METERS_TO_PIXELS(v.x), METERS_TO_PIXELS(v.y) },
-							true, SDL_Color{ 255, 100, 100, 255}, 4, 100);
-
-							g->gameObject->adjustToGrid, SDL_Color{ 255, 100, 100, 255},3, 100);
+							g->gameObject->adjustToGrid, SDL_Color{ 255, 100, 100, 255 }, 3, 100);
 					}
 					prev = v;
 				}
 
 				v = b->GetWorldPoint(polygonShape->GetVertex(0));
 				App->renderer->AddLineRenderQueue(iPoint{ METERS_TO_PIXELS(prev.x), METERS_TO_PIXELS(prev.y) }, iPoint{ METERS_TO_PIXELS(v.x), METERS_TO_PIXELS(v.y) },
-					true, SDL_Color{ 255, 100, 100, 255}, 4, 100);
-					g->gameObject->adjustToGrid, SDL_Color{ 255, 100, 100, 255}, 3, 100);
+					g->gameObject->adjustToGrid, SDL_Color{ 255, 100, 100, 255 }, 3, 100);					
 			}
 			break;
 
@@ -421,8 +418,7 @@ void ModulePhysics::ShapesRender()
 					if (i > 0)
 					{
 						App->renderer->AddLineRenderQueue(iPoint{ METERS_TO_PIXELS(prev.x), METERS_TO_PIXELS(prev.y) }, iPoint{ METERS_TO_PIXELS(v.x), METERS_TO_PIXELS(v.y) },
-							true, color, 4, 100);
-						g->gameObject->adjustToGrid, color, 3, 100);
+							g->gameObject->adjustToGrid, color, 3, 100);					
 					}
 					prev = v;
 				
