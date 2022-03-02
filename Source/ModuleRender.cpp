@@ -346,7 +346,7 @@ void ModuleRender::ClearRederQueue()
 bool ModuleRender::InScreen(const SDL_Rect& rect)
 {
 	// When finished, remove this line
-	return true;
+	//return true;
 
 	int a1 = (rect.x + rect.w) * App->window->scale;
 	int a2 = rect.x * App->window->scale;
