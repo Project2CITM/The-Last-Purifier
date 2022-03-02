@@ -94,6 +94,7 @@
     <ClInclude Include="AnimationsManager.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="External\PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="External\PugiXml\src\pugixml.hpp" />
     <ClInclude Include="GameObject.h" />
@@ -126,6 +127,7 @@
     <ClCompile Include="AnimationsManager.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="External\PugiXml\src\pugixml.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GUI.cpp" />
