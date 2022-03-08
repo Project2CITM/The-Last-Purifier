@@ -29,6 +29,12 @@ void PlayerController::Start()
 		animations[(int)PlayerAnim::DASH].loop = false;
 	}
 	
+	for (int i = 0; i < 8; i++)
+	{
+		animations[(int)PlayerAnim::RUN].PushBack({ 64 * i, 60, 64, 30 });
+		animations[(int)PlayerAnim::RUN].loop = true;
+	}
+
 	for (int i = 0; i < PLAYER_ANIMATIONS_NUM; i++)
 	{
 		animations[i].speed = 0.2f;
@@ -37,9 +43,11 @@ void PlayerController::Start()
 
 	currentAnim = PlayerAnim::IDLE;
 
-	// Initialize Animations Manager
+	// Initialize Animations Manager 
+	// WARNING: THEY MUST BE ADDED FOLLOWING THE ORDER OF THE PlayerAnim ENUM
 	animManager.AddAnimationObject(&animations[(int)PlayerAnim::IDLE]);
 	animManager.AddAnimationObject(&animations[(int)PlayerAnim::DASH], false, 1);
+	animManager.AddAnimationObject(&animations[(int)PlayerAnim::RUN]);
 
 	// Initialize physBody
 	this->pBody = _app->physics->CreateRectangle({ 100,100 }, 10, 16, this);
@@ -80,6 +88,10 @@ void PlayerController::PostUpdate()
 	renderObjects[0].section = animations[(int)currentAnim].GetCurrentFrame();
 	renderObjects[0].destRect.x = GetDrawPosition().x;
 	renderObjects[0].destRect.y = GetDrawPosition().y;
+
+	if (lookingDir == LookingDirection::LEFT) renderObjects[0].flip = SDL_FLIP_HORIZONTAL;
+	else if (lookingDir == LookingDirection::RIGHT) renderObjects[0].flip = SDL_FLIP_NONE;
+
 	_app->renderer->AddRenderObjectRenderQueue(renderObjects[0]);
 }
 
@@ -97,38 +109,24 @@ void PlayerController::MovementUpdate()
 	{
 		if (!isDashing)
 		{
+			//Reset Dash animation in case it hadn't finished yet
 			animations[(int)PlayerAnim::DASH].Reset();
+			// Play Dash Animation
 			animManager.DoAnimation((uint)PlayerAnim::DASH);
+			// do the dash
 			DashOn();
 		}
-		
 	}
 
 	// If we are dashing, all other movement is disabled
 	if (isDashing) return;
 
-	// Horizontal
-	if (_app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-	{
-		pBody->body->SetLinearVelocity({ speed,pBody->body->GetLinearVelocity().y });
-	}
-	if (_app->input->GetKey(SDL_SCANCODE_D) == KEY_UP)
-	{
-		pBody->body->SetLinearVelocity({ 0,pBody->body->GetLinearVelocity().y });
-	}
-	if (_app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-	{
-		pBody->body->SetLinearVelocity({ -speed,pBody->body->GetLinearVelocity().y });
-	}
-	if (_app->input->GetKey(SDL_SCANCODE_A) == KEY_UP)
-	{
-		pBody->body->SetLinearVelocity({ 0,pBody->body->GetLinearVelocity().y });
-	}
-
 	// Vertical 
 	if (_app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 	{
 		pBody->body->SetLinearVelocity({ pBody->body->GetLinearVelocity().x, -speed });
+		animManager.DoAnimation((uint)PlayerAnim::RUN);
+		lookingDir = LookingDirection::UP;
 	}
 	if (_app->input->GetKey(SDL_SCANCODE_W) == KEY_UP)
 	{
@@ -137,10 +135,34 @@ void PlayerController::MovementUpdate()
 	if (_app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
 	{
 		pBody->body->SetLinearVelocity({ pBody->body->GetLinearVelocity().x, speed });
+		animManager.DoAnimation((uint)PlayerAnim::RUN);
+		lookingDir = LookingDirection::DOWN;
 	}
 	if (_app->input->GetKey(SDL_SCANCODE_S) == KEY_UP)
 	{
 		pBody->body->SetLinearVelocity({ pBody->body->GetLinearVelocity().x, 0 });
+	}
+
+	// Horizontal
+	if (_app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	{
+		pBody->body->SetLinearVelocity({ speed,pBody->body->GetLinearVelocity().y });
+		animManager.DoAnimation((uint)PlayerAnim::RUN);
+		lookingDir = LookingDirection::RIGHT;
+	}
+	if (_app->input->GetKey(SDL_SCANCODE_D) == KEY_UP)
+	{
+		pBody->body->SetLinearVelocity({ 0,pBody->body->GetLinearVelocity().y });
+	}
+	if (_app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	{
+		pBody->body->SetLinearVelocity({ -speed,pBody->body->GetLinearVelocity().y });
+		animManager.DoAnimation((uint)PlayerAnim::RUN);
+		lookingDir = LookingDirection::LEFT;
+	}
+	if (_app->input->GetKey(SDL_SCANCODE_A) == KEY_UP)
+	{
+		pBody->body->SetLinearVelocity({ 0,pBody->body->GetLinearVelocity().y });
 	}
 
 	// If we are moving dyagonally, we lower our velocity

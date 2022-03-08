@@ -2,12 +2,21 @@
 #include "GameObject.h"
 #include "AnimationsManager.h"
 
-#define PLAYER_ANIMATIONS_NUM 2
+#define PLAYER_ANIMATIONS_NUM 3
 
 enum class PlayerAnim
 {
 	IDLE = 0,
 	DASH,
+	RUN,
+};
+
+enum class LookingDirection
+{
+	UP = 0,
+	DOWN,
+	LEFT,
+	RIGHT
 };
 
 class PlayerController : public GameObject
@@ -42,6 +51,7 @@ private:
 	int dashDistance = 10;
 
 	PlayerAnim currentAnim = PlayerAnim::IDLE;
+	LookingDirection lookingDir = LookingDirection::RIGHT;
 
 	AnimationsManager animManager;
 };
