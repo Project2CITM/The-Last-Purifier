@@ -7,7 +7,7 @@ class Enemy :  public GameObject
 {
 public: 
 	
-	Enemy();
+	Enemy(Application* app = nullptr);
 
 	~Enemy();
 
