@@ -1,14 +1,24 @@
 #pragma once
 #include "GameObject.h"
 #include "AnimationsManager.h"
+#include "StateMachine.h"
 
-#define PLAYER_ANIMATIONS_NUM 3
+#define PLAYER_ANIMATIONS_NUM 4
 
 enum class PlayerAnim
 {
 	IDLE = 0,
-	DASH,
 	RUN,
+	ATTACK,
+	DASH
+};
+
+enum class PlayerState
+{
+	IDLE = 0,
+	RUN,
+	ATTACK,
+	DASH
 };
 
 enum class LookingDirection
@@ -48,11 +58,12 @@ private:
 	bool isDashing = false;
 	int dashCounter = 0;
 	int dashTime = 55;
-	int dashDistance = 10;
+	int dashDistance = 6;
 
 	PlayerAnim currentAnim = PlayerAnim::IDLE;
+	PlayerState currentState = PlayerState::IDLE;
 	LookingDirection lookingDir = LookingDirection::RIGHT;
 
-	AnimationsManager animManager;
+	StateMachine stateMachine;
 };
 

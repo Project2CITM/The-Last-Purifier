@@ -17,7 +17,6 @@ void PlayerController::Start()
 	renderObjects[0].textureCenterY = 15;
 
 	// Create animations
-
 	for (int i = 0; i < 15; i++)
 	{
 		// Idle anim initialize
@@ -43,11 +42,12 @@ void PlayerController::Start()
 
 	currentAnim = PlayerAnim::IDLE;
 
-	// Initialize Animations Manager 
-	// WARNING: THEY MUST BE ADDED FOLLOWING THE ORDER OF THE PlayerAnim ENUM
-	animManager.AddAnimationObject(&animations[(int)PlayerAnim::IDLE]);
-	animManager.AddAnimationObject(&animations[(int)PlayerAnim::DASH], false, 1);
-	animManager.AddAnimationObject(&animations[(int)PlayerAnim::RUN]);
+	// Initialize States 
+	// WARNING: They must be added following the order specified on the PlayerState Enum!!!
+	stateMachine.AddState("idle", 0);			//IDLE = 0
+	stateMachine.AddState("run", 0);			//RUN = 1
+	stateMachine.AddState("attack", 1, 32);		//ATTACK = 2
+	stateMachine.AddState("dash", 2, 64);		//DASH = 3
 
 	// Initialize physBody
 	this->pBody = _app->physics->CreateRectangle({ 100,100 }, 10, 16, this);
@@ -78,13 +78,24 @@ void PlayerController::PreUpdate()
 
 void PlayerController::Update()
 {
-	currentAnim = (PlayerAnim)animManager.currentAnimation;
+	// Update State Machine
+	stateMachine.Update();
+	// Update current player State
+	currentState = (PlayerState)stateMachine.GetCurrentState();
+
+	printf("CurrentState %d\n", stateMachine.GetCurrentState());
+
 	// Update animation
 	animations[(int)currentAnim].Update();	
 }
 
 void PlayerController::PostUpdate()
 {
+	// Update current Animation state 
+	// For now it is the same as Player State, if this changes overtime, there has to be a switch here to translate between current player State
+	// and current Animation State
+	currentAnim = (PlayerAnim)currentState;
+
 	renderObjects[0].section = animations[(int)currentAnim].GetCurrentFrame();
 	renderObjects[0].destRect.x = GetDrawPosition().x;
 	renderObjects[0].destRect.y = GetDrawPosition().y;
@@ -97,13 +108,13 @@ void PlayerController::PostUpdate()
 
 void PlayerController::CleanUp()
 {
-	animManager.CleanUp();
+	
 }
 
 void PlayerController::MovementUpdate()
 {
 	// By default, the player is always IDLE
-	animManager.DoAnimation((uint)PlayerAnim::IDLE);
+	stateMachine.ChangeState((uint)PlayerState::IDLE);
 
 	if (_app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
@@ -111,8 +122,10 @@ void PlayerController::MovementUpdate()
 		{
 			//Reset Dash animation in case it hadn't finished yet
 			animations[(int)PlayerAnim::DASH].Reset();
-			// Play Dash Animation
-			animManager.DoAnimation((uint)PlayerAnim::DASH);
+		
+			//Change Player State
+			stateMachine.ChangeState((uint)PlayerState::DASH);
+
 			// do the dash
 			DashOn();
 		}
@@ -125,7 +138,10 @@ void PlayerController::MovementUpdate()
 	if (_app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 	{
 		pBody->body->SetLinearVelocity({ pBody->body->GetLinearVelocity().x, -speed });
-		animManager.DoAnimation((uint)PlayerAnim::RUN);
+
+		//Change Player State
+		stateMachine.ChangeState((uint)PlayerState::RUN);
+
 		lookingDir = LookingDirection::UP;
 	}
 	if (_app->input->GetKey(SDL_SCANCODE_W) == KEY_UP)
@@ -135,7 +151,10 @@ void PlayerController::MovementUpdate()
 	if (_app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
 	{
 		pBody->body->SetLinearVelocity({ pBody->body->GetLinearVelocity().x, speed });
-		animManager.DoAnimation((uint)PlayerAnim::RUN);
+
+		//Change Player State
+		stateMachine.ChangeState((uint)PlayerState::RUN);
+
 		lookingDir = LookingDirection::DOWN;
 	}
 	if (_app->input->GetKey(SDL_SCANCODE_S) == KEY_UP)
@@ -147,7 +166,10 @@ void PlayerController::MovementUpdate()
 	if (_app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
 		pBody->body->SetLinearVelocity({ speed,pBody->body->GetLinearVelocity().y });
-		animManager.DoAnimation((uint)PlayerAnim::RUN);
+
+		//Change Player State
+		stateMachine.ChangeState((uint)PlayerState::RUN);
+
 		lookingDir = LookingDirection::RIGHT;
 	}
 	if (_app->input->GetKey(SDL_SCANCODE_D) == KEY_UP)
@@ -157,7 +179,10 @@ void PlayerController::MovementUpdate()
 	if (_app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
 		pBody->body->SetLinearVelocity({ -speed,pBody->body->GetLinearVelocity().y });
-		animManager.DoAnimation((uint)PlayerAnim::RUN);
+
+		//Change Player State
+		stateMachine.ChangeState((uint)PlayerState::RUN);
+
 		lookingDir = LookingDirection::LEFT;
 	}
 	if (_app->input->GetKey(SDL_SCANCODE_A) == KEY_UP)
@@ -180,7 +205,32 @@ void PlayerController::DashOn()
 	isDashing = true;
 	dashCounter = dashTime;
 
-	b2Vec2 dir = { GetPlayerToMouseVector().x * dashDistance, GetPlayerToMouseVector().y * dashDistance};
+	b2Vec2 dir = pBody->body->GetLinearVelocity();
+	dir.Normalize();
+	dir.x *= dashDistance;
+	dir.y *= dashDistance;
+
+	// if we have no velocity, it means we are idle.
+	if (dir.x == 0 && dir.y == 0)
+	{
+		// So we dash on the current direction we are facing
+		switch (lookingDir)
+		{
+		case LookingDirection::UP:
+			dir = {0, (float)-1 * dashDistance};
+			break;
+		case LookingDirection::DOWN:
+			dir = {0, (float)1 * dashDistance };
+			break;
+		case LookingDirection::LEFT:
+			dir = { (float)-1 * dashDistance, 0};
+			break;
+		case LookingDirection::RIGHT:
+			dir = { (float)1 * dashDistance, 0};
+			break;
+		}
+
+	}
 
 	pBody->body->SetLinearVelocity(dir);
 }
