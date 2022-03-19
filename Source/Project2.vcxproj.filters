@@ -117,6 +117,9 @@
     <ClInclude Include="StateMachine.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleMap.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Log.cpp">
@@ -195,6 +198,9 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="StateMachine.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleMap.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
