@@ -16,6 +16,7 @@ public:
 private:
 	SDL_Rect frames[MAX_FRAMES];
 	int loopCount = 0;
+	int totalFrames = 0;
 	float current_frame = 0.0f;
 	int last_frame = 0;
 
@@ -76,6 +77,11 @@ public:
 		}
 
 		return false;
+	}
+
+	int GetTotalFrames()
+	{
+		return totalFrames;
 	}
 
 	int size() {

@@ -85,13 +85,12 @@ public:
 protected:
 	void InitRenderObjectWithXml(std::string texName = "null", int index = 0);
 
-private :
+protected:
+	Application* _app = nullptr;
+
 	iPoint position = { 0,0 };
 
 	float rotation = 0;
-
-protected:
-	Application* _app = nullptr;
 
 public:
 	std::string name = "";

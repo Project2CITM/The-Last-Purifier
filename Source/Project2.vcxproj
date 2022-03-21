@@ -115,6 +115,7 @@
     <ClInclude Include="ModuleTextures.h" />
     <ClInclude Include="ModuleUI.h" />
     <ClInclude Include="ModuleWindow.h" />
+    <ClInclude Include="Particle.h" />
     <ClInclude Include="PlayerController.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="RenderObject.hpp" />
@@ -147,6 +148,7 @@
     <ClCompile Include="ModuleTextures.cpp" />
     <ClCompile Include="ModuleUI.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
+    <ClCompile Include="Particle.cpp" />
     <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="RoomManager.cpp" />
