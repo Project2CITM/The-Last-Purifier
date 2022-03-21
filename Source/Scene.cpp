@@ -35,7 +35,8 @@ bool Scene::PreUpdate()
 	{
 		if (gameObjects[i])
 		{
-			gameObjects[i]->PreUpdate();
+			if (gameObjects[i]->pendingToDelete) DestroyGameObject(gameObjects[i]);
+			else gameObjects[i]->PreUpdate();
 		}
 	}
 
@@ -91,6 +92,11 @@ bool Scene::CleanUp()
 	guis.clearPtr();
 
 	return true;
+}
+
+void Scene::AddGameObject(GameObject* gameObject)
+{
+	gameObjects.add(gameObject);
 }
 
 void Scene::DestroyGameObject(GameObject* gameObject)

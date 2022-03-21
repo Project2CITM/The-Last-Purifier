@@ -40,6 +40,8 @@ public:
 
 	virtual bool CleanUp();
 
+	void AddGameObject(GameObject* gameObject);
+
 	void DestroyGameObject(GameObject* gameObject);
 
 	virtual void SetSaveData();
