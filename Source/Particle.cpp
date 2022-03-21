@@ -6,6 +6,7 @@ Particle::Particle(iPoint position, Application* _app, float life, float delay, 
 	this->delay = delay;
 	this->velocity = velocity;
 	this->name = name;
+	this->position = position;
 }
 
 Particle::~Particle()
@@ -31,9 +32,9 @@ void Particle::PreUpdate()
 void Particle::Update()
 {
 	// /1000 to convert ms in second
-	if (delay >= 0) delay -= (_app->frameTime / 1000);
+	if (delay >= 0) delay -= (_app->frameTime);
 
-	else if (life >= 0) count += (_app->frameTime / 1000);
+	else if (life >= 0) count += (_app->frameTime);
 
 	// move with velocity
 	position += velocity;

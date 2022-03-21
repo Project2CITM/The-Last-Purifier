@@ -1,5 +1,6 @@
-#include "TestScene.h"
+﻿#include "TestScene.h"
 #include "PlayerController.h"
+#include "Particle.h"
 
 TestScene::TestScene(Application* app):Scene(app,"testScene")
 {
@@ -12,7 +13,11 @@ TestScene::~TestScene()
 bool TestScene::Start()
 {
     PlayerController* playerController = new PlayerController("test", "test", _app);
-    gameObjects.add(playerController);
+    //gameObjects.add(playerController); // Ahora se anade automatico a la lista
+
+    // Test particle
+    Particle* p = new Particle({ 0,0 }, _app, 2, 0, { 1,0 });
+    p->renderObjects[0].InitAsRect({ p->GetPosition().x,p->GetPosition().y,50,50 }, { 0,255,0,255 }, true, 3);
 
     roomManager.Start();
 

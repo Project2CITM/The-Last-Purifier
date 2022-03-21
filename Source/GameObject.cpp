@@ -1,6 +1,6 @@
 #include "GameObject.h"
 #include "ModulePhysics.h"
-
+#include "Scene.h"
 
 GameObject::GameObject()
 {
@@ -12,6 +12,7 @@ GameObject::GameObject(std::string name, std::string tag , Application* _app)
 	this->name = name;
 	this->_app = _app;
 	this->tag = tag;
+	_app->scene->scenes[_app->scene->currentScene]->AddGameObject(this);
 }
 
 GameObject::GameObject(GameObject& obj)
@@ -62,6 +63,11 @@ void GameObject::PreUpdate()
 
 void GameObject::Update()
 {
+	for (int i = 0; i < MAX_GAMEOBJECT_TEXTURES; i++)
+	{
+		renderObjects[i].destRect.x = position.x;
+		renderObjects[i].destRect.y = position.y;
+	}
 }
 
 void GameObject::PostUpdate()
@@ -69,16 +75,30 @@ void GameObject::PostUpdate()
 	// Dibujar texturas
 	for (int i = 0; i < MAX_GAMEOBJECT_TEXTURES; i++)
 	{
-		if (renderObjects[i].texture != nullptr && renderObjects[i].draw)
+		if (!renderObjects[i].draw) continue;
+		switch (renderObjects[i].type)
 		{
-			renderObjects[i].destRect.x = GetDrawPosition(i).x;
-			renderObjects[i].destRect.y = GetDrawPosition(i).y;
-			renderObjects[i].rotation = GetDegreeAngle();
-			
-			_app->renderer->AddTextureRenderQueue(renderObjects[i].texture, { renderObjects[i].destRect.x,renderObjects[i].destRect.y },
-			renderObjects[i].section, renderObjects[i].scale, renderObjects[i].layer, renderObjects[i].orderInLayer,
-			renderObjects[i].rotation, renderObjects[i].flip, renderObjects[i].speedRegardCamera);
-		}
+		case RenderType::RENDER_TEXTURE:
+			if (renderObjects[i].texture != nullptr)
+			{
+				renderObjects[i].destRect.x = GetDrawPosition(i).x;
+				renderObjects[i].destRect.y = GetDrawPosition(i).y;
+				renderObjects[i].rotation = GetDegreeAngle();
+
+				_app->renderer->AddTextureRenderQueue(renderObjects[i].texture, { renderObjects[i].destRect.x,renderObjects[i].destRect.y },
+					renderObjects[i].section, renderObjects[i].scale, renderObjects[i].layer, renderObjects[i].orderInLayer,
+					renderObjects[i].rotation, renderObjects[i].flip, renderObjects[i].speedRegardCamera);
+			}
+			break;
+		case RenderType::RENDER_CIRCLE:
+			break;
+		case RenderType::RENDER_LINE:
+			break;
+		case RenderType::RENDER_RECT:
+			_app->renderer->AddRectRenderQueue(renderObjects[i].destRect, renderObjects[i].color, renderObjects[i].filled, renderObjects[i].layer,
+				renderObjects[i].orderInLayer, renderObjects[i].speedRegardCamera);
+			break;	
+		}		
 	}
 }
 
