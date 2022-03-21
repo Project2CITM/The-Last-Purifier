@@ -16,78 +16,54 @@
     <Filter Include="Archivos de origen\PugiXml">
       <UniqueIdentifier>{873a4489-c445-445b-850a-21d12d27a668}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de origen\Modules">
+      <UniqueIdentifier>{7cae2caa-5586-4008-83ae-a20447bb8efe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Globals">
+      <UniqueIdentifier>{d53906c2-5300-49e8-9838-38b529de736c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\GUI">
+      <UniqueIdentifier>{a5bfeb4a-f892-494a-8a18-9c5a53f72a55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Tools">
+      <UniqueIdentifier>{ce5004f4-c63d-4c4e-94ca-2b95314c37ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Modules">
+      <UniqueIdentifier>{dd1ee721-4dcb-4742-883d-c60f195e159e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Globals">
+      <UniqueIdentifier>{4f29f497-faf0-4a3f-b190-fad1d05c4cab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\GUI">
+      <UniqueIdentifier>{8fe61acd-a330-412a-8fa6-d41c3b4b9fb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Tools">
+      <UniqueIdentifier>{841fede0-912c-48a1-a9fa-6556541351ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Player">
+      <UniqueIdentifier>{77fb93f7-5edd-4c5c-8295-0b7bafe8d221}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Player">
+      <UniqueIdentifier>{836e301b-2b63-420d-871b-dba191e75c51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Player\Spells">
+      <UniqueIdentifier>{93cd1f4f-7749-4366-8696-96ff655c41a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Player\Spells">
+      <UniqueIdentifier>{6913fa2f-6ade-457e-a8e1-6db0db6d6473}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GUISlider.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="List.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="MemLeaks.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Module.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleAudio.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleInput.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="ModulePhysics.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleRender.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleScene.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleTextures.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleUI.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleWindow.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Point.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="RenderObject.hpp">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Timer.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Animation.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Application.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Globals.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="GUI.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="GUIButton.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="GUICheckbox.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="External\PugiXml\src\pugixml.hpp">
@@ -105,78 +81,105 @@
     <ClInclude Include="TestScene.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerController.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="AnimationsManager.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="Enemy.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="StateMachine.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleMap.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="Particle.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="Module.h">
+      <Filter>Archivos de encabezado\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleAudio.h">
+      <Filter>Archivos de encabezado\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleInput.h">
+      <Filter>Archivos de encabezado\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleMap.h">
+      <Filter>Archivos de encabezado\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModulePhysics.h">
+      <Filter>Archivos de encabezado\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleRender.h">
+      <Filter>Archivos de encabezado\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleScene.h">
+      <Filter>Archivos de encabezado\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleTextures.h">
+      <Filter>Archivos de encabezado\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleUI.h">
+      <Filter>Archivos de encabezado\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleWindow.h">
+      <Filter>Archivos de encabezado\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Application.h">
+      <Filter>Archivos de encabezado\Globals</Filter>
+    </ClInclude>
+    <ClInclude Include="Globals.h">
+      <Filter>Archivos de encabezado\Globals</Filter>
+    </ClInclude>
+    <ClInclude Include="MemLeaks.h">
+      <Filter>Archivos de encabezado\Globals</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI.h">
+      <Filter>Archivos de encabezado\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIButton.h">
+      <Filter>Archivos de encabezado\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUICheckbox.h">
+      <Filter>Archivos de encabezado\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUISlider.h">
+      <Filter>Archivos de encabezado\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Archivos de encabezado\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="List.h">
+      <Filter>Archivos de encabezado\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Point.h">
+      <Filter>Archivos de encabezado\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="StateMachine.h">
+      <Filter>Archivos de encabezado\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Archivos de encabezado\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerController.h">
+      <Filter>Archivos de encabezado\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Spell.h">
+      <Filter>Archivos de encabezado\Player\Spells</Filter>
+    </ClInclude>
+    <ClInclude Include="SpellList.h">
+      <Filter>Archivos de encabezado\Player\Spells</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerCombat.h">
+      <Filter>Archivos de encabezado\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="TestSpell.h">
+      <Filter>Archivos de encabezado\Player\Spells</Filter>
+    </ClInclude>
+    <ClInclude Include="ExecuteSpell.h">
+      <Filter>Archivos de encabezado\Player\Spells</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Log.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Main.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleAudio.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleInput.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="ModulePhysics.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleRender.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleScene.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleTextures.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleUI.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleWindow.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="Scene.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Application.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="GUI.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="GUIButton.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="GUICheckbox.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="GUISlider.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="External\PugiXml\src\pugixml.cpp">
@@ -191,23 +194,80 @@
     <ClCompile Include="TestScene.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerController.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="AnimationsManager.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="StateMachine.cpp">
-      <Filter>Archivos de origen</Filter>
+    <ClCompile Include="ModuleAudio.cpp">
+      <Filter>Archivos de origen\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleInput.cpp">
+      <Filter>Archivos de origen\Modules</Filter>
     </ClCompile>
     <ClCompile Include="ModuleMap.cpp">
-      <Filter>Archivos de origen</Filter>
+      <Filter>Archivos de origen\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModulePhysics.cpp">
+      <Filter>Archivos de origen\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleRender.cpp">
+      <Filter>Archivos de origen\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleScene.cpp">
+      <Filter>Archivos de origen\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleTextures.cpp">
+      <Filter>Archivos de origen\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleUI.cpp">
+      <Filter>Archivos de origen\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleWindow.cpp">
+      <Filter>Archivos de origen\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Application.cpp">
+      <Filter>Archivos de origen\Globals</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Archivos de origen\Globals</Filter>
+    </ClCompile>
+    <ClCompile Include="Log.cpp">
+      <Filter>Archivos de origen\Globals</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI.cpp">
+      <Filter>Archivos de origen\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIButton.cpp">
+      <Filter>Archivos de origen\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUICheckbox.cpp">
+      <Filter>Archivos de origen\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUISlider.cpp">
+      <Filter>Archivos de origen\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="StateMachine.cpp">
+      <Filter>Archivos de origen\Tools</Filter>
     </ClCompile>
     <ClCompile Include="Particle.cpp">
-      <Filter>Archivos de origen</Filter>
+      <Filter>Archivos de origen\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerController.cpp">
+      <Filter>Archivos de origen\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Spell.cpp">
+      <Filter>Archivos de origen\Player\Spells</Filter>
+    </ClCompile>
+    <ClCompile Include="SpellList.cpp">
+      <Filter>Archivos de origen\Player\Spells</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerCombat.cpp">
+      <Filter>Archivos de origen\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="TestSpell.cpp">
+      <Filter>Archivos de origen\Player\Spells</Filter>
+    </ClCompile>
+    <ClCompile Include="ExecuteSpell.cpp">
+      <Filter>Archivos de origen\Player\Spells</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

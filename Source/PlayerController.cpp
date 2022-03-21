@@ -71,6 +71,9 @@ void PlayerController::PreUpdate()
 	// Get Movement Input
 	MovementUpdate();
 
+	// Get Combat Input
+	CombatUpdate();
+
 	// If our current animation has finished, we reset it manually. This is made for DASH and ATTACK animations.
 	// When these animations end, you must Reset them for the next time you'll use them
 	if (animations[(int)currentAnim].HasFinished()) animations[(int)currentAnim].Reset();
@@ -83,7 +86,7 @@ void PlayerController::Update()
 	// Update current player State
 	currentState = (PlayerState)stateMachine.GetCurrentState();
 
-	printf("CurrentState %d\n", stateMachine.GetCurrentState());
+	//printf("CurrentState %d\n", stateMachine.GetCurrentState());
 
 	// Update animation
 	animations[(int)currentAnim].Update();	
@@ -108,7 +111,7 @@ void PlayerController::PostUpdate()
 
 void PlayerController::CleanUp()
 {
-	
+	combat.CleanUp();
 }
 
 void PlayerController::MovementUpdate()
@@ -197,6 +200,30 @@ void PlayerController::MovementUpdate()
 		reducedVelocity.x *= 0.7f;
 		reducedVelocity.y *= 0.7f;
 		pBody->body->SetLinearVelocity(reducedVelocity);
+	}
+}
+
+void PlayerController::CombatUpdate()
+{
+	// Check for attack and Spell input
+	if (_app->input->GetMouseButton(1) == KEY_DOWN)
+	{
+		combat.Attack();
+	}
+	else if (_app->input->GetMouseButton(3) == KEY_DOWN)
+	{
+		combat.CastSpell();
+	}
+
+	// Check for spell changing input
+
+	if (_app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN)
+	{
+		combat.ChangeSelectedSpellSlot(-1);
+	}
+	else if (_app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+	{
+		combat.ChangeSelectedSpellSlot(1);
 	}
 }
 

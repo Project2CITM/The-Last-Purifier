@@ -1,7 +1,10 @@
-#pragma once
+#ifndef _PLAYER_CONTROLLER_
+#define _PLAYER_CONTROLLER_
+
 #include "GameObject.h"
-#include "AnimationsManager.h"
 #include "StateMachine.h"
+#include "Animation.h"
+#include "PlayerCombat.h"
 
 #define PLAYER_ANIMATIONS_NUM 4
 
@@ -48,6 +51,8 @@ private:
 
 	void MovementUpdate();
 
+	void CombatUpdate();
+
 	void DashOn();
 
 	fPoint GetPlayerToMouseVector();
@@ -65,5 +70,9 @@ private:
 	LookingDirection lookingDir = LookingDirection::RIGHT;
 
 	StateMachine stateMachine;
+
+	PlayerCombat combat;
 };
 
+
+#endif
