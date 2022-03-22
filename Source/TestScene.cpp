@@ -1,6 +1,8 @@
 ﻿#include "TestScene.h"
 #include "PlayerController.h"
 #include "Particle.h"
+#include "PlayerRevenant.h"
+#include "PlayerSage.h"
 
 TestScene::TestScene(Application* app):Scene(app,"testScene")
 {
@@ -12,7 +14,9 @@ TestScene::~TestScene()
 
 bool TestScene::Start()
 {
-    PlayerController* playerController = new PlayerController("test", "test", _app);
+    //player = new PlayerRevenant(_app);
+    player = new PlayerSage(_app);
+    //playerController = new PlayerController("test", "test", _app);
     //gameObjects.add(playerController); // Ahora se anade automatico a la lista
 
     // Test particle
@@ -33,6 +37,16 @@ bool TestScene::PreUpdate()
         roomManager.Start();
     }
     
+    // Test Code-------------
+    if (_app->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
+    {
+        if (!player->controller->combat->AddSpell((SpellID)((rand() % 10) + (1))))
+        {
+            printf("No more empty spell nor deck Slots!!\n");
+        }
+    }
+    // Test Code-----------------
+
     Scene::PreUpdate();
     return true;
 }
@@ -83,6 +97,11 @@ bool TestScene::PostUpdate()
 
 bool TestScene::CleanUp()
 {
+    if (player != nullptr)
+    {
+        player->CleanUp();
+        RELEASE(player);
+    }
     roomManager.CleanUp();
     Scene::CleanUp();
 

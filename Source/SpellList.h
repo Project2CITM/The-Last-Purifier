@@ -10,21 +10,6 @@
 // Spell information is gathered from here. 
 // Any new spell must be added to the spells array when created.
 
-enum class SpellID
-{
-	NONE = 0,
-	PURIFIED_SWORD,
-	SOUL_SHIELD,
-	FLAME_CAPE,
-	SACRED_SHIELD,
-	COVER,
-	PURIFICATION_SLASH,
-	PURIFICATION_THRUST,
-	DASH_SLASH,
-	TORMENT,
-	CREMATORIUM
-};
-
 class SpellList
 {
 public:

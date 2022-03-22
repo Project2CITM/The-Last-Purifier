@@ -1,12 +1,17 @@
 #include "PlayerController.h"
+#include "Player.h"
 
-PlayerController::PlayerController(std::string name, std::string tag, Application* _app) : GameObject(name, tag, _app)
+PlayerController::PlayerController(std::string name, std::string tag, Application* _app, Player* player) : GameObject(name, tag, _app)
 {
-
+	this->player = player;
+	combat = new PlayerCombat(this->player);
 }
 
 void PlayerController::Start() 
 {
+	#pragma region TEMPORARY_CODE
+	// Every Animation and spirtes charging should be in the PlayerRevenant and PlayerSage classes!!!!!
+	// TEMPORARY CODE!---------------------------------------------------
 	// Charge Player Sprites and animations---------------------------------------------
 
 	// Charge texture
@@ -39,7 +44,8 @@ void PlayerController::Start()
 		animations[i].speed = 0.2f;
 		animations[i].hasIdle = false;
 	}
-
+	#pragma endregion
+	
 	currentAnim = PlayerAnim::IDLE;
 
 	// Initialize States 
@@ -83,6 +89,7 @@ void PlayerController::Update()
 {
 	// Update State Machine
 	stateMachine.Update();
+
 	// Update current player State
 	currentState = (PlayerState)stateMachine.GetCurrentState();
 
@@ -111,7 +118,11 @@ void PlayerController::PostUpdate()
 
 void PlayerController::CleanUp()
 {
-	combat.CleanUp();
+	if (combat != nullptr)
+	{
+		combat->CleanUp();
+		RELEASE(combat);
+	}
 }
 
 void PlayerController::MovementUpdate()
@@ -197,8 +208,8 @@ void PlayerController::MovementUpdate()
 	if (abs(pBody->body->GetLinearVelocity().x) > 0 && abs(pBody->body->GetLinearVelocity().y) > 0)
 	{
 		b2Vec2 reducedVelocity = pBody->body->GetLinearVelocity();
-		reducedVelocity.x *= 0.7f;
-		reducedVelocity.y *= 0.7f;
+		reducedVelocity.x *= 0.8f;
+		reducedVelocity.y *= 0.8f;
 		pBody->body->SetLinearVelocity(reducedVelocity);
 	}
 }
@@ -208,22 +219,22 @@ void PlayerController::CombatUpdate()
 	// Check for attack and Spell input
 	if (_app->input->GetMouseButton(1) == KEY_DOWN)
 	{
-		combat.Attack();
+		combat->Attack();
 	}
 	else if (_app->input->GetMouseButton(3) == KEY_DOWN)
 	{
-		combat.CastSpell();
+		combat->CastSpell();
 	}
 
 	// Check for spell changing input
 
 	if (_app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN)
 	{
-		combat.ChangeSelectedSpellSlot(-1);
+		combat->ChangeSelectedSpellSlot(-1);
 	}
 	else if (_app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
 	{
-		combat.ChangeSelectedSpellSlot(1);
+		combat->ChangeSelectedSpellSlot(1);
 	}
 }
 

@@ -32,10 +32,12 @@ enum class LookingDirection
 	RIGHT
 };
 
+class Player;
+
 class PlayerController : public GameObject
 {
 public:
-	PlayerController(std::string name, std::string tag, Application* _app);
+	PlayerController(std::string name, std::string tag, Application* _app, Player* player);
 
 	void Start() override;
 
@@ -46,6 +48,10 @@ public:
 	void PostUpdate() override;
 
 	void CleanUp() override;
+
+	Player* player = nullptr;
+
+	PlayerCombat* combat = nullptr;
 
 private:
 
@@ -70,8 +76,6 @@ private:
 	LookingDirection lookingDir = LookingDirection::RIGHT;
 
 	StateMachine stateMachine;
-
-	PlayerCombat combat;
 };
 
 

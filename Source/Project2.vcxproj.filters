@@ -52,6 +52,12 @@
     <Filter Include="Archivos de origen\Player\Spells">
       <UniqueIdentifier>{6913fa2f-6ade-457e-a8e1-6db0db6d6473}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\Player\Scripts">
+      <UniqueIdentifier>{c402406a-4945-43c9-80f1-d6ce0851b5b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Player\Scripts">
+      <UniqueIdentifier>{78126e22-6191-445c-9ecf-90c0b310ffff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderObject.hpp">
@@ -153,23 +159,32 @@
     <ClInclude Include="Timer.h">
       <Filter>Archivos de encabezado\Tools</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerController.h">
-      <Filter>Archivos de encabezado\Player</Filter>
-    </ClInclude>
     <ClInclude Include="Spell.h">
       <Filter>Archivos de encabezado\Player\Spells</Filter>
     </ClInclude>
     <ClInclude Include="SpellList.h">
       <Filter>Archivos de encabezado\Player\Spells</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerCombat.h">
-      <Filter>Archivos de encabezado\Player</Filter>
-    </ClInclude>
     <ClInclude Include="TestSpell.h">
       <Filter>Archivos de encabezado\Player\Spells</Filter>
     </ClInclude>
     <ClInclude Include="ExecuteSpell.h">
       <Filter>Archivos de encabezado\Player\Spells</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Archivos de encabezado\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerRevenant.h">
+      <Filter>Archivos de encabezado\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerSage.h">
+      <Filter>Archivos de encabezado\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerCombat.h">
+      <Filter>Archivos de encabezado\Player\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerController.h">
+      <Filter>Archivos de encabezado\Player\Scripts</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -251,23 +266,32 @@
     <ClCompile Include="Particle.cpp">
       <Filter>Archivos de origen\Tools</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerController.cpp">
-      <Filter>Archivos de origen\Player</Filter>
-    </ClCompile>
     <ClCompile Include="Spell.cpp">
       <Filter>Archivos de origen\Player\Spells</Filter>
     </ClCompile>
     <ClCompile Include="SpellList.cpp">
       <Filter>Archivos de origen\Player\Spells</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerCombat.cpp">
-      <Filter>Archivos de origen\Player</Filter>
-    </ClCompile>
     <ClCompile Include="TestSpell.cpp">
       <Filter>Archivos de origen\Player\Spells</Filter>
     </ClCompile>
     <ClCompile Include="ExecuteSpell.cpp">
       <Filter>Archivos de origen\Player\Spells</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Archivos de origen\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerRevenant.cpp">
+      <Filter>Archivos de origen\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerSage.cpp">
+      <Filter>Archivos de origen\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerCombat.cpp">
+      <Filter>Archivos de origen\Player\Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerController.cpp">
+      <Filter>Archivos de origen\Player\Scripts</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
