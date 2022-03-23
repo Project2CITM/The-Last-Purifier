@@ -1,10 +1,11 @@
 #include "PlayerController.h"
 #include "Player.h"
+#include "PlayerCombat.h"
 
 PlayerController::PlayerController(std::string name, std::string tag, Application* _app, Player* player) : GameObject(name, tag, _app)
 {
 	this->player = player;
-	combat = new PlayerCombat(this->player);
+	combat = new PlayerCombat("playerAttack", "AttackArea", _app, this->player);
 }
 
 void PlayerController::Start() 
@@ -118,11 +119,8 @@ void PlayerController::PostUpdate()
 
 void PlayerController::CleanUp()
 {
-	if (combat != nullptr)
-	{
-		combat->CleanUp();
-		RELEASE(combat);
-	}
+	// PlayerCombat is not deleted here because it gets added automatically to the scene.
+	// Therefor, is deleted by the scene.
 }
 
 void PlayerController::MovementUpdate()

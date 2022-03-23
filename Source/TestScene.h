@@ -26,7 +26,7 @@ public:
 private:
 
 	RoomManager roomManager = RoomManager(_app);
-	//PlayerRevenant* player;
-	PlayerSage* player;
+	PlayerRevenant* player;
+	//PlayerSage* player;
 };
 

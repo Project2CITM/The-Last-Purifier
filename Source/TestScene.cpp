@@ -3,6 +3,7 @@
 #include "Particle.h"
 #include "PlayerRevenant.h"
 #include "PlayerSage.h"
+#include "PlayerCombat.h"
 
 TestScene::TestScene(Application* app):Scene(app,"testScene")
 {
@@ -14,8 +15,8 @@ TestScene::~TestScene()
 
 bool TestScene::Start()
 {
-    //player = new PlayerRevenant(_app);
-    player = new PlayerSage(_app);
+    player = new PlayerRevenant(_app);
+    //player = new PlayerSage(_app);
     //playerController = new PlayerController("test", "test", _app);
     //gameObjects.add(playerController); // Ahora se anade automatico a la lista
 

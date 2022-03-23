@@ -352,6 +352,9 @@ void ModulePhysics::ShapesRender()
 		PhysBody* pb = (PhysBody*)b->GetUserData();
 		//if (pb && !pb->gameObject->enable) continue;
 
+		// If body not active, continue.
+		if (!b->IsActive()) continue;
+
 		// Render object collision
 		for (b2Fixture* f = b->GetFixtureList(); f; f = f->GetNext())
 		{
