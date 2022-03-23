@@ -5,6 +5,8 @@
 
 #include "External/SDL/include/SDL.h"
 
+//Application* Application::app = nullptr;
+
 enum main_states
 {
 	MAIN_CREATION,

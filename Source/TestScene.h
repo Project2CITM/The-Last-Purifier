@@ -2,6 +2,9 @@
 
 #include "RoomManager.h"
 
+class PlayerRevenant;
+class PlayerSage;
+
 class TestScene :  public Scene
 {
 public:
@@ -23,5 +26,7 @@ public:
 private:
 
 	RoomManager roomManager = RoomManager(_app);
+	//PlayerRevenant* player;
+	PlayerSage* player;
 };
 
