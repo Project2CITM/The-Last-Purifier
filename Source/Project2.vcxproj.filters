@@ -52,6 +52,12 @@
     <Filter Include="Archivos de origen\Player\Spells">
       <UniqueIdentifier>{6913fa2f-6ade-457e-a8e1-6db0db6d6473}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de origen\Player\Trees">
+      <UniqueIdentifier>{2ca0024b-9490-43b7-ae18-a230a727f91d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Player\Trees">
+      <UniqueIdentifier>{450e4b83-ab0e-4794-bf64-1078b81befe8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderObject.hpp">
@@ -171,6 +177,15 @@
     <ClInclude Include="ExecuteSpell.h">
       <Filter>Archivos de encabezado\Player\Spells</Filter>
     </ClInclude>
+    <ClInclude Include="ClassTree.h">
+      <Filter>Archivos de encabezado\Player\Trees</Filter>
+    </ClInclude>
+    <ClInclude Include="RevenantTree.h">
+      <Filter>Archivos de encabezado\Player\Trees</Filter>
+    </ClInclude>
+    <ClInclude Include="SageTree.h">
+      <Filter>Archivos de encabezado\Player\Trees</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Scene.cpp">
@@ -268,6 +283,15 @@
     </ClCompile>
     <ClCompile Include="ExecuteSpell.cpp">
       <Filter>Archivos de origen\Player\Spells</Filter>
+    </ClCompile>
+    <ClCompile Include="ClassTree.cpp">
+      <Filter>Archivos de origen\Player\Trees</Filter>
+    </ClCompile>
+    <ClCompile Include="RevenantTree.cpp">
+      <Filter>Archivos de origen\Player\Trees</Filter>
+    </ClCompile>
+    <ClCompile Include="SageTree.cpp">
+      <Filter>Archivos de origen\Player\Trees</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
