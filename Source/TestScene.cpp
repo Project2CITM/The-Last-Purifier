@@ -32,11 +32,11 @@ bool TestScene::Start()
 
 bool TestScene::PreUpdate()
 {
-    if (_app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+    if (_app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) 
+    {
         roomManager.CleanUp();
         roomManager.Start();
-    }
-    
+    }   
     // Test Code-------------
     if (_app->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
     {
@@ -45,7 +45,12 @@ bool TestScene::PreUpdate()
             printf("No more empty spell nor deck Slots!!\n");
         }
     }
-    // Test Code-----------------
+    // Test Code--------------
+    //if (_app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
+    //{
+    //    Application::GetInstance()->testingNum = 20;
+    //    printf("%d", Application::GetInstance()->testingNum);
+    //}
 
     Scene::PreUpdate();
     return true;

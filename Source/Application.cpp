@@ -151,6 +151,15 @@ UpdateStatus Application::Update()
 	return ret;
 }
 
+//Application* Application::GetInstance()
+//{
+//	if (app == nullptr)
+//	{
+//		app = new Application();
+//	}
+//	return app;
+//}
+
 void Application::ShowTime()
 {
 	//OPTICK_EVENT();

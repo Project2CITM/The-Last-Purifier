@@ -50,8 +50,11 @@ public:
 	pugi::xml_document configF;
 	pugi::xml_document saveF;
 
+	//int testingNum = 0;
+
 private:
 	List<Module*> list_modules;
+	//static Application* app;
 
 public:
 	Application();
@@ -63,6 +66,8 @@ public:
 
 	void LoadGameRequest();
 	void SaveGameRequest() const;
+
+	//static Application* GetInstance();
 
 	void ShowTime();
 
