@@ -24,6 +24,13 @@ void Room::OpenDoors()
 	}
 }
 
+void Room::DrawRoom()
+{
+	app->renderer->AddTextureRenderQueue(roomTexture, 
+		iPoint(roomPosition.x * MAX_ROOM_TILES_COLUMNS, roomPosition.y * MAX_ROOM_TILES_ROWS) * TILE_SIZE, 
+		{0,0,0,0}, 1.0f);
+}
+
 void Room::CleanUp()
 {
 	ListItem<Door*>* currentDoor = doors.start;
