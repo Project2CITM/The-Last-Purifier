@@ -9,7 +9,9 @@ ModuleScene::ModuleScene(bool start_enabled) : Module(start_enabled)
 {
 	name = "scenes";
 
-	scenes[0] = new TestScene();
+	scenes[MAIN_MENU] = new TestScene();
+
+	currentScene = MAIN_MENU;
 
 	//scenes[0] = new SceneMainMenu(app);
 	//scenes[1] = new SceneGameOver(app);
@@ -30,8 +32,6 @@ bool ModuleScene::Init(pugi::xml_node& config)
 
 bool ModuleScene::Start()
 {
-	scenes[currentScene] = scenes[0];
-
 	bool ret = true;
 
 	if (scenes[currentScene] == nullptr)
@@ -40,7 +40,7 @@ bool ModuleScene::Start()
 	}
 
 	scenes[currentScene]->Start();
-	
+
 	//app->audio->PlayMusic("Assets/audio/music/pixelMusic.mp3", 2);
 
 	//Mix_VolumeMusic(app->saveF.child("game_state").child("settings").attribute("music").as_float() * 60);

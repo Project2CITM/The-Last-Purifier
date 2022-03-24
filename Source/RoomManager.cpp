@@ -6,6 +6,7 @@ void RoomManager::Start()
 	//incloure textures
 
 	GenerateMap(25);
+
 	CreateDoors();
 }
 
@@ -40,11 +41,15 @@ void RoomManager::CleanUp()
 //FUNCTIONS
 void RoomManager::GenerateMap(short RoomNumber)
 {
+	//-------------------------BUG RELEASE----------------------
+
+	LOG("Here're BUG!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
 	//if the Room number is too big or too little
 	if (RoomNumber < 1 || RoomNumber > MAX_ROOMS_ROWS * MAX_ROOMS_COLUMNS)
 		return;
 
-	srand(time(NULL));
+	//srand(time(NULL));
 	//Generate first room
 	iPoint p;
 	/*p.x = rand() % MAX_ROOMS_COLUMNS;
@@ -110,6 +115,8 @@ void RoomManager::GenerateMap(short RoomNumber)
 
 	bossRoom = bossRoomPos;
 	CreateRoom(bossRoomPos);
+
+	//-------------------------BUG RELEASE----------------------
 }
 
 //Check the number of blank spaces next to the room

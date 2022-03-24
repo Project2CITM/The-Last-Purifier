@@ -29,7 +29,7 @@ bool ModulePhysics::Start()
 	b2BodyDef bd;
 	mouseBody = world->CreateBody(&bd);
 
-	LOG("Tedt��");
+	//LOG("Tedt��");
 
 	world->SetContactListener(this);
 	
