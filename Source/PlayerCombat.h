@@ -9,6 +9,7 @@
 
 class Player;
 class PhysBody;
+class PlayerController;
 
 class PlayerCombat : GameObject
 {
@@ -66,6 +67,8 @@ private:
 	ExecuteSpell executeSpellCommand; // The command that fires the selected spell on the current spell slot to the SpellList.
 
 	Player* player;
+
+	friend class PlayerController;
 
 };
 

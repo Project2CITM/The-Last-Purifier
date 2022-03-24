@@ -125,6 +125,10 @@ void PlayerController::CleanUp()
 {
 	// PlayerCombat is not deleted here because it gets added automatically to the scene.
 	// Therefor, is deleted by the scene.
+	if (combat != nullptr)
+	{
+		combat->pendingToDelete = true;
+	}
 }
 
 void PlayerController::MovementUpdate()
