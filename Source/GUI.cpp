@@ -1,9 +1,11 @@
 #include "GUI.h"
-#include "Application.h"
+#include "ModuleWindow.h"
+#include "ModuleRender.h"
+#include "ModuleInput.h"
 
-GUI::GUI(Application* app)
+GUI::GUI()
 {
-    _app = app;
+    app = Application::GetInstance();
 }
 
 GUI::~GUI()
@@ -37,19 +39,19 @@ void GUI::PostUpdate()
 
 bool GUI::CheckOnMouse()
 {
-    float screenOffset = _app->FullScreenDesktop ? (float)_app->renderer->displayMode.h / 640.0f : 1;
-    float widthOffset = _app->FullScreenDesktop ? (_app->renderer->displayMode.w - (640.0f * screenOffset)) / 2 : 0;
+    float screenOffset = app->FullScreenDesktop ? (float)app->renderer->displayMode.h / 640.0f : 1;
+    float widthOffset = app->FullScreenDesktop ? (app->renderer->displayMode.w - (640.0f * screenOffset)) / 2 : 0;
 
-    iPoint mousePos = {_app->input->GetMouseX(), _app->input->GetMouseY()};
+    iPoint mousePos = {app->input->GetMouseX(), app->input->GetMouseY()};
 
     if (currentShape == UIShape::CIRCLE)
     {
-        if (mousePos.DistanceTo(position * _app->window->scale * screenOffset) < (circleShape.radius * _app->window->scale * screenOffset))return true;
+        if (mousePos.DistanceTo(position * app->window->scale * screenOffset) < (circleShape.radius * app->window->scale * screenOffset))return true;
     }
     else
     {
-        if (mousePos.x < (position.x * _app->window->scale * screenOffset) + widthOffset || mousePos.x > ((position.x + boxShape.w) * _app->window->scale * screenOffset) + widthOffset
-            || mousePos.y < position.y * _app->window->scale * screenOffset || mousePos.y > (position.y + boxShape.h) * _app->window->scale * screenOffset) return false;
+        if (mousePos.x < (position.x * app->window->scale * screenOffset) + widthOffset || mousePos.x > ((position.x + boxShape.w) * app->window->scale * screenOffset) + widthOffset
+            || mousePos.y < position.y * app->window->scale * screenOffset || mousePos.y > (position.y + boxShape.h) * app->window->scale * screenOffset) return false;
         else return true;
     }
     return false;

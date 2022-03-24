@@ -1,16 +1,35 @@
 #include "Application.h"
+#include "ModuleWindow.h"
+#include "ModuleRender.h"
+#include "ModuleTextures.h"
+#include "ModuleInput.h"
+#include "ModuleAudio.h"
+#include "ModulePhysics.h"
+#include "ModuleScene.h"
+#include "ModuleUI.h"
 #include <iostream>
+
+Application* Application::app = nullptr;
 
 Application::Application()
 {
-	renderer = new ModuleRender(this);
-	window = new ModuleWindow(this);
-	textures = new ModuleTextures(this);
-	input = new ModuleInput(this);
-	audio = new ModuleAudio(this, true);
-	physics = new ModulePhysics(this);
-	scene = new ModuleScene(this);
-	ui = new ModuleUI(this);
+
+}
+
+Application::~Application()
+{
+}
+
+bool Application::Init()
+{
+	renderer = new ModuleRender();
+	window = new ModuleWindow();
+	textures = new ModuleTextures();
+	input = new ModuleInput();
+	audio = new ModuleAudio(true);
+	physics = new ModulePhysics();
+	scene = new ModuleScene();
+	ui = new ModuleUI();
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -25,20 +44,13 @@ Application::Application()
 	AddModule(scene);
 
 	AddModule(textures);
-	
+
 	AddModule(audio);
 	AddModule(ui);
-	
+
 	//Render
 	AddModule(renderer);
-}
 
-Application::~Application()
-{
-}
-
-bool Application::Init()
-{
 	bool ret = true;
 
 	// L01: DONE 3: Load config from XML
@@ -151,14 +163,14 @@ UpdateStatus Application::Update()
 	return ret;
 }
 
-//Application* Application::GetInstance()
-//{
-//	if (app == nullptr)
-//	{
-//		app = new Application();
-//	}
-//	return app;
-//}
+Application* Application::GetInstance()
+{
+	if (app == nullptr)
+	{
+		app = new Application();
+	}
+	return app;
+}
 
 void Application::ShowTime()
 {

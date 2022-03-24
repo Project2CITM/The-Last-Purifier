@@ -9,7 +9,7 @@ class GameObject;
 class Camera
 {
 public:
-	Camera(Application* app, GameObject* target = nullptr);
+	Camera(GameObject* target = nullptr);
 
 	void Init(GameObject* target, int width, int height);
 
@@ -27,7 +27,7 @@ private:
 
 	iPoint GetCenter();
 
-	Application* App = nullptr;
+	Application* app = nullptr;
 
 	GameObject* target = nullptr;
 

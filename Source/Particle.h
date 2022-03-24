@@ -8,7 +8,7 @@ class Particle :public GameObject
 {
 public:
 
-	Particle(iPoint position, Application* _app, float life = 0, float delay = 0, iPoint velocity = { 0,0 }, std::string name = "Particle");
+	Particle(iPoint position,float life = 0, float delay = 0, iPoint velocity = { 0,0 }, std::string name = "Particle");
 
 	~Particle();
 

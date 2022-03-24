@@ -1,9 +1,9 @@
 #ifndef __GAMEOBJECT_H__
 #define __GAMEOBJECT_H__
 
-#include <string>
-#include "Point.h"
 #include "Application.h"
+#include "External/Box2D/Box2D/Box2D.h"
+#include "RenderObject.hpp"
 
 struct SDL_Texture;
 class PhysBody;
@@ -16,7 +16,7 @@ public:
 
 	GameObject();
 
-	GameObject(std::string name = "Default", std::string tag = "None", Application* _app = nullptr);
+	GameObject(std::string name = "Default", std::string tag = "None");
 
 	GameObject(GameObject& obj);
 
@@ -86,7 +86,7 @@ protected:
 	void InitRenderObjectWithXml(std::string texName = "null", int index = 0);
 
 protected:
-	Application* _app = nullptr;
+	Application* app = nullptr;
 
 	iPoint position = { 0,0 };
 

@@ -1,6 +1,6 @@
 #include "PlayerSage.h"
 
-PlayerSage::PlayerSage(Application* app) : Player(app)
+PlayerSage::PlayerSage() : Player()
 {
 	playerClass = PlayerClass::SAGE;
 

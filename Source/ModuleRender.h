@@ -26,7 +26,7 @@ public:
 
 	SDL_DisplayMode displayMode;
 public:
-	ModuleRender(Application* app, bool start_enabled = true);
+	ModuleRender(bool start_enabled = true);
 	~ModuleRender();
 
 	bool Init(pugi::xml_node&);

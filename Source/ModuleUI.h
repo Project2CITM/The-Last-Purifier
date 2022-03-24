@@ -4,9 +4,8 @@
 #include <iostream>
 #include <vector>
 #include <stack>
-
+#include "Point.h"
 #include "External/SDL/include/SDL.h"
-
 #include "Module.h"
 
 #define MAX_UI_ITEMS 32
@@ -34,7 +33,7 @@ class ModuleUI : public Module
 {
 public:
 
-	ModuleUI(Application* app, bool start_enabled = true);
+	ModuleUI(bool start_enabled = true);
 
 	bool Init(pugi::xml_node&);
 

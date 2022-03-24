@@ -25,9 +25,9 @@ private:
 	int btnMouse_offset_x = 0;
 
 public:
-	GUISlider(Application* app, iPoint pos, int width, int height, std::string path);
+	GUISlider(iPoint pos, int width, int height, std::string path);
 
-	GUISlider(Application* app, iPoint pos, int width, int height);
+	GUISlider(iPoint pos, int width, int height);
 
 	~GUISlider();
 

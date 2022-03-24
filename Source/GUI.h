@@ -26,7 +26,7 @@ struct CircleShape
 class GUI
 {
 public:
-	GUI(Application* app);
+	GUI();
 
 	virtual ~GUI();
 
@@ -42,7 +42,7 @@ protected:
 	bool CheckOnMouse();
 
 protected:
-	Application* _app = nullptr;
+	Application* app = nullptr;
 
 	iPoint position = { 0,0 };
 

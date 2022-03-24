@@ -14,9 +14,9 @@ enum class CheckboxState
 class GUICheckbox : public GUI
 {
 public:
-	GUICheckbox(Application* app, iPoint pos, int width, int height, std::string path);
+	GUICheckbox(iPoint pos, int width, int height, std::string path);
 
-	GUICheckbox(Application* app, iPoint pos, int width, int height);
+	GUICheckbox(iPoint pos, int width, int height);
 
 	~GUICheckbox();
 

@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "List.h"
 #include "GUI.h"
+#include <string.h>
 
 class Scene
 {
@@ -13,7 +14,7 @@ protected:
 
 	int platformLenght = 2;
 
-	Application* _app = nullptr;
+	Application* app = nullptr;
 
 	List<GameObject*> gameObjects;
 
@@ -23,7 +24,7 @@ protected:
 
 public:
 	// Constructor
-	Scene(Application* app, string name = "null");
+	Scene(std::string name = "null");
 
 	// Destructor
 	~Scene();

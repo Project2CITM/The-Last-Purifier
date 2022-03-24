@@ -1,10 +1,10 @@
 #ifndef _MODULE_H_
 #define _MODULE_H_
 
-#include "External/PugiXml/src/pugixml.hpp"
 #include "Globals.h"
+#include "Application.h"
 
-class Application;
+//class Application;
 class PhysBody;
 
 class Module
@@ -13,14 +13,16 @@ private :
 	bool enabled;
 
 public:
-	Application* App = nullptr;
+	Application* app = nullptr;
 
 	std::string name = "";
 
 	pugi::xml_node config;
 
-	Module(Application* parent, bool start_enabled = true) : App(parent), enabled(start_enabled)
-	{}
+	Module(bool start_enabled = true) : enabled(start_enabled)
+	{
+		app = Application::GetInstance();
+	}
 
 	virtual ~Module()
 	{}

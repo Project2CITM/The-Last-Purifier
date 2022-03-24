@@ -1,14 +1,16 @@
 #include "GUISlider.h"
 #include "GUIButton.h"
-#include "Application.h"
+#include "ModuleInput.h"
+#include "ModuleWindow.h"
+#include "ModuleTextures.h"
 
-GUISlider::GUISlider(Application* app, iPoint pos, int width, int height, std::string path) : GUI(app)
+GUISlider::GUISlider(iPoint pos, int width, int height, std::string path) : GUI()
 {
 	// Init Slider
 	InitAsBox(pos.x, pos.y, width, height);
 
 	renderObject = new RenderObject();
-	renderObject->texture = _app->textures->Load(path);
+	renderObject->texture = app->textures->Load(path);
 	renderObject->destRect = { pos.x, pos.y, width, height };
 	renderObject->layer = 3;
 	renderObject->orderInLayer = 10;
@@ -25,7 +27,7 @@ GUISlider::GUISlider(Application* app, iPoint pos, int width, int height, std::s
 	}
 }
 
-GUISlider::GUISlider(Application* app, iPoint pos, int width, int height) : GUI(app)
+GUISlider::GUISlider(iPoint pos, int width, int height) : GUI()
 {
 	// Init Slider
 	InitAsBox(pos.x, pos.y, width, height);
@@ -48,7 +50,7 @@ void GUISlider::CreateDefaultBtn()
 	if (btn == nullptr)
 	{
 		// Init button
-		btn = new GUIButton(_app, position, boxShape.h, boxShape.h);
+		btn = new GUIButton(position, boxShape.h, boxShape.h);
 		btn->navigation = true;
 
 		// Init min max value
@@ -85,24 +87,24 @@ void GUISlider::Update()
 	if (btn != nullptr)
 	{
 		btn->Update();
-		iPoint mousePos = { _app->input->GetMouseX(), _app->input->GetMouseY() };
+		iPoint mousePos = { app->input->GetMouseX(), app->input->GetMouseY() };
 		int btnNewPos_x = 0;
 		
-		float screenOffset = _app->FullScreenDesktop ? (float)_app->renderer->displayMode.h / 640.0f : 1;
-		float widthOffset = _app->FullScreenDesktop ? (_app->renderer->displayMode.w - (640.0f * screenOffset)) / 2 : 0;
+		float screenOffset = app->FullScreenDesktop ? (float)app->renderer->displayMode.h / 640.0f : 1;
+		float widthOffset = app->FullScreenDesktop ? (app->renderer->displayMode.w - (640.0f * screenOffset)) / 2 : 0;
 
 		switch (btn->buttonState)
 		{
 		case ButtonState::PRESS_DOWN:
 
 			//Get Offset of mouse.x and btnpos.x
-			btnMouse_offset_x = (mousePos.x / (_app->window->scale * screenOffset)) - btn->position.x;
+			btnMouse_offset_x = (mousePos.x / (app->window->scale * screenOffset)) - btn->position.x;
 			break;
 
 		case ButtonState::PRESSED:
 
 			// Calculate new btnpos
-			btnNewPos_x = (mousePos.x / (_app->window->scale * screenOffset)) - btnMouse_offset_x;
+			btnNewPos_x = (mousePos.x / (app->window->scale * screenOffset)) - btnMouse_offset_x;
 
 			// Change button position after Clamping
 			btn->position.x = CLAMP(btnNewPos_x, min_value, max_value);
@@ -115,13 +117,13 @@ void GUISlider::Update()
 		default:
 			if (CheckOnMouse())
 			{
-				if (_app->input->GetMouseButton(1) == KEY_DOWN)
+				if (app->input->GetMouseButton(1) == KEY_DOWN)
 				{
 					btnMouse_offset_x = (btn->boxShape.w / 2);
 
-					btnNewPos_x = ((mousePos.x - widthOffset) / (_app->window->scale * screenOffset)) - btnMouse_offset_x;
+					btnNewPos_x = ((mousePos.x - widthOffset) / (app->window->scale * screenOffset)) - btnMouse_offset_x;
 
-					btnMouse_offset_x = (mousePos.x / (_app->window->scale * screenOffset)) - btnNewPos_x;
+					btnMouse_offset_x = (mousePos.x / (app->window->scale * screenOffset)) - btnNewPos_x;
 
 					// Change button position after Clamping
 					btn->position.x = CLAMP(btnNewPos_x, min_value, max_value);
@@ -142,20 +144,20 @@ void GUISlider::PostUpdate()
 {
 	if (renderObject != nullptr && renderObject->texture != nullptr)
 	{
-		_app->renderer->AddTextureRenderQueue(renderObject->texture, { renderObject->destRect.x, renderObject->destRect.y }, renderSections[0], renderObject->scale,
+		app->renderer->AddTextureRenderQueue(renderObject->texture, { renderObject->destRect.x, renderObject->destRect.y }, renderSections[0], renderObject->scale,
 			renderObject->layer, renderObject->orderInLayer, 0, SDL_FLIP_NONE, 0);
 
 		renderSections[1].w = renderSections[0].w * GetValue();
 
 		if (renderSections[1].w > 0)
 		{
-			_app->renderer->AddTextureRenderQueue(renderObject->texture, { renderObject->destRect.x, renderObject->destRect.y }, renderSections[1], renderObject->scale,
+			app->renderer->AddTextureRenderQueue(renderObject->texture, { renderObject->destRect.x, renderObject->destRect.y }, renderSections[1], renderObject->scale,
 				renderObject->layer, renderObject->orderInLayer + 1, 0, SDL_FLIP_NONE, 0);
 		}
 	}
 	else
 	{
-		_app->renderer->AddRectRenderQueue(SDL_Rect{ position.x,position.y,boxShape.w,boxShape.h }, SDL_Color{ defaultColor.r, defaultColor.g, defaultColor.b, defaultColor.a }, true, 3, 0);
+		app->renderer->AddRectRenderQueue(SDL_Rect{ position.x,position.y,boxShape.w,boxShape.h }, SDL_Color{ defaultColor.r, defaultColor.g, defaultColor.b, defaultColor.a }, true, 3, 0);
 	}
 
 	if (btn != nullptr)

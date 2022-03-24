@@ -37,7 +37,7 @@ class PlayerCombat;
 class PlayerController : public GameObject
 {
 public:
-	PlayerController(std::string name, std::string tag, Application* _app, Player* player);
+	PlayerController(std::string name, std::string tag, Player* player);
 
 	void Start() override;
 

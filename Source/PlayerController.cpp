@@ -1,11 +1,15 @@
 #include "PlayerController.h"
 #include "Player.h"
 #include "PlayerCombat.h"
+#include "ModuleRender.h"
+#include "ModuleTextures.h"
+#include "ModulePhysics.h"
+#include "ModuleInput.h"
 
-PlayerController::PlayerController(std::string name, std::string tag, Application* _app, Player* player) : GameObject(name, tag, _app)
+PlayerController::PlayerController(std::string name, std::string tag, Player* player) : GameObject(name, tag)
 {
 	this->player = player;
-	combat = new PlayerCombat("playerAttack", "AttackArea", _app, this->player);
+	combat = new PlayerCombat("playerAttack", "AttackArea", this->player);
 }
 
 void PlayerController::Start() 
@@ -16,7 +20,7 @@ void PlayerController::Start()
 	// Charge Player Sprites and animations---------------------------------------------
 
 	// Charge texture
-	renderObjects[0].InitAsTexture(_app->textures->Load("Assets/Sprites/Player/Knight/KnightAnims.png"), { 0,0 }, { 0,0,0,0 }, 1.0f, 1, 1,
+	renderObjects[0].InitAsTexture(app->textures->Load("Assets/Sprites/Player/Knight/KnightAnims.png"), { 0,0 }, { 0,0,0,0 }, 1.0f, 1, 1,
 		0, SDL_RendererFlip::SDL_FLIP_NONE, 1.0f);
 
 	renderObjects[0].textureCenterX = 32;
@@ -57,7 +61,7 @@ void PlayerController::Start()
 	stateMachine.AddState("dash", 2, 64);		//DASH = 3
 
 	// Initialize physBody
-	this->pBody = _app->physics->CreateRectangle({ 100,100 }, 10, 16, this);
+	this->pBody = app->physics->CreateRectangle({ 100,100 }, 10, 16, this);
 
 }
 
@@ -114,7 +118,7 @@ void PlayerController::PostUpdate()
 	if (lookingDir == LookingDirection::LEFT) renderObjects[0].flip = SDL_FLIP_HORIZONTAL;
 	else if (lookingDir == LookingDirection::RIGHT) renderObjects[0].flip = SDL_FLIP_NONE;
 
-	_app->renderer->AddRenderObjectRenderQueue(renderObjects[0]);
+	app->renderer->AddRenderObjectRenderQueue(renderObjects[0]);
 }
 
 void PlayerController::CleanUp()
@@ -128,7 +132,7 @@ void PlayerController::MovementUpdate()
 	// By default, the player is always IDLE
 	stateMachine.ChangeState((uint)PlayerState::IDLE);
 
-	if (_app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
 		if (!isDashing)
 		{
@@ -147,7 +151,7 @@ void PlayerController::MovementUpdate()
 	if (isDashing) return;
 
 	// Vertical 
-	if (_app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 	{
 		pBody->body->SetLinearVelocity({ pBody->body->GetLinearVelocity().x, -speed });
 
@@ -156,11 +160,11 @@ void PlayerController::MovementUpdate()
 
 		lookingDir = LookingDirection::UP;
 	}
-	if (_app->input->GetKey(SDL_SCANCODE_W) == KEY_UP)
+	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_UP)
 	{
 		pBody->body->SetLinearVelocity({ pBody->body->GetLinearVelocity().x, 0 });
 	}
-	if (_app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
 	{
 		pBody->body->SetLinearVelocity({ pBody->body->GetLinearVelocity().x, speed });
 
@@ -169,13 +173,13 @@ void PlayerController::MovementUpdate()
 
 		lookingDir = LookingDirection::DOWN;
 	}
-	if (_app->input->GetKey(SDL_SCANCODE_S) == KEY_UP)
+	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_UP)
 	{
 		pBody->body->SetLinearVelocity({ pBody->body->GetLinearVelocity().x, 0 });
 	}
 
 	// Horizontal
-	if (_app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
 		pBody->body->SetLinearVelocity({ speed,pBody->body->GetLinearVelocity().y });
 
@@ -184,11 +188,11 @@ void PlayerController::MovementUpdate()
 
 		lookingDir = LookingDirection::RIGHT;
 	}
-	if (_app->input->GetKey(SDL_SCANCODE_D) == KEY_UP)
+	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_UP)
 	{
 		pBody->body->SetLinearVelocity({ 0,pBody->body->GetLinearVelocity().y });
 	}
-	if (_app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
 		pBody->body->SetLinearVelocity({ -speed,pBody->body->GetLinearVelocity().y });
 
@@ -197,7 +201,7 @@ void PlayerController::MovementUpdate()
 
 		lookingDir = LookingDirection::LEFT;
 	}
-	if (_app->input->GetKey(SDL_SCANCODE_A) == KEY_UP)
+	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_UP)
 	{
 		pBody->body->SetLinearVelocity({ 0,pBody->body->GetLinearVelocity().y });
 	}
@@ -215,22 +219,22 @@ void PlayerController::MovementUpdate()
 void PlayerController::CombatUpdate()
 {
 	// Check for attack and Spell input
-	if (_app->input->GetMouseButton(1) == KEY_DOWN)
+	if (app->input->GetMouseButton(1) == KEY_DOWN)
 	{
 		combat->Attack();
 	}
-	else if (_app->input->GetMouseButton(3) == KEY_DOWN)
+	else if (app->input->GetMouseButton(3) == KEY_DOWN)
 	{
 		combat->CastSpell();
 	}
 
 	// Check for spell changing input
 
-	if (_app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN)
 	{
 		combat->ChangeSelectedSpellSlot(-1);
 	}
-	else if (_app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+	else if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
 	{
 		combat->ChangeSelectedSpellSlot(1);
 	}
@@ -273,7 +277,7 @@ void PlayerController::DashOn()
 
 fPoint PlayerController::GetPlayerToMouseVector()
 {
-	fPoint vec = { (float)(_app->input->GetMouseX() - GetScreenPosition().x), (float)(_app->input->GetMouseY() - GetScreenPosition().y ) };
+	fPoint vec = { (float)(app->input->GetMouseX() - GetScreenPosition().x), (float)(app->input->GetMouseY() - GetScreenPosition().y ) };
 	vec = vec.Normalize();
 
 	return vec;

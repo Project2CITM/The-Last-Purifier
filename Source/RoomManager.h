@@ -12,8 +12,9 @@
 class RoomManager{
 	
 public:
-	RoomManager(Application* app) {
-		this->app = app;
+	RoomManager()
+	{
+		this->app = Application::GetInstance();
 	}
 
 	void Start();

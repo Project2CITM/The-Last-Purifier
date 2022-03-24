@@ -1,7 +1,8 @@
-﻿#include "Application.h"
-#include "ModuleMap.h"
+﻿#include "ModuleMap.h"
+#include "ModuleRender.h"
+#include "ModuleTextures.h"
 
-ModuleMap::ModuleMap(Application* app, bool start_enabled) : Module(app, start_enabled), mapLoaded(false)
+ModuleMap::ModuleMap(bool start_enabled) : Module(start_enabled), mapLoaded(false)
 {
     name = "map";
 }
@@ -72,7 +73,7 @@ UpdateStatus ModuleMap::PostUpdate()
 
 						try
 						{
-							App->renderer->AddTextureRenderQueue(tileset->texture, iPoint(pos.x, pos.y), r, 1, 0, 0.5f);
+							app->renderer->AddTextureRenderQueue(tileset->texture, iPoint(pos.x, pos.y), r, 1, 0, 0.5f);
 						}
 						catch (const std::exception& e)
 						{
@@ -512,7 +513,7 @@ bool ModuleMap::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 		std::string imageS = image.attribute("source").as_string();
 	
 		std::string tmp = folder + imageS;
-		set->texture = App->textures->Load(tmp);
+		set->texture = app->textures->Load(tmp);
 	}
 
 	return ret;

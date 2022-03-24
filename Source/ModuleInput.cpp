@@ -1,6 +1,7 @@
-#include "Application.h"
+#include "ModuleInput.h"
+#include "ModuleAudio.h"
 
-ModuleInput::ModuleInput(Application* app, bool start_enabled) : Module(app, start_enabled)
+ModuleInput::ModuleInput(bool start_enabled) : Module(start_enabled)
 {
 	name = "input";
 
@@ -82,7 +83,7 @@ UpdateStatus ModuleInput::PreUpdate()
 
 	if (keyboard[SDL_SCANCODE_ESCAPE] == KEY_DOWN) 
 	{
-		App->ExitGame();
+		app->ExitGame();
 	}
 
 	// Handle X button on window
@@ -100,19 +101,16 @@ UpdateStatus ModuleInput::PreUpdate()
 		}
 	}
 
-	if (keyboard[SDL_SCANCODE_F8] == KEY_DOWN)
-		std::cout << mouse_x  << " | " << mouse_y << std::endl;
-
 	//	Toggle Global Debug
 	//if (GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	//{
-	//	App->isDebug = !App->isDebug;
+	//	app->isDebug = !app->isDebug;
 	//}
 
 	// Mouse SFX
 	if(GetMouseButton(1) == KEY_DOWN)
 	{
-		App->audio->PlayFx(SFX::MOUSEDOWN);
+		app->audio->PlayFx(SFX::MOUSEDOWN);
 	}
 
 	return UPDATE_CONTINUE;

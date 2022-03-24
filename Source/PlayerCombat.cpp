@@ -3,14 +3,14 @@
 #include "ModulePhysics.h"
 #include "PlayerController.h"
 
-PlayerCombat::PlayerCombat(std::string name, std::string tag, Application* app, Player* player) : GameObject(name, tag, app)
+PlayerCombat::PlayerCombat(std::string name, std::string tag, Player* player) : GameObject(name, tag)
 {
 	this->player = player;
 }
 
 void PlayerCombat::Start()
 {
-	revenantAttack = _app->physics->CreateRectangleSensor(player->controller->GetPosition(), 12, 20, this);
+	revenantAttack = app->physics->CreateRectangleSensor(player->controller->GetPosition(), 12, 20, this);
 	revenantAttack->body->SetActive(false);
 
 	// Test Code-----------------------------------------

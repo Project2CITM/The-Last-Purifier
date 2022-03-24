@@ -13,7 +13,7 @@ class PhysBody;
 class PlayerCombat : GameObject
 {
 public:
-	PlayerCombat(std::string name, std::string tag, Application* app, Player* player);
+	PlayerCombat(std::string name, std::string tag, Player* player);
 
 	void Start() override;
 

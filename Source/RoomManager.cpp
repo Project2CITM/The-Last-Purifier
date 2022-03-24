@@ -1,4 +1,5 @@
 #include "RoomManager.h"
+#include "ModuleRender.h"
 
 void RoomManager::Start()
 {

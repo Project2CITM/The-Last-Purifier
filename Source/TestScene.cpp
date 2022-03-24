@@ -4,8 +4,9 @@
 #include "PlayerRevenant.h"
 #include "PlayerSage.h"
 #include "PlayerCombat.h"
+#include "ModuleInput.h"
 
-TestScene::TestScene(Application* app):Scene(app,"testScene")
+TestScene::TestScene():Scene("testScene")
 {
 }
 
@@ -15,13 +16,13 @@ TestScene::~TestScene()
 
 bool TestScene::Start()
 {
-    player = new PlayerRevenant(_app);
-    //player = new PlayerSage(_app);
-    //playerController = new PlayerController("test", "test", _app);
+    player = new PlayerRevenant();
+    //player = new PlayerSage(app);
+    //playerController = new PlayerController("test", "test", app);
     //gameObjects.add(playerController); // Ahora se anade automatico a la lista
 
     // Test particle
-    Particle* p = new Particle({ 0,0 }, _app, 2, 0, { 1,0 });
+    Particle* p = new Particle({ 0,0 }, 2, 0, { 1,0 });
     p->renderObjects[0].InitAsRect({ p->GetPosition().x,p->GetPosition().y,50,50 }, { 0,255,0,255 }, true, 3);
 
     roomManager.Start();
@@ -33,13 +34,13 @@ bool TestScene::Start()
 
 bool TestScene::PreUpdate()
 {
-    if (_app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) 
+    if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) 
     {
         roomManager.CleanUp();
         roomManager.Start();
     }   
     // Test Code-------------
-    if (_app->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
+    if (app->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
     {
         if (!player->controller->combat->AddSpell((SpellID)((rand() % 10) + (1))))
         {
@@ -47,7 +48,7 @@ bool TestScene::PreUpdate()
         }
     }
     // Test Code--------------
-    //if (_app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
+    //if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
     //{
     //    Application::GetInstance()->testingNum = 20;
     //    printf("%d", Application::GetInstance()->testingNum);
@@ -59,16 +60,16 @@ bool TestScene::PreUpdate()
 
 bool TestScene::Update()
 {
-    //if (_app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+    //if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
     //    roomManager.mapMovement.x -= 10;
 
-    //if (_app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+    //if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
     //    roomManager.mapMovement.x += 10;
 
-    //if (_app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+    //if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
     //    roomManager.mapMovement.y -= 10;
 
-    //if (_app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+    //if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
     //    roomManager.mapMovement.y += 10;
 
     roomManager.Update();
@@ -83,19 +84,19 @@ bool TestScene::PostUpdate()
     //ro.InitAsRect(SDL_Rect{ 50,50,50,50 }, SDL_Color{ 0,0,255,255 }, true, 2, 50);
     //ro.InitAsLine(iPoint{ 50,50 }, iPoint{ 100,50 }, true, SDL_Color{ 255,255,255,255 }, 2, 50);
     //ro.InitAsCircle(iPoint{ 50,50 }, 50, SDL_Color{ 255,255,255,255 }, 2, 50);
-    //_app->renderer->AddRenderObjectRenderQueue(ro);
+    //app->renderer->AddRenderObjectRenderQueue(ro);
 
     // Test draw circle
-    //_app->renderer->AddCircleRenderQueue(iPoint{ 50,50 }, 50, SDL_Color{ 255,255,255,255 }, 2, 50);
+    //app->renderer->AddCircleRenderQueue(iPoint{ 50,50 }, 50, SDL_Color{ 255,255,255,255 }, 2, 50);
 
     // Test draw line  
-    //_app->renderer->AddLineRenderQueue(iPoint{ 50,50 }, iPoint{ 100,50 }, true, SDL_Color{ 255,255,255,255 }, 2, 50);
+    //app->renderer->AddLineRenderQueue(iPoint{ 50,50 }, iPoint{ 100,50 }, true, SDL_Color{ 255,255,255,255 }, 2, 50);
 
     // Test draw rect  
-    //_app->renderer->AddRectRenderQueue(SDL_Rect{ 50,50,50,50 }, SDL_Color{ 0,0,255,255 }, true, 2, 50);
+    //app->renderer->AddRectRenderQueue(SDL_Rect{ 50,50,50,50 }, SDL_Color{ 0,0,255,255 }, true, 2, 50);
 
     roomManager.PostUpdate();
-    //_app->physics->ShapesRender();
+    //app->physics->ShapesRender();
    
     Scene::PostUpdate();
     return true;

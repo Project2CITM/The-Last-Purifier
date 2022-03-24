@@ -26,8 +26,8 @@ struct Door {
 class Room
 {
 public:
-	void CloseDoors(Application* app);
-	void OpenDoors(Application* app);
+	void CloseDoors();
+	void OpenDoors();
 
 	void CleanUp();
 

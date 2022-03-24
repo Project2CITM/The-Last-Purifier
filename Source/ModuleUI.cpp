@@ -1,6 +1,8 @@
-#include "Application.h"
+#include "ModuleUI.h"
+#include "ModuleRender.h"
+#include "ModuleTextures.h"
 
-ModuleUI::ModuleUI(Application* app, bool start_enabled) : Module(app, start_enabled) 
+ModuleUI::ModuleUI(bool start_enabled) : Module(start_enabled) 
 {
 	name = "ui";
 }
@@ -14,7 +16,7 @@ bool ModuleUI::Init(pugi::xml_node& config)
 
 bool ModuleUI::Start()
 {
-	texture = App->textures->Load("Assets/fonts/font.png");
+	texture = app->textures->Load("Assets/fonts/font.png");
 
 	for (int i = 0; i < 10; i++)
 	{
@@ -63,7 +65,7 @@ UpdateStatus ModuleUI::PostUpdate()
 				iPoint tempPos = iPoint(uiArray[i]->x, uiArray[i]->y);
 				tempPos.x += (int)(25 * uiArray[i]->digitScale * j); // Spacing between digits
 				int speed = uiArray[i]->isDynamic ? 1 : 0;
-				App->renderer->AddTextureRenderQueue(texture, tempPos, numSection[uiArray[i]->digitVec.at(j)], uiArray[i]->digitScale, uiArray[i]->layer, uiArray[i]->orderInLayer, 0, SDL_FLIP_NONE, speed);
+				app->renderer->AddTextureRenderQueue(texture, tempPos, numSection[uiArray[i]->digitVec.at(j)], uiArray[i]->digitScale, uiArray[i]->layer, uiArray[i]->orderInLayer, 0, SDL_FLIP_NONE, speed);
 			}
 		}
 	}

@@ -1,18 +1,18 @@
 #include "Room.h"
 
-void Room::CloseDoors(Application* app)
+void Room::CloseDoors()
 {
 	ListItem<Door*>* currentDoor = doors.start;
 	while (currentDoor != nullptr) {
 		if (currentDoor->data->open) {
 			currentDoor->data->open = false;
-			currentDoor->data->collider = app->physics->CreateRectangle(currentDoor->data->pos, TILE_SIZE, TILE_SIZE);
+			currentDoor->data->collider = Application::GetInstance()->physics->CreateRectangle(currentDoor->data->pos, TILE_SIZE, TILE_SIZE);
 		}
 		currentDoor = currentDoor->next;
 	}
 }
 
-void Room::OpenDoors(Application* app)
+void Room::OpenDoors()
 {
 	ListItem<Door*>* currentDoor = doors.start;
 	while (currentDoor != nullptr) {
