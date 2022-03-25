@@ -94,6 +94,7 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ClassTree.h" />
+    <ClInclude Include="CommonTree.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="ExecuteSpell.h" />
     <ClInclude Include="External\PugiXml\src\pugiconfig.hpp" />
@@ -124,12 +125,9 @@
     <ClInclude Include="PlayerSage.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="RenderObject.hpp" />
-    <ClInclude Include="RevenantTree.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="RoomManager.h" />
-    <ClInclude Include="SageTree.h" />
     <ClInclude Include="Scene.h" />
-    <ClInclude Include="SkillTreeElement.h" />
     <ClInclude Include="Spell.h" />
     <ClInclude Include="SpellList.h" />
     <ClInclude Include="StateMachine.h" />
@@ -141,6 +139,7 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ClassTree.cpp" />
+    <ClCompile Include="CommonTree.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="ExecuteSpell.cpp" />
     <ClCompile Include="External\PugiXml\src\pugixml.cpp" />
@@ -164,14 +163,11 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerCombat.cpp" />
     <ClCompile Include="PlayerController.cpp" />
-    <ClCompile Include="RevenantTree.cpp" />
     <ClCompile Include="PlayerRevenant.cpp" />
     <ClCompile Include="PlayerSage.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="RoomManager.cpp" />
-    <ClCompile Include="SageTree.cpp" />
     <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="SkillTreeElement.cpp" />
     <ClCompile Include="Spell.cpp" />
     <ClCompile Include="SpellList.cpp" />
     <ClCompile Include="StateMachine.cpp" />

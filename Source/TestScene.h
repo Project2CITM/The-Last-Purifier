@@ -5,6 +5,8 @@
 class PlayerRevenant;
 class PlayerSage;
 
+class ClassTree;
+
 class TestScene :  public Scene
 {
 public:
@@ -28,5 +30,7 @@ private:
 	RoomManager roomManager;
 	PlayerRevenant* player;
 	//PlayerSage* player;
+
+	ClassTree* revenantTree; //Test skill/spell tree
 };
 

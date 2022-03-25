@@ -1,8 +1,9 @@
 #include "ClassTree.h"
+#include <iostream>
 
-ClassTree::ClassTree()
+ClassTree::ClassTree(PlayerClass pClass) : GameObject(name, tag)
 {
-	LoadTree();
+	playerClass = pClass;
 }
 
 ClassTree::~ClassTree()
@@ -10,9 +11,47 @@ ClassTree::~ClassTree()
 
 }
 
-SkillTreeElement* ClassTree::getSkillTree(int value)
+void ClassTree::Start()
 {
-	return skillTree[value];
+	pugi::xml_parse_result result;
+	switch (playerClass)
+	{
+	case PlayerClass::REVENANT:
+		result = classFile->load_file(REVENANT_TREE_XML);
+		break;
+	case PlayerClass::SAGE:
+		result = classFile->load_file(SAGE_TREE_XML);
+		break;
+	}
+
+	if (result == NULL) LOG("Could not load xml file: %s. pugi error: %s", REVENANT_TREE_XML, result.description());
+
+	LoadTree();
+}
+
+void ClassTree::PreUpdate()
+{
+
+}
+
+void ClassTree::Update()
+{
+	//std::cout << "A Skill name ->" << skillTree[3]->name << std::endl;
+}
+
+void ClassTree::PostUpdate()
+{
+
+}
+
+void ClassTree::CleanUp()
+{
+	RELEASE(classFile);
+	
+	for (int i = 0; i < TREE_SIZE; i++)
+	{
+		RELEASE(skillTree[i]);
+	}
 }
 
 bool ClassTree::unlockSkill(int* classPoints, int skillId)
@@ -44,17 +83,34 @@ bool ClassTree::unlockSkill(int* classPoints, int skillId)
 	return false;
 }
 
-//bool ClassTree::levelUpSkill()
-//{
-//
-//}
-
 bool ClassTree::LoadTree()
 {
-	LoadBaseTree();
+	pugi::xml_node bNode = classFile->child("class_tree").first_child();
+	
+	for (int i = 0; i < TREE_SIZE; i++)
+	{
+		fPoint temp = { bNode.child("position").attribute("x").as_float(), bNode.child("position").attribute("y").as_float() };
+		skillTree[i] = new SkillTreeElement(
+			bNode.attribute("id").as_int(),
+			(std::string) bNode.child_value("name"),
+			(std::string) bNode.child_value("description"),
+			(int) bNode.child_value("cost"),
+			(int) bNode.child_value("requiresID"),
+			temp,
+			(SkillLevel) (int) bNode.child_value("maxLevel")
+		);
+
+		bNode = bNode.next_sibling();
+	}
+
+	return true;
 }
 
-bool ClassTree::LoadBaseTree()
+/*
+  GETTERS AND SETTERS
+*/
+
+SkillTreeElement* ClassTree::getSkillTree(int value)
 {
-	skillTree[0] = new SkillTreeElement(0, "Cover", "Takes cover", 100, 0);
+	return skillTree[value];
 }

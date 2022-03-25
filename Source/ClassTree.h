@@ -1,7 +1,16 @@
 #ifndef __CLASS_TREE_H__
 #define __CLASS_TREE_H__
 #include <string>
+
+#include "GameObject.h"
+#include "Globals.h"
+#include "Point.h"
+#include "Player.h"
+#include "External/PugiXml/src/pugixml.hpp"
+
 #define TREE_SIZE 10
+#define SAGE_TREE_XML "RevenantTree.xml"
+#define REVENANT_TREE_XML "RevenantTree.xml"
 
 enum class SkillLevel {
 	LOCKED = 0,
@@ -23,38 +32,53 @@ struct SkillTreeElement
 	SkillLevel currentLevel = SkillLevel::LOCKED;
 	SkillLevel maxLevel = SkillLevel::PURPLE;
 
-	SkillTreeElement(int id, std::string name, std::string description, int cost, int requiresID, SkillLevel maxLevel = SkillLevel::PURPLE)
+	fPoint position;
+
+	SkillTreeElement(int id, std::string name, std::string description, int cost, int requiresID, fPoint position, SkillLevel maxLevel = SkillLevel::PURPLE)
 	{
 		this->id = id;
 		this->name = name;
 		this->description = description;
 		this->cost = cost;
 		this->requiresID = requiresID;
+		this->position = position;
 
 		this->maxLevel = maxLevel;
 	};
 };
 
 
-class ClassTree
+class ClassTree : public GameObject
 {
 public:
-
-
-protected:
-	SkillTreeElement* skillTree[TREE_SIZE];
-
-public:
-	ClassTree();
+	ClassTree(PlayerClass pClass);
 	~ClassTree();
 
+	void Start() override;
 
+	void PreUpdate() override;
+
+	void Update() override;
+
+	void PostUpdate() override;
+
+	virtual void CleanUp();
+public:
 	SkillTreeElement* getSkillTree(int value);
 	bool unlockSkill(int* classPoints, int skillId);
 	bool levelUpCheck(SkillTreeElement* theSkill);
-	
-	bool LoadTree();
-	bool LoadBaseTree();
+
+	virtual bool LoadTree();
+
+private:
+	SkillTreeElement* skillTree[TREE_SIZE];
+
+public:
+	PlayerClass playerClass = PlayerClass::REVENANT;
+
+	pugi::xml_document* classFile = new pugi::xml_document;
+
+	bool active = false;
 };
 
 #endif

@@ -64,12 +64,6 @@
     <Filter Include="Archivos de origen\Player\Scripts">
       <UniqueIdentifier>{78126e22-6191-445c-9ecf-90c0b310ffff}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\Player\Trees\Elements">
-      <UniqueIdentifier>{9ce81b41-3c1c-405a-a561-ba7f9df87678}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Player\Trees\Elements">
-      <UniqueIdentifier>{25be53ce-f3f4-466a-8484-1b486cd82af5}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderObject.hpp">
@@ -186,12 +180,6 @@
     <ClInclude Include="ClassTree.h">
       <Filter>Archivos de encabezado\Player\Trees</Filter>
     </ClInclude>
-    <ClInclude Include="RevenantTree.h">
-      <Filter>Archivos de encabezado\Player\Trees</Filter>
-    </ClInclude>
-    <ClInclude Include="SageTree.h">
-      <Filter>Archivos de encabezado\Player\Trees</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Archivos de encabezado\Player</Filter>
     </ClInclude>
@@ -207,8 +195,8 @@
     <ClInclude Include="PlayerController.h">
       <Filter>Archivos de encabezado\Player\Scripts</Filter>
     </ClInclude>
-    <ClInclude Include="SkillTreeElement.h">
-      <Filter>Archivos de encabezado\Player\Trees\Elements</Filter>
+    <ClInclude Include="CommonTree.h">
+      <Filter>Archivos de encabezado\Player\Trees</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -305,12 +293,6 @@
     <ClCompile Include="ClassTree.cpp">
       <Filter>Archivos de origen\Player\Trees</Filter>
     </ClCompile>
-    <ClCompile Include="RevenantTree.cpp">
-      <Filter>Archivos de origen\Player\Trees</Filter>
-    </ClCompile>
-    <ClCompile Include="SageTree.cpp">
-      <Filter>Archivos de origen\Player\Trees</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Archivos de origen\Player</Filter>
     </ClCompile>
@@ -326,8 +308,8 @@
     <ClCompile Include="PlayerController.cpp">
       <Filter>Archivos de origen\Player\Scripts</Filter>
     </ClCompile>
-    <ClCompile Include="SkillTreeElement.cpp">
-      <Filter>Archivos de origen\Player\Trees\Elements</Filter>
+    <ClCompile Include="CommonTree.cpp">
+      <Filter>Archivos de origen\Player\Trees</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
