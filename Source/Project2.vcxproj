@@ -93,6 +93,8 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="ClassTree.h" />
+    <ClInclude Include="CommonTree.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="ExecuteSpell.h" />
     <ClInclude Include="External\PugiXml\src\pugiconfig.hpp" />
@@ -136,6 +138,8 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="ClassTree.cpp" />
+    <ClCompile Include="CommonTree.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="ExecuteSpell.cpp" />
     <ClCompile Include="External\PugiXml\src\pugixml.cpp" />

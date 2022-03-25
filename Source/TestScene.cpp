@@ -5,6 +5,7 @@
 #include "PlayerSage.h"
 #include "PlayerCombat.h"
 #include "ModuleInput.h"
+#include "ClassTree.h"
 
 TestScene::TestScene():Scene("testScene")
 {
@@ -20,6 +21,9 @@ bool TestScene::Start()
     //player = new PlayerSage(app);
     //playerController = new PlayerController("test", "test", app);
     //gameObjects.add(playerController); // Ahora se anade automatico a la lista
+
+    //Test Skill/Spell tree
+    revenantTree = new ClassTree(PlayerClass::REVENANT);
 
     // Test particle
     Particle* p = new Particle({ 0,0 }, 2, 0, { 1,0 });

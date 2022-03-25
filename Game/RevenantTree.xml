@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<class_tree id="0" name="Revenant">
+	<tree_element id="1">
+		<name>Purified Sword</name>
+		<description>It's a sword</description>
+		<cost>100</cost>
+		<requiresID>0</requiresID>
+		<maxLevel>3</maxLevel>
+		<position x="100" y="100" />
+	</tree_element>
+	<tree_element id="2">
+		<name>Purified Sword</name>
+		<description>It's a sword</description>
+		<cost>100</cost>
+		<requiresID>0</requiresID>
+		<maxLevel>3</maxLevel>
+		<position x="100" y="100" />
+	</tree_element>
+	<tree_element id="3">
+		<name>Soul Shield</name>
+		<description>It's a sword</description>
+		<cost>100</cost>
+		<requiresID>0</requiresID>
+		<maxLevel>3</maxLevel>
+		<position x="100" y="100" />
+	</tree_element>
+	<tree_element id="4">
+		<name>Flame Cape</name>
+		<description>It's a sword</description>
+		<cost>100</cost>
+		<requiresID>0</requiresID>
+		<maxLevel>3</maxLevel>
+		<position x="100" y="100" />
+	</tree_element>
+	<tree_element id="5">
+		<name>Sacred Shield</name>
+		<description>It's a sword</description>
+		<cost>100</cost>
+		<requiresID>0</requiresID>
+		<maxLevel>3</maxLevel>
+		<position x="100" y="100" />
+	</tree_element>
+	<tree_element id="6">
+		<name>Cover</name>
+		<description>It's a sword</description>
+		<cost>100</cost>
+		<requiresID>0</requiresID>
+		<maxLevel>3</maxLevel>
+		<position x="100" y="100" />
+	</tree_element>
+	<tree_element id="7">
+		<name>Purification Slash</name>
+		<description>It's a sword</description>
+		<cost>100</cost>
+		<requiresID>0</requiresID>
+		<maxLevel>3</maxLevel>
+		<position x="100" y="100" />
+	</tree_element>
+	<tree_element id="8">
+		<name>Purification Thrust</name>
+		<description>It's a sword</description>
+		<cost>100</cost>
+		<requiresID>0</requiresID>
+		<maxLevel>3</maxLevel>
+		<position x="100" y="100" />
+	</tree_element>
+	<tree_element id="9">
+		<name>Dash Slash</name>
+		<description>It's a sword</description>
+		<cost>100</cost>
+		<requiresID>0</requiresID>
+		<maxLevel>3</maxLevel>
+		<position x="100" y="100" />
+	</tree_element>
+	<tree_element id="10">
+		<name>Torment</name>
+		<description>It's a sword</description>
+		<cost>100</cost>
+		<requiresID>0</requiresID>
+		<maxLevel>3</maxLevel>
+		<position x="100" y="100" />
+	</tree_element>
+	<tree_element id="11">
+		<name>Crematorium</name>
+		<description>It's a sword</description>
+		<cost>100</cost>
+		<requiresID>0</requiresID>
+		<maxLevel>3</maxLevel>
+		<position x="100" y="100" />
+	</tree_element>
+</class_tree>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<common_tree>
+	<dictionary>
+		<deck>1.0f</deck>
+		<soul_gain>1.0f</soul_gain>
+		<health>5.0f</health>
+		<armour>4.0f</armour>
+		<luck>1.0f</luck>
+		<damage>4.0f</damage>
+		<attack_speed>0.05f</attack_speed>
+	</dictionary>
+	<elements>
+	</elements>
+</common_tree>
