@@ -23,7 +23,7 @@ struct Door {
 	iPoint pos;
 	iPoint size = iPoint(1, 1);
 	bool open = true;
-	PhysBody* collider = nullptr;
+	b2Body* collider = nullptr;
 };
 
 class Room
