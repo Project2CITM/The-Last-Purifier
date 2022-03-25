@@ -129,6 +129,7 @@
     <ClInclude Include="RoomManager.h" />
     <ClInclude Include="SageTree.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SkillTreeElement.h" />
     <ClInclude Include="Spell.h" />
     <ClInclude Include="SpellList.h" />
     <ClInclude Include="StateMachine.h" />
@@ -170,6 +171,7 @@
     <ClCompile Include="RoomManager.cpp" />
     <ClCompile Include="SageTree.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SkillTreeElement.cpp" />
     <ClCompile Include="Spell.cpp" />
     <ClCompile Include="SpellList.cpp" />
     <ClCompile Include="StateMachine.cpp" />
