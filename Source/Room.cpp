@@ -2,28 +2,12 @@
 
 void Room::CloseDoors()
 {
-	/*ListItem<Door*>* currentDoor = doors.start;
-	while (currentDoor != nullptr) {
-		if (currentDoor->data->open) {
-			currentDoor->data->open = false;
-			currentDoor->data->collider = Application::GetInstance()->physics->CreateStatic(
-				iPoint(currentDoor->data->pos.x - (TILE_SIZE * currentDoor->data->size.x / 2), currentDoor->data->pos.y - (TILE_SIZE * currentDoor->data->size.y / 2)),
-				(TILE_SIZE * currentDoor->data->size.x) / 2, (TILE_SIZE * currentDoor->data->size.y) / 2);
-		}
-		currentDoor = currentDoor->next;
-	}*/
+	for (int i = 0; i < doors.count(); i++) doors[i]->CreateCollider();
 }
 
 void Room::OpenDoors()
 {
-	ListItem<Door*>* currentDoor = doors.start;
-	while (currentDoor != nullptr) {
-		if (!currentDoor->data->open) {
-			currentDoor->data->open = true;
-			currentDoor->data->collider->GetWorld()->DestroyBody(currentDoor->data->collider);
-		}
-		currentDoor = currentDoor->next;
-	}
+	for (int i = 0; i < doors.count(); i++) doors[i]->DestroyCollider();
 }
 
 void Room::DrawRoom()
@@ -35,13 +19,31 @@ void Room::DrawRoom()
 
 void Room::CleanUp()
 {
-	ListItem<Door*>* currentDoor = doors.start;
-	while (currentDoor != nullptr) {
-		currentDoor->data->open = true;
-		currentDoor->data->collider->GetWorld()->DestroyBody(currentDoor->data->collider);
-		currentDoor = currentDoor->next;
-	}
-	doors.clearPtr();
+	for (int i = 0; i < doors.count(); i++) doors[i]->pendingToDelete = true;
 
 	//delete roomTexture;
+}
+
+iPoint Room::GetDoorPos(DoorOrientations orient)
+{
+	iPoint ret = roomPosition;
+
+	ret.x *= MAX_ROOM_TILES_COLUMNS;
+
+	ret.y *= MAX_ROOM_TILES_ROWS;
+
+	ret += doorPos[(int)orient];
+
+	ret *= TILE_SIZE;
+
+	ret += GetDoorSize(orient);
+
+	return ret;
+}
+
+iPoint Room::GetDoorSize(DoorOrientations orient)
+{
+	iPoint ret = doorSize[(int)orient] * (TILE_SIZE/2);
+
+	return ret;
 }

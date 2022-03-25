@@ -18,12 +18,39 @@ enum class DoorOrientations {
 	TOP
 };
 
-struct Door {
+class Door: public GameObject
+{
+public:
+	Door(iPoint position, iPoint size, DoorOrientations orient) :GameObject("door")
+	{
+		this->position = position;
+
+		this->size = size;
+
+		orientation = orient;
+	};
+	~Door()
+	{};
+
+	void CreateCollider()
+	{
+		pBody = Application::GetInstance()->physics->CreateRectangle({ position.x,position.y }, size.x, size.y, this, b2BodyType::b2_staticBody);
+	};
+
+	void DestroyCollider()
+	{
+		if (pBody != nullptr)
+		{
+			delete pBody;
+			pBody = nullptr;
+		}
+	};
+
 	DoorOrientations orientation;
-	iPoint pos;
-	iPoint size = iPoint(1, 1);
+
+	iPoint size = { 1,1 };
+
 	bool open = true;
-	b2Body* collider = nullptr;
 };
 
 class Room
@@ -35,11 +62,20 @@ public:
 	}
 
 	void CloseDoors();
+
 	void OpenDoors();
 
 	void DrawRoom();
 
 	void CleanUp();
+
+	iPoint GetDoorPos(DoorOrientations orient);
+
+	iPoint GetDoorSize(DoorOrientations orient);
+
+private:
+	iPoint doorPos[4] = { {80,18},{39,34},{0,18},{39,0} };
+	iPoint doorSize[4] = { {1,2},{3,1},{1,2},{3,6} };
 
 public:
 	Application* app = nullptr;

@@ -143,10 +143,10 @@ PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius, GameObject* game
 	return pbody;
 }
 
-PhysBody* ModulePhysics::CreateRectangle(iPoint pos, int width, int height, GameObject* gameObject)
+PhysBody* ModulePhysics::CreateRectangle(iPoint pos, int width, int height, GameObject* gameObject, b2BodyType colType)
 {
 	b2BodyDef body;
-	body.type = b2_dynamicBody;
+	body.type = colType;
 	body.position.Set(PIXELS_TO_METER(pos.x), PIXELS_TO_METER(pos.y));
 
 	b2Body* b = world->CreateBody(&body);
@@ -378,7 +378,11 @@ void ModulePhysics::ShapesRender()
 				int32 count = polygonShape->GetVertexCount();
 				b2Vec2 prev, v;
 
+				bool adjust = false;
+
 				PhysBody* g = (PhysBody*)b->GetUserData();
+
+				if (g->gameObject != nullptr) adjust = g->gameObject->adjustToGrid;
 
 				for (int32 i = 0; i < count; ++i)
 				{
@@ -386,14 +390,14 @@ void ModulePhysics::ShapesRender()
 					if (i > 0)
 					{
 						app->renderer->AddLineRenderQueue(iPoint{ METERS_TO_PIXELS(prev.x), METERS_TO_PIXELS(prev.y) }, iPoint{ METERS_TO_PIXELS(v.x), METERS_TO_PIXELS(v.y) },
-							g->gameObject->adjustToGrid, SDL_Color{ 255, 100, 100, 255 }, 3, 100);
+							adjust, SDL_Color{ 255, 100, 100, 255 }, 3, 100);
 					}
 					prev = v;
 				}
 
 				v = b->GetWorldPoint(polygonShape->GetVertex(0));
 				app->renderer->AddLineRenderQueue(iPoint{ METERS_TO_PIXELS(prev.x), METERS_TO_PIXELS(prev.y) }, iPoint{ METERS_TO_PIXELS(v.x), METERS_TO_PIXELS(v.y) },
-					g->gameObject->adjustToGrid, SDL_Color{ 255, 100, 100, 255 }, 3, 100);					
+					adjust, SDL_Color{ 255, 100, 100, 255 }, 3, 100);
 			}
 			break;
 
@@ -410,6 +414,10 @@ void ModulePhysics::ShapesRender()
 					// Variable debug, luego se borra
 					PhysBody* g = (PhysBody*)b->GetUserData();
 
+					bool adjust = false;
+
+					if (g->gameObject != nullptr) adjust = g->gameObject->adjustToGrid;
+
 					if (g->isSensor)
 					{
 						color = { 0,0,0,100 };
@@ -423,7 +431,7 @@ void ModulePhysics::ShapesRender()
 					if (i > 0)
 					{
 						app->renderer->AddLineRenderQueue(iPoint{ METERS_TO_PIXELS(prev.x), METERS_TO_PIXELS(prev.y) }, iPoint{ METERS_TO_PIXELS(v.x), METERS_TO_PIXELS(v.y) },
-							g->gameObject->adjustToGrid, color, 3, 100);					
+							adjust, color, 3, 100);
 					}
 					prev = v;
 				

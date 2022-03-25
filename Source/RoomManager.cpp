@@ -181,51 +181,38 @@ int RoomManager::CheckAdjacentSpace(iPoint p)
 void RoomManager::CreateDoors()
 {
 	ListItem<Room*>* currentRoom = rooms.start;
-	while (currentRoom != nullptr) {
+	while (currentRoom != nullptr) 
+	{
 		Room* cr = currentRoom->data;
 
+		DoorOrientations doorOrient = DoorOrientations::RIGHT;
+
 		//Right Door
-		if (roomPositions[cr->roomPosition.x + 1][cr->roomPosition.y] != nullptr && cr->roomPosition.x + 1 < MAX_ROOMS_COLUMNS) {
-			Door* d = new Door();
-			d->orientation = DoorOrientations::RIGHT;
-			d->pos.x = (cr->roomPosition.x + 1) * MAX_ROOM_TILES_COLUMNS * TILE_SIZE - TILE_SIZE;
-			d->pos.y = cr->roomPosition.y * MAX_ROOM_TILES_ROWS * TILE_SIZE + (MAX_ROOM_TILES_ROWS / 2 * TILE_SIZE + TILE_SIZE);
-			d->size.x = 1;
-			d->size.y = 2;
-			cr->doors.add(d);
+		if (roomPositions[cr->roomPosition.x + 1][cr->roomPosition.y] != nullptr && cr->roomPosition.x + 1 < MAX_ROOMS_COLUMNS) 
+		{
+			doorOrient = DoorOrientations::RIGHT;
+			cr->doors.add(new Door(cr->GetDoorPos(doorOrient), cr->GetDoorSize(doorOrient), doorOrient));
 		}
 
 		//Bottom Door
-		if (roomPositions[cr->roomPosition.x][cr->roomPosition.y + 1] != nullptr && cr->roomPosition.y + 1 < MAX_ROOMS_ROWS) {
-			Door* d = new Door();
-			d->orientation = DoorOrientations::BOTTOM;
-			d->pos.x = cr->roomPosition.x * MAX_ROOM_TILES_COLUMNS * TILE_SIZE + (MAX_ROOM_TILES_COLUMNS / 2 * TILE_SIZE - TILE_SIZE);
-			d->pos.y = (cr->roomPosition.y + 1) * MAX_ROOM_TILES_ROWS * TILE_SIZE - TILE_SIZE;
-			d->size.x = 3;
-			d->size.y = 1;
-			cr->doors.add(d);
+		if (roomPositions[cr->roomPosition.x][cr->roomPosition.y + 1] != nullptr && cr->roomPosition.y + 1 < MAX_ROOMS_ROWS) 
+		{
+			doorOrient = DoorOrientations::BOTTOM;
+			cr->doors.add(new Door(cr->GetDoorPos(doorOrient), cr->GetDoorSize(doorOrient), doorOrient));
 		}
 
 		//Left Door
-		if (roomPositions[cr->roomPosition.x - 1][cr->roomPosition.y] != nullptr && cr->roomPosition.x - 1 >= 0) {
-			Door* d = new Door();
-			d->orientation = DoorOrientations::LEFT;
-			d->pos.x = cr->roomPosition.x * MAX_ROOM_TILES_COLUMNS * TILE_SIZE;
-			d->pos.y = cr->roomPosition.y * MAX_ROOM_TILES_ROWS * TILE_SIZE + (MAX_ROOM_TILES_ROWS / 2 * TILE_SIZE + TILE_SIZE);
-			d->size.x = 1;
-			d->size.y = 2;
-			cr->doors.add(d);
+		if (roomPositions[cr->roomPosition.x - 1][cr->roomPosition.y] != nullptr && cr->roomPosition.x - 1 >= 0) 
+		{
+			doorOrient = DoorOrientations::LEFT;
+			cr->doors.add(new Door(cr->GetDoorPos(doorOrient), cr->GetDoorSize(doorOrient), doorOrient));
 		}
 
 		//Top Door
-		if (roomPositions[cr->roomPosition.x][cr->roomPosition.y - 1] != nullptr && cr->roomPosition.y - 1 >= 0) {
-			Door* d = new Door();
-			d->orientation = DoorOrientations::TOP;
-			d->pos.x = cr->roomPosition.x * MAX_ROOM_TILES_COLUMNS * TILE_SIZE + (MAX_ROOM_TILES_COLUMNS / 2 * TILE_SIZE - TILE_SIZE);
-			d->pos.y = cr->roomPosition.y * MAX_ROOM_TILES_ROWS * TILE_SIZE;
-			d->size.x = 3;
-			d->size.y = 6;
-			cr->doors.add(d);
+		if (roomPositions[cr->roomPosition.x][cr->roomPosition.y - 1] != nullptr && cr->roomPosition.y - 1 >= 0) 
+		{
+			doorOrient = DoorOrientations::TOP;
+			cr->doors.add(new Door(cr->GetDoorPos(doorOrient), cr->GetDoorSize(doorOrient), doorOrient));
 		}
 
 		currentRoom = currentRoom->next;
@@ -281,9 +268,9 @@ void RoomManager::DrawDoors()
 		ListItem<Door*>* currentDoor = currentRoom->data->doors.start;
 		while (currentDoor != nullptr) {
 			
-			app->renderer->AddRectRenderQueue(SDL_Rect{ currentDoor->data->pos.x, currentDoor->data->pos.y, 
-				TILE_SIZE * currentDoor->data->size.x, TILE_SIZE * currentDoor->data->size.y }, 
-				SDL_Color{ 255, 100, 255, 255 }, false, 1, 0.0f);
+			//app->renderer->AddRectRenderQueue(SDL_Rect{ currentDoor->data->pos.x, currentDoor->data->pos.y, 
+			//	TILE_SIZE * currentDoor->data->size.x, TILE_SIZE * currentDoor->data->size.y }, 
+			//	SDL_Color{ 255, 100, 255, 255 }, false, 1, 0.0f);
 			
 
 			//if (currentDoor->data->collider != nullptr) {
