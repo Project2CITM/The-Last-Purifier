@@ -2,22 +2,25 @@
 #define __APPLICATION_H__
 
 #include "List.h"
-#include "ModuleWindow.h"
-#include "ModuleRender.h"
-#include "ModuleTextures.h"
-#include "ModuleInput.h"
-#include "ModuleAudio.h"
-#include "ModulePhysics.h"
-#include "ModuleScene.h"
-#include "ModuleUI.h"
-
 #include "Timer.h"
+#include  <string.h>
+#include "External/PugiXml/src/pugixml.hpp"
 
 #define CONFIG_FILENAME		"config.xml"
 #define SAVE_STATE_FILENAME "save_game.xml"
 
 #define FPS 60
 #define FRAME_TIME (1.0/FPS)
+
+class ModuleRender;
+class ModuleWindow;
+class ModuleTextures;
+class ModuleInput;
+class ModuleAudio;
+class ModulePhysics;
+class ModuleScene;
+class ModuleUI;
+class Module;
 
 class Application
 {
@@ -54,7 +57,7 @@ public:
 
 private:
 	List<Module*> list_modules;
-	//static Application* app;
+	static Application* app;
 
 public:
 	Application();
@@ -67,7 +70,7 @@ public:
 	void LoadGameRequest();
 	void SaveGameRequest() const;
 
-	//static Application* GetInstance();
+	static Application* GetInstance();
 
 	void ShowTime();
 

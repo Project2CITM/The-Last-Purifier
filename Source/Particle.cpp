@@ -1,6 +1,6 @@
 #include "Particle.h"
 
-Particle::Particle(iPoint position, Application* _app, float life, float delay, iPoint velocity, std::string name):GameObject("partiicle","Particle", _app)
+Particle::Particle(iPoint position,float life, float delay, iPoint velocity, std::string name):GameObject("partiicle","Particle")
 {
 	this->life = life;
 	this->delay = delay;
@@ -32,9 +32,9 @@ void Particle::PreUpdate()
 void Particle::Update()
 {
 	// /1000 to convert ms in second
-	if (delay >= 0) delay -= (_app->frameTime);
+	if (delay >= 0) delay -= (app->frameTime);
 
-	else if (life >= 0) count += (_app->frameTime);
+	else if (life >= 0) count += (app->frameTime);
 
 	// move with velocity
 	position += velocity;

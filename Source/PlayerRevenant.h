@@ -7,7 +7,7 @@
 class PlayerRevenant : public Player
 {
 public:
-	PlayerRevenant(Application* app);
+	PlayerRevenant();
 };
 
 #endif

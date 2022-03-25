@@ -28,7 +28,7 @@ class ModuleScene : public Module
 public:
 
 	// Constructor
-	ModuleScene(Application* app, bool start_enabled = true);
+	ModuleScene(bool start_enabled = true);
 
 	// Destructor
 	~ModuleScene();

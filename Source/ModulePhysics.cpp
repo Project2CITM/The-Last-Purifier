@@ -1,6 +1,8 @@
 #include "GameObject.h"
+#include "ModulePhysics.h"
+#include "ModuleRender.h"
 
-ModulePhysics::ModulePhysics(Application* app, bool start_enabled) : Module(app, start_enabled)
+ModulePhysics::ModulePhysics(bool start_enabled) : Module(start_enabled)
 {
 	name = "physics";
 	world = NULL;	
@@ -27,7 +29,7 @@ bool ModulePhysics::Start()
 	b2BodyDef bd;
 	mouseBody = world->CreateBody(&bd);
 
-	LOG("Tedt��");
+	//LOG("Tedt��");
 
 	world->SetContactListener(this);
 	
@@ -36,7 +38,7 @@ bool ModulePhysics::Start()
  
 UpdateStatus ModulePhysics::PreUpdate()
 {
-	world->Step(App->frameTime, 6, 2);
+	world->Step(app->frameTime, 6, 2);
 
 	return UPDATE_CONTINUE;
 }
@@ -49,7 +51,7 @@ UpdateStatus ModulePhysics::Update()
 UpdateStatus ModulePhysics::PostUpdate()
 {
 	/*
-	if (!App->debug->debugTakeObject)
+	if (!app->debug->debugTakeObject)
 		return UPDATE_CONTINUE;
 
 	// If mouse button 1 is pressed ...
@@ -59,17 +61,17 @@ UpdateStatus ModulePhysics::PostUpdate()
 
 		for (b2Fixture* f = b->GetFixtureList(); f; f = f->GetNext())
 		{
-			if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
+			if (app->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
 			{
 				PhysBody* pBody = (PhysBody*)b->GetUserData();
 
 				// test if the current body contains mouse position
-				if (pBody && pBody->Contains(App->input->GetMouseX(), App->input->GetMouseY()))
+				if (pBody && pBody->Contains(app->input->GetMouseX(), app->input->GetMouseY()))
 				{
 					b2MouseJointDef def;
 					def.bodyA = mouseBody;
 					def.bodyB = pBody->body;
-					def.target = b2Vec2(PIXELS_TO_METER(App->input->GetMouseX()), PIXELS_TO_METER(App->input->GetMouseY()));
+					def.target = b2Vec2(PIXELS_TO_METER(app->input->GetMouseX()), PIXELS_TO_METER(app->input->GetMouseY()));
 					def.dampingRatio = 0.5f;
 					def.frequencyHz = 2.0f;
 					def.maxForce = 100.0f * pBody->body->GetMass();
@@ -91,9 +93,9 @@ UpdateStatus ModulePhysics::PostUpdate()
 
 			if (!hasMouseJoint) break;
 
-			if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT && b->GetJointList() != nullptr && mouseJoint != nullptr)
+			if (app->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT && b->GetJointList() != nullptr && mouseJoint != nullptr)
 			{
-				b2Vec2 nextPos = { (float)App->input->GetMouseX(),(float)App->input->GetMouseY() };
+				b2Vec2 nextPos = { (float)app->input->GetMouseX(),(float)app->input->GetMouseY() };
 
 				nextPos.x = PIXELS_TO_METER(nextPos.x);
 				nextPos.y = PIXELS_TO_METER(nextPos.y);
@@ -102,7 +104,7 @@ UpdateStatus ModulePhysics::PostUpdate()
 			
 			}
 
-			if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_UP && b->GetJointList() != nullptr && mouseJoint != nullptr)
+			if (app->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_UP && b->GetJointList() != nullptr && mouseJoint != nullptr)
 			{
 				world->DestroyJoint(mouseJoint);
 				mouseJoint = nullptr;
@@ -352,6 +354,9 @@ void ModulePhysics::ShapesRender()
 		PhysBody* pb = (PhysBody*)b->GetUserData();
 		//if (pb && !pb->gameObject->enable) continue;
 
+		// If body not active, continue.
+		if (!b->IsActive()) continue;
+
 		// Render object collision
 		for (b2Fixture* f = b->GetFixtureList(); f; f = f->GetNext())
 		{
@@ -362,7 +367,7 @@ void ModulePhysics::ShapesRender()
 			{
 				b2CircleShape* shape = (b2CircleShape*)f->GetShape();
 				b2Vec2 pos = f->GetBody()->GetPosition();
-				App->renderer->AddCircleRenderQueue(iPoint{ METERS_TO_PIXELS(pos.x), METERS_TO_PIXELS(pos.y) }, METERS_TO_PIXELS(shape->m_radius), SDL_Color{ 0,0,0,255 },3);
+				app->renderer->AddCircleRenderQueue(iPoint{ METERS_TO_PIXELS(pos.x), METERS_TO_PIXELS(pos.y) }, METERS_TO_PIXELS(shape->m_radius), SDL_Color{ 0,0,0,255 },3);
 			}
 			break;
 
@@ -380,14 +385,14 @@ void ModulePhysics::ShapesRender()
 					v = b->GetWorldPoint(polygonShape->GetVertex(i));
 					if (i > 0)
 					{
-						App->renderer->AddLineRenderQueue(iPoint{ METERS_TO_PIXELS(prev.x), METERS_TO_PIXELS(prev.y) }, iPoint{ METERS_TO_PIXELS(v.x), METERS_TO_PIXELS(v.y) },
+						app->renderer->AddLineRenderQueue(iPoint{ METERS_TO_PIXELS(prev.x), METERS_TO_PIXELS(prev.y) }, iPoint{ METERS_TO_PIXELS(v.x), METERS_TO_PIXELS(v.y) },
 							g->gameObject->adjustToGrid, SDL_Color{ 255, 100, 100, 255 }, 3, 100);
 					}
 					prev = v;
 				}
 
 				v = b->GetWorldPoint(polygonShape->GetVertex(0));
-				App->renderer->AddLineRenderQueue(iPoint{ METERS_TO_PIXELS(prev.x), METERS_TO_PIXELS(prev.y) }, iPoint{ METERS_TO_PIXELS(v.x), METERS_TO_PIXELS(v.y) },
+				app->renderer->AddLineRenderQueue(iPoint{ METERS_TO_PIXELS(prev.x), METERS_TO_PIXELS(prev.y) }, iPoint{ METERS_TO_PIXELS(v.x), METERS_TO_PIXELS(v.y) },
 					g->gameObject->adjustToGrid, SDL_Color{ 255, 100, 100, 255 }, 3, 100);					
 			}
 			break;
@@ -417,7 +422,7 @@ void ModulePhysics::ShapesRender()
 					v = b->GetWorldPoint(shape->m_vertices[i]);
 					if (i > 0)
 					{
-						App->renderer->AddLineRenderQueue(iPoint{ METERS_TO_PIXELS(prev.x), METERS_TO_PIXELS(prev.y) }, iPoint{ METERS_TO_PIXELS(v.x), METERS_TO_PIXELS(v.y) },
+						app->renderer->AddLineRenderQueue(iPoint{ METERS_TO_PIXELS(prev.x), METERS_TO_PIXELS(prev.y) }, iPoint{ METERS_TO_PIXELS(v.x), METERS_TO_PIXELS(v.y) },
 							g->gameObject->adjustToGrid, color, 3, 100);					
 					}
 					prev = v;
@@ -427,7 +432,7 @@ void ModulePhysics::ShapesRender()
 				if (bb->chainLoop)
 				{
 					v = b->GetWorldPoint(shape->m_vertices[0]);
-					App->renderer->AddLineRenderQueue(iPoint{ METERS_TO_PIXELS(prev.x), METERS_TO_PIXELS(prev.y) }, iPoint{ METERS_TO_PIXELS(v.x), METERS_TO_PIXELS(v.y) },
+					app->renderer->AddLineRenderQueue(iPoint{ METERS_TO_PIXELS(prev.x), METERS_TO_PIXELS(prev.y) }, iPoint{ METERS_TO_PIXELS(v.x), METERS_TO_PIXELS(v.y) },
 						false, color, 3, 100);
 				}
 			}
@@ -441,7 +446,7 @@ void ModulePhysics::ShapesRender()
 
 				v1 = b->GetWorldPoint(shape->m_vertex0);
 				v1 = b->GetWorldPoint(shape->m_vertex1);
-				App->renderer->AddLineRenderQueue(iPoint{ METERS_TO_PIXELS(v1.x), METERS_TO_PIXELS(v1.y) }, iPoint{ METERS_TO_PIXELS(v2.x), METERS_TO_PIXELS(v2.y) },
+				app->renderer->AddLineRenderQueue(iPoint{ METERS_TO_PIXELS(v1.x), METERS_TO_PIXELS(v1.y) }, iPoint{ METERS_TO_PIXELS(v2.x), METERS_TO_PIXELS(v2.y) },
 					false, SDL_Color{ 100, 100, 255, 255}, 3, 100);
 			}
 			break;

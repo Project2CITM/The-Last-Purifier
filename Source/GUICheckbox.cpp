@@ -1,12 +1,13 @@
 #include "GUICheckbox.h"
-#include "Application.h"
+#include "ModuleTextures.h"
+#include "ModuleInput.h"
 
-GUICheckbox::GUICheckbox(Application* app, iPoint pos, int width, int height, std::string path) : GUI(app)
+GUICheckbox::GUICheckbox(iPoint pos, int width, int height, std::string path) : GUI()
 {
 	InitAsBox(pos.x, pos.y, width, height);
 
 	renderObject = new RenderObject();
-	renderObject->texture = _app->textures->Load(path);
+	renderObject->texture = app->textures->Load(path);
 	renderObject->destRect = { pos.x, pos.y, width, height };
 	renderObject->layer = 3;
 	renderObject->orderInLayer = 10;
@@ -23,7 +24,7 @@ GUICheckbox::GUICheckbox(Application* app, iPoint pos, int width, int height, st
 	}
 }
 
-GUICheckbox::GUICheckbox(Application* app, iPoint pos, int width, int height) : GUI(app)
+GUICheckbox::GUICheckbox(iPoint pos, int width, int height) : GUI()
 {
 	InitAsBox(pos.x, pos.y, width, height);
 }
@@ -35,7 +36,7 @@ GUICheckbox::~GUICheckbox()
 
 void GUICheckbox::Update()
 {
-	if (CheckOnMouse() && _app->input->GetMouseButton(1) == KEY_UP)
+	if (CheckOnMouse() && app->input->GetMouseButton(1) == KEY_UP)
 	{
 		ChangeState(!isActive);
 	}
@@ -62,12 +63,12 @@ void GUICheckbox::PostUpdate()
 {
 	if (renderObject != nullptr && renderObject->texture != nullptr)
 	{
-		_app->renderer->AddTextureRenderQueue(renderObject->texture, { position.x, position.y }, renderSections[(int)checkboxState], renderObject->scale,
+		app->renderer->AddTextureRenderQueue(renderObject->texture, { position.x, position.y }, renderSections[(int)checkboxState], renderObject->scale,
 			renderObject->layer, renderObject->orderInLayer,  0, SDL_FLIP_NONE, 0);
 
-		/*if(_app->debug->debugViewGUIBounds)
+		/*if(app->debug->debugViewGUIBounds)
 		{
-			_app->renderer->AddRectRenderQueue(SDL_Rect{ position.x,position.y,boxShape.w,boxShape.h }, defaultColor.r, defaultColor.g, defaultColor.b, 150, 3, 100, true, 0);
+			app->renderer->AddRectRenderQueue(SDL_Rect{ position.x,position.y,boxShape.w,boxShape.h }, defaultColor.r, defaultColor.g, defaultColor.b, 150, 3, 100, true, 0);
 		}*/
 	}
 }

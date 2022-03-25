@@ -3,10 +3,12 @@
 
 #include "GameObject.h"
 #include "ModulePhysics.h"
+#include "ModuleTextures.h"
+#include "ModuleRender.h"
 
-#define MAX_ROOM_TILES_COLUMNS 51
-#define MAX_ROOM_TILES_ROWS 31
-#define TILE_SIZE 1
+#define MAX_ROOM_TILES_COLUMNS 81
+#define MAX_ROOM_TILES_ROWS 35
+#define TILE_SIZE 16
 //#define MAX_ROOM_ENEMIES 5
 
 enum class DoorOrientations {
@@ -19,6 +21,7 @@ enum class DoorOrientations {
 struct Door {
 	DoorOrientations orientation;
 	iPoint pos;
+	iPoint size = iPoint(1, 1);
 	bool open = true;
 	PhysBody* collider = nullptr;
 };
@@ -26,15 +29,23 @@ struct Door {
 class Room
 {
 public:
-	void CloseDoors(Application* app);
-	void OpenDoors(Application* app);
+	Room()
+	{
+		this->app = Application::GetInstance();
+	}
+
+	void CloseDoors();
+	void OpenDoors();
+
+	void DrawRoom();
 
 	void CleanUp();
 
 public:
+	Application* app = nullptr;
 	List<Door*> doors;
-	char roomDesign[MAX_ROOM_TILES_ROWS][MAX_ROOM_TILES_COLUMNS];
 	iPoint roomPosition; 	//in map, not pixels
+	SDL_Texture* roomTexture = nullptr;
 };
 
 #endif //_ROOM_H_

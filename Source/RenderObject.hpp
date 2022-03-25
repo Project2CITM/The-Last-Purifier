@@ -3,7 +3,6 @@
 
 #include <string>
 #include "External/SDL/include/SDL.h"
-#include "Globals.h"
 #include "Point.h"
 
 enum RenderType

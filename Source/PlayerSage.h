@@ -6,7 +6,7 @@
 class PlayerSage : public Player
 {
 public:
-	PlayerSage(Application* app);
+	PlayerSage();
 };
 
 #endif

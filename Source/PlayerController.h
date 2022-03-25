@@ -4,7 +4,6 @@
 #include "GameObject.h"
 #include "StateMachine.h"
 #include "Animation.h"
-#include "PlayerCombat.h"
 
 #define PLAYER_ANIMATIONS_NUM 4
 
@@ -33,11 +32,12 @@ enum class LookingDirection
 };
 
 class Player;
+class PlayerCombat;
 
 class PlayerController : public GameObject
 {
 public:
-	PlayerController(std::string name, std::string tag, Application* _app, Player* player);
+	PlayerController(std::string name, std::string tag, Player* player);
 
 	void Start() override;
 
@@ -72,10 +72,12 @@ private:
 	int dashDistance = 6;
 
 	PlayerAnim currentAnim = PlayerAnim::IDLE;
+
+	StateMachine stateMachine;
 	PlayerState currentState = PlayerState::IDLE;
 	LookingDirection lookingDir = LookingDirection::RIGHT;
 
-	StateMachine stateMachine;
+	friend class PlayerCombat;
 };
 
 

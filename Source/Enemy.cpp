@@ -1,6 +1,6 @@
 #include "Enemy.h"
 
-Enemy::Enemy(Application* app) :GameObject("Enemy", "None", app)
+Enemy::Enemy() :GameObject("Enemy", "None")
 {
 }
 

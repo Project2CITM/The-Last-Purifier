@@ -1,10 +1,12 @@
 #include "Camera.h"
-#include "Application.h"
 #include "GameObject.h"
+#include "ModuleWindow.h"
+#include "ModuleInput.h"
+#include "ModuleScene.h"
 
-Camera::Camera(Application* app, GameObject* target)
+Camera::Camera(GameObject* target)
 {
-	App = app;
+	app = Application::GetInstance();
 	this->target = target;
 }
 
@@ -17,32 +19,32 @@ void Camera::Init(GameObject* target, int width, int height)
 
 void Camera::Start()
 {
-	pivotX = App->window->width / 2;
-	pivotY = App->window->height / 2;
+	pivotX = app->window->width / 2;
+	pivotY = app->window->height / 2;
 }
 
 void Camera::Update()
 {
 	UpdatePosition();
 
-	//if (!App->debug->debugCamera) return;
+	//if (!app->debug->debugCamera) return;
 
-	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+	if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 	{
 		y -= cameraSpeed;
 		//printf_s("Camera_X: %d, Camera_Y: %d\n", x, y);
 	}
-	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+	if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
 	{
 		y += cameraSpeed;
 		//printf_s("Camera_X: %d, Camera_Y: %d\n", x, y);
 	}
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+	if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 	{
 		x -= cameraSpeed;
 		//printf_s("Camera_X: %d, Camera_Y: %d\n",x, y);
 	}
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 	{
 		x += cameraSpeed;
 		//printf_s("Camera_X: %d, Camera_Y: %d\n", x, y);
@@ -51,10 +53,10 @@ void Camera::Update()
 
 void Camera::UpdatePosition()
 {
-	if (target == nullptr || App->scene->isChangingScene) return;
+	if (target == nullptr || app->scene->isChangingScene) return;
 
 	// Update Y
-	int targetPosY = target->GetPosition().y * App->window->scale;
+	int targetPosY = target->GetPosition().y * app->window->scale;
 	targetPosY = (targetPosY - pivotY) * moveY;
 
 	int distance = abs(targetPosY - y);
@@ -66,8 +68,8 @@ void Camera::UpdatePosition()
 	else if (distance != 0) targetPosY > y ? y += distance / cameraDelay : targetPosY < y ? y -= distance / cameraDelay : y = y;
 
 	// Update X
-	int targetPosX = target->GetPosition().x * App->window->scale;
-	targetPosX = (targetPosX - pivotX * App->window->scale) * moveX;
+	int targetPosX = target->GetPosition().x * app->window->scale;
+	targetPosX = (targetPosX - pivotX * app->window->scale) * moveX;
 
 	distance = abs(targetPosX - x);
 

@@ -120,7 +120,7 @@ class ModuleMap : public Module
 {
 public:
 
-    ModuleMap(Application* app, bool start_enabled = true);
+    ModuleMap(bool start_enabled = true);
 
     // Destructor
     virtual ~ModuleMap();

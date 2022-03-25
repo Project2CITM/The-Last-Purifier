@@ -66,7 +66,7 @@ public:
 
 	b2World* world = nullptr;
 	
-	ModulePhysics(Application* app, bool start_enabled = true);
+	ModulePhysics(bool start_enabled = true);
 	~ModulePhysics();
 
 	bool Init(pugi::xml_node&);

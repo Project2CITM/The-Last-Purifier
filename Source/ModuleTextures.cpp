@@ -1,8 +1,9 @@
-#include "Application.h"
-
+#include "ModuleTextures.h"
+#include "ModuleRender.h"
+#include "ModuleWindow.h"
 #include "External/SDL_image/include/SDL_image.h"
 
-ModuleTextures::ModuleTextures(Application* app, bool start_enabled) : Module(app, start_enabled)
+ModuleTextures::ModuleTextures(bool start_enabled) : Module(start_enabled)
 {
 	name = "textures";
 }
@@ -31,7 +32,7 @@ bool ModuleTextures::Init(pugi::xml_node& config)
 
 	SDL_Surface* iconSurface = IMG_Load("Assets/textures/MainCharacters/VirtualGuy/Fall(32x32).png");
 
-	App->window->SetWindowIcon(iconSurface);
+	app->window->SetWindowIcon(iconSurface);
 
 	return ret;
 }
@@ -122,7 +123,7 @@ SDL_Texture* ModuleTextures::Load(std::string path, bool isName)
 	}
 	else
 	{
-		texture = SDL_CreateTextureFromSurface(App->renderer->renderer, surface);
+		texture = SDL_CreateTextureFromSurface(app->renderer->renderer, surface);
 
 		if(texture == nullptr)
 		{

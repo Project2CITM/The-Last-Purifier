@@ -5,13 +5,20 @@
 #include "List.h"
 #include "SpellList.h"
 #include "ExecuteSpell.h"
+#include "GameObject.h"
 
 class Player;
+class PhysBody;
+class PlayerController;
 
-class PlayerCombat
+class PlayerCombat : GameObject
 {
 public:
-	PlayerCombat(Player* player);
+	PlayerCombat(std::string name, std::string tag, Player* player);
+
+	void Start() override;
+
+	void Update() override;
 
 	void Attack();
 
@@ -41,12 +48,27 @@ private:
 	/// </summary>
 	void PrintSlotsState();
 
+	void RevenantAttack();
+
+	// Combat Stats-------------------
+	int attackCD;
+	int attackCounter;
+	bool canAttack;
+
+	int attackAreaCD;
+	int attackAreaCounter;
+	bool attackAreaActive;
+
+	PhysBody* revenantAttack = nullptr;
+
 	List<SpellID> spellSlots; // A list of every spell slot and its current spell. If empty, it contains NONE.
 	List<SpellID> deckSlots; // A list of every spell in the deck. If empty, contains NONE
 	int selectedSpell; // The current selected spell slot on the list. This is an index.
 	ExecuteSpell executeSpellCommand; // The command that fires the selected spell on the current spell slot to the SpellList.
 
 	Player* player;
+
+	friend class PlayerController;
 
 };
 

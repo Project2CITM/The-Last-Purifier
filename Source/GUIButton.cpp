@@ -1,12 +1,14 @@
 #include "GUIButton.h"
-#include "Application.h"
+#include "ModuleInput.h"
+#include "ModuleAudio.h"
+#include "ModuleTextures.h"
 
-GUIButton::GUIButton(Application* app, iPoint pos, int width, int height, std::string path) : GUI(app)
+GUIButton::GUIButton(iPoint pos, int width, int height, std::string path) : GUI()
 {
 	InitAsBox(pos.x, pos.y, width, height);
 
 	renderObject = new RenderObject();
-	renderObject->texture = _app->textures->Load(path);
+	renderObject->texture = app->textures->Load(path);
 	renderObject->destRect = { pos.x, pos.y, width, height };
 	renderObject->layer = 3;
 	renderObject->orderInLayer = 15;
@@ -23,7 +25,7 @@ GUIButton::GUIButton(Application* app, iPoint pos, int width, int height, std::s
 	}
 }
 
-GUIButton::GUIButton(Application* app, iPoint pos, int width, int height) : GUI(app)
+GUIButton::GUIButton(iPoint pos, int width, int height) : GUI()
 {
 	InitAsBox(pos.x, pos.y, width, height);
 }
@@ -35,16 +37,16 @@ GUIButton::~GUIButton()
 
 void GUIButton::Update()
 {
-	if (CheckOnMouse() && (_app->input->GetMouseButton(1) == KEY_DOWN))
+	if (CheckOnMouse() && (app->input->GetMouseButton(1) == KEY_DOWN))
 	{
 		lastState = buttonState;
 		buttonState = ButtonState::PRESS_DOWN;
 		isPressed = true;
 
 		// Sound Effect
-		if (lastState != buttonState && !navigation) _app->audio->PlayFx(SFX::BUTTONDOWN);
+		if (lastState != buttonState && !navigation) app->audio->PlayFx(SFX::BUTTONDOWN);
 	}
-	else if (isPressed && _app->input->GetMouseButton(1) == KEY_REPEAT)
+	else if (isPressed && app->input->GetMouseButton(1) == KEY_REPEAT)
 	{
 		lastState = buttonState;
 		buttonState = ButtonState::PRESSED;
@@ -56,10 +58,10 @@ void GUIButton::Update()
 		buttonState = ButtonState::FOCUS;
 
 		// Sound Effect
-		if (lastState != buttonState && !navigation) _app->audio->PlayFx(SFX::BUTTONFEEDBACK);
+		if (lastState != buttonState && !navigation) app->audio->PlayFx(SFX::BUTTONFEEDBACK);
 	}
 
-	if (_app->input->GetMouseButton(1) == KEY_UP)
+	if (app->input->GetMouseButton(1) == KEY_UP)
 	{
 		// We do the action
 		if (isPressed && CheckOnMouse())
@@ -101,14 +103,14 @@ void GUIButton::PostUpdate()
 	{
 		int newBtnState = CLAMP((int)buttonState, 0, 2);
 
-		_app->renderer->AddTextureRenderQueue(renderObject->texture, { position.x, position.y }, renderSections[newBtnState], renderObject->scale,
+		app->renderer->AddTextureRenderQueue(renderObject->texture, { position.x, position.y }, renderSections[newBtnState], renderObject->scale,
 											  renderObject->layer, renderObject->orderInLayer, 0, SDL_FLIP_NONE, 0);
 
-		//if(_app->debug->debugViewGUIBounds)
-		//_app->renderer->AddRectRenderQueue(SDL_Rect{ position.x,position.y,boxShape.w,boxShape.h }, defaultColor.r, defaultColor.g, defaultColor.b, 150, 3, 100, true, 0);
+		//if(app->debug->debugViewGUIBounds)
+		//app->renderer->AddRectRenderQueue(SDL_Rect{ position.x,position.y,boxShape.w,boxShape.h }, defaultColor.r, defaultColor.g, defaultColor.b, 150, 3, 100, true, 0);
 	}
 	else
 	{
-		_app->renderer->AddRectRenderQueue(SDL_Rect{ position.x,position.y,boxShape.w,boxShape.h }, SDL_Color{ defaultColor.r, defaultColor.g, defaultColor.b, defaultColor.a }, true, 3, 10, 0);
+		app->renderer->AddRectRenderQueue(SDL_Rect{ position.x,position.y,boxShape.w,boxShape.h }, SDL_Color{ defaultColor.r, defaultColor.g, defaultColor.b, defaultColor.a }, true, 3, 10, 0);
 	}
 }

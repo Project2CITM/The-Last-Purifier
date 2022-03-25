@@ -9,7 +9,7 @@ class TestScene :  public Scene
 {
 public:
 
-	TestScene(Application* app);
+	TestScene();
 
 	~TestScene();
 
@@ -25,8 +25,8 @@ public:
 
 private:
 
-	RoomManager roomManager = RoomManager(_app);
-	//PlayerRevenant* player;
-	PlayerSage* player;
+	RoomManager roomManager;
+	PlayerRevenant* player;
+	//PlayerSage* player;
 };
 

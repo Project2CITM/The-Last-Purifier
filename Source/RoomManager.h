@@ -4,6 +4,7 @@
 #include "Room.h"
 #include "GameObject.h"
 #include "Timer.h"
+#include "ModuleTextures.h"
 
 
 #define MAX_ROOMS_COLUMNS 8
@@ -12,8 +13,9 @@
 class RoomManager{
 	
 public:
-	RoomManager(Application* app) {
-		this->app = app;
+	RoomManager()
+	{
+		this->app = Application::GetInstance();
 	}
 
 	void Start();
@@ -34,8 +36,9 @@ public:
 	Application* app = nullptr;
 	List<Room*> rooms;
 	Room* roomPositions[MAX_ROOMS_COLUMNS][MAX_ROOMS_ROWS];
-	SDL_Texture* tile_texture = nullptr;
 	iPoint bossRoom = iPoint(-1, -1);
+
+	SDL_Texture* testMapTexture = nullptr;
 };
 
 #endif //__ROOMMANAGER_H_

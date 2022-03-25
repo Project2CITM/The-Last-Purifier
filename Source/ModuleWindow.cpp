@@ -1,6 +1,6 @@
-#include "Application.h"
+#include "ModuleWindow.h"
 
-ModuleWindow::ModuleWindow(Application* app, bool start_enabled) : Module(app, start_enabled)
+ModuleWindow::ModuleWindow(bool start_enabled) : Module(start_enabled)
 {
 	name = "window";
 	window = NULL;
@@ -20,7 +20,7 @@ bool ModuleWindow::Init(pugi::xml_node& config)
 
 	this->config = config;
 
-	pugi::xml_node n = App->saveF.child("game_state").child("settings");
+	pugi::xml_node n = app->saveF.child("game_state").child("settings");
 
 	if(SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
@@ -47,7 +47,7 @@ bool ModuleWindow::Init(pugi::xml_node& config)
 		if (resizable == true) flags |= SDL_WINDOW_RESIZABLE;
 		if (fullscreen_window == true) flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
 
-		window = SDL_CreateWindow(App->GetTitle(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
+		window = SDL_CreateWindow(app->GetTitle(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
 
 		if (window == NULL)
 		{
@@ -90,13 +90,13 @@ void ModuleWindow::ToggleFullScreen(bool fullScreen)
 {
 	if (fullScreen)
 	{
-		SDL_SetWindowFullscreen(App->window->window, SDL_WINDOW_FULLSCREEN_DESKTOP);
-		App->FullScreenDesktop = true;
+		SDL_SetWindowFullscreen(app->window->window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+		app->FullScreenDesktop = true;
 	}
 	else
 	{
-		SDL_SetWindowFullscreen(App->window->window, 0);
-		App->FullScreenDesktop = false;
+		SDL_SetWindowFullscreen(app->window->window, 0);
+		app->FullScreenDesktop = false;
 	}
 }
 

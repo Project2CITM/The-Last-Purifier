@@ -1,7 +1,7 @@
-#include "Globals.h"
-#include "Application.h"
+#include "ModuleAudio.h"
+#include <string.h>
 
-ModuleAudio::ModuleAudio(Application* app, bool start_enabled) : Module(app, start_enabled), music(NULL)
+ModuleAudio::ModuleAudio(bool start_enabled) : Module(start_enabled), music(NULL)
 {
 	name= "audios";
 }
@@ -45,14 +45,14 @@ bool ModuleAudio::Init(pugi::xml_node& config)
 	// Load all SFX
 	for (pugi::xml_node audio = config.first_child(); audio; audio = audio.next_sibling())
 	{
-		string path = audio.attribute("path").as_string("null");
+		std::string path = audio.attribute("path").as_string("null");
 
 		LoadFx(path.c_str());
 
 		//fx.end->data->volume = audio.attribute("volum").as_int(10);
 	}
 
-	Mix_Volume(-1, App->saveF.child("game_state").child("settings").attribute("sfx").as_float() * 200);
+	Mix_Volume(-1, app->saveF.child("game_state").child("settings").attribute("sfx").as_float() * 200);
 
 	return ret;
 }

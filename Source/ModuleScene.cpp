@@ -1,15 +1,17 @@
 #include <time.h>
 #include "ModuleScene.h"
-#include "Application.h"
 #include "ModuleAudio.h"
-#include "TestScene.h"
 #include "ModuleWindow.h"
+#include "ModuleRender.h"
+#include "TestScene.h"
 
-ModuleScene::ModuleScene(Application* app, bool start_enabled) : Module(app, start_enabled)
+ModuleScene::ModuleScene(bool start_enabled) : Module(start_enabled)
 {
 	name = "scenes";
 
-	scenes[0] = new TestScene(app);
+	scenes[MAIN_MENU] = new TestScene();
+
+	currentScene = MAIN_MENU;
 
 	//scenes[0] = new SceneMainMenu(app);
 	//scenes[1] = new SceneGameOver(app);
@@ -30,8 +32,6 @@ bool ModuleScene::Init(pugi::xml_node& config)
 
 bool ModuleScene::Start()
 {
-	scenes[currentScene] = scenes[0];
-
 	bool ret = true;
 
 	if (scenes[currentScene] == nullptr)
@@ -40,12 +40,12 @@ bool ModuleScene::Start()
 	}
 
 	scenes[currentScene]->Start();
-	
-	//App->audio->PlayMusic("Assets/audio/music/pixelMusic.mp3", 2);
 
-	//Mix_VolumeMusic(App->saveF.child("game_state").child("settings").attribute("music").as_float() * 60);
+	//app->audio->PlayMusic("Assets/audio/music/pixelMusic.mp3", 2);
 
-	//fadePanel = App->textures->Load("Assets/textures/Menu/fadePanel.png");
+	//Mix_VolumeMusic(app->saveF.child("game_state").child("settings").attribute("music").as_float() * 60);
+
+	//fadePanel = app->textures->Load("Assets/textures/Menu/fadePanel.png");
 
 	return ret;
 }
@@ -93,7 +93,7 @@ UpdateStatus ModuleScene::PostUpdate()
 
 	scenes[currentScene]->PostUpdate();
 
-	if (fade != 0) App->renderer->AddRectRenderQueue(SDL_Rect{ 0,0,(int)App->window->width,(int)App->window->height }, SDL_Color{ 0,0,0,255 }, true, 4, 200);
+	if (fade != 0) app->renderer->AddRectRenderQueue(SDL_Rect{ 0,0,(int)app->window->width,(int)app->window->height }, SDL_Color{ 0,0,0,255 }, true, 4, 200);
 
 	return UpdateStatus::UPDATE_CONTINUE;
 }
@@ -136,7 +136,7 @@ bool ModuleScene::StartChangeScene()
 
 		scenes[currentScene]->CleanUp();
 
-		App->renderer->ClearRederQueue();
+		app->renderer->ClearRederQueue();
 
 		currentScene = (SCENES)changeTo;
 
@@ -231,17 +231,17 @@ bool ModuleScene::CleanUp()
 /// </summary>
 void ModuleScene::DebugChangeScene()
 {
-	/*if (App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT)
+	/*if (app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT)
 	{
 		for (int i = 0; i < SCENES_NUM; i++)
 		{
-			if (App->input->GetKey(debugKeys[i]) == KEY_DOWN)
+			if (app->input->GetKey(debugKeys[i]) == KEY_DOWN)
 			{
 				ChangeCurrentSceneRequest(i);
 			}
 		}
 
-		if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
+		if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
 		{
 			ChangeCurrentSceneRequest(currentScene->getID());
 		}

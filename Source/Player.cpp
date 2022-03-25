@@ -2,9 +2,9 @@
 #include "PlayerController.h"
 #include "Application.h"
 
-Player::Player(Application* app)
+Player::Player()
 {
-	controller = new PlayerController("player", "Player", app, this);
+	controller = new PlayerController("player", "Player", this);
 }
 
 void Player::CleanUp()

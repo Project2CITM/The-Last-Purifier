@@ -1,14 +1,16 @@
-#include "Application.h"
+#include "ModuleRender.h"
+#include "ModuleWindow.h"
+#include "ModulePhysics.h"
 #include <string.h>
 
 int cameraSpeed = 1;
 
-ModuleRender::ModuleRender(Application* app, bool start_enabled) : Module(app, start_enabled)
+ModuleRender::ModuleRender(bool start_enabled) : Module(start_enabled)
 {
 	name = "renderer";
 	renderer = NULL;
 
-	camera = new Camera(App);
+	camera = new Camera();
 	camera->x = camera->y = 0;
 
 	// Init renderLayers
@@ -28,14 +30,14 @@ bool ModuleRender::Init(pugi::xml_node& config)
 
 	this->config = config;
 	
-	if (App->saveF.child("game_state").child("settings").attribute("vSync").as_bool(false))
+	if (app->saveF.child("game_state").child("settings").attribute("vSync").as_bool(false))
 	{
-		App->vsync = true;
+		app->vsync = true;
 	}
 
 	flags |= SDL_RENDERER_PRESENTVSYNC;
 
-	renderer = SDL_CreateRenderer(App->window->window, -1, flags);
+	renderer = SDL_CreateRenderer(app->window->window, -1, flags);
 	
 	if (renderer == NULL)
 	{
@@ -63,14 +65,14 @@ UpdateStatus ModuleRender::Update()
 {	
 	camera->Update();
 
-	if (App->FullScreenDesktop)
+	if (app->FullScreenDesktop)
 	{
 		// Fullscreen
-		SDL_RenderSetLogicalSize(renderer, App->window->width, App->window->height);
+		SDL_RenderSetLogicalSize(renderer, app->window->width, app->window->height);
 	}
 	else
 	{
-		SDL_RenderSetLogicalSize(renderer, App->window->width, App->window->height);
+		SDL_RenderSetLogicalSize(renderer, app->window->width, app->window->height);
 	}
 
 	return UPDATE_CONTINUE;
@@ -79,7 +81,7 @@ UpdateStatus ModuleRender::Update()
 // PostUpdate present buffer to screen
 UpdateStatus ModuleRender::PostUpdate()
 {
-	App->physics->ShapesRender();
+	app->physics->ShapesRender();
 
 	// Sorting layers
 	for (int i = 0; i < renderLayers.size(); ++i)
@@ -141,14 +143,14 @@ void ModuleRender::AddTextureRenderQueue(SDL_Texture* texture, iPoint pos, SDL_R
 
 	renderObject.InitAsTexture(texture, pos, section, scale, layer, orderInlayer, rotation, flip, speed);
 
-	renderObject.destRect.x = (int)(-camera->x * speed) + pos.x * App->window->scale;
-	renderObject.destRect.y = (int)(-camera->y * speed) + pos.y * App->window->scale;
+	renderObject.destRect.x = (int)(-camera->x * speed) + pos.x * app->window->scale;
+	renderObject.destRect.y = (int)(-camera->y * speed) + pos.y * app->window->scale;
 
 	renderObject.destRect.w = section.w;
 	renderObject.destRect.h = section.h;
 
-	renderObject.destRect.w *= scale * App->window->scale;
-	renderObject.destRect.h *= scale * App->window->scale;
+	renderObject.destRect.w *= scale * app->window->scale;
+	renderObject.destRect.h *= scale * app->window->scale;
 
 	//LOG("direction in memory : %#x", renderObject.texture);
 	renderLayers[layer].renderObjects.push_back(renderObject);
@@ -167,8 +169,8 @@ void ModuleRender::AddRectRenderQueue(const SDL_Rect& rect, SDL_Color color, boo
 	// If texture in UI layer, it moves alongside the camera-> , speed = 0;
 	if (uiLayer > 0 && layer == uiLayer) speed = 0;
 
-	SDL_Rect rec = { (-camera->x * speed) + rect.x * App->window->scale, (-camera->y * speed) + rect.y * App->window->scale,
-		rect.w * App->window->scale, rect.h * App->window->scale };
+	SDL_Rect rec = { (-camera->x * speed) + rect.x * app->window->scale, (-camera->y * speed) + rect.y * app->window->scale,
+		rect.w * app->window->scale, rect.h * app->window->scale };
 
 	renderR.InitAsRect(rec, { color.r,color.g,color.b,color.a }, filled, layer, orderInlayer, speed);
 
@@ -194,12 +196,12 @@ void ModuleRender::AddCircleRenderQueue(const iPoint pos, int radius, SDL_Color 
 	for (uint i = 0; i < 360; ++i)
 	{		
 		float factorX = radius * cos(i * factor);
-		int temp = (int)(-camera->x + renderC.destRect.x * App->window->scale + (int)factorX * App->window->scale);
-		renderC.points[i].x = (int)(-camera->x + renderC.destRect.x * App->window->scale + (int)factorX * App->window->scale);
-		renderC.points[i].y = (int)(-camera->y + renderC.destRect.y * App->window->scale + (int)(radius * sin(i * factor)) * App->window->scale);
+		int temp = (int)(-camera->x + renderC.destRect.x * app->window->scale + (int)factorX * app->window->scale);
+		renderC.points[i].x = (int)(-camera->x + renderC.destRect.x * app->window->scale + (int)factorX * app->window->scale);
+		renderC.points[i].y = (int)(-camera->y + renderC.destRect.y * app->window->scale + (int)(radius * sin(i * factor)) * app->window->scale);
 		
-		/*renderC.points[i].x = (int)(-camera->x + renderC.destRect.x * App->window->scale + radius * cos(i * factor) * App->window->scale);
-		renderC.points[i].y = (int)(-camera->y + renderC.destRect.y * App->window->scale + radius * sin(i * factor) * App->window->scale);*/
+		/*renderC.points[i].x = (int)(-camera->x + renderC.destRect.x * app->window->scale + radius * cos(i * factor) * app->window->scale);
+		renderC.points[i].y = (int)(-camera->y + renderC.destRect.y * app->window->scale + radius * sin(i * factor) * app->window->scale);*/
 	}
 
 	renderLayers[layer].renderObjects.push_back(renderC);
@@ -226,10 +228,10 @@ void ModuleRender::AddLineRenderQueue(iPoint pos1, iPoint pos2, bool adjust, SDL
 	//If texture in UI layer, it moves alongside the camera-> , speed = 0;
 	if (uiLayer >= 0 && layer == uiLayer) speed = 0;
 
-	pos1.x = -camera->x + pos1.x * App->window->scale;
-	pos1.y = -camera->y + pos1.y * App->window->scale;
-	pos2.x = -camera->x + pos2.x * App->window->scale;
-	pos2.y = -camera->y + pos2.y * App->window->scale;
+	pos1.x = -camera->x + pos1.x * app->window->scale;
+	pos1.y = -camera->y + pos1.y * app->window->scale;
+	pos2.x = -camera->x + pos2.x * app->window->scale;
+	pos2.y = -camera->y + pos2.y * app->window->scale;
 
 	renderL.InitAsLine(pos1, pos2, adjust, color, layer, orderInLayer, speed);
 
@@ -251,10 +253,10 @@ void ModuleRender::AddRenderObjectRenderQueue(RenderObject renderObject)
 		if (!InScreen(renderObject.destRect)) return;
 
 		// Adjust destination rect using camera and screen scale
-		renderObject.destRect.x = (int)(-camera->x * renderObject.speedRegardCamera) + renderObject.destRect.x * App->window->scale;
-		renderObject.destRect.y = (int)(-camera->y * renderObject.speedRegardCamera) + renderObject.destRect.y * App->window->scale;
-		renderObject.destRect.w *= renderObject.scale * App->window->scale;
-		renderObject.destRect.h *= renderObject.scale * App->window->scale;
+		renderObject.destRect.x = (int)(-camera->x * renderObject.speedRegardCamera) + renderObject.destRect.x * app->window->scale;
+		renderObject.destRect.y = (int)(-camera->y * renderObject.speedRegardCamera) + renderObject.destRect.y * app->window->scale;
+		renderObject.destRect.w *= renderObject.scale * app->window->scale;
+		renderObject.destRect.h *= renderObject.scale * app->window->scale;
 		break;
 	}
 	case RENDER_TEXTURE:
@@ -263,8 +265,8 @@ void ModuleRender::AddRenderObjectRenderQueue(RenderObject renderObject)
 			(int)(renderObject.section.w * renderObject.scale), (int)(renderObject.section.h * renderObject.scale) })) return;
 
 		// Adjust destination position using camera and screen size
-		renderObject.destRect.x = (int)(-camera->x * renderObject.speedRegardCamera) + renderObject.destRect.x * App->window->scale;
-		renderObject.destRect.y = (int)(-camera->y * renderObject.speedRegardCamera) + renderObject.destRect.y * App->window->scale;
+		renderObject.destRect.x = (int)(-camera->x * renderObject.speedRegardCamera) + renderObject.destRect.x * app->window->scale;
+		renderObject.destRect.y = (int)(-camera->y * renderObject.speedRegardCamera) + renderObject.destRect.y * app->window->scale;
 		if (renderObject.section.h != 0 && renderObject.section.w != 0)
 		{
 			renderObject.destRect.w = renderObject.section.w;
@@ -275,8 +277,8 @@ void ModuleRender::AddRenderObjectRenderQueue(RenderObject renderObject)
 			// Collect the texture size into rect.w and rect.h variables
 			SDL_QueryTexture(renderObject.texture, nullptr, nullptr, &renderObject.destRect.w, &renderObject.destRect.h);
 		}
-		renderObject.destRect.w *= renderObject.scale * App->window->scale;
-		renderObject.destRect.h *= renderObject.scale * App->window->scale;
+		renderObject.destRect.w *= renderObject.scale * app->window->scale;
+		renderObject.destRect.h *= renderObject.scale * app->window->scale;
 		break;
 	}
 	case RENDER_CIRCLE:
@@ -287,8 +289,8 @@ void ModuleRender::AddRenderObjectRenderQueue(RenderObject renderObject)
 		float factor = (float)M_PI / 180.0f;
 		for (uint i = 0; i < 360; ++i)
 		{
-			renderObject.points[i].x = (int)(-camera->x + renderObject.destRect.x * App->window->scale + renderObject.radius * cos(i * factor) * App->window->scale);
-			renderObject.points[i].y = (int)(-camera->y + renderObject.destRect.y * App->window->scale + renderObject.radius * sin(i * factor) * App->window->scale);
+			renderObject.points[i].x = (int)(-camera->x + renderObject.destRect.x * app->window->scale + renderObject.radius * cos(i * factor) * app->window->scale);
+			renderObject.points[i].y = (int)(-camera->y + renderObject.destRect.y * app->window->scale + renderObject.radius * sin(i * factor) * app->window->scale);
 		}
 		break;
 	}
@@ -305,10 +307,10 @@ void ModuleRender::AddRenderObjectRenderQueue(RenderObject renderObject)
 		if (!InScreen(SDL_Rect{ renderObject.pos1.x, renderObject.pos1.y,1,1 }) &&
 			!InScreen(SDL_Rect{ renderObject.pos2.x,renderObject.pos2.y,1,1 })) return;
 
-		renderObject.pos1.x = -camera->x + renderObject.pos1.x * App->window->scale;
-		renderObject.pos1.y = -camera->y + renderObject.pos1.y * App->window->scale;
-		renderObject.pos2.x = -camera->x + renderObject.pos2.x * App->window->scale;
-		renderObject.pos2.y = -camera->y + renderObject.pos2.y * App->window->scale;
+		renderObject.pos1.x = -camera->x + renderObject.pos1.x * app->window->scale;
+		renderObject.pos1.y = -camera->y + renderObject.pos1.y * app->window->scale;
+		renderObject.pos2.x = -camera->x + renderObject.pos2.x * app->window->scale;
+		renderObject.pos2.y = -camera->y + renderObject.pos2.y * app->window->scale;
 		break;
 	}
 	}
@@ -348,15 +350,15 @@ bool ModuleRender::InScreen(const SDL_Rect& rect)
 	// When finished, remove this line
 	//return true;
 
-	int a1 = (rect.x + rect.w) * App->window->scale;
-	int a2 = rect.x * App->window->scale;
-	int a3 = (rect.y + rect.h) * App->window->scale;
-	int a4 = rect.y * App->window->scale;
+	int a1 = (rect.x + rect.w) * app->window->scale;
+	int a2 = rect.x * app->window->scale;
+	int a3 = (rect.y + rect.h) * app->window->scale;
+	int a4 = rect.y * app->window->scale;
 
 	int b1 = camera->x;
-	int b2 = camera->x + App->window->width;
+	int b2 = camera->x + app->window->width;
 	int b3 = camera->y;
-	int b4 = camera->y + App->window->height;
+	int b4 = camera->y + app->window->height;
 
 	if (a1 < b1 || a2 > b2 || a3 < b3 || a4 > b4) return false;
 
@@ -375,7 +377,7 @@ int ModuleRender::RoundToInt(int num)
 
 void ModuleRender::ToggleVsync(bool vsync)
 {
-	App->vsync = vsync;
+	app->vsync = vsync;
 }
 
 void ModuleRender::GetSaveData(pugi::xml_document& save)

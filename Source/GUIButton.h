@@ -25,9 +25,9 @@ private:
 
 	friend class GUISlider;
 public:
-	GUIButton(Application* app, iPoint pos, int width, int height, std::string path);
+	GUIButton(iPoint pos, int width, int height, std::string path);
 
-	GUIButton(Application* app, iPoint pos, int width, int height);
+	GUIButton(iPoint pos, int width, int height);
 
 	~GUIButton();
 

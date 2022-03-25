@@ -2,7 +2,7 @@
 #include "Application.h"
 #include "PlayerController.h"
 
-PlayerRevenant::PlayerRevenant(Application* app) : Player(app)
+PlayerRevenant::PlayerRevenant() : Player()
 {
 	playerClass = PlayerClass::REVENANT;
 

@@ -1,8 +1,9 @@
 #include "Scene.h"
+#include <string.h>
 
-Scene::Scene(Application* app, string name)
+Scene::Scene(std::string name)
 {
-	_app = app;
+	app = Application::GetInstance();
 	this->name = name;
 }
 

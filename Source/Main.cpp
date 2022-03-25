@@ -1,11 +1,6 @@
 #include <stdlib.h>
 #include "Application.h"
-#include "Globals.h"
 #include "MemLeaks.h"
-
-#include "External/SDL/include/SDL.h"
-
-//Application* Application::app = nullptr;
 
 enum main_states
 {
@@ -22,7 +17,8 @@ int main(int argc, char ** argv)
 
 	int main_return = EXIT_FAILURE;
 	main_states state = MAIN_CREATION;
-	Application* App = NULL;
+	Application* app = nullptr;
+	//Application* app = NULL;
 
 	srand(static_cast <unsigned> (time(NULL)));
 
@@ -33,14 +29,14 @@ int main(int argc, char ** argv)
 		case MAIN_CREATION:
 
 			LOG("-------------- Application Creation --------------");
-			App = new Application();
+			app = Application::GetInstance();
 			state = MAIN_START;
 			break;
 
 		case MAIN_START:
 
 			LOG("-------------- Application Init --------------");
-			if (App->Init() == false)
+			if (app->Init() == false)
 			{
 				LOG("Application Init exits with ERROR");
 				state = MAIN_EXIT;
@@ -55,7 +51,7 @@ int main(int argc, char ** argv)
 
 		case MAIN_UPDATE:
 		{
-			int update_return = App->Update();
+			int update_return = app->Update();
 
 			if (update_return == UPDATE_ERROR)
 			{
@@ -71,7 +67,7 @@ int main(int argc, char ** argv)
 		case MAIN_FINISH:
 
 			LOG("-------------- Application CleanUp --------------");
-			if (App->CleanUp() == false)
+			if (app->CleanUp() == false)
 			{
 				LOG("Application CleanUp exits with ERROR");
 			}
@@ -84,7 +80,7 @@ int main(int argc, char ** argv)
 		}
 	}
 
-	delete App;
+	delete app;
 	
 	ReportMemoryLeaks();
 
