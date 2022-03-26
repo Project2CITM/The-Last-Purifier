@@ -8523,7 +8523,7 @@
    <tile gid="76"/>
   </data>
  </layer>
- <layer id="5" name="Porta" width="81" height="35">
+ <layer id="5" name="Porta" width="81" height="35" visible="0">
   <data>
    <tile/>
    <tile/>
