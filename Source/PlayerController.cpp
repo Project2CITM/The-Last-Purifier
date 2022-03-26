@@ -62,6 +62,8 @@ void PlayerController::Start()
 
 	// Initialize physBody
 	this->pBody = app->physics->CreateRectangle({ 100,100 }, 10, 16, this);
+	this->pBody->body->SetFixedRotation(true);
+	//pBody->body->SetType(b2BodyType::b2_kinematicBody);
 
 }
 
