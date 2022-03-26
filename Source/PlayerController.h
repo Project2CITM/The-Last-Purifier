@@ -65,11 +65,11 @@ private:
 
 	Animation animations[PLAYER_ANIMATIONS_NUM];
 
-	float speed = 5.0f;
+	float speed = 12.0f;	//5
 	bool isDashing = false;
 	int dashCounter = 0;
 	int dashTime = 55;
-	int dashDistance = 6;
+	int dashDistance = 10;	//6
 
 	PlayerAnim currentAnim = PlayerAnim::IDLE;
 

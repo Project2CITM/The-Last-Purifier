@@ -18,6 +18,7 @@ TestScene::~TestScene()
 bool TestScene::Start()
 {
     player = new PlayerRevenant();
+    //app->renderer->camera->SetTarget(player->controller);
     //player = new PlayerSage(app);
     //playerController = new PlayerController("test", "test", app);
     //gameObjects.add(playerController); // Ahora se anade automatico a la lista
@@ -38,7 +39,7 @@ bool TestScene::Start()
 
 bool TestScene::PreUpdate()
 {
-    if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) 
+    if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) 
     {
         roomManager.CleanUp();
         roomManager.Start();

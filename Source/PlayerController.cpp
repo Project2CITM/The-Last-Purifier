@@ -118,6 +118,7 @@ void PlayerController::PostUpdate()
 	if (lookingDir == LookingDirection::LEFT) renderObjects[0].flip = SDL_FLIP_HORIZONTAL;
 	else if (lookingDir == LookingDirection::RIGHT) renderObjects[0].flip = SDL_FLIP_NONE;
 
+	renderObjects[0].scale = 1.3f;
 	app->renderer->AddRenderObjectRenderQueue(renderObjects[0]);
 }
 

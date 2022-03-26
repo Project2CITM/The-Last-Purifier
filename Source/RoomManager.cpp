@@ -223,7 +223,19 @@ Room* RoomManager::CreateRoom(iPoint mapPosition)
 {
 	Room* r = new Room();
 	r->roomPosition = mapPosition;
-	r->roomTexture = app->textures->Load("Assets/Maps/mapTest.png");
+	
+	//srand(time(NULL));
+	int ran = rand() % 3;
+	if (ran == 0) {
+		r->roomTexture = app->textures->Load("Assets/Maps/mapTest3.png");
+	}
+	else if(ran == 1){
+		r->roomTexture = app->textures->Load("Assets/Maps/mapTest.png");
+	}
+	else {
+		r->roomTexture = app->textures->Load("Assets/Maps/mapTest2.png");
+	}
+
 	rooms.add(r);
 	roomPositions[mapPosition.x][mapPosition.y] = r;
 	return r;
