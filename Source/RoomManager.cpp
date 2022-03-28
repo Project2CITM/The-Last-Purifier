@@ -225,8 +225,8 @@ Room* RoomManager::CreateRoom(iPoint mapPosition)
 	r->roomPosition = mapPosition;
 	
 	//srand(time(NULL));
-	int ran = rand() % 3;
-	if (ran == 0) {
+	int ran = rand() % 9;
+	/*if (ran == 0) {
 		r->roomTexture = app->textures->Load("Assets/Maps/mapTest3.png");
 	}
 	else if(ran == 1){
@@ -234,7 +234,38 @@ Room* RoomManager::CreateRoom(iPoint mapPosition)
 	}
 	else {
 		r->roomTexture = app->textures->Load("Assets/Maps/mapTest2.png");
+	}*/
+	switch (ran)
+	{
+	case 0: 
+		r->roomTexture = app->textures->Load("Assets/Maps/mapTest3.png");
+		break;
+	case 1:
+		r->roomTexture = app->textures->Load("Assets/Maps/mapTest.png");
+		break;
+	case 2:
+		r->roomTexture = app->textures->Load("Assets/Maps/mapTest2.png");
+		break;
+	case 3:
+		r->roomTexture = app->textures->Load("Assets/Maps/mapaMiniBoss.png");
+		break;
+	case 4:
+		r->roomTexture = app->textures->Load("Assets/Maps/mapaTest6.png");
+		break;
+	case 5:
+		r->roomTexture = app->textures->Load("Assets/Maps/maproom46.png");
+		break;
+	case 6:
+		r->roomTexture = app->textures->Load("Assets/Maps/maproom41.png");
+		break;
+	case 7:
+		r->roomTexture = app->textures->Load("Assets/Maps/maproom42.png");
+		break;
+	case 8:
+		r->roomTexture = app->textures->Load("Assets/Maps/maproom43.png");
+		break;
 	}
+
 
 	rooms.add(r);
 	roomPositions[mapPosition.x][mapPosition.y] = r;
