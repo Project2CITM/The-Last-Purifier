@@ -36,6 +36,8 @@ private:
 
 	int distanceFromTarget = 0;
 
+	bool debug = false;
+
 public:
 	int x = 0;
 	int y = 0;
@@ -43,10 +45,13 @@ public:
 	int cameraSpeed = 20;
 
 	// mas grande, mas lento se mueve la camera
-	int cameraDelay = 0;
+	int cameraDelay = 10;
+
+	// distancia donde la camera empieza a perseguirte
+	int followDistance = 100;
 
 	// decidir si se mueve o no
-	int moveX = 0, moveY = 1;
+	int moveX = 1, moveY = 1;
 
 	int mapHeight = 0, mapWidth = 0;
 };

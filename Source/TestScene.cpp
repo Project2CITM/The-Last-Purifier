@@ -22,6 +22,7 @@ bool TestScene::Start()
     //player = new PlayerSage(app);
     //playerController = new PlayerController("test", "test", app);
     //gameObjects.add(playerController); // Ahora se anade automatico a la lista
+    app->renderer->camera->SetTarget(player->controller);
 
     //Test Skill/Spell tree
     revenantTree = new ClassTree(PlayerClass::REVENANT);
