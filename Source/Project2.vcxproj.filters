@@ -22,9 +22,6 @@
     <Filter Include="Archivos de origen\Globals">
       <UniqueIdentifier>{d53906c2-5300-49e8-9838-38b529de736c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de origen\GUI">
-      <UniqueIdentifier>{a5bfeb4a-f892-494a-8a18-9c5a53f72a55}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de origen\Tools">
       <UniqueIdentifier>{ce5004f4-c63d-4c4e-94ca-2b95314c37ab}</UniqueIdentifier>
     </Filter>
@@ -63,6 +60,9 @@
     </Filter>
     <Filter Include="Archivos de origen\Player\Scripts">
       <UniqueIdentifier>{78126e22-6191-445c-9ecf-90c0b310ffff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Globals\GUI">
+      <UniqueIdentifier>{a5bfeb4a-f892-494a-8a18-9c5a53f72a55}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -198,6 +198,9 @@
     <ClInclude Include="CommonTree.h">
       <Filter>Archivos de encabezado\Player\Trees</Filter>
     </ClInclude>
+    <ClInclude Include="MainMenu.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Scene.cpp">
@@ -261,16 +264,16 @@
       <Filter>Archivos de origen\Globals</Filter>
     </ClCompile>
     <ClCompile Include="GUI.cpp">
-      <Filter>Archivos de origen\GUI</Filter>
+      <Filter>Archivos de origen\Globals\GUI</Filter>
     </ClCompile>
     <ClCompile Include="GUIButton.cpp">
-      <Filter>Archivos de origen\GUI</Filter>
+      <Filter>Archivos de origen\Globals\GUI</Filter>
     </ClCompile>
     <ClCompile Include="GUICheckbox.cpp">
-      <Filter>Archivos de origen\GUI</Filter>
+      <Filter>Archivos de origen\Globals\GUI</Filter>
     </ClCompile>
     <ClCompile Include="GUISlider.cpp">
-      <Filter>Archivos de origen\GUI</Filter>
+      <Filter>Archivos de origen\Globals\GUI</Filter>
     </ClCompile>
     <ClCompile Include="StateMachine.cpp">
       <Filter>Archivos de origen\Tools</Filter>
@@ -310,6 +313,9 @@
     </ClCompile>
     <ClCompile Include="CommonTree.cpp">
       <Filter>Archivos de origen\Player\Trees</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenu.cpp">
+      <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

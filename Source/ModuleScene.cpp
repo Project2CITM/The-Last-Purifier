@@ -4,12 +4,14 @@
 #include "ModuleWindow.h"
 #include "ModuleRender.h"
 #include "TestScene.h"
+#include "MainMenu.h"
 
 ModuleScene::ModuleScene(bool start_enabled) : Module(start_enabled)
 {
 	name = "scenes";
 
-	scenes[MAIN_MENU] = new TestScene();
+	scenes[MAIN_MENU] = new MainMenu();
+	scenes[LEVEL_1] = new TestScene();
 
 	currentScene = MAIN_MENU;
 
