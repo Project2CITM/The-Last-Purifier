@@ -29,6 +29,11 @@ void Camera::Update()
 
 	//if (!app->debug->debugCamera) return;
 
+	if (app->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
+	{
+		debug = !debug;
+	}
+
 	if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 	{
 		y -= cameraSpeed;
@@ -53,7 +58,7 @@ void Camera::Update()
 
 void Camera::UpdatePosition()
 {
-	if (target == nullptr || app->scene->isChangingScene) return;
+	if (target == nullptr || app->scene->isChangingScene || debug) return;
 
 	// Update Y
 	int targetPosY = target->GetPosition().y * app->window->scale;
@@ -61,23 +66,33 @@ void Camera::UpdatePosition()
 
 	int distance = abs(targetPosY - y);
 
-	if (distance > 200)
+	if (distance > followDistance)
 	{
 		targetPosY > y ? y += distance / (cameraDelay / 3) : targetPosY < y ? y -= distance / (cameraDelay / 3) : y = y;
 	}
-	else if (distance != 0) targetPosY > y ? y += distance / cameraDelay : targetPosY < y ? y -= distance / cameraDelay : y = y;
+	else if (distance != 0)
+	{
+		targetPosY > y ? y += distance / cameraDelay : targetPosY < y ? y -= distance / cameraDelay : y = y;
+	}
 
 	// Update X
 	int targetPosX = target->GetPosition().x * app->window->scale;
-	targetPosX = (targetPosX - pivotX * app->window->scale) * moveX;
+	targetPosX = (targetPosX - pivotX) * moveX;
 
 	distance = abs(targetPosX - x);
 
-	if (distance != 0) targetPosX > x ? x += distance / cameraDelay : targetPosX < x ? x -= distance / cameraDelay : x = x;
+	if (distance > followDistance)
+	{
+		targetPosX > x ? x += distance / (cameraDelay / 3) : targetPosX < x ? x -= distance / (cameraDelay / 3) : x = x;
+	}
+	else if (distance != 0)
+	{
+		targetPosX > x ? x += distance / cameraDelay : targetPosX < x ? x -= distance / cameraDelay : x = x;
+	}
 
 	// Limite de camera
-	y < 0 ? y = 0 : y > mapHeight ? y = mapHeight : y = y;
-	x < 0 ? x = 0 : x > mapHeight ? x = mapHeight : x = x;
+	//y < 0 ? y = 0 : y > mapHeight ? y = mapHeight : y = y;
+	//x < 0 ? x = 0 : x > mapHeight ? x = mapHeight : x = x;
 }
 
 void Camera::SetTarget(GameObject* target)
