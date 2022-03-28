@@ -225,7 +225,7 @@ Room* RoomManager::CreateRoom(iPoint mapPosition)
 	r->roomPosition = mapPosition;
 	
 	//srand(time(NULL));
-	int ran = rand() % 9;
+	int ran = rand() % 12;
 	/*if (ran == 0) {
 		r->roomTexture = app->textures->Load("Assets/Maps/mapTest3.png");
 	}
@@ -238,32 +238,44 @@ Room* RoomManager::CreateRoom(iPoint mapPosition)
 	switch (ran)
 	{
 	case 0: 
-		r->roomTexture = app->textures->Load("Assets/Maps/mapTest3.png");
+		r->roomTexture = app->textures->Load("Assets/Maps/mapa01.png");
 		break;
 	case 1:
-		r->roomTexture = app->textures->Load("Assets/Maps/mapTest.png");
+		r->roomTexture = app->textures->Load("Assets/Maps/mapa02.png");
 		break;
 	case 2:
-		r->roomTexture = app->textures->Load("Assets/Maps/mapTest2.png");
+		r->roomTexture = app->textures->Load("Assets/Maps/mapa03.png");
 		break;
 	case 3:
 		r->roomTexture = app->textures->Load("Assets/Maps/mapaMiniBoss.png");
 		break;
 	case 4:
-		r->roomTexture = app->textures->Load("Assets/Maps/mapaTest6.png");
+		r->roomTexture = app->textures->Load("Assets/Maps/mapa04.png");
 		break;
 	case 5:
-		r->roomTexture = app->textures->Load("Assets/Maps/maproom46.png");
+		r->roomTexture = app->textures->Load("Assets/Maps/mapa05.png");
 		break;
 	case 6:
-		r->roomTexture = app->textures->Load("Assets/Maps/maproom41.png");
+		r->roomTexture = app->textures->Load("Assets/Maps/mapa06.png");
 		break;
 	case 7:
-		r->roomTexture = app->textures->Load("Assets/Maps/maproom42.png");
+		r->roomTexture = app->textures->Load("Assets/Maps/mapa07.png");
 		break;
 	case 8:
-		r->roomTexture = app->textures->Load("Assets/Maps/maproom43.png");
+		r->roomTexture = app->textures->Load("Assets/Maps/mapa08.png");
 		break;
+	case 9:
+		r->roomTexture = app->textures->Load("Assets/Maps/mapa09.png");
+		break;
+	case 10:
+		r->roomTexture = app->textures->Load("Assets/Maps/mapa10.png");
+		break;
+	case 11:
+		r->roomTexture = app->textures->Load("Assets/Maps/mapa11.png");
+		break;
+	/*case 12:
+		r->roomTexture = app->textures->Load("Assets/Maps/mapa12.png");
+		break;*/
 	}
 
 
