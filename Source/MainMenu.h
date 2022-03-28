@@ -1,41 +1,36 @@
 #ifndef __MAIN_MENU_H__
 #define __MAIN_MENU_H__
 
-#include "GameObject.h"
 #include "Scene.h"
-#include "List.h"
-#include "GUI.h"
-#include <string.h>
+
 
 class MainMenu : public Scene
 {
 public:
 
 	// Constructor
-	MainMenu(std::string name = "null");
+	MainMenu();
 
 	// Destructor
 	~MainMenu();
 
 	virtual bool InitScene();
 
-	virtual bool Start();
+	bool Start() override;
 
-	virtual bool PreUpdate();
+	bool PreUpdate() override;
 
-	virtual bool Update();
+	bool Update() override;
 
-	virtual bool PostUpdate();
+	bool PostUpdate() override;
 
-	virtual bool CleanUp();
+	bool CleanUp() override;
 
-	virtual void SetSaveData();
-
-	virtual void LoadSaveData(pugi::xml_node save);
-
-	std::string name = "null";
 
 private:
+
+	RenderObject fondo;
+	SDL_Texture* fondo_;
 
 };
 
