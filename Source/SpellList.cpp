@@ -1,6 +1,17 @@
 #include "SpellList.h"
 #include "TestSpell.h"
 
+SpellList* SpellList::instance = nullptr;
+
+SpellList* SpellList::GetInstance()
+{
+	if (instance == nullptr)
+	{
+		instance = new SpellList();
+	}
+	return instance;
+}
+
 SpellList::SpellList()
 {
 	spells[(int)SpellID::NONE] = new Spell();

@@ -12,14 +12,23 @@
 
 class SpellList
 {
+private:
+	static SpellList* instance;
+
+
 public:
-	SpellList();
+
+	static SpellList* GetInstance();
 
 	Spell* spells[TOTAL_SPELLS];
 
 	void Update();
 
 	void CleanUp();
+
+private:
+
+	SpellList();
 };
 
 #endif // !_SPELL_LIST_

@@ -6,6 +6,7 @@
 #include "PlayerCombat.h"
 #include "ModuleInput.h"
 #include "ClassTree.h"
+#include "SpellInfo.h"
 
 TestScene::TestScene():Scene("testScene")
 {
@@ -48,7 +49,10 @@ bool TestScene::PreUpdate()
     // Test Code-------------
     if (app->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
     {
-        if (!player->controller->combat->AddSpell((SpellID)((rand() % 10) + (1))))
+        SpellInfo spell;
+        spell.id = (SpellID)((rand() % 10) + (1));
+        spell.spellLevel = rand() % 4;
+        if (!player->controller->combat->AddSpell(spell))
         {
             printf("No more empty spell nor deck Slots!!\n");
         }

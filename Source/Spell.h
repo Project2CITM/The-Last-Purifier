@@ -23,11 +23,16 @@ class Spell
 public:
 	Spell();
 
-	virtual bool Execute();
+	virtual void Execute(int level);
 
 	virtual void Update();
 
 	virtual void CleanUp();
+
+	int GetUses();
+
+protected:
+	int uses = 1;
 
 };
 #endif

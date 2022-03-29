@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "ModulePhysics.h"
 #include "PlayerController.h"
+#include "SpellInfo.h"
 
 PlayerCombat::PlayerCombat(std::string name, std::string tag, Player* player) : GameObject(name, tag)
 {
@@ -29,15 +30,15 @@ void PlayerCombat::Start()
 	attackAreaCounter = 0;
 	for (int i = 0; i < availableSpellSlots; i++)
 	{
-		spellSlots.add(SpellID::NONE);
+		spellSlots.add(new SpellInfo());
 	}
 
 	for (int i = 0; i < availableDeckSlots; i++)
 	{
-		deckSlots.add(SpellID::NONE);
+		deckSlots.add(new SpellInfo());
 	}
 
-	spellSlots[0] = SpellID::COVER;
+	spellSlots[0]->ChangeSpell(SpellID::COVER, 2);
 
 	// Test Code-----------------------------------------
 
@@ -90,7 +91,7 @@ void PlayerCombat::CastSpell()
 	if (executeSpellCommand.Execute(spellSlots[selectedSpell])) // Execute the selected spell and get response
 	{ 
 		// If returns true, the selected spell is deleted from the current spell slot
-		spellSlots[selectedSpell] = SpellID::NONE;
+		spellSlots[selectedSpell]->EmptySpell();
 	}
 }
 
@@ -112,14 +113,14 @@ void PlayerCombat::ChangeSelectedSpellSlot(int num)
 
 }
 
-bool PlayerCombat::AddSpell(SpellID spell)
+bool PlayerCombat::AddSpell(SpellInfo spell)
 {
 	// Check for an empty spell slot.
 	for (int i = 0; i < spellSlots.count(); i++)
 	{
-		if (spellSlots[i] == SpellID::NONE)
+		if (spellSlots[i]->id == SpellID::NONE)
 		{
-			spellSlots[i] = spell;
+			spellSlots[i]->ChangeSpell(spell.id, spell.spellLevel);
 			PrintSlotsState();
 			return true;
 		}
@@ -128,9 +129,9 @@ bool PlayerCombat::AddSpell(SpellID spell)
 	// Check for an empty deck slot.
 	for (int i = 0; i < deckSlots.count(); i++)
 	{
-		if (deckSlots[i] == SpellID::NONE)
+		if (deckSlots[i]->id == SpellID::NONE)
 		{
-			deckSlots[i] = spell;
+			deckSlots[i]->ChangeSpell(spell.id, spell.spellLevel);
 			PrintSlotsState();
 			return true;
 		}
@@ -145,16 +146,15 @@ void PlayerCombat::CheckDeck()
 	for (int i = 0; i < spellSlots.count(); i++)
 	{
 		// If the spell slot is not empty, check the next one
-		if (spellSlots[i] != SpellID::NONE) continue;
+		if (spellSlots[i]->id != SpellID::NONE) continue;
 		
 		// If a spell slot is empty, fill it with one of the deck Slots.
 		for (int j = 0; j < deckSlots.count(); j++)
 		{
-			if (deckSlots[j] != SpellID::NONE) // Not empty deck slot
+			if (deckSlots[j]->id != SpellID::NONE) // Not empty deck slot
 			{
-				spellSlots[i] = deckSlots[j]; // Fill spell slot 
-
-				deckSlots[j] = SpellID::NONE; // Empty deck slot
+				spellSlots[i]->ChangeSpell(deckSlots[j]->id, deckSlots[j]->spellLevel);
+				deckSlots[j]->EmptySpell();
 			}
 		}
 		
@@ -166,18 +166,19 @@ void PlayerCombat::CleanUp()
 	if (revenantAttack != nullptr) RELEASE(revenantAttack);
 	
 	executeSpellCommand.CleanUp();
-	spellSlots.clear();
+	spellSlots.clearPtr();
+	deckSlots.clearPtr();
 }
 
 void PlayerCombat::PrintSlotsState()
 {
 	for (int i = 0; i < spellSlots.count(); i++)
 	{
-		printf("Spell slot %d contains spell %d\n", i, (int)spellSlots[i]);
+		printf("Spell slot %d contains spell %d at level %d\n", i, (int)spellSlots[i]->id, spellSlots[i]->spellLevel);
 	}
 	for (int i = 0; i < deckSlots.count(); i++)
 	{
-		printf("Deck slot %d contains spell %d\n", i, (int)deckSlots[i]);
+		printf("Deck slot %d contains spell %d at level %d\n", i, (int)deckSlots[i]->id, deckSlots[i]->spellLevel);
 	}
 }
 

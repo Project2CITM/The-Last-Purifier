@@ -3,17 +3,19 @@
 
 #include "SpellList.h"
 
+class SpellInfo;
+
 class ExecuteSpell
 {
 public:
 	ExecuteSpell();
 
-	bool Execute(SpellID spell);
+	bool Execute(SpellInfo* spell);
 
 	void CleanUp();
 
 private:
-	SpellList spellList;
+	SpellList* spellList;
 };
 
 #endif

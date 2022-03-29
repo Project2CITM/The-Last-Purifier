@@ -5,8 +5,8 @@ class TestSpell : public Spell
 public:
 	TestSpell();
 
-	bool Execute() override;
-
+	void Execute(int level) override;
+	
 	void Update() override;
 
 };
