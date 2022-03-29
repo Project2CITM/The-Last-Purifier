@@ -30,7 +30,7 @@ public:
 	/// Add the given spellID to either the Spell Slots or the Deck. Returns false if both are full.
 	/// </summary>
 	/// <param name="spell"></param>
-	bool AddSpell(SpellID spell);
+	bool AddSpell(SpellInfo spell);
 
 	/// <summary>
 	/// Checks for empty spell Slots and fills them with any spells in the deck.
@@ -61,12 +61,12 @@ private:
 
 	PhysBody* revenantAttack = nullptr;
 
-	List<SpellID> spellSlots; // A list of every spell slot and its current spell. If empty, it contains NONE.
-	List<SpellID> deckSlots; // A list of every spell in the deck. If empty, contains NONE
+	List<SpellInfo*> spellSlots; // A list of every spell slot and its current spell. If empty, it contains NONE.
+	List<SpellInfo*> deckSlots; // A list of every spell in the deck. If empty, contains NONE
 	int selectedSpell; // The current selected spell slot on the list. This is an index.
 	ExecuteSpell executeSpellCommand; // The command that fires the selected spell on the current spell slot to the SpellList.
 
-	Player* player;
+	Player* player = nullptr;
 
 	friend class PlayerController;
 

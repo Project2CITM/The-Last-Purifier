@@ -4,10 +4,9 @@ Spell::Spell()
 {
 }
 
-bool Spell::Execute()
+void Spell::Execute(int level)
 {
 	printf("Empty Spell Slot!\n");
-	return false;
 }
 
 void Spell::Update()
@@ -16,4 +15,9 @@ void Spell::Update()
 
 void Spell::CleanUp()
 {
+}
+
+int Spell::GetUses()
+{
+	return uses;
 }

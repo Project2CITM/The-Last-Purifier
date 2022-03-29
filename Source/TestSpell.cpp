@@ -3,12 +3,12 @@
 
 TestSpell::TestSpell()
 {
+	this->uses = 2;
 }
 
-bool TestSpell::Execute()
+void TestSpell::Execute(int level)
 {
-	printf("Execute Test Spell!\n");
-	return true;
+	printf("Execute Test Spell at level %d!\n", level);
 }
 
 void TestSpell::Update()

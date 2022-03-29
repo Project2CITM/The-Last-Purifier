@@ -1,15 +1,20 @@
 #include "ExecuteSpell.h"
+#include "SpellInfo.h"
 
 ExecuteSpell::ExecuteSpell()
 {
+	spellList = SpellList::GetInstance();
 }
 
-bool ExecuteSpell::Execute(SpellID spell)
+bool ExecuteSpell::Execute(SpellInfo* spell)
 {
-	return spellList.spells[(int)spell]->Execute();
+	spellList->spells[(int)spell->id]->Execute(spell->spellLevel);
+
+	return --spell->uses == 0;
 }
 
 void ExecuteSpell::CleanUp()
 {
-	spellList.CleanUp();
+	spellList->CleanUp();
+	RELEASE(spellList);
 }
