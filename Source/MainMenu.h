@@ -2,8 +2,8 @@
 #define __MAIN_MENU_H__
 
 #include "Scene.h"
-#include "GUIButton.h"
 
+class GUIButton;
 
 class MainMenu : public Scene
 {
@@ -29,10 +29,7 @@ public:
 
 
 private:
-
-	RenderObject fondo;
-	SDL_Texture* fondo_;
-	GUIButton* PlayBUT;
+	GUIButton* PlayBUT = nullptr;
 };
 
 #endif //__MAIN_MENU_H__

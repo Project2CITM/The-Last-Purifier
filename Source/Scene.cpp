@@ -1,5 +1,4 @@
 #include "Scene.h"
-#include <string.h>
 
 Scene::Scene(std::string name)
 {
@@ -100,6 +99,16 @@ void Scene::AddGameObject(GameObject* gameObject)
 	gameObjects.add(gameObject);
 }
 
+void Scene::AddGUI(GUI* gui)
+{
+	guis.add(gui);
+}
+
+void Scene::AddText(Text* text)
+{
+	texts.add(text);
+}
+
 void Scene::DestroyGameObject(GameObject* gameObject)
 {
 	int index = gameObjects.find(gameObject);
@@ -107,6 +116,26 @@ void Scene::DestroyGameObject(GameObject* gameObject)
 	if (index >= 0)
 	{
 		gameObjects.delPtr(gameObjects.At(index));
+	}
+}
+
+void Scene::DestroyGUI(GUI* gui)
+{
+	int index = guis.find(gui);
+
+	if (index >= 0)
+	{
+		guis.delPtr(guis.At(index));
+	}
+}
+
+void Scene::DestroyText(Text* text)
+{
+	int index = texts.find(text);
+
+	if (index >= 0)
+	{
+		texts.delPtr(texts.At(index));
 	}
 }
 

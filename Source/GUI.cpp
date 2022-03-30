@@ -2,6 +2,8 @@
 #include "ModuleWindow.h"
 #include "ModuleRender.h"
 #include "ModuleInput.h"
+#include "ModuleScene.h"
+#include "Scene.h"
 
 GUI::GUI()
 {
@@ -19,6 +21,7 @@ void GUI::InitAsBox(int x, int y, int w, int h)
     boxShape.w = w;
     position.x = x;
     position.y = y;
+    app->scene->scenes[app->scene->currentScene]->AddGUI(this);
 }
 
 void GUI::InitAsCircle(int x, int y, int radius)

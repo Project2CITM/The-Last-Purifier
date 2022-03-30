@@ -51,8 +51,8 @@ bool ModuleTextures::CleanUp()
 		{
 			try
 			{
-				//SDL_DestroyTexture(textures[i]);
-				//textures[i] = nullptr;
+				SDL_DestroyTexture(textures[i]);
+				textures[i] = nullptr;
 			}
 			catch (const exception& e)
 			{

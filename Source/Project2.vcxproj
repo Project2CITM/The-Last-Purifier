@@ -135,6 +135,7 @@
     <ClInclude Include="StateMachine.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="TestSpell.h" />
+    <ClInclude Include="Text.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -177,6 +178,7 @@
     <ClCompile Include="StateMachine.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="TestSpell.cpp" />
+    <ClCompile Include="Text.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

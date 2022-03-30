@@ -4,7 +4,7 @@
 #include "GameObject.h"
 #include "List.h"
 #include "GUI.h"
-#include <string.h>
+#include "Text.h"
 
 class Scene
 {
@@ -19,6 +19,8 @@ protected:
 	List<GameObject*> gameObjects;
 
 	List<GUI*> guis;
+
+	List<Text*> texts;
 
 	//List<SDL_Texture*> sceneTextures;
 
@@ -43,7 +45,15 @@ public:
 
 	void AddGameObject(GameObject* gameObject);
 
+	void AddGUI(GUI* gui);
+
+	void AddText(Text* text);
+
 	void DestroyGameObject(GameObject* gameObject);
+
+	void DestroyGUI(GUI* gui);
+
+	void DestroyText(Text* text);
 
 	virtual void SetSaveData();
 

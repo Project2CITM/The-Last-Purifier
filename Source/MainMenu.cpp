@@ -1,10 +1,11 @@
 #include "MainMenu.h"
-#include "RenderObject.hpp"
 #include "ModuleRender.h"
 #include "ModuleTextures.h"
-#include "GUIButton.h"
-#include "GUI.h"
 #include "ModuleScene.h"
+#include "GUIButton.h"
+
+// Si no lo pone aqui, sale un menoryleak, nose porque
+RenderObject fondo;
 
 MainMenu::MainMenu():Scene("MainMenu")
 {
@@ -25,12 +26,10 @@ bool MainMenu::InitScene()
 
 bool MainMenu::Start()
 {
-	fondo_ = app->textures->Load("Assets/Sprites/UI/MainMenu/mainmenu.png");
-
-	fondo.InitAsTexture(fondo_, { 0,0 }, {0,0,0,0}, 0.5f);
+	fondo.InitAsTexture(app->textures->Load("Assets/Sprites/UI/MainMenu/mainmenu.png"), { 0,0 }, {0,0,0,0}, 0.5f);
 
 	PlayBUT = new GUIButton({ 0, 0 }, 100, 100);
-	guis.add(PlayBUT);
+
 	Scene::Start();
 
 	return true;
@@ -45,11 +44,10 @@ bool MainMenu::PreUpdate()
 
 bool MainMenu::Update()
 {
-
-	if (PlayBUT->navigation)
-	{
-		app->renderer->AddRenderObjectRenderQueue(fondo);
-	}
+	//if (PlayBUT->navigation)
+	//{
+	//	
+	//}
 
 	if (PlayBUT->doAction)
 	{
@@ -62,7 +60,7 @@ bool MainMenu::Update()
 
 bool MainMenu::PostUpdate()
 {
-	//app->renderer->AddRenderObjectRenderQueue(fondo);
+	app->renderer->AddRenderObjectRenderQueue(fondo);
 	Scene::PostUpdate();
 
 	return true;
