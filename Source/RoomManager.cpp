@@ -225,7 +225,7 @@ Room* RoomManager::CreateRoom(iPoint mapPosition)
 	r->roomPosition = mapPosition;
 	
 	//srand(time(NULL));
-	int ran = rand() % 12;
+	int ran = rand() % 13;
 	/*if (ran == 0) {
 		r->roomTexture = app->textures->Load("Assets/Maps/mapTest3.png");
 	}
@@ -238,44 +238,44 @@ Room* RoomManager::CreateRoom(iPoint mapPosition)
 	switch (ran)
 	{
 	case 0: 
-		r->roomTexture = app->textures->Load("Assets/Maps/mapa01.png");
+		r->roomTexture = app->textures->Load("Assets/Maps/map01.png");
 		break;
 	case 1:
-		r->roomTexture = app->textures->Load("Assets/Maps/mapa02.png");
+		r->roomTexture = app->textures->Load("Assets/Maps/map02.png");
 		break;
 	case 2:
-		r->roomTexture = app->textures->Load("Assets/Maps/mapa03.png");
+		r->roomTexture = app->textures->Load("Assets/Maps/map03.png");
 		break;
 	case 3:
 		r->roomTexture = app->textures->Load("Assets/Maps/mapaMiniBoss.png");
 		break;
 	case 4:
-		r->roomTexture = app->textures->Load("Assets/Maps/mapa04.png");
+		r->roomTexture = app->textures->Load("Assets/Maps/map04.png");
 		break;
 	case 5:
-		r->roomTexture = app->textures->Load("Assets/Maps/mapa05.png");
+		r->roomTexture = app->textures->Load("Assets/Maps/map05.png");
 		break;
 	case 6:
-		r->roomTexture = app->textures->Load("Assets/Maps/mapa06.png");
+		r->roomTexture = app->textures->Load("Assets/Maps/map06.png");
 		break;
 	case 7:
-		r->roomTexture = app->textures->Load("Assets/Maps/mapa07.png");
+		r->roomTexture = app->textures->Load("Assets/Maps/map07.png");
 		break;
 	case 8:
-		r->roomTexture = app->textures->Load("Assets/Maps/mapa08.png");
+		r->roomTexture = app->textures->Load("Assets/Maps/map08.png");
 		break;
 	case 9:
-		r->roomTexture = app->textures->Load("Assets/Maps/mapa09.png");
+		r->roomTexture = app->textures->Load("Assets/Maps/map09.png");
 		break;
 	case 10:
-		r->roomTexture = app->textures->Load("Assets/Maps/mapa10.png");
+		r->roomTexture = app->textures->Load("Assets/Maps/map10.png");
 		break;
 	case 11:
-		r->roomTexture = app->textures->Load("Assets/Maps/mapa11.png");
+		r->roomTexture = app->textures->Load("Assets/Maps/map11.png");
 		break;
-	/*case 12:
-		r->roomTexture = app->textures->Load("Assets/Maps/mapa12.png");
-		break;*/
+	case 12:
+		r->roomTexture = app->textures->Load("Assets/Maps/map12.png");
+		break;
 	}
 
 
