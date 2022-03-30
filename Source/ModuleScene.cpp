@@ -13,7 +13,7 @@ ModuleScene::ModuleScene(bool start_enabled) : Module(start_enabled)
 	scenes[MAIN_MENU] = new MainMenu();
 	scenes[LEVEL_1] = new TestScene();
 
-	currentScene = LEVEL_1;
+	currentScene = MAIN_MENU;
 
 	//scenes[0] = new SceneMainMenu(app);
 	//scenes[1] = new SceneGameOver(app);
@@ -119,6 +119,8 @@ bool ModuleScene::ChangeCurrentSceneRequest(uint index)
 
 	isChangingScene = true;
 
+	changeState = SCENECHANGESTATES::fade_in;
+
 	if (scenes[changeTo] == nullptr) return false;
 
 	fadeSpeed = 1.0f;
@@ -157,6 +159,9 @@ bool ModuleScene::StartChangeScene()
 void ModuleScene::ChangeSceneSteptoStep()
 {
 	fade += fadeSpeed;
+
+	//if(fade >= 255)
+		LOG("%i", changeState);
 
 	fade = fade > 255 ? 255 : fade < 0 ? 0 : fade;
 

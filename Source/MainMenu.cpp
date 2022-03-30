@@ -4,6 +4,7 @@
 #include "ModuleTextures.h"
 #include "GUIButton.h"
 #include "GUI.h"
+#include "ModuleScene.h"
 
 MainMenu::MainMenu():Scene("MainMenu")
 {
@@ -28,7 +29,7 @@ bool MainMenu::Start()
 
 	fondo.InitAsTexture(fondo_, { 0,0 }, {0,0,0,0}, 0.5f);
 
-	PlayBUT = new GUIButton({ 0, 0 }, 10, 10);
+	PlayBUT = new GUIButton({ 0, 0 }, 100, 100);
 	guis.add(PlayBUT);
 	Scene::Start();
 
@@ -45,11 +46,15 @@ bool MainMenu::PreUpdate()
 bool MainMenu::Update()
 {
 
-	if (PlayBUT->isPressed)
+	if (PlayBUT->navigation)
 	{
 		app->renderer->AddRenderObjectRenderQueue(fondo);
 	}
 
+	if (PlayBUT->doAction)
+	{
+		app->scene->ChangeCurrentSceneRequest(LEVEL_1);
+	}
 	Scene::Update();
 
 	return true;

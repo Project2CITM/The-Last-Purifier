@@ -82,7 +82,7 @@ public:
 
 	void ExitGame();
 
-	bool FullScreenDesktop = true;
+	bool FullScreenDesktop = false;
 
 private:
 	// Load / Save

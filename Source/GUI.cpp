@@ -40,7 +40,7 @@ void GUI::PostUpdate()
 bool GUI::CheckOnMouse()
 {
     float screenOffset = app->FullScreenDesktop ? (float)app->renderer->displayMode.h / 720.0f : 1;
-    float widthOffset = app->FullScreenDesktop ? (app->renderer->displayMode.w - (1280.0f * screenOffset)) / 2 : 0;
+    float widthOffset = app->FullScreenDesktop ? (app->renderer->displayMode.w - (1280.0f * screenOffset)) / 2 : 1;
 
     iPoint mousePos = {app->input->GetMouseX(), app->input->GetMouseY()};
 
