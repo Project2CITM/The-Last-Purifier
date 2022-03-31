@@ -59,8 +59,6 @@ void GUIButton::Update()
 
 		if (buttonState == ButtonState::FOCUS)
 			navigation = true;
-		else
-			navigation = false;
 
 		// Sound Effect
 		if (lastState != buttonState && !navigation) app->audio->PlayFx(SFX::BUTTONFEEDBACK);
@@ -78,7 +76,7 @@ void GUIButton::Update()
 	}
 	else if (!CheckOnMouse())
 	{
-		if (!navigation || !isPressed)
+		if (!navigation || !isPressed)	//no seria && i no || ????? ----------- En ningun moment el navigation torna a false
 		{
 			buttonState = ButtonState::IDLE;
 			isPressed = false;

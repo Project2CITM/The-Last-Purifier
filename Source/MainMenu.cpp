@@ -44,10 +44,16 @@ bool MainMenu::PreUpdate()
 
 bool MainMenu::Update()
 {
-	//if (PlayBUT->navigation)
-	//{
-	//	
-	//}
+	LOG("%d", PlayBUT->navigation);
+
+	if (PlayBUT->navigation)
+	{
+		app->renderer->AddRenderObjectRenderQueue(fondo);
+	}
+	else
+	{
+		app->renderer->ClearRederQueue();
+	}
 
 	if (PlayBUT->doAction)
 	{
@@ -61,6 +67,7 @@ bool MainMenu::Update()
 bool MainMenu::PostUpdate()
 {
 	app->renderer->AddRenderObjectRenderQueue(fondo);
+
 	Scene::PostUpdate();
 
 	return true;
