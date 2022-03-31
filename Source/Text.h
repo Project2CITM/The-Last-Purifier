@@ -1,10 +1,8 @@
 #ifndef __TEXT_H__
 #define __TEXT_H__
 
-
 #include "Point.h"
 #include <string>
-
 
 class Text
 {
