@@ -57,8 +57,8 @@ void GUIButton::Update()
 
 		buttonState = ButtonState::FOCUS;
 
-		if (buttonState == ButtonState::FOCUS)
-			navigation = true;
+		//if (buttonState == ButtonState::FOCUS)
+			//navigation = true;
 
 		// Sound Effect
 		if (lastState != buttonState && !navigation) app->audio->PlayFx(SFX::BUTTONFEEDBACK);
@@ -83,12 +83,8 @@ void GUIButton::Update()
 		}
 	}
 
-	if (buttonState == ButtonState::IDLE)
-	{
-		navigation = false;
-	}
 
-	LOG("%d", buttonState);
+//	LOG("%d", buttonState);
 
 	switch (buttonState)
 	{

@@ -65,7 +65,7 @@ bool MainMenu::Update()
 
 	if (CreditBUT->doAction)
 	{
-
+		ShellExecuteA(NULL, "close", "https://www.google.com", NULL, NULL, SW_SHOWNORMAL);
 	}
 
 	if (ExitBUT->doAction)
