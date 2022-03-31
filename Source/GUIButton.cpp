@@ -83,6 +83,8 @@ void GUIButton::Update()
 		}
 	}
 
+	LOG("%d", buttonState);
+
 	switch (buttonState)
 	{
 		case ButtonState::IDLE:
