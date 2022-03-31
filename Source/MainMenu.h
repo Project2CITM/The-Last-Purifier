@@ -30,10 +30,10 @@ public:
 
 private:
 	GUIButton* PlayBUT = nullptr;
+	GUIButton* OptionsBUT = nullptr;
+	GUIButton* CreditBUT = nullptr;
 	GUIButton* ExitBUT = nullptr;
 	GUIButton* LinkBUT = nullptr;
-
-	bool link = false;;
 };
 
 #endif //__MAIN_MENU_H__

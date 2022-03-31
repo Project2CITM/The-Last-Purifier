@@ -76,11 +76,16 @@ void GUIButton::Update()
 	}
 	else if (!CheckOnMouse())
 	{
-		if (!navigation || !isPressed)	//no seria && i no || ????? ----------- En ningun moment el navigation torna a false
+		if (!navigation || !isPressed)
 		{
 			buttonState = ButtonState::IDLE;
 			isPressed = false;
 		}
+	}
+
+	if (buttonState == ButtonState::IDLE)
+	{
+		navigation = false;
 	}
 
 	LOG("%d", buttonState);

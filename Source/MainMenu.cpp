@@ -31,7 +31,9 @@ bool MainMenu::Start()
 {
 	fondo.InitAsTexture(app->textures->Load("Assets/Sprites/UI/MainMenu/mainmenu.png"), { 0,0 }, {0,0,0,0}, 0.5f);
 
-	PlayBUT = new GUIButton({ 125, 175 }, 75, 25);
+	PlayBUT = new GUIButton({ 125, 180 }, 75, 25);
+	OptionsBUT = new GUIButton({ 140, 215 }, 60, 20, "Assets/Sprites/UI/PlayButton/play.png");
+	CreditBUT = new GUIButton({ 140, 240 }, 60, 20);
 	ExitBUT = new GUIButton({ 150, 285 }, 50, 20);
 	LinkBUT = new GUIButton({ 20, 330 }, 75, 25);
 
@@ -53,11 +55,7 @@ bool MainMenu::Update()
 
 	if (PlayBUT->navigation)
 	{
-		app->renderer->AddRenderObjectRenderQueue(fondo);
-	}
-	else
-	{
-		app->renderer->ClearRederQueue();
+		//app->renderer->AddRenderObjectRenderQueue(fondo);
 	}
 
 	if (PlayBUT->doAction)
@@ -72,15 +70,10 @@ bool MainMenu::Update()
 		return false;
 	}
 
-	if (app->input->GetMouseButton(1) == KEY_DOWN)
-	{
-		link = true;
-	}
-
-	if (LinkBUT->doAction && link)
+	if (LinkBUT->doAction)
 	{
 		ShellExecuteA(NULL, "open", "https://www.google.com", NULL, NULL, SW_SHOWNORMAL);		//change the url for the url of the web
-		link = false;
+		LinkBUT->doAction = false;
 	}
 
 	Scene::Update();
