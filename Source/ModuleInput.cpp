@@ -31,6 +31,17 @@ bool ModuleInput::Init(pugi::xml_node& config)
 		ret = false;
 	}
 
+	if (SDL_InitSubSystem(SDL_INIT_GAMECONTROLLER) < 0)
+	{
+		LOG("SDL_INIT_GAMECONTROLLER could not initialize! SDL_Error: %s\n", SDL_GetError());
+		ret = false;
+	}
+	else
+	{
+		OpenController();
+		SDL_JoystickEventState(SDL_ENABLE);
+	}
+
 	return ret;
 }
 
@@ -45,6 +56,7 @@ UpdateStatus ModuleInput::PreUpdate()
 	{
 		if (keys[i] == 1)
 		{
+			usingGameController = false;
 			if (keyboard[i] == KEY_IDLE)
 				keyboard[i] = KEY_DOWN;
 			else
@@ -79,6 +91,13 @@ UpdateStatus ModuleInput::PreUpdate()
 			else
 				mouse_buttons[i] = KEY_IDLE;
 		}
+	}
+
+	if (controllerHandles[controllerIndex] != nullptr)
+	{
+		UpdateControllerInput();
+		if (GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTX) > 10000 || GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTY) > 10000 ||
+			GetControllerAxis(SDL_CONTROLLER_AXIS_RIGHTX) > 10000 || GetControllerAxis(SDL_CONTROLLER_AXIS_RIGHTY) > 10000) usingGameController = true;
 	}
 
 	if (keyboard[SDL_SCANCODE_ESCAPE] == KEY_DOWN) 
@@ -122,4 +141,57 @@ bool ModuleInput::CleanUp()
 	LOG("Quitting SDL input event subsystem");
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
 	return true;
+}
+void ModuleInput::OpenController()
+{
+	maxJoysticks = SDL_NumJoysticks();
+	controllerIndex = 0;
+	for (int JoystickIndex = 0; JoystickIndex < maxJoysticks; ++JoystickIndex)
+	{
+		if (!SDL_IsGameController(JoystickIndex))
+		{
+			continue;
+		}
+		if (controllerIndex >= MAX_CONTROLLERS)
+		{
+			break;
+		}
+		controllerHandles[controllerIndex] = SDL_GameControllerOpen(JoystickIndex);
+		usingGameController = true;
+		break;
+	}
+}
+
+void ModuleInput::UpdateControllerInput()
+{
+	if (controllerHandles[controllerIndex] == nullptr) return;
+
+	// Temporary button state (only gives if it's pressed or not)
+	bool buttons[MAX_CONTROLLER_BUTTONS];
+
+	for (int i = 0; i < MAX_CONTROLLER_BUTTONS; i++)
+	{
+		// Get Button State
+		buttons[i] = SDL_GameControllerGetButton(controllerHandles[controllerIndex], sdlJoystickButtons[i]);
+
+		// If button is pressed
+		if (buttons[i] == true)
+		{
+			usingGameController = true;
+			if (joystickButtons[i] == KEY_IDLE)
+				joystickButtons[i] = KEY_DOWN; // KEY_DOWN if not pressed on previous frame
+			else
+				joystickButtons[i] = KEY_REPEAT;// KEY_REPEAT if pressed on previous frame
+		}
+		else
+		{
+			if (joystickButtons[i] == KEY_REPEAT || joystickButtons[i] == KEY_DOWN)
+				joystickButtons[i] = KEY_UP; // KEY_UP if pressed on previous frame
+			else
+				joystickButtons[i] = KEY_IDLE; // KEY_IDLE if not pressed on previous frame
+		}
+	}
+
+	
+	
 }

@@ -55,7 +55,8 @@ public:
 
 private:
 
-	void MovementUpdate();
+	void MovementUpdateKeyboard();
+	void MovementUpdateController();
 
 	void CombatUpdate();
 

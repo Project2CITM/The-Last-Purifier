@@ -82,7 +82,8 @@ void PlayerController::PreUpdate()
 	}
 
 	// Get Movement Input
-	MovementUpdate();
+	if (app->input->usingGameController) MovementUpdateController();
+	else MovementUpdateKeyboard();
 
 	// Get Combat Input
 	CombatUpdate();
@@ -134,7 +135,7 @@ void PlayerController::CleanUp()
 	}
 }
 
-void PlayerController::MovementUpdate()
+void PlayerController::MovementUpdateKeyboard()
 {
 	// By default, the player is always IDLE
 	stateMachine.ChangeState((uint)PlayerState::IDLE);
@@ -223,25 +224,105 @@ void PlayerController::MovementUpdate()
 	}
 }
 
+void PlayerController::MovementUpdateController()
+{
+	// By default, the player is always IDLE
+	stateMachine.ChangeState((uint)PlayerState::IDLE);
+
+	if (app->input->GetControllerButton(BUTTON_B) == KEY_DOWN)
+	{
+		if (!isDashing)
+		{
+			//Reset Dash animation in case it hadn't finished yet
+			animations[(int)PlayerAnim::DASH].Reset();
+
+			//Change Player State
+			stateMachine.ChangeState((uint)PlayerState::DASH);
+
+			// do the dash
+			DashOn();
+		}
+	}
+
+	// If we are dashing, all other movement is disabled
+	if (isDashing) return;
+
+	int leftX;
+	int leftY;
+	// Get controller axis
+	leftX = app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTX);
+	leftY = app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTY);
+
+	// If number is too low, ignore input
+	if (abs(leftX) < 10000) leftX = 0;
+	if (abs(leftY) < 10000) leftY = 0;
+
+	// Get only direction
+	b2Vec2 direction = { (float)leftX, (float)leftY };
+	direction.Normalize();
+	
+	// Determine looking direction from direction b2vec2 vector at previous step.
+	int xInput = direction.x;
+	int yInput = direction.y;
+
+	if (abs(xInput) > abs(yInput))
+	{
+		if (direction.x > 0)
+		{
+			stateMachine.ChangeState((uint)PlayerState::RUN);
+
+			lookingDir = LookingDirection::RIGHT;
+		}
+		else if (direction.x < 0)
+		{
+			stateMachine.ChangeState((uint)PlayerState::RUN);
+
+			lookingDir = LookingDirection::LEFT;
+		}
+	}
+	else
+	{
+		if (direction.y < 0)
+		{
+			stateMachine.ChangeState((uint)PlayerState::RUN);
+
+			lookingDir = LookingDirection::UP;
+		}
+		else if (direction.y > 0)
+		{
+			//Change Player State
+			stateMachine.ChangeState((uint)PlayerState::RUN);
+
+			lookingDir = LookingDirection::DOWN;
+		}
+	}
+
+	// Add speed to direction vector
+	direction.x *= speed;
+	direction.y *= speed;
+	// Apply speed
+	pBody->body->SetLinearVelocity(direction);
+}
+
 void PlayerController::CombatUpdate()
 {
 	// Check for attack and Spell input
-	if (app->input->GetMouseButton(1) == KEY_DOWN)
+	if (app->input->GetMouseButton(1) == KEY_DOWN || app->input->GetControllerButton(BUTTON_X) == KEY_DOWN)
 	{
 		combat->Attack();
 	}
-	else if (app->input->GetMouseButton(3) == KEY_DOWN)
+	else if (app->input->GetMouseButton(3) == KEY_DOWN || app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)
 	{
 		combat->CastSpell();
 	}
 
 	// Check for spell changing input
 
-	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN || app->input->GetControllerButton(BUTTON_LEFT_SHOULDER) == KEY_DOWN)
 	{
 		combat->ChangeSelectedSpellSlot(-1);
 	}
-	else if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+	else if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || app->input->GetControllerButton(BUTTON_RIGHT_SHOULDER) == KEY_DOWN)
 	{
 		combat->ChangeSelectedSpellSlot(1);
 	}

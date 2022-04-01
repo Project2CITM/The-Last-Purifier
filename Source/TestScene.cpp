@@ -64,6 +64,13 @@ bool TestScene::PreUpdate()
     //    printf("%d", Application::GetInstance()->testingNum);
     //}
 
+    if (app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)
+    {
+        printf("A");
+    }
+
+    //printf("Axis Left: X: %d Y: %d\n", app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTX), app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTY));
+
     Scene::PreUpdate();
     return true;
 }
