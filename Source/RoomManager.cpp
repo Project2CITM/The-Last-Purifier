@@ -225,7 +225,7 @@ Room* RoomManager::CreateRoom(iPoint mapPosition)
 	r->roomPosition = mapPosition;
 	
 	//srand(time(NULL));
-	int ran = rand() % 13;
+	int ran = rand() % 14;
 	/*if (ran == 0) {
 		r->roomTexture = app->textures->Load("Assets/Maps/mapTest3.png");
 	}
@@ -275,6 +275,9 @@ Room* RoomManager::CreateRoom(iPoint mapPosition)
 		break;
 	case 12:
 		r->roomTexture = app->textures->Load("Assets/Maps/map12.png");
+		break;
+	case 13:
+		r->roomTexture = app->textures->Load("Assets/Maps/map13.png");
 		break;
 	}
 
