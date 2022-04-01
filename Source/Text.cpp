@@ -1,7 +1,11 @@
 #include "Text.h"
+#include "Application.h"
 
 Text::Text(iPoint position, std::string font)
 {
+	Application* app = Application::GetInstance();
+
+	std::string path = app->config.child("fonts").child(font.c_str()).attribute("path").as_string();
 }
 
 Text::~Text()

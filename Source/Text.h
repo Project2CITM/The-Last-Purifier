@@ -8,7 +8,7 @@ class Text
 {
 public:
 
-	Text(iPoint position, std::string font = "default");
+	Text(iPoint position, std::string font = "defaultFont");
 
 	~Text();
 

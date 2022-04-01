@@ -80,6 +80,10 @@
 
   </textures>
 
+  <fonts>
+    <defaultFont width = "48" height = "48" letter = "66" layer = "3" orderInLayer = "3.0" scale = "1.0" path="Assets/Fonts/defaultFont.png"/>
+  </fonts>
+
   <audios>
     <playerJump path = "Assets/audio/fx/jump.wav" volum = "15"/>
     <powerUp path = "Assets/audio/fx/powerUp.wav" volum = "20"/>
