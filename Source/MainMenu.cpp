@@ -60,12 +60,14 @@ bool MainMenu::Update()
 
 	if (OptionsBUT->doAction)
 	{
-
+		OptionsMenu = true;
+		OptionsBUT->doAction = false;
 	}
 
 	if (CreditBUT->doAction)
 	{
-
+		CreditsMenu = false;
+		CreditBUT->doAction = false;
 	}
 
 	if (ExitBUT->doAction)
@@ -86,7 +88,10 @@ bool MainMenu::Update()
 
 bool MainMenu::PostUpdate()
 {
-	app->renderer->AddRenderObjectRenderQueue(fondo);
+	if (OptionsMenu)
+	{
+		app->renderer->AddRenderObjectRenderQueue(fondo);
+	}
 
 	Scene::PostUpdate();
 

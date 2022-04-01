@@ -34,6 +34,9 @@ private:
 	GUIButton* CreditBUT = nullptr;
 	GUIButton* ExitBUT = nullptr;
 	GUIButton* LinkBUT = nullptr;
+
+	bool OptionsMenu = false;
+	bool CreditsMenu = false;
 };
 
 #endif //__MAIN_MENU_H__
