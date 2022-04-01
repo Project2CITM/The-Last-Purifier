@@ -117,6 +117,9 @@ UpdateStatus ModuleInput::PreUpdate()
 			return UpdateStatus::UPDATE_STOP;
 			break;
 		}
+		case(SDL_CONTROLLERDEVICEADDED):
+			OpenController();
+			break;
 		}
 	}
 
