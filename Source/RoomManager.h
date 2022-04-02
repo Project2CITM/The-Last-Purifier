@@ -39,6 +39,9 @@ public:
 	iPoint bossRoom = iPoint(-1, -1);
 
 	SDL_Texture* testMapTexture = nullptr;
+private:
+	std::string folder;
+	std::string file;
 };
 
 #endif //__ROOMMANAGER_H_
