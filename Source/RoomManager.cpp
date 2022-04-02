@@ -227,7 +227,7 @@ Room* RoomManager::CreateRoom(iPoint mapPosition)
 	//srand(time(NULL));
 	folder = "Assets/Maps/map0";
 	file = ".png";
-	int ran = rand() % 15 + 1;
+	int ran = rand() % 14 + 1;
 	std::string s = std::to_string(ran);
 	folder += s += file;
 	/*if (ran == 0) {
