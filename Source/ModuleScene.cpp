@@ -180,6 +180,7 @@ void ModuleScene::ChangeSceneSteptoStep()
 	case SCENECHANGESTATES::fade_out:
 		if (fade <= 0)
 		{
+			isChangingScene = false;
 			changeState = SCENECHANGESTATES::idle;
 		}
 		break;
