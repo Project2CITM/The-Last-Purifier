@@ -72,7 +72,7 @@ private:
 
 	float fade = 0;
 
-	float fadeSpeed = 1.0f;
+	float fadeSpeed = 10.0f;
 
 	SCENECHANGESTATES changeState = SCENECHANGESTATES::idle;
 
