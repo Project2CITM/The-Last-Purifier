@@ -36,6 +36,7 @@ bool MainMenu::Start()
 	CreditBUT = new GUIButton({ 140, 240 }, 60, 20);
 	ExitBUT = new GUIButton({ 150, 285 }, 50, 20);
 	LinkBUT = new GUIButton({ 20, 330 }, 75, 25);
+	CloseOptBUT = new GUIButton({ 150, 330 }, 75, 25);
 
 	Scene::Start();
 
@@ -52,33 +53,46 @@ bool MainMenu::PreUpdate()
 bool MainMenu::Update()
 {
 	//LOG("%d", PlayBUT->navigation);
-
-	if (PlayBUT->doAction)
+	if(MenuPrincipal)
 	{
-		app->scene->ChangeCurrentSceneRequest(LEVEL_1);
+		if (PlayBUT->doAction)
+		{
+			app->scene->ChangeCurrentSceneRequest(LEVEL_1);
+		}
+
+		if (OptionsBUT->doAction)
+		{
+			OptionsMenu = true;
+			MenuPrincipal = false;
+			OptionsBUT->doAction = false;
+		}
+
+		if (CreditBUT->doAction)
+		{
+			CreditsMenu = true;
+			CreditBUT->doAction = false;
+		}
+
+		if (ExitBUT->doAction)
+		{
+			return false;
+		}
+
+		if (LinkBUT->doAction)
+		{
+			ShellExecuteA(NULL, "open", "https://www.google.com", NULL, NULL, SW_SHOWNORMAL);		//change the url for the url of the web
+			LinkBUT->doAction = false;
+		}
 	}
 
-	if (OptionsBUT->doAction)
+	if (OptionsMenu)
 	{
-		OptionsMenu = true;
-		OptionsBUT->doAction = false;
-	}
-
-	if (CreditBUT->doAction)
-	{
-		CreditsMenu = false;
-		CreditBUT->doAction = false;
-	}
-
-	if (ExitBUT->doAction)
-	{
-		return false;
-	}
-
-	if (LinkBUT->doAction)
-	{
-		ShellExecuteA(NULL, "open", "https://www.google.com", NULL, NULL, SW_SHOWNORMAL);		//change the url for the url of the web
-		LinkBUT->doAction = false;
+		if (CloseOptBUT->doAction)
+		{
+			OptionsMenu = false;
+			MenuPrincipal = true;
+			CloseOptBUT->doAction = false;
+		}
 	}
 
 	Scene::Update();
@@ -88,9 +102,13 @@ bool MainMenu::Update()
 
 bool MainMenu::PostUpdate()
 {
+
+	///app->renderer->AddRenderObjectRenderQueue(fondo);
+
 	if (OptionsMenu)
 	{
-		app->renderer->AddRenderObjectRenderQueue(fondo);
+		app->renderer->AddRectRenderQueue({ 100, 25, 500, 300 }, { 140, 215, 0, 255 });
+
 	}
 
 	Scene::PostUpdate();

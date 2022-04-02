@@ -34,7 +34,9 @@ private:
 	GUIButton* CreditBUT = nullptr;
 	GUIButton* ExitBUT = nullptr;
 	GUIButton* LinkBUT = nullptr;
+	GUIButton* CloseOptBUT = nullptr;
 
+	bool MenuPrincipal = true;
 	bool OptionsMenu = false;
 	bool CreditsMenu = false;
 };
