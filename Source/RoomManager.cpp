@@ -6,11 +6,12 @@ void RoomManager::Start()
 	GenerateMap(25);
 	CreateDoors();
 
-	ListItem<Room*>* currentRoom = rooms.start;
-	while (currentRoom != nullptr) {
-		currentRoom->data->CloseDoors();
-		currentRoom = currentRoom->next;
-	}
+	doorTopTexture = app->textures->Load("Assets/Maps/TestDoor_top.png");
+	doorBotTexture = app->textures->Load("Assets/Maps/TestDoor_bottom.png");
+
+	/*for (int i = 0; i < rooms.count(); ++i)
+		rooms[i]->CloseDoors();*/
+
 }
 
 void RoomManager::Update()
@@ -19,12 +20,8 @@ void RoomManager::Update()
 
 void RoomManager::PostUpdate()
 {
-	/*
-	app->renderer->AddRectRenderQueue(SDL_Rect{ 0, 0, MAX_ROOMS_COLUMNS * MAX_ROOM_TILES_COLUMNS * TILE_SIZE,
-												MAX_ROOMS_ROWS * MAX_ROOM_TILES_ROWS * TILE_SIZE }, SDL_Color{ 0, 170, 230, 255});
-	*/
 	DrawRooms();
-	//DrawDoors();
+	DrawDoors();
 }
 
 void RoomManager::CleanUp()
@@ -41,6 +38,10 @@ void RoomManager::CleanUp()
 	}
 
 	rooms.clearPtr();
+
+	//I assume it unloads in renderer?
+	doorTopTexture = nullptr;
+	doorBotTexture = nullptr;
 }
 
 //FUNCTIONS
@@ -298,56 +299,21 @@ Room* RoomManager::CreateRoom(iPoint mapPosition)
 //Pseudo-print the rooms
 void RoomManager::DrawRooms()
 {
-	/*
-	uint rn = rooms.count();
-	SDL_Color c = SDL_Color{ 255, 255, 255, 255 };
-	*/
-
-	ListItem<Room*>* currentRoom = rooms.start;
-	while (currentRoom != nullptr) {
-		/*
-		
-		//change boss room color
-		if (currentRoom->data->roomPosition == bossRoom)
-			c = SDL_Color{ 255, 10, 10, 255 };
-
-		app->renderer->AddRectRenderQueue(SDL_Rect{ currentRoom->data->roomPosition.x * MAX_ROOM_TILES_COLUMNS * TILE_SIZE,
-													currentRoom->data->roomPosition.y * MAX_ROOM_TILES_ROWS* TILE_SIZE,
-													MAX_ROOM_TILES_COLUMNS* TILE_SIZE, MAX_ROOM_TILES_ROWS* TILE_SIZE },
-													c);
-		c.r -= 255/rn;
-		c.g -= 255/rn;
-		c.b -= 255/rn;
-		
-		*/
-		currentRoom->data->DrawRoom();
-
-		currentRoom = currentRoom->next;
-	}
+	for (int i = 0; i < rooms.count(); ++i)
+		rooms[i]->DrawRoom();
 }
 
 //Pseudo-print the doors
 void RoomManager::DrawDoors()
 {
-	ListItem<Room*>* currentRoom = rooms.start;
-	while (currentRoom != nullptr) {
-		ListItem<Door*>* currentDoor = currentRoom->data->doors.start;
-		while (currentDoor != nullptr) {
-			
-			//app->renderer->AddRectRenderQueue(SDL_Rect{ currentDoor->data->pos.x, currentDoor->data->pos.y, 
-			//	TILE_SIZE * currentDoor->data->size.x, TILE_SIZE * currentDoor->data->size.y }, 
-			//	SDL_Color{ 255, 100, 255, 255 }, false, 1, 0.0f);
-			
-
-			//if (currentDoor->data->collider != nullptr) {
-			//	iPoint npos;
-			//	currentDoor->data->collider->GetCenterPosition(npos.x, npos.y);
-			//	app->renderer->AddRectRenderQueue(SDL_Rect{ npos.x, npos.y, currentDoor->data->collider->width, currentDoor->data->collider->height },
-			//		SDL_Color{ 255, 255, 255, 255 }, 1, 0.0f, false);
-			//}
-
-			currentDoor = currentDoor->next;
-		}
-		currentRoom = currentRoom->next;
+	for (int i = 0; i < rooms.count(); ++i) {
+		int k = rooms[i]->doors.count();
+		for (int j = 0; j < k; ++j) {
+			Door* d = rooms[i]->doors[j];
+			if (d->orientation == DoorOrientations::TOP)
+				app->renderer->AddTextureRenderQueue(doorTopTexture, d->GetPosition() - d->size, { 0,0,0,0 }, TILE_SIZE / 16.0f, 3);
+			if (d->orientation == DoorOrientations::BOTTOM)
+				app->renderer->AddTextureRenderQueue(doorBotTexture, d->GetPosition() - d->size - iPoint(0, TILE_SIZE), { 0,0,0,0 }, TILE_SIZE / 16.0f, 3);
+		}	
 	}
 }
