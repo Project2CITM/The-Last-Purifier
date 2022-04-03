@@ -126,6 +126,7 @@ bool TestScene::CleanUp()
         player->CleanUp();
         RELEASE(player);
     }
+
     roomManager.CleanUp();
     Scene::CleanUp();
 

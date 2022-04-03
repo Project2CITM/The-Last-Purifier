@@ -12,7 +12,6 @@ Scene::~Scene()
 
 bool Scene::InitScene()
 {
-
 	return true;
 }
 
@@ -47,16 +46,19 @@ bool Scene::Update()
 {
 	for (int i = 0; i < gameObjects.count(); i++)
 	{
-		if (gameObjects[i])
-		{
-			gameObjects[i]->Update();
-		}
+		if (gameObjects[i]) gameObjects[i]->Update();
 	}
 
 	for (int i = 0; i < guis.count(); i++)
 	{
 		if (guis[i]) guis[i]->Update();
 	}
+
+	for (int i = 0; i < texts.count(); i++)
+	{
+		if (texts[i]) texts[i]->Update();
+	}
+
 	return true;
 }
 
@@ -64,16 +66,19 @@ bool Scene::PostUpdate()
 {
 	for (int i = 0; i < gameObjects.count(); i++)
 	{
-		if (gameObjects[i])
-		{
-			gameObjects[i]->PostUpdate();
-		}
+		if (gameObjects[i]) gameObjects[i]->PostUpdate();
 	}
 
 	for (int i = 0; i < guis.count(); i++)
 	{
 		if (guis[i]) guis[i]->PostUpdate();
 	}
+
+	for (int i = 0; i < texts.count(); i++)
+	{
+		if (texts[i]) texts[i]->PostUpdate();
+	}
+
 	return true;
 }
 

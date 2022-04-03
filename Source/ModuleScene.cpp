@@ -134,8 +134,6 @@ bool ModuleScene::StartChangeScene()
 	{
 		changeSceneRequest = false;
 
-		//this->index = changeTo;
-
 		if (scenes[changeTo] == nullptr) return false;
 
 		scenes[currentScene]->CleanUp();
@@ -159,9 +157,6 @@ bool ModuleScene::StartChangeScene()
 void ModuleScene::ChangeSceneSteptoStep()
 {
 	fade += fadeSpeed;
-
-	//if(fade >= 255)
-		LOG("%i", changeState);
 
 	fade = fade > 255 ? 255 : fade < 0 ? 0 : fade;
 

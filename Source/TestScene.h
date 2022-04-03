@@ -4,7 +4,6 @@
 
 class PlayerRevenant;
 class PlayerSage;
-
 class ClassTree;
 
 class TestScene :  public Scene
