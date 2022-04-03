@@ -21,7 +21,6 @@ MainMenu::~MainMenu()
 
 bool MainMenu::InitScene()
 {
-
 	Scene::InitScene();
 
 	return true;
@@ -52,7 +51,6 @@ bool MainMenu::PreUpdate()
 
 bool MainMenu::Update()
 {
-	//LOG("%d", PlayBUT->navigation);
 	if(MenuPrincipal)
 	{
 		if (PlayBUT->doAction)
@@ -102,13 +100,11 @@ bool MainMenu::Update()
 
 bool MainMenu::PostUpdate()
 {
-
 	///app->renderer->AddRenderObjectRenderQueue(fondo);
 
 	if (OptionsMenu)
 	{
 		app->renderer->AddRectRenderQueue({ 100, 25, 500, 300 }, { 140, 215, 0, 255 });
-
 	}
 
 	Scene::PostUpdate();

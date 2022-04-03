@@ -39,6 +39,15 @@ bool Scene::PreUpdate()
 		}
 	}
 
+	for (int i = 0; i < texts.count(); i++)
+	{
+		if (texts[i])
+		{
+			if (texts[i]->pendingToDelate) DestroyText(texts[i]);
+			else texts[i]->PreUpdate();
+		}
+	}
+
 	return true;
 }
 
@@ -95,6 +104,8 @@ bool Scene::CleanUp()
 	gameObjects.clearPtr();
 
 	guis.clearPtr();
+
+	texts.clearPtr();
 
 	return true;
 }

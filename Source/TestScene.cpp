@@ -7,6 +7,9 @@
 #include "ModuleInput.h"
 #include "ClassTree.h"
 #include "SpellInfo.h"
+#include "Text.h";
+
+Text* t;
 
 TestScene::TestScene():Scene("testScene")
 {
@@ -31,6 +34,10 @@ bool TestScene::Start()
     // Test particle
     Particle* p = new Particle({ 0,0 }, 2, 0, { 1,0 });
     p->renderObjects[0].InitAsRect({ p->GetPosition().x,p->GetPosition().y,50,50 }, { 0,255,0,255 }, true, 3);
+
+    // Test text
+    t =  new Text({ 0,0 });
+    t->SetText("Hello world");
 
     roomManager.Start();
 
@@ -67,6 +74,11 @@ bool TestScene::PreUpdate()
     if (app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)
     {
         printf("A");
+    }
+
+    if (app->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
+    {
+        t->SetText("Xidashuaige");
     }
 
     //printf("Axis Left: X: %d Y: %d\n", app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTX), app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTY));
