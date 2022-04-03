@@ -19,7 +19,12 @@ void Room::DrawRoom()
 
 void Room::CleanUp()
 {
-	for (int i = 0; i < doors.count(); i++) doors[i]->pendingToDelete = true;
+	for (int i = 0; i < doors.count(); ++i) doors[i]->pendingToDelete = true;
+	
+	for (int i = 0; i < 4; ++i) {
+		delete wallColliders[i];
+		wallColliders[i] = nullptr;
+	}
 
 	//delete roomTexture;
 }

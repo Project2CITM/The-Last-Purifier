@@ -38,8 +38,10 @@ public:
 	Room* roomPositions[MAX_ROOMS_COLUMNS][MAX_ROOMS_ROWS];
 	iPoint bossRoom = iPoint(-1, -1);
 
-	SDL_Texture* testMapTexture = nullptr;
 private:
+	SDL_Texture* doorTopTexture = nullptr;
+	SDL_Texture* doorBotTexture = nullptr;
+
 	std::string folder;
 	std::string file;
 };
