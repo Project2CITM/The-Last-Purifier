@@ -78,6 +78,7 @@ private:
 
 public:
 	Application* app = nullptr;
+	PhysBody* wallColliders[4];
 	List<Door*> doors;
 	iPoint roomPosition; 	//in map, not pixels
 	SDL_Texture* roomTexture = nullptr;
