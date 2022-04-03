@@ -194,12 +194,24 @@ void RoomManager::CreateDoors()
 			doorOrient = DoorOrientations::RIGHT;
 			cr->doors.add(new Door(cr->GetDoorPos(doorOrient), cr->GetDoorSize(doorOrient), doorOrient));
 		}
+		//No Door -> WallCollider
+		else {
+			doorOrient = DoorOrientations::RIGHT;
+			iPoint colSize = cr->GetDoorSize(doorOrient);
+			app->physics->CreateRectangle(cr->GetDoorPos(doorOrient), colSize.x, colSize.y, nullptr, b2_staticBody);
+		}
 
 		//Bottom Door
 		if (roomPositions[cr->roomPosition.x][cr->roomPosition.y + 1] != nullptr && cr->roomPosition.y + 1 < MAX_ROOMS_ROWS) 
 		{
 			doorOrient = DoorOrientations::BOTTOM;
 			cr->doors.add(new Door(cr->GetDoorPos(doorOrient), cr->GetDoorSize(doorOrient), doorOrient));
+		}
+		//No Door -> WallCollider
+		else {
+			doorOrient = DoorOrientations::BOTTOM;
+			iPoint colSize = cr->GetDoorSize(doorOrient);
+			app->physics->CreateRectangle(cr->GetDoorPos(doorOrient), colSize.x, colSize.y, nullptr, b2_staticBody);
 		}
 
 		//Left Door
@@ -208,12 +220,24 @@ void RoomManager::CreateDoors()
 			doorOrient = DoorOrientations::LEFT;
 			cr->doors.add(new Door(cr->GetDoorPos(doorOrient), cr->GetDoorSize(doorOrient), doorOrient));
 		}
+		//No Door -> WallCollider
+		else {
+			doorOrient = DoorOrientations::LEFT;
+			iPoint colSize = cr->GetDoorSize(doorOrient);
+			app->physics->CreateRectangle(cr->GetDoorPos(doorOrient), colSize.x, colSize.y, nullptr, b2_staticBody);
+		}
 
 		//Top Door
 		if (roomPositions[cr->roomPosition.x][cr->roomPosition.y - 1] != nullptr && cr->roomPosition.y - 1 >= 0) 
 		{
 			doorOrient = DoorOrientations::TOP;
 			cr->doors.add(new Door(cr->GetDoorPos(doorOrient), cr->GetDoorSize(doorOrient), doorOrient));
+		}
+		//No Door -> WallCollider
+		else {
+			doorOrient = DoorOrientations::TOP;
+			iPoint colSize = cr->GetDoorSize(doorOrient);
+			app->physics->CreateRectangle(cr->GetDoorPos(doorOrient), colSize.x, colSize.y, nullptr, b2_staticBody);
 		}
 
 		currentRoom = currentRoom->next;
