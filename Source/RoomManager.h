@@ -42,6 +42,8 @@ private:
 	SDL_Texture* doorTopTexture = nullptr;
 	SDL_Texture* doorBotTexture = nullptr;
 
+	SDL_Texture* wallTexture[4] = {nullptr, nullptr , nullptr , nullptr };
+
 	std::string folder;
 	std::string file;
 };
