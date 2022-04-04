@@ -25,6 +25,7 @@ public:
 	void SetColor(SDL_Color color);
 
 private:
+	void DrawTextStepToStep();
 
 	void SaveTextInAscii();
 
@@ -50,6 +51,10 @@ private:
 	Application* app = nullptr;
 
 	RenderObject textRO;
+
+	float currentTextCountTime;
+
+	float textCountTime = 0.0f;
 };
 
 #endif // !__TEXT_H__

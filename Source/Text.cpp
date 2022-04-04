@@ -9,7 +9,7 @@ Text::Text(iPoint position, std::string text, std::string font) : position(posit
 
 	#pragma region Init with XML
 
-	std::string path = app->config.child("fonts").child(font.c_str()).attribute("path").as_string("hi");
+	std::string path = app->config.child("fonts").child(font.c_str()).attribute("path").as_string();
 
 	int width = app->config.child("fonts").child(font.c_str()).attribute("width").as_int(1);
 
@@ -58,6 +58,9 @@ void Text::PreUpdate()
 
 void Text::Update()
 {
+	textCountTime -= app->dt;
+
+
 }
 
 void Text::PostUpdate()
@@ -95,6 +98,11 @@ void Text::SetColor(SDL_Color color)
 	SDL_SetTextureColorMod(textRO.texture, color.r, color.g, color.b);
 
 	SDL_SetTextureAlphaMod(textRO.texture, color.a);
+}
+
+void Text::DrawTextStepToStep()
+{
+
 }
 
 void Text::SaveTextInAscii()
