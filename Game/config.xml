@@ -84,6 +84,10 @@
     <defaultFont width = "48" height = "48" letter = "67" r = "0" g = "0" b = "0" a = "255" spaceInLetter = "-13" layer = "3" orderInLayer = "3.0" scale = "0.2" path="Assets/Fonts/defaultFont.png"/>
   </fonts>
 
+  <dialogText>
+	<Sentence1>Chico...<Sentence1/>
+  </dialogText>
+  
   <audios>
     <playerJump path = "Assets/audio/fx/jump.wav" volum = "15"/>
     <powerUp path = "Assets/audio/fx/powerUp.wav" volum = "20"/>
