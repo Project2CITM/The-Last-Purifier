@@ -37,8 +37,11 @@ private:
 
 	//Dialog
 	pugi::xml_node configDialog;
+	bool dialogEnable = false;
 
 	std::string sentence1 = "";
+	std::string sentence2 = "";
+	std::string sentence3 = "";
 
 };
 

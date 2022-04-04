@@ -81,9 +81,15 @@ bool TestScene::PreUpdate()
         printf("A");
     }
 
-    if (app->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
+    if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
     {
+        dialogEnable = true;
         //t->SetText(sentence1);
+    }
+    if (dialogEnable) {
+        if (app->input->GetKey(SDL_SCANCODE_RETURN)) {
+
+        }
     }
 
     //printf("Axis Left: X: %d Y: %d\n", app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTX), app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTY));
@@ -153,6 +159,6 @@ void TestScene::chargeDialog() {
     configDialog = app->config.child("dialogText");
 
     sentence1 = configDialog.child("Sentence1").child_value();
-    
+    sentence2= configDialog.child("Sentence2").child_value();
 
 }
