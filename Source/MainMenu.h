@@ -4,6 +4,7 @@
 #include "Scene.h"
 
 class GUIButton;
+class GUISlider;
 
 enum class CurrentMenu
 {
@@ -43,6 +44,8 @@ private:
 	GUIButton* LinkBUT = nullptr;
 	GUIButton* CloseOptBUT = nullptr;
 	GUIButton* CloseCrdBUT = nullptr;
+
+	GUISlider* MusicSlider = nullptr;
 
 	CurrentMenu currentMenu;
 };

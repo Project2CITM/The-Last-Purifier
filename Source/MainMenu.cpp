@@ -3,6 +3,7 @@
 #include "ModuleTextures.h"
 #include "ModuleScene.h"
 #include "GUIButton.h"
+#include "GUISlider.h"
 #include "ModuleInput.h"
 
 #include <shellapi.h>
@@ -26,6 +27,9 @@ bool MainMenu::InitScene()
 	return true;
 }
 
+//1280 * 720
+//640 * 360
+
 bool MainMenu::Start()
 {
 	fondo.InitAsTexture(app->textures->Load("Assets/Sprites/UI/MainMenu/mainmenu.png"), { 0,0 }, {0,0,0,0}, 0.5f);
@@ -35,8 +39,11 @@ bool MainMenu::Start()
 	CreditBUT = new GUIButton({ 140, 240 }, 60, 20, MenuButton::MAIN);
 	ExitBUT = new GUIButton({ 150, 285 }, 50, 20, MenuButton::MAIN);
 	LinkBUT = new GUIButton({ 20, 330 }, 75, 25, MenuButton::MAIN);
-	CloseOptBUT = new GUIButton({ 150, 330 }, 75, 25, MenuButton::OPTIONS);
-	CloseCrdBUT = new GUIButton({ 150, 330 }, 75, 25, MenuButton::CREDITS);
+
+	CloseOptBUT = new GUIButton({ 285, 330 }, 75, 25, MenuButton::OPTIONS);
+	MusicSlider = new GUISlider({ 10, 10 }, 100, 25, MenuButton::OPTIONS);
+
+	CloseCrdBUT = new GUIButton({ 285, 330 }, 75, 25, MenuButton::CREDITS);
 
 	Scene::Start();
 
