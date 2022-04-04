@@ -23,6 +23,16 @@ Text::Text(iPoint position, std::string text, std::string font) : position(posit
 
 	spaceInLetter = app->config.child("fonts").child(font.c_str()).attribute("spaceInLetter").as_int(0);
 
+	// Init Color
+	SDL_Color color;
+
+	color.r = app->config.child("fonts").child(font.c_str()).attribute("r").as_int(0);
+	color.g = app->config.child("fonts").child(font.c_str()).attribute("r").as_int(0);
+	color.b = app->config.child("fonts").child(font.c_str()).attribute("r").as_int(0);
+	color.a = app->config.child("fonts").child(font.c_str()).attribute("r").as_int(255);
+
+	SetColor(color);
+
 	#pragma endregion
 
 	//Init text
@@ -99,10 +109,7 @@ void Text::SaveTextInAscii()
 
 		for (int i = 0; i < LETTER_NUMS; i++)
 		{
-			if (textToAscii[i] == ascii)
-			{
-				textInCode.add(i);
-			}
+			if (textToAscii[i] == ascii) textInCode.add(i);
 		}
 	}
 }
