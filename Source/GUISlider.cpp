@@ -40,7 +40,6 @@ GUISlider::GUISlider(iPoint pos, int width, int height, MenuButton currentMenu) 
 
 GUISlider::~GUISlider()
 {
-	//RELEASE(btn);
 	RELEASE(renderObject);
 }
 
