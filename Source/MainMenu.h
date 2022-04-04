@@ -5,6 +5,7 @@
 
 class GUIButton;
 class GUISlider;
+class GUICheckbox;
 
 enum class CurrentMenu
 {
@@ -37,6 +38,7 @@ public:
 
 
 private:
+
 	GUIButton* PlayBUT = nullptr;
 	GUIButton* OptionsBUT = nullptr;
 	GUIButton* CreditBUT = nullptr;
@@ -44,13 +46,19 @@ private:
 	GUIButton* LinkBUT = nullptr;
 
 	GUIButton* CloseOptBUT = nullptr;
-	GUIButton* SliderBUT = nullptr;
+	GUIButton* MusicBUT = nullptr;
+	GUIButton* fxBUT = nullptr;
 	
 	GUIButton* CloseCrdBUT = nullptr;
 
 	GUISlider* MusicSlider = nullptr;
+	GUISlider* fxSlider = nullptr;
+
+	GUICheckbox* FullScreenCHK;
 
 	CurrentMenu currentMenu;
+
+	bool fullScreen = false;
 };
 
 #endif //__MAIN_MENU_H__

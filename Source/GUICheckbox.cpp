@@ -39,6 +39,7 @@ void GUICheckbox::Update()
 	if (CheckOnMouse() && app->input->GetMouseButton(1) == KEY_UP)
 	{
 		ChangeState(!isActive);
+		doAction = true;
 	}
 	else if (CheckOnMouse() && checkboxState != CheckboxState::ON) checkboxState = CheckboxState::FOCUS;
 	else if (checkboxState != CheckboxState::ON) checkboxState = CheckboxState::OFF;

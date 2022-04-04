@@ -4,7 +4,9 @@
 #include "ModuleScene.h"
 #include "GUIButton.h"
 #include "GUISlider.h"
+#include "GUICheckbox.h"
 #include "ModuleInput.h"
+#include "ModuleWindow.h"
 
 #include <shellapi.h>
 
@@ -42,10 +44,15 @@ bool MainMenu::Start()
 
 	CloseOptBUT = new GUIButton({ 285, 330 }, 75, 25, MenuButton::OPTIONS);
 
-	SliderBUT = new GUIButton({ 10, 10 }, 25, 25, MenuButton::OPTIONS);
-	//MusicSlider->CreateDefaultBtn(MenuButton::OPTIONS);
-	MusicSlider = new GUISlider({ 10, 10 }, 100, 25, MenuButton::OPTIONS);
-	MusicSlider->CreateGUIBtn(SliderBUT);
+	MusicBUT = new GUIButton({ 275, 100 }, 25, 25, MenuButton::OPTIONS);
+	MusicSlider = new GUISlider({ 275, 100 }, 300, 10, MenuButton::OPTIONS);
+	MusicSlider->CreateGUIBtn(MusicBUT);
+
+	fxBUT = new GUIButton({ 275, 175 }, 25, 25, MenuButton::OPTIONS);
+	fxSlider = new GUISlider({ 275, 175 }, 300, 10, MenuButton::OPTIONS);
+	fxSlider->CreateGUIBtn(fxBUT);
+
+	FullScreenCHK = new GUICheckbox({ 400, 250 }, 50, 50, MenuButton::OPTIONS, "Assets/Sprites/UI/PlayButton/playB.png");
 
 	CloseCrdBUT = new GUIButton({ 285, 330 }, 75, 25, MenuButton::CREDITS);
 
@@ -113,7 +120,7 @@ bool MainMenu::Update()
 
 		if (LinkBUT->doAction)
 		{
-			ShellExecuteA(NULL, "open", "https://www.google.com", NULL, NULL, SW_SHOWNORMAL);		//change the url for the url of the web
+			ShellExecuteA(NULL, "open", "https://github.com/Project2CITM/The-last-purifier/wiki", NULL, NULL, SW_SHOWNORMAL);		//change the url for the url of the web
 			LinkBUT->doAction = false;
 		}
 	}
@@ -124,6 +131,23 @@ bool MainMenu::Update()
 		{
 			currentMenu = CurrentMenu::Main;
 			CloseOptBUT->doAction = false;
+		}
+
+		if (FullScreenCHK->isActive)
+		{
+			fullScreen = true;
+			FullScreenCHK->doAction;
+		}
+		else
+		{
+			FullScreenCHK->doAction;
+			fullScreen = false;
+		}
+
+		if (FullScreenCHK->doAction)
+		{
+			app->window->ToggleFullScreen(fullScreen);
+			FullScreenCHK->doAction = false;
 		}
 	}
 

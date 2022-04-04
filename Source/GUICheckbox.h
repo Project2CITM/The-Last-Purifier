@@ -35,6 +35,7 @@ private:
 
 public:
 	bool isActive = false;
+	bool doAction = false;
 };
 
 #endif // !__GUI_CHECKBOX_H__
