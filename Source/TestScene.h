@@ -38,10 +38,16 @@ private:
 	//Dialog
 	pugi::xml_node configDialog;
 	bool dialogEnable = false;
+	bool separador = false;
+	int separadorCont = 0;
+	int dialogCont = 1;
 
-	std::string sentence1 = "";
-	std::string sentence2 = "";
-	std::string sentence3 = "";
+	std::string sentence[8];
+	std::string advisorString="";
+
+	Text* t;
+	Text* advisor;
+	//std::string sentence3 = "";
 
 };
 
