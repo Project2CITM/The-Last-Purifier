@@ -25,6 +25,9 @@ Text::Text(iPoint position, std::string text, std::string font) : position(posit
 
 	#pragma endregion
 
+	//Init text
+	SaveTextInAscii();
+
 	// Load texture
 	SDL_Texture* tex = app->textures->Load(path);
 
@@ -74,6 +77,11 @@ void Text::SetText(std::string text)
 {
 	this->text = text;
 
+	SaveTextInAscii();
+}
+
+void Text::SaveTextInAscii()
+{
 	int length = text.length();
 
 	textInCode.clear();
@@ -84,7 +92,7 @@ void Text::SetText(std::string text)
 
 		for (int i = 0; i < LETTER_NUMS; i++)
 		{
-			if(textToAscii[i] == ascii)
+			if (textToAscii[i] == ascii)
 			{
 				textInCode.add(i);
 			}

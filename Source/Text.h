@@ -22,6 +22,10 @@ public:
 
 	void SetText(std::string text);
 
+private:
+
+	void SaveTextInAscii();
+
 public:
 
 	iPoint position = { 0,0 };
