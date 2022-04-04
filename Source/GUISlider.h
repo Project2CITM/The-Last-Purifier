@@ -31,7 +31,7 @@ public:
 
 	~GUISlider();
 
-	void CreateDefaultBtn();
+	void CreateDefaultBtn(MenuButton currentMenu);
 
 	void CreateGUIBtn(GUIButton* btn);
 

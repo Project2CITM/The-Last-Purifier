@@ -42,7 +42,10 @@ private:
 	GUIButton* CreditBUT = nullptr;
 	GUIButton* ExitBUT = nullptr;
 	GUIButton* LinkBUT = nullptr;
+
 	GUIButton* CloseOptBUT = nullptr;
+	GUIButton* SliderBUT = nullptr;
+	
 	GUIButton* CloseCrdBUT = nullptr;
 
 	GUISlider* MusicSlider = nullptr;

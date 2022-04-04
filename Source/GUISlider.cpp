@@ -32,25 +32,25 @@ GUISlider::GUISlider(iPoint pos, int width, int height, MenuButton currentMenu) 
 	// Init Slider
 	InitAsBox(pos.x, pos.y, width, height, currentMenu);
 
-	min_value = position.x;
-	max_value = position.x + boxShape.w - btn->boxShape.w;
+	//min_value = position.x;
+	//max_value = position.x + boxShape.w - btn->boxShape.w;
 
-	defaultColor = { 11, 152, 217, 255};
+	defaultColor = { 11, 152, 217, 255 };
 }
 
 GUISlider::~GUISlider()
 {
-	RELEASE(btn);
+	//RELEASE(btn);
 	RELEASE(renderObject);
 }
 
-void GUISlider::CreateDefaultBtn()
+void GUISlider::CreateDefaultBtn(MenuButton currentMenu)
 {
 	// Init Btn
 	if (btn == nullptr)
 	{
 		// Init button
-		btn = new GUIButton(position, boxShape.h, boxShape.h, MenuButton::OPTIONS);
+		btn = new GUIButton(position, boxShape.h, boxShape.h, currentMenu);
 		btn->navigation = true;
 
 		// Init min max value

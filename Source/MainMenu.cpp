@@ -41,7 +41,11 @@ bool MainMenu::Start()
 	LinkBUT = new GUIButton({ 20, 330 }, 75, 25, MenuButton::MAIN);
 
 	CloseOptBUT = new GUIButton({ 285, 330 }, 75, 25, MenuButton::OPTIONS);
+
+	SliderBUT = new GUIButton({ 10, 10 }, 25, 25, MenuButton::OPTIONS);
+	//MusicSlider->CreateDefaultBtn(MenuButton::OPTIONS);
 	MusicSlider = new GUISlider({ 10, 10 }, 100, 25, MenuButton::OPTIONS);
+	MusicSlider->CreateGUIBtn(SliderBUT);
 
 	CloseCrdBUT = new GUIButton({ 285, 330 }, 75, 25, MenuButton::CREDITS);
 
