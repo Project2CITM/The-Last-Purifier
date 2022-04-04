@@ -42,12 +42,9 @@ private:
 	GUIButton* ExitBUT = nullptr;
 	GUIButton* LinkBUT = nullptr;
 	GUIButton* CloseOptBUT = nullptr;
+	GUIButton* CloseCrdBUT = nullptr;
 
 	CurrentMenu currentMenu;
-
-	bool MenuPrincipal = true;
-	bool OptionsMenu = false;
-	bool CreditsMenu = false;
 };
 
 #endif //__MAIN_MENU_H__

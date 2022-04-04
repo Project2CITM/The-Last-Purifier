@@ -26,6 +26,9 @@ void GUI::InitAsBox(int x, int y, int w, int h, MenuButton currentMenu)
         app->scene->scenes[app->scene->currentScene]->AddGUIMainMenu(this);
 
     if(currentMenu == MenuButton::OPTIONS)
+        app->scene->scenes[app->scene->currentScene]->AddGUIOptions(this);
+
+    if(currentMenu == MenuButton::CREDITS)
         app->scene->scenes[app->scene->currentScene]->AddGUICredtis(this);
 
 }

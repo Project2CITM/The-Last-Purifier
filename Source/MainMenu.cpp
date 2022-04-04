@@ -36,6 +36,7 @@ bool MainMenu::Start()
 	ExitBUT = new GUIButton({ 150, 285 }, 50, 20, MenuButton::MAIN);
 	LinkBUT = new GUIButton({ 20, 330 }, 75, 25, MenuButton::MAIN);
 	CloseOptBUT = new GUIButton({ 150, 330 }, 75, 25, MenuButton::OPTIONS);
+	CloseCrdBUT = new GUIButton({ 150, 330 }, 75, 25, MenuButton::CREDITS);
 
 	Scene::Start();
 
@@ -59,8 +60,15 @@ bool MainMenu::Update()
 		}
 	}
 
-
 	if (currentMenu == CurrentMenu::Options)
+	{
+		for (int i = 0; i < guisOptions.count(); i++)
+		{
+			if (guisOptions[i]) guisOptions[i]->Update();
+		}
+	}
+
+	if (currentMenu == CurrentMenu::Credtis)
 	{
 		for (int i = 0; i < guisCredtis.count(); i++)
 		{
@@ -68,7 +76,7 @@ bool MainMenu::Update()
 		}
 	}
 
-	if(MenuPrincipal)
+	if(currentMenu == CurrentMenu::Main)
 	{
 		if (PlayBUT->doAction)
 		{
@@ -78,15 +86,12 @@ bool MainMenu::Update()
 		if (OptionsBUT->doAction)
 		{
 			currentMenu = CurrentMenu::Options;
-			//OptionsMenu = true;
-			//MenuPrincipal = false;
 			OptionsBUT->doAction = false;
 		}
 
 		if (CreditBUT->doAction)
 		{
 			currentMenu = CurrentMenu::Credtis;
-			//CreditsMenu = true;
 			CreditBUT->doAction = false;
 		}
 
@@ -107,9 +112,16 @@ bool MainMenu::Update()
 		if (CloseOptBUT->doAction)
 		{
 			currentMenu = CurrentMenu::Main;
-			//OptionsMenu = false;
-			//MenuPrincipal = true;
 			CloseOptBUT->doAction = false;
+		}
+	}
+
+	if (currentMenu == CurrentMenu::Credtis)
+	{
+		if (CloseCrdBUT->doAction)
+		{
+			currentMenu = CurrentMenu::Main;
+			CloseCrdBUT->doAction = false;
 		}
 	}
 
@@ -121,6 +133,16 @@ bool MainMenu::Update()
 bool MainMenu::PostUpdate()
 {
 	if (currentMenu == CurrentMenu::Options)
+	{
+		for (int i = 0; i < guisOptions.count(); i++)
+		{
+			if (guisOptions[i]) guisOptions[i]->PostUpdate();
+		}
+
+		app->renderer->AddRectRenderQueue({ 100, 25, 500, 300 }, { 140, 215, 0, 255 });
+	}
+
+	if (currentMenu == CurrentMenu::Credtis)
 	{
 		for (int i = 0; i < guisCredtis.count(); i++)
 		{
@@ -138,10 +160,6 @@ bool MainMenu::PostUpdate()
 
 	///app->renderer->AddRenderObjectRenderQueue(fondo);
 
-	if (currentMenu == CurrentMenu::Options)
-	{
-		app->renderer->AddRectRenderQueue({ 100, 25, 500, 300 }, { 140, 215, 0, 255 });
-	}
 
 	Scene::PostUpdate();
 

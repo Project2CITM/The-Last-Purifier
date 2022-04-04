@@ -58,8 +58,6 @@ bool Scene::Update()
 		if (gameObjects[i]) gameObjects[i]->Update();
 	}
 
-
-
 	for (int i = 0; i < texts.count(); i++)
 	{
 		if (texts[i]) texts[i]->Update();
@@ -74,8 +72,6 @@ bool Scene::PostUpdate()
 	{
 		if (gameObjects[i]) gameObjects[i]->PostUpdate();
 	}
-
-	
 
 	for (int i = 0; i < texts.count(); i++)
 	{
@@ -98,6 +94,7 @@ bool Scene::CleanUp()
 	gameObjects.clearPtr();
 
 	guisMainMenu.clearPtr();
+	guisOptions.clearPtr();
 	guisCredtis.clearPtr();
 
 	texts.clearPtr();
@@ -113,6 +110,11 @@ void Scene::AddGameObject(GameObject* gameObject)
 void Scene::AddGUIMainMenu(GUI* gui)
 {
 	guisMainMenu.add(gui);
+}
+
+void Scene::AddGUIOptions(GUI* gui)
+{
+	guisOptions.add(gui);
 }
 
 void Scene::AddGUICredtis(GUI* gui)
@@ -138,12 +140,19 @@ void Scene::DestroyGameObject(GameObject* gameObject)
 void Scene::DestroyGUI(GUI* gui)
 {
 	int indexMainMenu = guisMainMenu.find(gui);
+	int indexOptions = guisOptions.find(gui);
 	int indexCredtis = guisCredtis.find(gui);
 
 	if (indexMainMenu >= 0)
 	{
 		guisMainMenu.delPtr(guisMainMenu.At(indexMainMenu));
 	}
+
+	if (indexOptions >= 0)
+	{
+		guisOptions.delPtr(guisOptions.At(indexOptions));
+	}
+
 	if (indexCredtis >= 0)
 	{
 		guisCredtis.delPtr(guisCredtis.At(indexCredtis));
