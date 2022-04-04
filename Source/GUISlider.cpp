@@ -32,8 +32,8 @@ GUISlider::GUISlider(iPoint pos, int width, int height, MenuButton currentMenu) 
 	// Init Slider
 	InitAsBox(pos.x, pos.y, width, height, currentMenu);
 
-	min_value = position.x;
-	max_value = position.x + boxShape.w - btn->boxShape.w;
+	//min_value = position.x;
+	//max_value = position.x + boxShape.w - btn->boxShape.w;
 
 	defaultColor = { 11, 152, 217, 255};
 }
