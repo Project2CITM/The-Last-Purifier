@@ -3,9 +3,9 @@
 #include "ModuleAudio.h"
 #include "ModuleTextures.h"
 
-GUIButton::GUIButton(iPoint pos, int width, int height, std::string path) : GUI()
+GUIButton::GUIButton(iPoint pos, int width, int height, MenuButton currentMenu, std::string path) : GUI()
 {
-	InitAsBox(pos.x, pos.y, width, height);
+	InitAsBox(pos.x, pos.y, width, height, currentMenu);
 
 	renderObject = new RenderObject();
 	renderObject->texture = app->textures->Load(path);
@@ -25,9 +25,9 @@ GUIButton::GUIButton(iPoint pos, int width, int height, std::string path) : GUI(
 	}
 }
 
-GUIButton::GUIButton(iPoint pos, int width, int height) : GUI()
+GUIButton::GUIButton(iPoint pos, int width, int height, MenuButton currentMenu) : GUI()
 {
-	InitAsBox(pos.x, pos.y, width, height);
+	InitAsBox(pos.x, pos.y, width, height, currentMenu);
 }
 
 GUIButton::~GUIButton()

@@ -58,10 +58,7 @@ bool Scene::Update()
 		if (gameObjects[i]) gameObjects[i]->Update();
 	}
 
-	for (int i = 0; i < guis.count(); i++)
-	{
-		if (guis[i]) guis[i]->Update();
-	}
+
 
 	for (int i = 0; i < texts.count(); i++)
 	{
@@ -78,10 +75,7 @@ bool Scene::PostUpdate()
 		if (gameObjects[i]) gameObjects[i]->PostUpdate();
 	}
 
-	for (int i = 0; i < guis.count(); i++)
-	{
-		if (guis[i]) guis[i]->PostUpdate();
-	}
+	
 
 	for (int i = 0; i < texts.count(); i++)
 	{
@@ -103,7 +97,8 @@ bool Scene::CleanUp()
 
 	gameObjects.clearPtr();
 
-	guis.clearPtr();
+	guisMainMenu.clearPtr();
+	guisCredtis.clearPtr();
 
 	texts.clearPtr();
 
@@ -115,9 +110,14 @@ void Scene::AddGameObject(GameObject* gameObject)
 	gameObjects.add(gameObject);
 }
 
-void Scene::AddGUI(GUI* gui)
+void Scene::AddGUIMainMenu(GUI* gui)
 {
-	guis.add(gui);
+	guisMainMenu.add(gui);
+}
+
+void Scene::AddGUICredtis(GUI* gui)
+{
+	guisCredtis.add(gui);
 }
 
 void Scene::AddText(Text* text)
@@ -137,11 +137,17 @@ void Scene::DestroyGameObject(GameObject* gameObject)
 
 void Scene::DestroyGUI(GUI* gui)
 {
-	int index = guis.find(gui);
+	int indexMainMenu = guisMainMenu.find(gui);
+	int indexCredtis = guisCredtis.find(gui);
 
-	if (index >= 0)
+	if (indexMainMenu >= 0)
 	{
-		guis.delPtr(guis.At(index));
+		guisMainMenu.delPtr(guisMainMenu.At(indexMainMenu));
+	}
+	if (indexCredtis >= 0)
+	{
+		guisCredtis.delPtr(guisCredtis.At(indexCredtis));
+
 	}
 }
 

@@ -14,14 +14,20 @@ GUI::~GUI()
 {
 }
 
-void GUI::InitAsBox(int x, int y, int w, int h)
+void GUI::InitAsBox(int x, int y, int w, int h, MenuButton currentMenu)
 {
     currentShape = UIShape::BOX;
     boxShape.h = h;
     boxShape.w = w;
     position.x = x;
     position.y = y;
-    app->scene->scenes[app->scene->currentScene]->AddGUI(this);
+
+    if(currentMenu == MenuButton::MAIN)
+        app->scene->scenes[app->scene->currentScene]->AddGUIMainMenu(this);
+
+    if(currentMenu == MenuButton::OPTIONS)
+        app->scene->scenes[app->scene->currentScene]->AddGUICredtis(this);
+
 }
 
 void GUI::InitAsCircle(int x, int y, int radius)

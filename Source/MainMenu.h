@@ -5,6 +5,13 @@
 
 class GUIButton;
 
+enum class CurrentMenu
+{
+	Main,
+	Options,
+	Credtis
+};
+
 class MainMenu : public Scene
 {
 public:
@@ -35,6 +42,8 @@ private:
 	GUIButton* ExitBUT = nullptr;
 	GUIButton* LinkBUT = nullptr;
 	GUIButton* CloseOptBUT = nullptr;
+
+	CurrentMenu currentMenu;
 
 	bool MenuPrincipal = true;
 	bool OptionsMenu = false;

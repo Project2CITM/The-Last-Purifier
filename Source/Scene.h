@@ -18,7 +18,8 @@ protected:
 
 	List<GameObject*> gameObjects;
 
-	List<GUI*> guis;
+	List<GUI*> guisMainMenu;
+	List<GUI*> guisCredtis;
 
 	List<Text*> texts;
 
@@ -45,7 +46,9 @@ public:
 
 	void AddGameObject(GameObject* gameObject);
 
-	void AddGUI(GUI* gui);
+	void AddGUIMainMenu(GUI* gui);
+
+	void AddGUICredtis(GUI* gui);
 
 	void AddText(Text* text);
 
