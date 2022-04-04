@@ -30,12 +30,12 @@ bool MainMenu::Start()
 {
 	fondo.InitAsTexture(app->textures->Load("Assets/Sprites/UI/MainMenu/mainmenu.png"), { 0,0 }, {0,0,0,0}, 0.5f);
 
-	PlayBUT = new GUIButton({ 125, 180 }, 75, 25, "Assets/Sprites/UI/PlayButton/playB.png");
-	OptionsBUT = new GUIButton({ 140, 215 }, 60, 20);
-	CreditBUT = new GUIButton({ 140, 240 }, 60, 20);
-	ExitBUT = new GUIButton({ 150, 285 }, 50, 20);
-	LinkBUT = new GUIButton({ 20, 330 }, 75, 25);
-	CloseOptBUT = new GUIButton({ 150, 330 }, 75, 25);
+	PlayBUT = new GUIButton({ 125, 180 }, 75, 25, MenuButton::MAIN, "Assets/Sprites/UI/PlayButton/playB.png");
+	OptionsBUT = new GUIButton({ 140, 215 }, 60, 20, MenuButton::MAIN);
+	CreditBUT = new GUIButton({ 140, 240 }, 60, 20, MenuButton::MAIN);
+	ExitBUT = new GUIButton({ 150, 285 }, 50, 20, MenuButton::MAIN);
+	LinkBUT = new GUIButton({ 20, 330 }, 75, 25, MenuButton::MAIN);
+	CloseOptBUT = new GUIButton({ 150, 330 }, 75, 25, MenuButton::OPTIONS);
 
 	Scene::Start();
 
@@ -51,6 +51,23 @@ bool MainMenu::PreUpdate()
 
 bool MainMenu::Update()
 {
+	if (currentMenu == CurrentMenu::Main)
+	{
+		for (int i = 0; i < guisMainMenu.count(); i++)
+		{
+			if (guisMainMenu[i]) guisMainMenu[i]->Update();
+		}
+	}
+
+
+	if (currentMenu == CurrentMenu::Options)
+	{
+		for (int i = 0; i < guisCredtis.count(); i++)
+		{
+			if (guisCredtis[i]) guisCredtis[i]->Update();
+		}
+	}
+
 	if(MenuPrincipal)
 	{
 		if (PlayBUT->doAction)
@@ -60,14 +77,16 @@ bool MainMenu::Update()
 
 		if (OptionsBUT->doAction)
 		{
-			OptionsMenu = true;
-			MenuPrincipal = false;
+			currentMenu = CurrentMenu::Options;
+			//OptionsMenu = true;
+			//MenuPrincipal = false;
 			OptionsBUT->doAction = false;
 		}
 
 		if (CreditBUT->doAction)
 		{
-			CreditsMenu = true;
+			currentMenu = CurrentMenu::Credtis;
+			//CreditsMenu = true;
 			CreditBUT->doAction = false;
 		}
 
@@ -83,12 +102,13 @@ bool MainMenu::Update()
 		}
 	}
 
-	if (OptionsMenu)
+	if (currentMenu == CurrentMenu::Options)
 	{
 		if (CloseOptBUT->doAction)
 		{
-			OptionsMenu = false;
-			MenuPrincipal = true;
+			currentMenu = CurrentMenu::Main;
+			//OptionsMenu = false;
+			//MenuPrincipal = true;
 			CloseOptBUT->doAction = false;
 		}
 	}
@@ -100,9 +120,25 @@ bool MainMenu::Update()
 
 bool MainMenu::PostUpdate()
 {
+	if (currentMenu == CurrentMenu::Options)
+	{
+		for (int i = 0; i < guisCredtis.count(); i++)
+		{
+			if (guisCredtis[i]) guisCredtis[i]->PostUpdate();
+		}
+	}
+
+	if (currentMenu == CurrentMenu::Main)
+	{
+		for (int i = 0; i < guisMainMenu.count(); i++)
+		{
+			if (guisMainMenu[i]) guisMainMenu[i]->PostUpdate();
+		}
+	}
+
 	///app->renderer->AddRenderObjectRenderQueue(fondo);
 
-	if (OptionsMenu)
+	if (currentMenu == CurrentMenu::Options)
 	{
 		app->renderer->AddRectRenderQueue({ 100, 25, 500, 300 }, { 140, 215, 0, 255 });
 	}

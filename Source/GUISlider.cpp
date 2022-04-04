@@ -4,10 +4,10 @@
 #include "ModuleWindow.h"
 #include "ModuleTextures.h"
 
-GUISlider::GUISlider(iPoint pos, int width, int height, std::string path) : GUI()
+GUISlider::GUISlider(iPoint pos, int width, int height, MenuButton currentMenu, std::string path) : GUI()
 {
 	// Init Slider
-	InitAsBox(pos.x, pos.y, width, height);
+	InitAsBox(pos.x, pos.y, width, height, currentMenu);
 
 	renderObject = new RenderObject();
 	renderObject->texture = app->textures->Load(path);
@@ -27,10 +27,10 @@ GUISlider::GUISlider(iPoint pos, int width, int height, std::string path) : GUI(
 	}
 }
 
-GUISlider::GUISlider(iPoint pos, int width, int height) : GUI()
+GUISlider::GUISlider(iPoint pos, int width, int height, MenuButton currentMenu) : GUI()
 {
 	// Init Slider
-	InitAsBox(pos.x, pos.y, width, height);
+	InitAsBox(pos.x, pos.y, width, height, currentMenu);
 
 	min_value = position.x;
 	max_value = position.x + boxShape.w - btn->boxShape.w;
@@ -50,7 +50,7 @@ void GUISlider::CreateDefaultBtn()
 	if (btn == nullptr)
 	{
 		// Init button
-		btn = new GUIButton(position, boxShape.h, boxShape.h);
+		btn = new GUIButton(position, boxShape.h, boxShape.h, MenuButton::OPTIONS);
 		btn->navigation = true;
 
 		// Init min max value
