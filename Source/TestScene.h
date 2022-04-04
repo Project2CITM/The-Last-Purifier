@@ -24,12 +24,21 @@ public:
 
 	bool CleanUp() override;
 
+	void chargeDialog();
+
 private:
 
 	RoomManager roomManager;
 	PlayerRevenant* player;
 	//PlayerSage* player;
 
-	ClassTree* revenantTree; //Test skill/spell tree
+	ClassTree* revenantTree; //Test skill/spell tree7
+
+
+	//Dialog
+	pugi::xml_node configDialog;
+
+	std::string sentence1 = "";
+
 };
 
