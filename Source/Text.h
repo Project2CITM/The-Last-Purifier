@@ -22,6 +22,8 @@ public:
 
 	void SetText(std::string text);
 
+	void SetColor(SDL_Color color);
+
 private:
 
 	void SaveTextInAscii();

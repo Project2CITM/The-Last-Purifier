@@ -36,8 +36,9 @@ bool TestScene::Start()
     p->renderObjects[0].InitAsRect({ p->GetPosition().x,p->GetPosition().y,50,50 }, { 0,255,0,255 }, true, 3);
 
     // Test text
-    t =  new Text({ 0,0 });
+    t =  new Text({ 0,0 },"hi","defaultFontWhite");
     t->SetText("Hello world");
+    t->SetColor({ 255,255,0,100 });
 
     roomManager.Start();
 

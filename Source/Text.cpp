@@ -80,6 +80,13 @@ void Text::SetText(std::string text)
 	SaveTextInAscii();
 }
 
+void Text::SetColor(SDL_Color color)
+{
+	SDL_SetTextureColorMod(textRO.texture, color.r, color.g, color.b);
+
+	SDL_SetTextureAlphaMod(textRO.texture, color.a);
+}
+
 void Text::SaveTextInAscii()
 {
 	int length = text.length();
