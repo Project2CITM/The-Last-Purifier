@@ -9,7 +9,6 @@
 #include "SpellInfo.h"
 #include "Text.h";
 
-Text* t;
 
 TestScene::TestScene():Scene("testScene")
 {
@@ -38,8 +37,9 @@ bool TestScene::Start()
 
     // Test text
 
-    t =  new Text({ 0,0 },"hi");
-    t->SetText("Hello world");
+    t =  new Text({ 0,0 },"");
+    //t->SetText("Hello world");
+    advisor = new Text({ 0,0 },"","defaultFont");
   //  t->SetColor({ 255,255,0,100 });
 
 
@@ -84,12 +84,31 @@ bool TestScene::PreUpdate()
     if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
     {
         dialogEnable = true;
-        //t->SetText(sentence1);
+    }
+    if (!dialogEnable) {
+        advisor->SetText(advisorString);
     }
     if (dialogEnable) {
-        if (app->input->GetKey(SDL_SCANCODE_RETURN)) {
+        advisor->SetText("");
 
+        if (separador) {
+            if (app->input->GetKey(SDL_SCANCODE_RETURN)) {
+
+                dialogCont++;
+
+
+                separador = false;
+            }
         }
+        else {
+            separadorCont++;
+        }
+        if (separadorCont == 60) {
+            separador = true;
+            separadorCont = 0;
+        }
+        t->SetText(sentence[dialogCont]);
+
     }
 
     //printf("Axis Left: X: %d Y: %d\n", app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTX), app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTY));
@@ -158,7 +177,8 @@ bool TestScene::CleanUp()
 void TestScene::chargeDialog() {
     configDialog = app->config.child("dialogText");
 
-    sentence1 = configDialog.child("Sentence1").child_value();
-    sentence2= configDialog.child("Sentence2").child_value();
+    sentence[1] = configDialog.child("Sentence1").child_value();
+    sentence[2] = configDialog.child("Sentence2").child_value();
 
+    advisorString = configDialog.child("advisor").child_value();
 }

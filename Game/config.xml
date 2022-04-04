@@ -85,8 +85,9 @@
   </fonts>
 
   <dialogText>
-	<Sentence1>Chico... ¡Acercate rapido!</Sentence1>
-	<Sentence2>Chico...</Sentence2>
+	  <advisor>Pulse M para hablar</advisor>
+	  <Sentence1>Chico... ¡Acercate rapido!</Sentence1>
+	  <Sentence2>Chico...</Sentence2>
   </dialogText>
   
   <audios>
