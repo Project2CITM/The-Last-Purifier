@@ -82,6 +82,7 @@
 
   <fonts>
     <defaultFont width = "48" height = "48" letter = "67" spaceInLetter = "-13" layer = "3" orderInLayer = "3.0" scale = "0.2" path="Assets/Fonts/defaultFont.png"/>
+	<FontOne width = "48" height = "48" letter = "67" spaceInLetter = "-13" layer = "3" orderInLayer = "3.0" scale = "0.2" path="Assets/Fonts/defaultFont.png"/>
   </fonts>
 
   <audios>
