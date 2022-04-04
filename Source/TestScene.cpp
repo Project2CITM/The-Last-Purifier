@@ -21,6 +21,7 @@ TestScene::~TestScene()
 
 bool TestScene::Start()
 {
+    
     player = new PlayerRevenant();
     //app->renderer->camera->SetTarget(player->controller);
     //player = new PlayerSage(app);
@@ -38,10 +39,10 @@ bool TestScene::Start()
     // Test text
     t =  new Text({ 0,0 },"hi");
     t->SetText("Hello world");
-    t->SetColor({ 255,255,0,100 });
+  //  t->SetColor({ 255,255,0,100 });
 
     roomManager.Start();
-
+    chargeDialog();
     Scene::Start();
 
     return true;
@@ -79,7 +80,7 @@ bool TestScene::PreUpdate()
 
     if (app->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
     {
-        t->SetText("Xidashuaige");
+        //t->SetText(sentence1);
     }
 
     //printf("Axis Left: X: %d Y: %d\n", app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTX), app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTY));
@@ -144,4 +145,11 @@ bool TestScene::CleanUp()
     Scene::CleanUp();
 
     return false;
+}
+void TestScene::chargeDialog() {
+    configDialog = app->config.child("dialogText");
+
+    sentence1 = configDialog.child("Sentence1").child_value();
+    
+
 }

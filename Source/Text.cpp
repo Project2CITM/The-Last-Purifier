@@ -9,7 +9,7 @@ Text::Text(iPoint position, std::string text, std::string font) : position(posit
 
 	#pragma region Init with XML
 
-	std::string path = app->config.child("fonts").child(font.c_str()).attribute("path").as_string("hi");
+	std::string path = app->config.child("fonts").child(font.c_str()).attribute("path").as_string();
 
 	int width = app->config.child("fonts").child(font.c_str()).attribute("width").as_int(1);
 
