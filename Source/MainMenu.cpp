@@ -149,6 +149,9 @@ bool MainMenu::Update()
 			app->window->ToggleFullScreen(fullScreen);
 			FullScreenCHK->doAction = false;
 		}
+
+		music = MusicSlider->GetValue();
+		fx = fxSlider->GetValue();
 	}
 
 	if (currentMenu == CurrentMenu::Credtis)
@@ -191,9 +194,10 @@ bool MainMenu::PostUpdate()
 		{
 			if (guisMainMenu[i]) guisMainMenu[i]->PostUpdate();
 		}
+		app->renderer->AddRenderObjectRenderQueue(fondo);
+
 	}
 
-	///app->renderer->AddRenderObjectRenderQueue(fondo);
 
 
 	Scene::PostUpdate();

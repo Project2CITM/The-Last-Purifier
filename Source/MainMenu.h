@@ -37,6 +37,11 @@ public:
 	bool CleanUp() override;
 
 
+	bool fullScreen = false;
+
+	float music = 0;
+	float fx = 0;
+
 private:
 
 	GUIButton* PlayBUT = nullptr;
@@ -57,8 +62,6 @@ private:
 	GUICheckbox* FullScreenCHK;
 
 	CurrentMenu currentMenu;
-
-	bool fullScreen = false;
 };
 
 #endif //__MAIN_MENU_H__
