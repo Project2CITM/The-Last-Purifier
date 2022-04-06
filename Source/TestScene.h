@@ -1,10 +1,10 @@
 #include "Scene.h"
 
 #include "RoomManager.h"
+#include "HUDInGame.h"
 
 class PlayerRevenant;
 class PlayerSage;
-
 class ClassTree;
 
 class TestScene :  public Scene
@@ -25,12 +25,30 @@ public:
 
 	bool CleanUp() override;
 
+	void chargeDialog();
+
 private:
 
 	RoomManager roomManager;
+	HUDInGame hudInGame;
 	PlayerRevenant* player;
 	//PlayerSage* player;
 
-	ClassTree* revenantTree; //Test skill/spell tree
+	ClassTree* revenantTree; //Test skill/spell tree7
+
+	//Dialog
+	pugi::xml_node configDialog;
+	bool dialogEnable = false;
+	bool separador = false;
+	int separadorCont = 0;
+	int dialogCont = 1;
+
+	List<string> sentences;
+	//string advisorString;
+	//std::string advisorString = "";
+
+	Text* t;
+	Text* advisor;
+	//std::string sentence3 = "";
 };
 

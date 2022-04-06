@@ -27,7 +27,7 @@ public:
 	int CheckAdjacentSpace(Room* r);
 	int CheckAdjacentSpace(iPoint p);
 	void CreateDoors();
-	Room* CreateRoom(iPoint mapPosition);
+	Room* CreateRoom(iPoint mapPosition, short mapId = 0);
 
 	void DrawRooms();
 	void DrawDoors();
@@ -38,7 +38,14 @@ public:
 	Room* roomPositions[MAX_ROOMS_COLUMNS][MAX_ROOMS_ROWS];
 	iPoint bossRoom = iPoint(-1, -1);
 
-	SDL_Texture* testMapTexture = nullptr;
+private:
+	SDL_Texture* doorTopTexture = nullptr;
+	SDL_Texture* doorBotTexture = nullptr;
+
+	SDL_Texture* wallTexture[3] = {nullptr, nullptr, nullptr};
+
+	std::string folder;
+	std::string file;
 };
 
 #endif //__ROOMMANAGER_H_

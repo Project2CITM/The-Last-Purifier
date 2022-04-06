@@ -3,14 +3,19 @@
 
 void RoomManager::Start()
 {
-	GenerateMap(25);
+	GenerateMap(1);
 	CreateDoors();
 
-	ListItem<Room*>* currentRoom = rooms.start;
-	while (currentRoom != nullptr) {
-		currentRoom->data->CloseDoors();
-		currentRoom = currentRoom->next;
-	}
+	doorTopTexture = app->textures->Load("Assets/Maps/TestDoor_top.png");
+	doorBotTexture = app->textures->Load("Assets/Maps/TestDoor_bottom.png");
+
+	wallTexture[0] = app->textures->Load("Assets/Maps/wallDoorLeft.png");
+	wallTexture[1] = app->textures->Load("Assets/Maps/wallDoorTop.png");
+	wallTexture[2] = app->textures->Load("Assets/Maps/TestDoor_bottom.png");
+
+	/*for (int i = 0; i < rooms.count(); ++i)
+		rooms[i]->CloseDoors();*/
+
 }
 
 void RoomManager::Update()
@@ -19,12 +24,8 @@ void RoomManager::Update()
 
 void RoomManager::PostUpdate()
 {
-	/*
-	app->renderer->AddRectRenderQueue(SDL_Rect{ 0, 0, MAX_ROOMS_COLUMNS * MAX_ROOM_TILES_COLUMNS * TILE_SIZE,
-												MAX_ROOMS_ROWS * MAX_ROOM_TILES_ROWS * TILE_SIZE }, SDL_Color{ 0, 170, 230, 255});
-	*/
 	DrawRooms();
-	//DrawDoors();
+	DrawDoors();
 }
 
 void RoomManager::CleanUp()
@@ -41,6 +42,10 @@ void RoomManager::CleanUp()
 	}
 
 	rooms.clearPtr();
+
+	//I assume it unloads in renderer?
+	doorTopTexture = nullptr;
+	doorBotTexture = nullptr;
 }
 
 //FUNCTIONS
@@ -53,7 +58,7 @@ void RoomManager::GenerateMap(short RoomNumber)
 	iPoint p;	//create centered room
 	p.x = MAX_ROOMS_COLUMNS / 2;
 	p.y = MAX_ROOMS_ROWS / 2;
-	Room* r = CreateRoom(p);
+	Room* r = CreateRoom(p, -3);
 
 	//Create all rooms except the first and Boss room
 	while (RoomNumber > 2) {
@@ -111,7 +116,7 @@ void RoomManager::GenerateMap(short RoomNumber)
 	} while (bossRoomPos == iPoint(-1,-1));
 
 	bossRoom = bossRoomPos;
-	CreateRoom(bossRoomPos);
+	CreateRoom(bossRoomPos, -1);
 }
 
 //Check the number of blank spaces next to the room
@@ -185,6 +190,10 @@ void RoomManager::CreateDoors()
 	{
 		Room* cr = currentRoom->data;
 
+		//Reset wallcolliders
+		for (int i = 0; i < 4; ++i)
+			cr->wallColliders[i] = nullptr;
+
 		DoorOrientations doorOrient = DoorOrientations::RIGHT;
 
 		//Right Door
@@ -193,12 +202,24 @@ void RoomManager::CreateDoors()
 			doorOrient = DoorOrientations::RIGHT;
 			cr->doors.add(new Door(cr->GetDoorPos(doorOrient), cr->GetDoorSize(doorOrient), doorOrient));
 		}
+		//No Door -> WallCollider
+		else {
+			doorOrient = DoorOrientations::RIGHT;
+			iPoint colSize = cr->GetDoorSize(doorOrient);
+			cr->wallColliders[0] = app->physics->CreateRectangle(cr->GetDoorPos(doorOrient), colSize.x, colSize.y, nullptr, b2_staticBody);
+		}
 
 		//Bottom Door
 		if (roomPositions[cr->roomPosition.x][cr->roomPosition.y + 1] != nullptr && cr->roomPosition.y + 1 < MAX_ROOMS_ROWS) 
 		{
 			doorOrient = DoorOrientations::BOTTOM;
 			cr->doors.add(new Door(cr->GetDoorPos(doorOrient), cr->GetDoorSize(doorOrient), doorOrient));
+		}
+		//No Door -> WallCollider
+		else {
+			doorOrient = DoorOrientations::BOTTOM;
+			iPoint colSize = cr->GetDoorSize(doorOrient);
+			cr->wallColliders[1] = app->physics->CreateRectangle(cr->GetDoorPos(doorOrient), colSize.x, colSize.y, nullptr, b2_staticBody);
 		}
 
 		//Left Door
@@ -207,6 +228,12 @@ void RoomManager::CreateDoors()
 			doorOrient = DoorOrientations::LEFT;
 			cr->doors.add(new Door(cr->GetDoorPos(doorOrient), cr->GetDoorSize(doorOrient), doorOrient));
 		}
+		//No Door -> WallCollider
+		else {
+			doorOrient = DoorOrientations::LEFT;
+			iPoint colSize = cr->GetDoorSize(doorOrient);
+			cr->wallColliders[2] = app->physics->CreateRectangle(cr->GetDoorPos(doorOrient), colSize.x, colSize.y, nullptr, b2_staticBody);
+		}
 
 		//Top Door
 		if (roomPositions[cr->roomPosition.x][cr->roomPosition.y - 1] != nullptr && cr->roomPosition.y - 1 >= 0) 
@@ -214,73 +241,49 @@ void RoomManager::CreateDoors()
 			doorOrient = DoorOrientations::TOP;
 			cr->doors.add(new Door(cr->GetDoorPos(doorOrient), cr->GetDoorSize(doorOrient), doorOrient));
 		}
+		//No Door -> WallCollider
+		else {
+			doorOrient = DoorOrientations::TOP;
+			iPoint colSize = cr->GetDoorSize(doorOrient);
+			cr->wallColliders[3] = app->physics->CreateRectangle(cr->GetDoorPos(doorOrient), colSize.x, colSize.y, nullptr, b2_staticBody);
+		}
 
 		currentRoom = currentRoom->next;
 	}
 }
 
-Room* RoomManager::CreateRoom(iPoint mapPosition)
+Room* RoomManager::CreateRoom(iPoint mapPosition, short mapId)
 {
 	Room* r = new Room();
 	r->roomPosition = mapPosition;
-	
+	r->id = mapId;
+
 	//srand(time(NULL));
-	int ran = rand() % 14;
-	/*if (ran == 0) {
-		r->roomTexture = app->textures->Load("Assets/Maps/mapTest3.png");
-	}
-	else if(ran == 1){
-		r->roomTexture = app->textures->Load("Assets/Maps/mapTest.png");
-	}
-	else {
-		r->roomTexture = app->textures->Load("Assets/Maps/mapTest2.png");
-	}*/
-	switch (ran)
-	{
-	case 0: 
-		r->roomTexture = app->textures->Load("Assets/Maps/map01.png");
+	folder = "Assets/Maps/map";
+	file = ".png";
+
+	std::string s;
+
+	switch (mapId) {
+	case -1:
+		s = "MiniBoss";	//CHANGE boss room
 		break;
-	case 1:
-		r->roomTexture = app->textures->Load("Assets/Maps/map02.png");
+	case -2:
+		s = "MiniBoss";
 		break;
-	case 2:
-		r->roomTexture = app->textures->Load("Assets/Maps/map03.png");
+	//case -3:
+	//	s = "StartRoom"; //CHANGE starting room
 		break;
-	case 3:
-		r->roomTexture = app->textures->Load("Assets/Maps/mapaMiniBoss.png");
-		break;
-	case 4:
-		r->roomTexture = app->textures->Load("Assets/Maps/map04.png");
-		break;
-	case 5:
-		r->roomTexture = app->textures->Load("Assets/Maps/map05.png");
-		break;
-	case 6:
-		r->roomTexture = app->textures->Load("Assets/Maps/map06.png");
-		break;
-	case 7:
-		r->roomTexture = app->textures->Load("Assets/Maps/map07.png");
-		break;
-	case 8:
-		r->roomTexture = app->textures->Load("Assets/Maps/map08.png");
-		break;
-	case 9:
-		r->roomTexture = app->textures->Load("Assets/Maps/map09.png");
-		break;
-	case 10:
-		r->roomTexture = app->textures->Load("Assets/Maps/map10.png");
-		break;
-	case 11:
-		r->roomTexture = app->textures->Load("Assets/Maps/map11.png");
-		break;
-	case 12:
-		r->roomTexture = app->textures->Load("Assets/Maps/map12.png");
-		break;
-	case 13:
-		r->roomTexture = app->textures->Load("Assets/Maps/map13.png");
+	default:
+		int ran = rand() % 14 + 1;
+		s = std::to_string(ran);
+		r->id = ran; //Override id for random generated maps
 		break;
 	}
 
+	folder += s += file;
+
+	r->roomTexture = app->textures->Load(folder);
 
 	rooms.add(r);
 	roomPositions[mapPosition.x][mapPosition.y] = r;
@@ -290,56 +293,44 @@ Room* RoomManager::CreateRoom(iPoint mapPosition)
 //Pseudo-print the rooms
 void RoomManager::DrawRooms()
 {
-	/*
-	uint rn = rooms.count();
-	SDL_Color c = SDL_Color{ 255, 255, 255, 255 };
-	*/
-
-	ListItem<Room*>* currentRoom = rooms.start;
-	while (currentRoom != nullptr) {
-		/*
-		
-		//change boss room color
-		if (currentRoom->data->roomPosition == bossRoom)
-			c = SDL_Color{ 255, 10, 10, 255 };
-
-		app->renderer->AddRectRenderQueue(SDL_Rect{ currentRoom->data->roomPosition.x * MAX_ROOM_TILES_COLUMNS * TILE_SIZE,
-													currentRoom->data->roomPosition.y * MAX_ROOM_TILES_ROWS* TILE_SIZE,
-													MAX_ROOM_TILES_COLUMNS* TILE_SIZE, MAX_ROOM_TILES_ROWS* TILE_SIZE },
-													c);
-		c.r -= 255/rn;
-		c.g -= 255/rn;
-		c.b -= 255/rn;
-		
-		*/
-		currentRoom->data->DrawRoom();
-
-		currentRoom = currentRoom->next;
-	}
+	for (int i = 0; i < rooms.count(); ++i)
+		rooms[i]->DrawRoom();
 }
 
 //Pseudo-print the doors
 void RoomManager::DrawDoors()
 {
-	ListItem<Room*>* currentRoom = rooms.start;
-	while (currentRoom != nullptr) {
-		ListItem<Door*>* currentDoor = currentRoom->data->doors.start;
-		while (currentDoor != nullptr) {
-			
-			//app->renderer->AddRectRenderQueue(SDL_Rect{ currentDoor->data->pos.x, currentDoor->data->pos.y, 
-			//	TILE_SIZE * currentDoor->data->size.x, TILE_SIZE * currentDoor->data->size.y }, 
-			//	SDL_Color{ 255, 100, 255, 255 }, false, 1, 0.0f);
-			
+	for (int i = 0; i < rooms.count(); ++i) {
+		int k = rooms[i]->doors.count();
+		
+		for (int j = 0; j < k; ++j) {
+			Door* d = rooms[i]->doors[j];
+			if (d->orientation == DoorOrientations::TOP)
+				app->renderer->AddTextureRenderQueue(doorTopTexture, d->GetPosition() - d->size, { 0,0,0,0 }, TILE_SIZE / 16.0f, 3);
+			if (d->orientation == DoorOrientations::BOTTOM)
+				app->renderer->AddTextureRenderQueue(doorBotTexture, d->GetPosition() - d->size - iPoint(0, TILE_SIZE), { 0,0,0,0 }, TILE_SIZE / 16.0f, 3);
+		}	
 
-			//if (currentDoor->data->collider != nullptr) {
-			//	iPoint npos;
-			//	currentDoor->data->collider->GetCenterPosition(npos.x, npos.y);
-			//	app->renderer->AddRectRenderQueue(SDL_Rect{ npos.x, npos.y, currentDoor->data->collider->width, currentDoor->data->collider->height },
-			//		SDL_Color{ 255, 255, 255, 255 }, 1, 0.0f, false);
-			//}
+		//Draw Walls on Non-doors
+		Room* r = rooms[i];
+		if (r->wallColliders[0] != nullptr)
+			app->renderer->AddTextureRenderQueue(wallTexture[0], 
+				r->GetDoorPos(DoorOrientations::RIGHT) - r->GetDoorSize(DoorOrientations::RIGHT) - iPoint(0, TILE_SIZE * 5),
+				{ 0,0,0,0 }, TILE_SIZE / 16.0f, 1, 1.0f, 0.0f, SDL_FLIP_HORIZONTAL);
 
-			currentDoor = currentDoor->next;
-		}
-		currentRoom = currentRoom->next;
+		if (r->wallColliders[1] != nullptr)
+			app->renderer->AddTextureRenderQueue(wallTexture[2],
+				r->GetDoorPos(DoorOrientations::BOTTOM) - r->GetDoorSize(DoorOrientations::BOTTOM) - iPoint(0, TILE_SIZE),
+				{ 0,0,0,0 }, TILE_SIZE / 16.0f, 1, 1.0f);
+
+		if (r->wallColliders[2] != nullptr)
+			app->renderer->AddTextureRenderQueue(wallTexture[0], 
+				r->GetDoorPos(DoorOrientations::LEFT) - r->GetDoorSize(DoorOrientations::LEFT) - iPoint(0, TILE_SIZE * 5),
+				{ 0,0,0,0 }, TILE_SIZE / 16.0f, 1, 1.0f);
+
+		if (r->wallColliders[3] != nullptr)
+			app->renderer->AddTextureRenderQueue(wallTexture[1], 
+				r->GetDoorPos(DoorOrientations::TOP) - r->GetDoorSize(DoorOrientations::TOP) - iPoint(TILE_SIZE * 4, 0),
+				{ 0,0,0,0 }, TILE_SIZE / 16.0f, 1, 1.0f);
 	}
 }

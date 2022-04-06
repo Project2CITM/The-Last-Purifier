@@ -2,7 +2,7 @@
 <!-- L01: DONE 1: Create configuration file-->
 <config>
   <app>
-    <title>PROJECT 2!</title>
+    <title>The Last Purifier</title>
     <organization>UPC</organization>
   </app>
 
@@ -81,9 +81,56 @@
   </textures>
 
   <fonts>
-    <defaultFont width = "48" height = "48" letter = "66" layer = "3" orderInLayer = "3.0" scale = "1.0" path="Assets/Fonts/defaultFont.png"/>
+    <defaultFont width = "48" height = "48" letter = "67" r = "0" g = "0" b = "0" a = "255" spaceInLetter = "-13" layer = "3" orderInLayer = "3.0" scale = "0.2" path="Assets/Fonts/defaultFont.png"/>
   </fonts>
 
+  <dialogText>
+	  <advisor>Pulse M para hablar</advisor>
+	  <purifier1>
+		  <Sentence1>Chico... ¡Acercate rapido!</Sentence1>
+		  <Sentence2>No se que haces aqui pero vuelve rapido a la aldea, aqui corres peligro</Sentence2>
+		  <Sentence3>...</Sentence3>
+		  <Sentence4>¡Espera! Antes de irte toma este guante, le vas a dar mejor uso que yo en este momento.¡Corre!</Sentence4>
+	  </purifier1>
+	  <doorGuardian>
+		  <Sentence1> Quien eres y que haces fuera de la aldea sin un protector</Sentence1>
+		  <Sentence2> Intenta no volver a salir sin proteccion, queda poco para que llegue el gran dia y debemos ser las maximas personas posibles.</Sentence2>
+	  </doorGuardian>
+	  <purifier2>
+		  <Sentence1> ¿Que haces con un guante de purificador?</Sentence1>
+		  <Sentence2> Encontré a un señor con túnica y me cedió el guante. Parecía que estaba en serios apuros.</Sentence2>
+		  <Sentence3> Llevas un guante de purificador, con él puedes usar magia arcana. </Sentence3>
+		  <Sentence4>
+			  Estos guantes** fueron forjados en el cielo hace siglos y posteriormente traídos aquí por angeles.
+			  Los guantes han sido portados por  purificadores durante milenios con la intención de terminar con la expansión del infierno en el mundo de las almas.
+		  </Sentence4>
+		  <Sentence5>
+			  Estar en posesión de uno otorga un poder sobrenatural y conlleva una gran
+			  responsabilidad.
+		  </Sentence5>
+		  <Sentence6> Co.. ¡¿Como… Como qué el mundo de las animas. Eso significa que estoy muerto?! </Sentence6>
+		  <Sentence7>
+			  Así es. Y por algún motivo que no entiendo, has aparecido en las cercanías de nuestro pueblo.
+		  </Sentence7>
+		  <Sentence8>
+			  Hay una leyenda que cuenta que un día llegará un salvador y traerá la paz a este mundo de guerra y caos. Pero no es más que una vieja leyenda chico…
+			  Hace mucho que dejamos de creer en ella. Solo unos pocos siguen creyendo. 
+		  </Sentence8>
+		  <Sentence9> Acompáñame y te enseñaré a usar el guante que llevas puesto.</Sentence9>
+	  </purifier2>
+	  <purifier2Dialog2>
+		  <Sentence1> Bienvenido al campo de entrenamiento, aquí podrás aprender a usar el guante.</Sentence1>
+		  <Sentence2> Hay 2 tipos de purificadores, los revenant y los sage. 
+		  Si escoges ser revenant se te otorgará una arma melé, es una arma ligera y con mucho daño, que junto a tu guante conseguirás una letal combinación.
+	      </Sentence2>
+		  <Sentence3>
+			  En cambio, si escoges ser sage, se te otorgará una arma a distancia,es una arma pesada pero muy poderosa a larga distancia. 
+			  Combinalo bien con el guante para que nunca se te acerca un enemigo y poder salir vivo del terreno.
+		  </Sentence3>
+	  </purifier2Dialog2>
+	  
+  </dialogText>
+  
   <audios>
     <playerJump path = "Assets/audio/fx/jump.wav" volum = "15"/>
     <powerUp path = "Assets/audio/fx/powerUp.wav" volum = "20"/>

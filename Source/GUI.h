@@ -12,6 +12,13 @@ enum class UIShape
 	BOX
 };
 
+enum class MenuButton
+{
+	MAIN,
+	OPTIONS,
+	CREDITS
+};
+
 struct RectangleShape
 {
 	int w = 0;
@@ -30,7 +37,7 @@ public:
 
 	virtual ~GUI();
 
-	void InitAsBox(int x, int y, int w, int h);
+	void InitAsBox(int x, int y, int w, int h, MenuButton currentMenu);
 
 	void InitAsCircle(int x, int y, int radius);
 

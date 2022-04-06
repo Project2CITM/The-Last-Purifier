@@ -4,6 +4,15 @@
 #include "Scene.h"
 
 class GUIButton;
+class GUISlider;
+class GUICheckbox;
+
+enum class CurrentMenu
+{
+	Main,
+	Options,
+	Credtis
+};
 
 class MainMenu : public Scene
 {
@@ -28,15 +37,31 @@ public:
 	bool CleanUp() override;
 
 
+	bool fullScreen = false;
+
+	float music = 0;
+	float fx = 0;
+
 private:
+
 	GUIButton* PlayBUT = nullptr;
 	GUIButton* OptionsBUT = nullptr;
 	GUIButton* CreditBUT = nullptr;
 	GUIButton* ExitBUT = nullptr;
 	GUIButton* LinkBUT = nullptr;
 
-	bool OptionsMenu = false;
-	bool CreditsMenu = false;
+	GUIButton* CloseOptBUT = nullptr;
+	GUIButton* MusicBUT = nullptr;
+	GUIButton* fxBUT = nullptr;
+	
+	GUIButton* CloseCrdBUT = nullptr;
+
+	GUISlider* MusicSlider = nullptr;
+	GUISlider* fxSlider = nullptr;
+
+	GUICheckbox* FullScreenCHK;
+
+	CurrentMenu currentMenu;
 };
 
 #endif //__MAIN_MENU_H__

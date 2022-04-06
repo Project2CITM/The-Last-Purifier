@@ -7,6 +7,7 @@
 #include "ModuleInput.h"
 #include "ClassTree.h"
 #include "SpellInfo.h"
+#include "Text.h"
 
 TestScene::TestScene():Scene("testScene")
 {
@@ -18,6 +19,8 @@ TestScene::~TestScene()
 
 bool TestScene::Start()
 {
+    //advisorString = "hi";
+
     player = new PlayerRevenant();
     //app->renderer->camera->SetTarget(player->controller);
     //player = new PlayerSage(app);
@@ -32,8 +35,16 @@ bool TestScene::Start()
     Particle* p = new Particle({ 0,0 }, 2, 0, { 1,0 });
     p->renderObjects[0].InitAsRect({ p->GetPosition().x,p->GetPosition().y,50,50 }, { 0,255,0,255 }, true, 3);
 
-    roomManager.Start();
+    // Test text
 
+    t =  new Text({ 0,0 },"");
+    //t->SetText("Hello world");
+    advisor = new Text({ 0,0 },"","defaultFont");
+    //t->SetColor({ 255,255,0,100 });
+
+    hudInGame.Start();
+    roomManager.Start();
+    chargeDialog();
     Scene::Start();
 
     return true;
@@ -69,8 +80,40 @@ bool TestScene::PreUpdate()
         printf("A");
     }
 
+    if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
+    {
+        dialogEnable = true;
+    }
+    if (!dialogEnable) {
+        advisor->SetText(sentences[0]);
+    }
+    if (dialogEnable) {
+        advisor->SetText("");
+        if (sentences[dialogCont].empty() == false) {
+            if (separador) {
+                if (app->input->GetKey(SDL_SCANCODE_RETURN)) {
+
+                    dialogCont++;
+
+
+                    separador = false;
+                }
+            }
+            else {
+                separadorCont++;
+            }
+            if (separadorCont == 60) {
+                separador = true;
+                separadorCont = 0;
+            }
+            t->SetText(sentences[dialogCont]);
+        }
+
+    }
+
     //printf("Axis Left: X: %d Y: %d\n", app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTX), app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTY));
 
+    hudInGame.PreUpdate();
     Scene::PreUpdate();
     return true;
 }
@@ -89,6 +132,7 @@ bool TestScene::Update()
     //if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
     //    roomManager.mapMovement.y += 10;
 
+    hudInGame.Update();
     roomManager.Update();
     Scene::Update();
     return true;
@@ -114,7 +158,7 @@ bool TestScene::PostUpdate()
 
     roomManager.PostUpdate();
     //app->physics->ShapesRender();
-   
+    hudInGame.PostUpdate();
     Scene::PostUpdate();
     return true;
 }
@@ -126,8 +170,26 @@ bool TestScene::CleanUp()
         player->CleanUp();
         RELEASE(player);
     }
-    roomManager.CleanUp();
-    Scene::CleanUp();
 
+    //advisor->pendingToDelate = true;
+    //t->pendingToDelate = true;
+    //sentence[1].clear();
+    sentences.clear();
+    hudInGame.CleanUp();
+    roomManager.CleanUp();
+    Scene::CleanUp();    
     return false;
+}
+void TestScene::chargeDialog() {
+    configDialog = app->config.child("dialogText");
+
+    sentences.add(configDialog.child("advisor").child_value());
+    sentences.add(configDialog.child("purifier1").child("Sentence1").child_value());
+    sentences.add(configDialog.child("purifier1").child("Sentence2").child_value());
+    sentences.add(configDialog.child("purifier1").child("Sentence3").child_value());
+    sentences.add(configDialog.child("purifier1").child("Sentence4").child_value());
+    //sentences[1] = configDialog.child("Sentence1").child_value();
+    //sentences[2] = configDialog.child("Sentence2").child_value();
+
+    //advisorString = configDialog.child("advisor").child_value();
 }

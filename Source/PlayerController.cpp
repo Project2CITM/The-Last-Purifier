@@ -6,6 +6,9 @@
 #include "ModulePhysics.h"
 #include "ModuleInput.h"
 
+#include "RoomManager.h"
+#include "Room.h"
+
 PlayerController::PlayerController(std::string name, std::string tag, Player* player) : GameObject(name, tag)
 {
 	this->player = player;
@@ -61,7 +64,10 @@ void PlayerController::Start()
 	stateMachine.AddState("dash", 2, 64);		//DASH = 3
 
 	// Initialize physBody
-	this->pBody = app->physics->CreateRectangle({ 100,100 }, 10, 16, this);
+	this->pBody = app->physics->CreateRectangle({ //player spawn pos
+		((MAX_ROOMS_COLUMNS + 1) * MAX_ROOM_TILES_COLUMNS * TILE_SIZE) / 2,
+		((MAX_ROOMS_ROWS + 1) * MAX_ROOM_TILES_ROWS * TILE_SIZE) / 2},
+		10, 16, this);
 	this->pBody->body->SetFixedRotation(true);
 	//pBody->body->SetType(b2BodyType::b2_kinematicBody);
 

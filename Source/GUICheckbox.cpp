@@ -2,9 +2,9 @@
 #include "ModuleTextures.h"
 #include "ModuleInput.h"
 
-GUICheckbox::GUICheckbox(iPoint pos, int width, int height, std::string path) : GUI()
+GUICheckbox::GUICheckbox(iPoint pos, int width, int height, MenuButton currentMenu, std::string path) : GUI()
 {
-	InitAsBox(pos.x, pos.y, width, height);
+	InitAsBox(pos.x, pos.y, width, height, currentMenu);
 
 	renderObject = new RenderObject();
 	renderObject->texture = app->textures->Load(path);
@@ -24,9 +24,9 @@ GUICheckbox::GUICheckbox(iPoint pos, int width, int height, std::string path) : 
 	}
 }
 
-GUICheckbox::GUICheckbox(iPoint pos, int width, int height) : GUI()
+GUICheckbox::GUICheckbox(iPoint pos, int width, int height, MenuButton currentMenu) : GUI()
 {
-	InitAsBox(pos.x, pos.y, width, height);
+	InitAsBox(pos.x, pos.y, width, height, currentMenu);
 }
 
 GUICheckbox::~GUICheckbox()
@@ -39,6 +39,7 @@ void GUICheckbox::Update()
 	if (CheckOnMouse() && app->input->GetMouseButton(1) == KEY_UP)
 	{
 		ChangeState(!isActive);
+		doAction = true;
 	}
 	else if (CheckOnMouse() && checkboxState != CheckboxState::ON) checkboxState = CheckboxState::FOCUS;
 	else if (checkboxState != CheckboxState::ON) checkboxState = CheckboxState::OFF;

@@ -3,7 +3,10 @@
 #include "ModuleTextures.h"
 #include "ModuleScene.h"
 #include "GUIButton.h"
+#include "GUISlider.h"
+#include "GUICheckbox.h"
 #include "ModuleInput.h"
+#include "ModuleWindow.h"
 
 #include <shellapi.h>
 
@@ -21,21 +24,37 @@ MainMenu::~MainMenu()
 
 bool MainMenu::InitScene()
 {
-
 	Scene::InitScene();
 
 	return true;
 }
 
+//1280 * 720
+//640 * 360
+
 bool MainMenu::Start()
 {
 	fondo.InitAsTexture(app->textures->Load("Assets/Sprites/UI/MainMenu/mainmenu.png"), { 0,0 }, {0,0,0,0}, 0.5f);
 
-	PlayBUT = new GUIButton({ 125, 180 }, 75, 25, "Assets/Sprites/UI/PlayButton/playB.png");
-	OptionsBUT = new GUIButton({ 140, 215 }, 60, 20);
-	CreditBUT = new GUIButton({ 140, 240 }, 60, 20);
-	ExitBUT = new GUIButton({ 150, 285 }, 50, 20);
-	LinkBUT = new GUIButton({ 20, 330 }, 75, 25);
+	PlayBUT = new GUIButton({ 125, 180 }, 75, 25, MenuButton::MAIN, "Assets/Sprites/UI/PlayButton/playB.png");
+	OptionsBUT = new GUIButton({ 140, 215 }, 60, 20, MenuButton::MAIN);
+	CreditBUT = new GUIButton({ 140, 240 }, 60, 20, MenuButton::MAIN);
+	ExitBUT = new GUIButton({ 150, 285 }, 50, 20, MenuButton::MAIN);
+	LinkBUT = new GUIButton({ 20, 330 }, 75, 25, MenuButton::MAIN);
+
+	CloseOptBUT = new GUIButton({ 285, 330 }, 75, 25, MenuButton::OPTIONS);
+
+	MusicBUT = new GUIButton({ 275, 100 }, 25, 25, MenuButton::OPTIONS);
+	MusicSlider = new GUISlider({ 275, 100 }, 300, 10, MenuButton::OPTIONS);
+	MusicSlider->CreateGUIBtn(MusicBUT);
+
+	fxBUT = new GUIButton({ 275, 175 }, 25, 25, MenuButton::OPTIONS);
+	fxSlider = new GUISlider({ 275, 175 }, 300, 10, MenuButton::OPTIONS);
+	fxSlider->CreateGUIBtn(fxBUT);
+
+	FullScreenCHK = new GUICheckbox({ 400, 250 }, 50, 50, MenuButton::OPTIONS, "Assets/Sprites/UI/PlayButton/playB.png");
+
+	CloseCrdBUT = new GUIButton({ 285, 330 }, 75, 25, MenuButton::CREDITS);
 
 	Scene::Start();
 
@@ -51,34 +70,97 @@ bool MainMenu::PreUpdate()
 
 bool MainMenu::Update()
 {
-	//LOG("%d", PlayBUT->navigation);
-
-	if (PlayBUT->doAction)
+	if (currentMenu == CurrentMenu::Main)
 	{
-		app->scene->ChangeCurrentSceneRequest(LEVEL_1);
+		for (int i = 0; i < guisMainMenu.count(); i++)
+		{
+			if (guisMainMenu[i]) guisMainMenu[i]->Update();
+		}
 	}
 
-	if (OptionsBUT->doAction)
+	if (currentMenu == CurrentMenu::Options)
 	{
-		OptionsMenu = true;
-		OptionsBUT->doAction = false;
+		for (int i = 0; i < guisOptions.count(); i++)
+		{
+			if (guisOptions[i]) guisOptions[i]->Update();
+		}
 	}
 
-	if (CreditBUT->doAction)
+	if (currentMenu == CurrentMenu::Credtis)
 	{
-		CreditsMenu = false;
-		CreditBUT->doAction = false;
+		for (int i = 0; i < guisCredtis.count(); i++)
+		{
+			if (guisCredtis[i]) guisCredtis[i]->Update();
+		}
 	}
 
-	if (ExitBUT->doAction)
+	if(currentMenu == CurrentMenu::Main)
 	{
-		return false;
+		if (PlayBUT->doAction)
+		{
+			app->scene->ChangeCurrentSceneRequest(LEVEL_1);
+		}
+
+		if (OptionsBUT->doAction)
+		{
+			currentMenu = CurrentMenu::Options;
+			OptionsBUT->doAction = false;
+		}
+
+		if (CreditBUT->doAction)
+		{
+			currentMenu = CurrentMenu::Credtis;
+			CreditBUT->doAction = false;
+		}
+
+		if (ExitBUT->doAction)
+		{
+			return false;
+		}
+
+		if (LinkBUT->doAction)
+		{
+			ShellExecuteA(NULL, "open", "https://github.com/Project2CITM/The-last-purifier/wiki", NULL, NULL, SW_SHOWNORMAL);		//change the url for the url of the web
+			LinkBUT->doAction = false;
+		}
 	}
 
-	if (LinkBUT->doAction)
+	if (currentMenu == CurrentMenu::Options)
 	{
-		ShellExecuteA(NULL, "open", "https://www.google.com", NULL, NULL, SW_SHOWNORMAL);		//change the url for the url of the web
-		LinkBUT->doAction = false;
+		if (CloseOptBUT->doAction)
+		{
+			currentMenu = CurrentMenu::Main;
+			CloseOptBUT->doAction = false;
+		}
+
+		if (FullScreenCHK->isActive)
+		{
+			fullScreen = true;
+			FullScreenCHK->doAction;
+		}
+		else
+		{
+			FullScreenCHK->doAction;
+			fullScreen = false;
+		}
+
+		if (FullScreenCHK->doAction)
+		{
+			app->window->ToggleFullScreen(fullScreen);
+			FullScreenCHK->doAction = false;
+		}
+
+		music = MusicSlider->GetValue() * 255;
+		fx = fxSlider->GetValue() * 255;
+	}
+
+	if (currentMenu == CurrentMenu::Credtis)
+	{
+		if (CloseCrdBUT->doAction)
+		{
+			currentMenu = CurrentMenu::Main;
+			CloseCrdBUT->doAction = false;
+		}
 	}
 
 	Scene::Update();
@@ -88,10 +170,35 @@ bool MainMenu::Update()
 
 bool MainMenu::PostUpdate()
 {
-	if (OptionsMenu)
+	if (currentMenu == CurrentMenu::Options)
 	{
-		app->renderer->AddRenderObjectRenderQueue(fondo);
+		for (int i = 0; i < guisOptions.count(); i++)
+		{
+			if (guisOptions[i]) guisOptions[i]->PostUpdate();
+		}
+
+		app->renderer->AddRectRenderQueue({ 100, 25, 500, 300 }, { 140, 215, 0, 255 });
 	}
+
+	if (currentMenu == CurrentMenu::Credtis)
+	{
+		for (int i = 0; i < guisCredtis.count(); i++)
+		{
+			if (guisCredtis[i]) guisCredtis[i]->PostUpdate();
+		}
+	}
+
+	if (currentMenu == CurrentMenu::Main)
+	{
+		for (int i = 0; i < guisMainMenu.count(); i++)
+		{
+			if (guisMainMenu[i]) guisMainMenu[i]->PostUpdate();
+		}
+		app->renderer->AddRenderObjectRenderQueue(fondo);
+
+	}
+
+
 
 	Scene::PostUpdate();
 

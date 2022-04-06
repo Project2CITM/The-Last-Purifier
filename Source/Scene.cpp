@@ -12,7 +12,6 @@ Scene::~Scene()
 
 bool Scene::InitScene()
 {
-
 	return true;
 }
 
@@ -40,6 +39,15 @@ bool Scene::PreUpdate()
 		}
 	}
 
+	for (int i = 0; i < texts.count(); i++)
+	{
+		if (texts[i])
+		{
+			if (texts[i]->pendingToDelate) DestroyText(texts[i]);
+			else texts[i]->PreUpdate();
+		}
+	}
+
 	return true;
 }
 
@@ -47,16 +55,14 @@ bool Scene::Update()
 {
 	for (int i = 0; i < gameObjects.count(); i++)
 	{
-		if (gameObjects[i])
-		{
-			gameObjects[i]->Update();
-		}
+		if (gameObjects[i]) gameObjects[i]->Update();
 	}
 
-	for (int i = 0; i < guis.count(); i++)
+	for (int i = 0; i < texts.count(); i++)
 	{
-		if (guis[i]) guis[i]->Update();
+		if (texts[i]) texts[i]->Update();
 	}
+
 	return true;
 }
 
@@ -64,16 +70,14 @@ bool Scene::PostUpdate()
 {
 	for (int i = 0; i < gameObjects.count(); i++)
 	{
-		if (gameObjects[i])
-		{
-			gameObjects[i]->PostUpdate();
-		}
+		if (gameObjects[i]) gameObjects[i]->PostUpdate();
 	}
 
-	for (int i = 0; i < guis.count(); i++)
+	for (int i = 0; i < texts.count(); i++)
 	{
-		if (guis[i]) guis[i]->PostUpdate();
+		if (texts[i]) texts[i]->PostUpdate();
 	}
+
 	return true;
 }
 
@@ -89,7 +93,11 @@ bool Scene::CleanUp()
 
 	gameObjects.clearPtr();
 
-	guis.clearPtr();
+	guisMainMenu.clearPtr();
+	guisOptions.clearPtr();
+	guisCredtis.clearPtr();
+
+	texts.clearPtr();
 
 	return true;
 }
@@ -99,9 +107,19 @@ void Scene::AddGameObject(GameObject* gameObject)
 	gameObjects.add(gameObject);
 }
 
-void Scene::AddGUI(GUI* gui)
+void Scene::AddGUIMainMenu(GUI* gui)
 {
-	guis.add(gui);
+	guisMainMenu.add(gui);
+}
+
+void Scene::AddGUIOptions(GUI* gui)
+{
+	guisOptions.add(gui);
+}
+
+void Scene::AddGUICredtis(GUI* gui)
+{
+	guisCredtis.add(gui);
 }
 
 void Scene::AddText(Text* text)
@@ -121,11 +139,24 @@ void Scene::DestroyGameObject(GameObject* gameObject)
 
 void Scene::DestroyGUI(GUI* gui)
 {
-	int index = guis.find(gui);
+	int indexMainMenu = guisMainMenu.find(gui);
+	int indexOptions = guisOptions.find(gui);
+	int indexCredtis = guisCredtis.find(gui);
 
-	if (index >= 0)
+	if (indexMainMenu >= 0)
 	{
-		guis.delPtr(guis.At(index));
+		guisMainMenu.delPtr(guisMainMenu.At(indexMainMenu));
+	}
+
+	if (indexOptions >= 0)
+	{
+		guisOptions.delPtr(guisOptions.At(indexOptions));
+	}
+
+	if (indexCredtis >= 0)
+	{
+		guisCredtis.delPtr(guisCredtis.At(indexCredtis));
+
 	}
 }
 

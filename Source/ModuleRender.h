@@ -96,7 +96,7 @@ public:
 	/// </summary>
 	/// <param name="rect"></param>
 	/// <returns></returns>
-	bool InScreen(const SDL_Rect& rect);
+	bool InScreen(const SDL_Rect& rect, float speedRegardCamera);
 
 	int RoundToInt(int num);
 

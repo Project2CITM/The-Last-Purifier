@@ -55,7 +55,7 @@ bool ModuleRender::Init(pugi::xml_node& config)
 // PreUpdate: clear buffer
 UpdateStatus ModuleRender::PreUpdate()
 {
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+	SDL_SetRenderDrawColor(renderer, 7, 7, 7, 0);
 	SDL_RenderClear(renderer);
 	return UPDATE_CONTINUE;
 }
@@ -131,7 +131,7 @@ void ModuleRender::AddTextureRenderQueue(SDL_Texture* texture, iPoint pos, SDL_R
 		SDL_QueryTexture(texture, nullptr, nullptr, &section.w, &section.h);
 	}
 
-	if (!InScreen(SDL_Rect{ pos.x, pos.y, (int)(section.w * scale), (int)(section.h * scale) })) return;
+	if (!InScreen(SDL_Rect{ pos.x, pos.y, (int)(section.w * scale), (int)(section.h * scale) }, speed)) return;
 
 	RenderObject renderObject;
 
@@ -159,7 +159,7 @@ void ModuleRender::AddTextureRenderQueue(SDL_Texture* texture, iPoint pos, SDL_R
 void ModuleRender::AddRectRenderQueue(const SDL_Rect& rect, SDL_Color color, bool filled, int layer, float orderInlayer, float speed)
 {
 	// Detect if the rect is in the screen
-	if (!InScreen(rect)) return;
+	if (!InScreen(rect, speed)) return;
 
 	RenderObject renderR;
 
@@ -179,7 +179,7 @@ void ModuleRender::AddRectRenderQueue(const SDL_Rect& rect, SDL_Color color, boo
 
 void ModuleRender::AddCircleRenderQueue(const iPoint pos, int radius, SDL_Color color, int layer, float orderInLayer, float speed)
 {
-	if (!InScreen(SDL_Rect{ pos.x - radius,pos.y - radius,radius * 2,radius * 2 })) return;
+	if (!InScreen(SDL_Rect{ pos.x - radius,pos.y - radius,radius * 2,radius * 2 }, speed)) return;
 
 	RenderObject renderC;
 
@@ -218,7 +218,7 @@ void ModuleRender::AddLineRenderQueue(iPoint pos1, iPoint pos2, bool adjust, SDL
 	}
 
 	// Detect if the line is in the screen
-	if (!InScreen(SDL_Rect{ pos1.x,pos1.y,1,1 }) && !InScreen(SDL_Rect{ pos2.x,pos2.y,1,1 })) return;
+	if (!InScreen(SDL_Rect{ pos1.x,pos1.y,1,1 }, speed) && !InScreen(SDL_Rect{ pos2.x,pos2.y,1,1 }, speed)) return;
 
 	RenderObject renderL;
 
@@ -250,7 +250,7 @@ void ModuleRender::AddRenderObjectRenderQueue(RenderObject renderObject)
 	{
 	case RENDER_RECT:
 	{
-		if (!InScreen(renderObject.destRect)) return;
+		if (!InScreen(renderObject.destRect, renderObject.speedRegardCamera)) return;
 
 		// Adjust destination rect using camera and screen scale
 		renderObject.destRect.x = (int)(-camera->x * renderObject.speedRegardCamera) + renderObject.destRect.x * app->window->scale;
@@ -262,7 +262,7 @@ void ModuleRender::AddRenderObjectRenderQueue(RenderObject renderObject)
 	case RENDER_TEXTURE:
 	{
 		if (!InScreen(SDL_Rect{ renderObject.destRect.x, renderObject.destRect.y,
-			(int)(renderObject.section.w * renderObject.scale), (int)(renderObject.section.h * renderObject.scale) })) return;
+			(int)(renderObject.section.w * renderObject.scale), (int)(renderObject.section.h * renderObject.scale) }, renderObject.speedRegardCamera)) return;
 
 		// Adjust destination position using camera and screen size
 		renderObject.destRect.x = (int)(-camera->x * renderObject.speedRegardCamera) + renderObject.destRect.x * app->window->scale;
@@ -284,7 +284,7 @@ void ModuleRender::AddRenderObjectRenderQueue(RenderObject renderObject)
 	case RENDER_CIRCLE:
 	{
 		if (!InScreen(SDL_Rect{ renderObject.destRect.x - renderObject.radius,renderObject.destRect.y - renderObject.radius,
-			renderObject.radius * 2,renderObject.radius * 2 })) return;
+			renderObject.radius * 2,renderObject.radius * 2 }, renderObject.speedRegardCamera)) return;
 
 		float factor = (float)M_PI / 180.0f;
 		for (uint i = 0; i < 360; ++i)
@@ -304,8 +304,8 @@ void ModuleRender::AddRenderObjectRenderQueue(RenderObject renderObject)
 			renderObject.pos2.y = RoundToInt(renderObject.pos2.y);
 		}
 
-		if (!InScreen(SDL_Rect{ renderObject.pos1.x, renderObject.pos1.y,1,1 }) &&
-			!InScreen(SDL_Rect{ renderObject.pos2.x,renderObject.pos2.y,1,1 })) return;
+		if (!InScreen(SDL_Rect{ renderObject.pos1.x, renderObject.pos1.y,1,1 }, renderObject.speedRegardCamera) &&
+			!InScreen(SDL_Rect{ renderObject.pos2.x,renderObject.pos2.y,1,1 }, renderObject.speedRegardCamera)) return;
 
 		renderObject.pos1.x = -camera->x + renderObject.pos1.x * app->window->scale;
 		renderObject.pos1.y = -camera->y + renderObject.pos1.y * app->window->scale;
@@ -324,16 +324,14 @@ void ModuleRender::SortingObjectsInLayer(vector<RenderObject>& obj)
 	int less = 0;
 	int objSize = obj.size();
 
-	for (int i = 0; i < objSize; ++i)
+	for (int i = 0; i < objSize - 1; ++i)
 	{
 		less = i;
-		for (int j = i; j < objSize; ++j)
+		for (int j = i + 1; j < objSize; ++j)
 		{
-			if (obj[j].orderInLayer < obj[less].orderInLayer)
-			{
-				swap(obj[j], obj[less]);
-			}
+			if (obj[j].orderInLayer < obj[less].orderInLayer) less = j;
 		}
+		swap(obj[i], obj[less]);
 	}
 }
 
@@ -345,17 +343,17 @@ void ModuleRender::ClearRederQueue()
 	}
 }
 
-bool ModuleRender::InScreen(const SDL_Rect& rect)
+bool ModuleRender::InScreen(const SDL_Rect& rect, float speedRegardCamera)
 {
 	int a1 = (rect.x + rect.w) * app->window->scale;
 	int a2 = rect.x * app->window->scale;
 	int a3 = (rect.y + rect.h) * app->window->scale;
 	int a4 = rect.y * app->window->scale;
 
-	int b1 = camera->x;
-	int b2 = camera->x + app->window->width;
-	int b3 = camera->y;
-	int b4 = camera->y + app->window->height;
+	int b1 = camera->x * speedRegardCamera;
+	int b2 = camera->x * speedRegardCamera + app->window->width;
+	int b3 = camera->y * speedRegardCamera;
+	int b4 = camera->y * speedRegardCamera + app->window->height;
 
 	if (a1 < b1 || a2 > b2 || a3 < b3 || a4 > b4) return false;
 
