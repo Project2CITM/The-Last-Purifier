@@ -36,20 +36,19 @@ private:
 
 	ClassTree* revenantTree; //Test skill/spell tree7
 
-
 	//Dialog
 	pugi::xml_node configDialog;
 	bool dialogEnable = false;
 	bool separador = false;
 	int separadorCont = 0;
-	int dialogCont = 1;
+	int dialogCont = 0;
 
-	std::string sentence[8];
-	std::string advisorString = "";
+	List<string> sentences;
+	//string advisorString;
+	//std::string advisorString = "";
 
 	Text* t;
 	Text* advisor;
 	//std::string sentence3 = "";
-
 };
 

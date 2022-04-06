@@ -19,7 +19,8 @@ TestScene::~TestScene()
 
 bool TestScene::Start()
 {
-    
+    //advisorString = "hi";
+
     player = new PlayerRevenant();
     //app->renderer->camera->SetTarget(player->controller);
     //player = new PlayerSage(app);
@@ -84,7 +85,7 @@ bool TestScene::PreUpdate()
         dialogEnable = true;
     }
     if (!dialogEnable) {
-        advisor->SetText(advisorString);
+        advisor->SetText(sentences[2]);
     }
     if (dialogEnable) {
         advisor->SetText("");
@@ -105,7 +106,7 @@ bool TestScene::PreUpdate()
             separador = true;
             separadorCont = 0;
         }
-        t->SetText(sentence[dialogCont]);
+        t->SetText(sentences[dialogCont]);
 
     }
 
@@ -169,21 +170,23 @@ bool TestScene::CleanUp()
         RELEASE(player);
     }
 
-    advisor->pendingToDelate = true;
-    t->pendingToDelate = true;
-    sentence[1].clear();
-
+    //advisor->pendingToDelate = true;
+    //t->pendingToDelate = true;
+    //sentence[1].clear();
+    sentences.clear();
     hudInGame.CleanUp();
     roomManager.CleanUp();
-    Scene::CleanUp();
-
+    Scene::CleanUp();    
     return false;
 }
 void TestScene::chargeDialog() {
     configDialog = app->config.child("dialogText");
 
-    sentence[1] = configDialog.child("Sentence1").child_value();
-    sentence[2] = configDialog.child("Sentence2").child_value();
+    sentences.add(configDialog.child("Sentence1").child_value());
+    sentences.add(configDialog.child("Sentence2").child_value());
+    sentences.add(configDialog.child("advisor").child_value());
+    //sentences[1] = configDialog.child("Sentence1").child_value();
+    //sentences[2] = configDialog.child("Sentence2").child_value();
 
-    advisorString = configDialog.child("advisor").child_value();
+    //advisorString = configDialog.child("advisor").child_value();
 }
