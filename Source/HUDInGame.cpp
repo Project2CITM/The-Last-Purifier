@@ -27,11 +27,14 @@ bool HUDInGame::Start()
 {
 
 	hpRect = { app->renderer->camera->x + 15, app->renderer->camera->y + 10, 200, 10 };
+
 	miniMap = { app->renderer->camera->x + 535, app->renderer->camera->y + 5, 100, 100 };
-	spell1 = { app->renderer->camera->x + 225, app->renderer->camera->y + 300, 30, 40 };
-	spell2 = { app->renderer->camera->x + 275, app->renderer->camera->y + 300, 30, 40 };
-	spell3 = { app->renderer->camera->x + 325, app->renderer->camera->y + 300, 30, 40 };
-	spell4 = { app->renderer->camera->x + 375, app->renderer->camera->y + 300, 30, 40 };
+
+	spell1 = { app->renderer->camera->x + 225, app->renderer->camera->y + 314, 30, 40 };
+	spell2 = { app->renderer->camera->x + 275, app->renderer->camera->y + 314, 30, 40 };
+	spell3 = { app->renderer->camera->x + 325, app->renderer->camera->y + 314, 30, 40 };
+	spell4 = { app->renderer->camera->x + 375, app->renderer->camera->y + 314, 30, 40 };
+
 	Scene::Start();
 
 	return true;
