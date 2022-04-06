@@ -3,7 +3,7 @@
 
 void RoomManager::Start()
 {
-	GenerateMap(25);
+	GenerateMap(1);
 	CreateDoors();
 
 	doorTopTexture = app->textures->Load("Assets/Maps/TestDoor_top.png");
@@ -11,6 +11,7 @@ void RoomManager::Start()
 
 	wallTexture[0] = app->textures->Load("Assets/Maps/wallDoorLeft.png");
 	wallTexture[1] = app->textures->Load("Assets/Maps/wallDoorTop.png");
+	wallTexture[2] = app->textures->Load("Assets/Maps/TestDoor_bottom.png");
 
 	/*for (int i = 0; i < rooms.count(); ++i)
 		rooms[i]->CloseDoors();*/
@@ -299,6 +300,11 @@ void RoomManager::DrawDoors()
 			app->renderer->AddTextureRenderQueue(wallTexture[0], 
 				r->GetDoorPos(DoorOrientations::RIGHT) - r->GetDoorSize(DoorOrientations::RIGHT) - iPoint(0, TILE_SIZE * 5),
 				{ 0,0,0,0 }, TILE_SIZE / 16.0f, 1, 1.0f, 0.0f, SDL_FLIP_HORIZONTAL);
+
+		if (r->wallColliders[1] != nullptr)
+			app->renderer->AddTextureRenderQueue(wallTexture[2],
+				r->GetDoorPos(DoorOrientations::BOTTOM) - r->GetDoorSize(DoorOrientations::BOTTOM) - iPoint(0, TILE_SIZE),
+				{ 0,0,0,0 }, TILE_SIZE / 16.0f, 1, 1.0f);
 
 		if (r->wallColliders[2] != nullptr)
 			app->renderer->AddTextureRenderQueue(wallTexture[0], 
