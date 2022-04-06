@@ -105,6 +105,7 @@
     <ClInclude Include="GUIButton.h" />
     <ClInclude Include="GUICheckbox.h" />
     <ClInclude Include="GUISlider.h" />
+    <ClInclude Include="HUDInGame.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="MemLeaks.h" />
@@ -151,6 +152,7 @@
     <ClCompile Include="GUIButton.cpp" />
     <ClCompile Include="GUICheckbox.cpp" />
     <ClCompile Include="GUISlider.cpp" />
+    <ClCompile Include="HUDInGame.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainMenu.cpp" />

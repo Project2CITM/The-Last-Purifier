@@ -1,6 +1,7 @@
 #include "Scene.h"
 
 #include "RoomManager.h"
+#include "HUDInGame.h"
 
 class PlayerRevenant;
 class PlayerSage;
@@ -29,6 +30,7 @@ public:
 private:
 
 	RoomManager roomManager;
+	HUDInGame hudInGame;
 	PlayerRevenant* player;
 	//PlayerSage* player;
 

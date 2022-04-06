@@ -41,8 +41,7 @@ bool TestScene::Start()
     advisor = new Text({ 0,0 },"","defaultFont");
   //  t->SetColor({ 255,255,0,100 });
 
-
-
+    hudInGame.Start();
     roomManager.Start();
     chargeDialog();
     Scene::Start();
@@ -112,6 +111,7 @@ bool TestScene::PreUpdate()
 
     //printf("Axis Left: X: %d Y: %d\n", app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTX), app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTY));
 
+    hudInGame.PreUpdate();
     Scene::PreUpdate();
     return true;
 }
@@ -130,6 +130,7 @@ bool TestScene::Update()
     //if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
     //    roomManager.mapMovement.y += 10;
 
+    hudInGame.Update();
     roomManager.Update();
     Scene::Update();
     return true;
@@ -155,7 +156,7 @@ bool TestScene::PostUpdate()
 
     roomManager.PostUpdate();
     //app->physics->ShapesRender();
-   
+    hudInGame.PostUpdate();
     Scene::PostUpdate();
     return true;
 }
@@ -168,10 +169,11 @@ bool TestScene::CleanUp()
         RELEASE(player);
     }
 
-    advisor->pendingToDelate = true;
-    t->pendingToDelate = true;
+    //advisor->pendingToDelate = true;
+    //t->pendingToDelate = true;
     //sentence[1].clear();
 
+    hudInGame.CleanUp();
     roomManager.CleanUp();
     Scene::CleanUp();
 

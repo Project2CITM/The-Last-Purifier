@@ -150,8 +150,8 @@ bool MainMenu::Update()
 			FullScreenCHK->doAction = false;
 		}
 
-		music = MusicSlider->GetValue();
-		fx = fxSlider->GetValue();
+		music = MusicSlider->GetValue() * 255;
+		fx = fxSlider->GetValue() * 255;
 	}
 
 	if (currentMenu == CurrentMenu::Credtis)
