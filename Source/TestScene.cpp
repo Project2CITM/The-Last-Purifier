@@ -9,7 +9,6 @@
 #include "SpellInfo.h"
 #include "Text.h";
 
-
 TestScene::TestScene():Scene("testScene")
 {
 }
@@ -168,8 +167,11 @@ bool TestScene::CleanUp()
         player->CleanUp();
         RELEASE(player);
     }
-    RELEASE(advisor);
-    RELEASE(t);
+
+    advisor->pendingToDelate = true;
+    t->pendingToDelate = true;
+    //sentence[1].clear();
+
     roomManager.CleanUp();
     Scene::CleanUp();
 
