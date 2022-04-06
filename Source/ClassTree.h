@@ -68,15 +68,15 @@ public:
 	bool unlockSkill(int* classPoints, int skillId);
 	bool levelUpCheck(SkillTreeElement* theSkill);
 
-	virtual bool LoadTree();
+	//Loads the tree with all its upgrades
+	bool LoadTree();
 
 private:
 	SkillTreeElement* skillTree[TREE_SIZE];
 
+	pugi::xml_document* classFile = new pugi::xml_document;
 public:
 	PlayerClass playerClass = PlayerClass::REVENANT;
-
-	pugi::xml_document* classFile = new pugi::xml_document;
 
 	bool active = false;
 };

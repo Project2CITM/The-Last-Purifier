@@ -2,26 +2,42 @@
 #include <map>
 
 #include "GameObject.h"
+#include "External/PugiXml/src/pugixml.hpp"
+
+#define COMMON_TREE_XML "CommonTree.xml"
 
 enum class CommonUpgrades
 {
     NONE = 0,
+    SKILL_SLOT,
     DECK,
     SOUL_GAIN,
     HEALTH,
+    MANA,
     ARMOUR,
     LUCK,
     DAMAGE,
     ATTACK_SPEED
 };
 
-struct CommonTreeElement
+struct TreeElement
 {
     int id = 0;
     CommonUpgrades type = CommonUpgrades::NONE;
 
     int requiresID1 = 0;
     int requiresID2 = 0;
+
+    bool unlocked = false;
+
+    TreeElement (int id, CommonUpgrades type, int requiresID1, int requiresID2, bool unlocked = false)
+    {
+        this->id = id;
+        this->type = type;
+        this->requiresID1 = requiresID1;
+        this->requiresID2 = requiresID2;
+        this->unlocked = unlocked;
+    }
 };
 
 class CommonTree :
@@ -42,8 +58,31 @@ public:
     virtual void CleanUp();
 
 private:
+    //Stores the value of an individual upgrade
     std::map<CommonUpgrades, float> upgradesDic;
 
-    void LoadUpgradesDictionary();
+    //Stores the global value of all unlocked upgrades
+    std::map<CommonUpgrades, float> unlockedDic;
+
+    //Stores the Loaded Tree
+    List<TreeElement*>* treeList = new List<TreeElement*>();
+
+    //Loads the value of each individual upgrade
+    bool LoadDictionary();
+
+    //Loads the tree with all its upgrades
+    bool LoadTree();
+
+public:
+    //Unlocks an Upgrade from the Loaded tree.
+    //True if the upgrade has been unlocked without successfuly
+    //False if the upgrade can't be unlocked due to requirements
+    bool Upgrade(int id);
+
+    //Returns a pointer to a TreeElement
+    TreeElement* getElement(int id);
+
+private:
+    pugi::xml_document* treeFile = new pugi::xml_document;
 };
 
