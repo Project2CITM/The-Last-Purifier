@@ -35,7 +35,7 @@ public:
 public:
 	Application* app = nullptr;
 	List<Room*> rooms;
-	Room* roomPositions[MAX_ROOMS_COLUMNS][MAX_ROOMS_ROWS]; // Posiblemente provoca MEMORY LEAK
+	Room* roomPositions[MAX_ROOMS_COLUMNS][MAX_ROOMS_ROWS];
 	iPoint bossRoom = iPoint(-1, -1);
 
 private:
