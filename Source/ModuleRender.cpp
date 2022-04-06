@@ -324,16 +324,14 @@ void ModuleRender::SortingObjectsInLayer(vector<RenderObject>& obj)
 	int less = 0;
 	int objSize = obj.size();
 
-	for (int i = 0; i < objSize; ++i)
+	for (int i = 0; i < objSize - 1; ++i)
 	{
 		less = i;
-		for (int j = i; j < objSize; ++j)
+		for (int j = i + 1; j < objSize; ++j)
 		{
-			if (obj[j].orderInLayer < obj[less].orderInLayer)
-			{
-				swap(obj[j], obj[less]);
-			}
+			if (obj[j].orderInLayer < obj[less].orderInLayer) less = j;
 		}
+		swap(obj[i], obj[less]);
 	}
 }
 

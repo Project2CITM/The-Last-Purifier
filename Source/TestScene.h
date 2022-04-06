@@ -45,7 +45,7 @@ private:
 	int dialogCont = 1;
 
 	std::string sentence[8];
-	std::string advisorString="";
+	std::string advisorString = "";
 
 	Text* t;
 	Text* advisor;

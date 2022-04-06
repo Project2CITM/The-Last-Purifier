@@ -39,7 +39,7 @@ bool TestScene::Start()
     t =  new Text({ 0,0 },"");
     //t->SetText("Hello world");
     advisor = new Text({ 0,0 },"","defaultFont");
-  //  t->SetColor({ 255,255,0,100 });
+    //t->SetColor({ 255,255,0,100 });
 
     hudInGame.Start();
     roomManager.Start();
@@ -169,9 +169,9 @@ bool TestScene::CleanUp()
         RELEASE(player);
     }
 
-    //advisor->pendingToDelate = true;
-    //t->pendingToDelate = true;
-    //sentence[1].clear();
+    advisor->pendingToDelate = true;
+    t->pendingToDelate = true;
+    sentence[1].clear();
 
     hudInGame.CleanUp();
     roomManager.CleanUp();
