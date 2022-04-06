@@ -9,9 +9,8 @@ void RoomManager::Start()
 	doorTopTexture = app->textures->Load("Assets/Maps/TestDoor_top.png");
 	doorBotTexture = app->textures->Load("Assets/Maps/TestDoor_bottom.png");
 
-	wallTexture[0] = app->textures->Load("Assets/Maps/wallDoorRight.png");
-	wallTexture[2] = app->textures->Load("Assets/Maps/wallDoorLeft.png");
-	wallTexture[3] = app->textures->Load("Assets/Maps/wallDoorTop.png");
+	wallTexture[0] = app->textures->Load("Assets/Maps/wallDoorLeft.png");
+	wallTexture[1] = app->textures->Load("Assets/Maps/wallDoorTop.png");
 
 	/*for (int i = 0; i < rooms.count(); ++i)
 		rooms[i]->CloseDoors();*/
@@ -299,20 +298,15 @@ void RoomManager::DrawDoors()
 		if (r->wallColliders[0] != nullptr)
 			app->renderer->AddTextureRenderQueue(wallTexture[0], 
 				r->GetDoorPos(DoorOrientations::RIGHT) - r->GetDoorSize(DoorOrientations::RIGHT) - iPoint(0, TILE_SIZE * 5),
-				{ 0,0,0,0 }, TILE_SIZE / 16.0f, 1, 1.0f);
-
-		if (r->wallColliders[1] != nullptr)
-			app->renderer->AddTextureRenderQueue(doorBotTexture, 
-				r->GetDoorPos(DoorOrientations::BOTTOM) - r->GetDoorSize(DoorOrientations::BOTTOM) - iPoint(0, TILE_SIZE),
-				{ 0,0,0,0 }, TILE_SIZE / 16.0f, 1, 1.0f);
+				{ 0,0,0,0 }, TILE_SIZE / 16.0f, 1, 1.0f, 0.0f, SDL_FLIP_HORIZONTAL);
 
 		if (r->wallColliders[2] != nullptr)
-			app->renderer->AddTextureRenderQueue(wallTexture[2], 
+			app->renderer->AddTextureRenderQueue(wallTexture[0], 
 				r->GetDoorPos(DoorOrientations::LEFT) - r->GetDoorSize(DoorOrientations::LEFT) - iPoint(0, TILE_SIZE * 5),
 				{ 0,0,0,0 }, TILE_SIZE / 16.0f, 1, 1.0f);
 
 		if (r->wallColliders[3] != nullptr)
-			app->renderer->AddTextureRenderQueue(wallTexture[3], 
+			app->renderer->AddTextureRenderQueue(wallTexture[1], 
 				r->GetDoorPos(DoorOrientations::TOP) - r->GetDoorSize(DoorOrientations::TOP) - iPoint(TILE_SIZE * 4, 0),
 				{ 0,0,0,0 }, TILE_SIZE / 16.0f, 1, 1.0f);
 	}

@@ -7,7 +7,7 @@
 #include "ModuleInput.h"
 #include "ClassTree.h"
 #include "SpellInfo.h"
-#include "Text.h";
+#include "Text.h"
 
 TestScene::TestScene():Scene("testScene")
 {
