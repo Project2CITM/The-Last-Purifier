@@ -26,7 +26,7 @@ public:
 	bool CleanUp() override;
 
 private:
-
+	SDL_Rect rect = {0,0,0,0};
 };
 
 #endif //__HUD_IN_GAME_H__

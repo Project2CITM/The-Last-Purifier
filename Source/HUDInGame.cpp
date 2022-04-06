@@ -24,7 +24,7 @@ bool HUDInGame::InitScene()
 
 bool HUDInGame::Start()
 {
-
+	rect = { app->renderer->camera->x, app->renderer->camera->y, 25, 75 };
 	Scene::Start();
 
 	return true;
@@ -48,7 +48,8 @@ bool HUDInGame::Update()
 
 bool HUDInGame::PostUpdate()
 {
-	app->renderer->AddRectRenderQueue({ 25, 75, 500, 300 }, { 100, 100, 100, 255 });
+	app->renderer->AddRectRenderQueue(rect, { 100, 100, 100, 255 }, true, 4, 2.0f, 0.0f);
+
 
 	Scene::PostUpdate();
 
