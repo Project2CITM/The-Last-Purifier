@@ -85,28 +85,29 @@ bool TestScene::PreUpdate()
         dialogEnable = true;
     }
     if (!dialogEnable) {
-        advisor->SetText(sentences[2]);
+        advisor->SetText(sentences[0]);
     }
     if (dialogEnable) {
         advisor->SetText("");
+        if (sentences[dialogCont].empty() == false) {
+            if (separador) {
+                if (app->input->GetKey(SDL_SCANCODE_RETURN)) {
 
-        if (separador) {
-            if (app->input->GetKey(SDL_SCANCODE_RETURN)) {
-
-                dialogCont++;
+                    dialogCont++;
 
 
-                separador = false;
+                    separador = false;
+                }
             }
+            else {
+                separadorCont++;
+            }
+            if (separadorCont == 60) {
+                separador = true;
+                separadorCont = 0;
+            }
+            t->SetText(sentences[dialogCont]);
         }
-        else {
-            separadorCont++;
-        }
-        if (separadorCont == 60) {
-            separador = true;
-            separadorCont = 0;
-        }
-        t->SetText(sentences[dialogCont]);
 
     }
 
@@ -182,9 +183,11 @@ bool TestScene::CleanUp()
 void TestScene::chargeDialog() {
     configDialog = app->config.child("dialogText");
 
-    sentences.add(configDialog.child("Sentence1").child_value());
-    sentences.add(configDialog.child("Sentence2").child_value());
     sentences.add(configDialog.child("advisor").child_value());
+    sentences.add(configDialog.child("purifier1").child("Sentence1").child_value());
+    sentences.add(configDialog.child("purifier1").child("Sentence2").child_value());
+    sentences.add(configDialog.child("purifier1").child("Sentence3").child_value());
+    sentences.add(configDialog.child("purifier1").child("Sentence4").child_value());
     //sentences[1] = configDialog.child("Sentence1").child_value();
     //sentences[2] = configDialog.child("Sentence2").child_value();
 

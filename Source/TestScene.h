@@ -41,7 +41,7 @@ private:
 	bool dialogEnable = false;
 	bool separador = false;
 	int separadorCont = 0;
-	int dialogCont = 0;
+	int dialogCont = 1;
 
 	List<string> sentences;
 	//string advisorString;
