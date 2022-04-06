@@ -2,6 +2,7 @@
 #define __HUD_IN_GAME_H__
 
 #include "Scene.h"
+#include "Player.h"
 
 class HUDInGame : public Scene
 {
@@ -26,7 +27,14 @@ public:
 	bool CleanUp() override;
 
 private:
-	SDL_Rect rect = {0,0,0,0};
+
+	//Player player;
+	SDL_Rect hpRect = {0,0,0,0};
+	SDL_Rect miniMap = {0,0,0,0};
+	SDL_Rect spell1 = {0,0,0,0};
+	SDL_Rect spell2 = {0,0,0,0};
+	SDL_Rect spell3 = {0,0,0,0};
+	SDL_Rect spell4 = {0,0,0,0};
 };
 
 #endif //__HUD_IN_GAME_H__

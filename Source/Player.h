@@ -21,6 +21,8 @@ public:
 
 	PlayerClass playerClass = PlayerClass::REVENANT;
 	PlayerController* controller = nullptr;
+
+	int hpPlayer = 100;
 };
 
 

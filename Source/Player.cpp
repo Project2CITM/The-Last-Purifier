@@ -5,6 +5,8 @@
 Player::Player()
 {
 	controller = new PlayerController("player", "Player", this);
+
+
 }
 
 void Player::CleanUp()
