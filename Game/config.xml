@@ -118,6 +118,17 @@
 		  </Sentence8>
 		  <Sentence9> Acompáñame y te enseñaré a usar el guante que llevas puesto.</Sentence9>
 	  </purifier2>
+	  <purifier2Dialog2>
+		  <Sentence1> Bienvenido al campo de entrenamiento, aquí podrás aprender a usar el guante.</Sentence1>
+		  <Sentence2> Hay 2 tipos de purificadores, los revenant y los sage. 
+		  Si escoges ser revenant se te otorgará una arma melé, es una arma ligera y con mucho daño, que junto a tu guante conseguirás una letal combinación.
+	      </Sentence2>
+		  <Sentence3>
+			  En cambio, si escoges ser sage, se te otorgará una arma a distancia,es una arma pesada pero muy poderosa a larga distancia. 
+			  Combinalo bien con el guante para que nunca se te acerca un enemigo y poder salir vivo del terreno.
+		  </Sentence3>
+	  </purifier2Dialog2>
+	  
   </dialogText>
   
   <audios>
