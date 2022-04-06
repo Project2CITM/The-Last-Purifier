@@ -77,6 +77,7 @@ private:
 	iPoint doorSize[4] = { {1,2},{3,1},{1,2},{3,6} };
 
 public:
+	short id = 0;
 	Application* app = nullptr;
 	PhysBody* wallColliders[4];
 	List<Door*> doors;

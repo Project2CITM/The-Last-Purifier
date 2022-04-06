@@ -27,7 +27,7 @@ public:
 	int CheckAdjacentSpace(Room* r);
 	int CheckAdjacentSpace(iPoint p);
 	void CreateDoors();
-	Room* CreateRoom(iPoint mapPosition);
+	Room* CreateRoom(iPoint mapPosition, short mapId = 0);
 
 	void DrawRooms();
 	void DrawDoors();

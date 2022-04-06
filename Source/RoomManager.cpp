@@ -58,7 +58,7 @@ void RoomManager::GenerateMap(short RoomNumber)
 	iPoint p;	//create centered room
 	p.x = MAX_ROOMS_COLUMNS / 2;
 	p.y = MAX_ROOMS_ROWS / 2;
-	Room* r = CreateRoom(p);
+	Room* r = CreateRoom(p, -3);
 
 	//Create all rooms except the first and Boss room
 	while (RoomNumber > 2) {
@@ -116,7 +116,7 @@ void RoomManager::GenerateMap(short RoomNumber)
 	} while (bossRoomPos == iPoint(-1,-1));
 
 	bossRoom = bossRoomPos;
-	CreateRoom(bossRoomPos);
+	CreateRoom(bossRoomPos, -1);
 }
 
 //Check the number of blank spaces next to the room
@@ -252,19 +252,36 @@ void RoomManager::CreateDoors()
 	}
 }
 
-Room* RoomManager::CreateRoom(iPoint mapPosition)
+Room* RoomManager::CreateRoom(iPoint mapPosition, short mapId)
 {
 	Room* r = new Room();
 	r->roomPosition = mapPosition;
-	
-	//srand(time(NULL));
-	folder = "Assets/Maps/map0";
-	file = ".png";
-	int ran = rand() % 14 + 1;
-	std::string s = std::to_string(ran);
-	folder += s += file;
+	r->id = mapId;
 
-	//FALTA MINI BOSS i BOSS
+	//srand(time(NULL));
+	folder = "Assets/Maps/map";
+	file = ".png";
+
+	std::string s;
+
+	switch (mapId) {
+	case -1:
+		s = "MiniBoss";	//CHANGE boss room
+		break;
+	case -2:
+		s = "MiniBoss";
+		break;
+	//case -3:
+	//	s = "StartRoom"; //CHANGE starting room
+		break;
+	default:
+		int ran = rand() % 14 + 1;
+		s = std::to_string(ran);
+		r->id = ran; //Override id for random generated maps
+		break;
+	}
+
+	folder += s += file;
 
 	r->roomTexture = app->textures->Load(folder);
 
