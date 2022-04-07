@@ -44,15 +44,15 @@ void GameObject::OnCollisionExit(PhysBody* col)
 
 }
 
-void GameObject::OnTriggerEnter(PhysBody* trigger, PhysBody* col)
+void GameObject::OnTriggerEnter(std::string trigger, PhysBody* col)
 {
 }
 
-void GameObject::OnTriggerStay(PhysBody* trigger, PhysBody* col)
+void GameObject::OnTriggerStay(std::string trigger, PhysBody* col)
 {
 }
 
-void GameObject::OnTriggerExit(PhysBody* trigger, PhysBody* col)
+void GameObject::OnTriggerExit(std::string trigger, PhysBody* col)
 {
 }
 

@@ -10,6 +10,7 @@
 class Player;
 class PhysBody;
 class PlayerController;
+struct b2Vec2;
 
 class PlayerCombat : GameObject
 {
@@ -48,7 +49,10 @@ private:
 	/// </summary>
 	void PrintSlotsState();
 
+	b2Vec2 GetAttackOffset();
+
 	void RevenantAttack();
+	void SageAttack();
 
 	// Combat Stats-------------------
 	int attackCD;
@@ -58,6 +62,8 @@ private:
 	int attackAreaCD;
 	int attackAreaCounter;
 	bool attackAreaActive;
+
+	float projectileSpeed = 10;
 
 	PhysBody* revenantAttack = nullptr;
 

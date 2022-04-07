@@ -21,7 +21,7 @@ bool TestScene::Start()
 {
     //advisorString = "hi";
 
-    player = new PlayerRevenant();
+    player = new PlayerSage();
     //app->renderer->camera->SetTarget(player->controller);
     //player = new PlayerSage(app);
     //playerController = new PlayerController("test", "test", app);

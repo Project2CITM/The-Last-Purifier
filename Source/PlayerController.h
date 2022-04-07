@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "StateMachine.h"
 #include "Animation.h"
+#include "Trigger.h"
 
 #define PLAYER_ANIMATIONS_NUM 4
 
@@ -77,6 +78,8 @@ private:
 	StateMachine stateMachine;
 	PlayerState currentState = PlayerState::IDLE;
 	LookingDirection lookingDir = LookingDirection::RIGHT;
+
+	Trigger* enemyTrigger = nullptr;
 
 	friend class PlayerCombat;
 };

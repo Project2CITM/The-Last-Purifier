@@ -25,9 +25,9 @@ public:
 	virtual void OnCollisionEnter(PhysBody* col);
 	virtual void OnCollisionExit(PhysBody* col);
 
-	virtual void OnTriggerEnter(PhysBody* trigger, PhysBody* col);
-	virtual void OnTriggerStay(PhysBody* trigger, PhysBody* col);
-	virtual void OnTriggerExit(PhysBody* trigger, PhysBody* col);
+	virtual void OnTriggerEnter(std::string trigger, PhysBody* col);
+	virtual void OnTriggerStay(std::string trigger, PhysBody* col);
+	virtual void OnTriggerExit(std::string trigger, PhysBody* col);
 
 	virtual void Start();
 

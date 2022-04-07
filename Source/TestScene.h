@@ -31,8 +31,8 @@ private:
 
 	RoomManager roomManager;
 	HUDInGame hudInGame;
-	PlayerRevenant* player;
-	//PlayerSage* player;
+	//PlayerRevenant* player;
+	PlayerSage* player;
 
 	ClassTree* revenantTree; //Test skill/spell tree7
 
