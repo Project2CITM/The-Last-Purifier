@@ -216,6 +216,9 @@
     <ClInclude Include="Projectile.h">
       <Filter>Archivos de encabezado\Player</Filter>
     </ClInclude>
+    <ClInclude Include="LogoScene.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Scene.cpp">
@@ -346,6 +349,9 @@
     </ClCompile>
     <ClCompile Include="Projectile.cpp">
       <Filter>Archivos de origen\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="LogoScene.cpp">
+      <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

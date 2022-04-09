@@ -7,6 +7,7 @@
 #include "GUICheckbox.h"
 #include "ModuleInput.h"
 #include "ModuleWindow.h"
+#include "ModuleAudio.h"
 
 #include <shellapi.h>
 
@@ -35,6 +36,14 @@ bool MainMenu::InitScene()
 bool MainMenu::Start()
 {
 	fondo.InitAsTexture(app->textures->Load("Assets/Sprites/UI/MainMenu/mainmenu.png"), { 0,0 }, {0,0,0,0}, 0.5f);
+
+	//background del menu
+	app->audio->PlayMusic("Assets/Audio/Ambience/amb_dungeon1_1.ogg");	//Poner la musica que toca
+
+	//menu appearing
+	//Appear_FX = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Kaboom/sfx_kaboomDeath.wav");
+	//app->audio->PlayFx(Appear_FX);
+
 
 	PlayBUT = new GUIButton({ 125, 180 }, 75, 25, MenuButton::MAIN, "Assets/Sprites/UI/PlayButton/playB.png");
 	OptionsBUT = new GUIButton({ 140, 215 }, 60, 20, MenuButton::MAIN);
@@ -150,8 +159,8 @@ bool MainMenu::Update()
 			FullScreenCHK->doAction = false;
 		}
 
-		music = MusicSlider->GetValue() * 255;
-		fx = fxSlider->GetValue() * 255;
+		musicVol = MusicSlider->GetValue() * 255;
+		fxVol = fxSlider->GetValue() * 255;
 	}
 
 	if (currentMenu == CurrentMenu::Credtis)

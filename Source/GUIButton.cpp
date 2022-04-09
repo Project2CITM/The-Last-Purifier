@@ -23,6 +23,10 @@ GUIButton::GUIButton(iPoint pos, int width, int height, MenuButton currentMenu, 
 		renderSections[i].w = width;
 		renderSections[i].h = height;
 	}
+
+		/*TODO Audio*/
+	//Hover = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiHover.wav");
+	//Press= app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiSelect.wav");
 }
 
 GUIButton::GUIButton(iPoint pos, int width, int height, MenuButton currentMenu) : GUI()
@@ -82,9 +86,6 @@ void GUIButton::Update()
 			isPressed = false;
 		}
 	}
-
-
-//	LOG("%d", buttonState);
 
 	switch (buttonState)
 	{

@@ -39,8 +39,8 @@ public:
 
 	bool fullScreen = false;
 
-	float music = 0;
-	float fx = 0;
+	float musicVol = 0;
+	float fxVol = 0;
 
 private:
 
@@ -62,6 +62,8 @@ private:
 	GUICheckbox* FullScreenCHK;
 
 	CurrentMenu currentMenu;
+
+	uint Appear_FX = NULL;
 };
 
 #endif //__MAIN_MENU_H__

@@ -40,6 +40,9 @@ public:
 	bool isPressed = false;
 
 	bool doAction = false;
+
+	uint Hover = NULL;
+	uint Press = NULL;
 };
 
 #endif // !__GUIBUTTON_H__
