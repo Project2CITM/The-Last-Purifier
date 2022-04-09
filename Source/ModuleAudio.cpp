@@ -131,8 +131,13 @@ unsigned int ModuleAudio::LoadFx(const char* path)
 	if(IsEnabled() == false)
 		return 0;
 
-	unsigned int ret = 0;
+	uint pathIindex = audioPaths.find(path);
+	if (audioPaths.find(path) != -1)
+	{
+		return pathIindex;
+	}
 
+	uint ret = 0;
 	Mix_Chunk* chunk = Mix_LoadWAV(path);
 
 	if(chunk == NULL)
@@ -142,6 +147,7 @@ unsigned int ModuleAudio::LoadFx(const char* path)
 	else
 	{
 		fx.add(chunk);
+		audioPaths.add(path);
 		ret = fx.count();
 	}
 
