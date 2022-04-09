@@ -70,8 +70,8 @@ private:
 	float speed = 12.0f;	//5
 	bool isDashing = false;
 	int dashCounter = 0;
-	int dashTime = 55;
-	int dashDistance = 10;	//6
+	int dashTime = 25;
+	int dashDistance = 14;	//6
 
 	PlayerAnim currentAnim = PlayerAnim::IDLE;
 
