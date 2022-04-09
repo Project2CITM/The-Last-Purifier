@@ -25,7 +25,8 @@ bool LogoScene::Start()
 {
 	Logo.InitAsTexture(app->textures->Load("Assets/Sprites/UI/logoGame.png"), { 155,20 }, { 0,0,0,0 }, 0.3f);
 
-	//menu appearing
+		/*TODO*/
+	//Logo appearing
 	//Appear_FX = app->audio->LoadFx("Assets/Audio/SFX/UI/LogoFX.wav");
 	//app->audio->PlayFx(Appear_FX);
 

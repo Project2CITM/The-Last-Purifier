@@ -35,21 +35,22 @@ bool MainMenu::InitScene()
 
 bool MainMenu::Start()
 {
-	fondo.InitAsTexture(app->textures->Load("Assets/Sprites/UI/MainMenu/mainmenu.png"), { 0,0 }, {0,0,0,0}, 0.5f);
+	fondo.InitAsTexture(app->textures->Load("Assets/Sprites/UI/background.png"), { 0,0 }, {0,0,0,0}, 0.5f);
 
 	//background del menu
 	app->audio->PlayMusic("Assets/Audio/Ambience/amb_dungeon1_1.ogg");	//Poner la musica que toca
 
+		/*TODO*/
 	//menu appearing
-	//Appear_FX = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Kaboom/sfx_kaboomDeath.wav");
+	//Appear_FX = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Kaboom/sfx_kaboomDeath.wav");	//Buscar audio apriopiado
 	//app->audio->PlayFx(Appear_FX);
 
 
-	PlayBUT = new GUIButton({ 125, 180 }, 75, 25, MenuButton::MAIN, "Assets/Sprites/UI/PlayButton/playB.png");
-	OptionsBUT = new GUIButton({ 140, 215 }, 60, 20, MenuButton::MAIN);
+	PlayBUT = new GUIButton({ 125, 180 }, 75, 28, MenuButton::MAIN, "Assets/Sprites/UI/PlayBUT.png");
+	OptionsBUT = new GUIButton({ 140, 215 }, 60, 16, MenuButton::MAIN, "Assets/Sprites/UI/OptionBUT.png"); 
 	CreditBUT = new GUIButton({ 140, 240 }, 60, 20, MenuButton::MAIN);
 	ExitBUT = new GUIButton({ 150, 285 }, 50, 20, MenuButton::MAIN);
-	LinkBUT = new GUIButton({ 20, 330 }, 75, 25, MenuButton::MAIN);
+	LinkBUT = new GUIButton({ 20, 330 }, 117, 32, MenuButton::MAIN, "Assets/Sprites/UI/linkBUT.png"); 
 
 	CloseOptBUT = new GUIButton({ 285, 330 }, 75, 25, MenuButton::OPTIONS);
 
