@@ -28,6 +28,8 @@ public:
 private:
 	int count = 0;
 
+	uint LogoAppear_FX = NULL;
+
 };
 
 #endif //__LOGO_SCENE_H__

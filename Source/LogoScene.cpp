@@ -2,6 +2,7 @@
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "ModuleScene.h"
+#include "ModuleAudio.h"
 
 RenderObject Logo;
 
@@ -23,6 +24,10 @@ bool LogoScene::InitScene()
 bool LogoScene::Start()
 {
 	Logo.InitAsTexture(app->textures->Load("Assets/Sprites/UI/logoGame.png"), { 155,20 }, { 0,0,0,0 }, 0.3f);
+
+	//menu appearing
+	//Appear_FX = app->audio->LoadFx("Assets/Audio/SFX/UI/LogoFX.wav");
+	//app->audio->PlayFx(Appear_FX);
 
 	Scene::Start();
 
