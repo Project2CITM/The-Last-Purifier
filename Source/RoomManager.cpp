@@ -3,7 +3,8 @@
 
 void RoomManager::Start()
 {
-	GenerateMap(1);
+	GenerateMap(10);
+	
 	CreateDoors();
 
 	doorTopTexture = app->textures->Load("Assets/Maps/TestDoor_top.png");
@@ -284,6 +285,9 @@ Room* RoomManager::CreateRoom(iPoint mapPosition, short mapId)
 	folder += s += file;
 
 	r->roomTexture = app->textures->Load(folder);
+
+	//extreure colliders
+	mapLoader.ExtractMapColliders(r);
 
 	rooms.add(r);
 	roomPositions[mapPosition.x][mapPosition.y] = r;
