@@ -52,7 +52,7 @@ bool MainMenu::Start()
 	OptionsBUT = new GUIButton({ 140, 215 }, 60, 16, MenuButton::MAIN, "Assets/Sprites/UI/OptionBUT.png"); 
 	CreditBUT = new GUIButton({ 140, 240 }, 60, 16, MenuButton::MAIN, "Assets/Sprites/UI/CredtisBUT.png"); 
 	ExitBUT = new GUIButton({ 150, 285 }, 50, 15, MenuButton::MAIN, "Assets/Sprites/UI/QuitBUT.png");
-	LinkBUT = new GUIButton({ 20, 330 }, 117, 32, MenuButton::MAIN, "Assets/Sprites/UI/linkBUT.png"); 
+	LinkBUT = new GUIButton({ 20, 330 }, 59, 16, MenuButton::MAIN, "Assets/Sprites/UI/linkBUT.png"); 
 
 	CloseOptBUT = new GUIButton({ 285, 330 }, 75, 25, MenuButton::OPTIONS);
 

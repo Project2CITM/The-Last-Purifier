@@ -16,7 +16,8 @@ enum class MenuButton
 {
 	MAIN,
 	OPTIONS,
-	CREDITS
+	CREDITS,
+	INGAMEPUASE
 };
 
 struct RectangleShape

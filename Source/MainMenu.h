@@ -11,7 +11,7 @@ enum class CurrentMenu
 {
 	Main,
 	Options,
-	Credtis
+	Credtis,
 };
 
 class MainMenu : public Scene

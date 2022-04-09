@@ -31,6 +31,9 @@ void GUI::InitAsBox(int x, int y, int w, int h, MenuButton currentMenu)
     if(currentMenu == MenuButton::CREDITS)
         app->scene->scenes[app->scene->currentScene]->AddGUICredtis(this);
 
+    if(currentMenu == MenuButton::INGAMEPUASE)
+        app->scene->scenes[app->scene->currentScene]->AddGUIPause(this);
+
 }
 
 void GUI::InitAsCircle(int x, int y, int radius)
