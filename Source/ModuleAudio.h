@@ -45,6 +45,7 @@ private:
 
 	Mix_Music*			music = nullptr;
 	List<Mix_Chunk*>	fx;
+	List<std::string> audioPaths;
 };
 
 #endif // __Module_Audio_H__

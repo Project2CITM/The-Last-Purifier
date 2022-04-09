@@ -15,13 +15,8 @@ void PlayerCombat::Start()
 	revenantAttack = app->physics->CreateRectangleSensor(player->controller->GetPosition(), 12, 20, this);
 	revenantAttack->body->SetActive(false);
 
-	// Test Code-----------------------------------------
-	availableSpellSlots = 4;
-
-	availableDeckSlots = 6;
-
 	// Attack action stats
-	attackCD = 75;
+	attackCD = player->attackSpeed;
 	attackCounter = 0;
 	canAttack = true;
 
@@ -29,6 +24,11 @@ void PlayerCombat::Start()
 	attackAreaActive = false;
 	attackAreaCD = 5;
 	attackAreaCounter = 0;
+
+	// Initialize available spell slots and deck slots
+	availableSpellSlots = player->spellSlots;
+	availableDeckSlots = player->deckSlots;
+
 	for (int i = 0; i < availableSpellSlots; i++)
 	{
 		spellSlots.add(new SpellInfo());
@@ -38,10 +38,6 @@ void PlayerCombat::Start()
 	{
 		deckSlots.add(new SpellInfo());
 	}
-
-	spellSlots[0]->ChangeSpell(SpellID::COVER, 2);
-
-	// Test Code-----------------------------------------
 
 	selectedSpell = 0;
 }
@@ -111,8 +107,6 @@ void PlayerCombat::ChangeSelectedSpellSlot(int num)
 	}
 
 	printf("Current Spell Slot: %d\n", selectedSpell);
-
-
 }
 
 bool PlayerCombat::AddSpell(SpellInfo spell)
@@ -217,7 +211,6 @@ void PlayerCombat::RevenantAttack()
 	// Calculate attack offset and rotation based on looking direction
 	b2Vec2 attackOffset = GetAttackOffset();
 	
-
 	// Place on correct position
 	revenantAttack->body->SetTransform(player->controller->pBody->body->GetPosition() + attackOffset, rotation);
 
@@ -246,5 +239,5 @@ void PlayerCombat::SageAttack()
 		break;
 	}
 
-	new Projectile("Player", player->controller->GetPosition() + attackOffset, speed * projectileSpeed, player->hpPlayer);
+	new Projectile("Player", player->controller->GetPosition() + attackOffset, speed * projectileSpeed, player->damage);
 }

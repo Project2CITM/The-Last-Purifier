@@ -47,13 +47,19 @@ void PlayerController::Start()
 		animations[(int)PlayerAnim::RUN].loop = true;
 	}
 
+	#pragma endregion
+
 	for (int i = 0; i < PLAYER_ANIMATIONS_NUM; i++)
 	{
 		animations[i].speed = 0.2f;
 		animations[i].hasIdle = false;
 	}
-	#pragma endregion
+
+	animations[(int)PlayerAnim::DASH].speed = 0.4f;
 	
+	// Initialize movement variables
+	speed = player->movementSpeed;
+
 	currentAnim = PlayerAnim::IDLE;
 
 	// Initialize States 
@@ -61,7 +67,7 @@ void PlayerController::Start()
 	stateMachine.AddState("idle", 0);			//IDLE = 0
 	stateMachine.AddState("run", 0);			//RUN = 1
 	stateMachine.AddState("attack", 1, 32);		//ATTACK = 2
-	stateMachine.AddState("dash", 2, 64);		//DASH = 3
+	stateMachine.AddState("dash", 2, 25);		//DASH = 3
 
 	// Initialize physic body
 	this->pBody = app->physics->CreateRectangle({ //player spawn pos

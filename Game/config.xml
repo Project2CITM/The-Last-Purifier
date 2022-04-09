@@ -19,65 +19,7 @@
   </window>
 
   <textures>
-    <!-- Characters -->
-    <virtualGuyIdle width = "32" height = "32" layer = "1" orderInLayer = "3.0" scale = "0.5" path="Assets/textures/MainCharacters/VirtualGuy/Idle(32x32).png"/>
-    <virtualGuyRun width = "32" height = "32" layer = "1" orderInLayer = "3.0" scale = "0.5" path="Assets/textures/MainCharacters/VirtualGuy/Run(32x32).png"/>
-    <virtualGuyJump width = "32" height = "32" layer = "1" orderInLayer = "3.0" scale = "0.5" path="Assets/textures/MainCharacters/VirtualGuy/Jump(32x32).png"/>
-    <virtualGuyFall width = "32" height = "32" layer = "1" orderInLayer = "3.0" scale = "0.5" path="Assets/textures/MainCharacters/VirtualGuy/Fall(32x32).png"/>
-    <virtualGuyDoubleJump width = "32" height = "32" layer = "1" orderInLayer = "3.0" scale = "0.5" path="Assets/textures/MainCharacters/VirtualGuy/DoubleJump(32x32).png"/>
-
-    <pinkManIdle width = "32" height = "32" layer = "1" orderInLayer = "3.0" scale = "0.5" path="Assets/textures/MainCharacters/PinkMan/Idle(32x32).png"/>
-    <pinkManRun width = "32" height = "32" layer = "1" orderInLayer = "3.0" scale = "0.5" path="Assets/textures/MainCharacters/PinkMan/Run(32x32).png"/>
-    <pinkManJump width = "32" height = "32" layer = "1" orderInLayer = "3.0" scale = "0.5" path="Assets/textures/MainCharacters/PinkMan/Jump(32x32).png"/>
-    <pinkManFall width = "32" height = "32" layer = "1" orderInLayer = "3.0" scale = "0.5" path="Assets/textures/MainCharacters/PinkMan/Fall(32x32).png"/>
-    <pinkManDoubleJump width = "32" height = "32" layer = "1" orderInLayer = "3.0" scale = "0.5" path="Assets/textures/MainCharacters/PinkMan/DoubleJump(32x32).png"/>
-
-    <characterAppearing width = "96" height = "96" layer = "1" orderInLayer = "3.0" scale = "0.5" path="Assets/textures/MainCharacters/Appearing(96x96).png"/>
-    <!-- Enemy -->
-    <!-- Bat -->
-    <batIdle width = "46" height = "30" layer = "1" orderInLayer = "2.0" scale = "0.5" path="Assets/textures/Enemies/Bat/Idle(46x30).png"/>
-    <batCeilingIn width = "46" height = "30" layer = "1" orderInLayer = "2.0" scale = "0.5" path="Assets/textures/Enemies/Bat/CeilingIn(46x30).png"/>
-    <batCeilingOut width = "46" height = "30" layer = "1" orderInLayer = "2.0" scale = "0.5" path="Assets/textures/Enemies/Bat/CeilingOut(46x30).png"/>
-    <batFlying width = "46" height = "30" layer = "1" orderInLayer = "2.0" scale = "0.5" path="Assets/textures/Enemies/Bat/Flying(46x30).png"/>
-    <batHit width = "46" height = "30" layer = "1" orderInLayer = "2.0" scale = "0.5" path="Assets/textures/Enemies/Bat/Hit(46x30).png"/>
-    <!-- Chameleon -->
-    <chameleonIdle width = "84" height = "38" layer = "1" orderInLayer = "2.0" scale = "0.5" path="Assets/textures/Enemies/Chameleon/Idle(84x38).png"/>
-    <chameleonRun width = "84" height = "38" layer = "1" orderInLayer = "2.0" scale = "0.5" path="Assets/textures/Enemies/Chameleon/Run(84x38).png"/>
-    <chameleonAttack width = "84" height = "38" layer = "1" orderInLayer = "2.0" scale = "0.5" path="Assets/textures/Enemies/Chameleon/Attack(84x38).png"/>
-    <chameleonHit width = "84" height = "38" layer = "1" orderInLayer = "2.0" scale = "0.5" path="Assets/textures/Enemies/Chameleon/Hit(84x38).png"/>
-
-    <chameleonIdle2 width = "84" height = "38" layer = "1" orderInLayer = "2.0" scale = "0.5" path="Assets/textures/Enemies/Chameleon/Idle2(84x38).png"/>
-    <chameleonRun2 width = "84" height = "38" layer = "1" orderInLayer = "2.0" scale = "0.5" path="Assets/textures/Enemies/Chameleon/Run2(84x38).png"/>
-    <chameleonAttack2 width = "84" height = "38" layer = "1" orderInLayer = "2.0" scale = "0.5" path="Assets/textures/Enemies/Chameleon/Attack2(84x38).png"/>
-    <chameleonHit2 width = "84" height = "38" layer = "1" orderInLayer = "2.0" scale = "0.5" path="Assets/textures/Enemies/Chameleon/Hit2(84x38).png"/>
-
-    <!-- Fruits -->
-    <apple width = "32" height = "32" layer = "1" scale = "0.5" path = "Assets/textures/Items/Fruits/Apple.png"/>
-    <bananas width = "32" height = "32" layer = "1" scale = "0.5" path = "Assets/textures/Items/Fruits/Bananas.png"/>
-    <cherries width = "32" height = "32" layer = "1" scale = "0.5" path = "Assets/textures/Items/Fruits/Cherries.png"/>
-    <kiwi width = "32" height = "32" layer = "1" scale = "0.5" path = "Assets/textures/Items/Fruits/Kiwi.png"/>
-    <melon width = "32" height = "32" layer = "1" scale = "0.5" path = "Assets/textures/Items/Fruits/Melon.png"/>
-    <orange width = "32" height = "32" layer = "1" scale = "0.5" path = "Assets/textures/Items/Fruits/Orange.png"/>
-    <pineapple width = "32" height = "32" layer = "1" scale = "0.5" path = "Assets/textures/Items/Fruits/Pineapple.png"/>
-    <strawberry width = "32" height = "32" layer = "1" scale = "0.5" path = "Assets/textures/Items/Fruits/Strawberry.png"/>
-    <collected width = "32" height = "32" layer = "1" scale = "0.5" path = "Assets/textures/Items/Fruits/Collected.png"/>
-    <!-- CheckPoint -->
-    <checkPointNoFlag width = "64" height = "64" layer = "1" scale = "0.5" path="Assets/textures/Items/Checkpoints/Checkpoint/Checkpoint(NoFlag).png"/>
-    <checkPointFlagOut width = "64" height = "64" layer = "1" scale = "0.5" path="Assets/textures/Items/Checkpoints/Checkpoint/Checkpoint(FlagOut)(64x64).png"/>
-    <checkPointFlagIdle width = "64" height = "64" layer = "1" scale = "0.5" path="Assets/textures/Items/Checkpoints/Checkpoint/Checkpoint(FlagIdle)(64x64).png"/>
-
-    <backGround1 width = "64" height = "64" layer = "0" path="Assets/textures/Background/Blue.png"/>
-    <menuBackGround width = "64" height = "64" layer = "0" path="Assets/textures/Background/Brown.png"/>
-    <saw width = "38" height = "38" layer = "1" path = "Assets/textures/Traps/Saw/On(38x38).png"/>
-    <spike width = "16" height = "8" layer = "1" path = "Assets/textures/Traps/Spikes/Idle.png"/>
-    <fireTrapFlash width = "16" height = "32" layer = "0" orderInLayer = "0.3" path = "Assets/textures/Traps/Fire/Flash.png"/>
-    <fireTrapOn width = "16" height = "32" layer = "0" orderInLayer = "0.3" path = "Assets/textures/Traps/Fire/On(16x32).png"/>
-    <fireTrap2Flash width = "16" height = "32" layer = "0" orderInLayer = "0.3" path = "Assets/textures/Traps/Fire2/Flash.png"/>
-    <fireTrap2On width = "16" height = "32" layer = "0" orderInLayer = "0.3" path = "Assets/textures/Traps/Fire2/On(16x32).png"/>
-    <mobilePlatform width = "16" height = "16" layer = "0" orderInLayer = "0.4" sectionX = "272" sectionY = "11" path = "Assets/textures/Terrain/Terrain(16x16).png"/>
-    <specialPlatform width = "16" height = "16" layer = "0" orderInLayer = "0.4" sectionX = "272" sectionY = "42" path = "Assets/textures/Terrain/Terrain(16x16).png"/>
-    <platform width = "16" height = "16" layer = "1" sectionX = "272" sectionY = "32" path = "Assets/textures/Terrain/Terrain(16x16).png"/>
-
+   
   </textures>
 
   <fonts>
@@ -132,45 +74,24 @@
   </dialogText>
   
   <audios>
-    <playerJump path = "Assets/audio/fx/jump.wav" volum = "15"/>
-    <powerUp path = "Assets/audio/fx/powerUp.wav" volum = "20"/>
-    <checkPoint path = "Assets/audio/fx/checkPoint.wav" volum = "25"/>
-    <jumpBlock path = "Assets/audio/fx/jumpBlock.wav" volum = "15"/>
-    <enemyDie path = "Assets/audio/fx/enemyDie.wav" volum = "15"/>
-    <enemyHit path = "Assets/audio/fx/enemyHit.wav" volum = "30"/>
-    <ground path = "Assets/audio/fx/ground.wav" volum = "10"/>
-    <select path = "Assets/audio/fx/select.wav" volum = "30"/>
-    <blipSelect path = "Assets/audio/fx/blipSelect.wav" volum = "15"/>
-    <buttonDown path = "Assets/audio/fx/buttonDown.wav" volum = "15"/>
-    <buttonFeedback path = "Assets/audio/fx/buttonFeedBack.wav" volum = "20"/>
-    <mouseDown path = "Assets/audio/fx/mouseDown.wav" volum = "10"/>
+  
   </audios>
 
   <scenes>
     <level1>
       <enviroument>
-        <backGround name = "backGround1" tag = "BackGround" />
-        <checkPoint positionX = "160" positionY ="68"/>
-		<winTrigger positionX = "320" positionY ="592" width = "20" height = "32"/>
-		<mobilePlatform positionX = "95" positionY ="368" lenght = "2" moveX = "0"  moveY = "-285" moveSpeed = "1" loop="true" stopTime = "200"/>
+
       </enviroument>
     </level1>
 
     <level2>
 
       <enviroument>
-        <backGround name = "backGround1" tag = "BackGround" />
-        <checkPoint positionX = "144" positionY ="308"/>
-		    <winTrigger positionX = "320" positionY ="40" width = "20" height = "48"/>
-		    <mobilePlatform tag = "MobilePlatform_H" positionX = "200" positionY ="500" lenght = "2" moveX = "-120"  moveY = "0" moveSpeed = "2.5" loop="true" stopTime = "200"/>
+
       </enviroument>
 
       <enemies>
-        <bat positionX = "120" positionY ="104" ID = "11"/>
-        <bat positionX = "264" positionY ="168" ID = "12"/>
-        <chameleon positionX = "296" positionY ="360" ID = "21"/>
-        <chameleon positionX = "184" positionY ="392" ID = "22"/>
-        <chameleon positionX = "296" positionY ="552" ID = "23"/>
+
       </enemies>
 
     </level2>
