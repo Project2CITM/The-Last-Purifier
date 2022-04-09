@@ -82,7 +82,11 @@ public:
 
 	void ExitGame();
 
+	void TogglePause(bool pause);
+
 	bool FullScreenDesktop = false;
+
+	bool isPause = false;
 
 private:
 	// Load / Save
