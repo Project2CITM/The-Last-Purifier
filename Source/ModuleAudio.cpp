@@ -162,6 +162,8 @@ bool ModuleAudio::PlayFx(unsigned int id, int repeat)
 
 	bool ret = false;
 
+	if (fx.count() < id-1) return false;
+
 	if (fx.find(fx[id-1]) != -1)
 	{
 		Mix_PlayChannel(-1, fx[id-1], repeat);

@@ -210,14 +210,14 @@
     <ClInclude Include="SpellInfo.h">
       <Filter>Archivos de encabezado\Player\Spells</Filter>
     </ClInclude>
-    <ClInclude Include="Trigger.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="Projectile.h">
       <Filter>Archivos de encabezado\Player</Filter>
     </ClInclude>
     <ClInclude Include="LogoScene.h">
       <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Trigger.h">
+      <Filter>Archivos de encabezado\Tools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -344,14 +344,14 @@
     <ClCompile Include="SpellInfo.cpp">
       <Filter>Archivos de origen\Player\Spells</Filter>
     </ClCompile>
-    <ClCompile Include="Trigger.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="Projectile.cpp">
       <Filter>Archivos de origen\Player</Filter>
     </ClCompile>
     <ClCompile Include="LogoScene.cpp">
       <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Trigger.cpp">
+      <Filter>Archivos de origen\Tools</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
