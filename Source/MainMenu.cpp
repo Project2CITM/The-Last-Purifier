@@ -44,8 +44,8 @@ bool MainMenu::Start()
 
 		/*TODO*/
 	//menu appearing
-	//Appear_FX = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Kaboom/sfx_kaboomDeath.wav");	//Buscar audio apriopiado
-	//app->audio->PlayFx(Appear_FX);
+	Appear_FX = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiSelect.wav");	//Buscar audio apriopiado
+	app->audio->PlayFx(Appear_FX);
 
 
 	PlayBUT = new GUIButton({ 125, 180 }, 75, 28, MenuButton::MAIN, "Assets/Sprites/UI/PlayBUT.png");

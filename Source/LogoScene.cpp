@@ -27,8 +27,8 @@ bool LogoScene::Start()
 
 		/*TODO*/
 	//Logo appearing
-	//Appear_FX = app->audio->LoadFx("Assets/Audio/SFX/UI/LogoFX.wav");
-	//app->audio->PlayFx(Appear_FX);
+	LogoAppear_FX = app->audio->LoadFx("Assets/Audio/SFX/UI/LogoFX.wav");
+	app->audio->PlayFx(LogoAppear_FX);
 
 	Scene::Start();
 
