@@ -188,6 +188,10 @@ void TestScene::chargeDialog() {
     sentences.add(configDialog.child("purifier1").child("Sentence2").child_value());
     sentences.add(configDialog.child("purifier1").child("Sentence3").child_value());
     sentences.add(configDialog.child("purifier1").child("Sentence4").child_value());
+
+    int counter = 1;
+    std::string name = "Sentence" + to_string(counter);
+
     //sentences[1] = configDialog.child("Sentence1").child_value();
     //sentences[2] = configDialog.child("Sentence2").child_value();
 

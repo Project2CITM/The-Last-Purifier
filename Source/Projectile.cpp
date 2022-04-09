@@ -10,6 +10,8 @@ Projectile::Projectile(std::string name, iPoint position, fPoint speed, float da
 	this->stun = stun;
 
 	if (fire) FireProjectile(speed);
+
+	// Particle Effect
 }
 
 void Projectile::FireProjectile(fPoint speed)
@@ -21,4 +23,5 @@ void Projectile::FireProjectile(fPoint speed)
 void Projectile::OnCollisionEnter(PhysBody* col)
 {
 	pendingToDelete = true;
+	// Particle effect
 }
