@@ -219,6 +219,9 @@
     <ClInclude Include="Trigger.h">
       <Filter>Archivos de encabezado\Tools</Filter>
     </ClInclude>
+    <ClInclude Include="MapLoader.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Scene.cpp">
@@ -352,6 +355,9 @@
     </ClCompile>
     <ClCompile Include="Trigger.cpp">
       <Filter>Archivos de origen\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="MapLoader.cpp">
+      <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
