@@ -8,6 +8,7 @@
 #include "ClassTree.h"
 #include "SpellInfo.h"
 #include "Text.h"
+#include "ModuleAudio.h"
 
 TestScene::TestScene():Scene("testScene")
 {
@@ -46,6 +47,9 @@ bool TestScene::Start()
     roomManager.Start();
     chargeDialog();
     Scene::Start();
+
+    app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiHover.wav");
+    app->audio->PlayFx(1);
 
     return true;
 }
