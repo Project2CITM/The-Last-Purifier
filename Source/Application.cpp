@@ -229,6 +229,11 @@ void Application::ExitGame()
 	isExiting = true;
 }
 
+void Application::TogglePause(bool pause)
+{
+	isPause = pause;
+}
+
 void Application::AddModule(Module* mod)
 {
 	list_modules.add(mod);
