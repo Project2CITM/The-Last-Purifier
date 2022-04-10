@@ -62,8 +62,6 @@ private:
 	GUIButton* QuitBUT = nullptr;
 
 	GUIButton* CloseControlsBUT = nullptr;
-	GUIButton* KeyboardBUT = nullptr;
-	GUIButton* GamePadBUT = nullptr;
 
 	GUIButton* CloseSettingsBUT = nullptr;
 	GUIButton* MusicBUT = nullptr;
@@ -76,7 +74,6 @@ private:
 
 	CurrentPauseMenu currentPauseMenu;
 
-	bool KeyboardControls = true;
 };
 
 #endif //__HUD_IN_GAME_H__
