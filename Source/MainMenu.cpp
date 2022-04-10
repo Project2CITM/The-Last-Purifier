@@ -147,23 +147,23 @@ bool MainMenu::Update()
 
 		if (FullScreenCHK->isActive)
 		{
-			fullScreen = true;
+			app->fullScreen = true;
 			FullScreenCHK->doAction;
 		}
 		else
 		{
 			FullScreenCHK->doAction;
-			fullScreen = false;
+			app->fullScreen = false;
 		}
 
 		if (FullScreenCHK->doAction)
 		{
-			app->window->ToggleFullScreen(fullScreen);
+			app->window->ToggleFullScreen(app->fullScreen);
 			FullScreenCHK->doAction = false;
 		}
 
-		musicVol = MusicSlider->GetValue() * 255;
-		fxVol = fxSlider->GetValue() * 255;
+		app->musicVol = MusicSlider->GetValue() * 255;
+		app->fxVol = fxSlider->GetValue() * 255;
 	}
 
 	if (currentMenu == CurrentMenu::Credtis)
@@ -208,10 +208,7 @@ bool MainMenu::PostUpdate()
 			if (guisMainMenu[i]) guisMainMenu[i]->PostUpdate();
 		}
 		app->renderer->AddRenderObjectRenderQueue(fondo);
-
 	}
-
-
 
 	Scene::PostUpdate();
 

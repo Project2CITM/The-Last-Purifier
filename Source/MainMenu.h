@@ -11,7 +11,7 @@ enum class CurrentMenu
 {
 	Main,
 	Options,
-	Credtis,
+	Credtis
 };
 
 class MainMenu : public Scene
@@ -37,10 +37,6 @@ public:
 	bool CleanUp() override;
 
 
-	bool fullScreen = false;
-
-	float musicVol = 0;
-	float fxVol = 0;
 
 private:
 

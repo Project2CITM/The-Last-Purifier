@@ -22,6 +22,8 @@ protected:
 	List<GUI*> guisOptions;
 	List<GUI*> guisCredtis;
 	List<GUI*> guisPause;
+	List<GUI*> guisSettingsP;
+	List<GUI*> guisControls;
 
 	List<Text*> texts;
 
@@ -55,6 +57,10 @@ public:
 	void AddGUICredtis(GUI* gui);
 
 	virtual void AddGUIPause(GUI* gui);
+
+	virtual void AddGUISettingsP(GUI* gui);
+
+	virtual void AddGUIControls(GUI* gui);
 
 	void AddText(Text* text);
 

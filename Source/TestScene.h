@@ -29,6 +29,10 @@ public:
 
 	void AddGUIPause(GUI* gui) override;
 
+	void AddGUIControls(GUI* gui) override;
+	
+	void AddGUISettingsP(GUI* gui) override;
+
 private:
 
 	RoomManager roomManager;

@@ -34,6 +34,11 @@ void GUI::InitAsBox(int x, int y, int w, int h, MenuButton currentMenu)
     if(currentMenu == MenuButton::INGAMEPUASE)
         app->scene->scenes[app->scene->currentScene]->AddGUIPause(this);
 
+    if(currentMenu == MenuButton::SETTINGSPAUSE)
+        app->scene->scenes[app->scene->currentScene]->AddGUISettingsP(this);
+
+    if (currentMenu == MenuButton::CONTROLSPAUSE)
+        app->scene->scenes[app->scene->currentScene]->AddGUIControls(this);
 }
 
 void GUI::InitAsCircle(int x, int y, int radius)

@@ -88,6 +88,11 @@ public:
 
 	bool isPause = false;
 
+	bool fullScreen = false;
+
+	float musicVol = 0;
+	float fxVol = 0;
+
 private:
 	// Load / Save
 	bool LoadGame();

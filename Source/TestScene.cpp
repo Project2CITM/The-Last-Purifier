@@ -205,3 +205,13 @@ void TestScene::AddGUIPause(GUI* gui)
 {
     hudInGame.AddGUIPause(gui);
 }
+
+void TestScene::AddGUIControls(GUI* gui)
+{
+    hudInGame.AddGUIControls(gui);
+}
+
+void TestScene::AddGUISettingsP(GUI* gui)
+{
+    hudInGame.AddGUISettingsP(gui);
+}

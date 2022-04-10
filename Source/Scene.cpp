@@ -100,6 +100,8 @@ bool Scene::CleanUp()
 	guisOptions.clearPtr();
 	guisCredtis.clearPtr();
 	guisPause.clearPtr();
+	guisSettingsP.clearPtr();
+	guisControls.clearPtr();
 
 	texts.clearPtr();
 
@@ -131,6 +133,16 @@ void Scene::AddGUIPause(GUI* gui)
 	guisPause.add(gui);
 }
 
+void Scene::AddGUISettingsP(GUI* gui)
+{
+	guisSettingsP.add(gui);
+}
+
+void Scene::AddGUIControls(GUI* gui)
+{
+	guisControls.add(gui);
+}
+
 void Scene::AddText(Text* text)
 {
 	texts.add(text);
@@ -152,6 +164,8 @@ void Scene::DestroyGUI(GUI* gui)
 	int indexOptions = guisOptions.find(gui);
 	int indexCredtis = guisCredtis.find(gui);
 	int indexPause = guisPause.find(gui);
+	int indexControls = guisControls.find(gui);
+	int indexSettingsP = guisSettingsP.find(gui);
 
 	if (indexMainMenu >= 0)
 	{
@@ -171,7 +185,16 @@ void Scene::DestroyGUI(GUI* gui)
 	if (indexPause >= 0)
 	{
 		guisPause.delPtr(guisPause.At(indexPause));
+	}
 
+	if (indexControls >= 0)
+	{
+		guisControls.delPtr(guisControls.At(indexControls));
+	}
+
+	if (indexSettingsP >= 0)
+	{
+		guisSettingsP.delPtr(guisSettingsP.At(indexSettingsP));
 	}
 }
 

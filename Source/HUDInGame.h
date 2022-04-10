@@ -5,6 +5,15 @@
 #include "Player.h"
 
 class GUIButton;
+class GUISlider;
+class GUICheckbox;
+
+enum class CurrentPauseMenu
+{
+	Pause,
+	Settings,
+	Controls
+};
 
 class HUDInGame : public Scene
 {
@@ -49,9 +58,25 @@ private:
 	GUIButton* ResumeBUT = nullptr;
 	GUIButton* SettingsBUT = nullptr;
 	GUIButton* ControlsBUT = nullptr;
-	GUIButton* QuitBUT = nullptr;
 	GUIButton* GiveUpBUT = nullptr;
+	GUIButton* QuitBUT = nullptr;
 
+	GUIButton* CloseControlsBUT = nullptr;
+	GUIButton* KeyboardBUT = nullptr;
+	GUIButton* GamePadBUT = nullptr;
+
+	GUIButton* CloseSettingsBUT = nullptr;
+	GUIButton* MusicBUT = nullptr;
+	GUIButton* fxBUT = nullptr;
+
+	GUISlider* MusicSlider = nullptr;
+	GUISlider* fxSlider = nullptr;
+
+	GUICheckbox* FullScreenCHK;
+
+	CurrentPauseMenu currentPauseMenu;
+
+	bool KeyboardControls = true;
 };
 
 #endif //__HUD_IN_GAME_H__
