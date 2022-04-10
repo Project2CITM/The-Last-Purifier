@@ -5550,8 +5550,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile gid="140"/>
+   <tile gid="138"/>
+   <tile gid="139"/>
    <tile gid="141"/>
    <tile gid="142"/>
    <tile gid="143"/>
@@ -5569,8 +5569,8 @@
    <tile gid="134"/>
    <tile gid="135"/>
    <tile gid="136"/>
-   <tile gid="137"/>
    <tile gid="138"/>
+   <tile gid="139"/>
    <tile/>
    <tile/>
    <tile/>
@@ -5630,9 +5630,9 @@
    <tile gid="199"/>
    <tile gid="76"/>
    <tile gid="73"/>
+   <tile gid="201"/>
    <tile gid="202"/>
    <tile gid="203"/>
-   <tile gid="204"/>
    <tile gid="205"/>
    <tile gid="206"/>
    <tile gid="207"/>
@@ -5650,8 +5650,8 @@
    <tile gid="198"/>
    <tile gid="199"/>
    <tile gid="200"/>
-   <tile gid="201"/>
    <tile gid="202"/>
+   <tile gid="203"/>
    <tile gid="199"/>
    <tile gid="76"/>
    <tile gid="73"/>
@@ -11362,7 +11362,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="3" name="Colisions" width="81" height="35" visible="0" opacity="0.54">
+ <layer id="3" name="Colisions" width="81" height="35" opacity="0.54">
   <data>
    <tile/>
    <tile/>
