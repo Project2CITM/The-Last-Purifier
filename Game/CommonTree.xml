@@ -9,7 +9,7 @@
 		<armour id="6" value="4.0f" />
 		<luck id="7" value="1.0f" />
 		<damage id="8" value="4.0f" />
-		<attack_speed id="9" value="0.05f" />
+		<attack_speed id="9" value="5.0f" />
 	</dictionary>
 	<elements>
 			<element id="0" type="1">

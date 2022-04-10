@@ -134,7 +134,7 @@ unsigned int ModuleAudio::LoadFx(const char* path)
 	uint pathIindex = audioPaths.find(path);
 	if (audioPaths.find(path) != -1)
 	{
-		return pathIindex;
+		return pathIindex + 1;
 	}
 
 	uint ret = 0;
