@@ -40,9 +40,17 @@ private:
 
 	SDL_Rect pause = {0,0,0,0};
 
-	iPoint button = { 0,0 };
+	iPoint resumeBUT = { 0,0 };
+	iPoint settingsBUT = { 0,0 };
+	iPoint controlsBUT = { 0,0 };
+	iPoint quitBUT = { 0,0 };
+	iPoint giveUpBUT = { 0,0 };
 
-	GUIButton* Proba = nullptr;
+	GUIButton* ResumeBUT = nullptr;
+	GUIButton* SettingsBUT = nullptr;
+	GUIButton* ControlsBUT = nullptr;
+	GUIButton* QuitBUT = nullptr;
+	GUIButton* GiveUpBUT = nullptr;
 
 };
 

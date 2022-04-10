@@ -44,7 +44,7 @@ bool MainMenu::Start()
 
 		/*TODO*/
 	//menu appearing
-	Appear_FX = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiSelect.wav");	//Buscar audio apriopiado
+	Appear_FX = app->audio->LoadFx("Assets/Audio/SFX/UI/LogoFX.wav");	//Buscar audio apriopiado
 	app->audio->PlayFx(Appear_FX);
 
 

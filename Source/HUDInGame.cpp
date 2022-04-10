@@ -41,9 +41,13 @@ bool HUDInGame::Start()
 
 	pause = { app->renderer->camera->x, app->renderer->camera->y, 500, 300 };
 
-	button = { app->renderer->camera->x, app->renderer->camera->y };
+	resumeBUT = { app->renderer->camera->x, app->renderer->camera->y };
+	settingsBUT = { app->renderer->camera->x, app->renderer->camera->y };
+	controlsBUT = { app->renderer->camera->x, app->renderer->camera->y };
+	quitBUT = { app->renderer->camera->x, app->renderer->camera->y };
+	giveUpBUT = { app->renderer->camera->x, app->renderer->camera->y };
 
-	Proba = new GUIButton(button, 75, 25, MenuButton::INGAMEPUASE, "Assets/Sprites/UI/PlayBUT.png");
+	ResumeBUT = new GUIButton(resumeBUT, 75, 25, MenuButton::INGAMEPUASE, "Assets/Sprites/UI/PlayBUT.png");
 
 
 	Scene::Start();
@@ -94,8 +98,11 @@ bool HUDInGame::PostUpdate()
 		}
 		//app->renderer->AddRectRenderQueue(pause, { 140, 215, 0, 255 }, true, 5, 2.0f, 0.0f);
 
-		if (Proba->doAction)
-			return false;
+		if (ResumeBUT->doAction)
+		{
+			app->isPause = false;
+			ResumeBUT->doAction = false;
+		}
 	}
 
 	Scene::PostUpdate();
