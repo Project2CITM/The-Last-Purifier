@@ -45,17 +45,17 @@ bool HUDInGame::Start()
 
 	pause = { app->renderer->camera->x, app->renderer->camera->y, 500, 300 };
 
-	resumeBUT = { app->renderer->camera->x + 282, app->renderer->camera->y + + 50};//640 pixeles with pantalla
-	settingsBUT = { app->renderer->camera->x + 282, app->renderer->camera->y + 100};
-	controlsBUT = { app->renderer->camera->x + 282, app->renderer->camera->y +150};
-	giveUpBUT = { app->renderer->camera->x + 282, app->renderer->camera->y +200};
-	quitBUT = { app->renderer->camera->x + 282, app->renderer->camera->y +250};
+	resumeBUT = { app->renderer->camera->x + 262, app->renderer->camera->y + + 50};//640 pixeles with pantalla
+	settingsBUT = { app->renderer->camera->x + 262, app->renderer->camera->y + 100};
+	controlsBUT = { app->renderer->camera->x + 262, app->renderer->camera->y +150};
+	giveUpBUT = { app->renderer->camera->x + 262, app->renderer->camera->y +200};
+	quitBUT = { app->renderer->camera->x + 262, app->renderer->camera->y +250};
 
-	ResumeBUT = new GUIButton(resumeBUT, 75, 25, MenuButton::INGAMEPUASE); ///"Assets/Sprites/UI/PlayBUT.png"
-	SettingsBUT = new GUIButton(settingsBUT, 75, 25, MenuButton::INGAMEPUASE, "Assets/Sprites/UI/PlayBUT.png");
-	ControlsBUT = new GUIButton(controlsBUT, 75, 25, MenuButton::INGAMEPUASE, "Assets/Sprites/UI/PlayBUT.png");
-	GiveUpBUT = new GUIButton(giveUpBUT, 75, 25, MenuButton::INGAMEPUASE, "Assets/Sprites/UI/PlayBUT.png");
-	QuitBUT = new GUIButton(quitBUT, 75, 25, MenuButton::INGAMEPUASE, "Assets/Sprites/UI/PlayBUT.png");
+	ResumeBUT = new GUIButton(resumeBUT, 117, 47, MenuButton::INGAMEPUASE, "Assets/Sprites/UI/Resume.png");
+	SettingsBUT = new GUIButton(settingsBUT, 117, 47, MenuButton::INGAMEPUASE, "Assets/Sprites/UI/Settings.png");
+	ControlsBUT = new GUIButton(controlsBUT, 117, 47, MenuButton::INGAMEPUASE, "Assets/Sprites/UI/Controls.png");
+	GiveUpBUT = new GUIButton(giveUpBUT, 117, 47, MenuButton::INGAMEPUASE, "Assets/Sprites/UI/Resume.png");
+	QuitBUT = new GUIButton(quitBUT, 117, 47, MenuButton::INGAMEPUASE, "Assets/Sprites/UI/Resume.png");
 
 	CloseControlsBUT = new GUIButton({ app->renderer->camera->x + 282, app->renderer->camera->y + 325 }, 75, 25, MenuButton::CONTROLSPAUSE, "Assets/Sprites/UI/PlayBUT.png");
 	KeyboardBUT = new GUIButton({ app->renderer->camera->x + 100, app->renderer->camera->y + 125 }, 75, 25, MenuButton::CONTROLSPAUSE, "Assets/Sprites/UI/PlayBUT.png");
