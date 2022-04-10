@@ -24,7 +24,7 @@ void CommonTree::Start()
 	Upgrade(2);
 	Upgrade(3);
 	Upgrade(4);
-	CheckUpgrades();
+	//CheckUpgrades();
 }
 
 void CommonTree::PreUpdate()
