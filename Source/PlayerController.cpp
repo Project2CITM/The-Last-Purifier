@@ -70,15 +70,7 @@ void PlayerController::Start()
 	stateMachine.AddState("dash", 2, 25);		//DASH = 3
 
 	// Initialize physic body
-	this->pBody = app->physics->CreateRectangle({ //player spawn pos
-		((MAX_ROOMS_COLUMNS + 1) * MAX_ROOM_TILES_COLUMNS * TILE_SIZE) / 2,
-		((MAX_ROOMS_ROWS + 1) * MAX_ROOM_TILES_ROWS * TILE_SIZE) / 2},
-		10, 4, this);
-	this->pBody->body->SetFixedRotation(true);
-
-	// Initialize enemy trigger body
-	enemyTrigger = new Trigger(GetPosition(), 8, 16, this, "Player");
-	enemyTrigger->positionOffset = { 0, -12 };
+	CreatePhysBody();
 }
 
 void PlayerController::PreUpdate()
@@ -94,6 +86,10 @@ void PlayerController::PreUpdate()
 			pBody->body->SetLinearVelocity({ 0,0 });
 		}
 	}
+
+	// Every frame set the linear velocity to 0 in case we are not moving
+	// This is done to prevent drifting when applying forces from other bodies into the player body.
+	pBody->body->SetLinearVelocity(b2Vec2(0, 0));
 
 	// Get Movement Input
 	if (app->input->usingGameController) MovementUpdateController();
@@ -127,13 +123,13 @@ void PlayerController::PostUpdate()
 	currentAnim = (PlayerAnim)currentState;
 
 	renderObjects[0].section = animations[(int)currentAnim].GetCurrentFrame();
-	renderObjects[0].destRect.x = GetDrawPosition().x - 8;
-	renderObjects[0].destRect.y = GetDrawPosition().y - 20;
+	renderObjects[0].destRect.x = GetDrawPosition().x;
+	renderObjects[0].destRect.y = GetDrawPosition().y-13;
 
 	if (lookingDir == LookingDirection::LEFT) renderObjects[0].flip = SDL_FLIP_HORIZONTAL;
 	else if (lookingDir == LookingDirection::RIGHT) renderObjects[0].flip = SDL_FLIP_NONE;
 
-	renderObjects[0].scale = 1.3f;
+	renderObjects[0].scale = 1.2f;
 	app->renderer->AddRenderObjectRenderQueue(renderObjects[0]);
 }
 
@@ -145,6 +141,44 @@ void PlayerController::CleanUp()
 	{
 		combat->pendingToDelete = true;
 	}
+}
+
+void PlayerController::CreatePhysBody()
+{
+	int playerChain[8]
+	{
+		0,0,
+		16,0,
+		16,8,
+		0,8
+	};
+
+	this->pBody = app->physics->CreateChainObj(((MAX_ROOMS_COLUMNS + 1) * MAX_ROOM_TILES_COLUMNS * TILE_SIZE) / 2,
+		((MAX_ROOMS_ROWS + 1) * MAX_ROOM_TILES_ROWS * TILE_SIZE) / 2,
+		playerChain, 8, true, this);
+	this->pBody->body->SetFixedRotation(true);
+
+	// Left Circle
+	b2FixtureDef circleL;
+	b2CircleShape shape;
+	shape.m_radius = PIXELS_TO_METER(6);
+	shape.m_p = b2Vec2(0, PIXELS_TO_METER(4));
+	circleL.shape = &shape;
+
+	pBody->body->CreateFixture(&circleL);
+
+	// Right Circle
+	b2FixtureDef circleR;
+	b2CircleShape shape2;
+	shape2.m_radius = PIXELS_TO_METER(6);
+	shape2.m_p = b2Vec2(PIXELS_TO_METER(16), PIXELS_TO_METER(4));
+	circleR.shape = &shape2;
+
+	pBody->body->CreateFixture(&circleR);
+
+	// Initialize enemy trigger body
+	enemyTrigger = new Trigger(GetPosition(), 8, 16, this, "Player");
+	enemyTrigger->positionOffset = { 8, -12 };
 }
 
 void PlayerController::MovementUpdateKeyboard()
