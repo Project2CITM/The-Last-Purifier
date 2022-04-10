@@ -45,7 +45,7 @@ void PlayerStats::UpdatePlayerStats()
 	player->soulGain = defaultValues.child("souls").attribute("gain").as_int() + commonTree->getValue(CommonUpgrades::SOUL_GAIN);
 
 	player->armour = classValues.child("armour").attribute("quantity").as_int() + commonTree->getValue(CommonUpgrades::ARMOUR);
-	player->attackSpeed = classValues.child("attack_speed").attribute("quantity").as_int() + commonTree->getValue(CommonUpgrades::ATTACK_SPEED);
+	player->attackSpeed = classValues.child("attack_speed").attribute("quantity").as_int() - commonTree->getValue(CommonUpgrades::ATTACK_SPEED);
 	player->damage = classValues.child("damage").attribute("quantity").as_int() + commonTree->getValue(CommonUpgrades::DAMAGE);
 }
 

@@ -44,7 +44,6 @@ void CommonTree::PostUpdate()
 
 void CommonTree::CleanUp()
 {
-	//RELEASE(treeFile);
 	treeList->clearPtr();
 	RELEASE(treeList);
 }
