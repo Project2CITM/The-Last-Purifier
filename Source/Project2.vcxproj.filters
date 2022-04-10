@@ -64,6 +64,9 @@
     <Filter Include="Archivos de origen\Globals\GUI">
       <UniqueIdentifier>{a5bfeb4a-f892-494a-8a18-9c5a53f72a55}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\GameObject">
+      <UniqueIdentifier>{659d7ab2-1f19-4b13-8c09-cda1fa208681}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderObject.hpp">
@@ -222,6 +225,9 @@
     <ClInclude Include="MapLoader.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="NPC.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Scene.cpp">
@@ -357,6 +363,9 @@
       <Filter>Archivos de origen\Tools</Filter>
     </ClCompile>
     <ClCompile Include="MapLoader.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="NPC.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>

@@ -9,6 +9,7 @@
 #include "SpellInfo.h"
 #include "Text.h"
 #include "ModuleAudio.h"
+#include "NPC.h"
 
 TestScene::TestScene():Scene("testScene")
 {
@@ -38,14 +39,18 @@ bool TestScene::Start()
 
     // Test text
 
-    t =  new Text({ 0,0 },"");
+   // t =  new Text({ 0,0 },"");
     //t->SetText("Hello world");
-    advisor = new Text({ 0,0 },"","defaultFont");
+   // advisor = new Text({ 0,0 },"","defaultFont");
     //t->SetColor({ 255,255,0,100 });
 
     hudInGame.Start();
     roomManager.Start();
     chargeDialog();
+
+    new NPC("purifier1", { 0,0 });
+
+
     Scene::Start();
     return true;
 }
@@ -80,7 +85,7 @@ bool TestScene::PreUpdate()
         printf("A");
     }
 
-    if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
+    /*if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
     {
         dialogEnable = true;
     }
@@ -109,7 +114,7 @@ bool TestScene::PreUpdate()
             t->SetText(sentences[dialogCont]);
         }
 
-    }
+    }*/
 
     if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN) app->TogglePause(!app->isPause);
 

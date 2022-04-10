@@ -28,7 +28,7 @@
 
   <dialogText>
 	  <advisor>Pulse M para hablar</advisor>
-	  <purifier1>
+	  <purifier1 Num="4">
 		  <Sentence1>Chico... ¡Acercate rapido!</Sentence1>
 		  <Sentence2>No se que haces aqui pero vuelve rapido a la aldea, aqui corres peligro</Sentence2>
 		  <Sentence3>...</Sentence3>
