@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<stats>
+	<common>
+		<souls quantity = "0" gain = "1.0f" />
+		<luck quantity = "1.0f" />
+		<speed movement = "9.0f" dash = "5.0f" />
+		<shield quantity = "0" />
+		<slots spell = "1" deck = "2" />
+		<hp quantity = "100" />
+	</common>	
+	<revenant>
+		<armour quantity = "20" />
+		<damage quantity = "20" />
+		<attack_speed quantity = "75" />
+	</revenant>
+	<sage>
+		<armour quantity = "10" />
+		<damage quantity = "10" />
+		<attack_speed quantity = "90" />
+	</sage>
+</stats>

@@ -14,9 +14,17 @@ void CommonTree::Start()
 {
 	//Loads Values
 	pugi::xml_parse_result result;
-	treeFile->load_file(COMMON_TREE_XML);
+	result = treeFile.load_file(COMMON_TREE_XML);
 	if (result == NULL) LOG("Could not load xml file: %s. pugi error: %s", COMMON_TREE_XML, result.description());
 
+	LoadTree();
+	LoadDictionary();
+	Upgrade(0);
+	Upgrade(1);
+	Upgrade(2);
+	Upgrade(3);
+	Upgrade(4);
+	//CheckUpgrades();
 }
 
 void CommonTree::PreUpdate()
@@ -36,17 +44,18 @@ void CommonTree::PostUpdate()
 
 void CommonTree::CleanUp()
 {
-	RELEASE(treeFile);
+	treeList->clearPtr();
+	RELEASE(treeList);
 }
 
 bool CommonTree::LoadDictionary()
 {
-	pugi::xml_node bNode = treeFile->child("common_tree").child("dictionary").first_child();
+	pugi::xml_node bNode = treeFile.child("common_tree").child("dictionary").first_child();
 
-	while (bNode.value() != NULL)
+	while (bNode != NULL)
 	{
 		upgradesDic.insert({ (CommonUpgrades) bNode.attribute("id").as_int(), (float) bNode.attribute("value").as_int() });
-
+		unlockedDic.insert({ (CommonUpgrades)bNode.attribute("id").as_int(), 0 });
 		bNode = bNode.next_sibling();
 	}
 
@@ -55,9 +64,9 @@ bool CommonTree::LoadDictionary()
 
 bool CommonTree::LoadTree()
 {
-	pugi::xml_node bNode = treeFile->child("common_tree").child("elements");
+	pugi::xml_node bNode = treeFile.child("common_tree").child("elements").first_child();
 
-	while (bNode.value() != NULL)
+	while (bNode != NULL)
 	{
 		treeList->add(new TreeElement(
 			bNode.attribute("id").as_int(),
@@ -126,6 +135,17 @@ TreeElement* CommonTree::getElement(int id)
 	}
 
 	return nullptr;
+}
+
+float CommonTree::getValue(CommonUpgrades id)
+{
+	// Look for the value of the given CommonUpgrade
+	for (auto it = unlockedDic.begin(); it != unlockedDic.end(); ++it)
+	{
+		if (it->first == id) return it->second;
+	}
+	// Return -1 if not found
+	return 0;
 }
 
 bool CommonTree::CheckUpgrades()

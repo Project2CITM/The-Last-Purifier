@@ -8,6 +8,7 @@
 
 #include "RoomManager.h"
 #include "Room.h"
+#include "PlayerStats.h"
 
 PlayerController::PlayerController(std::string name, std::string tag, Player* player) : GameObject(name, tag)
 {
@@ -17,6 +18,8 @@ PlayerController::PlayerController(std::string name, std::string tag, Player* pl
 
 void PlayerController::Start() 
 {
+	player->stats->Start();
+
 	#pragma region TEMPORARY_CODE
 	// Every Animation and spirtes charging should be in the PlayerRevenant and PlayerSage classes!!!!!
 	// TEMPORARY CODE!---------------------------------------------------
@@ -87,9 +90,9 @@ void PlayerController::PreUpdate()
 		}
 	}
 
-	// Every frame set the linear velocity to 0 in case we are not moving
+	// Every frame set the linear velocity to 0 in case we are not moving and we are not dashing
 	// This is done to prevent drifting when applying forces from other bodies into the player body.
-	pBody->body->SetLinearVelocity(b2Vec2(0, 0));
+	if (!isDashing)pBody->body->SetLinearVelocity(b2Vec2(0, 0));
 
 	// Get Movement Input
 	if (app->input->usingGameController) MovementUpdateController();
