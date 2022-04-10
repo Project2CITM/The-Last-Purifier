@@ -90,7 +90,10 @@ public:
     //Returns a pointer to a TreeElement
     TreeElement* getElement(int id);
 
+    //Returns the value of the given CommonUpgrade
+    float getValue(CommonUpgrades id);
+
 private:
-    pugi::xml_document* treeFile = new pugi::xml_document;
+    pugi::xml_document treeFile;
 };
 

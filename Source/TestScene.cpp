@@ -10,6 +10,7 @@
 #include "Text.h"
 #include "ModuleAudio.h"
 #include "NPC.h"
+#include "CommonTree.h"
 
 TestScene::TestScene():Scene("testScene")
 {
@@ -31,7 +32,7 @@ bool TestScene::Start()
     app->renderer->camera->SetTarget(player->controller);
 
     //Test Skill/Spell tree
-    revenantTree = new ClassTree(PlayerClass::REVENANT);
+
 
     // Test particle
     Particle* p = new Particle({ 0,0 }, 2, 0, { 1,0 });

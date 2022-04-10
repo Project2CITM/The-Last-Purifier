@@ -10,6 +10,7 @@ enum class PlayerClass
 };
 
 class PlayerController;
+class PlayerStats;
 class Application;
 
 class Player
@@ -21,6 +22,7 @@ public:
 
 	PlayerClass playerClass = PlayerClass::REVENANT;
 	PlayerController* controller = nullptr;
+	PlayerStats* stats = nullptr;
 
 	int hpPlayer = 100;
 	int spellSlots = 1;
@@ -29,8 +31,8 @@ public:
 	int armour = 20;
 	int damage = 20;
 	int attackSpeed = 75;
-	int movementSpeed = 9.0f;
-	int dashSpeed = 5;
+	float movementSpeed = 9.0f;
+	float dashSpeed = 5.0f;
 	float soulGain = 1.0f;
 	float luck = 1.0f;
 
