@@ -294,7 +294,9 @@ Room* RoomManager::CreateRoom(iPoint mapPosition, short mapId)
 
 	r->roomTexture = app->textures->Load(folder);
 
-	//extreure colliders
+	//LOG("Room Id: %d", r->id);
+
+	//Extract colliders
 	mapLoader->ExtractMapColliders(r);
 
 	rooms.add(r);
