@@ -55,6 +55,7 @@ public:
 	PlayerCombat* combat = nullptr;
 
 private:
+	void CreatePhysBody();
 
 	void MovementUpdateKeyboard();
 	void MovementUpdateController();

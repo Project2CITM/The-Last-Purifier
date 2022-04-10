@@ -367,7 +367,7 @@ void ModulePhysics::ShapesRender()
 			case b2Shape::e_circle:
 			{
 				b2CircleShape* shape = (b2CircleShape*)f->GetShape();
-				b2Vec2 pos = f->GetBody()->GetPosition();
+				b2Vec2 pos = shape->m_p + f->GetBody()->GetPosition();
 				app->renderer->AddCircleRenderQueue(iPoint{ METERS_TO_PIXELS(pos.x), METERS_TO_PIXELS(pos.y) }, METERS_TO_PIXELS(shape->m_radius), SDL_Color{ 0,0,0,255 },3);
 			}
 			break;
