@@ -7,11 +7,13 @@
 #include "GUICheckbox.h"
 #include "ModuleInput.h"
 #include "ModuleWindow.h"
+#include "ModuleAudio.h"
 
 #include <shellapi.h>
 
 // Si no lo pone aqui, sale un menoryleak, nose porque
 RenderObject fondo;
+RenderObject credtis;
 
 MainMenu::MainMenu():Scene("MainMenu")
 {
@@ -34,25 +36,35 @@ bool MainMenu::InitScene()
 
 bool MainMenu::Start()
 {
-	fondo.InitAsTexture(app->textures->Load("Assets/Sprites/UI/MainMenu/mainmenu.png"), { 0,0 }, {0,0,0,0}, 0.5f);
+	fondo.InitAsTexture(app->textures->Load("Assets/Sprites/UI/background.png"), { 0,0 }, {0,0,0,0}, 0.5f);
+	credtis.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Credtis.png"), { 0,0 }, {0,0,0,0}, 0.5f);
 
-	PlayBUT = new GUIButton({ 125, 180 }, 75, 25, MenuButton::MAIN, "Assets/Sprites/UI/PlayButton/playB.png");
-	OptionsBUT = new GUIButton({ 140, 215 }, 60, 20, MenuButton::MAIN);
-	CreditBUT = new GUIButton({ 140, 240 }, 60, 20, MenuButton::MAIN);
-	ExitBUT = new GUIButton({ 150, 285 }, 50, 20, MenuButton::MAIN);
-	LinkBUT = new GUIButton({ 20, 330 }, 75, 25, MenuButton::MAIN);
+	//background del menu
+	app->audio->PlayMusic("Assets/Audio/Ambience/amb_dungeon1_1.ogg");	//Poner la musica que toca
+
+		/*TODO*/
+	//menu appearing
+	Appear_FX = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiSelect.wav");	//Buscar audio apriopiado
+	app->audio->PlayFx(Appear_FX);
+
+
+	PlayBUT = new GUIButton({ 125, 180 }, 75, 28, MenuButton::MAIN, "Assets/Sprites/UI/PlayBUT.png");
+	OptionsBUT = new GUIButton({ 140, 215 }, 60, 16, MenuButton::MAIN, "Assets/Sprites/UI/OptionBUT.png"); 
+	CreditBUT = new GUIButton({ 140, 240 }, 60, 16, MenuButton::MAIN, "Assets/Sprites/UI/CredtisBUT.png"); 
+	ExitBUT = new GUIButton({ 150, 285 }, 50, 15, MenuButton::MAIN, "Assets/Sprites/UI/QuitBUT.png");
+	LinkBUT = new GUIButton({ 20, 330 }, 59, 16, MenuButton::MAIN, "Assets/Sprites/UI/linkBUT.png"); 
 
 	CloseOptBUT = new GUIButton({ 285, 330 }, 75, 25, MenuButton::OPTIONS);
 
-	MusicBUT = new GUIButton({ 275, 100 }, 25, 25, MenuButton::OPTIONS);
-	MusicSlider = new GUISlider({ 275, 100 }, 300, 10, MenuButton::OPTIONS);
+	MusicBUT = new GUIButton({ 275, 100 }, 27, 46, MenuButton::OPTIONS, "Assets/Sprites/UI/fireSlider.png");
+	MusicSlider = new GUISlider({ 275, 100 }, 300, 14, MenuButton::OPTIONS, "Assets/Sprites/UI/Slider1.png");
 	MusicSlider->CreateGUIBtn(MusicBUT);
 
-	fxBUT = new GUIButton({ 275, 175 }, 25, 25, MenuButton::OPTIONS);
-	fxSlider = new GUISlider({ 275, 175 }, 300, 10, MenuButton::OPTIONS);
+	fxBUT = new GUIButton({ 275, 175 }, 27, 46, MenuButton::OPTIONS, "Assets/Sprites/UI/fireSlider.png");
+	fxSlider = new GUISlider({ 275, 175 }, 300, 14, MenuButton::OPTIONS, "Assets/Sprites/UI/Slider1.png");
 	fxSlider->CreateGUIBtn(fxBUT);
 
-	FullScreenCHK = new GUICheckbox({ 400, 250 }, 50, 50, MenuButton::OPTIONS, "Assets/Sprites/UI/PlayButton/playB.png");
+	FullScreenCHK = new GUICheckbox({ 400, 250 }, 60, 60, MenuButton::OPTIONS, "Assets/Sprites/UI/CheckBox.png");
 
 	CloseCrdBUT = new GUIButton({ 285, 330 }, 75, 25, MenuButton::CREDITS);
 
@@ -150,8 +162,8 @@ bool MainMenu::Update()
 			FullScreenCHK->doAction = false;
 		}
 
-		music = MusicSlider->GetValue() * 255;
-		fx = fxSlider->GetValue() * 255;
+		musicVol = MusicSlider->GetValue() * 255;
+		fxVol = fxSlider->GetValue() * 255;
 	}
 
 	if (currentMenu == CurrentMenu::Credtis)
@@ -186,6 +198,7 @@ bool MainMenu::PostUpdate()
 		{
 			if (guisCredtis[i]) guisCredtis[i]->PostUpdate();
 		}
+		app->renderer->AddRenderObjectRenderQueue(credtis);
 	}
 
 	if (currentMenu == CurrentMenu::Main)

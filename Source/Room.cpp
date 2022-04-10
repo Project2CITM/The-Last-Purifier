@@ -26,7 +26,7 @@ void Room::CleanUp()
 		wallColliders[i] = nullptr;
 	}
 
-	//delete roomTexture;
+	colliders.clearPtr();
 }
 
 iPoint Room::GetDoorPos(DoorOrientations orient)

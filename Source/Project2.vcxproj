@@ -107,7 +107,9 @@
     <ClInclude Include="GUISlider.h" />
     <ClInclude Include="HUDInGame.h" />
     <ClInclude Include="List.h" />
+    <ClInclude Include="LogoScene.h" />
     <ClInclude Include="MainMenu.h" />
+    <ClInclude Include="MapLoader.h" />
     <ClInclude Include="MemLeaks.h" />
     <ClInclude Include="Module.h" />
     <ClInclude Include="ModuleAudio.h" />
@@ -126,6 +128,7 @@
     <ClInclude Include="PlayerRevenant.h" />
     <ClInclude Include="PlayerSage.h" />
     <ClInclude Include="Point.h" />
+    <ClInclude Include="Projectile.h" />
     <ClInclude Include="RenderObject.hpp" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="RoomManager.h" />
@@ -138,6 +141,7 @@
     <ClInclude Include="TestSpell.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="Trigger.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
@@ -154,8 +158,10 @@
     <ClCompile Include="GUISlider.cpp" />
     <ClCompile Include="HUDInGame.cpp" />
     <ClCompile Include="Log.cpp" />
+    <ClCompile Include="LogoScene.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
+    <ClCompile Include="MapLoader.cpp" />
     <ClCompile Include="ModuleAudio.cpp" />
     <ClCompile Include="ModuleInput.cpp" />
     <ClCompile Include="ModuleMap.cpp" />
@@ -171,6 +177,7 @@
     <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="PlayerRevenant.cpp" />
     <ClCompile Include="PlayerSage.cpp" />
+    <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="RoomManager.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -181,6 +188,7 @@
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="TestSpell.cpp" />
     <ClCompile Include="Text.cpp" />
+    <ClCompile Include="Trigger.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

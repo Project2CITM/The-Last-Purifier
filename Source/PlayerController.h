@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "StateMachine.h"
 #include "Animation.h"
+#include "Trigger.h"
 
 #define PLAYER_ANIMATIONS_NUM 4
 
@@ -69,14 +70,16 @@ private:
 	float speed = 12.0f;	//5
 	bool isDashing = false;
 	int dashCounter = 0;
-	int dashTime = 55;
-	int dashDistance = 10;	//6
+	int dashTime = 25;
+	int dashDistance = 14;	//6
 
 	PlayerAnim currentAnim = PlayerAnim::IDLE;
 
 	StateMachine stateMachine;
 	PlayerState currentState = PlayerState::IDLE;
 	LookingDirection lookingDir = LookingDirection::RIGHT;
+
+	Trigger* enemyTrigger = nullptr;
 
 	friend class PlayerCombat;
 };

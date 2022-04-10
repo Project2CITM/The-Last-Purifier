@@ -47,13 +47,19 @@ void PlayerController::Start()
 		animations[(int)PlayerAnim::RUN].loop = true;
 	}
 
+	#pragma endregion
+
 	for (int i = 0; i < PLAYER_ANIMATIONS_NUM; i++)
 	{
 		animations[i].speed = 0.2f;
 		animations[i].hasIdle = false;
 	}
-	#pragma endregion
+
+	animations[(int)PlayerAnim::DASH].speed = 0.4f;
 	
+	// Initialize movement variables
+	speed = player->movementSpeed;
+
 	currentAnim = PlayerAnim::IDLE;
 
 	// Initialize States 
@@ -61,16 +67,18 @@ void PlayerController::Start()
 	stateMachine.AddState("idle", 0);			//IDLE = 0
 	stateMachine.AddState("run", 0);			//RUN = 1
 	stateMachine.AddState("attack", 1, 32);		//ATTACK = 2
-	stateMachine.AddState("dash", 2, 64);		//DASH = 3
+	stateMachine.AddState("dash", 2, 25);		//DASH = 3
 
-	// Initialize physBody
+	// Initialize physic body
 	this->pBody = app->physics->CreateRectangle({ //player spawn pos
 		((MAX_ROOMS_COLUMNS + 1) * MAX_ROOM_TILES_COLUMNS * TILE_SIZE) / 2,
 		((MAX_ROOMS_ROWS + 1) * MAX_ROOM_TILES_ROWS * TILE_SIZE) / 2},
-		10, 16, this);
+		10, 4, this);
 	this->pBody->body->SetFixedRotation(true);
-	//pBody->body->SetType(b2BodyType::b2_kinematicBody);
 
+	// Initialize enemy trigger body
+	enemyTrigger = new Trigger(GetPosition(), 8, 16, this, "Player");
+	enemyTrigger->positionOffset = { 0, -12 };
 }
 
 void PlayerController::PreUpdate()
@@ -107,8 +115,6 @@ void PlayerController::Update()
 	// Update current player State
 	currentState = (PlayerState)stateMachine.GetCurrentState();
 
-	//printf("CurrentState %d\n", stateMachine.GetCurrentState());
-
 	// Update animation
 	animations[(int)currentAnim].Update();	
 }
@@ -121,8 +127,8 @@ void PlayerController::PostUpdate()
 	currentAnim = (PlayerAnim)currentState;
 
 	renderObjects[0].section = animations[(int)currentAnim].GetCurrentFrame();
-	renderObjects[0].destRect.x = GetDrawPosition().x;
-	renderObjects[0].destRect.y = GetDrawPosition().y;
+	renderObjects[0].destRect.x = GetDrawPosition().x - 8;
+	renderObjects[0].destRect.y = GetDrawPosition().y - 20;
 
 	if (lookingDir == LookingDirection::LEFT) renderObjects[0].flip = SDL_FLIP_HORIZONTAL;
 	else if (lookingDir == LookingDirection::RIGHT) renderObjects[0].flip = SDL_FLIP_NONE;

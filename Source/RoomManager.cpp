@@ -3,7 +3,10 @@
 
 void RoomManager::Start()
 {
+	mapLoader = new MapLoader();
+
 	GenerateMap(1);
+	
 	CreateDoors();
 
 	doorTopTexture = app->textures->Load("Assets/Maps/TestDoor_top.png");
@@ -35,13 +38,19 @@ void RoomManager::CleanUp()
 			roomPositions[i][j] = nullptr;
 		}
 	}
-	ListItem<Room*>* currentRoom = rooms.start;
+
+	/*ListItem<Room*>* currentRoom = rooms.start;
 	while (currentRoom != nullptr) {
 		currentRoom->data->CleanUp();
 		currentRoom = currentRoom->next;
+	}*/
+	for (int i = 0; i < rooms.count(); i++)
+	{
+		rooms[i]->CleanUp();
 	}
-
 	rooms.clearPtr();
+
+	RELEASE(mapLoader);
 
 	//I assume it unloads in renderer?
 	doorTopTexture = nullptr;
@@ -284,6 +293,11 @@ Room* RoomManager::CreateRoom(iPoint mapPosition, short mapId)
 	folder += s += file;
 
 	r->roomTexture = app->textures->Load(folder);
+
+	//LOG("Room Id: %d", r->id);
+
+	//Extract colliders
+	mapLoader->ExtractMapColliders(r);
 
 	rooms.add(r);
 	roomPositions[mapPosition.x][mapPosition.y] = r;

@@ -42,16 +42,6 @@ bool ModuleAudio::Init(pugi::xml_node& config)
 		ret = false;
 	}
 
-	// Load all SFX
-	for (pugi::xml_node audio = config.first_child(); audio; audio = audio.next_sibling())
-	{
-		std::string path = audio.attribute("path").as_string("null");
-
-		LoadFx(path.c_str());
-
-		//fx.end->data->volume = audio.attribute("volum").as_int(10);
-	}
-
 	Mix_Volume(-1, app->saveF.child("game_state").child("settings").attribute("sfx").as_float() * 200);
 
 	return ret;
@@ -141,8 +131,13 @@ unsigned int ModuleAudio::LoadFx(const char* path)
 	if(IsEnabled() == false)
 		return 0;
 
-	unsigned int ret = 0;
+	uint pathIindex = audioPaths.find(path);
+	if (audioPaths.find(path) != -1)
+	{
+		return pathIindex;
+	}
 
+	uint ret = 0;
 	Mix_Chunk* chunk = Mix_LoadWAV(path);
 
 	if(chunk == NULL)
@@ -152,6 +147,7 @@ unsigned int ModuleAudio::LoadFx(const char* path)
 	else
 	{
 		fx.add(chunk);
+		audioPaths.add(path);
 		ret = fx.count();
 	}
 
@@ -165,19 +161,12 @@ bool ModuleAudio::PlayFx(unsigned int id, int repeat)
 		return false;
 
 	bool ret = false;
-	
-	/*
-	Mix_Chunk* chunk = NULL;	
-	if(fx.at(id-1, chunk) == true)
-	{
-		Mix_PlayChannel(-1, chunk, repeat);
-		ret = true;
-	}
-	*/
 
-	if (fx.find(fx[id]) != -1)
+	if (fx.count() < id-1) return false;
+
+	if (fx.find(fx[id-1]) != -1)
 	{
-		Mix_PlayChannel(-1, fx[id], repeat);
+		Mix_PlayChannel(-1, fx[id-1], repeat);
 		ret = true;
 	}
 

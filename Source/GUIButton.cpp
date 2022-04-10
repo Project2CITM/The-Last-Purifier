@@ -23,6 +23,10 @@ GUIButton::GUIButton(iPoint pos, int width, int height, MenuButton currentMenu, 
 		renderSections[i].w = width;
 		renderSections[i].h = height;
 	}
+
+		/*TODO Audio*/
+	Hover = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiHover.wav");
+	Press = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiSelect.wav");
 }
 
 GUIButton::GUIButton(iPoint pos, int width, int height, MenuButton currentMenu) : GUI()
@@ -44,7 +48,7 @@ void GUIButton::Update()
 		isPressed = true;
 
 		// Sound Effect
-		if (lastState != buttonState && !navigation) app->audio->PlayFx(SFX::BUTTONDOWN);
+		if (lastState != buttonState && !navigation) app->audio->PlayFx(Press);
 	}
 	else if (isPressed && app->input->GetMouseButton(1) == KEY_REPEAT)
 	{
@@ -61,7 +65,7 @@ void GUIButton::Update()
 			//navigation = true;
 
 		// Sound Effect
-		if (lastState != buttonState && !navigation) app->audio->PlayFx(SFX::BUTTONFEEDBACK);
+		if (lastState != buttonState && !navigation) app->audio->PlayFx(Hover);
 	}
 
 	if (app->input->GetMouseButton(1) == KEY_UP)
@@ -82,9 +86,6 @@ void GUIButton::Update()
 			isPressed = false;
 		}
 	}
-
-
-//	LOG("%d", buttonState);
 
 	switch (buttonState)
 	{

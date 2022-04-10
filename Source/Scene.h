@@ -21,6 +21,7 @@ protected:
 	List<GUI*> guisMainMenu;
 	List<GUI*> guisOptions;
 	List<GUI*> guisCredtis;
+	List<GUI*> guisPause;
 
 	List<Text*> texts;
 
@@ -52,6 +53,8 @@ public:
 	void AddGUIOptions(GUI* gui);
 
 	void AddGUICredtis(GUI* gui);
+
+	void AddGUIPause(GUI* gui);
 
 	void AddText(Text* text);
 

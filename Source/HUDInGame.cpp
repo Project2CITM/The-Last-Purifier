@@ -2,8 +2,12 @@
 #include "ModuleRender.h"
 #include "ModuleTextures.h"
 #include "ModuleScene.h"
+#include "GUIButton.h"
+#include "GUISlider.h"
+#include "GUICheckbox.h"
 #include "ModuleInput.h"
-#include "ModuleWindow.h" 
+#include "ModuleWindow.h"
+#include "ModuleAudio.h"
 
 
 HUDInGame::HUDInGame() :Scene("HUDInGame")
@@ -35,6 +39,13 @@ bool HUDInGame::Start()
 	spell3 = { app->renderer->camera->x + 325, app->renderer->camera->y + 314, 30, 40 };
 	spell4 = { app->renderer->camera->x + 375, app->renderer->camera->y + 314, 30, 40 };
 
+	pause = { app->renderer->camera->x, app->renderer->camera->y, 500, 300 };
+
+	button = { app->renderer->camera->x, app->renderer->camera->y };
+
+	Proba = new GUIButton(button, 75, 25, MenuButton::INGAMEPUASE, "Assets/Sprites/UI/PlayBUT.png");
+
+
 	Scene::Start();
 
 	return true;
@@ -50,6 +61,13 @@ bool HUDInGame::PreUpdate()
 
 bool HUDInGame::Update()
 {
+	if (app->isPause)
+	{
+		for (int i = 0; i < guisPause.count(); i++)
+		{
+			if (guisPause[i]) guisPause[i]->Update();
+		}
+	}
 
 	Scene::Update();
 
@@ -61,13 +79,24 @@ bool HUDInGame::PostUpdate()
 	app->renderer->AddRectRenderQueue(hpRect, { 155, 0, 0, 255 }, true, 3, 2.0f, 0.0f);
 	app->renderer->AddRectRenderQueue(hpRect, { 155, 155, 155, 255 }, false, 4, 2.0f, 0.0f);
 
-	app->renderer->AddRectRenderQueue(miniMap, { 155, 155, 155, 255 }, false, 4, 2.0f, 0.0f);
 
 	app->renderer->AddRectRenderQueue(spell1, { 155, 155, 155, 255 }, false, 4, 2.0f, 0.0f);
 	app->renderer->AddRectRenderQueue(spell2, { 155, 155, 155, 255 }, false, 4, 2.0f, 0.0f);
 	app->renderer->AddRectRenderQueue(spell3, { 155, 155, 155, 255 }, false, 4, 2.0f, 0.0f);
 	app->renderer->AddRectRenderQueue(spell4, { 155, 155, 155, 255 }, false, 4, 2.0f, 0.0f);
 
+
+	if (app->isPause)
+	{
+		for (int i = 0; i < guisPause.count(); i++)
+		{
+			if (guisPause[i]) guisPause[i]->PostUpdate();
+		}
+		//app->renderer->AddRectRenderQueue(pause, { 140, 215, 0, 255 }, true, 5, 2.0f, 0.0f);
+
+		if (Proba->doAction)
+			return false;
+	}
 
 	Scene::PostUpdate();
 

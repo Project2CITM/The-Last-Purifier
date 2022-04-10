@@ -5,15 +5,17 @@
 #include "ModuleRender.h"
 #include "TestScene.h"
 #include "MainMenu.h"
+#include "LogoScene.h"
 
 ModuleScene::ModuleScene(bool start_enabled) : Module(start_enabled)
 {
 	name = "scenes";
 
+	scenes[LOGO] = new LogoScene();
 	scenes[MAIN_MENU] = new MainMenu();
 	scenes[LEVEL_1] = new TestScene();
 
-	currentScene = MAIN_MENU;
+	currentScene = LEVEL_1;
 
 	//scenes[0] = new SceneMainMenu(app);
 	//scenes[1] = new SceneGameOver(app);

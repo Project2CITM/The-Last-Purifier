@@ -8,6 +8,7 @@
 #include "ClassTree.h"
 #include "SpellInfo.h"
 #include "Text.h"
+#include "ModuleAudio.h"
 
 TestScene::TestScene():Scene("testScene")
 {
@@ -21,7 +22,7 @@ bool TestScene::Start()
 {
     //advisorString = "hi";
 
-    player = new PlayerRevenant();
+    player = new PlayerSage();
     //app->renderer->camera->SetTarget(player->controller);
     //player = new PlayerSage(app);
     //playerController = new PlayerController("test", "test", app);
@@ -46,7 +47,6 @@ bool TestScene::Start()
     roomManager.Start();
     chargeDialog();
     Scene::Start();
-
     return true;
 }
 
@@ -110,6 +110,9 @@ bool TestScene::PreUpdate()
         }
 
     }
+
+    if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN) app->TogglePause(!app->isPause);
+
 
     //printf("Axis Left: X: %d Y: %d\n", app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTX), app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTY));
 
@@ -188,6 +191,10 @@ void TestScene::chargeDialog() {
     sentences.add(configDialog.child("purifier1").child("Sentence2").child_value());
     sentences.add(configDialog.child("purifier1").child("Sentence3").child_value());
     sentences.add(configDialog.child("purifier1").child("Sentence4").child_value());
+
+    int counter = 1;
+    std::string name = "Sentence" + to_string(counter);
+
     //sentences[1] = configDialog.child("Sentence1").child_value();
     //sentences[2] = configDialog.child("Sentence2").child_value();
 

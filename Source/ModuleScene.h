@@ -10,6 +10,7 @@ class Scene;
 
 enum SCENES
 {
+	LOGO,
 	MAIN_MENU,
 	GAME_OVER,
 	LEVEL_1,

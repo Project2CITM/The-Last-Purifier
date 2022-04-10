@@ -5,7 +5,7 @@
 #include "GameObject.h"
 #include "Timer.h"
 #include "ModuleTextures.h"
-
+#include "MapLoader.h"
 
 #define MAX_ROOMS_COLUMNS 8
 #define MAX_ROOMS_ROWS 8
@@ -43,6 +43,8 @@ private:
 	SDL_Texture* doorBotTexture = nullptr;
 
 	SDL_Texture* wallTexture[3] = {nullptr, nullptr, nullptr};
+
+	MapLoader* mapLoader = nullptr;
 
 	std::string folder;
 	std::string file;
