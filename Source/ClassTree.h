@@ -47,6 +47,7 @@ struct SkillTreeElement
 	};
 };
 
+//class Application;
 
 class ClassTree : public GameObject
 {
@@ -71,10 +72,15 @@ public:
 	//Loads the tree with all its upgrades
 	bool LoadTree();
 
+	//Saves the tree
+	bool SaveTree();
+
 private:
 	SkillTreeElement* skillTree[TREE_SIZE];
 
 	pugi::xml_document* classFile = new pugi::xml_document;
+
+	SDL_Texture* treeTexture = nullptr;
 public:
 	PlayerClass playerClass = PlayerClass::REVENANT;
 

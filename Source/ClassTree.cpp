@@ -1,4 +1,6 @@
 #include "ClassTree.h"
+#include "ModuleInput.h"
+#include "ModuleTextures.h"
 #include <iostream>
 
 ClassTree::ClassTree(PlayerClass pClass) : GameObject(name, tag)
@@ -18,9 +20,11 @@ void ClassTree::Start()
 	{
 	case PlayerClass::REVENANT:
 		result = classFile->load_file(REVENANT_TREE_XML);
+		treeTexture = app->textures->Load("Assets/Trees/Revenant_Tree.png");
 		break;
 	case PlayerClass::SAGE:
 		result = classFile->load_file(SAGE_TREE_XML);
+		treeTexture = app->textures->Load("Assets/Trees/Sage_Tree.png");
 		break;
 	}
 
@@ -31,17 +35,30 @@ void ClassTree::Start()
 
 void ClassTree::PreUpdate()
 {
-
+	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+	{
+		active = !active;
+	}
 }
 
 void ClassTree::Update()
 {
 	//std::cout << "A Skill name ->" << skillTree[3]->name << std::endl;
+
+	if (active)
+	{	//Loads Tree elements 
+		std::cout << "Git gud!" << std::endl;
+	}
 }
 
 void ClassTree::PostUpdate()
 {
 
+	if (active)
+	{	//Draws the ClassTree
+		//app->renderer->AddTextureRenderQueue(doorTopTexture, d->GetPosition() - d->size, { 0,0,0,0 }, TILE_SIZE / 16.0f, 3);
+
+	}
 }
 
 void ClassTree::CleanUp()
@@ -102,6 +119,12 @@ bool ClassTree::LoadTree()
 
 		bNode = bNode.next_sibling();
 	}
+
+	return true;
+}
+
+bool ClassTree::SaveTree()
+{
 
 	return true;
 }

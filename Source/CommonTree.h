@@ -73,6 +73,14 @@ private:
     //Loads the tree with all its upgrades
     bool LoadTree();
 
+    //Saves the tree with all the unlocks
+    bool SaveTree();
+
+    //Checks all the unlocked Upgrades and Updates the unlockedDic
+    bool CheckUpgrades();
+
+    //Increases the value of an attribute
+    void IncreaseValue(CommonUpgrades id);
 public:
     //Unlocks an Upgrade from the Loaded tree.
     //True if the upgrade has been unlocked without successfuly

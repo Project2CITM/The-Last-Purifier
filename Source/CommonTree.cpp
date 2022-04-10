@@ -49,6 +49,8 @@ bool CommonTree::LoadDictionary()
 
 		bNode = bNode.next_sibling();
 	}
+
+	return true;
 }
 
 bool CommonTree::LoadTree()
@@ -71,20 +73,51 @@ bool CommonTree::LoadTree()
 	return true;
 }
 
-bool CommonTree::Upgrade(int id)
+bool CommonTree::SaveTree()
 {
+
 
 	return true;
 }
 
+bool CommonTree::Upgrade(int id)
+{
+	TreeElement* element = getElement(id);
+	int req1 = element->requiresID1;
+	int req2 = element->requiresID2;
+
+	bool toReturn = true;
+
+	if (req1 != -1)
+	{
+		if (!getElement(req1)->unlocked)
+		{
+			toReturn = false;
+		}
+	}
+
+	if (req2 != -1)
+	{
+		if (!getElement(req2)->unlocked)
+		{
+			toReturn = false;
+		}
+	}
+
+	element->unlocked = toReturn;
+
+	//Increases the bonus attribute of an upgrade
+	IncreaseValue((CommonUpgrades) element->type);
+
+	return toReturn;
+}
+
 TreeElement* CommonTree::getElement(int id)
 {
-
 	ListItem<TreeElement*>* element = treeList->start;
 
 	while (element != NULL)
 	{
-
 		if (element->data->id == id)
 		{
 			return element->data;
@@ -93,4 +126,27 @@ TreeElement* CommonTree::getElement(int id)
 	}
 
 	return nullptr;
+}
+
+bool CommonTree::CheckUpgrades()
+{
+	bool toReturn = true;
+
+	ListItem<TreeElement*>* element = treeList->start;
+
+	while (element != NULL)
+	{
+		if (element->data->unlocked)
+		{
+			IncreaseValue((CommonUpgrades) element->data->type);
+		}
+		element = element->next;
+	}
+
+	return toReturn;
+}
+
+void CommonTree::IncreaseValue(CommonUpgrades id)
+{
+	unlockedDic.at(id) += upgradesDic.at(id);
 }
