@@ -54,7 +54,7 @@ public:
 
 	void AddGUICredtis(GUI* gui);
 
-	void AddGUIPause(GUI* gui);
+	virtual void AddGUIPause(GUI* gui);
 
 	void AddText(Text* text);
 

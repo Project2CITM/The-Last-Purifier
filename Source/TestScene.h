@@ -27,6 +27,8 @@ public:
 
 	void chargeDialog();
 
+	void AddGUIPause(GUI* gui) override;
+
 private:
 
 	RoomManager roomManager;

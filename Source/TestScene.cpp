@@ -200,3 +200,8 @@ void TestScene::chargeDialog() {
 
     //advisorString = configDialog.child("advisor").child_value();
 }
+
+void TestScene::AddGUIPause(GUI* gui)
+{
+    hudInGame.AddGUIPause(gui);
+}
