@@ -58,8 +58,6 @@ bool HUDInGame::Start()
 	QuitBUT = new GUIButton(quitBUT, 117, 47, MenuButton::INGAMEPUASE, "Assets/Sprites/UI/Quit.png");
 
 	CloseControlsBUT = new GUIButton({ app->renderer->camera->x + 282, app->renderer->camera->y + 325 }, 75, 25, MenuButton::CONTROLSPAUSE, "Assets/Sprites/UI/PlayBUT.png");
-	KeyboardBUT = new GUIButton({ app->renderer->camera->x + 100, app->renderer->camera->y + 125 }, 75, 25, MenuButton::CONTROLSPAUSE, "Assets/Sprites/UI/PlayBUT.png");
-	GamePadBUT = new GUIButton({ app->renderer->camera->x + 100, app->renderer->camera->y + 200 }, 75, 25, MenuButton::CONTROLSPAUSE, "Assets/Sprites/UI/PlayBUT.png");
 
 	CloseSettingsBUT = new GUIButton({ app->renderer->camera->x + 282, app->renderer->camera->y + 325 }, 75, 25, MenuButton::SETTINGSPAUSE, "Assets/Sprites/UI/PlayBUT.png");
 
@@ -187,18 +185,6 @@ bool HUDInGame::Update()
 			currentPauseMenu = CurrentPauseMenu::Pause;
 			CloseControlsBUT->doAction = false;
 		}
-
-		if (KeyboardBUT->doAction)
-		{
-			KeyboardControls = true;
-			KeyboardBUT->doAction = false;
-		}
-
-		if (GamePadBUT->doAction)
-		{
-			KeyboardControls = false;
-			GamePadBUT->doAction = false;
-		}
 	}
 
 	Scene::Update();
@@ -245,11 +231,11 @@ bool HUDInGame::PostUpdate()
 		}
 		//app->renderer->AddRectRenderQueue(pause, { 140, 215, 0, 255 }, true, 5, 2.0f, 0.0f);
 		if (currentPauseMenu == CurrentPauseMenu::Controls)
-		{ 
-			if(KeyboardControls)
-				app->renderer->AddRenderObjectRenderQueue(Controls1);
-			else
+		{
+			if(app->input->usingGameController)
 				app->renderer->AddRenderObjectRenderQueue(Controls2);
+			else
+				app->renderer->AddRenderObjectRenderQueue(Controls1);
 		}
 	}
 
