@@ -22,7 +22,7 @@ void MapLoader::LoadMap(short id)
 			filePath += "MiniBoss";
 			break;
 		case -3:
-			filePath += "MiniBoss";	//CHANGE initial room
+			filePath += "Start";
 			break;
 		}
 	}

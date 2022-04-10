@@ -280,8 +280,8 @@ Room* RoomManager::CreateRoom(iPoint mapPosition, short mapId)
 	case -2:
 		s = "MiniBoss";
 		break;
-	//case -3:
-	//	s = "StartRoom"; //CHANGE starting room
+	case -3:
+		s = "Start";
 		break;
 	default:
 		int ran = rand() % 14 + 1;
