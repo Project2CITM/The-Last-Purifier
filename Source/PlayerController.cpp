@@ -69,7 +69,7 @@ void PlayerController::Start()
 	// WARNING: They must be added following the order specified on the PlayerState Enum!!!
 	stateMachine.AddState("idle", 0);			//IDLE = 0
 	stateMachine.AddState("run", 0);			//RUN = 1
-	stateMachine.AddState("attack", 1, 32);		//ATTACK = 2
+	stateMachine.AddState("attack", 1, 5);		//ATTACK = 2
 	stateMachine.AddState("dash", 2, 25);		//DASH = 3
 
 	// Initialize physic body
@@ -200,21 +200,6 @@ void PlayerController::MovementUpdateKeyboard()
 	// By default, the player is always IDLE
 	stateMachine.ChangeState((uint)PlayerState::IDLE);
 
-	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-	{
-		if (!isDashing)
-		{
-			//Reset Dash animation in case it hadn't finished yet
-			animations[(int)PlayerAnim::DASH].Reset();
-		
-			//Change Player State
-			stateMachine.ChangeState((uint)PlayerState::DASH);
-
-			// do the dash
-			DashOn();
-		}
-	}
-
 	// If we are dashing, all other movement is disabled
 	if (isDashing) return;
 
@@ -272,6 +257,21 @@ void PlayerController::MovementUpdateKeyboard()
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_UP)
 	{
 		pBody->body->SetLinearVelocity({ 0,pBody->body->GetLinearVelocity().y });
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	{
+		if (!isDashing)
+		{
+			//Reset Dash animation in case it hadn't finished yet
+			animations[(int)PlayerAnim::DASH].Reset();
+
+			//Change Player State
+			stateMachine.ChangeState((uint)PlayerState::DASH);
+
+			// do the dash
+			DashOn();
+		}
 	}
 
 	// If we are moving dyagonally, we lower our velocity

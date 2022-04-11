@@ -5,7 +5,7 @@ void RoomManager::Start()
 {
 	mapLoader = new MapLoader();
 
-	GenerateMap(1);
+	GenerateMap(10);
 	
 	CreateDoors();
 
@@ -268,8 +268,8 @@ Room* RoomManager::CreateRoom(iPoint mapPosition, short mapId)
 	r->id = mapId;
 
 	//srand(time(NULL));
-	folder = "Assets/Maps/map";
-	file = ".png";
+	std::string folder = "Assets/Maps/map";
+	std::string file = ".png";
 
 	std::string s;
 
