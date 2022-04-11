@@ -11,6 +11,7 @@
 
 RenderObject Controls1;
 RenderObject Controls2;
+RenderObject PauseBG;
 
 HUDInGame::HUDInGame() :Scene("HUDInGame")
 {
@@ -31,6 +32,7 @@ bool HUDInGame::InitScene()
 
 bool HUDInGame::Start()
 {
+	PauseBG.InitAsTexture(app->textures->Load("Assets/Sprites/UI/PauseBG.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 1);
 	Controls1.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Controls1_2.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 1);
 	Controls2.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Controls2_2.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 1);
 
@@ -236,6 +238,11 @@ bool HUDInGame::PostUpdate()
 				app->renderer->AddRenderObjectRenderQueue(Controls2);
 			else
 				app->renderer->AddRenderObjectRenderQueue(Controls1);
+		}
+
+		if (currentPauseMenu == CurrentPauseMenu::Pause)
+		{
+			app->renderer->AddRenderObjectRenderQueue(PauseBG);
 		}
 	}
 
