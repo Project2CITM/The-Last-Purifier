@@ -161,9 +161,9 @@ bool TestScene::PostUpdate()
     // Test draw line  
     //app->renderer->AddLineRenderQueue(iPoint{ 50,50 }, iPoint{ 100,50 }, true, SDL_Color{ 255,255,255,255 }, 2, 50);
 
-    // Test draw rect  
+    //Test draw rect  
     //app->renderer->AddRectRenderQueue(SDL_Rect{ 50,50,50,50 }, SDL_Color{ 0,0,255,255 }, true, 2, 50);
-
+    app->renderer->AddRectRenderQueue(SDL_Rect{ 50,50,50,50 }, SDL_Color{ 250,0,0,255 }, true, 2,50);
     roomManager.PostUpdate();
     //app->physics->ShapesRender();
     hudInGame.PostUpdate();
