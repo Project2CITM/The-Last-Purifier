@@ -97,7 +97,7 @@ public:
 	short WORLD_LAYER = 0x0001;
 	short PLAYER_LAYER = 0x0002;
 	short PROJECTILE_LAYER = 0x0004;
-	short ENEMY_LAYER = 0x0006;
+	short ENEMY_LAYER = 0x0008;
 
 private:
 	b2Body* mouseBody = nullptr;
