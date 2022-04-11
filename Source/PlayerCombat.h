@@ -6,6 +6,7 @@
 #include "SpellList.h"
 #include "ExecuteSpell.h"
 #include "GameObject.h"
+#include "DamageArea.h"
 
 class Player;
 class PhysBody;
@@ -65,7 +66,7 @@ private:
 
 	float projectileSpeed = 10;
 
-	PhysBody* revenantAttack = nullptr;
+	DamageArea* revenantAttack = nullptr;
 
 	List<SpellInfo*> spellSlots; // A list of every spell slot and its current spell. If empty, it contains NONE.
 	List<SpellInfo*> deckSlots; // A list of every spell in the deck. If empty, contains NONE

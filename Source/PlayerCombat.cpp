@@ -12,8 +12,8 @@ PlayerCombat::PlayerCombat(std::string name, std::string tag, Player* player) : 
 
 void PlayerCombat::Start()
 {
-	revenantAttack = app->physics->CreateRectangleSensor(player->controller->GetPosition(), 12, 20, this);
-	revenantAttack->body->SetActive(false);
+	revenantAttack = new DamageArea(player->controller->GetPosition(), 12, 20, &player->damage);
+	revenantAttack->pBody->body->SetActive(false);
 
 	// Attack action stats
 	attackCD = player->attackSpeed;
@@ -60,7 +60,7 @@ void PlayerCombat::Update()
 		if (attackAreaCounter >= attackAreaCD)
 		{
 			attackAreaActive = false;
-			revenantAttack->body->SetActive(false);
+			revenantAttack->pBody->body->SetActive(false);
 			attackAreaCounter = 0;
 		}
 	}
@@ -159,7 +159,7 @@ void PlayerCombat::CheckDeck()
 
 void PlayerCombat::CleanUp()
 {
-	if (revenantAttack != nullptr) RELEASE(revenantAttack);
+	if (pendingToDelete) revenantAttack->pendingToDelete = true;
 	
 	executeSpellCommand.CleanUp();
 	spellSlots.clearPtr();
@@ -181,22 +181,19 @@ void PlayerCombat::PrintSlotsState()
 b2Vec2 PlayerCombat::GetAttackOffset()
 {
 	b2Vec2 attackOffset = { 0,0 };
-	float rotation = 0;
 	switch (player->controller->lookingDir)
 	{
 	case LookingDirection::DOWN:
-		attackOffset = { 0, 0.75f };
-		rotation = 90 * DEGTORAD;
+		attackOffset = { 0.25f, 0.75f };
 		break;
 	case LookingDirection::UP:
-		attackOffset = { 0, -2.0f };
-		rotation = 90 * DEGTORAD;
+		attackOffset = { 0.25f, -2.0f };
 		break;
 	case LookingDirection::LEFT:
-		attackOffset = { -1, -0.75f };
+		attackOffset = { -0.75f, -0.75f };
 		break;
 	case LookingDirection::RIGHT:
-		attackOffset = { 1, -0.75f };
+		attackOffset = { 1.5f, -0.75f };
 		break;
 	}
 
@@ -206,13 +203,15 @@ b2Vec2 PlayerCombat::GetAttackOffset()
 void PlayerCombat::RevenantAttack()
 {
 	// Set area as active
-	revenantAttack->body->SetActive(true);
+	revenantAttack->pBody->body->SetActive(true);
 
 	// Calculate attack offset and rotation based on looking direction
 	b2Vec2 attackOffset = GetAttackOffset();
+	float attackRotation = 0;
+	if (attackOffset.x == 0.25f) attackRotation = 90 * DEGTORAD;
 	
 	// Place on correct position
-	revenantAttack->body->SetTransform(player->controller->pBody->body->GetPosition() + attackOffset, rotation);
+	revenantAttack->pBody->body->SetTransform(player->controller->pBody->body->GetPosition() + attackOffset, attackRotation);
 
 	attackAreaActive = true;
 }

@@ -73,6 +73,12 @@
     <Filter Include="Archivos de encabezado\Player\Spells\SpellScripts">
       <UniqueIdentifier>{4cdcd82f-341b-4fe0-9412-78aac2ba547d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\Enemy">
+      <UniqueIdentifier>{5a8f239f-0099-41f6-b283-b0804b7ad4d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Enemy">
+      <UniqueIdentifier>{11287f92-69bb-42e3-9abb-dbc4f0799406}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderObject.hpp">
@@ -100,9 +106,6 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="TestScene.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="Particle.h">
@@ -240,6 +243,15 @@
     <ClInclude Include="PlayerStats.h">
       <Filter>Archivos de encabezado\Player\Scripts</Filter>
     </ClInclude>
+    <ClInclude Include="DamageArea.h">
+      <Filter>Archivos de encabezado\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Archivos de encabezado\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyDummy.h">
+      <Filter>Archivos de encabezado\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Scene.cpp">
@@ -261,9 +273,6 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="TestScene.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="ModuleAudio.cpp">
@@ -385,6 +394,15 @@
     </ClCompile>
     <ClCompile Include="PlayerStats.cpp">
       <Filter>Archivos de origen\Player\Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="DamageArea.cpp">
+      <Filter>Archivos de origen\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Archivos de origen\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyDummy.cpp">
+      <Filter>Archivos de origen\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

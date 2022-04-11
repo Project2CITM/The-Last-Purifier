@@ -24,6 +24,12 @@ public:
 	void OnCollisionEnter(PhysBody* col) override;
 
 	void OnCollisionExit(PhysBody* col) override;
+
+	void Hit(int damage);
+
+private:
+
+	int health = 40;
 };
 
 #endif // !__ENEMY_H__

@@ -11,6 +11,7 @@
 #include "ModuleAudio.h"
 #include "NPC.h"
 #include "CommonTree.h"
+#include "EnemyDummy.h"
 
 TestScene::TestScene():Scene("testScene")
 {
@@ -26,6 +27,8 @@ bool TestScene::Start()
     //advisorString = "hi";
 
     player = new PlayerSage();
+
+   
     //app->renderer->camera->SetTarget(player->controller);
     //player = new PlayerSage(app);
     //playerController = new PlayerController("test", "test", app);
@@ -55,6 +58,8 @@ bool TestScene::Start()
 
 
     Scene::Start();
+
+    new EnemyDummy(player->controller->GetPosition() + iPoint(40, 0));
     return true;
 }
 

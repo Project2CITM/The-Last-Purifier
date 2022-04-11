@@ -39,7 +39,7 @@ private:
 	HUDInGame* hudInGame = nullptr;
 	
 	//PlayerRevenant* player;
-	PlayerSage* player = nullptr;
+	Player* player = nullptr;
 
 	ClassTree* revenantTree = nullptr; //Test skill/spell tree7
 
