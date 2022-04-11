@@ -27,7 +27,6 @@
   </fonts>
 
   <dialogText>
-	  <advisor>Pulse M para hablar</advisor>
 	  <purifier1 Num="4">
 		  <Sentence1>Chico... ¡Acercate rapido!</Sentence1>
 		  <Sentence2>No se que haces aqui pero vuelve rapido a la aldea, aqui corres peligro</Sentence2>
@@ -38,7 +37,7 @@
 		  <Sentence1> Quien eres y que haces fuera de la aldea sin un protector</Sentence1>
 		  <Sentence2> Intenta no volver a salir sin proteccion, queda poco para que llegue el gran dia y debemos ser las maximas personas posibles.</Sentence2>
 	  </doorGuardian>
-	  <purifier2>
+	  <purifier2 Num="9">
 		  <Sentence1> ¿Que haces con un guante de purificador?</Sentence1>
 		  <Sentence2> Encontré a un señor con túnica y me cedió el guante. Parecía que estaba en serios apuros.</Sentence2>
 		  <Sentence3> Llevas un guante de purificador, con él puedes usar magia arcana. </Sentence3>
@@ -60,7 +59,7 @@
 		  </Sentence8>
 		  <Sentence9> Acompáñame y te enseñaré a usar el guante que llevas puesto.</Sentence9>
 	  </purifier2>
-	  <purifier2Dialog2>
+	  <purifier2Dialog2 Num="3">
 		  <Sentence1> Bienvenido al campo de entrenamiento, aquí podrás aprender a usar el guante.</Sentence1>
 		  <Sentence2> Hay 2 tipos de purificadores, los revenant y los sage. 
 		  Si escoges ser revenant se te otorgará una arma melé, es una arma ligera y con mucho daño, que junto a tu guante conseguirás una letal combinación.
@@ -70,6 +69,56 @@
 			  Combinalo bien con el guante para que nunca se te acerca un enemigo y poder salir vivo del terreno.
 		  </Sentence3>
 	  </purifier2Dialog2>
+	  <purifier3 Num="3">
+		  <Sentence1>
+			  Espera! Si cruzas esta puerta te expondrás a los peligros del infierno exterior. Siempre que quieras puedes volver aquí gastando x almas.
+		  </Sentence1>
+		  <Sentence2>
+			  El guante que llevas en el brazo lleva incorporado un detector de pulsaciones.
+		  </Sentence2>
+		  <Sentence3>
+			  En caso de que sean muy bajas y estés a punto de morir consumirá una gran cantidad de almas para volver a la aldea. 
+			  Buena suerte purificador, confiamos en ti.
+		  </Sentence3>
+	  </purifier3>
+	  <purifier4 Num="1">
+		  <Sentence1>
+			  Aun sueño con el dia en el que llegará el salvador y haga de este sitio un mundo mejor.
+		  </Sentence1>
+	  </purifier4>
+	  <purifier5 Num="1">
+		  <Sentence1>
+			  Solo unos pocos locos creen aún que llegará un angel que salve este sitio de las almas malditas.
+		  </Sentence1>
+	  </purifier5>
+	  <purifier6 Num="1">
+		  <Sentence1>
+			  ¡Que ganas que llegue el gran día! Segun la profecia, será el dia en el que llegue nuestro salvador.
+		  </Sentence1>
+	  </purifier6>
+	  <purifier7 Num="1">
+		  <Sentence1>
+			  Ellos solo quieren morir en paz…
+		  </Sentence1>
+	  </purifier7>
+	  <purifier8>
+		  <Sentence1>
+			  Es ver esa puerta y vuelven todos esos recuerdos de batallas pasadas…
+		  </Sentence1>
+	  </purifier8>
+	  <purifier9 Num="1">
+		  <Sentence1>
+			  Nadie ha llegado aun al tercer piso. Me pregunto que habrá ahí.
+		  </Sentence1>
+	  </purifier9>
+	  <purifier10 Num ="2">
+		  <Sentence1>
+			  Sueño con ella todas las noches… Recuerdo su sonrisa la última vez que salió por la puerta de casa.
+		  </Sentence1>
+		  <Sentence2>
+			  Sigo esperando que vuelva algún día.
+		  </Sentence2>
+	  </purifier10>
 	  
   </dialogText>
   
