@@ -8,7 +8,7 @@
 
 #define MAX_ROOM_TILES_COLUMNS 81
 #define MAX_ROOM_TILES_ROWS 35
-#define TILE_SIZE 1 //16
+#define TILE_SIZE 16 //16
 
 enum class DoorOrientations {
 	RIGHT,

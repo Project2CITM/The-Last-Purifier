@@ -4,6 +4,13 @@
 Projectile::Projectile(std::string name, iPoint position, fPoint speed, float damage, bool fire, bool stun, bool isEnemy) : GameObject(name, name)
 {
 	pBody = app->physics->CreateRectangle(position, 4, 4, this);
+	b2Filter filter;
+	filter.categoryBits = app->physics->PROJECTILE_LAYER;
+
+	if (isEnemy) filter.maskBits = app->physics->PLAYER_LAYER | app->physics->WORLD_LAYER;
+	else filter.maskBits = app->physics->EVERY_LAYER & ~app->physics->PLAYER_LAYER;
+
+	pBody->body->GetFixtureList()[0].SetFilterData(filter);
 
 	this->damage = damage;
 	this->isEnemy = isEnemy;

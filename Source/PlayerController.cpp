@@ -179,9 +179,20 @@ void PlayerController::CreatePhysBody()
 
 	pBody->body->CreateFixture(&circleR);
 
+	b2Filter filter;
+	filter.categoryBits = app->physics->PLAYER_LAYER;
+
+	b2Fixture* bodyFixture = pBody->body->GetFixtureList();
+	while (bodyFixture != nullptr)
+	{
+		bodyFixture->SetFilterData(filter);
+		bodyFixture = bodyFixture->GetNext();
+	}
+
 	// Initialize enemy trigger body
 	enemyTrigger = new Trigger(GetPosition(), 8, 16, this, "Player");
 	enemyTrigger->positionOffset = { 8, -12 };
+	enemyTrigger->pBody->body->GetFixtureList()[0].SetFilterData(filter);
 }
 
 void PlayerController::MovementUpdateKeyboard()

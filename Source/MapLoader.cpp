@@ -6,7 +6,7 @@ void MapLoader::ExtractMapColliders(Room* r)
 	CreateColliders(r);
 }
 
-void MapLoader::LoadMap(short id)
+void MapLoader ::LoadMap(short id)
 {
 	//Create path from id
 	string filePath = "Assets/Maps/map";
@@ -55,8 +55,20 @@ void MapLoader::CreateColliders(Room* r)
 					r->roomPosition.x * MAX_ROOM_TILES_COLUMNS * TILE_SIZE + j * TILE_SIZE + TILE_SIZE / 2,
 					r->roomPosition.y * MAX_ROOM_TILES_ROWS * TILE_SIZE + i * TILE_SIZE + TILE_SIZE / 2),
 					TILE_SIZE / 2, TILE_SIZE / 2, nullptr, b2_staticBody));
+
+				// Hole Collision---------------------------------------------------
+				/*PhysBody* holeCollision = app->physics->CreateRectangle(iPoint(
+					r->roomPosition.x * MAX_ROOM_TILES_COLUMNS * TILE_SIZE + j * TILE_SIZE + TILE_SIZE / 2,
+					r->roomPosition.y * MAX_ROOM_TILES_ROWS * TILE_SIZE + i * TILE_SIZE + TILE_SIZE / 2),
+					TILE_SIZE / 2, TILE_SIZE / 2, nullptr, b2_staticBody);
+				b2Filter filter;
+				filter.categoryBits = app->physics->PROJECTILE_LAYER;
+				holeCollision->body->GetFixtureList()[0].SetFilterData(filter);
+				r->colliders.add(holeCollision);*/
+				
 			}
 			tile = tile.next_sibling();
 		}
 	}
 }
+
