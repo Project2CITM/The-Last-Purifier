@@ -31,8 +31,8 @@ bool HUDInGame::InitScene()
 
 bool HUDInGame::Start()
 {
-	Controls1.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Controls1.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4);
-	Controls2.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Controls2.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4);
+	Controls1.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Controls1_2.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 1);
+	Controls2.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Controls2_2.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 1);
 
 	hpRect = { app->renderer->camera->x + 15, app->renderer->camera->y + 10, 200, 10 };
 
@@ -57,9 +57,9 @@ bool HUDInGame::Start()
 	GiveUpBUT = new GUIButton(giveUpBUT, 117, 47, MenuButton::INGAMEPUASE, "Assets/Sprites/UI/giveUp.png");
 	QuitBUT = new GUIButton(quitBUT, 117, 47, MenuButton::INGAMEPUASE, "Assets/Sprites/UI/Quit.png");
 
-	CloseControlsBUT = new GUIButton({ app->renderer->camera->x + 282, app->renderer->camera->y + 325 }, 75, 25, MenuButton::CONTROLSPAUSE, "Assets/Sprites/UI/PlayBUT.png");
+	CloseControlsBUT = new GUIButton({ app->renderer->camera->x + 282, app->renderer->camera->y + 300 }, 46, 46, MenuButton::CONTROLSPAUSE, "Assets/Sprites/UI/Back.png");
 
-	CloseSettingsBUT = new GUIButton({ app->renderer->camera->x + 282, app->renderer->camera->y + 325 }, 75, 25, MenuButton::SETTINGSPAUSE, "Assets/Sprites/UI/PlayBUT.png");
+	CloseSettingsBUT = new GUIButton({ app->renderer->camera->x + 282, app->renderer->camera->y + 300 }, 46, 46, MenuButton::SETTINGSPAUSE, "Assets/Sprites/UI/Back.png");
 
 	MusicBUT = new GUIButton({ app->renderer->camera->x + 275, app->renderer->camera->y + 100 }, 27, 46, MenuButton::SETTINGSPAUSE, "Assets/Sprites/UI/fireSlider.png");
 	MusicSlider = new GUISlider({ app->renderer->camera->x + 275, app->renderer->camera->y + 100 }, 300, 14, MenuButton::SETTINGSPAUSE, "Assets/Sprites/UI/Slider1.png");

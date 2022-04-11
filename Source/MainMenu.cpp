@@ -13,6 +13,7 @@
 
 // Si no lo pone aqui, sale un menoryleak, nose porque
 RenderObject fondo;
+RenderObject options;
 RenderObject credtis;
 
 MainMenu::MainMenu():Scene("MainMenu")
@@ -37,6 +38,7 @@ bool MainMenu::InitScene()
 bool MainMenu::Start()
 {
 	fondo.InitAsTexture(app->textures->Load("Assets/Sprites/UI/background.png"), { 0,0 }, {0,0,0,0}, 0.5f);
+	options.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Options.png"), { 0,0 }, {0,0,0,0}, 0.5f);
 	credtis.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Credtis.png"), { 0,0 }, {0,0,0,0}, 0.5f);
 
 	//background del menu
@@ -54,19 +56,19 @@ bool MainMenu::Start()
 	ExitBUT = new GUIButton({ 150, 285 }, 50, 15, MenuButton::MAIN, "Assets/Sprites/UI/QuitBUT.png");
 	LinkBUT = new GUIButton({ 20, 330 }, 59, 16, MenuButton::MAIN, "Assets/Sprites/UI/linkBUT.png"); 
 
-	CloseOptBUT = new GUIButton({ 285, 330 }, 75, 25, MenuButton::OPTIONS);
+	CloseOptBUT = new GUIButton({ 297, 300 }, 46, 46, MenuButton::OPTIONS, "Assets/Sprites/UI/Back.png");
 
-	MusicBUT = new GUIButton({ 275, 100 }, 27, 46, MenuButton::OPTIONS, "Assets/Sprites/UI/fireSlider.png");
-	MusicSlider = new GUISlider({ 275, 100 }, 300, 14, MenuButton::OPTIONS, "Assets/Sprites/UI/Slider1.png");
+	MusicBUT = new GUIButton({ 200, 125 }, 27, 46, MenuButton::OPTIONS, "Assets/Sprites/UI/fireSlider.png");
+	MusicSlider = new GUISlider({ 200, 125 }, 300, 14, MenuButton::OPTIONS, "Assets/Sprites/UI/Slider1.png");
 	MusicSlider->CreateGUIBtn(MusicBUT);
 
-	fxBUT = new GUIButton({ 275, 175 }, 27, 46, MenuButton::OPTIONS, "Assets/Sprites/UI/fireSlider.png");
-	fxSlider = new GUISlider({ 275, 175 }, 300, 14, MenuButton::OPTIONS, "Assets/Sprites/UI/Slider1.png");
+	fxBUT = new GUIButton({ 200, 200 }, 27, 46, MenuButton::OPTIONS, "Assets/Sprites/UI/fireSlider.png");
+	fxSlider = new GUISlider({ 200, 200 }, 300, 14, MenuButton::OPTIONS, "Assets/Sprites/UI/Slider1.png");
 	fxSlider->CreateGUIBtn(fxBUT);
 
-	FullScreenCHK = new GUICheckbox({ 400, 250 }, 60, 60, MenuButton::OPTIONS, "Assets/Sprites/UI/CheckBox.png");
+	FullScreenCHK = new GUICheckbox({ 350, 215 }, 60, 60, MenuButton::OPTIONS, "Assets/Sprites/UI/CheckBox.png");
 
-	CloseCrdBUT = new GUIButton({ 285, 330 }, 75, 25, MenuButton::CREDITS);
+	CloseCrdBUT = new GUIButton({ 297, 300 }, 46, 46, MenuButton::CREDITS, "Assets/Sprites/UI/Back.png");
 
 	Scene::Start();
 
@@ -189,7 +191,8 @@ bool MainMenu::PostUpdate()
 			if (guisOptions[i]) guisOptions[i]->PostUpdate();
 		}
 
-		app->renderer->AddRectRenderQueue({ 100, 25, 500, 300 }, { 140, 215, 0, 255 });
+		app->renderer->AddRenderObjectRenderQueue(options);
+		//app->renderer->AddRectRenderQueue({ 100, 25, 500, 300 }, { 140, 215, 0, 255 });
 	}
 
 	if (currentMenu == CurrentMenu::Credtis)
