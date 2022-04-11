@@ -64,8 +64,7 @@ void NPC::Update()
 
 void NPC::PostUpdate()
 {
-	app->renderer->AddRectRenderQueue(npcRect, {140, 215, 0}, 3);
-
+	app->renderer->AddRectRenderQueue(npcRect, SDL_Color{ 250,0,0,255 }, true, 2, 50);
 }
 
 void NPC::CleanUp()
