@@ -111,13 +111,16 @@
 			  Nadie ha llegado aun al tercer piso. Me pregunto que habrá ahí.
 		  </Sentence1>
 	  </purifier9>
-	  <purifier10 Num ="2">
+	  <purifier10 Num ="3">
 		  <Sentence1>
-			  Sueño con ella todas las noches… Recuerdo su sonrisa la última vez que salió por la puerta de casa.
+			  Sueño con ella todas las noches...  
 		  </Sentence1>
 		  <Sentence2>
-			  Sigo esperando que vuelva algún día.
+			  Recuerdo su sonrisa la última vez que salió por la puerta de casa.
 		  </Sentence2>
+		  <Sentence3>
+			  Sigo esperando que vuelva algún día.
+		  </Sentence3>
 	  </purifier10>
 	  
   </dialogText>

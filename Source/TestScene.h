@@ -25,7 +25,6 @@ public:
 
 	bool CleanUp() override;
 
-	void chargeDialog();
 
 	void AddGUIPause(GUI* gui) override;
 
@@ -49,12 +48,10 @@ private:
 	int separadorCont = 0;
 	int dialogCont = 1;
 
-	List<string> sentences;
 	//string advisorString;
 	//std::string advisorString = "";
 
-	Text* t;
-	Text* advisor;
+
 	//std::string sentence3 = "";
 };
 

@@ -47,9 +47,8 @@ bool TestScene::Start()
 
     hudInGame.Start();
     roomManager.Start();
-    chargeDialog();
 
-    new NPC("purifier1", { 0,0 });
+    new NPC("purifier10", { 20,300 });
 
 
     Scene::Start();
@@ -183,29 +182,12 @@ bool TestScene::CleanUp()
     //advisor->pendingToDelate = true;
     //t->pendingToDelate = true;
     //sentence[1].clear();
-    sentences.clear();
     hudInGame.CleanUp();
     roomManager.CleanUp();
     Scene::CleanUp();    
     return false;
 }
-void TestScene::chargeDialog() {
-    configDialog = app->config.child("dialogText");
 
-    sentences.add(configDialog.child("advisor").child_value());
-    sentences.add(configDialog.child("purifier1").child("Sentence1").child_value());
-    sentences.add(configDialog.child("purifier1").child("Sentence2").child_value());
-    sentences.add(configDialog.child("purifier1").child("Sentence3").child_value());
-    sentences.add(configDialog.child("purifier1").child("Sentence4").child_value());
-
-    int counter = 1;
-    std::string name = "Sentence" + to_string(counter);
-
-    //sentences[1] = configDialog.child("Sentence1").child_value();
-    //sentences[2] = configDialog.child("Sentence2").child_value();
-
-    //advisorString = configDialog.child("advisor").child_value();
-}
 
 void TestScene::AddGUIPause(GUI* gui)
 {
