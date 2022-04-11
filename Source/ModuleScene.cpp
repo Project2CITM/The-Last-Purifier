@@ -15,7 +15,7 @@ ModuleScene::ModuleScene(bool start_enabled) : Module(start_enabled)
 	scenes[MAIN_MENU] = new MainMenu();
 	scenes[LEVEL_1] = new TestScene();
 
-	currentScene = LEVEL_1;
+	currentScene = MAIN_MENU;
 
 	//scenes[0] = new SceneMainMenu(app);
 	//scenes[1] = new SceneGameOver(app);

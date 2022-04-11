@@ -5,7 +5,7 @@ void RoomManager::Start()
 {
 	mapLoader = new MapLoader();
 
-	GenerateMap(1);
+	GenerateMap(10);
 	
 	CreateDoors();
 
