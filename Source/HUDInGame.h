@@ -70,7 +70,7 @@ private:
 	GUISlider* MusicSlider = nullptr;
 	GUISlider* fxSlider = nullptr;
 
-	GUICheckbox* FullScreenCHK;
+	GUICheckbox* FullScreenCHK = nullptr;
 
 	CurrentPauseMenu currentPauseMenu;
 

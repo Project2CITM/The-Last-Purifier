@@ -46,7 +46,8 @@ bool TestScene::Start()
    // advisor = new Text({ 0,0 },"","defaultFont");
     //t->SetColor({ 255,255,0,100 });
 
-    hudInGame.Start();
+    hudInGame = new HUDInGame();
+    hudInGame->Start();
     roomManager.Start();
 
     NPC* npc1 = new NPC("purifier10", { 20,300 });
@@ -123,7 +124,7 @@ bool TestScene::PreUpdate()
 
     //printf("Axis Left: X: %d Y: %d\n", app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTX), app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTY));
 
-    hudInGame.PreUpdate();
+    hudInGame->PreUpdate();
     Scene::PreUpdate();
     return true;
 }
@@ -142,7 +143,7 @@ bool TestScene::Update()
     //if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
     //    roomManager.mapMovement.y += 10;
 
-    hudInGame.Update();
+    hudInGame->Update();
     roomManager.Update();
     Scene::Update();
     return true;
@@ -167,7 +168,7 @@ bool TestScene::PostUpdate()
     //app->renderer->AddRectRenderQueue(SDL_Rect{ 50,50,50,50 }, SDL_Color{ 0,0,255,255 }, true, 2, 50);
     roomManager.PostUpdate();
     //app->physics->ShapesRender();
-    hudInGame.PostUpdate();
+    hudInGame->PostUpdate();
     Scene::PostUpdate();
     return true;
 }
@@ -183,7 +184,11 @@ bool TestScene::CleanUp()
     //advisor->pendingToDelate = true;
     //t->pendingToDelate = true;
     //sentence[1].clear();
-    hudInGame.CleanUp();
+    if (hudInGame != nullptr)
+    {
+        hudInGame->CleanUp();
+        RELEASE(hudInGame);
+    }
     roomManager.CleanUp();
     Scene::CleanUp();    
     return false;
@@ -192,15 +197,15 @@ bool TestScene::CleanUp()
 
 void TestScene::AddGUIPause(GUI* gui)
 {
-    hudInGame.AddGUIPause(gui);
+    hudInGame->AddGUIPause(gui);
 }
 
 void TestScene::AddGUIControls(GUI* gui)
 {
-    hudInGame.AddGUIControls(gui);
+    hudInGame->AddGUIControls(gui);
 }
 
 void TestScene::AddGUISettingsP(GUI* gui)
 {
-    hudInGame.AddGUISettingsP(gui);
+    hudInGame->AddGUISettingsP(gui);
 }

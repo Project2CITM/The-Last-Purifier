@@ -36,24 +36,18 @@ public:
 private:
 
 	RoomManager roomManager;
-	HUDInGame hudInGame;
+	HUDInGame* hudInGame = nullptr;
 	
 	//PlayerRevenant* player;
-	PlayerSage* player;
+	PlayerSage* player = nullptr;
 
-	ClassTree* revenantTree; //Test skill/spell tree7
+	ClassTree* revenantTree = nullptr; //Test skill/spell tree7
 
 	//Dialog
-	pugi::xml_node configDialog;
+	/*pugi::xml_node configDialog;
 	bool dialogEnable = false;
 	bool separador = false;
 	int separadorCont = 0;
-	int dialogCont = 1;
-
-	//string advisorString;
-	//std::string advisorString = "";
-
-
-	//std::string sentence3 = "";
+	int dialogCont = 1;*/
 };
 
