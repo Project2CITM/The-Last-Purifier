@@ -3,5 +3,5 @@
 
 EnemyDummy::EnemyDummy(iPoint pos)
 {
-	pBody = app->physics->CreateRectangle(pos, 10, 14, this, b2BodyType::b2_kinematicBody);
+	pBody = app->physics->CreateRectangle(pos, 10, 14, this);
 }
