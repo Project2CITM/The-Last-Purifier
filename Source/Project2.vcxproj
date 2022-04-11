@@ -131,6 +131,7 @@
     <ClInclude Include="PlayerStats.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Projectile.h" />
+    <ClInclude Include="PurifiedSwordS.h" />
     <ClInclude Include="RenderObject.hpp" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="RoomManager.h" />
@@ -182,6 +183,7 @@
     <ClCompile Include="PlayerSage.cpp" />
     <ClCompile Include="PlayerStats.cpp" />
     <ClCompile Include="Projectile.cpp" />
+    <ClCompile Include="PurifiedSwordS.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="RoomManager.cpp" />
     <ClCompile Include="Scene.cpp" />

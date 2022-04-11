@@ -2,6 +2,7 @@
 #define _SPELL_
 
 #include <stdio.h>
+#include "External/PugiXml/src/pugixml.hpp"
 
 enum class SpellID
 {
@@ -15,7 +16,16 @@ enum class SpellID
 	PURIFICATION_THRUST,
 	DASH_SLASH,
 	TORMENT,
-	CREMATORIUM
+	CREMATORIUM,
+	FOTEIROS,
+	TYCHAIA,
+	PNEUMA,
+	EKRISKI,
+	EGEIRO,
+	TIMORIA,
+	ASTRAPI,
+	SOTERIA,
+	PSYCHE
 };
 
 class Spell
@@ -34,5 +44,7 @@ public:
 protected:
 	int uses = 1;
 
+	pugi::xml_node spellStats;
+	pugi::xml_document doc;
 };
 #endif
