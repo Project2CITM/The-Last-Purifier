@@ -73,8 +73,8 @@ public:
 	iPoint GetDoorSize(DoorOrientations orient);
 
 private:
-	iPoint doorPos[4] = { {80,18},{39,34},{0,18},{39,0} };
-	iPoint doorSize[4] = { {1,2},{3,1},{1,2},{3,6} };
+	iPoint doorPos[4] = { {80,17},{39,34},{0,17},{39,0} };
+	iPoint doorSize[4] = { {1,3},{3,1},{1,3},{3,6} };
 
 public:
 	short id = 0;
