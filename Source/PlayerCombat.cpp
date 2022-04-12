@@ -99,7 +99,7 @@ void PlayerCombat::ChangeSelectedSpellSlot(int num)
 {
 	selectedSpell += num; // Change Selected Spell Slot
 
-	if (selectedSpell > availableSpellSlots) // If we are over the limit, go back to first
+	if (selectedSpell >= availableSpellSlots) // If we are over the limit, go back to first
 	{
 		selectedSpell = 0;
 	}

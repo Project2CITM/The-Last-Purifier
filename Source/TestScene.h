@@ -1,4 +1,4 @@
-#include "Scene.h"
+#include "SceneGame.h"
 
 #include "RoomManager.h"
 #include "HUDInGame.h"
@@ -9,7 +9,7 @@ class PlayerRevenant;
 class PlayerSage;
 class ClassTree;
 
-class TestScene :  public Scene
+class TestScene :  public SceneGame
 {
 public:
 
@@ -39,8 +39,6 @@ private:
 	RoomManager roomManager;
 	HUDInGame* hudInGame = nullptr;
 	ClassTreeHud* classTreeHud = nullptr;
-	//PlayerRevenant* player;
-	Player* player = nullptr;
 
 	ClassTree* revenantTree = nullptr; //Test skill/spell tree
 

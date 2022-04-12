@@ -28,6 +28,8 @@ enum class SpellID
 	PSYCHE
 };
 
+class Player;
+
 class Spell
 {
 public:
@@ -44,6 +46,8 @@ public:
 protected:
 	int uses = 1;
 
+	Player* player = nullptr;
+	
 	pugi::xml_node spellStats;
 	pugi::xml_document doc;
 };
