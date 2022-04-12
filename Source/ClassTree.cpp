@@ -4,7 +4,9 @@
 #include "ModuleRender.h"
 #include <iostream>
 
-ClassTree::ClassTree(PlayerClass pClass) : GameObject(name, tag)
+ClassTree* ClassTree::instance = nullptr;
+
+ClassTree::ClassTree(PlayerClass pClass)
 {
 	playerClass = pClass;
 }
@@ -12,6 +14,15 @@ ClassTree::ClassTree(PlayerClass pClass) : GameObject(name, tag)
 ClassTree::~ClassTree()
 {
 
+}
+
+ClassTree* ClassTree::GetInstance(PlayerClass pClass)
+{
+	if (instance == nullptr)
+	{
+		instance = new ClassTree(pClass);
+	}
+	return instance;
 }
 
 void ClassTree::Start()
@@ -36,10 +47,7 @@ void ClassTree::Start()
 
 void ClassTree::PreUpdate()
 {
-	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
-	{
-		//active = !active;
-	}
+
 }
 
 void ClassTree::Update()
@@ -62,6 +70,16 @@ void ClassTree::PostUpdate()
 	//	app->renderer->AddTextureRenderQueue(treeTexture, drawP, {0 , 0, 0, 0}, 0.5f, 4, 0, 0, SDL_FLIP_NONE, 1.0f);
 	//	std::cout << "x->" << drawP.x << " |y->" << drawP.y << std::endl;
 	//}
+}
+
+void ClassTree::ReleaseInstance()
+{
+	if (instance != nullptr)
+	{
+		CleanUp();
+		delete instance;
+		instance = nullptr;
+	}
 }
 
 void ClassTree::CleanUp()

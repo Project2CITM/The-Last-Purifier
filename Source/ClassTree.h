@@ -47,19 +47,21 @@ struct SkillTreeElement
 	};
 };
 
-class ClassTree : public GameObject
+class ClassTree 
 {
 public:
-	ClassTree(PlayerClass pClass);
-	~ClassTree();
 
-	void Start() override;
+	static ClassTree* GetInstance(PlayerClass pClass);
 
-	void PreUpdate() override;
+	void Start();
 
-	void Update() override;
+	void PreUpdate();
 
-	void PostUpdate() override;
+	void Update();
+
+	void PostUpdate();
+
+	void ReleaseInstance();
 
 	virtual void CleanUp();
 public:
@@ -76,6 +78,12 @@ public:
 	int getCurrentLevel(int id);
 
 private:
+
+	static ClassTree* instance;
+
+	ClassTree(PlayerClass pClass);
+	~ClassTree();
+
 	SkillTreeElement* skillTree[TREE_SIZE];
 
 	pugi::xml_document* classFile = new pugi::xml_document;

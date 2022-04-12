@@ -36,7 +36,7 @@ bool TestScene::Start()
     app->renderer->camera->SetTarget(player->controller);
 
     //Test Skill/Spell tree
-    revenantTree = new ClassTree(PlayerClass::REVENANT);
+    revenantTree = ClassTree::GetInstance(PlayerClass::REVENANT);
 
     // Test particle
     Particle* p = new Particle({ 0,0 }, 2, 0, { 1,0 });
@@ -134,7 +134,9 @@ bool TestScene::PreUpdate()
     //printf("Axis Left: X: %d Y: %d\n", app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTX), app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTY));
 
     hudInGame->PreUpdate();
+    revenantTree->PreUpdate();
     classTreeHud->PreUpdate();
+
 
     Scene::PreUpdate();
     return true;
@@ -155,6 +157,7 @@ bool TestScene::Update()
     //    roomManager.mapMovement.y += 10;
 
     hudInGame->Update();
+    revenantTree->Update();
     classTreeHud->Update();
     roomManager.Update();
     Scene::Update();
@@ -179,6 +182,7 @@ bool TestScene::PostUpdate()
     //Test draw rect
     //app->renderer->AddRectRenderQueue(SDL_Rect{ 50,50,50,50 }, SDL_Color{ 0,0,255,255 }, true, 2, 50);
     roomManager.PostUpdate();
+    revenantTree->PostUpdate();
     classTreeHud->PostUpdate();
     //app->physics->ShapesRender();
     hudInGame->PostUpdate();
@@ -208,6 +212,8 @@ bool TestScene::CleanUp()
         RELEASE(classTreeHud);
     }
     roomManager.CleanUp();
+
+    revenantTree->ReleaseInstance();
 
     Scene::CleanUp();
     return false;
