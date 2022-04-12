@@ -1,4 +1,6 @@
 #include "Scene.h"
+#include "ModuleRender.h"
+
 
 Scene::Scene(std::string name)
 {
@@ -104,6 +106,11 @@ bool Scene::CleanUp()
 	guisControls.clearPtr();
 
 	texts.clearPtr();
+
+	if (app->renderer->camera != nullptr)
+	{
+		app->renderer->camera->ReleaseTarget();
+	}
 
 	return true;
 }

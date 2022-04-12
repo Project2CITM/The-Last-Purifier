@@ -62,6 +62,4 @@ void SpellList::CleanUp()
 			spells[i] = nullptr;
 		}
 	}
-	
-
 }

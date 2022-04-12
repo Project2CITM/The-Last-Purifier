@@ -13,7 +13,7 @@ Projectile::Projectile(std::string name, iPoint position, fPoint speed, int dama
 	b2Filter filter;
 	filter.categoryBits = app->physics->PROJECTILE_LAYER;
 
-	if (isEnemy) filter.maskBits = app->physics->EVERY_LAYER & ~app->physics->ENEMY_LAYER;
+	if (isEnemy) filter.maskBits = app->physics->EVERY_LAYER & ~app->physics->ENEMY_LAYER & ~app->physics->PROJECTILE_LAYER;
 	else filter.maskBits = app->physics->EVERY_LAYER & ~app->physics->PLAYER_LAYER & ~app->physics->PROJECTILE_LAYER;
 
 	pBody->body->GetFixtureList()[0].SetFilterData(filter);
