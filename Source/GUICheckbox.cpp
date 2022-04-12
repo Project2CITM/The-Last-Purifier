@@ -9,8 +9,8 @@ GUICheckbox::GUICheckbox(iPoint pos, int width, int height, MenuButton currentMe
 	renderObject = new RenderObject();
 	renderObject->texture = app->textures->Load(path);
 	renderObject->destRect = { pos.x, pos.y, width, height };
-	renderObject->layer = 3;
-	renderObject->orderInLayer = 10;
+	renderObject->layer = 4;
+	renderObject->orderInLayer = 15;
 	renderObject->scale = 1;
 
 	// The Button texture must be three images of the different states of the button, organized from top to bottom in order of:
