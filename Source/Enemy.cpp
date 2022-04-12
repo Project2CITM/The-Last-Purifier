@@ -32,6 +32,7 @@ void Enemy::CleanUp()
 
 void Enemy::OnCollisionEnter(PhysBody* col)
 {
+	if (col->gameObject == nullptr) return;
 	if (col->gameObject->tag == "DamageArea") // If hit by a DamageArea
 	{
 		DamageArea* takenDamage = (DamageArea*)col->gameObject;
