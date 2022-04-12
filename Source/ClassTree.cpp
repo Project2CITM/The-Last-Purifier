@@ -1,6 +1,7 @@
 #include "ClassTree.h"
 #include "ModuleInput.h"
 #include "ModuleTextures.h"
+#include "ModuleRender.h"
 #include <iostream>
 
 ClassTree::ClassTree(PlayerClass pClass) : GameObject(name, tag)
@@ -20,11 +21,11 @@ void ClassTree::Start()
 	{
 	case PlayerClass::REVENANT:
 		result = classFile->load_file(REVENANT_TREE_XML);
-		treeTexture = app->textures->Load("Assets/Trees/Revenant_Tree.png");
+		//treeTexture = app->textures->Load("Assets/Sprites/UI/Trees/Revenant_Tree.png");
 		break;
 	case PlayerClass::SAGE:
 		result = classFile->load_file(SAGE_TREE_XML);
-		treeTexture = app->textures->Load("Assets/Trees/Sage_Tree.png");
+		//treeTexture = app->textures->Load("Assets/Sprites/UI/Trees/Sage_Tree.png");
 		break;
 	}
 
@@ -35,9 +36,9 @@ void ClassTree::Start()
 
 void ClassTree::PreUpdate()
 {
-	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
-		active = !active;
+		//active = !active;
 	}
 }
 
@@ -45,20 +46,22 @@ void ClassTree::Update()
 {
 	//std::cout << "A Skill name ->" << skillTree[3]->name << std::endl;
 
-	if (active)
-	{	//Loads Tree elements 
-		std::cout << "Git gud!" << std::endl;
-	}
+	//if (active)
+	//{	//Loads Tree elements 
+		//std::cout << "Git gud!" << std::endl;
+	//}
 }
 
 void ClassTree::PostUpdate()
 {
 
-	if (active)
-	{	//Draws the ClassTree
-		//app->renderer->AddTextureRenderQueue(doorTopTexture, d->GetPosition() - d->size, { 0,0,0,0 }, TILE_SIZE / 16.0f, 3);
+	//if (active)
+	//{	//Draws the ClassTree
 
-	}
+	//	app->renderer->AddRectRenderQueue(rect, { 155, 0, 0, 255 }, true, 3, 1.0f, 0.0f);
+	//	app->renderer->AddTextureRenderQueue(treeTexture, drawP, {0 , 0, 0, 0}, 0.5f, 4, 0, 0, SDL_FLIP_NONE, 1.0f);
+	//	std::cout << "x->" << drawP.x << " |y->" << drawP.y << std::endl;
+	//}
 }
 
 void ClassTree::CleanUp()
@@ -136,4 +139,23 @@ bool ClassTree::SaveTree()
 SkillTreeElement* ClassTree::getSkillTree(int value)
 {
 	return skillTree[value];
+}
+
+/// <summary>
+/// Returns Level 3 and 4 as (int) 1 and 2. Returns other levels as their normal int value.
+/// </summary>
+/// <param name="id"></param>
+/// <returns></returns>
+int ClassTree::getCurrentLevel(int id) 
+{
+	SkillTreeElement* theSkill = getSkillTree(id);
+
+	int toReturn = 0;
+	if (theSkill == nullptr) return toReturn;
+
+	if (theSkill->currentLevel == SkillLevel::PURPLE && theSkill->maxLevel == SkillLevel::YELLOW) toReturn = 1;
+	else if (theSkill->currentLevel == SkillLevel::YELLOW) toReturn = 2;
+	else toReturn = (int)theSkill->currentLevel;
+
+	return toReturn;
 }

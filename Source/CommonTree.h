@@ -13,7 +13,6 @@ enum class CommonUpgrades
     DECK,
     SOUL_GAIN,
     HEALTH,
-    MANA,
     ARMOUR,
     LUCK,
     DAMAGE,

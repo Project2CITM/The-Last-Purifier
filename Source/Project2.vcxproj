@@ -94,6 +94,7 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ClassTree.h" />
+    <ClInclude Include="ClassTreeHud.h" />
     <ClInclude Include="CommonTree.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="ExecuteSpell.h" />
@@ -105,6 +106,7 @@
     <ClInclude Include="GUIButton.h" />
     <ClInclude Include="GUICheckbox.h" />
     <ClInclude Include="GUISlider.h" />
+    <ClInclude Include="HubScene.h" />
     <ClInclude Include="HUDInGame.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="LogoScene.h" />
@@ -149,6 +151,7 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ClassTree.cpp" />
+    <ClCompile Include="ClassTreeHud.cpp" />
     <ClCompile Include="CommonTree.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="ExecuteSpell.cpp" />
@@ -158,6 +161,7 @@
     <ClCompile Include="GUIButton.cpp" />
     <ClCompile Include="GUICheckbox.cpp" />
     <ClCompile Include="GUISlider.cpp" />
+    <ClCompile Include="HubScene.cpp" />
     <ClCompile Include="HUDInGame.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="LogoScene.cpp" />

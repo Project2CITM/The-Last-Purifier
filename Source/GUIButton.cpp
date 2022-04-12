@@ -118,6 +118,6 @@ void GUIButton::PostUpdate()
 	}
 	else
 	{
-		app->renderer->AddRectRenderQueue(SDL_Rect{ position.x,position.y,boxShape.w,boxShape.h }, SDL_Color{ defaultColor.r, defaultColor.g, defaultColor.b, defaultColor.a }, true, 3, 10, 0);
+		app->renderer->AddRectRenderQueue(SDL_Rect{ position.x,position.y,boxShape.w,boxShape.h }, renderColour, true, layer, orderInlayer, 0);
 	}
 }

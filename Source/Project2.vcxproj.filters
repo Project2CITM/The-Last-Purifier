@@ -231,6 +231,12 @@
     <ClInclude Include="PlayerStats.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="ClassTreeHud.h">
+      <Filter>Archivos de encabezado\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="HubScene.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Scene.cpp">
@@ -372,6 +378,12 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="PlayerStats.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="ClassTreeHud.cpp">
+      <Filter>Archivos de origen\Player\Trees</Filter>
+    </ClCompile>
+    <ClCompile Include="HubScene.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>

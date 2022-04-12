@@ -13,6 +13,7 @@ enum SCENES
 	LOGO,
 	MAIN_MENU,
 	GAME_OVER,
+	HUB,
 	LEVEL_1,
 	LEVEL_2
 };

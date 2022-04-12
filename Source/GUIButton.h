@@ -24,6 +24,11 @@ private:
 	ButtonState buttonState = ButtonState::IDLE;
 
 	friend class GUISlider;
+
+	SDL_Color renderColour = { defaultColor.r, defaultColor.g, defaultColor.b, defaultColor.a };
+	int layer = 3;
+	int orderInlayer = 10;
+
 public:
 	GUIButton(iPoint pos, int width, int height, MenuButton currentmenu, std::string path);
 
@@ -43,6 +48,19 @@ public:
 
 	uint Hover = NULL;
 	uint Press = NULL;
+
+public:
+	//GETTERS AND SETTERS
+	void setRenderColour(SDL_Color colour)
+	{
+		renderColour = colour;
+	};
+
+	void setRenderLayer(int layer, int orderInlayer)
+	{
+		this->layer = layer;
+		this->orderInlayer = orderInlayer;
+	};
 };
 
 #endif // !__GUIBUTTON_H__

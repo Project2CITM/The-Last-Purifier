@@ -2,6 +2,7 @@
 
 #include "RoomManager.h"
 #include "HUDInGame.h"
+#include "ClassTreeHud.h"
 
 class PlayerRevenant;
 class PlayerSage;
@@ -37,10 +38,11 @@ private:
 
 	RoomManager roomManager;
 	HUDInGame hudInGame;
+	ClassTreeHud classTreeHud;
 	//PlayerRevenant* player;
 	PlayerSage* player;
 
-	ClassTree* revenantTree; //Test skill/spell tree7
+	ClassTree* revenantTree; //Test skill/spell tree
 
 	//Dialog
 	pugi::xml_node configDialog;

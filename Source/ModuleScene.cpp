@@ -4,6 +4,7 @@
 #include "ModuleWindow.h"
 #include "ModuleRender.h"
 #include "TestScene.h"
+#include "HubScene.h"
 #include "MainMenu.h"
 #include "LogoScene.h"
 
@@ -13,9 +14,10 @@ ModuleScene::ModuleScene(bool start_enabled) : Module(start_enabled)
 
 	scenes[LOGO] = new LogoScene();
 	scenes[MAIN_MENU] = new MainMenu();
+	scenes[HUB] = new HubScene();
 	scenes[LEVEL_1] = new TestScene();
 
-	currentScene = LEVEL_1;
+	currentScene = LEVEL_1;//HUB;//LEVEL_1;
 
 	//scenes[0] = new SceneMainMenu(app);
 	//scenes[1] = new SceneGameOver(app);

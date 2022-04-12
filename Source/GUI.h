@@ -14,6 +14,7 @@ enum class UIShape
 
 enum class MenuButton
 {
+	NONE = -1,
 	MAIN,
 	OPTIONS,
 	CREDITS,

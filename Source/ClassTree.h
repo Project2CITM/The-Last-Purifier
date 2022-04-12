@@ -47,8 +47,6 @@ struct SkillTreeElement
 	};
 };
 
-//class Application;
-
 class ClassTree : public GameObject
 {
 public:
@@ -75,16 +73,21 @@ public:
 	//Saves the tree
 	bool SaveTree();
 
+	int getCurrentLevel(int id);
+
 private:
 	SkillTreeElement* skillTree[TREE_SIZE];
 
 	pugi::xml_document* classFile = new pugi::xml_document;
 
-	SDL_Texture* treeTexture = nullptr;
+	//SDL_Rect rect = { 0, 0, 0, 0 };
+	//iPoint drawP = { 0 , 0 };
+	//SDL_Texture* treeTexture = nullptr;
+
 public:
 	PlayerClass playerClass = PlayerClass::REVENANT;
 
-	bool active = false;
+	//bool active = false;
 };
 
 #endif
