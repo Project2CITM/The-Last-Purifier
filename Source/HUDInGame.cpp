@@ -81,13 +81,17 @@ bool HUDInGame::Start()
 
 bool HUDInGame::PreUpdate()
 {
-	if (startPause)
+	if (!app->isPause)
 	{
-		app->musicVol = app->musicVol * 2;
-		app->fxVol = app->fxVol * 2;
-		currentPauseMenu = CurrentPauseMenu::Pause;
-		startPause = false;
+		if (startPause)
+		{
+			app->musicVol = app->musicVol * 2;
+			app->fxVol = app->fxVol * 2;
+			//currentPauseMenu = CurrentPauseMenu::Pause;
+			startPause = false;
+		}
 	}
+
 
 	Scene::PreUpdate();
 
@@ -224,11 +228,6 @@ bool HUDInGame::PostUpdate()
 	{
 		if (currentPauseMenu == CurrentPauseMenu::Pause)
 		{
-			app->renderer->AddRenderObjectRenderQueue(PauseBG);
-		}
-
-		if (currentPauseMenu == CurrentPauseMenu::Pause)
-		{
 			for (int i = 0; i < guisPause.count(); i++)
 			{
 				if (guisPause[i]) guisPause[i]->PostUpdate();
@@ -249,6 +248,11 @@ bool HUDInGame::PostUpdate()
 			{
 				if (guisSettingsP[i]) guisSettingsP[i]->PostUpdate();
 			}
+		}
+
+		if (currentPauseMenu == CurrentPauseMenu::Pause)
+		{
+			app->renderer->AddRenderObjectRenderQueue(PauseBG);
 		}
 		//app->renderer->AddRectRenderQueue(pause, { 140, 215, 0, 255 }, true, 5, 2.0f, 0.0f);
 		if (currentPauseMenu == CurrentPauseMenu::Controls)
