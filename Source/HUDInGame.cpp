@@ -32,7 +32,7 @@ bool HUDInGame::InitScene()
 
 bool HUDInGame::Start()
 {
-	PauseBG.InitAsTexture(app->textures->Load("Assets/Sprites/UI/PauseBG.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 1);
+	PauseBG.InitAsTexture(app->textures->Load("Assets/Sprites/UI/PauseBG.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 0);
 	Controls1.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Controls1_2.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 1);
 	Controls2.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Controls2_2.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 1);
 
@@ -81,6 +81,13 @@ bool HUDInGame::Start()
 
 bool HUDInGame::PreUpdate()
 {
+	if (startPause)
+	{
+		app->musicVol = app->musicVol * 2;
+		app->fxVol = app->fxVol * 2;
+		currentPauseMenu = CurrentPauseMenu::Pause;
+		startPause = false;
+	}
 
 	Scene::PreUpdate();
 
@@ -91,6 +98,13 @@ bool HUDInGame::Update()
 {
 	if (app->isPause)
 	{
+		if (!startPause)
+		{
+			app->musicVol = app->musicVol * 0.5f ;
+			app->fxVol = app->fxVol * 0.5f ;
+			startPause = true;
+		}
+
 		if (currentPauseMenu == CurrentPauseMenu::Pause)
 		{
 			for (int i = 0; i < guisPause.count(); i++)
@@ -210,6 +224,11 @@ bool HUDInGame::PostUpdate()
 	{
 		if (currentPauseMenu == CurrentPauseMenu::Pause)
 		{
+			app->renderer->AddRenderObjectRenderQueue(PauseBG);
+		}
+
+		if (currentPauseMenu == CurrentPauseMenu::Pause)
+		{
 			for (int i = 0; i < guisPause.count(); i++)
 			{
 				if (guisPause[i]) guisPause[i]->PostUpdate();
@@ -240,10 +259,7 @@ bool HUDInGame::PostUpdate()
 				app->renderer->AddRenderObjectRenderQueue(Controls1);
 		}
 
-		if (currentPauseMenu == CurrentPauseMenu::Pause)
-		{
-			app->renderer->AddRenderObjectRenderQueue(PauseBG);
-		}
+
 	}
 
 	Scene::PostUpdate();

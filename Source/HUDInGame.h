@@ -74,6 +74,7 @@ private:
 
 	CurrentPauseMenu currentPauseMenu;
 
+	bool startPause = false;
 };
 
 #endif //__HUD_IN_GAME_H__
