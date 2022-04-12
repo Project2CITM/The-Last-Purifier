@@ -12,8 +12,8 @@ GUISlider::GUISlider(iPoint pos, int width, int height, MenuButton currentMenu, 
 	renderObject = new RenderObject();
 	renderObject->texture = app->textures->Load(path);
 	renderObject->destRect = { pos.x, pos.y, width, height };
-	renderObject->layer = 3;
-	renderObject->orderInLayer = 10;
+	renderObject->layer = 4;
+	renderObject->orderInLayer = 15;
 	renderObject->scale = 1;
 
 	// The Slider texture must be two images of the different states of the slider, organized from top to bottom in order of:
