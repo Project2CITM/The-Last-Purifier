@@ -15,6 +15,7 @@ ModuleRender::ModuleRender(bool start_enabled) : Module(start_enabled)
 
 	// Init renderLayers
 	renderLayers.resize(MAX_RENDERLAYERS);
+	renderLayers[4].sort = true;
 }
 
 // Destructor

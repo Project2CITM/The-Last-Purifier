@@ -34,7 +34,7 @@ Trigger::Trigger(iPoint pos, int radius, GameObject* father, std::string name, b
 
 void Trigger::Update()
 {
-	if (!followFather ||father == nullptr) return;
+	if (!followFather ||father == nullptr || father->pendingToDelete) return;
 
 	SetPosition(father->GetPosition() + positionOffset);
 	if (father->pendingToDelete) pendingToDelete = true;
