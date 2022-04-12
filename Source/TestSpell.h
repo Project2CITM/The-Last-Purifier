@@ -1,6 +1,8 @@
 #pragma once
 #include "Spell.h"
-class TestSpell : public Spell
+#include "ModuleEvents.h"
+
+class TestSpell : public Spell, public EventListener
 {
 public:
 	TestSpell();
@@ -8,6 +10,8 @@ public:
 	void Execute(int level) override;
 	
 	void Update() override;
+
+	void GameEventTriggered() override;
 
 };
 

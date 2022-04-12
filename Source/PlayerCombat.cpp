@@ -4,6 +4,7 @@
 #include "PlayerController.h"
 #include "SpellInfo.h"
 #include "Projectile.h"
+#include "ModuleEvents.h"
 
 PlayerCombat::PlayerCombat(std::string name, std::string tag, Player* player) : GameObject(name, tag)
 {
@@ -83,6 +84,7 @@ void PlayerCombat::Attack()
 		SageAttack();
 		break;
 	}
+	app->events->TriggerEvent(GameEvent::PLAYER_ATTACK);
 	canAttack = false;
 }
 

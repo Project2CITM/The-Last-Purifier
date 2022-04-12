@@ -7,6 +7,7 @@
 #include "ModulePhysics.h"
 #include "ModuleScene.h"
 #include "ModuleUI.h"
+#include "ModuleEvents.h"
 #include <iostream>
 
 Application* Application::app = nullptr;
@@ -30,6 +31,7 @@ bool Application::Init()
 	physics = new ModulePhysics();
 	scene = new ModuleScene();
 	ui = new ModuleUI();
+	events = new ModuleEvents();
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -39,6 +41,7 @@ bool Application::Init()
 	AddModule(window);
 	AddModule(input);
 	AddModule(physics);
+	AddModule(events);
 
 	// Game Logic
 	AddModule(scene);

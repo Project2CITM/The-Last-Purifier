@@ -99,6 +99,7 @@
     <ClInclude Include="DamageArea.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyDummy.h" />
+    <ClInclude Include="EventListener.h" />
     <ClInclude Include="ExecuteSpell.h" />
     <ClInclude Include="External\PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="External\PugiXml\src\pugixml.hpp" />
@@ -117,6 +118,7 @@
     <ClInclude Include="MemLeaks.h" />
     <ClInclude Include="Module.h" />
     <ClInclude Include="ModuleAudio.h" />
+    <ClInclude Include="ModuleEvents.h" />
     <ClInclude Include="ModuleInput.h" />
     <ClInclude Include="ModuleMap.h" />
     <ClInclude Include="ModulePhysics.h" />
@@ -160,6 +162,7 @@
     <ClCompile Include="DamageArea.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyDummy.cpp" />
+    <ClCompile Include="EventListener.cpp" />
     <ClCompile Include="ExecuteSpell.cpp" />
     <ClCompile Include="External\PugiXml\src\pugixml.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -175,6 +178,7 @@
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="MapLoader.cpp" />
     <ClCompile Include="ModuleAudio.cpp" />
+    <ClCompile Include="ModuleEvents.cpp" />
     <ClCompile Include="ModuleInput.cpp" />
     <ClCompile Include="ModuleMap.cpp" />
     <ClCompile Include="ModulePhysics.cpp" />

@@ -1,8 +1,9 @@
 #ifndef _PURIFIED_SWORDS_
 #define _PURIFIED_SWORDS_
 #include "Spell.h"
+#include "ModuleEvents.h"
 
-class PurifiedSwordS : public Spell
+class PurifiedSwordS : public Spell, public EventListener
 {
 public:
 	PurifiedSwordS();
@@ -12,6 +13,8 @@ public:
 	void Update() override;
 
 	void CleanUp() override;
+
+	void GameEventTriggered() override;
 
 private:
 	int damage[3];

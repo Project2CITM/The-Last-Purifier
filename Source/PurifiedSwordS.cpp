@@ -1,8 +1,10 @@
 #include "PurifiedSwordS.h"
 #include <string>
 
-PurifiedSwordS::PurifiedSwordS()
+PurifiedSwordS::PurifiedSwordS() : Spell(), EventListener(GameEvent::PLAYER_ATTACK)
 {
+	Application::GetInstance()->events->AddListener(this);
+
 	spellStats = spellStats.child("purified_sword");
 
 	for (int i = 0; i < 3; i++)
@@ -25,4 +27,9 @@ void PurifiedSwordS::Update()
 
 void PurifiedSwordS::CleanUp()
 {
+}
+
+void PurifiedSwordS::GameEventTriggered()
+{
+	printf("\nPurified Sword detected Player Attack\n");
 }

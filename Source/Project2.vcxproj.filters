@@ -273,6 +273,12 @@
     <ClInclude Include="Scene.h">
       <Filter>Archivos de encabezado\Scenes\BaseClass</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleEvents.h">
+      <Filter>Archivos de encabezado\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="EventListener.h">
+      <Filter>Archivos de encabezado\Tools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp">
@@ -433,6 +439,12 @@
     </ClCompile>
     <ClCompile Include="SceneGame.cpp">
       <Filter>Archivos de origen\Scenes\BaseClass</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleEvents.cpp">
+      <Filter>Archivos de origen\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="EventListener.cpp">
+      <Filter>Archivos de origen\Tools</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
