@@ -13,11 +13,12 @@
 PlayerController::PlayerController(std::string name, std::string tag, Player* player) : GameObject(name, tag)
 {
 	this->player = player;
-	combat = new PlayerCombat("playerAttack", "AttackArea", this->player);
 }
 
 void PlayerController::Start() 
 {
+	combat = new PlayerCombat("playerAttack", "AttackArea", this->player);
+
 	player->stats->Start();
 
 	#pragma region TEMPORARY_CODE

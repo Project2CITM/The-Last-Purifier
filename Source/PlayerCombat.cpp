@@ -15,6 +15,8 @@ void PlayerCombat::Start()
 	revenantAttack = new DamageArea(player->controller->GetPosition(), 12, 20, &player->damage);
 	revenantAttack->pBody->body->SetActive(false);
 
+	executeSpellCommand = new ExecuteSpell();
+
 	// Attack action stats
 	attackCD = player->attackSpeed;
 	attackCounter = 0;
@@ -86,7 +88,7 @@ void PlayerCombat::Attack()
 
 void PlayerCombat::CastSpell()
 {
-	if (executeSpellCommand.Execute(spellSlots[selectedSpell])) // Execute the selected spell and get response
+	if (executeSpellCommand->Execute(spellSlots[selectedSpell])) // Execute the selected spell and get response
 	{ 
 		// If returns true, the selected spell is deleted from the current spell slot
 		spellSlots[selectedSpell]->EmptySpell();
@@ -161,7 +163,8 @@ void PlayerCombat::CleanUp()
 {
 	if (pendingToDelete) revenantAttack->pendingToDelete = true;
 	
-	executeSpellCommand.CleanUp();
+	executeSpellCommand->CleanUp();
+	RELEASE(executeSpellCommand);
 	spellSlots.clearPtr();
 	deckSlots.clearPtr();
 }

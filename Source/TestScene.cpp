@@ -195,6 +195,11 @@ bool TestScene::CleanUp()
         RELEASE(hudInGame);
     }
     roomManager.CleanUp();
+    if (app->renderer->camera != nullptr)
+    {
+        app->renderer->camera->ReleaseTarget();
+    }
+ 
     Scene::CleanUp();    
     return false;
 }

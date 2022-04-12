@@ -28,6 +28,18 @@ SpellList::SpellList()
 	spells[(int)SpellID::COVER] = new TestSpell();
 }
 
+SpellList::~SpellList()
+{
+	
+}
+
+void SpellList::ReleaseInstance()
+{
+	CleanUp();
+	delete instance;
+	instance = nullptr;
+}
+
 void SpellList::Update()
 {
 	for (int i = 0; i < TOTAL_SPELLS; i++)
@@ -46,7 +58,10 @@ void SpellList::CleanUp()
 		if (spells[i] != nullptr)
 		{
 			spells[i]->CleanUp();
-			RELEASE(spells[i]);
+			delete spells[i];
+			spells[i] = nullptr;
 		}
 	}
+	
+
 }
