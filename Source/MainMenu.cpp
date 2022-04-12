@@ -39,7 +39,7 @@ bool MainMenu::Start()
 {
 	fondo.InitAsTexture(app->textures->Load("Assets/Sprites/UI/background.png"), { 0,0 }, {0,0,0,0}, 0.5f);
 	options.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Options.png"), { 0,0 }, {0,0,0,0}, 0.5f);
-	credtis.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Credtis.png"), { 0,0 }, {0,0,0,0}, 0.5f);
+	credtis.InitAsTexture(app->textures->Load("Assets/Sprites/UI/CredtisCre.png"), { 0,0 }, {0,0,0,0}, 0.5f);
 
 	//background del menu
 	app->audio->PlayMusic("Assets/Audio/Ambience/amb_dungeon1_1.ogg");	//Poner la musica que toca
@@ -65,6 +65,11 @@ bool MainMenu::Start()
 	fxBUT = new GUIButton({ 200, 200 }, 27, 46, MenuButton::OPTIONS, "Assets/Sprites/UI/fireSlider.png");
 	fxSlider = new GUISlider({ 200, 200 }, 300, 14, MenuButton::OPTIONS, "Assets/Sprites/UI/Slider1.png");
 	fxSlider->CreateGUIBtn(fxBUT);
+
+	CredtisCre = new GUIButton({ 125, 70 }, 117, 47, MenuButton::CREDITS, "Assets/Sprites/UI/Credtis1.png");
+	CredtisAud = new GUIButton({ 125, 130 }, 117, 47, MenuButton::CREDITS, "Assets/Sprites/UI/Credtis2.png");
+	CredtisArt = new GUIButton({ 125, 190 }, 117, 47, MenuButton::CREDITS, "Assets/Sprites/UI/Credtis3.png");
+	CredtisOtr = new GUIButton({ 125, 250 }, 117, 47, MenuButton::CREDITS, "Assets/Sprites/UI/Credtis4.png");
 
 	FullScreenCHK = new GUICheckbox({ 350, 215 }, 60, 60, MenuButton::OPTIONS, "Assets/Sprites/UI/CheckBox.png");
 
