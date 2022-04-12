@@ -33,7 +33,8 @@ bool HubScene::Start()
 	app->renderer->camera->SetTarget(player->controller);
 
 	//Starts
-	hudInGame.Start();
+	hudInGame = new HUDInGame();
+	hudInGame->Start();
 
 	Scene::Start();
 	return true;
@@ -48,7 +49,11 @@ bool HubScene::CleanUp()
 	}
 
 
-	hudInGame.CleanUp();
+	if (hudInGame != nullptr)
+	{
+		hudInGame->CleanUp();
+		RELEASE(hudInGame);
+	}
 
 	Scene::CleanUp();
 	return true;
@@ -61,7 +66,7 @@ bool HubScene::PreUpdate()
 	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN) app->TogglePause(!app->isPause);
 
 	//PreUpdates
-	hudInGame.PreUpdate();
+	hudInGame->PreUpdate();
 
 	Scene::PreUpdate();
 	return true;
@@ -70,7 +75,7 @@ bool HubScene::PreUpdate()
 bool HubScene::Update()
 {
 	//Updates
-	hudInGame.Update();
+	hudInGame->Update();
 
 	Scene::Update();
 	return true;
@@ -80,7 +85,7 @@ bool HubScene::PostUpdate()
 {
 
 	//PostUpdates
-	hudInGame.PostUpdate();
+	hudInGame->PostUpdate();
 
 	Scene::PostUpdate();
 	return true;
@@ -90,15 +95,15 @@ bool HubScene::PostUpdate()
 /*GUI*/
 void HubScene::AddGUIPause(GUI* gui)
 {
-	hudInGame.AddGUIPause(gui);
+	hudInGame->AddGUIPause(gui);
 }
 
 void HubScene::AddGUIControls(GUI* gui)
 {
-	hudInGame.AddGUIControls(gui);
+	hudInGame->AddGUIControls(gui);
 }
 
 void HubScene::AddGUISettingsP(GUI* gui)
 {
-	hudInGame.AddGUISettingsP(gui);
+	hudInGame->AddGUISettingsP(gui);
 }

@@ -2,7 +2,7 @@
 #include "Scene.h"
 #include "HUDInGame.h"
 
-class PlayerRevenant;
+class Player;
 
 class HubScene : public Scene
 {
@@ -24,7 +24,7 @@ public:
 
 private:
 
-	HUDInGame hudInGame;
+	HUDInGame* hudInGame = nullptr;
 
-	PlayerRevenant* player;
+	Player* player;
 };

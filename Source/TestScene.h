@@ -38,7 +38,7 @@ private:
 
 	RoomManager roomManager;
 	HUDInGame* hudInGame = nullptr;
-	ClassTreeHud classTreeHud;
+	ClassTreeHud* classTreeHud = nullptr;
 	//PlayerRevenant* player;
 	Player* player = nullptr;
 

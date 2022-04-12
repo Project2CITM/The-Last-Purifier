@@ -13,7 +13,7 @@
 #include "CommonTree.h"
 #include "EnemyDummy.h"
 
-TestScene::TestScene():Scene("testScene")
+TestScene::TestScene() : Scene("testScene")
 {
 
 }
@@ -53,7 +53,8 @@ bool TestScene::Start()
     hudInGame->Start();
     roomManager.Start();
 
-    classTreeHud.Start();
+    classTreeHud = new ClassTreeHud();
+    classTreeHud->Start();
 
     new NPC("purifier1", { 0,0 });
     NPC* npc1 = new NPC("purifier10", { 20,300 });
@@ -132,8 +133,8 @@ bool TestScene::PreUpdate()
 
     //printf("Axis Left: X: %d Y: %d\n", app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTX), app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTY));
 
-    hudInGame.PreUpdate();
-    classTreeHud.PreUpdate();
+    hudInGame->PreUpdate();
+    classTreeHud->PreUpdate();
 
     Scene::PreUpdate();
     return true;
@@ -153,8 +154,8 @@ bool TestScene::Update()
     //if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
     //    roomManager.mapMovement.y += 10;
 
-    hudInGame.Update();
-    classTreeHud.Update();
+    hudInGame->Update();
+    classTreeHud->Update();
     roomManager.Update();
     Scene::Update();
     return true;
@@ -178,7 +179,7 @@ bool TestScene::PostUpdate()
     //Test draw rect
     //app->renderer->AddRectRenderQueue(SDL_Rect{ 50,50,50,50 }, SDL_Color{ 0,0,255,255 }, true, 2, 50);
     roomManager.PostUpdate();
-    classTreeHud.PostUpdate();
+    classTreeHud->PostUpdate();
     //app->physics->ShapesRender();
     hudInGame->PostUpdate();
     Scene::PostUpdate();
@@ -201,7 +202,11 @@ bool TestScene::CleanUp()
         hudInGame->CleanUp();
         RELEASE(hudInGame);
     }
-    classTreeHud.CleanUp();
+    if (classTreeHud != nullptr)
+    {
+        classTreeHud->CleanUp();
+        RELEASE(classTreeHud);
+    }
     roomManager.CleanUp();
 
     Scene::CleanUp();
