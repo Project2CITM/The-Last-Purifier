@@ -2,10 +2,13 @@
 #include "Application.h"
 #include "ModuleInput.h"
 #include "Text.h"
+#include "ModuleRender.h"
+
 
 NPC::NPC(std::string name, iPoint position) : GameObject(name,"NPC")
 {
-
+	npcPosition = position;
+	textPosition = { position.x,position.y - npcData.h };
 
 }
 
@@ -16,7 +19,7 @@ NPC::~NPC()
 
 void NPC::Start()
 {
-	advisor = new Text({5,5},"Pulse enter para hablar");
+	text = new Text({textPosition},"Pulse enter para hablar");
 	configDialog = app->config.child("dialogText");
 
 	pugi::xml_node npcNode = configDialog.child(name.c_str());
@@ -29,9 +32,8 @@ void NPC::Start()
 		sentences.add(npcNode.child(temporalSentence.c_str()).child_value());
 
 	}
-
-
-	
+	npcRect = { npcPosition.x,npcPosition.y,npcData.w,npcData.h };
+	//Aqui se imprime el sprite del NPC
 }
 
 void NPC::PreUpdate()
@@ -45,12 +47,12 @@ void NPC::Update()
 		
 		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
 			if (sentenceOrder >= sentences.count()) {
-				advisor->SetText(" ");
+				text->SetText(" ");
 				
 			}
 			else {
 
-				advisor->SetText(sentences[sentenceOrder]);
+				text->SetText(sentences[sentenceOrder]);
 				sentenceOrder++;
 			}
 		}
@@ -62,10 +64,11 @@ void NPC::Update()
 
 void NPC::PostUpdate()
 {
-
+	app->renderer->AddRectRenderQueue(npcRect, SDL_Color{ 250,0,0,255 }, true, 2, 50);
 }
 
 void NPC::CleanUp()
 {
-
+	sentences.clear();
+	//RELEASE(text); //No funciona no quitar barras
 }

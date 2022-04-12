@@ -11,6 +11,7 @@
 
 RenderObject Controls1;
 RenderObject Controls2;
+RenderObject PauseBG;
 
 HUDInGame::HUDInGame() :Scene("HUDInGame")
 {
@@ -31,8 +32,9 @@ bool HUDInGame::InitScene()
 
 bool HUDInGame::Start()
 {
-	Controls1.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Controls1.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4);
-	Controls2.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Controls2.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4);
+	PauseBG.InitAsTexture(app->textures->Load("Assets/Sprites/UI/PauseBG.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 0);
+	Controls1.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Controls1_2.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 1);
+	Controls2.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Controls2_2.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 1);
 
 	hpRect = { app->renderer->camera->x + 15, app->renderer->camera->y + 10, 200, 10 };
 
@@ -57,9 +59,9 @@ bool HUDInGame::Start()
 	GiveUpBUT = new GUIButton(giveUpBUT, 117, 47, MenuButton::INGAMEPUASE, "Assets/Sprites/UI/giveUp.png");
 	QuitBUT = new GUIButton(quitBUT, 117, 47, MenuButton::INGAMEPUASE, "Assets/Sprites/UI/Quit.png");
 
-	CloseControlsBUT = new GUIButton({ app->renderer->camera->x + 282, app->renderer->camera->y + 325 }, 75, 25, MenuButton::CONTROLSPAUSE, "Assets/Sprites/UI/PlayBUT.png");
+	CloseControlsBUT = new GUIButton({ app->renderer->camera->x + 282, app->renderer->camera->y + 300 }, 46, 46, MenuButton::CONTROLSPAUSE, "Assets/Sprites/UI/Back.png");
 
-	CloseSettingsBUT = new GUIButton({ app->renderer->camera->x + 282, app->renderer->camera->y + 325 }, 75, 25, MenuButton::SETTINGSPAUSE, "Assets/Sprites/UI/PlayBUT.png");
+	CloseSettingsBUT = new GUIButton({ app->renderer->camera->x + 282, app->renderer->camera->y + 300 }, 46, 46, MenuButton::SETTINGSPAUSE, "Assets/Sprites/UI/Back.png");
 
 	MusicBUT = new GUIButton({ app->renderer->camera->x + 275, app->renderer->camera->y + 100 }, 27, 46, MenuButton::SETTINGSPAUSE, "Assets/Sprites/UI/fireSlider.png");
 	MusicSlider = new GUISlider({ app->renderer->camera->x + 275, app->renderer->camera->y + 100 }, 300, 14, MenuButton::SETTINGSPAUSE, "Assets/Sprites/UI/Slider1.png");
@@ -79,6 +81,17 @@ bool HUDInGame::Start()
 
 bool HUDInGame::PreUpdate()
 {
+	if (!app->isPause)
+	{
+		if (startPause)
+		{
+			app->musicVol = app->musicVol * 2;
+			app->fxVol = app->fxVol * 2;
+			//currentPauseMenu = CurrentPauseMenu::Pause;
+			startPause = false;
+		}
+	}
+
 
 	Scene::PreUpdate();
 
@@ -89,6 +102,13 @@ bool HUDInGame::Update()
 {
 	if (app->isPause)
 	{
+		if (!startPause)
+		{
+			app->musicVol = app->musicVol * 0.5f ;
+			app->fxVol = app->fxVol * 0.5f ;
+			startPause = true;
+		}
+
 		if (currentPauseMenu == CurrentPauseMenu::Pause)
 		{
 			for (int i = 0; i < guisPause.count(); i++)
@@ -229,6 +249,11 @@ bool HUDInGame::PostUpdate()
 				if (guisSettingsP[i]) guisSettingsP[i]->PostUpdate();
 			}
 		}
+
+		if (currentPauseMenu == CurrentPauseMenu::Pause)
+		{
+			app->renderer->AddRenderObjectRenderQueue(PauseBG);
+		}
 		//app->renderer->AddRectRenderQueue(pause, { 140, 215, 0, 255 }, true, 5, 2.0f, 0.0f);
 		if (currentPauseMenu == CurrentPauseMenu::Controls)
 		{
@@ -237,6 +262,8 @@ bool HUDInGame::PostUpdate()
 			else
 				app->renderer->AddRenderObjectRenderQueue(Controls1);
 		}
+
+
 	}
 
 	Scene::PostUpdate();

@@ -24,11 +24,16 @@ public:
 
 	void Update();
 
-	void CleanUp();
+	void ReleaseInstance();
+
 
 private:
 
 	SpellList();
+
+	~SpellList();
+
+	void CleanUp();
 };
 
 #endif // !_SPELL_LIST_

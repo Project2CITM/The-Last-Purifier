@@ -15,6 +15,5 @@ bool ExecuteSpell::Execute(SpellInfo* spell)
 
 void ExecuteSpell::CleanUp()
 {
-	spellList->CleanUp();
-	RELEASE(spellList);
+	spellList->ReleaseInstance();
 }

@@ -26,13 +26,21 @@ public:
 
 	bool canSpeak = true;
 
+	iPoint npcPosition = { 0,0 };
+	iPoint textPosition={0,0};
+
+	struct DATA {
+		int w = 32;
+		int h = 64;
+	}npcData;
 
 private:
 
-	Text* advisor=nullptr;
+	Text* text=nullptr;
 
 	pugi::xml_node configDialog;
 
 	int sentenceOrder = 0;
+	SDL_Rect npcRect;
 };
 

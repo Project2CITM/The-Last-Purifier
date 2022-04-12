@@ -10,7 +10,7 @@ GUIButton::GUIButton(iPoint pos, int width, int height, MenuButton currentMenu, 
 	renderObject = new RenderObject();
 	renderObject->texture = app->textures->Load(path);
 	renderObject->destRect = { pos.x, pos.y, width, height };
-	renderObject->layer = 3;
+	renderObject->layer = 4;
 	renderObject->orderInLayer = 15;
 	renderObject->scale = 1;
 

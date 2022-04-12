@@ -70,10 +70,11 @@ private:
 	GUISlider* MusicSlider = nullptr;
 	GUISlider* fxSlider = nullptr;
 
-	GUICheckbox* FullScreenCHK;
+	GUICheckbox* FullScreenCHK = nullptr;
 
 	CurrentPauseMenu currentPauseMenu;
 
+	bool startPause = false;
 };
 
 #endif //__HUD_IN_GAME_H__

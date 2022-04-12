@@ -45,9 +45,6 @@ private:
 	SDL_Texture* wallTexture[3] = {nullptr, nullptr, nullptr};
 
 	MapLoader* mapLoader = nullptr;
-
-	std::string folder;
-	std::string file;
 };
 
 #endif //__ROOMMANAGER_H_

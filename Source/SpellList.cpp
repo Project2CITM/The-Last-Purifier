@@ -1,5 +1,6 @@
 #include "SpellList.h"
 #include "TestSpell.h"
+#include "PurifiedSwordS.h"
 
 SpellList* SpellList::instance = nullptr;
 
@@ -20,11 +21,23 @@ SpellList::SpellList()
 	spells[(int)SpellID::FLAME_CAPE] = new TestSpell();
 	spells[(int)SpellID::PURIFICATION_SLASH] = new TestSpell();
 	spells[(int)SpellID::PURIFICATION_THRUST] = new TestSpell();
-	spells[(int)SpellID::PURIFIED_SWORD] = new TestSpell();
+	spells[(int)SpellID::PURIFIED_SWORD] = new PurifiedSwordS();
 	spells[(int)SpellID::SACRED_SHIELD] = new TestSpell();
 	spells[(int)SpellID::SOUL_SHIELD] = new TestSpell();
 	spells[(int)SpellID::TORMENT] = new TestSpell();
 	spells[(int)SpellID::COVER] = new TestSpell();
+}
+
+SpellList::~SpellList()
+{
+	
+}
+
+void SpellList::ReleaseInstance()
+{
+	CleanUp();
+	delete instance;
+	instance = nullptr;
 }
 
 void SpellList::Update()
@@ -45,7 +58,8 @@ void SpellList::CleanUp()
 		if (spells[i] != nullptr)
 		{
 			spells[i]->CleanUp();
-			RELEASE(spells[i]);
+			delete spells[i];
+			spells[i] = nullptr;
 		}
 	}
 }

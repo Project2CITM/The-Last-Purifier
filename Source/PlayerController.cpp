@@ -13,11 +13,12 @@
 PlayerController::PlayerController(std::string name, std::string tag, Player* player) : GameObject(name, tag)
 {
 	this->player = player;
-	combat = new PlayerCombat("playerAttack", "AttackArea", this->player);
 }
 
 void PlayerController::Start() 
 {
+	combat = new PlayerCombat("playerAttack", "AttackArea", this->player);
+
 	player->stats->Start();
 
 	#pragma region TEMPORARY_CODE
@@ -69,7 +70,7 @@ void PlayerController::Start()
 	// WARNING: They must be added following the order specified on the PlayerState Enum!!!
 	stateMachine.AddState("idle", 0);			//IDLE = 0
 	stateMachine.AddState("run", 0);			//RUN = 1
-	stateMachine.AddState("attack", 1, 32);		//ATTACK = 2
+	stateMachine.AddState("attack", 1, 5);		//ATTACK = 2
 	stateMachine.AddState("dash", 2, 25);		//DASH = 3
 
 	// Initialize physic body
@@ -179,30 +180,26 @@ void PlayerController::CreatePhysBody()
 
 	pBody->body->CreateFixture(&circleR);
 
+	b2Filter filter;
+	filter.categoryBits = app->physics->PLAYER_LAYER;
+
+	b2Fixture* bodyFixture = pBody->body->GetFixtureList();
+	while (bodyFixture != nullptr)
+	{
+		bodyFixture->SetFilterData(filter);
+		bodyFixture = bodyFixture->GetNext();
+	}
+
 	// Initialize enemy trigger body
 	enemyTrigger = new Trigger(GetPosition(), 8, 16, this, "Player");
 	enemyTrigger->positionOffset = { 8, -12 };
+	enemyTrigger->pBody->body->GetFixtureList()[0].SetFilterData(filter);
 }
 
 void PlayerController::MovementUpdateKeyboard()
 {
 	// By default, the player is always IDLE
 	stateMachine.ChangeState((uint)PlayerState::IDLE);
-
-	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-	{
-		if (!isDashing)
-		{
-			//Reset Dash animation in case it hadn't finished yet
-			animations[(int)PlayerAnim::DASH].Reset();
-		
-			//Change Player State
-			stateMachine.ChangeState((uint)PlayerState::DASH);
-
-			// do the dash
-			DashOn();
-		}
-	}
 
 	// If we are dashing, all other movement is disabled
 	if (isDashing) return;
@@ -261,6 +258,21 @@ void PlayerController::MovementUpdateKeyboard()
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_UP)
 	{
 		pBody->body->SetLinearVelocity({ 0,pBody->body->GetLinearVelocity().y });
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	{
+		if (!isDashing)
+		{
+			//Reset Dash animation in case it hadn't finished yet
+			animations[(int)PlayerAnim::DASH].Reset();
+
+			//Change Player State
+			stateMachine.ChangeState((uint)PlayerState::DASH);
+
+			// do the dash
+			DashOn();
+		}
 	}
 
 	// If we are moving dyagonally, we lower our velocity

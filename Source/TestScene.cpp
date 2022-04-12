@@ -11,9 +11,11 @@
 #include "ModuleAudio.h"
 #include "NPC.h"
 #include "CommonTree.h"
+#include "EnemyDummy.h"
 
 TestScene::TestScene():Scene("testScene")
 {
+
 }
 
 TestScene::~TestScene()
@@ -25,6 +27,8 @@ bool TestScene::Start()
     //advisorString = "hi";
 
     player = new PlayerSage();
+
+
     //app->renderer->camera->SetTarget(player->controller);
     //player = new PlayerSage(app);
     //playerController = new PlayerController("test", "test", app);
@@ -45,26 +49,30 @@ bool TestScene::Start()
    // advisor = new Text({ 0,0 },"","defaultFont");
     //t->SetColor({ 255,255,0,100 });
 
-    hudInGame.Start();
+    hudInGame = new HUDInGame();
+    hudInGame->Start();
     roomManager.Start();
-    chargeDialog();
 
     classTreeHud.Start();
 
     new NPC("purifier1", { 0,0 });
+    NPC* npc1 = new NPC("purifier10", { 20,300 });
+    NPC* npc2 =new NPC("purifier10", { 40,100 });
 
 
     Scene::Start();
+
+    new EnemyDummy(player->controller->GetPosition() + iPoint(40, 0));
     return true;
 }
 
 bool TestScene::PreUpdate()
 {
-    if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) 
+    if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
     {
         roomManager.CleanUp();
         roomManager.Start();
-    }   
+    }
     // Test Code-------------
     if (app->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
     {
@@ -164,16 +172,15 @@ bool TestScene::PostUpdate()
     // Test draw circle
     //app->renderer->AddCircleRenderQueue(iPoint{ 50,50 }, 50, SDL_Color{ 255,255,255,255 }, 2, 50);
 
-    // Test draw line  
+    // Test draw line
     //app->renderer->AddLineRenderQueue(iPoint{ 50,50 }, iPoint{ 100,50 }, true, SDL_Color{ 255,255,255,255 }, 2, 50);
 
-    // Test draw rect  
+    //Test draw rect
     //app->renderer->AddRectRenderQueue(SDL_Rect{ 50,50,50,50 }, SDL_Color{ 0,0,255,255 }, true, 2, 50);
-
     roomManager.PostUpdate();
     classTreeHud.PostUpdate();
     //app->physics->ShapesRender();
-    hudInGame.PostUpdate();
+    hudInGame->PostUpdate();
     Scene::PostUpdate();
     return true;
 }
@@ -189,42 +196,30 @@ bool TestScene::CleanUp()
     //advisor->pendingToDelate = true;
     //t->pendingToDelate = true;
     //sentence[1].clear();
-    sentences.clear();
-    hudInGame.CleanUp();
+    if (hudInGame != nullptr)
+    {
+        hudInGame->CleanUp();
+        RELEASE(hudInGame);
+    }
     classTreeHud.CleanUp();
     roomManager.CleanUp();
-    Scene::CleanUp();    
+
+    Scene::CleanUp();
     return false;
 }
-void TestScene::chargeDialog() {
-    configDialog = app->config.child("dialogText");
 
-    sentences.add(configDialog.child("advisor").child_value());
-    sentences.add(configDialog.child("purifier1").child("Sentence1").child_value());
-    sentences.add(configDialog.child("purifier1").child("Sentence2").child_value());
-    sentences.add(configDialog.child("purifier1").child("Sentence3").child_value());
-    sentences.add(configDialog.child("purifier1").child("Sentence4").child_value());
-
-    int counter = 1;
-    std::string name = "Sentence" + to_string(counter);
-
-    //sentences[1] = configDialog.child("Sentence1").child_value();
-    //sentences[2] = configDialog.child("Sentence2").child_value();
-
-    //advisorString = configDialog.child("advisor").child_value();
-}
 
 void TestScene::AddGUIPause(GUI* gui)
 {
-    hudInGame.AddGUIPause(gui);
+    hudInGame->AddGUIPause(gui);
 }
 
 void TestScene::AddGUIControls(GUI* gui)
 {
-    hudInGame.AddGUIControls(gui);
+    hudInGame->AddGUIControls(gui);
 }
 
 void TestScene::AddGUISettingsP(GUI* gui)
 {
-    hudInGame.AddGUISettingsP(gui);
+    hudInGame->AddGUISettingsP(gui);
 }

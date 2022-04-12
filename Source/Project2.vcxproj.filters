@@ -67,6 +67,18 @@
     <Filter Include="Archivos de encabezado\GameObject">
       <UniqueIdentifier>{659d7ab2-1f19-4b13-8c09-cda1fa208681}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de origen\Player\Spells\SpellScripts">
+      <UniqueIdentifier>{ef131730-214f-4490-af54-ec3683784be3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Player\Spells\SpellScripts">
+      <UniqueIdentifier>{4cdcd82f-341b-4fe0-9412-78aac2ba547d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Enemy">
+      <UniqueIdentifier>{5a8f239f-0099-41f6-b283-b0804b7ad4d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Enemy">
+      <UniqueIdentifier>{11287f92-69bb-42e3-9abb-dbc4f0799406}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderObject.hpp">
@@ -94,9 +106,6 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="TestScene.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="Particle.h">
@@ -171,13 +180,7 @@
     <ClInclude Include="Spell.h">
       <Filter>Archivos de encabezado\Player\Spells</Filter>
     </ClInclude>
-    <ClInclude Include="SpellList.h">
-      <Filter>Archivos de encabezado\Player\Spells</Filter>
-    </ClInclude>
     <ClInclude Include="TestSpell.h">
-      <Filter>Archivos de encabezado\Player\Spells</Filter>
-    </ClInclude>
-    <ClInclude Include="ExecuteSpell.h">
       <Filter>Archivos de encabezado\Player\Spells</Filter>
     </ClInclude>
     <ClInclude Include="ClassTree.h">
@@ -210,9 +213,6 @@
     <ClInclude Include="HUDInGame.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="SpellInfo.h">
-      <Filter>Archivos de encabezado\Player\Spells</Filter>
-    </ClInclude>
     <ClInclude Include="Projectile.h">
       <Filter>Archivos de encabezado\Player</Filter>
     </ClInclude>
@@ -228,8 +228,29 @@
     <ClInclude Include="NPC.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="ExecuteSpell.h">
+      <Filter>Archivos de encabezado\Player\Spells\SpellScripts</Filter>
+    </ClInclude>
+    <ClInclude Include="SpellInfo.h">
+      <Filter>Archivos de encabezado\Player\Spells\SpellScripts</Filter>
+    </ClInclude>
+    <ClInclude Include="SpellList.h">
+      <Filter>Archivos de encabezado\Player\Spells\SpellScripts</Filter>
+    </ClInclude>
+    <ClInclude Include="PurifiedSwordS.h">
+      <Filter>Archivos de encabezado\Player\Spells</Filter>
+    </ClInclude>
     <ClInclude Include="PlayerStats.h">
-      <Filter>Archivos de encabezado</Filter>
+      <Filter>Archivos de encabezado\Player\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageArea.h">
+      <Filter>Archivos de encabezado\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Archivos de encabezado\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyDummy.h">
+      <Filter>Archivos de encabezado\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="ClassTreeHud.h">
       <Filter>Archivos de encabezado\GUI</Filter>
@@ -258,9 +279,6 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="TestScene.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="ModuleAudio.cpp">
@@ -320,13 +338,7 @@
     <ClCompile Include="Spell.cpp">
       <Filter>Archivos de origen\Player\Spells</Filter>
     </ClCompile>
-    <ClCompile Include="SpellList.cpp">
-      <Filter>Archivos de origen\Player\Spells</Filter>
-    </ClCompile>
     <ClCompile Include="TestSpell.cpp">
-      <Filter>Archivos de origen\Player\Spells</Filter>
-    </ClCompile>
-    <ClCompile Include="ExecuteSpell.cpp">
       <Filter>Archivos de origen\Player\Spells</Filter>
     </ClCompile>
     <ClCompile Include="ClassTree.cpp">
@@ -359,9 +371,6 @@
     <ClCompile Include="HUDInGame.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="SpellInfo.cpp">
-      <Filter>Archivos de origen\Player\Spells</Filter>
-    </ClCompile>
     <ClCompile Include="Projectile.cpp">
       <Filter>Archivos de origen\Player</Filter>
     </ClCompile>
@@ -377,8 +386,29 @@
     <ClCompile Include="NPC.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="ExecuteSpell.cpp">
+      <Filter>Archivos de origen\Player\Spells\SpellScripts</Filter>
+    </ClCompile>
+    <ClCompile Include="SpellInfo.cpp">
+      <Filter>Archivos de origen\Player\Spells\SpellScripts</Filter>
+    </ClCompile>
+    <ClCompile Include="SpellList.cpp">
+      <Filter>Archivos de origen\Player\Spells\SpellScripts</Filter>
+    </ClCompile>
+    <ClCompile Include="PurifiedSwordS.cpp">
+      <Filter>Archivos de origen\Player\Spells</Filter>
+    </ClCompile>
     <ClCompile Include="PlayerStats.cpp">
-      <Filter>Archivos de origen</Filter>
+      <Filter>Archivos de origen\Player\Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="DamageArea.cpp">
+      <Filter>Archivos de origen\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Archivos de origen\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyDummy.cpp">
+      <Filter>Archivos de origen\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="ClassTreeHud.cpp">
       <Filter>Archivos de origen\Player\Trees</Filter>

@@ -28,7 +28,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -96,7 +96,9 @@
     <ClInclude Include="ClassTree.h" />
     <ClInclude Include="ClassTreeHud.h" />
     <ClInclude Include="CommonTree.h" />
+    <ClInclude Include="DamageArea.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyDummy.h" />
     <ClInclude Include="ExecuteSpell.h" />
     <ClInclude Include="External\PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="External\PugiXml\src\pugixml.hpp" />
@@ -133,6 +135,7 @@
     <ClInclude Include="PlayerStats.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Projectile.h" />
+    <ClInclude Include="PurifiedSwordS.h" />
     <ClInclude Include="RenderObject.hpp" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="RoomManager.h" />
@@ -153,7 +156,9 @@
     <ClCompile Include="ClassTree.cpp" />
     <ClCompile Include="ClassTreeHud.cpp" />
     <ClCompile Include="CommonTree.cpp" />
+    <ClCompile Include="DamageArea.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyDummy.cpp" />
     <ClCompile Include="ExecuteSpell.cpp" />
     <ClCompile Include="External\PugiXml\src\pugixml.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -186,6 +191,7 @@
     <ClCompile Include="PlayerSage.cpp" />
     <ClCompile Include="PlayerStats.cpp" />
     <ClCompile Include="Projectile.cpp" />
+    <ClCompile Include="PurifiedSwordS.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="RoomManager.cpp" />
     <ClCompile Include="Scene.cpp" />

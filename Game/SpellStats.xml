@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<stats>
+	<purified_sword id = "1">
+		<uses quantity = "3" />
+		<damage lvl1 = "5" lvl2 = "5" lvl3 = "10" />
+		<stun lvl1 = "false" lvl2 = "true" lvl3 = "true" />
+		<stun_duration lvl1 = "0" lvl2 = "60" lvl3 = "60" />
+	</purified_sword>
+	<soul_shield id = "2">
+		<uses quantity = "3" />
+		<shield lvl1 = "35" lvl2 = "35" lvl3 = "50" />
+		<duration lvl1 = "120" lvl2 = "180" lvl3 = "240"/>
+	</soul_shield>
+	<purification_slash id = "6">
+		<uses quantity = "3" />
+		<damage lvl1 = "10" lvl2 = "15" lvl3 = "20" />
+	</purification_slash>
+	<foteiros id = "11">
+		<uses quantity = "3" />
+		<damage lvl1 = "20" lvl2 = "40" lvl3 = "60" />
+	</foteiros>
+	<ekriski id = "14">
+		<uses quantity = "3" />
+		<damage lvl1 = "30" lvl2 = "45" lvl3 = "60" />
+		<duration lvl1 = "180" lvl2 = "180" lvl3 = "180" />
+	</ekriski>
+</stats>

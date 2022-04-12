@@ -1,9 +1,9 @@
 #include "TestSpell.h"
 #include <stdio.h>
 
-TestSpell::TestSpell()
+TestSpell::TestSpell() : Spell()
 {
-	this->uses = 2;
+	this->uses = spellStats.child("purified_sword").child("uses").attribute("quantity").as_int();
 }
 
 void TestSpell::Execute(int level)

@@ -2,6 +2,7 @@
 
 #include "RoomManager.h"
 #include "HUDInGame.h"
+#include "NPC.h"
 #include "ClassTreeHud.h"
 
 class PlayerRevenant;
@@ -26,37 +27,27 @@ public:
 
 	bool CleanUp() override;
 
-	void chargeDialog();
 
 	void AddGUIPause(GUI* gui) override;
 
 	void AddGUIControls(GUI* gui) override;
-	
+
 	void AddGUISettingsP(GUI* gui) override;
 
 private:
 
 	RoomManager roomManager;
-	HUDInGame hudInGame;
+	HUDInGame* hudInGame = nullptr;
 	ClassTreeHud classTreeHud;
 	//PlayerRevenant* player;
-	PlayerSage* player;
+	Player* player = nullptr;
 
-	ClassTree* revenantTree; //Test skill/spell tree
+	ClassTree* revenantTree = nullptr; //Test skill/spell tree
 
 	//Dialog
-	pugi::xml_node configDialog;
+	/*pugi::xml_node configDialog;
 	bool dialogEnable = false;
 	bool separador = false;
 	int separadorCont = 0;
-	int dialogCont = 1;
-
-	List<string> sentences;
-	//string advisorString;
-	//std::string advisorString = "";
-
-	Text* t;
-	Text* advisor;
-	//std::string sentence3 = "";
+	int dialogCont = 1;*/
 };
-
