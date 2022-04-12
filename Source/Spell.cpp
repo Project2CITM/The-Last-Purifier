@@ -1,5 +1,8 @@
 #include "Spell.h"
 #include "Globals.h"
+#include "Player.h"
+#include "ModuleScene.h"
+#include "SceneGame.h"
 
 Spell::Spell()
 {
@@ -13,6 +16,9 @@ Spell::Spell()
 	{
 		spellStats = doc.child("stats");
 	}
+
+	SceneGame* scene = (SceneGame*)Application::GetInstance()->scene->scenes[Application::GetInstance()->scene->currentScene];
+	player = scene->player;
 }
 
 void Spell::Execute(int level)

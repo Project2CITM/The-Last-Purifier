@@ -13,7 +13,7 @@
 #include "CommonTree.h"
 #include "EnemyDummy.h"
 
-TestScene::TestScene() : Scene("testScene")
+TestScene::TestScene() : SceneGame("testScene")
 {
 
 }

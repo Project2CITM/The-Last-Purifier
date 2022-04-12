@@ -79,12 +79,21 @@
     <Filter Include="Archivos de origen\Enemy">
       <UniqueIdentifier>{11287f92-69bb-42e3-9abb-dbc4f0799406}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\Scenes">
+      <UniqueIdentifier>{018e5ee2-c375-4f58-a756-27248d652517}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Scenes">
+      <UniqueIdentifier>{51ecd359-81d5-4dcd-bc91-cf701ddcfa3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Scenes\BaseClass">
+      <UniqueIdentifier>{8185954f-833c-42f6-af64-a18bc441080c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Scenes\BaseClass">
+      <UniqueIdentifier>{22223cb4-89fd-4f9d-b1ac-94aa66de85bb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderObject.hpp">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
@@ -103,9 +112,6 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="RoomManager.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="TestScene.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="Particle.h">
@@ -204,9 +210,6 @@
     <ClInclude Include="CommonTree.h">
       <Filter>Archivos de encabezado\Player\Trees</Filter>
     </ClInclude>
-    <ClInclude Include="MainMenu.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="Text.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
@@ -215,9 +218,6 @@
     </ClInclude>
     <ClInclude Include="Projectile.h">
       <Filter>Archivos de encabezado\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="LogoScene.h">
-      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="Trigger.h">
       <Filter>Archivos de encabezado\Tools</Filter>
@@ -255,14 +255,26 @@
     <ClInclude Include="ClassTreeHud.h">
       <Filter>Archivos de encabezado\GUI</Filter>
     </ClInclude>
+    <ClInclude Include="TestScene.h">
+      <Filter>Archivos de encabezado\Scenes</Filter>
+    </ClInclude>
     <ClInclude Include="HubScene.h">
-      <Filter>Archivos de encabezado</Filter>
+      <Filter>Archivos de encabezado\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenu.h">
+      <Filter>Archivos de encabezado\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="LogoScene.h">
+      <Filter>Archivos de encabezado\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneGame.h">
+      <Filter>Archivos de encabezado\Scenes\BaseClass</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Archivos de encabezado\Scenes\BaseClass</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Scene.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
@@ -276,9 +288,6 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="RoomManager.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="TestScene.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="ModuleAudio.cpp">
@@ -362,9 +371,6 @@
     <ClCompile Include="CommonTree.cpp">
       <Filter>Archivos de origen\Player\Trees</Filter>
     </ClCompile>
-    <ClCompile Include="MainMenu.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="Text.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
@@ -373,9 +379,6 @@
     </ClCompile>
     <ClCompile Include="Projectile.cpp">
       <Filter>Archivos de origen\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="LogoScene.cpp">
-      <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="Trigger.cpp">
       <Filter>Archivos de origen\Tools</Filter>
@@ -414,7 +417,22 @@
       <Filter>Archivos de origen\Player\Trees</Filter>
     </ClCompile>
     <ClCompile Include="HubScene.cpp">
-      <Filter>Archivos de origen</Filter>
+      <Filter>Archivos de origen\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenu.cpp">
+      <Filter>Archivos de origen\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="TestScene.cpp">
+      <Filter>Archivos de origen\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="LogoScene.cpp">
+      <Filter>Archivos de origen\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Archivos de origen\Scenes\BaseClass</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneGame.cpp">
+      <Filter>Archivos de origen\Scenes\BaseClass</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
