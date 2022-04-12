@@ -58,12 +58,12 @@ bool MainMenu::Start()
 
 	CloseOptBUT = new GUIButton({ 297, 300 }, 46, 46, MenuButton::OPTIONS, "Assets/Sprites/UI/Back.png");
 
-	MusicBUT = new GUIButton({ 200, 125 }, 27, 46, MenuButton::OPTIONS, "Assets/Sprites/UI/fireSlider.png");
 	MusicSlider = new GUISlider({ 200, 125 }, 300, 14, MenuButton::OPTIONS, "Assets/Sprites/UI/Slider1.png");
+	MusicBUT = new GUIButton({ 200, 125 }, 27, 46, MenuButton::OPTIONS, "Assets/Sprites/UI/fireSlider.png");
 	MusicSlider->CreateGUIBtn(MusicBUT);
 
-	fxBUT = new GUIButton({ 200, 200 }, 27, 46, MenuButton::OPTIONS, "Assets/Sprites/UI/fireSlider.png");
 	fxSlider = new GUISlider({ 200, 200 }, 300, 14, MenuButton::OPTIONS, "Assets/Sprites/UI/Slider1.png");
+	fxBUT = new GUIButton({ 200, 200 }, 27, 46, MenuButton::OPTIONS, "Assets/Sprites/UI/fireSlider.png");
 	fxSlider->CreateGUIBtn(fxBUT);
 
 	CredtisCre = new GUIButton({ 125, 70 }, 117, 47, MenuButton::CREDITS, "Assets/Sprites/UI/Credtis1.png");
