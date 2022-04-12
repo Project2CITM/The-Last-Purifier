@@ -71,6 +71,7 @@ private:
 	GUICheckbox* FullScreenCHK;
 
 	CurrentMenu currentMenu;
+	CurrentCredtis currentCredtis;
 
 	uint Appear_FX = NULL;
 };

@@ -14,7 +14,8 @@
 // Si no lo pone aqui, sale un menoryleak, nose porque
 RenderObject fondo;
 RenderObject options;
-RenderObject credtis;
+RenderObject credtis1;
+RenderObject credtis2;
 
 MainMenu::MainMenu():Scene("MainMenu")
 {
@@ -39,7 +40,8 @@ bool MainMenu::Start()
 {
 	fondo.InitAsTexture(app->textures->Load("Assets/Sprites/UI/background.png"), { 0,0 }, {0,0,0,0}, 0.5f);
 	options.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Options.png"), { 0,0 }, {0,0,0,0}, 0.5f);
-	credtis.InitAsTexture(app->textures->Load("Assets/Sprites/UI/CredtisCre.png"), { 0,0 }, {0,0,0,0}, 0.5f);
+	credtis1.InitAsTexture(app->textures->Load("Assets/Sprites/UI/CredtisCre.png"), { 0,0 }, {0,0,0,0}, 0.5f);
+	credtis2.InitAsTexture(app->textures->Load("Assets/Sprites/UI/CreditsProba.png"), { 0,0 }, {0,0,0,0}, 0.5f);
 
 	//background del menu
 	app->audio->PlayMusic("Assets/Audio/Ambience/amb_dungeon1_1.ogg");	//Poner la musica que toca
@@ -51,9 +53,9 @@ bool MainMenu::Start()
 
 
 	PlayBUT = new GUIButton({ 125, 180 }, 75, 28, MenuButton::MAIN, "Assets/Sprites/UI/PlayBUT.png");
-	OptionsBUT = new GUIButton({ 140, 215 }, 60, 16, MenuButton::MAIN, "Assets/Sprites/UI/OptionBUT.png"); 
-	CreditBUT = new GUIButton({ 140, 240 }, 60, 16, MenuButton::MAIN, "Assets/Sprites/UI/CredtisBUT.png"); 
-	ExitBUT = new GUIButton({ 150, 285 }, 50, 15, MenuButton::MAIN, "Assets/Sprites/UI/QuitBUT.png");
+	OptionsBUT = new GUIButton({ 132, 215 }, 60, 16, MenuButton::MAIN, "Assets/Sprites/UI/OptionBUT.png");
+	CreditBUT = new GUIButton({ 132, 240 }, 60, 16, MenuButton::MAIN, "Assets/Sprites/UI/CredtisBUT.png");
+	ExitBUT = new GUIButton({ 132, 285 }, 50, 15, MenuButton::MAIN, "Assets/Sprites/UI/QuitBUT.png");
 	LinkBUT = new GUIButton({ 20, 330 }, 59, 16, MenuButton::MAIN, "Assets/Sprites/UI/linkBUT.png"); 
 
 	CloseOptBUT = new GUIButton({ 297, 300 }, 46, 46, MenuButton::OPTIONS, "Assets/Sprites/UI/Back.png");
@@ -180,6 +182,30 @@ bool MainMenu::Update()
 			currentMenu = CurrentMenu::Main;
 			CloseCrdBUT->doAction = false;
 		}
+
+		if (CredtisCre->doAction)
+		{
+			currentCredtis = CurrentCredtis::Creadors;
+			CredtisCre->doAction = false;
+		}
+
+		if (CredtisAud->doAction)
+		{
+			currentCredtis = CurrentCredtis::Audio;
+			CredtisAud->doAction = false;
+		}
+
+		if (CredtisArt->doAction)
+		{
+			currentCredtis = CurrentCredtis::Art;
+			CredtisArt->doAction = false;
+		}
+
+		if (CredtisOtr->doAction)
+		{
+			currentCredtis = CurrentCredtis::Otros;
+			CredtisOtr->doAction = false;
+		}
 	}
 
 	Scene::Update();
@@ -206,7 +232,14 @@ bool MainMenu::PostUpdate()
 		{
 			if (guisCredtis[i]) guisCredtis[i]->PostUpdate();
 		}
-		app->renderer->AddRenderObjectRenderQueue(credtis);
+
+		if(currentCredtis == CurrentCredtis::Creadors)		app->renderer->AddRenderObjectRenderQueue(credtis1);
+
+		if(currentCredtis == CurrentCredtis::Audio)		app->renderer->AddRenderObjectRenderQueue(credtis2);
+
+		if(currentCredtis == CurrentCredtis::Art)		app->renderer->AddRenderObjectRenderQueue(credtis2);
+
+		if(currentCredtis == CurrentCredtis::Otros)		app->renderer->AddRenderObjectRenderQueue(credtis2);
 	}
 
 	if (currentMenu == CurrentMenu::Main)
