@@ -8,6 +8,7 @@
 class PlayerRevenant;
 class PlayerSage;
 class ClassTree;
+class SpellSpawnManager;
 
 class TestScene :  public SceneGame
 {
@@ -41,6 +42,8 @@ private:
 	ClassTreeHud* classTreeHud = nullptr;
 
 	ClassTree* revenantTree = nullptr; //Test skill/spell tree
+
+	SpellSpawnManager* spawnManager = nullptr;
 
 	//Dialog
 	/*pugi::xml_node configDialog;

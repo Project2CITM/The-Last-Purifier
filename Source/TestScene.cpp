@@ -12,6 +12,7 @@
 #include "NPC.h"
 #include "CommonTree.h"
 #include "EnemyDummy.h"
+#include "SpellSpawnManager.h"
 
 TestScene::TestScene() : SceneGame("testScene")
 {
@@ -26,8 +27,9 @@ bool TestScene::Start()
 {
     //advisorString = "hi";
 
-    player = new PlayerSage();
+    player = new PlayerRevenant();
 
+    spawnManager = SpellSpawnManager::GetInstance(player->playerClass);
 
     //app->renderer->camera->SetTarget(player->controller);
     //player = new PlayerSage(app);
@@ -63,6 +65,7 @@ bool TestScene::Start()
 
     Scene::Start();
 
+    spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-40, 0));
     new EnemyDummy(player->controller->GetPosition() + iPoint(40, 0));
     return true;
 }
@@ -212,6 +215,8 @@ bool TestScene::CleanUp()
         RELEASE(classTreeHud);
     }
     roomManager.CleanUp();
+
+    spawnManager->ReleaseInstance();
 
     revenantTree->ReleaseInstance();
 

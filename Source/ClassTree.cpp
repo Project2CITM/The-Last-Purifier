@@ -9,6 +9,7 @@ ClassTree* ClassTree::instance = nullptr;
 ClassTree::ClassTree(PlayerClass pClass)
 {
 	playerClass = pClass;
+	Start();
 }
 
 ClassTree::~ClassTree()

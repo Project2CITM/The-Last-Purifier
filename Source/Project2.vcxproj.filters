@@ -279,6 +279,12 @@
     <ClInclude Include="EventListener.h">
       <Filter>Archivos de encabezado\Tools</Filter>
     </ClInclude>
+    <ClInclude Include="SpellSpawnManager.h">
+      <Filter>Archivos de encabezado\Player\Spells\SpellScripts</Filter>
+    </ClInclude>
+    <ClInclude Include="SpellObject.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp">
@@ -445,6 +451,12 @@
     </ClCompile>
     <ClCompile Include="EventListener.cpp">
       <Filter>Archivos de origen\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="SpellSpawnManager.cpp">
+      <Filter>Archivos de origen\Player\Spells\SpellScripts</Filter>
+    </ClCompile>
+    <ClCompile Include="SpellObject.cpp">
+      <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
