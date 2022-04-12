@@ -14,6 +14,14 @@ enum class CurrentMenu
 	Credtis
 };
 
+enum class CurrentCredtis
+{
+	Creadors,
+	Art,
+	Audio,
+	Otros
+};
+
 class MainMenu : public Scene
 {
 public:
@@ -51,6 +59,11 @@ private:
 	GUIButton* fxBUT = nullptr;
 	
 	GUIButton* CloseCrdBUT = nullptr;
+
+	GUIButton* CredtisCre = nullptr;
+	GUIButton* CredtisAud = nullptr;
+	GUIButton* CredtisArt = nullptr;
+	GUIButton* CredtisOtr = nullptr;
 
 	GUISlider* MusicSlider = nullptr;
 	GUISlider* fxSlider = nullptr;
