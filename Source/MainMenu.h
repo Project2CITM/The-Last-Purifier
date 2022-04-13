@@ -57,7 +57,8 @@ private:
 	GUIButton* CloseOptBUT = nullptr;
 	GUIButton* MusicBUT = nullptr;
 	GUIButton* fxBUT = nullptr;
-	
+	int fxBUTpos = 200;
+
 	GUIButton* CloseCrdBUT = nullptr;
 
 	GUIButton* CredtisCre = nullptr;
@@ -74,6 +75,9 @@ private:
 	CurrentCredtis currentCredtis;
 
 	int ControllerPos = 0;
+	int ControllerPosOpY = 0;
+	int ControllerPosOpX = 0;
+	int ControllerPosCr = 0;
 	bool AxisPress = false;
 
 	uint Appear_FX = NULL;

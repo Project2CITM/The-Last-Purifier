@@ -159,7 +159,7 @@ bool HUDInGame::Update()
 
 		if (GiveUpBUT->doAction)
 		{
-			app->scene->ChangeCurrentSceneRequest(MAIN_MENU);//et porta al hall
+			app->scene->ChangeCurrentSceneRequest(HUB);//et porta al hall
 			app->isPause = false;
 			GiveUpBUT->doAction = false;
 		}

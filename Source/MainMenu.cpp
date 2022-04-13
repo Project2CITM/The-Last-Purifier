@@ -91,8 +91,11 @@ bool MainMenu::PreUpdate()
 
 bool MainMenu::Update()
 {
-	int leftY;
-	leftY = app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTY);
+	int leftYMain, leftYOptions, leftXOptions, leftYCredtis;
+	leftYMain = app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTY);
+	leftYOptions = app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTY);
+	leftXOptions = app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTX);
+	leftYCredtis = app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTY);
 
 	if (currentMenu == CurrentMenu::Main)
 	{
@@ -122,26 +125,23 @@ bool MainMenu::Update()
 	{
 		if (app->input->usingGameController)
 		{
-			if (leftY > 0 && !AxisPress && ControllerPos <= 4)
+			if (leftYMain > 0 && !AxisPress && ControllerPos <= 3)
 			{
 				ControllerPos += 1;
 				AxisPress = true;
 			}
-			else if (leftY < 0 && !AxisPress && ControllerPos >= 1)
+			else if (leftYMain < 0 && !AxisPress && ControllerPos >= 1)
 			{
 				ControllerPos -= 1;
 				AxisPress = true;
 			}
-			else if (leftY == 0)
+			else if (leftYMain == 0)
 			{
 				AxisPress = false;
 			}
-
-			if (ControllerPos == 0)
-			{
-				PlayBUT->navigation;
-			}
 		}
+		LOG("%d", ControllerPos);
+
 		
 		if (PlayBUT->doAction || (ControllerPos == 0 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
 		{
@@ -174,13 +174,33 @@ bool MainMenu::Update()
 
 	if (currentMenu == CurrentMenu::Options)
 	{
-		if (CloseOptBUT->doAction)
+		if (app->input->usingGameController)
+		{
+			if (leftYOptions > 0 && !AxisPress && ControllerPosOpY <= 2)
+			{
+				ControllerPosOpY += 1;
+				AxisPress = true;
+			}
+			else if (leftYOptions < 0 && !AxisPress && ControllerPosOpY >= 1)
+			{
+				ControllerPosOpY -= 1;
+				AxisPress = true;
+			}
+			else if (leftYOptions == 0)
+			{
+				AxisPress = false;
+			}
+		}
+		LOG("%d", fxBUTpos);
+
+		if (CloseOptBUT->doAction || (ControllerPosOpY == 3 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN) || app->input->GetControllerButton(BUTTON_B) == KEY_DOWN)
 		{
 			currentMenu = CurrentMenu::Main;
+			ControllerPosOpY = 0;
 			CloseOptBUT->doAction = false;
 		}
 
-		if (FullScreenCHK->isActive)
+		if (FullScreenCHK->isActive || (ControllerPosOpY == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
 		{
 			app->fullScreen = true;
 			FullScreenCHK->doAction;
@@ -191,11 +211,12 @@ bool MainMenu::Update()
 			app->fullScreen = false;
 		}
 
-		if (FullScreenCHK->doAction)
+		if (FullScreenCHK->doAction || (ControllerPosOpY == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
 		{
 			app->window->ToggleFullScreen(app->fullScreen);
 			FullScreenCHK->doAction = false;
 		}
+
 
 		app->musicVol = MusicSlider->GetValue() * 255;
 		app->fxVol = fxSlider->GetValue() * 255;
