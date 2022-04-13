@@ -75,6 +75,8 @@ private:
 	CurrentPauseMenu currentPauseMenu;
 
 	bool startPause = false;
+
+	int* currentSpell = nullptr;
 };
 
 #endif //__HUD_IN_GAME_H__

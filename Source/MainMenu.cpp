@@ -191,7 +191,6 @@ bool MainMenu::Update()
 				AxisPress = false;
 			}
 		}
-		LOG("%d", fxBUTpos);
 
 		if (CloseOptBUT->doAction || (ControllerPosOpY == 3 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN) || app->input->GetControllerButton(BUTTON_B) == KEY_DOWN)
 		{
@@ -200,21 +199,15 @@ bool MainMenu::Update()
 			CloseOptBUT->doAction = false;
 		}
 
-		if (FullScreenCHK->isActive || (ControllerPosOpY == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
+		if ((FullScreenCHK->isActive || (ControllerPosOpY == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)) && !app->FullScreenDesktop)
 		{
-			app->fullScreen = true;
-			FullScreenCHK->doAction;
+			app->window->ToggleFullScreen(true);
+			FullScreenCHK->isActive = true;
 		}
-		else
+		else if ((!FullScreenCHK->isActive || (ControllerPosOpY == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)) && app->FullScreenDesktop)
 		{
-			FullScreenCHK->doAction;
-			app->fullScreen = false;
-		}
-
-		if (FullScreenCHK->doAction || (ControllerPosOpY == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
-		{
-			app->window->ToggleFullScreen(app->fullScreen);
-			FullScreenCHK->doAction = false;
+			app->window->ToggleFullScreen(false);
+			FullScreenCHK->isActive = false;
 		}
 
 
@@ -224,31 +217,49 @@ bool MainMenu::Update()
 
 	if (currentMenu == CurrentMenu::Credtis)
 	{
-		if (CloseCrdBUT->doAction)
+		if (app->input->usingGameController)
+		{
+			if (leftYCredtis > 0 && !AxisPress && ControllerPosCr <= 3)
+			{
+				ControllerPosCr += 1;
+				AxisPress = true;
+			}
+			else if (leftYCredtis < 0 && !AxisPress && ControllerPosCr >= 1)
+			{
+				ControllerPosCr -= 1;
+				AxisPress = true;
+			}
+			else if (leftYCredtis == 0)
+			{
+				AxisPress = false;
+			}
+		}
+
+		if (CloseCrdBUT->doAction || (ControllerPosOpY == 4 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN) || app->input->GetControllerButton(BUTTON_B) == KEY_DOWN)
 		{
 			currentMenu = CurrentMenu::Main;
 			CloseCrdBUT->doAction = false;
 		}
 
-		if (CredtisCre->doAction)
+		if (CredtisCre->doAction || (ControllerPosOpY == 0 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
 		{
 			currentCredtis = CurrentCredtis::Creadors;
 			CredtisCre->doAction = false;
 		}
 
-		if (CredtisAud->doAction)
+		if (CredtisAud->doAction || (ControllerPosOpY == 1 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
 		{
 			currentCredtis = CurrentCredtis::Audio;
 			CredtisAud->doAction = false;
 		}
 
-		if (CredtisArt->doAction)
+		if (CredtisArt->doAction || (ControllerPosOpY == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
 		{
 			currentCredtis = CurrentCredtis::Art;
 			CredtisArt->doAction = false;
 		}
 
-		if (CredtisOtr->doAction)
+		if (CredtisOtr->doAction || (ControllerPosOpY == 3 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
 		{
 			currentCredtis = CurrentCredtis::Otros;
 			CredtisOtr->doAction = false;

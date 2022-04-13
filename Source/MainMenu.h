@@ -57,7 +57,6 @@ private:
 	GUIButton* CloseOptBUT = nullptr;
 	GUIButton* MusicBUT = nullptr;
 	GUIButton* fxBUT = nullptr;
-	int fxBUTpos = 200;
 
 	GUIButton* CloseCrdBUT = nullptr;
 

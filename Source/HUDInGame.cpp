@@ -8,6 +8,10 @@
 #include "ModuleInput.h"
 #include "ModuleWindow.h"
 #include "ModuleAudio.h"
+#include "ModuleScene.h"
+#include "SceneGame.h"
+#include "PlayerCombat.h"
+#include "PlayerController.h"
 
 RenderObject Controls1;
 RenderObject Controls2;
@@ -16,7 +20,8 @@ RenderObject SettingsBG;
 
 HUDInGame::HUDInGame() :Scene("HUDInGame")
 {
-
+	SceneGame* scene = (SceneGame*)app->scene->scenes[app->scene->currentScene];
+	currentSpell = &scene->player->controller->combat->selectedSpell;
 }
 
 HUDInGame::~HUDInGame()
@@ -93,7 +98,6 @@ bool HUDInGame::PreUpdate()
 			startPause = false;
 		}
 	}
-
 
 	Scene::PreUpdate();
 
@@ -226,7 +230,11 @@ bool HUDInGame::PostUpdate()
 	app->renderer->AddRectRenderQueue(spell2, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
 	app->renderer->AddRectRenderQueue(spell3, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
 	app->renderer->AddRectRenderQueue(spell4, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
-
+	
+	if (currentSpell == 1)	app->renderer->AddRectRenderQueue(spell1, { 255, 0, 0, 255 }, true, 3, 2.0f, 0.0f);
+	if (currentSpell == 2)	app->renderer->AddRectRenderQueue(spell2, { 255, 0, 0, 255 }, true, 3, 2.0f, 0.0f);
+	if (currentSpell == 3)	app->renderer->AddRectRenderQueue(spell3, { 255, 0, 0, 255 }, true, 3, 2.0f, 0.0f);
+	if (currentSpell == 4)	app->renderer->AddRectRenderQueue(spell4, { 255, 0, 0, 255 }, true, 3, 2.0f, 0.0f);
 
 	if (app->isPause)
 	{
