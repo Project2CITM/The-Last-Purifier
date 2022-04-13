@@ -47,14 +47,14 @@ bool HUDInGame::Start()
 
 	spell1 = { app->renderer->camera->x + 305, app->renderer->camera->y + 314, 30, 40 };
 	spell2_1 = { app->renderer->camera->x + 275, app->renderer->camera->y + 314, 30, 40 };
-	spell2_2 = { app->renderer->camera->x + 275, app->renderer->camera->y + 314, 30, 40 };
-	spell3_1 = { app->renderer->camera->x + 270, app->renderer->camera->y + 314, 30, 40 };
+	spell2_2 = { app->renderer->camera->x + 335, app->renderer->camera->y + 314, 30, 40 };
+	spell3_1 = { app->renderer->camera->x + 245, app->renderer->camera->y + 314, 30, 40 };
 	spell3_2 = { app->renderer->camera->x + 305, app->renderer->camera->y + 314, 30, 40 };
-	spell3_3 = { app->renderer->camera->x + 340, app->renderer->camera->y + 314, 30, 40 };
-	spell4_1 = { app->renderer->camera->x + 375, app->renderer->camera->y + 314, 30, 40 };
-	spell4_2 = { app->renderer->camera->x + 375, app->renderer->camera->y + 314, 30, 40 };
-	spell4_3 = { app->renderer->camera->x + 375, app->renderer->camera->y + 314, 30, 40 };
-	spell4_4 = { app->renderer->camera->x + 375, app->renderer->camera->y + 314, 30, 40 };
+	spell3_3 = { app->renderer->camera->x + 365, app->renderer->camera->y + 314, 30, 40 };
+	spell4_1 = { app->renderer->camera->x + 215, app->renderer->camera->y + 314, 30, 40 };
+	spell4_2 = { app->renderer->camera->x + 275, app->renderer->camera->y + 314, 30, 40 };
+	spell4_3 = { app->renderer->camera->x + 335, app->renderer->camera->y + 314, 30, 40 };
+	spell4_4 = { app->renderer->camera->x + 395, app->renderer->camera->y + 314, 30, 40 };
 
 	resumeBUT = { app->renderer->camera->x + 262, app->renderer->camera->y + + 70};//640 pixeles with pantalla
 	settingsBUT = { app->renderer->camera->x + 262, app->renderer->camera->y + 117};
@@ -104,7 +104,6 @@ bool HUDInGame::PreUpdate()
 		SceneGame* scene = (SceneGame*)app->scene->scenes[app->scene->currentScene];
 		player = scene->player->controller->combat;
 	}
-
 
 	Scene::PreUpdate();
 
@@ -236,35 +235,37 @@ bool HUDInGame::PostUpdate()
 	if (player->availableSpellSlots == 1)
 	{
 		app->renderer->AddRectRenderQueue(spell1, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
-
+		if (player->selectedSpell == 0)	app->renderer->AddRectRenderQueue(spell1, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
 	}
 	if (player->availableSpellSlots == 2)
 	{
-		app->renderer->AddRectRenderQueue(spell1, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
-		app->renderer->AddRectRenderQueue(spell1, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
-
+		app->renderer->AddRectRenderQueue(spell2_1, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
+		app->renderer->AddRectRenderQueue(spell2_2, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
+		if (player->selectedSpell == 0)	app->renderer->AddRectRenderQueue(spell2_1, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
+		if (player->selectedSpell == 1)	app->renderer->AddRectRenderQueue(spell2_2, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
 	}	
 	if (player->availableSpellSlots == 3)
 	{
-		app->renderer->AddRectRenderQueue(spell1, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
-		app->renderer->AddRectRenderQueue(spell1, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
-		app->renderer->AddRectRenderQueue(spell1, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
-
+		app->renderer->AddRectRenderQueue(spell3_1, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
+		app->renderer->AddRectRenderQueue(spell3_2, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
+		app->renderer->AddRectRenderQueue(spell3_3, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
+		if (player->selectedSpell == 0)	app->renderer->AddRectRenderQueue(spell3_1, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
+		if (player->selectedSpell == 1)	app->renderer->AddRectRenderQueue(spell3_2, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
+		if (player->selectedSpell == 2)	app->renderer->AddRectRenderQueue(spell3_3, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
 	}
 	if (player->availableSpellSlots == 4)
 	{
-		app->renderer->AddRectRenderQueue(spell1, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
-		app->renderer->AddRectRenderQueue(spell1, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
-		app->renderer->AddRectRenderQueue(spell1, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
-
+		app->renderer->AddRectRenderQueue(spell4_1, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
+		app->renderer->AddRectRenderQueue(spell4_2, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
+		app->renderer->AddRectRenderQueue(spell4_3, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
+		app->renderer->AddRectRenderQueue(spell4_4, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
+		if (player->selectedSpell == 0)	app->renderer->AddRectRenderQueue(spell4_1, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
+		if (player->selectedSpell == 1)	app->renderer->AddRectRenderQueue(spell4_2, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
+		if (player->selectedSpell == 2)	app->renderer->AddRectRenderQueue(spell4_3, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
+		if (player->selectedSpell == 3)	app->renderer->AddRectRenderQueue(spell4_4, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
 	}
-	
-	if (player->selectedSpell == 0)	app->renderer->AddRectRenderQueue(spell1, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
-	if (player->selectedSpell == 1)	app->renderer->AddRectRenderQueue(spell2, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
-	if (player->selectedSpell == 2)	app->renderer->AddRectRenderQueue(spell3, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
-	if (player->selectedSpell == 3)	app->renderer->AddRectRenderQueue(spell4, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
 
-	LOG("Spell: %d", player->selectedSpell);
+	//LOG("Spell: %d", player->selectedSpell);
 
 	if (app->isPause)
 	{
