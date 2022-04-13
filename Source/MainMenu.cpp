@@ -120,29 +120,29 @@ bool MainMenu::Update()
 
 	if(currentMenu == CurrentMenu::Main)
 	{
-		if (leftY > 0 && !AxisPress && ControllerPos <= 4)
+		if (app->input->usingGameController)
 		{
-			ControllerPos += 1;
-			AxisPress = true;
-		}
-		else if (leftY < 0 && !AxisPress && ControllerPos >= 1)
-		{
-			ControllerPos -= 1;
-			AxisPress = true;
-		}
-		else if (leftY == 0)
-		{
-			AxisPress = false;
-		}
+			if (leftY > 0 && !AxisPress && ControllerPos <= 4)
+			{
+				ControllerPos += 1;
+				AxisPress = true;
+			}
+			else if (leftY < 0 && !AxisPress && ControllerPos >= 1)
+			{
+				ControllerPos -= 1;
+				AxisPress = true;
+			}
+			else if (leftY == 0)
+			{
+				AxisPress = false;
+			}
 
-		if (ControllerPos == 0)
-		{
-			PlayBUT->navigation;
+			if (ControllerPos == 0)
+			{
+				PlayBUT->navigation;
+			}
 		}
-
-
-		LOG("%d", ControllerPos);
-
+		
 		if (PlayBUT->doAction || (ControllerPos == 0 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
 		{
 			app->scene->ChangeCurrentSceneRequest(LEVEL_1);
