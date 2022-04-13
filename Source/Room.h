@@ -61,8 +61,10 @@ public:
 	}
 
 	void CloseDoors();
-
 	void OpenDoors();
+
+	void ActivateColliders();
+	void DeactivateColliders();
 
 	void DrawRoom();
 
@@ -79,10 +81,15 @@ private:
 public:
 	short id = 0;
 	Application* app = nullptr;
+
 	PhysBody* wallColliders[4];
 	List<PhysBody*> colliders;
+	bool activeColliders = true;
+
 	List<Door*> doors;
+	
 	iPoint roomPosition; 	//in map, not pixels
+	
 	SDL_Texture* roomTexture = nullptr;
 };
 

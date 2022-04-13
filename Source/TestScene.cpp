@@ -159,10 +159,10 @@ bool TestScene::Update()
     //if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
     //    roomManager.mapMovement.y += 10;
 
+    roomManager.Update(player->controller->GetPosition());
     hudInGame->Update();
     revenantTree->Update();
     classTreeHud->Update();
-    roomManager.Update();
     Scene::Update();
     return true;
 }

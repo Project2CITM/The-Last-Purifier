@@ -19,7 +19,7 @@ public:
 	}
 
 	void Start();
-	void Update();
+	void Update(iPoint playerPos);
 	void PostUpdate();
 	void CleanUp();
 

@@ -9,6 +9,11 @@ void RoomManager::Start()
 	
 	CreateDoors();
 
+	//Deactivate all colliders
+	for (int i = 0; i < rooms.count(); ++i) {
+		rooms[i]->DeactivateColliders();
+	}
+
 	doorTopTexture = app->textures->Load("Assets/Maps/TestDoor_top.png");
 	doorBotTexture = app->textures->Load("Assets/Maps/TestDoor_bottom.png");
 
@@ -21,8 +26,21 @@ void RoomManager::Start()
 
 }
 
-void RoomManager::Update()
+void RoomManager::Update(iPoint playerPos)
 {
+	//Activate only current room colliders
+	Room* r = roomPositions[playerPos.x / (TILE_SIZE * MAX_ROOM_TILES_COLUMNS)][playerPos.y / (TILE_SIZE * MAX_ROOM_TILES_ROWS)];
+	if(!r->activeColliders)
+		for (int i = 0; i < rooms.count(); ++i) {
+			if (rooms[i] == r) {
+				r->ActivateColliders();
+			}
+			else {
+				if (rooms[i]->activeColliders) {
+					rooms[i]->DeactivateColliders();
+				}
+			}
+		}
 }
 
 void RoomManager::PostUpdate()
@@ -329,7 +347,7 @@ void RoomManager::DrawDoors()
 		Room* r = rooms[i];
 		if (r->wallColliders[0] != nullptr)
 			app->renderer->AddTextureRenderQueue(wallTexture[0], 
-				r->GetDoorPos(DoorOrientations::RIGHT) - r->GetDoorSize(DoorOrientations::RIGHT) - iPoint(0, TILE_SIZE * 5),
+				r->GetDoorPos(DoorOrientations::RIGHT) - r->GetDoorSize(DoorOrientations::RIGHT) - iPoint(0, TILE_SIZE * 4),
 				{ 0,0,0,0 }, TILE_SIZE / 16.0f, 1, 1.0f, 0.0f, SDL_FLIP_HORIZONTAL);
 
 		if (r->wallColliders[1] != nullptr)
@@ -339,7 +357,7 @@ void RoomManager::DrawDoors()
 
 		if (r->wallColliders[2] != nullptr)
 			app->renderer->AddTextureRenderQueue(wallTexture[0], 
-				r->GetDoorPos(DoorOrientations::LEFT) - r->GetDoorSize(DoorOrientations::LEFT) - iPoint(0, TILE_SIZE * 5),
+				r->GetDoorPos(DoorOrientations::LEFT) - r->GetDoorSize(DoorOrientations::LEFT) - iPoint(0, TILE_SIZE * 4),
 				{ 0,0,0,0 }, TILE_SIZE / 16.0f, 1, 1.0f);
 
 		if (r->wallColliders[3] != nullptr)

@@ -10,6 +10,22 @@ void Room::OpenDoors()
 	for (int i = 0; i < doors.count(); i++) doors[i]->DestroyCollider();
 }
 
+void Room::ActivateColliders()
+{
+	for (int i = 0; i < colliders.count(); ++i) {
+		colliders[i]->body->SetActive(true);
+	}
+	activeColliders = true;
+}
+
+void Room::DeactivateColliders()
+{
+	for (int i = 0; i < colliders.count(); ++i) {
+		colliders[i]->body->SetActive(false);
+	}
+	activeColliders = false;
+}
+
 void Room::DrawRoom()
 {
 	app->renderer->AddTextureRenderQueue(roomTexture, 
