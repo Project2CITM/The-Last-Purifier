@@ -1,9 +1,11 @@
 #include "Enemy.h"
 #include "ModulePhysics.h"
 #include "DamageArea.h"
+#include "SpellSpawnManager.h"
 
 Enemy::Enemy() :GameObject("Enemy", "None")
 {
+	spawnManager = SpellSpawnManager::GetInstance();
 }
 
 Enemy::~Enemy()
@@ -28,6 +30,8 @@ void Enemy::PostUpdate()
 
 void Enemy::CleanUp()
 {
+	iPoint pos = GetPosition();
+	spawnManager->SpawnSpell(pos);
 }
 
 void Enemy::OnCollisionEnter(PhysBody* col)
@@ -48,5 +52,10 @@ void Enemy::OnCollisionExit(PhysBody* col)
 void Enemy::Hit(int damage)
 {
 	health -= damage;
-	if (health <= 0) pendingToDelete = true;
+	if (health <= 0) Die();
+}
+
+void Enemy::Die()
+{
+	pendingToDelete = true;
 }

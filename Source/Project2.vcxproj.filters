@@ -283,7 +283,7 @@
       <Filter>Archivos de encabezado\Player\Spells\SpellScripts</Filter>
     </ClInclude>
     <ClInclude Include="SpellObject.h">
-      <Filter>Archivos de encabezado</Filter>
+      <Filter>Archivos de encabezado\Player\Spells</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -456,7 +456,7 @@
       <Filter>Archivos de origen\Player\Spells\SpellScripts</Filter>
     </ClCompile>
     <ClCompile Include="SpellObject.cpp">
-      <Filter>Archivos de origen</Filter>
+      <Filter>Archivos de origen\Player\Spells</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

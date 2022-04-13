@@ -3,6 +3,8 @@
 
 #include "GameObject.h"
 
+class SpellSpawnManager;
+
 class Enemy :  public GameObject
 {
 public: 
@@ -27,7 +29,10 @@ public:
 
 	void Hit(int damage);
 
+	virtual void Die();
+
 private:
+	SpellSpawnManager* spawnManager = nullptr;
 
 	int health = 40;
 };

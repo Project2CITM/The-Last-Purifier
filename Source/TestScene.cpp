@@ -27,9 +27,9 @@ bool TestScene::Start()
 {
     //advisorString = "hi";
 
-    player = new PlayerRevenant();
+    player = new PlayerSage();
 
-    spawnManager = SpellSpawnManager::GetInstance(player->playerClass);
+    spawnManager = SpellSpawnManager::GetInstance();
 
     //app->renderer->camera->SetTarget(player->controller);
     //player = new PlayerSage(app);
@@ -38,7 +38,7 @@ bool TestScene::Start()
     app->renderer->camera->SetTarget(player->controller);
 
     //Test Skill/Spell tree
-    revenantTree = ClassTree::GetInstance(PlayerClass::REVENANT);
+    revenantTree = ClassTree::GetInstance();
 
     // Test particle
     Particle* p = new Particle({ 0,0 }, 2, 0, { 1,0 });
@@ -66,6 +66,7 @@ bool TestScene::Start()
     Scene::Start();
 
     spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-40, 0));
+    spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-80, 0));
     new EnemyDummy(player->controller->GetPosition() + iPoint(40, 0));
     return true;
 }
