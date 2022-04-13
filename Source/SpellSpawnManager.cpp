@@ -1,32 +1,37 @@
 #include "SpellSpawnManager.h"
 #include "Player.h"
 #include "SpellObject.h"
+#include "SceneGame.h"
+#include "ModuleScene.h"
 
 SpellSpawnManager* SpellSpawnManager::instance = nullptr;
 
-SpellSpawnManager* SpellSpawnManager::GetInstance(PlayerClass playerClass)
+SpellSpawnManager* SpellSpawnManager::GetInstance()
 {
     if (instance == nullptr)
     {
-        instance = new SpellSpawnManager(playerClass);
+        SceneGame* scene = (SceneGame*)Application::GetInstance()->scene->scenes[Application::GetInstance()->scene->currentScene];
+        instance = new SpellSpawnManager(scene->player->playerClass);
     }
 
     return instance;
 }
 
-void SpellSpawnManager::SpawnSpell(iPoint position)
+void SpellSpawnManager::SpawnSpell(iPoint p)
 {
     int randomSpell;
     if (pClass == PlayerClass::REVENANT) randomSpell = rand() % revenantSpells + 1;
     else randomSpell = (rand() % revenantSpells + 1) + sageSpells;
 
-    SpellObject* spellObject = new SpellObject(position, (SpellID)randomSpell, CalculateSpellLevel((SpellID)randomSpell));
+    iPoint pos = p;
+
+    new SpellObject(pos, (SpellID)randomSpell, CalculateSpellLevel((SpellID)randomSpell));
 }
 
 SpellSpawnManager::SpellSpawnManager(PlayerClass playerClass)
 {
     pClass = playerClass;
-    classTree = ClassTree::GetInstance(playerClass);
+    classTree = ClassTree::GetInstance();
 }
 
 void SpellSpawnManager::ReleaseInstance()

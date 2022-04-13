@@ -8,9 +8,9 @@
 class SpellSpawnManager
 {
 public:
-	static SpellSpawnManager* GetInstance(PlayerClass playerClass);
+	static SpellSpawnManager* GetInstance();
 
-	void SpawnSpell(iPoint position);
+	void SpawnSpell(iPoint p);
 
 	void ReleaseInstance();
 
@@ -26,7 +26,7 @@ private:
 	PlayerClass pClass;
 
 	int revenantSpells = 10;
-	int sageSpells = 10;
+	int sageSpells = 9;
 
 	int fakepoints = 1000000;
 };

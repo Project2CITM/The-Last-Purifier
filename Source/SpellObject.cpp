@@ -6,7 +6,7 @@
 #include "PlayerController.h"
 #include "PlayerCombat.h"
 
-SpellObject::SpellObject(iPoint position, SpellID id, int level) : GameObject("SpellObject", "SpellObject")
+SpellObject::SpellObject(iPoint pos, SpellID id, int level) : GameObject("SpellObject", "SpellObject")
 {
 	// Spell Information
 	info.id = id;
@@ -14,8 +14,7 @@ SpellObject::SpellObject(iPoint position, SpellID id, int level) : GameObject("S
 	info.uses = SpellList::GetInstance()->spells[(int)id]->GetUses();
 
 	// Create PhysBody
-	pBody = app->physics->CreateRectangle(position, 8, 14, this);
-
+	pBody = app->physics->CreateRectangle(pos, 8, 14, this);
 	// Add Texture
 }
 

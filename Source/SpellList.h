@@ -4,7 +4,7 @@
 #include "Spell.h"
 #include "Globals.h"
 
-#define TOTAL_SPELLS 11 // Total Spells in the game, including the NONE one
+#define TOTAL_SPELLS 20 // Total Spells in the game, including the NONE one
 
 // This class contains every spell on the game. It gets an instance when the player is created on scene.
 // Spell information is gathered from here. 
