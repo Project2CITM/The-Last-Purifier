@@ -19,6 +19,7 @@ SpellSpawnManager* SpellSpawnManager::GetInstance()
 
 void SpellSpawnManager::SpawnSpell(iPoint p)
 {
+    if (classTree == nullptr) return;
     int randomSpell;
     if (pClass == PlayerClass::REVENANT) randomSpell = rand() % revenantSpells + 1;
     else randomSpell = (rand() % revenantSpells + 1) + sageSpells;
@@ -40,7 +41,13 @@ void SpellSpawnManager::ReleaseInstance()
     {
         delete instance;
         instance = nullptr;
+        deleted = true;
     }
+}
+
+bool SpellSpawnManager::IsDeleted()
+{
+    return deleted;
 }
 
 int SpellSpawnManager::CalculateSpellLevel(SpellID id)

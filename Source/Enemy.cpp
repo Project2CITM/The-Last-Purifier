@@ -30,8 +30,7 @@ void Enemy::PostUpdate()
 
 void Enemy::CleanUp()
 {
-	iPoint pos = GetPosition();
-	spawnManager->SpawnSpell(pos);
+	if (!spawnManager->IsDeleted()) spawnManager->SpawnSpell(GetPosition());
 }
 
 void Enemy::OnCollisionEnter(PhysBody* col)

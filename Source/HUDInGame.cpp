@@ -259,11 +259,11 @@ bool HUDInGame::PostUpdate()
 
 	}
 	
-	if (player->selectedSpell == 0)	app->renderer->AddRectRenderQueue(spell1, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
+	/*if (player->selectedSpell == 0)	app->renderer->AddRectRenderQueue(spell1, {255, 0, 0, 255}, true, 4, 2.0f, 0.0f);
 	if (player->selectedSpell == 1)	app->renderer->AddRectRenderQueue(spell2, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
 	if (player->selectedSpell == 2)	app->renderer->AddRectRenderQueue(spell3, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
 	if (player->selectedSpell == 3)	app->renderer->AddRectRenderQueue(spell4, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
-
+	*/
 	LOG("Spell: %d", player->selectedSpell);
 
 	if (app->isPause)

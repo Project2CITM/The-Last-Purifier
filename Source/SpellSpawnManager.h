@@ -14,6 +14,8 @@ public:
 
 	void ReleaseInstance();
 
+	bool IsDeleted();
+
 private:
 	SpellSpawnManager(PlayerClass playerClass);
 
@@ -29,6 +31,8 @@ private:
 	int sageSpells = 9;
 
 	int fakepoints = 1000000;
+
+	bool deleted = false;
 };
 #endif
 
