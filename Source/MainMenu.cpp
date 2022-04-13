@@ -91,6 +91,9 @@ bool MainMenu::PreUpdate()
 
 bool MainMenu::Update()
 {
+	int leftY;
+	leftY = app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTY);
+
 	if (currentMenu == CurrentMenu::Main)
 	{
 		for (int i = 0; i < guisMainMenu.count(); i++)
@@ -117,29 +120,52 @@ bool MainMenu::Update()
 
 	if(currentMenu == CurrentMenu::Main)
 	{
-		if (PlayBUT->doAction)
+		if (leftY > 0 && !AxisPress && ControllerPos <= 4)
+		{
+			ControllerPos += 1;
+			AxisPress = true;
+		}
+		else if (leftY < 0 && !AxisPress && ControllerPos >= 1)
+		{
+			ControllerPos -= 1;
+			AxisPress = true;
+		}
+		else if (leftY == 0)
+		{
+			AxisPress = false;
+		}
+
+		if (ControllerPos == 0)
+		{
+			PlayBUT->navigation;
+		}
+
+
+		LOG("%d", ControllerPos);
+
+		if (PlayBUT->doAction || (ControllerPos == 0 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
 		{
 			app->scene->ChangeCurrentSceneRequest(LEVEL_1);
 		}
 
-		if (OptionsBUT->doAction)
+		if (OptionsBUT->doAction || (ControllerPos == 1 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
 		{
 			currentMenu = CurrentMenu::Options;
 			OptionsBUT->doAction = false;
 		}
 
-		if (CreditBUT->doAction)
+		if (CreditBUT->doAction || (ControllerPos == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
 		{
 			currentMenu = CurrentMenu::Credtis;
 			CreditBUT->doAction = false;
 		}
 
-		if (ExitBUT->doAction)
+		if (ExitBUT->doAction || (ControllerPos == 3 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
 		{
 			return false;
 		}
 
-		if (LinkBUT->doAction)
+		if (LinkBUT->doAction || (ControllerPos == 4 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
 		{
 			ShellExecuteA(NULL, "open", "https://github.com/Project2CITM/The-last-purifier/wiki", NULL, NULL, SW_SHOWNORMAL);		//change the url for the url of the web
 			LinkBUT->doAction = false;

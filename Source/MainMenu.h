@@ -73,6 +73,9 @@ private:
 	CurrentMenu currentMenu;
 	CurrentCredtis currentCredtis;
 
+	int ControllerPos = 0;
+	bool AxisPress = false;
+
 	uint Appear_FX = NULL;
 };
 
