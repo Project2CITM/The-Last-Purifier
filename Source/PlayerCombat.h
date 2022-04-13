@@ -44,6 +44,8 @@ public:
 	int availableSpellSlots; // Determines how many available spell slots the player has.
 	int availableDeckSlots;
 
+	int selectedSpell; // The current selected spell slot on the list. This is an index.
+
 private:
 	/// <summary>
 	/// debug function to show current spell and deck slots.
@@ -70,7 +72,6 @@ private:
 
 	List<SpellInfo*> spellSlots; // A list of every spell slot and its current spell. If empty, it contains NONE.
 	List<SpellInfo*> deckSlots; // A list of every spell in the deck. If empty, contains NONE
-	int selectedSpell; // The current selected spell slot on the list. This is an index.
 	ExecuteSpell* executeSpellCommand = nullptr; // The command that fires the selected spell on the current spell slot to the SpellList.
 
 	Player* player = nullptr;
