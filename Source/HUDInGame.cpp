@@ -20,8 +20,7 @@ RenderObject SettingsBG;
 
 HUDInGame::HUDInGame() :Scene("HUDInGame")
 {
-	SceneGame* scene = (SceneGame*)app->scene->scenes[app->scene->currentScene];
-	currentSpell = &scene->player->controller->combat->selectedSpell;
+
 }
 
 HUDInGame::~HUDInGame()
@@ -44,15 +43,18 @@ bool HUDInGame::Start()
 	Controls2.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Controls2_2.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 1);
 
 	hpRect = { app->renderer->camera->x + 15, app->renderer->camera->y + 10, 200, 10 };
-
 	miniMap = { app->renderer->camera->x + 535, app->renderer->camera->y + 5, 100, 100 };
 
-	spell1 = { app->renderer->camera->x + 225, app->renderer->camera->y + 314, 30, 40 };
-	spell2 = { app->renderer->camera->x + 275, app->renderer->camera->y + 314, 30, 40 };
-	spell3 = { app->renderer->camera->x + 325, app->renderer->camera->y + 314, 30, 40 };
-	spell4 = { app->renderer->camera->x + 375, app->renderer->camera->y + 314, 30, 40 };
-
-	pause = { app->renderer->camera->x, app->renderer->camera->y, 500, 300 };
+	spell1 = { app->renderer->camera->x + 305, app->renderer->camera->y + 314, 30, 40 };
+	spell2_1 = { app->renderer->camera->x + 275, app->renderer->camera->y + 314, 30, 40 };
+	spell2_2 = { app->renderer->camera->x + 275, app->renderer->camera->y + 314, 30, 40 };
+	spell3_1 = { app->renderer->camera->x + 270, app->renderer->camera->y + 314, 30, 40 };
+	spell3_2 = { app->renderer->camera->x + 305, app->renderer->camera->y + 314, 30, 40 };
+	spell3_3 = { app->renderer->camera->x + 340, app->renderer->camera->y + 314, 30, 40 };
+	spell4_1 = { app->renderer->camera->x + 375, app->renderer->camera->y + 314, 30, 40 };
+	spell4_2 = { app->renderer->camera->x + 375, app->renderer->camera->y + 314, 30, 40 };
+	spell4_3 = { app->renderer->camera->x + 375, app->renderer->camera->y + 314, 30, 40 };
+	spell4_4 = { app->renderer->camera->x + 375, app->renderer->camera->y + 314, 30, 40 };
 
 	resumeBUT = { app->renderer->camera->x + 262, app->renderer->camera->y + + 70};//640 pixeles with pantalla
 	settingsBUT = { app->renderer->camera->x + 262, app->renderer->camera->y + 117};
@@ -67,7 +69,6 @@ bool HUDInGame::Start()
 	QuitBUT = new GUIButton(quitBUT, 117, 47, MenuButton::INGAMEPUASE, "Assets/Sprites/UI/Quit.png");
 
 	CloseControlsBUT = new GUIButton({ app->renderer->camera->x + 297, app->renderer->camera->y + 315 }, 46, 46, MenuButton::CONTROLSPAUSE, "Assets/Sprites/UI/Back.png");
-
 	CloseSettingsBUT = new GUIButton({ app->renderer->camera->x + 297, app->renderer->camera->y + 315 }, 46, 46, MenuButton::SETTINGSPAUSE, "Assets/Sprites/UI/Back.png");
 
 	MusicBUT = new GUIButton({ app->renderer->camera->x + 200, app->renderer->camera->y + 125 }, 27, 46, MenuButton::SETTINGSPAUSE, "Assets/Sprites/UI/fireSlider.png");
@@ -79,7 +80,6 @@ bool HUDInGame::Start()
 	fxSlider->CreateGUIBtn(fxBUT);
 
 	FullScreenCHK = new GUICheckbox({ app->renderer->camera->x + 350, app->renderer->camera->y + 215 }, 60, 60, MenuButton::SETTINGSPAUSE, "Assets/Sprites/UI/CheckBox.png");
-
 
 	Scene::Start();
 
@@ -98,6 +98,13 @@ bool HUDInGame::PreUpdate()
 			startPause = false;
 		}
 	}
+
+	if (player == nullptr)
+	{
+		SceneGame* scene = (SceneGame*)app->scene->scenes[app->scene->currentScene];
+		player = scene->player->controller->combat;
+	}
+
 
 	Scene::PreUpdate();
 
@@ -224,17 +231,40 @@ bool HUDInGame::PostUpdate()
 {
 	app->renderer->AddRectRenderQueue(hpRect, { 155, 0, 0, 255 }, true, 3, 2.0f, 0.0f);
 	app->renderer->AddRectRenderQueue(hpRect, { 155, 155, 155, 255 }, false, 3, 3.0f, 0.0f);
+	app->renderer->AddRectRenderQueue(miniMap, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
 
+	if (player->availableSpellSlots == 1)
+	{
+		app->renderer->AddRectRenderQueue(spell1, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
 
-	app->renderer->AddRectRenderQueue(spell1, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
-	app->renderer->AddRectRenderQueue(spell2, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
-	app->renderer->AddRectRenderQueue(spell3, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
-	app->renderer->AddRectRenderQueue(spell4, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
+	}
+	if (player->availableSpellSlots == 2)
+	{
+		app->renderer->AddRectRenderQueue(spell1, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
+		app->renderer->AddRectRenderQueue(spell1, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
+
+	}	
+	if (player->availableSpellSlots == 3)
+	{
+		app->renderer->AddRectRenderQueue(spell1, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
+		app->renderer->AddRectRenderQueue(spell1, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
+		app->renderer->AddRectRenderQueue(spell1, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
+
+	}
+	if (player->availableSpellSlots == 4)
+	{
+		app->renderer->AddRectRenderQueue(spell1, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
+		app->renderer->AddRectRenderQueue(spell1, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
+		app->renderer->AddRectRenderQueue(spell1, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
+
+	}
 	
-	if (currentSpell == 1)	app->renderer->AddRectRenderQueue(spell1, { 255, 0, 0, 255 }, true, 3, 2.0f, 0.0f);
-	if (currentSpell == 2)	app->renderer->AddRectRenderQueue(spell2, { 255, 0, 0, 255 }, true, 3, 2.0f, 0.0f);
-	if (currentSpell == 3)	app->renderer->AddRectRenderQueue(spell3, { 255, 0, 0, 255 }, true, 3, 2.0f, 0.0f);
-	if (currentSpell == 4)	app->renderer->AddRectRenderQueue(spell4, { 255, 0, 0, 255 }, true, 3, 2.0f, 0.0f);
+	if (player->selectedSpell == 0)	app->renderer->AddRectRenderQueue(spell1, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
+	if (player->selectedSpell == 1)	app->renderer->AddRectRenderQueue(spell2, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
+	if (player->selectedSpell == 2)	app->renderer->AddRectRenderQueue(spell3, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
+	if (player->selectedSpell == 3)	app->renderer->AddRectRenderQueue(spell4, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
+
+	LOG("Spell: %d", player->selectedSpell);
 
 	if (app->isPause)
 	{

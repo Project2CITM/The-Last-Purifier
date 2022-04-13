@@ -7,6 +7,7 @@
 class GUIButton;
 class GUISlider;
 class GUICheckbox;
+class PlayerCombat;
 
 enum class CurrentPauseMenu
 {
@@ -43,11 +44,15 @@ private:
 	SDL_Rect hpRect = {0,0,0,0};
 	SDL_Rect miniMap = {0,0,0,0};
 	SDL_Rect spell1 = {0,0,0,0};
-	SDL_Rect spell2 = {0,0,0,0};
-	SDL_Rect spell3 = {0,0,0,0};
-	SDL_Rect spell4 = {0,0,0,0};
-
-	SDL_Rect pause = {0,0,0,0};
+	SDL_Rect spell2_1 = {0,0,0,0};
+	SDL_Rect spell2_2 = {0,0,0,0};
+	SDL_Rect spell3_1 = {0,0,0,0};
+	SDL_Rect spell3_2 = {0,0,0,0};
+	SDL_Rect spell3_3 = {0,0,0,0};
+	SDL_Rect spell4_1 = {0,0,0,0};
+	SDL_Rect spell4_2 = {0,0,0,0};
+	SDL_Rect spell4_3 = {0,0,0,0};
+	SDL_Rect spell4_4 = {0,0,0,0};
 
 	iPoint resumeBUT = { 0,0 };
 	iPoint settingsBUT = { 0,0 };
@@ -73,6 +78,8 @@ private:
 	GUICheckbox* FullScreenCHK = nullptr;
 
 	CurrentPauseMenu currentPauseMenu;
+
+	PlayerCombat* player = nullptr;
 
 	bool startPause = false;
 
