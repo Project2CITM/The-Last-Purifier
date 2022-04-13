@@ -13,6 +13,7 @@
 #include "CommonTree.h"
 #include "EnemyDummy.h"
 #include "SpellSpawnManager.h"
+#include "ModuleWindow.h"
 
 TestScene::TestScene() : SceneGame("testScene")
 {
@@ -58,16 +59,21 @@ bool TestScene::Start()
     classTreeHud = new ClassTreeHud();
     classTreeHud->Start();
 
-    new NPC("purifier1", { 0,0 });
-    NPC* npc1 = new NPC("purifier10", { 20,300 });
-    NPC* npc2 =new NPC("purifier10", { 40,100 });
+   // new NPC("purifier1", { 0,0 });
+   //NPC* npc1 = new NPC("purifier10", { 300,150 });
+   // NPC* npc2 =new NPC("purifier10", { 40,100 });
 
 
     Scene::Start();
-
     spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-40, 0));
     spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-80, 0));
     new EnemyDummy(player->controller->GetPosition() + iPoint(40, 0));
+    
+    iPoint npcScale = player->controller->GetPosition();
+    npcScale.x /= app->window->scale;
+    npcScale.y /= app->window->scale;
+    NPC* npc1 = new NPC("purifier10", npcScale );
+    npc1->Start();
     return true;
 }
 
@@ -141,9 +147,10 @@ bool TestScene::PreUpdate()
     revenantTree->PreUpdate();
     classTreeHud->PreUpdate();
 
-
+    printf("%d  %d \n", player->controller->GetPosition().x, player->controller->GetPosition().y);
     Scene::PreUpdate();
     return true;
+
 }
 
 bool TestScene::Update()

@@ -9,6 +9,7 @@ NPC::NPC(std::string name, iPoint position) : GameObject(name,"NPC")
 {
 	npcPosition = position;
 	textPosition = { position.x,position.y - npcData.h };
+	npcRect = { npcPosition.x,npcPosition.y,npcData.w,npcData.h };
 
 }
 
@@ -32,7 +33,6 @@ void NPC::Start()
 		sentences.add(npcNode.child(temporalSentence.c_str()).child_value());
 
 	}
-	npcRect = { npcPosition.x,npcPosition.y,npcData.w,npcData.h };
 	//Aqui se imprime el sprite del NPC
 }
 
@@ -43,6 +43,8 @@ void NPC::PreUpdate()
 
 void NPC::Update()
 {
+//	npcRect = { npcPosition.x,npcPosition.y,npcData.w,npcData.h };
+
 	if (canSpeak) {
 		
 		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
@@ -64,7 +66,8 @@ void NPC::Update()
 
 void NPC::PostUpdate()
 {
-	app->renderer->AddRectRenderQueue(npcRect, SDL_Color{ 250,0,0,255 }, true, 2, 50);
+	
+	app->renderer->AddRectRenderQueue(npcRect, SDL_Color{ 250,0,0,255 }, true, 3, 50);
 }
 
 void NPC::CleanUp()
