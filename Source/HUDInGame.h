@@ -81,6 +81,11 @@ private:
 
 	PlayerCombat* player = nullptr;
 
+	int ControllerPos = 0;
+	int ControllerPosOpY = 0;
+	int ControllerPosOpX = 0;
+	bool AxisPress = false;
+
 	bool startPause = false;
 
 	int* currentSpell = nullptr;

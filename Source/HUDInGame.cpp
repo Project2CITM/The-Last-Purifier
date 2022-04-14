@@ -112,6 +112,11 @@ bool HUDInGame::PreUpdate()
 
 bool HUDInGame::Update()
 {
+	int leftYMain, leftYOptions, leftXOptions;
+	leftYMain = app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTY);
+	leftYOptions = app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTY);
+	leftXOptions = app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTX);
+
 	if (app->isPause)
 	{
 		if (!startPause)
@@ -149,32 +154,50 @@ bool HUDInGame::Update()
 
 	if (currentPauseMenu == CurrentPauseMenu::Pause)
 	{
-		if (ResumeBUT->doAction)
+		if (app->input->usingGameController)
+		{
+			if (leftYMain > 0 && !AxisPress && ControllerPos <= 3)
+			{
+				ControllerPos += 1;
+				AxisPress = true;
+			}
+			else if (leftYMain < 0 && !AxisPress && ControllerPos >= 1)
+			{
+				ControllerPos -= 1;
+				AxisPress = true;
+			}
+			else if (leftYMain == 0)
+			{
+				AxisPress = false;
+			}
+		}
+
+		if (ResumeBUT->doAction || (ControllerPos == 0 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN) || app->input->GetControllerButton(BUTTON_B) == KEY_DOWN)
 		{
 			app->isPause = false;
 			ResumeBUT->doAction = false;
 		}
 
-		if (ControlsBUT->doAction)
+		if (ControlsBUT->doAction || (ControllerPos == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
 		{
 			currentPauseMenu = CurrentPauseMenu::Controls;
 			ControlsBUT->doAction = false;
 		}
 
-		if (SettingsBUT->doAction)
+		if (SettingsBUT->doAction || (ControllerPos == 1 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
 		{
 			currentPauseMenu = CurrentPauseMenu::Settings;
 			SettingsBUT->doAction = false;
 		}
 
-		if (GiveUpBUT->doAction)
+		if (GiveUpBUT->doAction || (ControllerPos == 3 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
 		{
 			app->scene->ChangeCurrentSceneRequest(HUB);//et porta al hall
 			app->isPause = false;
 			GiveUpBUT->doAction = false;
 		}
 
-		if (QuitBUT->doAction)
+		if (QuitBUT->doAction || (ControllerPos == 4 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
 		{
 			app->scene->ChangeCurrentSceneRequest(MAIN_MENU);
 			app->isPause = false;
@@ -184,27 +207,40 @@ bool HUDInGame::Update()
 
 	if (currentPauseMenu == CurrentPauseMenu::Settings)
 	{
-		if (CloseSettingsBUT->doAction)
+		if (app->input->usingGameController)
+		{
+			if (leftYOptions > 0 && !AxisPress && ControllerPosOpY <= 2)
+			{
+				ControllerPosOpY += 1;
+				AxisPress = true;
+			}
+			else if (leftYOptions < 0 && !AxisPress && ControllerPosOpY >= 1)
+			{
+				ControllerPosOpY -= 1;
+				AxisPress = true;
+			}
+			else if (leftYOptions == 0)
+			{
+				AxisPress = false;
+			}
+		}
+
+		if (CloseSettingsBUT->doAction || (ControllerPosOpY == 3 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN) || app->input->GetControllerButton(BUTTON_B) == KEY_DOWN)
 		{
 			currentPauseMenu = CurrentPauseMenu::Pause;
+			ControllerPosOpY = 0;
 			CloseSettingsBUT->doAction = false;
 		}
 
-		if (FullScreenCHK->isActive)
+		if ((FullScreenCHK->isActive || (ControllerPosOpY == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)) && !app->FullScreenDesktop)
 		{
-			app->fullScreen = true;
-			FullScreenCHK->doAction;
+			app->window->ToggleFullScreen(true);
+			FullScreenCHK->isActive = true;
 		}
-		else
+		else if ((!FullScreenCHK->isActive || (ControllerPosOpY == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)) && app->FullScreenDesktop)
 		{
-			FullScreenCHK->doAction;
-			app->fullScreen = false;
-		}
-
-		if (FullScreenCHK->doAction)
-		{
-			app->window->ToggleFullScreen(app->fullScreen);
-			FullScreenCHK->doAction = false;
+			app->window->ToggleFullScreen(false);
+			FullScreenCHK->isActive = false;
 		}
 
 		app->musicVol = MusicSlider->GetValue() * 255;
@@ -214,7 +250,7 @@ bool HUDInGame::Update()
 
 	if (currentPauseMenu == CurrentPauseMenu::Controls)
 	{
-		if (CloseControlsBUT->doAction)
+		if (CloseControlsBUT->doAction || app->input->GetControllerButton(BUTTON_B) == KEY_DOWN)
 		{
 			currentPauseMenu = CurrentPauseMenu::Pause;
 			CloseControlsBUT->doAction = false;

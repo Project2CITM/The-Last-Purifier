@@ -138,7 +138,7 @@ bool TestScene::PreUpdate()
 
     }*/
 
-    if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN) app->TogglePause(!app->isPause);
+    if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN || app->input->GetControllerButton(BUTTON_START) == KEY_DOWN) app->TogglePause(!app->isPause);
 
 
     //printf("Axis Left: X: %d Y: %d\n", app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTX), app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTY));
