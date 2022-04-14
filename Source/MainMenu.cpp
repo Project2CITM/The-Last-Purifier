@@ -125,12 +125,12 @@ bool MainMenu::Update()
 	{
 		if (app->input->usingGameController)
 		{
-			if (leftYMain > 0 && !AxisPress && ControllerPos <= 3)
+			if ((leftYMain > 0 || app->input->GetControllerButton(BUTTON_DOWN) == KEY_DOWN) && !AxisPress && ControllerPos <= 3)
 			{
 				ControllerPos += 1;
 				AxisPress = true;
 			}
-			else if (leftYMain < 0 && !AxisPress && ControllerPos >= 1)
+			else if ((leftYMain < 0 || app->input->GetControllerButton(BUTTON_UP) == KEY_DOWN) && !AxisPress && ControllerPos >= 1)
 			{
 				ControllerPos -= 1;
 				AxisPress = true;
@@ -176,12 +176,12 @@ bool MainMenu::Update()
 	{
 		if (app->input->usingGameController)
 		{
-			if (leftYOptions > 0 && !AxisPress && ControllerPosOpY <= 2)
+			if ((leftYOptions > 0 || app->input->GetControllerButton(BUTTON_DOWN) == KEY_DOWN) && !AxisPress && ControllerPosOpY <= 2)
 			{
 				ControllerPosOpY += 1;
 				AxisPress = true;
 			}
-			else if (leftYOptions < 0 && !AxisPress && ControllerPosOpY >= 1)
+			else if ((leftYOptions < 0 || app->input->GetControllerButton(BUTTON_UP) == KEY_DOWN) && !AxisPress && ControllerPosOpY >= 1)
 			{
 				ControllerPosOpY -= 1;
 				AxisPress = true;
@@ -219,12 +219,12 @@ bool MainMenu::Update()
 	{
 		if (app->input->usingGameController)
 		{
-			if (leftYCredtis > 0 && !AxisPress && ControllerPosCr <= 3)
+			if ((leftYCredtis > 0 || app->input->GetControllerButton(BUTTON_DOWN) == KEY_DOWN) && !AxisPress && ControllerPosCr <= 3)
 			{
 				ControllerPosCr += 1;
 				AxisPress = true;
 			}
-			else if (leftYCredtis < 0 && !AxisPress && ControllerPosCr >= 1)
+			else if ((leftYCredtis < 0 || app->input->GetControllerButton(BUTTON_UP) == KEY_DOWN) && !AxisPress && ControllerPosCr >= 1)
 			{
 				ControllerPosCr -= 1;
 				AxisPress = true;

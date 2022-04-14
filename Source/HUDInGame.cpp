@@ -156,12 +156,12 @@ bool HUDInGame::Update()
 	{
 		if (app->input->usingGameController)
 		{
-			if (leftYMain > 0 && !AxisPress && ControllerPos <= 3)
+			if ((leftYMain > 0 || app->input->GetControllerButton(BUTTON_DOWN) == KEY_DOWN) && !AxisPress && ControllerPos <= 3)
 			{
 				ControllerPos += 1;
 				AxisPress = true;
 			}
-			else if (leftYMain < 0 && !AxisPress && ControllerPos >= 1)
+			else if ((leftYMain < 0 || app->input->GetControllerButton(BUTTON_UP) == KEY_DOWN) && !AxisPress && ControllerPos >= 1)
 			{
 				ControllerPos -= 1;
 				AxisPress = true;
@@ -209,12 +209,12 @@ bool HUDInGame::Update()
 	{
 		if (app->input->usingGameController)
 		{
-			if (leftYOptions > 0 && !AxisPress && ControllerPosOpY <= 2)
+			if ((leftYOptions > 0 || app->input->GetControllerButton(BUTTON_DOWN) == KEY_DOWN) && !AxisPress && ControllerPosOpY <= 2)
 			{
 				ControllerPosOpY += 1;
 				AxisPress = true;
 			}
-			else if (leftYOptions < 0 && !AxisPress && ControllerPosOpY >= 1)
+			else if ((leftYOptions < 0 || app->input->GetControllerButton(BUTTON_UP) == KEY_DOWN) && !AxisPress && ControllerPosOpY >= 1)
 			{
 				ControllerPosOpY -= 1;
 				AxisPress = true;
@@ -250,7 +250,7 @@ bool HUDInGame::Update()
 
 	if (currentPauseMenu == CurrentPauseMenu::Controls)
 	{
-		if (CloseControlsBUT->doAction || app->input->GetControllerButton(BUTTON_B) == KEY_DOWN)
+		if (CloseControlsBUT->doAction || app->input->GetControllerButton(BUTTON_A) == KEY_DOWN || app->input->GetControllerButton(BUTTON_B) == KEY_DOWN)
 		{
 			currentPauseMenu = CurrentPauseMenu::Pause;
 			CloseControlsBUT->doAction = false;
