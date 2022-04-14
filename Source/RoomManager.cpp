@@ -47,11 +47,18 @@ void RoomManager::Update(iPoint playerPos)
 	
 	//Close doors when entering
 	if (!r->done) {
-		float enemySpawnSensor = (float)playerPos.x;
-		enemySpawnSensor /= (float)(TILE_SIZE * MAX_ROOM_TILES_COLUMNS);
-		enemySpawnSensor /= (float)r->roomPosition.x;
+		float enterSensorX = (float)playerPos.x;
+		enterSensorX /= (float)(TILE_SIZE * MAX_ROOM_TILES_COLUMNS);
+		enterSensorX -= (float)r->roomPosition.x;
+		
+		float enterSensorY = (float)playerPos.y;
+		enterSensorY /= (float)(TILE_SIZE * MAX_ROOM_TILES_ROWS);
+		enterSensorY -= (float)r->roomPosition.y;
 
-		if (enemySpawnSensor > 1.1f && enemySpawnSensor < 1.9f)
+		LOG("PosX: %.2f   PosY: %.2f", enterSensorX, enterSensorY);
+		
+		//Horizontal & Verticals limits to close doors
+		if (enterSensorX > 0.03f && enterSensorX < 0.97f && enterSensorY > 0.20f && enterSensorY < 0.95f)
 			r->CloseDoors();
 	}
 

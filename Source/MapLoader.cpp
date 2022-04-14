@@ -79,7 +79,7 @@ void MapLoader::CreateEnemies(Room* r)
 	
 	r->enemies.add(new EnemyDummy(iPoint(
 		r->roomPosition.x * TILE_SIZE * MAX_ROOM_TILES_COLUMNS + (TILE_SIZE * MAX_ROOM_TILES_COLUMNS) / 2,
-		r->roomPosition.x * TILE_SIZE * MAX_ROOM_TILES_ROWS + (TILE_SIZE * MAX_ROOM_TILES_ROWS) / 2 )));
+		r->roomPosition.y * TILE_SIZE * MAX_ROOM_TILES_ROWS + (TILE_SIZE * MAX_ROOM_TILES_ROWS) / 2 )));
 	
 
 	//Find enemy layer
