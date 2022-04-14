@@ -5,7 +5,8 @@
 #include "ModulePhysics.h"
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
-#include "Enemy.h"
+
+class Enemy;
 
 #define MAX_ROOM_TILES_COLUMNS 81
 #define MAX_ROOM_TILES_ROWS 35
@@ -87,7 +88,7 @@ public:
 	List<PhysBody*> colliders;
 	bool activeColliders = true;
 
-	List<Enemy*> enemies;
+	List<Enemy*> enemies; // Utilizara en algun sitio?
 	bool done = false;
 
 	List<Door*> doors;

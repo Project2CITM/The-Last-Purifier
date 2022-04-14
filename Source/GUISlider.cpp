@@ -89,8 +89,10 @@ void GUISlider::Update()
 		iPoint mousePos = { app->input->GetMouseX(), app->input->GetMouseY() };
 		int btnNewPos_x = 0;
 		
-		float screenOffset = app->FullScreenDesktop ? (float)app->renderer->displayMode.h / 640.0f : 1;
-		float widthOffset = app->FullScreenDesktop ? (app->renderer->displayMode.w - (640.0f * screenOffset)) / 2 : 0;
+		float screenOffset = app->FullScreenDesktop ? (float)app->renderer->displayMode.h / app->window->height : 1;
+		float widthOffset = app->FullScreenDesktop ? (app->renderer->displayMode.w - (app->window->width * screenOffset)) / 2 : 0;
+
+		printf("%d\n", app->renderer->displayMode.h);
 
 		switch (btn->buttonState)
 		{
@@ -102,7 +104,7 @@ void GUISlider::Update()
 
 		case ButtonState::PRESSED:
 
-			// Calculate new btnpos
+			// Calculate new btnPos
 			btnNewPos_x = (mousePos.x / (app->window->scale * screenOffset)) - btnMouse_offset_x;
 
 			// Change button position after Clamping

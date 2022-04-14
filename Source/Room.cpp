@@ -1,4 +1,5 @@
 #include "Room.h"
+#include "Enemy.h"
 
 void Room::CloseDoors()
 {
@@ -49,7 +50,6 @@ void Room::CleanUp()
 	}
 
 	colliders.clearPtr();
-	enemies.clearPtr();
 }
 
 iPoint Room::GetDoorPos(DoorOrientations orient)
