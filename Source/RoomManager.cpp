@@ -28,21 +28,38 @@ void RoomManager::Start()
 
 void RoomManager::Update(iPoint playerPos)
 {
-	//Activate only current room colliders
+	//Check current room
 	Room* r = roomPositions[playerPos.x / (TILE_SIZE * MAX_ROOM_TILES_COLUMNS)][playerPos.y / (TILE_SIZE * MAX_ROOM_TILES_ROWS)];
 	
 	//Player is not in any room
 	if (r == nullptr) return;
 
+	//Erase enemies if dead
+	for (int i = 0; i < r->enemies.count(); ++i) {
+		if (r->enemies[i]->isDie) {
+			r->enemies.remove(r->enemies.At(r->enemies.find(r->enemies[i])));
+		}
+	}
+
 	//No enemies -> Completed room
 	if (r->enemies.count() == 0 && !r->done)
-		r->done == true;
+		r->done = true;
+	
+	//Close doors when entering
+	if (!r->done) {
+		float enemySpawnSensor = (float)playerPos.x;
+		enemySpawnSensor /= (float)(TILE_SIZE * MAX_ROOM_TILES_COLUMNS);
+		enemySpawnSensor /= (float)r->roomPosition.x;
 
-	//Open Doors
+		if (enemySpawnSensor > 1.1f && enemySpawnSensor < 1.9f)
+			r->CloseDoors();
+	}
+
+	//Open Doors when no enemies
 	if (r->done && r->closedDoors)
 		r->OpenDoors();
 
-	//Player has changed room
+	//Player has changed room (activate/deactivate colliders)
 	if(!r->activeColliders)
 		for (int i = 0; i < rooms.count(); ++i) {
 			if (rooms[i] == r) {

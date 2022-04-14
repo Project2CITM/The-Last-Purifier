@@ -1,6 +1,6 @@
 #include "MapLoader.h"
 
-void MapLoader::ExtractMapColliders(Room* r)
+void MapLoader::ExtractMapInfo(Room* r)
 {
 	LoadMap(r->id);
 	CreateColliders(r);
@@ -76,11 +76,17 @@ void MapLoader::CreateColliders(Room* r)
 
 void MapLoader::CreateEnemies(Room* r)
 {
+	
+	r->enemies.add(new EnemyDummy(iPoint(
+		r->roomPosition.x * TILE_SIZE * MAX_ROOM_TILES_COLUMNS + (TILE_SIZE * MAX_ROOM_TILES_COLUMNS) / 2,
+		r->roomPosition.x * TILE_SIZE * MAX_ROOM_TILES_ROWS + (TILE_SIZE * MAX_ROOM_TILES_ROWS) / 2 )));
+	
+
 	//Find enemy layer
 	pugi::xml_node enemyLayer = mapNode.child("layer");
 	for (enemyLayer; enemyLayer != NULL; enemyLayer = enemyLayer.next_sibling()) {
 		string name = enemyLayer.attribute("name").as_string();
-		if (name == "Enemy") break;
+		if (name == "Enemics") break;
 	}
 
 	//Get node tiles (with gid attributes)
