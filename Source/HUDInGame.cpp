@@ -42,6 +42,9 @@ bool HUDInGame::Start()
 	Controls1.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Controls1_2.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 1);
 	Controls2.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Controls2_2.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 1);
 
+	Hover = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiHover.wav");
+	Press = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiSelect.wav");
+
 	hpRect = { app->renderer->camera->x + 15, app->renderer->camera->y + 10, 200, 10 };
 	miniMap = { app->renderer->camera->x + 535, app->renderer->camera->y + 5, 100, 100 };
 
@@ -95,6 +98,7 @@ bool HUDInGame::PreUpdate()
 			app->musicVol = app->musicVol * 2;
 			app->fxVol = app->fxVol * 2;
 			//currentPauseMenu = CurrentPauseMenu::Pause;
+			ControllerPos = 0;
 			startPause = false;
 		}
 	}
@@ -149,114 +153,116 @@ bool HUDInGame::Update()
 				if (guisSettingsP[i]) guisSettingsP[i]->Update();
 			}
 		}
+	
+		if (currentPauseMenu == CurrentPauseMenu::Pause)
+		{
+			if (app->input->usingGameController)
+			{
+				if ((leftYMain > 0 || app->input->GetControllerButton(BUTTON_DOWN) == KEY_DOWN) && !AxisPress && ControllerPos <= 3)
+				{
+					ControllerPos += 1;
+					app->audio->PlayFx(Hover);
+					AxisPress = true;
+				}
+				else if ((leftYMain < 0 || app->input->GetControllerButton(BUTTON_UP) == KEY_DOWN) && !AxisPress && ControllerPos >= 1)
+				{
+					ControllerPos -= 1;
+					app->audio->PlayFx(Hover);
+					AxisPress = true;
+				}
+				else if (leftYMain == 0)
+				{
+					AxisPress = false;
+				}
+			}
+
+			if (ResumeBUT->doAction || (ControllerPos == 0 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN) || app->input->GetControllerButton(BUTTON_B) == KEY_DOWN)
+			{
+				app->isPause = false;
+				ResumeBUT->doAction = false;
+			}
+
+			if (ControlsBUT->doAction || (ControllerPos == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
+			{
+				currentPauseMenu = CurrentPauseMenu::Controls;
+				ControlsBUT->doAction = false;
+			}
+
+			if (SettingsBUT->doAction || (ControllerPos == 1 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
+			{
+				currentPauseMenu = CurrentPauseMenu::Settings;
+				SettingsBUT->doAction = false;
+			}
+
+			if (GiveUpBUT->doAction || (ControllerPos == 3 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
+			{
+				app->scene->ChangeCurrentSceneRequest(HUB);//et porta al hall
+				app->isPause = false;
+				GiveUpBUT->doAction = false;
+			}
+
+			if (QuitBUT->doAction || (ControllerPos == 4 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
+			{
+				app->scene->ChangeCurrentSceneRequest(MAIN_MENU);
+				app->isPause = false;
+				QuitBUT->doAction = false;
+			}
+		}
+
+		if (currentPauseMenu == CurrentPauseMenu::Settings)
+		{
+			if (app->input->usingGameController)
+			{
+				if ((leftYOptions > 0 || app->input->GetControllerButton(BUTTON_DOWN) == KEY_DOWN) && !AxisPress && ControllerPosOpY <= 2)
+				{
+					ControllerPosOpY += 1;
+					app->audio->PlayFx(Hover);
+					AxisPress = true;
+				}
+				else if ((leftYOptions < 0 || app->input->GetControllerButton(BUTTON_UP) == KEY_DOWN) && !AxisPress && ControllerPosOpY >= 1)
+				{
+					ControllerPosOpY -= 1;
+					app->audio->PlayFx(Hover);
+					AxisPress = true;
+				}
+				else if (leftYOptions == 0)
+				{
+					AxisPress = false;
+				}
+			}
+
+			if (CloseSettingsBUT->doAction || (ControllerPosOpY == 3 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN) || app->input->GetControllerButton(BUTTON_B) == KEY_DOWN)
+			{
+				currentPauseMenu = CurrentPauseMenu::Pause;
+				ControllerPosOpY = 0;
+				CloseSettingsBUT->doAction = false;
+			}
+
+			if ((FullScreenCHK->isActive || (ControllerPosOpY == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)) && !app->FullScreenDesktop)
+			{
+				app->window->ToggleFullScreen(true);
+				FullScreenCHK->isActive = true;
+			}
+			else if ((!FullScreenCHK->isActive || (ControllerPosOpY == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)) && app->FullScreenDesktop)
+			{
+				app->window->ToggleFullScreen(false);
+				FullScreenCHK->isActive = false;
+			}
+
+			app->musicVol = MusicSlider->GetValue() * 255;
+			app->fxVol = fxSlider->GetValue() * 255;
+
+		}
+
+		if (currentPauseMenu == CurrentPauseMenu::Controls)
+		{
+			if (CloseControlsBUT->doAction || app->input->GetControllerButton(BUTTON_A) == KEY_DOWN || app->input->GetControllerButton(BUTTON_B) == KEY_DOWN)
+			{
+				currentPauseMenu = CurrentPauseMenu::Pause;
+				CloseControlsBUT->doAction = false;
+			}
+		}
 	}
-
-
-	if (currentPauseMenu == CurrentPauseMenu::Pause)
-	{
-		if (app->input->usingGameController)
-		{
-			if ((leftYMain > 0 || app->input->GetControllerButton(BUTTON_DOWN) == KEY_DOWN) && !AxisPress && ControllerPos <= 3)
-			{
-				ControllerPos += 1;
-				AxisPress = true;
-			}
-			else if ((leftYMain < 0 || app->input->GetControllerButton(BUTTON_UP) == KEY_DOWN) && !AxisPress && ControllerPos >= 1)
-			{
-				ControllerPos -= 1;
-				AxisPress = true;
-			}
-			else if (leftYMain == 0)
-			{
-				AxisPress = false;
-			}
-		}
-
-		if (ResumeBUT->doAction || (ControllerPos == 0 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN) || app->input->GetControllerButton(BUTTON_B) == KEY_DOWN)
-		{
-			app->isPause = false;
-			ResumeBUT->doAction = false;
-		}
-
-		if (ControlsBUT->doAction || (ControllerPos == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
-		{
-			currentPauseMenu = CurrentPauseMenu::Controls;
-			ControlsBUT->doAction = false;
-		}
-
-		if (SettingsBUT->doAction || (ControllerPos == 1 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
-		{
-			currentPauseMenu = CurrentPauseMenu::Settings;
-			SettingsBUT->doAction = false;
-		}
-
-		if (GiveUpBUT->doAction || (ControllerPos == 3 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
-		{
-			app->scene->ChangeCurrentSceneRequest(HUB);//et porta al hall
-			app->isPause = false;
-			GiveUpBUT->doAction = false;
-		}
-
-		if (QuitBUT->doAction || (ControllerPos == 4 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
-		{
-			app->scene->ChangeCurrentSceneRequest(MAIN_MENU);
-			app->isPause = false;
-			QuitBUT->doAction = false;
-		}
-	}
-
-	if (currentPauseMenu == CurrentPauseMenu::Settings)
-	{
-		if (app->input->usingGameController)
-		{
-			if ((leftYOptions > 0 || app->input->GetControllerButton(BUTTON_DOWN) == KEY_DOWN) && !AxisPress && ControllerPosOpY <= 2)
-			{
-				ControllerPosOpY += 1;
-				AxisPress = true;
-			}
-			else if ((leftYOptions < 0 || app->input->GetControllerButton(BUTTON_UP) == KEY_DOWN) && !AxisPress && ControllerPosOpY >= 1)
-			{
-				ControllerPosOpY -= 1;
-				AxisPress = true;
-			}
-			else if (leftYOptions == 0)
-			{
-				AxisPress = false;
-			}
-		}
-
-		if (CloseSettingsBUT->doAction || (ControllerPosOpY == 3 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN) || app->input->GetControllerButton(BUTTON_B) == KEY_DOWN)
-		{
-			currentPauseMenu = CurrentPauseMenu::Pause;
-			ControllerPosOpY = 0;
-			CloseSettingsBUT->doAction = false;
-		}
-
-		if ((FullScreenCHK->isActive || (ControllerPosOpY == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)) && !app->FullScreenDesktop)
-		{
-			app->window->ToggleFullScreen(true);
-			FullScreenCHK->isActive = true;
-		}
-		else if ((!FullScreenCHK->isActive || (ControllerPosOpY == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)) && app->FullScreenDesktop)
-		{
-			app->window->ToggleFullScreen(false);
-			FullScreenCHK->isActive = false;
-		}
-
-		app->musicVol = MusicSlider->GetValue() * 255;
-		app->fxVol = fxSlider->GetValue() * 255;
-
-	}
-
-	if (currentPauseMenu == CurrentPauseMenu::Controls)
-	{
-		if (CloseControlsBUT->doAction || app->input->GetControllerButton(BUTTON_A) == KEY_DOWN || app->input->GetControllerButton(BUTTON_B) == KEY_DOWN)
-		{
-			currentPauseMenu = CurrentPauseMenu::Pause;
-			CloseControlsBUT->doAction = false;
-		}
-	}
-
 	Scene::Update();
 
 	return true;

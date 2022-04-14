@@ -81,6 +81,9 @@ private:
 
 	PlayerCombat* player = nullptr;
 
+	uint Hover = NULL;
+	uint Press = NULL;
+
 	int ControllerPos = 0;
 	int ControllerPosOpY = 0;
 	int ControllerPosOpX = 0;

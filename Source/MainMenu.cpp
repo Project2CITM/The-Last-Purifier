@@ -43,6 +43,9 @@ bool MainMenu::Start()
 	credtis1.InitAsTexture(app->textures->Load("Assets/Sprites/UI/CredtisCre.png"), { 0,0 }, {0,0,0,0}, 0.5f);
 	credtis2.InitAsTexture(app->textures->Load("Assets/Sprites/UI/CreditsProba.png"), { 0,0 }, {0,0,0,0}, 0.5f);
 
+	Hover = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiHover.wav");
+	Press = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiSelect.wav");
+
 	//background del menu
 	app->audio->PlayMusic("Assets/Audio/Ambience/amb_dungeon1_1.ogg");	//Poner la musica que toca
 
@@ -128,11 +131,13 @@ bool MainMenu::Update()
 			if ((leftYMain > 0 || app->input->GetControllerButton(BUTTON_DOWN) == KEY_DOWN) && !AxisPress && ControllerPos <= 3)
 			{
 				ControllerPos += 1;
+				app->audio->PlayFx(Hover);
 				AxisPress = true;
 			}
 			else if ((leftYMain < 0 || app->input->GetControllerButton(BUTTON_UP) == KEY_DOWN) && !AxisPress && ControllerPos >= 1)
 			{
 				ControllerPos -= 1;
+				app->audio->PlayFx(Hover);
 				AxisPress = true;
 			}
 			else if (leftYMain == 0)
@@ -179,11 +184,13 @@ bool MainMenu::Update()
 			if ((leftYOptions > 0 || app->input->GetControllerButton(BUTTON_DOWN) == KEY_DOWN) && !AxisPress && ControllerPosOpY <= 2)
 			{
 				ControllerPosOpY += 1;
+				app->audio->PlayFx(Hover);
 				AxisPress = true;
 			}
 			else if ((leftYOptions < 0 || app->input->GetControllerButton(BUTTON_UP) == KEY_DOWN) && !AxisPress && ControllerPosOpY >= 1)
 			{
 				ControllerPosOpY -= 1;
+				app->audio->PlayFx(Hover);
 				AxisPress = true;
 			}
 			else if (leftYOptions == 0)
@@ -222,11 +229,13 @@ bool MainMenu::Update()
 			if ((leftYCredtis > 0 || app->input->GetControllerButton(BUTTON_DOWN) == KEY_DOWN) && !AxisPress && ControllerPosCr <= 3)
 			{
 				ControllerPosCr += 1;
+				app->audio->PlayFx(Hover);
 				AxisPress = true;
 			}
 			else if ((leftYCredtis < 0 || app->input->GetControllerButton(BUTTON_UP) == KEY_DOWN) && !AxisPress && ControllerPosCr >= 1)
 			{
 				ControllerPosCr -= 1;
+				app->audio->PlayFx(Hover);
 				AxisPress = true;
 			}
 			else if (leftYCredtis == 0)

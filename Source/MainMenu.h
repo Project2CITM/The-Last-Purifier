@@ -80,6 +80,9 @@ private:
 	bool AxisPress = false;
 
 	uint Appear_FX = NULL;
+
+	uint Hover = NULL;
+	uint Press = NULL;
 };
 
 #endif //__MAIN_MENU_H__
