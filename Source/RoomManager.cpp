@@ -30,6 +30,19 @@ void RoomManager::Update(iPoint playerPos)
 {
 	//Activate only current room colliders
 	Room* r = roomPositions[playerPos.x / (TILE_SIZE * MAX_ROOM_TILES_COLUMNS)][playerPos.y / (TILE_SIZE * MAX_ROOM_TILES_ROWS)];
+	
+	//Player is not in any room
+	if (r == nullptr) return;
+
+	//No enemies -> Completed room
+	if (r->enemies.count() == 0 && !r->done)
+		r->done == true;
+
+	//Open Doors
+	if (r->done && r->closedDoors)
+		r->OpenDoors();
+
+	//Player has changed room
 	if(!r->activeColliders)
 		for (int i = 0; i < rooms.count(); ++i) {
 			if (rooms[i] == r) {
@@ -314,8 +327,8 @@ Room* RoomManager::CreateRoom(iPoint mapPosition, short mapId)
 
 	//LOG("Room Id: %d", r->id);
 
-	//Extract colliders
-	mapLoader->ExtractMapColliders(r);
+	//Extract colliders & enemies
+	mapLoader->ExtractMapInfo(r);
 
 	rooms.add(r);
 	roomPositions[mapPosition.x][mapPosition.y] = r;

@@ -4,6 +4,7 @@ void MapLoader::ExtractMapColliders(Room* r)
 {
 	LoadMap(r->id);
 	CreateColliders(r);
+	CreateEnemies(r);
 }
 
 void MapLoader ::LoadMap(short id)
@@ -68,6 +69,30 @@ void MapLoader::CreateColliders(Room* r)
 				holeCollision->body->GetFixtureList()[0].SetFilterData(filter);
 				r->colliders.add(holeCollision);
 			}
+			tile = tile.next_sibling();
+		}
+	}
+}
+
+void MapLoader::CreateEnemies(Room* r)
+{
+	//Find enemy layer
+	pugi::xml_node enemyLayer = mapNode.child("layer");
+	for (enemyLayer; enemyLayer != NULL; enemyLayer = enemyLayer.next_sibling()) {
+		string name = enemyLayer.attribute("name").as_string();
+		if (name == "Enemy") break;
+	}
+
+	//Get node tiles (with gid attributes)
+	pugi::xml_node tile = enemyLayer.first_child().first_child();
+	for (int i = 0; i < MAX_ROOM_TILES_ROWS; ++i) {
+		for (int j = 0; j < MAX_ROOM_TILES_COLUMNS; ++j) {
+			int gid = tile.first_attribute().as_int();
+			
+			switch (gid) {
+				//Create enemy from gid
+			}
+
 			tile = tile.next_sibling();
 		}
 	}

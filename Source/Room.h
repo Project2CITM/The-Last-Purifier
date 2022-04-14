@@ -5,6 +5,7 @@
 #include "ModulePhysics.h"
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
+#include "Enemy.h"
 
 #define MAX_ROOM_TILES_COLUMNS 81
 #define MAX_ROOM_TILES_ROWS 35
@@ -86,8 +87,12 @@ public:
 	List<PhysBody*> colliders;
 	bool activeColliders = true;
 
+	List<Enemy*> enemies;
+	bool done = false;
+
 	List<Door*> doors;
-	
+	bool closedDoors = false;
+
 	iPoint roomPosition; 	//in map, not pixels
 	
 	SDL_Texture* roomTexture = nullptr;

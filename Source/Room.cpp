@@ -2,12 +2,18 @@
 
 void Room::CloseDoors()
 {
+	if (closedDoors) return;
+	
 	for (int i = 0; i < doors.count(); i++) doors[i]->CreateCollider();
+	closedDoors = true;
 }
 
 void Room::OpenDoors()
 {
+	if (!closedDoors) return;
+
 	for (int i = 0; i < doors.count(); i++) doors[i]->DestroyCollider();
+	closedDoors = false;
 }
 
 void Room::ActivateColliders()
@@ -43,6 +49,7 @@ void Room::CleanUp()
 	}
 
 	colliders.clearPtr();
+	enemies.clearPtr();
 }
 
 iPoint Room::GetDoorPos(DoorOrientations orient)

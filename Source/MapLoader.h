@@ -12,12 +12,13 @@ public:
 		this->app = Application::GetInstance();
 	}
 
-	//Create colliders from TMX to room collider array.
-	void ExtractMapColliders(Room* r);
+	//Create colliders & enemies from TMX to room collider array.
+	void ExtractMapInfo(Room* r);
 
 private:
 	void LoadMap(short id);
 	void CreateColliders(Room* r);
+	void CreateEnemies(Room* r);
 
 private:
 	Application* app;
