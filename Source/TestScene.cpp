@@ -5,15 +5,14 @@
 #include "PlayerSage.h"
 #include "PlayerCombat.h"
 #include "ModuleInput.h"
-#include "ClassTree.h"
 #include "SpellInfo.h"
 #include "Text.h"
 #include "ModuleAudio.h"
-#include "NPC.h"
 #include "CommonTree.h"
 #include "EnemyDummy.h"
 #include "SpellSpawnManager.h"
 #include "ModuleWindow.h"
+#include "Ghoul.h"
 
 TestScene::TestScene() : SceneGame("testScene")
 {
@@ -46,10 +45,9 @@ bool TestScene::Start()
     p->renderObjects[0].InitAsRect({ p->GetPosition().x,p->GetPosition().y,50,50 }, { 0,255,0,255 }, true, 3);
 
     // Test text
-
-   // t =  new Text({ 0,0 },"");
+    //t =  new Text({ 0,0 },"");
     //t->SetText("Hello world");
-   // advisor = new Text({ 0,0 },"","defaultFont");
+    //advisor = new Text({ 0,0 },"","defaultFont");
     //t->SetColor({ 255,255,0,100 });
 
     hudInGame = new HUDInGame();
@@ -59,10 +57,11 @@ bool TestScene::Start()
     classTreeHud = new ClassTreeHud();
     classTreeHud->Start();
 
-   // new NPC("purifier1", { 0,0 });
-   //NPC* npc1 = new NPC("purifier10", { 300,150 });
-   // NPC* npc2 =new NPC("purifier10", { 40,100 });
+    //new NPC("purifier1", { 0,0 });
+    //NPC* npc1 = new NPC("purifier10", { 300,150 });
+    //NPC* npc2 =new NPC("purifier10", { 40,100 });
 
+    Scene::Start();
 
     spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-40, 0));
     spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-80, 0));
@@ -73,7 +72,7 @@ bool TestScene::Start()
     //npcScale.y /= app->window->scale;
     //NPC* npc1 = new NPC("purifier10", npcScale );
 
-    Scene::Start();
+    new Ghoul(player->controller->GetPosition() + iPoint(-40, 0));
 
     return true;
 }
@@ -108,37 +107,6 @@ bool TestScene::PreUpdate()
         printf("A");
     }
 
-    /*if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
-    {
-        dialogEnable = true;
-    }
-    if (!dialogEnable) {
-        advisor->SetText(sentences[0]);
-    }
-    if (dialogEnable) {
-        advisor->SetText("");
-        if (sentences[dialogCont].empty() == false) {
-            if (separador) {
-                if (app->input->GetKey(SDL_SCANCODE_RETURN)) {
-
-                    dialogCont++;
-
-
-                    separador = false;
-                }
-            }
-            else {
-                separadorCont++;
-            }
-            if (separadorCont == 60) {
-                separador = true;
-                separadorCont = 0;
-            }
-            t->SetText(sentences[dialogCont]);
-        }
-
-    }*/
-
     if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN || app->input->GetControllerButton(BUTTON_START) == KEY_DOWN) app->TogglePause(!app->isPause);
 
 
@@ -148,10 +116,9 @@ bool TestScene::PreUpdate()
     revenantTree->PreUpdate();
     classTreeHud->PreUpdate();
 
-    printf("%d  %d \n", player->controller->GetPosition().x, player->controller->GetPosition().y);
+    //printf("%d  %d \n", player->controller->GetPosition().x, player->controller->GetPosition().y);
     Scene::PreUpdate();
     return true;
-
 }
 
 bool TestScene::Update()

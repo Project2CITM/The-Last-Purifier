@@ -36,7 +36,7 @@ protected:
 
 	int health = 40;
 
-	int moveSpeed = 10;
+	int moveSpeed = 5;
 };
 
 #endif // !__ENEMY_H__

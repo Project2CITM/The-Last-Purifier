@@ -63,11 +63,12 @@ void GameObject::PreUpdate()
 
 void GameObject::Update()
 {
-	for (int i = 0; i < MAX_GAMEOBJECT_TEXTURES; i++)
-	{
-		renderObjects[i].destRect.x = position.x;
-		renderObjects[i].destRect.y = position.y;
-	}
+	position = GetPosition();
+	//for (int i = 0; i < MAX_GAMEOBJECT_TEXTURES; i++)
+	//{
+	//	renderObjects[i].destRect.x = position.x;
+	//	renderObjects[i].destRect.y = position.y;
+	//}
 }
 
 void GameObject::PostUpdate()
@@ -217,9 +218,9 @@ void GameObject::SetLinearVelocity(b2Vec2 vel)
 	}
 }
 
-void GameObject::SetLinearVelocity(iPoint vel)
+void GameObject::SetLinearVelocity(fPoint vel)
 {
-	b2Vec2 v = { (float)vel.x, (float)vel.y };
+	b2Vec2 v = { vel.x, vel.y };
 
 	if (pBody != nullptr)
 	{

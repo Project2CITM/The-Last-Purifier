@@ -3,7 +3,7 @@
 #include "ModuleScene.h"
 #include "SceneGame.h"
 #include "Player.h"
-
+#include "ModuleRender.h"
 
 Ghoul::Ghoul(iPoint pos) : Enemy("ghoul")
 {
@@ -14,14 +14,18 @@ Ghoul::Ghoul(iPoint pos) : Enemy("ghoul")
 	// Init texture
 	InitRenderObjectWithXml("ghoul");
 
-	// Init Animation
-	InitAnimation();
-
 	// Init StateMachine
 	InitStateMachine();
 
+	// Init Animation
+	InitAnimation();
+
 	// Init physBody 
-	pBody = app->physics->CreateCircle(pos.x, pos.y, 12, this, true);
+	pBody = app->physics->CreateCircle(pos.x, pos.y, 12, this);
+
+	//detectTrigger = new Trigger(position, 30, this, "EnemyDetectPlayer");
+
+	detectTrigger = new Trigger(position, 16, 12, this, "EnemyDetectPlayer");
 
 	// Init his position
 	this->position = pos;
@@ -30,7 +34,7 @@ Ghoul::Ghoul(iPoint pos) : Enemy("ghoul")
 	health = 20;
 
 	// Init movementSpeed
-	moveSpeed = 20;
+	moveSpeed = 2;
 }
 
 Ghoul::~Ghoul()
@@ -39,50 +43,27 @@ Ghoul::~Ghoul()
 
 void Ghoul::PreUpdate()
 {
-	switch (stateMachine.GetCurrentState())
-	{
-	case (int)GhoulState::IDLE:
-	{
-		iPoint playerPos = player->GetPosition();
-		iPoint ghoulPos = GetPosition();
-		b2Vec2 vel = GetLinearVelocity();
-
-		int distance = ghoulPos.DistanceTo(playerPos);
-		printf("X : %d \t Y : %d\n", ghoulPos.x, ghoulPos.y);
-
-		if (distance < 100)
-		{
-			//iPoint dir = player->GetPosition() - position;
-			//dir.Normalize();
-			//SetLinearVelocity(dir * 0.1f);
-		}
-	}
-		break;
-	case (int)GhoulState::RUN:
-		break;
-	case (int)GhoulState::ATTACK:
-		break;
-	case (int)GhoulState::HIT:
-		break;
-	case (int)GhoulState::DIE:
-		break;
-	}
+	UpdateStates();
 
 	Enemy::PreUpdate();
 }
 
 void Ghoul::Update()
 {
+	stateMachine.Update();
+
 	Enemy::Update();
 }
 
 void Ghoul::PostUpdate()
 {
-	animations[(int)currentState].Update();
+	renderObjects[0].flip = GetLinearVelocity().x > 0 ? SDL_FLIP_NONE : GetLinearVelocity().x < 0 ? SDL_FLIP_HORIZONTAL : renderObjects[0].flip;
 
-	int frame = animations[(int)currentState].getCurrentFrameI();
+	animations[stateMachine.GetCurrentState()].Update();
 
-	renderObjects[0].section = animations[(int)currentState].GetCurrentFrame();
+	int frame = animations[stateMachine.GetCurrentState()].getCurrentFrameI();
+
+	renderObjects[0].section = animations[stateMachine.GetCurrentState()].GetCurrentFrame();
 
 	Enemy::PostUpdate();
 }
@@ -94,11 +75,82 @@ void Ghoul::Hit(int damage)
 	Enemy::Hit(damage);
 }
 
+void Ghoul::OnTriggerEnter(std::string trigger, PhysBody* col)
+{
+	if(trigger=="EnemyDetectPlayer")
+	{
+		if (col->gameObject->name == "Player")
+		{
+			printf("player enter\n");
+			detectPlayer = true;
+		}
+	}
+}
+
+void Ghoul::OnTriggerExit(std::string trigger, PhysBody* col)
+{
+	if (trigger == "EnemyDetectPlayer")
+	{
+		if (col->gameObject->name == "Player")
+		{
+			printf("player exit\n");
+			detectPlayer = false;
+		}
+	}
+}
+
 void Ghoul::Die()
 {
 	stateMachine.ChangeState((int)GhoulState::DIE);
 
 	Enemy::Die();
+}
+
+void Ghoul::UpdateStates()
+{
+	switch (stateMachine.GetCurrentState())
+	{
+	case (int)GhoulState::IDLE:
+	{
+		fPoint dir = { (float)(player->GetPosition().x - position.x), (float)(player->GetPosition().y - position.y) };
+		dir = dir.Normalize();
+		SetLinearVelocity(b2Vec2{ (float)(dir.x * moveSpeed),(float)(dir.y * moveSpeed) });
+		stateMachine.ChangeState((int)GhoulState::RUN);
+	}
+	break;
+	case (int)GhoulState::RUN:
+	{
+		fPoint dir = { (float)(player->GetPosition().x - position.x), (float)(player->GetPosition().y - position.y) };
+		dir = dir.Normalize();
+		SetLinearVelocity(b2Vec2{ (float)(dir.x * moveSpeed),(float)(dir.y * moveSpeed) });
+		app->renderer->AddLineRenderQueue(position, player->GetPosition(), false, { 255,255,255,255 }, 2);
+		if(detectPlayer)
+		{
+			stateMachine.ChangeState((int)GhoulState::ATTACK);
+			animations[stateMachine.GetCurrentState()].Reset();
+		}
+	}
+	break;
+	case (int)GhoulState::ATTACK:
+		SetLinearVelocity(b2Vec2{ 0,0 });
+		if(animations[stateMachine.GetCurrentState()].HasFinished())
+		{
+			if (!detectPlayer)
+			{
+				stateMachine.ChangeState((int)GhoulState::IDLE);
+			}
+			else
+			{
+				stateMachine.ChangeState((int)GhoulState::ATTACK);
+				animations[stateMachine.GetCurrentState()].Reset();
+			}
+		}
+		break;
+	case (int)GhoulState::HIT:
+		break;
+	case (int)GhoulState::DIE:
+		break;
+	}
 }
 
 void Ghoul::InitAnimation()
@@ -122,7 +174,7 @@ void Ghoul::InitAnimation()
 	{
 		// Attack anim initialize
 		animations[(int)GhoulState::ATTACK].PushBack({ 32 * i, 64, 32, 32 });
-		animations[(int)GhoulState::ATTACK].loop = true;
+		animations[(int)GhoulState::ATTACK].loop = false;
 	}
 
 	for (int i = 0; i < 4; i++)
@@ -144,15 +196,15 @@ void Ghoul::InitAnimation()
 		animations[i].hasIdle = false;
 		animations[i].speed = 0.2f;
 	}
-
-	currentState = GhoulState::IDLE;
 }
 
 void Ghoul::InitStateMachine()
 {
 	stateMachine.AddState("Idle", 0);
 	stateMachine.AddState("Run", 0);
-	stateMachine.AddState("Attack", 1, 5);
-	stateMachine.AddState("Hit", 2, 5);
+	stateMachine.AddState("Attack", 1, 25);
+	stateMachine.AddState("Hit", 2, 25);
 	stateMachine.AddState("Die", 3);
+
+	stateMachine.ChangeState((int)GhoulState::IDLE);
 }

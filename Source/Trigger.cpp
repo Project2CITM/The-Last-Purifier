@@ -41,7 +41,6 @@ void Trigger::Update()
 		SetPosition(father->GetPosition() + positionOffset);
 		if (father->pendingToDelete) pendingToDelete = true;
 	}
-
 }
 
 void Trigger::OnCollisionEnter(PhysBody* col)

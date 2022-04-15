@@ -4,6 +4,8 @@
 #include "Enemy.h"
 #include "PlayerController.h"
 
+class Trigger;
+
 enum class GhoulState
 {
 	IDLE = 0,
@@ -29,7 +31,13 @@ public:
 
 	void Hit(int damage) override;
 
+	void OnTriggerEnter(std::string trigger, PhysBody* col) override;
+
+	void OnTriggerExit(std::string trigger, PhysBody* col) override;
+
 	void Die() override;
+
+	void UpdateStates();
 
 private:
 
@@ -38,12 +46,18 @@ private:
 	void InitStateMachine();
 
 private:
+
 	Animation animations[(int)GhoulState::MAX];
+
 	StateMachine stateMachine;
-	GhoulState currentState = GhoulState::IDLE;
+
 	LookingDirection lookingDir = LookingDirection::RIGHT;
 
 	PlayerController* player = nullptr;
+
+	Trigger* detectTrigger;
+
+	bool detectPlayer = false;
 };
 
 #endif // !__GHOUL_H__
