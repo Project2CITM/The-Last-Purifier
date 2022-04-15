@@ -19,7 +19,6 @@ class ModuleInput;
 class ModuleAudio;
 class ModulePhysics;
 class ModuleScene;
-class ModuleUI;
 class ModuleEvents;
 class Module;
 
@@ -33,7 +32,6 @@ public:
 	ModuleAudio* audio = nullptr;
 	ModulePhysics* physics = nullptr;
 	ModuleScene* scene = nullptr;
-	ModuleUI* ui = nullptr;
 	ModuleEvents* events = nullptr;
 
 	Timer globalTime;

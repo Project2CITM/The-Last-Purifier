@@ -132,9 +132,6 @@
     <ClInclude Include="ModuleTextures.h">
       <Filter>Archivos de encabezado\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleUI.h">
-      <Filter>Archivos de encabezado\Modules</Filter>
-    </ClInclude>
     <ClInclude Include="ModuleWindow.h">
       <Filter>Archivos de encabezado\Modules</Filter>
     </ClInclude>
@@ -318,9 +315,6 @@
       <Filter>Archivos de origen\Modules</Filter>
     </ClCompile>
     <ClCompile Include="ModuleTextures.cpp">
-      <Filter>Archivos de origen\Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleUI.cpp">
       <Filter>Archivos de origen\Modules</Filter>
     </ClCompile>
     <ClCompile Include="ModuleWindow.cpp">
