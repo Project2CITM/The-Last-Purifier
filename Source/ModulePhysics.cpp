@@ -172,10 +172,10 @@ PhysBody* ModulePhysics::CreateRectangle(iPoint pos, int width, int height, Game
 	return pbody;
 }
 
-PhysBody* ModulePhysics::CreateRectangleSensor(iPoint pos, int width, int height, GameObject* g)
+PhysBody* ModulePhysics::CreateRectangleSensor(iPoint pos, int width, int height, GameObject* g, b2BodyType colType)
 {
 	b2BodyDef body;
-	body.type = b2_kinematicBody;
+	body.type = colType;
 	body.position.Set(PIXELS_TO_METER(pos.x), PIXELS_TO_METER(pos.y));
 
 	b2Body* b = world->CreateBody(&body);
@@ -230,11 +230,11 @@ PhysBody* ModulePhysics::CreateLine(b2Vec2 startPos, b2Vec2 dir, GameObject* gam
 	return pbody;
 }
 
-PhysBody* ModulePhysics::CreateChainObj(int x, int y, int* points, int size, bool loop, GameObject* gameObject)
+PhysBody* ModulePhysics::CreateChainObj(int x, int y, int* points, int size, bool loop, GameObject* gameObject, b2BodyType colType)
 {
 	PhysBody* pbody = new PhysBody();
 	b2BodyDef body;
-	body.type = b2_dynamicBody;
+	body.type = colType;
 	body.position.Set(PIXELS_TO_METER(x), PIXELS_TO_METER(y));
 
 	b2Body* b = world->CreateBody(&body);

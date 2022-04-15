@@ -132,9 +132,6 @@
     <ClInclude Include="ModuleTextures.h">
       <Filter>Archivos de encabezado\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleUI.h">
-      <Filter>Archivos de encabezado\Modules</Filter>
-    </ClInclude>
     <ClInclude Include="ModuleWindow.h">
       <Filter>Archivos de encabezado\Modules</Filter>
     </ClInclude>
@@ -200,9 +197,6 @@
     </ClInclude>
     <ClInclude Include="CommonTree.h">
       <Filter>Archivos de encabezado\Player\Trees</Filter>
-    </ClInclude>
-    <ClInclude Include="Projectile.h">
-      <Filter>Archivos de encabezado\Player</Filter>
     </ClInclude>
     <ClInclude Include="Trigger.h">
       <Filter>Archivos de encabezado\Tools</Filter>
@@ -288,6 +282,9 @@
     <ClInclude Include="HUDInGame.h">
       <Filter>Archivos de encabezado\Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="Projectile.h">
+      <Filter>Archivos de encabezado\GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\PugiXml\src\pugixml.cpp">
@@ -318,9 +315,6 @@
       <Filter>Archivos de origen\Modules</Filter>
     </ClCompile>
     <ClCompile Include="ModuleTextures.cpp">
-      <Filter>Archivos de origen\Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleUI.cpp">
       <Filter>Archivos de origen\Modules</Filter>
     </ClCompile>
     <ClCompile Include="ModuleWindow.cpp">
@@ -379,9 +373,6 @@
     </ClCompile>
     <ClCompile Include="CommonTree.cpp">
       <Filter>Archivos de origen\Player\Trees</Filter>
-    </ClCompile>
-    <ClCompile Include="Projectile.cpp">
-      <Filter>Archivos de origen\Player</Filter>
     </ClCompile>
     <ClCompile Include="Trigger.cpp">
       <Filter>Archivos de origen\Tools</Filter>
@@ -460,6 +451,9 @@
     </ClCompile>
     <ClCompile Include="HUDInGame.cpp">
       <Filter>Archivos de origen\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Projectile.cpp">
+      <Filter>Archivos de origen\GameObjects</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
