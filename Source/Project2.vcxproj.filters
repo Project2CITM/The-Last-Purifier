@@ -201,9 +201,6 @@
     <ClInclude Include="CommonTree.h">
       <Filter>Archivos de encabezado\Player\Trees</Filter>
     </ClInclude>
-    <ClInclude Include="Projectile.h">
-      <Filter>Archivos de encabezado\Player</Filter>
-    </ClInclude>
     <ClInclude Include="Trigger.h">
       <Filter>Archivos de encabezado\Tools</Filter>
     </ClInclude>
@@ -287,6 +284,9 @@
     </ClInclude>
     <ClInclude Include="HUDInGame.h">
       <Filter>Archivos de encabezado\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Projectile.h">
+      <Filter>Archivos de encabezado\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -380,9 +380,6 @@
     <ClCompile Include="CommonTree.cpp">
       <Filter>Archivos de origen\Player\Trees</Filter>
     </ClCompile>
-    <ClCompile Include="Projectile.cpp">
-      <Filter>Archivos de origen\Player</Filter>
-    </ClCompile>
     <ClCompile Include="Trigger.cpp">
       <Filter>Archivos de origen\Tools</Filter>
     </ClCompile>
@@ -460,6 +457,9 @@
     </ClCompile>
     <ClCompile Include="HUDInGame.cpp">
       <Filter>Archivos de origen\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Projectile.cpp">
+      <Filter>Archivos de origen\GameObjects</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

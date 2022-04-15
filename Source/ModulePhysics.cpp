@@ -172,10 +172,10 @@ PhysBody* ModulePhysics::CreateRectangle(iPoint pos, int width, int height, Game
 	return pbody;
 }
 
-PhysBody* ModulePhysics::CreateRectangleSensor(iPoint pos, int width, int height, GameObject* g)
+PhysBody* ModulePhysics::CreateRectangleSensor(iPoint pos, int width, int height, GameObject* g, b2BodyType colType)
 {
 	b2BodyDef body;
-	body.type = b2_kinematicBody;
+	body.type = colType;
 	body.position.Set(PIXELS_TO_METER(pos.x), PIXELS_TO_METER(pos.y));
 
 	b2Body* b = world->CreateBody(&body);
