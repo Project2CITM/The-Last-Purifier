@@ -9,6 +9,11 @@ void RoomManager::Start()
 	
 	CreateDoors();
 
+	//Deactivate all colliders
+	for (int i = 0; i < rooms.count(); ++i) {
+		rooms[i]->DeactivateColliders();
+	}
+
 	doorTopTexture = app->textures->Load("Assets/Maps/TestDoor_top.png");
 	doorBotTexture = app->textures->Load("Assets/Maps/TestDoor_bottom.png");
 
@@ -21,8 +26,58 @@ void RoomManager::Start()
 
 }
 
-void RoomManager::Update()
+void RoomManager::Update(iPoint playerPos)
 {
+	//Check current room
+	Room* r = roomPositions[playerPos.x / (TILE_SIZE * MAX_ROOM_TILES_COLUMNS)][playerPos.y / (TILE_SIZE * MAX_ROOM_TILES_ROWS)];
+	
+	//Player is not in any room
+	if (r == nullptr) return;
+
+	//Erase enemies if dead
+	for (int i = 0; i < r->enemies.count(); ++i) {
+		if (r->enemies[i]->isDie) {
+			r->enemies.remove(r->enemies.At(r->enemies.find(r->enemies[i])));
+		}
+	}
+
+	//No enemies -> Completed room
+	if (r->enemies.count() == 0 && !r->done)
+		r->done = true;
+	
+	//Close doors when entering
+	if (!r->done) {
+		float enterSensorX = (float)playerPos.x;
+		enterSensorX /= (float)(TILE_SIZE * MAX_ROOM_TILES_COLUMNS);
+		enterSensorX -= (float)r->roomPosition.x;
+		
+		float enterSensorY = (float)playerPos.y;
+		enterSensorY /= (float)(TILE_SIZE * MAX_ROOM_TILES_ROWS);
+		enterSensorY -= (float)r->roomPosition.y;
+
+		LOG("PosX: %.2f   PosY: %.2f", enterSensorX, enterSensorY);
+		
+		//Horizontal & Verticals limits to close doors
+		if (enterSensorX > 0.03f && enterSensorX < 0.97f && enterSensorY > 0.20f && enterSensorY < 0.95f)
+			r->CloseDoors();
+	}
+
+	//Open Doors when no enemies
+	if (r->done && r->closedDoors)
+		r->OpenDoors();
+
+	//Player has changed room (activate/deactivate colliders)
+	if(!r->activeColliders)
+		for (int i = 0; i < rooms.count(); ++i) {
+			if (rooms[i] == r) {
+				r->ActivateColliders();
+			}
+			else {
+				if (rooms[i]->activeColliders) {
+					rooms[i]->DeactivateColliders();
+				}
+			}
+		}
 }
 
 void RoomManager::PostUpdate()
@@ -296,8 +351,8 @@ Room* RoomManager::CreateRoom(iPoint mapPosition, short mapId)
 
 	//LOG("Room Id: %d", r->id);
 
-	//Extract colliders
-	mapLoader->ExtractMapColliders(r);
+	//Extract colliders & enemies
+	mapLoader->ExtractMapInfo(r);
 
 	rooms.add(r);
 	roomPositions[mapPosition.x][mapPosition.y] = r;
@@ -329,7 +384,7 @@ void RoomManager::DrawDoors()
 		Room* r = rooms[i];
 		if (r->wallColliders[0] != nullptr)
 			app->renderer->AddTextureRenderQueue(wallTexture[0], 
-				r->GetDoorPos(DoorOrientations::RIGHT) - r->GetDoorSize(DoorOrientations::RIGHT) - iPoint(0, TILE_SIZE * 5),
+				r->GetDoorPos(DoorOrientations::RIGHT) - r->GetDoorSize(DoorOrientations::RIGHT) - iPoint(0, TILE_SIZE * 4),
 				{ 0,0,0,0 }, TILE_SIZE / 16.0f, 1, 1.0f, 0.0f, SDL_FLIP_HORIZONTAL);
 
 		if (r->wallColliders[1] != nullptr)
@@ -339,7 +394,7 @@ void RoomManager::DrawDoors()
 
 		if (r->wallColliders[2] != nullptr)
 			app->renderer->AddTextureRenderQueue(wallTexture[0], 
-				r->GetDoorPos(DoorOrientations::LEFT) - r->GetDoorSize(DoorOrientations::LEFT) - iPoint(0, TILE_SIZE * 5),
+				r->GetDoorPos(DoorOrientations::LEFT) - r->GetDoorSize(DoorOrientations::LEFT) - iPoint(0, TILE_SIZE * 4),
 				{ 0,0,0,0 }, TILE_SIZE / 16.0f, 1, 1.0f);
 
 		if (r->wallColliders[3] != nullptr)

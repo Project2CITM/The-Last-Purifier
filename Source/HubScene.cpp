@@ -30,7 +30,7 @@ bool HubScene::InitScene()
 		switch (app->map->mapObjects[i].id)
 		{
 			case 0: //Walls
-				
+
 				g = new GameObject("wall", "Wall");
 				g->pBody = app->physics->CreateRectangle(pos, width, height, g);
 				g->pBody->body->SetType(b2BodyType::b2_staticBody);
@@ -59,13 +59,13 @@ bool HubScene::InitScene()
 bool HubScene::Start()
 {
 	app->map->Load(HUB_MAP);
-		
+
 	//Map
 
 	/*Player related*/
 	player = new PlayerRevenant();
 	app->renderer->camera->SetTarget(player->controller);
-	
+
 
 	//Starts
 	hudInGame = new HUDInGame();
@@ -102,7 +102,7 @@ bool HubScene::PreUpdate()
 {
 	//Inputs
 		//Menu button
-	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN) app->TogglePause(!app->isPause);
+	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN || app->input->GetControllerButton(BUTTON_START) == KEY_DOWN) app->TogglePause(!app->isPause);
 	if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN) app->map->roof = !app->map->roof;
 
 	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)

@@ -14,7 +14,25 @@
 // Si no lo pone aqui, sale un menoryleak, nose porque
 RenderObject fondo;
 RenderObject options;
-RenderObject credtis;
+RenderObject credtis1;
+RenderObject credtis2;
+
+RenderObject PlayController;
+RenderObject SettingsController;
+RenderObject CredtisController;
+RenderObject QuitController;
+RenderObject LinkController;
+
+RenderObject FireController;
+RenderObject CheckController;
+
+RenderObject CreadorsController;
+RenderObject AudioController;
+RenderObject ArtController;
+RenderObject OtrosController;
+
+RenderObject BackController;
+
 
 MainMenu::MainMenu():Scene("MainMenu")
 {
@@ -39,31 +57,51 @@ bool MainMenu::Start()
 {
 	fondo.InitAsTexture(app->textures->Load("Assets/Sprites/UI/background.png"), { 0,0 }, {0,0,0,0}, 0.5f);
 	options.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Options.png"), { 0,0 }, {0,0,0,0}, 0.5f);
-	credtis.InitAsTexture(app->textures->Load("Assets/Sprites/UI/CredtisCre.png"), { 0,0 }, {0,0,0,0}, 0.5f);
+	credtis1.InitAsTexture(app->textures->Load("Assets/Sprites/UI/CredtisCre.png"), { 0,0 }, {0,0,0,0}, 0.5f);
+	credtis2.InitAsTexture(app->textures->Load("Assets/Sprites/UI/CreditsProba.png"), { 0,0 }, {0,0,0,0}, 0.5f);
+
+	PlayController.InitAsTexture(app->textures->Load("Assets/Sprites/UI/PlayBUTController.png"), { 0,0 }, { 0,0,0,0 }, 1);
+	SettingsController.InitAsTexture(app->textures->Load("Assets/Sprites/UI/OptionBUTController.png"), { 0,0 }, { 0,0,0,0 }, 1);
+	CredtisController.InitAsTexture(app->textures->Load("Assets/Sprites/UI/CredtisBUTController.png"), { 0,0 }, { 0,0,0,0 }, 1);
+	QuitController.InitAsTexture(app->textures->Load("Assets/Sprites/UI/QuitBUTController.png"), { 0,0 }, { 0,0,0,0 }, 1);
+	LinkController.InitAsTexture(app->textures->Load("Assets/Sprites/UI/linkBUTController.png"), { 0,0 }, { 0,0,0,0 }, 1);
+
+	FireController.InitAsTexture(app->textures->Load("Assets/Sprites/UI/fireSliderController.png"), { 0,0 }, { 0,0,0,0 }, 1);
+	CheckController.InitAsTexture(app->textures->Load("Assets/Sprites/UI/CheckBoxController.png"), { 0,0 }, { 0,0,0,0 }, 1);
+	
+	CreadorsController.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Credtis1Controller.png"), { 0,0 }, { 0,0,0,0 }, 1);
+	AudioController.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Credtis2Controller.png"), { 0,0 }, { 0,0,0,0 }, 1);
+	ArtController.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Credtis3Controller.png"), { 0,0 }, { 0,0,0,0 }, 1);
+	OtrosController.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Credtis4Controller.png"), { 0,0 }, { 0,0,0,0 }, 1);
+
+	BackController.InitAsTexture(app->textures->Load("Assets/Sprites/UI/BackController.png"), { 0,0 }, { 0,0,0,0 }, 1);
+
+	Hover = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiHover.wav");
+	Press = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiSelect.wav");
 
 	//background del menu
 	app->audio->PlayMusic("Assets/Audio/Ambience/amb_dungeon1_1.ogg");	//Poner la musica que toca
 
 		/*TODO*/
 	//menu appearing
-	Appear_FX = app->audio->LoadFx("Assets/Audio/SFX/UI/LogoFX.wav");	//Buscar audio apriopiado
+	Appear_FX = app->audio->LoadFx("Assets/Audio/SFX/UI/menuFX.wav");	//Buscar audio apriopiado
 	app->audio->PlayFx(Appear_FX);
 
 
 	PlayBUT = new GUIButton({ 125, 180 }, 75, 28, MenuButton::MAIN, "Assets/Sprites/UI/PlayBUT.png");
-	OptionsBUT = new GUIButton({ 140, 215 }, 60, 16, MenuButton::MAIN, "Assets/Sprites/UI/OptionBUT.png"); 
-	CreditBUT = new GUIButton({ 140, 240 }, 60, 16, MenuButton::MAIN, "Assets/Sprites/UI/CredtisBUT.png"); 
-	ExitBUT = new GUIButton({ 150, 285 }, 50, 15, MenuButton::MAIN, "Assets/Sprites/UI/QuitBUT.png");
+	OptionsBUT = new GUIButton({ 132, 215 }, 60, 16, MenuButton::MAIN, "Assets/Sprites/UI/OptionBUT.png");
+	CreditBUT = new GUIButton({ 132, 240 }, 60, 16, MenuButton::MAIN, "Assets/Sprites/UI/CredtisBUT.png");
+	ExitBUT = new GUIButton({ 132, 285 }, 50, 15, MenuButton::MAIN, "Assets/Sprites/UI/QuitBUT.png");
 	LinkBUT = new GUIButton({ 20, 330 }, 59, 16, MenuButton::MAIN, "Assets/Sprites/UI/linkBUT.png"); 
 
 	CloseOptBUT = new GUIButton({ 297, 300 }, 46, 46, MenuButton::OPTIONS, "Assets/Sprites/UI/Back.png");
 
-	MusicBUT = new GUIButton({ 200, 125 }, 27, 46, MenuButton::OPTIONS, "Assets/Sprites/UI/fireSlider.png");
 	MusicSlider = new GUISlider({ 200, 125 }, 300, 14, MenuButton::OPTIONS, "Assets/Sprites/UI/Slider1.png");
+	MusicBUT = new GUIButton({ 200, 125 }, 27, 46, MenuButton::OPTIONS, "Assets/Sprites/UI/fireSlider.png");
 	MusicSlider->CreateGUIBtn(MusicBUT);
 
-	fxBUT = new GUIButton({ 200, 200 }, 27, 46, MenuButton::OPTIONS, "Assets/Sprites/UI/fireSlider.png");
 	fxSlider = new GUISlider({ 200, 200 }, 300, 14, MenuButton::OPTIONS, "Assets/Sprites/UI/Slider1.png");
+	fxBUT = new GUIButton({ 200, 200 }, 27, 46, MenuButton::OPTIONS, "Assets/Sprites/UI/fireSlider.png");
 	fxSlider->CreateGUIBtn(fxBUT);
 
 	CredtisCre = new GUIButton({ 125, 70 }, 117, 47, MenuButton::CREDITS, "Assets/Sprites/UI/Credtis1.png");
@@ -89,6 +127,12 @@ bool MainMenu::PreUpdate()
 
 bool MainMenu::Update()
 {
+	int leftYMain, leftYOptions, leftXOptions, leftYCredtis;
+	leftYMain = app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTY);
+	leftYOptions = app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTY);
+	leftXOptions = app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTX);
+	leftYCredtis = app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTY);
+
 	if (currentMenu == CurrentMenu::Main)
 	{
 		for (int i = 0; i < guisMainMenu.count(); i++)
@@ -115,29 +159,57 @@ bool MainMenu::Update()
 
 	if(currentMenu == CurrentMenu::Main)
 	{
-		if (PlayBUT->doAction)
+		if (app->input->usingGameController)
+		{
+			if ((leftYMain > 0 || app->input->GetControllerButton(BUTTON_DOWN) == KEY_DOWN) && !AxisPress && ControllerPos <= 3)
+			{
+				ControllerPos += 1;
+				app->audio->PlayFx(Hover);
+				AxisPress = true;
+			}
+			else if ((leftYMain < 0 || app->input->GetControllerButton(BUTTON_UP) == KEY_DOWN) && !AxisPress && ControllerPos >= 1)
+			{
+				ControllerPos -= 1;
+				app->audio->PlayFx(Hover);
+				AxisPress = true;
+			}
+			else if (leftYMain == 0)
+			{
+				AxisPress = false;
+			}
+
+			if (ControllerPos == 0)	app->renderer->AddRenderObjectRenderQueue(PlayController);
+			if (ControllerPos == 1)	app->renderer->AddRenderObjectRenderQueue(SettingsController);
+			if (ControllerPos == 2)	app->renderer->AddRenderObjectRenderQueue(CredtisController);
+			if (ControllerPos == 3)	app->renderer->AddRenderObjectRenderQueue(QuitController);
+			if (ControllerPos == 4)	app->renderer->AddRenderObjectRenderQueue(LinkController);
+
+		}
+
+		
+		if (PlayBUT->doAction || (ControllerPos == 0 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
 		{
 			app->scene->ChangeCurrentSceneRequest(LEVEL_1);
 		}
 
-		if (OptionsBUT->doAction)
+		if (OptionsBUT->doAction || (ControllerPos == 1 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
 		{
 			currentMenu = CurrentMenu::Options;
 			OptionsBUT->doAction = false;
 		}
 
-		if (CreditBUT->doAction)
+		if (CreditBUT->doAction || (ControllerPos == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
 		{
 			currentMenu = CurrentMenu::Credtis;
 			CreditBUT->doAction = false;
 		}
 
-		if (ExitBUT->doAction)
+		if (ExitBUT->doAction || (ControllerPos == 3 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
 		{
 			return false;
 		}
 
-		if (LinkBUT->doAction)
+		if (LinkBUT->doAction || (ControllerPos == 4 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
 		{
 			ShellExecuteA(NULL, "open", "https://github.com/Project2CITM/The-last-purifier/wiki", NULL, NULL, SW_SHOWNORMAL);		//change the url for the url of the web
 			LinkBUT->doAction = false;
@@ -146,28 +218,50 @@ bool MainMenu::Update()
 
 	if (currentMenu == CurrentMenu::Options)
 	{
-		if (CloseOptBUT->doAction)
+		if (app->input->usingGameController)
+		{
+			if ((leftYOptions > 0 || app->input->GetControllerButton(BUTTON_DOWN) == KEY_DOWN) && !AxisPress && ControllerPosOpY <= 2)
+			{
+				ControllerPosOpY += 1;
+				app->audio->PlayFx(Hover);
+				AxisPress = true;
+			}
+			else if ((leftYOptions < 0 || app->input->GetControllerButton(BUTTON_UP) == KEY_DOWN) && !AxisPress && ControllerPosOpY >= 1)
+			{
+				ControllerPosOpY -= 1;
+				app->audio->PlayFx(Hover);
+				AxisPress = true;
+			}
+			else if (leftYOptions == 0)
+			{
+				AxisPress = false;
+			}
+
+			if (ControllerPosOpY == 0)	app->renderer->AddRenderObjectRenderQueue(FireController);
+			if (ControllerPosOpY == 1)	app->renderer->AddRenderObjectRenderQueue(FireController);
+			if (ControllerPosOpY == 2)	app->renderer->AddRenderObjectRenderQueue(CheckController);
+			if (ControllerPosOpY == 3)	app->renderer->AddRenderObjectRenderQueue(BackController);
+
+		}
+
+		if (CloseOptBUT->doAction || (ControllerPosOpY == 3 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN) || app->input->GetControllerButton(BUTTON_B) == KEY_DOWN)
 		{
 			currentMenu = CurrentMenu::Main;
+			ControllerPosOpY = 0;
 			CloseOptBUT->doAction = false;
 		}
 
-		if (FullScreenCHK->isActive)
+		if ((FullScreenCHK->isActive || (ControllerPosOpY == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)) && !app->FullScreenDesktop)
 		{
-			app->fullScreen = true;
-			FullScreenCHK->doAction;
+			app->window->ToggleFullScreen(true);
+			FullScreenCHK->isActive = true;
 		}
-		else
+		else if ((!FullScreenCHK->isActive || (ControllerPosOpY == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)) && app->FullScreenDesktop)
 		{
-			FullScreenCHK->doAction;
-			app->fullScreen = false;
+			app->window->ToggleFullScreen(false);
+			FullScreenCHK->isActive = false;
 		}
 
-		if (FullScreenCHK->doAction)
-		{
-			app->window->ToggleFullScreen(app->fullScreen);
-			FullScreenCHK->doAction = false;
-		}
 
 		app->musicVol = MusicSlider->GetValue() * 255;
 		app->fxVol = fxSlider->GetValue() * 255;
@@ -175,10 +269,61 @@ bool MainMenu::Update()
 
 	if (currentMenu == CurrentMenu::Credtis)
 	{
-		if (CloseCrdBUT->doAction)
+		if (app->input->usingGameController)
+		{
+			if ((leftYCredtis > 0 || app->input->GetControllerButton(BUTTON_DOWN) == KEY_DOWN) && !AxisPress && ControllerPosCr <= 3)
+			{
+				ControllerPosCr += 1;
+				app->audio->PlayFx(Hover);
+				AxisPress = true;
+			}
+			else if ((leftYCredtis < 0 || app->input->GetControllerButton(BUTTON_UP) == KEY_DOWN) && !AxisPress && ControllerPosCr >= 1)
+			{
+				ControllerPosCr -= 1;
+				app->audio->PlayFx(Hover);
+				AxisPress = true;
+			}
+			else if (leftYCredtis == 0)
+			{
+				AxisPress = false;
+			}
+
+			if (ControllerPosOpY == 0)	app->renderer->AddRenderObjectRenderQueue(CreadorsController);
+			if (ControllerPosOpY == 1)	app->renderer->AddRenderObjectRenderQueue(AudioController);
+			if (ControllerPosOpY == 2)	app->renderer->AddRenderObjectRenderQueue(ArtController);
+			if (ControllerPosOpY == 3)	app->renderer->AddRenderObjectRenderQueue(OtrosController);
+			if (ControllerPosOpY == 4)	app->renderer->AddRenderObjectRenderQueue(BackController);
+
+		}
+
+		if (CloseCrdBUT->doAction || (ControllerPosOpY == 4 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN) || app->input->GetControllerButton(BUTTON_B) == KEY_DOWN)
 		{
 			currentMenu = CurrentMenu::Main;
 			CloseCrdBUT->doAction = false;
+		}
+
+		if (CredtisCre->doAction || (ControllerPosOpY == 0 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
+		{
+			currentCredtis = CurrentCredtis::Creadors;
+			CredtisCre->doAction = false;
+		}
+
+		if (CredtisAud->doAction || (ControllerPosOpY == 1 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
+		{
+			currentCredtis = CurrentCredtis::Audio;
+			CredtisAud->doAction = false;
+		}
+
+		if (CredtisArt->doAction || (ControllerPosOpY == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
+		{
+			currentCredtis = CurrentCredtis::Art;
+			CredtisArt->doAction = false;
+		}
+
+		if (CredtisOtr->doAction || (ControllerPosOpY == 3 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
+		{
+			currentCredtis = CurrentCredtis::Otros;
+			CredtisOtr->doAction = false;
 		}
 	}
 
@@ -206,7 +351,14 @@ bool MainMenu::PostUpdate()
 		{
 			if (guisCredtis[i]) guisCredtis[i]->PostUpdate();
 		}
-		app->renderer->AddRenderObjectRenderQueue(credtis);
+
+		if(currentCredtis == CurrentCredtis::Creadors)		app->renderer->AddRenderObjectRenderQueue(credtis1);
+
+		if(currentCredtis == CurrentCredtis::Audio)		app->renderer->AddRenderObjectRenderQueue(credtis2);
+
+		if(currentCredtis == CurrentCredtis::Art)		app->renderer->AddRenderObjectRenderQueue(credtis2);
+
+		if(currentCredtis == CurrentCredtis::Otros)		app->renderer->AddRenderObjectRenderQueue(credtis2);
 	}
 
 	if (currentMenu == CurrentMenu::Main)

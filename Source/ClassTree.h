@@ -51,7 +51,7 @@ class ClassTree
 {
 public:
 
-	static ClassTree* GetInstance(PlayerClass pClass);
+	static ClassTree* GetInstance();
 
 	void Start();
 

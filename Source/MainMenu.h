@@ -57,7 +57,7 @@ private:
 	GUIButton* CloseOptBUT = nullptr;
 	GUIButton* MusicBUT = nullptr;
 	GUIButton* fxBUT = nullptr;
-	
+
 	GUIButton* CloseCrdBUT = nullptr;
 
 	GUIButton* CredtisCre = nullptr;
@@ -71,8 +71,18 @@ private:
 	GUICheckbox* FullScreenCHK;
 
 	CurrentMenu currentMenu;
+	CurrentCredtis currentCredtis;
+
+	int ControllerPos = 0;
+	int ControllerPosOpY = 0;
+	int ControllerPosOpX = 0;
+	int ControllerPosCr = 0;
+	bool AxisPress = false;
 
 	uint Appear_FX = NULL;
+
+	uint Hover = NULL;
+	uint Press = NULL;
 };
 
 #endif //__MAIN_MENU_H__

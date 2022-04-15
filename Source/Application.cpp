@@ -53,7 +53,6 @@ bool Application::Init()
 	AddModule(map);
 
 	AddModule(audio);
-	AddModule(ui);
 
 	//Render
 	AddModule(renderer);
@@ -81,7 +80,7 @@ bool Application::Init()
 	{
 		pugi::xml_node n = config.child(item->data->name.c_str());
 		ret = item->data->Init(n);
-	
+
 		item = item->next;
 	}
 
@@ -157,7 +156,7 @@ UpdateStatus Application::Update()
 		sleepTime = (frameTime - deltaTime) * 1000;
 		Sleep(sleepTime);
 	}
-	
+
 	// Update info for title
 	UpdateTitle();
 
@@ -221,7 +220,7 @@ pugi::xml_node Application::LoadConfig(pugi::xml_document& configFile) const
 	return ret;
 }
 
-bool Application::LoadSaveFile() 
+bool Application::LoadSaveFile()
 {
 	pugi::xml_parse_result result = saveF.load_file(SAVE_STATE_FILENAME);
 

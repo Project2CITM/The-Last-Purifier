@@ -9,6 +9,3 @@ PlayerRevenant::PlayerRevenant() : Player()
 	stats = new PlayerStats(this);
 	// In the future here will be initialized every animation and spirte of this class.
 }
-
-
-

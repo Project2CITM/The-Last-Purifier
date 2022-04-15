@@ -26,6 +26,16 @@ SpellList::SpellList()
 	spells[(int)SpellID::SOUL_SHIELD] = new TestSpell();
 	spells[(int)SpellID::TORMENT] = new TestSpell();
 	spells[(int)SpellID::COVER] = new TestSpell();
+
+	spells[(int)SpellID::FOTEIROS] = new TestSpell();
+	spells[(int)SpellID::TYCHAIA] = new TestSpell();
+	spells[(int)SpellID::PNEUMA] = new TestSpell();
+	spells[(int)SpellID::EKRISKI] = new TestSpell();
+	spells[(int)SpellID::EGEIRO] = new TestSpell();
+	spells[(int)SpellID::TIMORIA] = new TestSpell();
+	spells[(int)SpellID::ASTRAPI] = new TestSpell();
+	spells[(int)SpellID::SOTERIA] = new TestSpell();
+	spells[(int)SpellID::PSYCHE] = new TestSpell();
 }
 
 SpellList::~SpellList()

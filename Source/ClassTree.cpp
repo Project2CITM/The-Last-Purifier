@@ -2,6 +2,8 @@
 #include "ModuleInput.h"
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
+#include "ModuleScene.h"
+#include "SceneGame.h"
 #include <iostream>
 
 ClassTree* ClassTree::instance = nullptr;
@@ -9,6 +11,7 @@ ClassTree* ClassTree::instance = nullptr;
 ClassTree::ClassTree(PlayerClass pClass)
 {
 	playerClass = pClass;
+	Start();
 }
 
 ClassTree::~ClassTree()
@@ -16,11 +19,12 @@ ClassTree::~ClassTree()
 
 }
 
-ClassTree* ClassTree::GetInstance(PlayerClass pClass)
+ClassTree* ClassTree::GetInstance()
 {
 	if (instance == nullptr)
 	{
-		instance = new ClassTree(pClass);
+		SceneGame* scene = (SceneGame*)Application::GetInstance()->scene->scenes[Application::GetInstance()->scene->currentScene];
+		instance = new ClassTree(scene->player->playerClass);
 	}
 	return instance;
 }
@@ -156,6 +160,7 @@ bool ClassTree::SaveTree()
 
 SkillTreeElement* ClassTree::getSkillTree(int value)
 {
+	if (value >= TREE_SIZE) return skillTree[TREE_SIZE - 1];
 	return skillTree[value];
 }
 

@@ -8,6 +8,10 @@
 #include "ModuleInput.h"
 #include "ModuleWindow.h"
 #include "ModuleAudio.h"
+#include "ModuleScene.h"
+#include "SceneGame.h"
+#include "PlayerCombat.h"
+#include "PlayerController.h"
 
 RenderObject Controls1;
 RenderObject Controls2;
@@ -38,16 +42,22 @@ bool HUDInGame::Start()
 	Controls1.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Controls1_2.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 1);
 	Controls2.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Controls2_2.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 1);
 
-	hpRect = { app->renderer->camera->x + 15, app->renderer->camera->y + 10, 200, 10 };
+	Hover = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiHover.wav");
+	Press = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiSelect.wav");
 
+	hpRect = { app->renderer->camera->x + 15, app->renderer->camera->y + 10, 200, 10 };
 	miniMap = { app->renderer->camera->x + 535, app->renderer->camera->y + 5, 100, 100 };
 
-	spell1 = { app->renderer->camera->x + 225, app->renderer->camera->y + 314, 30, 40 };
-	spell2 = { app->renderer->camera->x + 275, app->renderer->camera->y + 314, 30, 40 };
-	spell3 = { app->renderer->camera->x + 325, app->renderer->camera->y + 314, 30, 40 };
-	spell4 = { app->renderer->camera->x + 375, app->renderer->camera->y + 314, 30, 40 };
-
-	pause = { app->renderer->camera->x, app->renderer->camera->y, 500, 300 };
+	spell1 = { app->renderer->camera->x + 305, app->renderer->camera->y + 314, 30, 40 };
+	spell2_1 = { app->renderer->camera->x + 275, app->renderer->camera->y + 314, 30, 40 };
+	spell2_2 = { app->renderer->camera->x + 335, app->renderer->camera->y + 314, 30, 40 };
+	spell3_1 = { app->renderer->camera->x + 245, app->renderer->camera->y + 314, 30, 40 };
+	spell3_2 = { app->renderer->camera->x + 305, app->renderer->camera->y + 314, 30, 40 };
+	spell3_3 = { app->renderer->camera->x + 365, app->renderer->camera->y + 314, 30, 40 };
+	spell4_1 = { app->renderer->camera->x + 215, app->renderer->camera->y + 314, 30, 40 };
+	spell4_2 = { app->renderer->camera->x + 275, app->renderer->camera->y + 314, 30, 40 };
+	spell4_3 = { app->renderer->camera->x + 335, app->renderer->camera->y + 314, 30, 40 };
+	spell4_4 = { app->renderer->camera->x + 395, app->renderer->camera->y + 314, 30, 40 };
 
 	resumeBUT = { app->renderer->camera->x + 262, app->renderer->camera->y + + 70};//640 pixeles with pantalla
 	settingsBUT = { app->renderer->camera->x + 262, app->renderer->camera->y + 117};
@@ -62,7 +72,6 @@ bool HUDInGame::Start()
 	QuitBUT = new GUIButton(quitBUT, 117, 47, MenuButton::INGAMEPUASE, "Assets/Sprites/UI/Quit.png");
 
 	CloseControlsBUT = new GUIButton({ app->renderer->camera->x + 297, app->renderer->camera->y + 315 }, 46, 46, MenuButton::CONTROLSPAUSE, "Assets/Sprites/UI/Back.png");
-
 	CloseSettingsBUT = new GUIButton({ app->renderer->camera->x + 297, app->renderer->camera->y + 315 }, 46, 46, MenuButton::SETTINGSPAUSE, "Assets/Sprites/UI/Back.png");
 
 	MusicBUT = new GUIButton({ app->renderer->camera->x + 200, app->renderer->camera->y + 125 }, 27, 46, MenuButton::SETTINGSPAUSE, "Assets/Sprites/UI/fireSlider.png");
@@ -74,7 +83,6 @@ bool HUDInGame::Start()
 	fxSlider->CreateGUIBtn(fxBUT);
 
 	FullScreenCHK = new GUICheckbox({ app->renderer->camera->x + 350, app->renderer->camera->y + 215 }, 60, 60, MenuButton::SETTINGSPAUSE, "Assets/Sprites/UI/CheckBox.png");
-
 
 	Scene::Start();
 
@@ -90,10 +98,16 @@ bool HUDInGame::PreUpdate()
 			app->musicVol = app->musicVol * 2;
 			app->fxVol = app->fxVol * 2;
 			//currentPauseMenu = CurrentPauseMenu::Pause;
+			ControllerPos = 0;
 			startPause = false;
 		}
 	}
 
+	if (player == nullptr)
+	{
+		SceneGame* scene = (SceneGame*)app->scene->scenes[app->scene->currentScene];
+		player = scene->player->controller->combat;
+	}
 
 	Scene::PreUpdate();
 
@@ -102,6 +116,11 @@ bool HUDInGame::PreUpdate()
 
 bool HUDInGame::Update()
 {
+	int leftYMain, leftYOptions, leftXOptions;
+	leftYMain = app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTY);
+	leftYOptions = app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTY);
+	leftXOptions = app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTX);
+
 	if (app->isPause)
 	{
 		if (!startPause)
@@ -134,83 +153,116 @@ bool HUDInGame::Update()
 				if (guisSettingsP[i]) guisSettingsP[i]->Update();
 			}
 		}
+	
+		if (currentPauseMenu == CurrentPauseMenu::Pause)
+		{
+			if (app->input->usingGameController)
+			{
+				if ((leftYMain > 0 || app->input->GetControllerButton(BUTTON_DOWN) == KEY_DOWN) && !AxisPress && ControllerPos <= 3)
+				{
+					ControllerPos += 1;
+					app->audio->PlayFx(Hover);
+					AxisPress = true;
+				}
+				else if ((leftYMain < 0 || app->input->GetControllerButton(BUTTON_UP) == KEY_DOWN) && !AxisPress && ControllerPos >= 1)
+				{
+					ControllerPos -= 1;
+					app->audio->PlayFx(Hover);
+					AxisPress = true;
+				}
+				else if (leftYMain == 0)
+				{
+					AxisPress = false;
+				}
+			}
+
+			if (ResumeBUT->doAction || (ControllerPos == 0 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN) || app->input->GetControllerButton(BUTTON_B) == KEY_DOWN)
+			{
+				app->isPause = false;
+				ResumeBUT->doAction = false;
+			}
+
+			if (ControlsBUT->doAction || (ControllerPos == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
+			{
+				currentPauseMenu = CurrentPauseMenu::Controls;
+				ControlsBUT->doAction = false;
+			}
+
+			if (SettingsBUT->doAction || (ControllerPos == 1 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
+			{
+				currentPauseMenu = CurrentPauseMenu::Settings;
+				SettingsBUT->doAction = false;
+			}
+
+			if (GiveUpBUT->doAction || (ControllerPos == 3 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
+			{
+				app->scene->ChangeCurrentSceneRequest(HUB);//et porta al hall
+				app->isPause = false;
+				GiveUpBUT->doAction = false;
+			}
+
+			if (QuitBUT->doAction || (ControllerPos == 4 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
+			{
+				app->scene->ChangeCurrentSceneRequest(MAIN_MENU);
+				app->isPause = false;
+				QuitBUT->doAction = false;
+			}
+		}
+
+		if (currentPauseMenu == CurrentPauseMenu::Settings)
+		{
+			if (app->input->usingGameController)
+			{
+				if ((leftYOptions > 0 || app->input->GetControllerButton(BUTTON_DOWN) == KEY_DOWN) && !AxisPress && ControllerPosOpY <= 2)
+				{
+					ControllerPosOpY += 1;
+					app->audio->PlayFx(Hover);
+					AxisPress = true;
+				}
+				else if ((leftYOptions < 0 || app->input->GetControllerButton(BUTTON_UP) == KEY_DOWN) && !AxisPress && ControllerPosOpY >= 1)
+				{
+					ControllerPosOpY -= 1;
+					app->audio->PlayFx(Hover);
+					AxisPress = true;
+				}
+				else if (leftYOptions == 0)
+				{
+					AxisPress = false;
+				}
+			}
+
+			if (CloseSettingsBUT->doAction || (ControllerPosOpY == 3 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN) || app->input->GetControllerButton(BUTTON_B) == KEY_DOWN)
+			{
+				currentPauseMenu = CurrentPauseMenu::Pause;
+				ControllerPosOpY = 0;
+				CloseSettingsBUT->doAction = false;
+			}
+
+			if ((FullScreenCHK->isActive || (ControllerPosOpY == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)) && !app->FullScreenDesktop)
+			{
+				app->window->ToggleFullScreen(true);
+				FullScreenCHK->isActive = true;
+			}
+			else if ((!FullScreenCHK->isActive || (ControllerPosOpY == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)) && app->FullScreenDesktop)
+			{
+				app->window->ToggleFullScreen(false);
+				FullScreenCHK->isActive = false;
+			}
+
+			app->musicVol = MusicSlider->GetValue() * 255;
+			app->fxVol = fxSlider->GetValue() * 255;
+
+		}
+
+		if (currentPauseMenu == CurrentPauseMenu::Controls)
+		{
+			if (CloseControlsBUT->doAction || app->input->GetControllerButton(BUTTON_A) == KEY_DOWN || app->input->GetControllerButton(BUTTON_B) == KEY_DOWN)
+			{
+				currentPauseMenu = CurrentPauseMenu::Pause;
+				CloseControlsBUT->doAction = false;
+			}
+		}
 	}
-
-
-	if (currentPauseMenu == CurrentPauseMenu::Pause)
-	{
-		if (ResumeBUT->doAction)
-		{
-			app->isPause = false;
-			ResumeBUT->doAction = false;
-		}
-
-		if (ControlsBUT->doAction)
-		{
-			currentPauseMenu = CurrentPauseMenu::Controls;
-			ControlsBUT->doAction = false;
-		}
-
-		if (SettingsBUT->doAction)
-		{
-			currentPauseMenu = CurrentPauseMenu::Settings;
-			SettingsBUT->doAction = false;
-		}
-
-		if (GiveUpBUT->doAction)
-		{
-			app->scene->ChangeCurrentSceneRequest(MAIN_MENU);//et porta al hall
-			app->isPause = false;
-			GiveUpBUT->doAction = false;
-		}
-
-		if (QuitBUT->doAction)
-		{
-			app->scene->ChangeCurrentSceneRequest(MAIN_MENU);
-			app->isPause = false;
-			QuitBUT->doAction = false;
-		}
-	}
-
-	if (currentPauseMenu == CurrentPauseMenu::Settings)
-	{
-		if (CloseSettingsBUT->doAction)
-		{
-			currentPauseMenu = CurrentPauseMenu::Pause;
-			CloseSettingsBUT->doAction = false;
-		}
-
-		if (FullScreenCHK->isActive)
-		{
-			app->fullScreen = true;
-			FullScreenCHK->doAction;
-		}
-		else
-		{
-			FullScreenCHK->doAction;
-			app->fullScreen = false;
-		}
-
-		if (FullScreenCHK->doAction)
-		{
-			app->window->ToggleFullScreen(app->fullScreen);
-			FullScreenCHK->doAction = false;
-		}
-
-		app->musicVol = MusicSlider->GetValue() * 255;
-		app->fxVol = fxSlider->GetValue() * 255;
-
-	}
-
-	if (currentPauseMenu == CurrentPauseMenu::Controls)
-	{
-		if (CloseControlsBUT->doAction)
-		{
-			currentPauseMenu = CurrentPauseMenu::Pause;
-			CloseControlsBUT->doAction = false;
-		}
-	}
-
 	Scene::Update();
 
 	return true;
@@ -220,13 +272,42 @@ bool HUDInGame::PostUpdate()
 {
 	app->renderer->AddRectRenderQueue(hpRect, { 155, 0, 0, 255 }, true, 3, 2.0f, 0.0f);
 	app->renderer->AddRectRenderQueue(hpRect, { 155, 155, 155, 255 }, false, 3, 3.0f, 0.0f);
+	app->renderer->AddRectRenderQueue(miniMap, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
 
+	if (player->availableSpellSlots == 1)
+	{
+		app->renderer->AddRectRenderQueue(spell1, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
+		if (player->selectedSpell == 0)	app->renderer->AddRectRenderQueue(spell1, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
+	}
+	if (player->availableSpellSlots == 2)
+	{
+		app->renderer->AddRectRenderQueue(spell2_1, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
+		app->renderer->AddRectRenderQueue(spell2_2, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
+		if (player->selectedSpell == 0)	app->renderer->AddRectRenderQueue(spell2_1, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
+		if (player->selectedSpell == 1)	app->renderer->AddRectRenderQueue(spell2_2, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
+	}	
+	if (player->availableSpellSlots == 3)
+	{
+		app->renderer->AddRectRenderQueue(spell3_1, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
+		app->renderer->AddRectRenderQueue(spell3_2, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
+		app->renderer->AddRectRenderQueue(spell3_3, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
+		if (player->selectedSpell == 0)	app->renderer->AddRectRenderQueue(spell3_1, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
+		if (player->selectedSpell == 1)	app->renderer->AddRectRenderQueue(spell3_2, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
+		if (player->selectedSpell == 2)	app->renderer->AddRectRenderQueue(spell3_3, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
+	}
+	if (player->availableSpellSlots == 4)
+	{
+		app->renderer->AddRectRenderQueue(spell4_1, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
+		app->renderer->AddRectRenderQueue(spell4_2, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
+		app->renderer->AddRectRenderQueue(spell4_3, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
+		app->renderer->AddRectRenderQueue(spell4_4, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
+		if (player->selectedSpell == 0)	app->renderer->AddRectRenderQueue(spell4_1, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
+		if (player->selectedSpell == 1)	app->renderer->AddRectRenderQueue(spell4_2, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
+		if (player->selectedSpell == 2)	app->renderer->AddRectRenderQueue(spell4_3, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
+		if (player->selectedSpell == 3)	app->renderer->AddRectRenderQueue(spell4_4, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
+	}
 
-	app->renderer->AddRectRenderQueue(spell1, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
-	app->renderer->AddRectRenderQueue(spell2, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
-	app->renderer->AddRectRenderQueue(spell3, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
-	app->renderer->AddRectRenderQueue(spell4, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
-
+	//LOG("Spell: %d", player->selectedSpell);
 
 	if (app->isPause)
 	{

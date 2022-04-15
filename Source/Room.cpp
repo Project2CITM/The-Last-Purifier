@@ -1,13 +1,36 @@
 #include "Room.h"
+#include "Enemy.h"
 
 void Room::CloseDoors()
 {
+	if (closedDoors) return;
+	
 	for (int i = 0; i < doors.count(); i++) doors[i]->CreateCollider();
+	closedDoors = true;
 }
 
 void Room::OpenDoors()
 {
+	if (!closedDoors) return;
+
 	for (int i = 0; i < doors.count(); i++) doors[i]->DestroyCollider();
+	closedDoors = false;
+}
+
+void Room::ActivateColliders()
+{
+	for (int i = 0; i < colliders.count(); ++i) {
+		colliders[i]->body->SetActive(true);
+	}
+	activeColliders = true;
+}
+
+void Room::DeactivateColliders()
+{
+	for (int i = 0; i < colliders.count(); ++i) {
+		colliders[i]->body->SetActive(false);
+	}
+	activeColliders = false;
 }
 
 void Room::DrawRoom()

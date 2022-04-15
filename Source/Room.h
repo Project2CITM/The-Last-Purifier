@@ -6,6 +6,8 @@
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 
+class Enemy;
+
 #define MAX_ROOM_TILES_COLUMNS 81
 #define MAX_ROOM_TILES_ROWS 35
 #define TILE_SIZE 16 //16
@@ -61,8 +63,10 @@ public:
 	}
 
 	void CloseDoors();
-
 	void OpenDoors();
+
+	void ActivateColliders();
+	void DeactivateColliders();
 
 	void DrawRoom();
 
@@ -79,10 +83,19 @@ private:
 public:
 	short id = 0;
 	Application* app = nullptr;
+
 	PhysBody* wallColliders[4];
 	List<PhysBody*> colliders;
+	bool activeColliders = true;
+
+	List<Enemy*> enemies; // Utilizara en algun sitio?
+	bool done = false;
+
 	List<Door*> doors;
+	bool closedDoors = false;
+
 	iPoint roomPosition; 	//in map, not pixels
+	
 	SDL_Texture* roomTexture = nullptr;
 };
 

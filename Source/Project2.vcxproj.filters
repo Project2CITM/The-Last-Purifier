@@ -61,9 +61,6 @@
     <Filter Include="Archivos de origen\Player\Scripts">
       <UniqueIdentifier>{78126e22-6191-445c-9ecf-90c0b310ffff}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de origen\Globals\GUI">
-      <UniqueIdentifier>{a5bfeb4a-f892-494a-8a18-9c5a53f72a55}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de encabezado\GameObject">
       <UniqueIdentifier>{659d7ab2-1f19-4b13-8c09-cda1fa208681}</UniqueIdentifier>
     </Filter>
@@ -72,12 +69,6 @@
     </Filter>
     <Filter Include="Archivos de encabezado\Player\Spells\SpellScripts">
       <UniqueIdentifier>{4cdcd82f-341b-4fe0-9412-78aac2ba547d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Enemy">
-      <UniqueIdentifier>{5a8f239f-0099-41f6-b283-b0804b7ad4d7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Enemy">
-      <UniqueIdentifier>{11287f92-69bb-42e3-9abb-dbc4f0799406}</UniqueIdentifier>
     </Filter>
     <Filter Include="Archivos de encabezado\Scenes">
       <UniqueIdentifier>{018e5ee2-c375-4f58-a756-27248d652517}</UniqueIdentifier>
@@ -91,17 +82,20 @@
     <Filter Include="Archivos de origen\Scenes\BaseClass">
       <UniqueIdentifier>{22223cb4-89fd-4f9d-b1ac-94aa66de85bb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de origen\GameObjects">
+      <UniqueIdentifier>{6cbd0f2f-b8b7-4963-8e6a-45d24468e29e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\GameObjects\Enemy">
+      <UniqueIdentifier>{11287f92-69bb-42e3-9abb-dbc4f0799406}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\GameObject\Enemy">
+      <UniqueIdentifier>{5a8f239f-0099-41f6-b283-b0804b7ad4d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\GUI">
+      <UniqueIdentifier>{a5bfeb4a-f892-494a-8a18-9c5a53f72a55}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="RenderObject.hpp">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="External\PugiXml\src\pugixml.hpp">
       <Filter>Archivos de origen\PugiXml</Filter>
     </ClInclude>
@@ -112,9 +106,6 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="RoomManager.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Particle.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="Module.h">
@@ -139,9 +130,6 @@
       <Filter>Archivos de encabezado\Modules</Filter>
     </ClInclude>
     <ClInclude Include="ModuleTextures.h">
-      <Filter>Archivos de encabezado\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleUI.h">
       <Filter>Archivos de encabezado\Modules</Filter>
     </ClInclude>
     <ClInclude Include="ModuleWindow.h">
@@ -210,22 +198,10 @@
     <ClInclude Include="CommonTree.h">
       <Filter>Archivos de encabezado\Player\Trees</Filter>
     </ClInclude>
-    <ClInclude Include="Text.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="HUDInGame.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Projectile.h">
-      <Filter>Archivos de encabezado\Player</Filter>
-    </ClInclude>
     <ClInclude Include="Trigger.h">
       <Filter>Archivos de encabezado\Tools</Filter>
     </ClInclude>
     <ClInclude Include="MapLoader.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="NPC.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="ExecuteSpell.h">
@@ -247,10 +223,10 @@
       <Filter>Archivos de encabezado\Tools</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
-      <Filter>Archivos de encabezado\Enemy</Filter>
+      <Filter>Archivos de encabezado\GameObject\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="EnemyDummy.h">
-      <Filter>Archivos de encabezado\Enemy</Filter>
+      <Filter>Archivos de encabezado\GameObject\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="ClassTreeHud.h">
       <Filter>Archivos de encabezado\GUI</Filter>
@@ -279,14 +255,41 @@
     <ClInclude Include="EventListener.h">
       <Filter>Archivos de encabezado\Tools</Filter>
     </ClInclude>
+    <ClInclude Include="SpellSpawnManager.h">
+      <Filter>Archivos de encabezado\Player\Spells\SpellScripts</Filter>
+    </ClInclude>
+    <ClInclude Include="SpellObject.h">
+      <Filter>Archivos de encabezado\Player\Spells</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Archivos de encabezado\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="NPC.h">
+      <Filter>Archivos de encabezado\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>Archivos de encabezado\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderObject.hpp">
+      <Filter>Archivos de encabezado\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Archivos de encabezado\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>Archivos de encabezado\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="HUDInGame.h">
+      <Filter>Archivos de encabezado\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Projectile.h">
+      <Filter>Archivos de encabezado\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Ghoul.h">
+      <Filter>Archivos de encabezado\GameObject\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="External\PugiXml\src\pugixml.cpp">
       <Filter>Archivos de origen\PugiXml</Filter>
     </ClCompile>
@@ -317,9 +320,6 @@
     <ClCompile Include="ModuleTextures.cpp">
       <Filter>Archivos de origen\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleUI.cpp">
-      <Filter>Archivos de origen\Modules</Filter>
-    </ClCompile>
     <ClCompile Include="ModuleWindow.cpp">
       <Filter>Archivos de origen\Modules</Filter>
     </ClCompile>
@@ -333,16 +333,16 @@
       <Filter>Archivos de origen\Globals</Filter>
     </ClCompile>
     <ClCompile Include="GUI.cpp">
-      <Filter>Archivos de origen\Globals\GUI</Filter>
+      <Filter>Archivos de origen\GUI</Filter>
     </ClCompile>
     <ClCompile Include="GUIButton.cpp">
-      <Filter>Archivos de origen\Globals\GUI</Filter>
+      <Filter>Archivos de origen\GUI</Filter>
     </ClCompile>
     <ClCompile Include="GUICheckbox.cpp">
-      <Filter>Archivos de origen\Globals\GUI</Filter>
+      <Filter>Archivos de origen\GUI</Filter>
     </ClCompile>
     <ClCompile Include="GUISlider.cpp">
-      <Filter>Archivos de origen\Globals\GUI</Filter>
+      <Filter>Archivos de origen\GUI</Filter>
     </ClCompile>
     <ClCompile Include="StateMachine.cpp">
       <Filter>Archivos de origen\Tools</Filter>
@@ -377,22 +377,10 @@
     <ClCompile Include="CommonTree.cpp">
       <Filter>Archivos de origen\Player\Trees</Filter>
     </ClCompile>
-    <ClCompile Include="Text.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="HUDInGame.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Projectile.cpp">
-      <Filter>Archivos de origen\Player</Filter>
-    </ClCompile>
     <ClCompile Include="Trigger.cpp">
       <Filter>Archivos de origen\Tools</Filter>
     </ClCompile>
     <ClCompile Include="MapLoader.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="NPC.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="ExecuteSpell.cpp">
@@ -414,10 +402,10 @@
       <Filter>Archivos de origen\Tools</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
-      <Filter>Archivos de origen\Enemy</Filter>
+      <Filter>Archivos de origen\GameObjects\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="EnemyDummy.cpp">
-      <Filter>Archivos de origen\Enemy</Filter>
+      <Filter>Archivos de origen\GameObjects\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="ClassTreeHud.cpp">
       <Filter>Archivos de origen\Player\Trees</Filter>
@@ -445,6 +433,33 @@
     </ClCompile>
     <ClCompile Include="EventListener.cpp">
       <Filter>Archivos de origen\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="SpellSpawnManager.cpp">
+      <Filter>Archivos de origen\Player\Spells\SpellScripts</Filter>
+    </ClCompile>
+    <ClCompile Include="SpellObject.cpp">
+      <Filter>Archivos de origen\Player\Spells</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Archivos de origen\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Archivos de origen\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="NPC.cpp">
+      <Filter>Archivos de origen\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <Filter>Archivos de origen\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="HUDInGame.cpp">
+      <Filter>Archivos de origen\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Projectile.cpp">
+      <Filter>Archivos de origen\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Ghoul.cpp">
+      <Filter>Archivos de origen\GameObjects\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

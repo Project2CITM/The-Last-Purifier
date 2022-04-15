@@ -15,10 +15,13 @@ PurifiedSwordS::PurifiedSwordS() : Spell(), EventListener(GameEvent::PLAYER_ATTA
 		stun[i] = spellStats.child("stun").attribute(lvl.c_str()).as_bool();
 		stunDuration[i] = spellStats.child("stun_duration").attribute(lvl.c_str()).as_int();
 	}
+
+	uses = spellStats.child("uses").attribute("quantity").as_int();
 }
 
 void PurifiedSwordS::Execute(int level)
 {
+	printf("Execute Purified Sword at level %d\n", level);
 }
 
 void PurifiedSwordS::Update()

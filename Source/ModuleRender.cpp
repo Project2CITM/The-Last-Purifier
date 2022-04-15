@@ -160,7 +160,7 @@ void ModuleRender::AddTextureRenderQueue(SDL_Texture* texture, iPoint pos, SDL_R
 void ModuleRender::AddRectRenderQueue(const SDL_Rect& rect, SDL_Color color, bool filled, int layer, float orderInlayer, float speed)
 {
 	// Detect if the rect is in the screen
-	if (!InScreen(rect, speed)) return;
+	//if (!InScreen(rect, speed)) return;
 
 	RenderObject renderR;
 

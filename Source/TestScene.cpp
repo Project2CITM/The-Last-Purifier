@@ -12,6 +12,8 @@
 #include "NPC.h"
 #include "CommonTree.h"
 #include "EnemyDummy.h"
+#include "SpellSpawnManager.h"
+#include "ModuleWindow.h"
 
 TestScene::TestScene() : SceneGame("testScene")
 {
@@ -28,6 +30,7 @@ bool TestScene::Start()
 
     player = new PlayerSage();
 
+    spawnManager = SpellSpawnManager::GetInstance();
 
     //app->renderer->camera->SetTarget(player->controller);
     //player = new PlayerSage(app);
@@ -36,7 +39,7 @@ bool TestScene::Start()
     app->renderer->camera->SetTarget(player->controller);
 
     //Test Skill/Spell tree
-    revenantTree = ClassTree::GetInstance(PlayerClass::REVENANT);
+    revenantTree = ClassTree::GetInstance();
 
     // Test particle
     Particle* p = new Particle({ 0,0 }, 2, 0, { 1,0 });
@@ -56,14 +59,20 @@ bool TestScene::Start()
     classTreeHud = new ClassTreeHud();
     classTreeHud->Start();
 
-    new NPC("purifier1", { 0,0 });
-    NPC* npc1 = new NPC("purifier10", { 20,300 });
-    NPC* npc2 =new NPC("purifier10", { 40,100 });
-
+   // new NPC("purifier1", { 0,0 });
+   //NPC* npc1 = new NPC("purifier10", { 300,150 });
+   // NPC* npc2 =new NPC("purifier10", { 40,100 });
 
     Scene::Start();
-
+    spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-40, 0));
+    spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-80, 0));
     new EnemyDummy(player->controller->GetPosition() + iPoint(40, 0));
+    
+    iPoint npcScale = player->controller->GetPosition();
+    npcScale.x /= app->window->scale;
+    npcScale.y /= app->window->scale;
+    NPC* npc1 = new NPC("purifier10", npcScale );
+    npc1->Start();
     return true;
 }
 
@@ -128,7 +137,7 @@ bool TestScene::PreUpdate()
 
     }*/
 
-    if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN) app->TogglePause(!app->isPause);
+    if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN || app->input->GetControllerButton(BUTTON_START) == KEY_DOWN) app->TogglePause(!app->isPause);
 
 
     //printf("Axis Left: X: %d Y: %d\n", app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTX), app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTY));
@@ -137,9 +146,10 @@ bool TestScene::PreUpdate()
     revenantTree->PreUpdate();
     classTreeHud->PreUpdate();
 
-
+    printf("%d  %d \n", player->controller->GetPosition().x, player->controller->GetPosition().y);
     Scene::PreUpdate();
     return true;
+
 }
 
 bool TestScene::Update()
@@ -156,10 +166,10 @@ bool TestScene::Update()
     //if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
     //    roomManager.mapMovement.y += 10;
 
+    roomManager.Update(player->controller->GetPosition());
     hudInGame->Update();
     revenantTree->Update();
     classTreeHud->Update();
-    roomManager.Update();
     Scene::Update();
     return true;
 }
@@ -212,6 +222,8 @@ bool TestScene::CleanUp()
         RELEASE(classTreeHud);
     }
     roomManager.CleanUp();
+
+    spawnManager->ReleaseInstance();
 
     revenantTree->ReleaseInstance();
 
