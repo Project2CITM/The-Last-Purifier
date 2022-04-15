@@ -6,7 +6,7 @@
 #include "ModuleMap.h"
 #include "ModulePhysics.h"
 
-HubScene::HubScene() : Scene("HubScene")
+HubScene::HubScene() : SceneGame("HubScene")
 {
 
 }

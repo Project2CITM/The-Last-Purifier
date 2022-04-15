@@ -1,11 +1,11 @@
 #pragma once
-#include "Scene.h"
+#include "SceneGame.h"
 #include "HUDInGame.h"
 
 #define HUB_MAP "Main_Hub.tmx"
 class Player;
 
-class HubScene : public Scene
+class HubScene : public SceneGame
 {
 public:
 
@@ -28,6 +28,5 @@ private:
 
 	HUDInGame* hudInGame = nullptr;
 
-	Player* player;
 	iPoint startPosition = { 926, 1579 };
 };
