@@ -17,7 +17,7 @@ ModuleScene::ModuleScene(bool start_enabled) : Module(start_enabled)
 	scenes[HUB] = new HubScene();
 	scenes[LEVEL_1] = new TestScene();
 
-	currentScene = LOGO;//HUB;//LEVEL_1;
+	currentScene = LEVEL_1;//HUB;//LEVEL_1;
 
 	//scenes[0] = new SceneMainMenu(app);
 	//scenes[1] = new SceneGameOver(app);

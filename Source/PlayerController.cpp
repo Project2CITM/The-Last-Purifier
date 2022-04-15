@@ -145,6 +145,8 @@ void PlayerController::CleanUp()
 	{
 		combat->pendingToDelete = true;
 	}
+
+	GameObject::CleanUp();
 }
 
 void PlayerController::CreatePhysBody()
