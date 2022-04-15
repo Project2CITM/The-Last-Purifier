@@ -6,6 +6,7 @@
 #include "ModuleAudio.h"
 #include "ModulePhysics.h"
 #include "ModuleScene.h"
+#include "ModuleMap.h"
 #include "ModuleEvents.h"
 #include <iostream>
 
@@ -29,6 +30,7 @@ bool Application::Init()
 	audio = new ModuleAudio(true);
 	physics = new ModulePhysics();
 	scene = new ModuleScene();
+	map = new ModuleMap();
 	events = new ModuleEvents();
 
 	// The order of calls is very important!
@@ -45,6 +47,8 @@ bool Application::Init()
 	AddModule(scene);
 
 	AddModule(textures);
+
+	AddModule(map);
 
 	AddModule(audio);
 
@@ -74,7 +78,7 @@ bool Application::Init()
 	{
 		pugi::xml_node n = config.child(item->data->name.c_str());
 		ret = item->data->Init(n);
-	
+
 		item = item->next;
 	}
 
@@ -150,7 +154,7 @@ UpdateStatus Application::Update()
 		sleepTime = (frameTime - deltaTime) * 1000;
 		Sleep(sleepTime);
 	}
-	
+
 	// Update info for title
 	UpdateTitle();
 
@@ -219,7 +223,7 @@ pugi::xml_node Application::LoadConfig(pugi::xml_document& configFile) const
 	return ret;
 }
 
-bool Application::LoadSaveFile() 
+bool Application::LoadSaveFile()
 {
 	pugi::xml_parse_result result = saveF.load_file(SAVE_STATE_FILENAME);
 

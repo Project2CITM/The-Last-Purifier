@@ -10,6 +10,8 @@
 #include "Room.h"
 #include "PlayerStats.h"
 
+#include "ModuleMap.h"
+
 PlayerController::PlayerController(std::string name, std::string tag, Player* player) : GameObject(name, tag)
 {
 	this->player = player;
@@ -432,4 +434,30 @@ fPoint PlayerController::GetPlayerToMouseVector()
 	vec = vec.Normalize();
 
 	return vec;
+}
+
+void PlayerController::OnCollisionEnter(PhysBody* col)
+{
+	/*if (col->gameObject->CompareTag("HubDoorINOUT"))
+	{
+		app->map->roof = !app->map->roof;
+	}*/
+	if (col->gameObject != nullptr)
+	{
+		if (col->gameObject->CompareTag("HubDoorIN"))
+		{
+			app->map->roof = false;
+		}
+
+		if (col->gameObject->CompareTag("HubDoorOUT"))
+		{
+			app->map->roof = true;
+		}
+	}
+	
+}
+
+void PlayerController::OnCollisionExit(PhysBody* col)
+{
+
 }

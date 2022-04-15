@@ -153,6 +153,7 @@
   <!-- L03: Added maps folder as config option -->
   <map>
     <folder>Assets/maps/</folder>
+	<hub_folder>Assets/Maps/Hub/</hub_folder>
   </map>
 
 </config>
