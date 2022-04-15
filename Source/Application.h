@@ -71,6 +71,8 @@ public:
 	UpdateStatus Update();
 	bool CleanUp();
 
+	bool Exiting();
+
 	void LoadGameRequest();
 	void SaveGameRequest() const;
 
@@ -95,6 +97,7 @@ public:
 	bool fullScreen = false;
 
 	float musicVol = 0;
+
 	float fxVol = 0;
 
 private:

@@ -63,16 +63,18 @@ bool TestScene::Start()
    //NPC* npc1 = new NPC("purifier10", { 300,150 });
    // NPC* npc2 =new NPC("purifier10", { 40,100 });
 
-    Scene::Start();
+
     spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-40, 0));
     spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-80, 0));
-    new EnemyDummy(player->controller->GetPosition() + iPoint(40, 0));
+    //new EnemyDummy(player->controller->GetPosition() + iPoint(40, 0));
     
-    iPoint npcScale = player->controller->GetPosition();
-    npcScale.x /= app->window->scale;
-    npcScale.y /= app->window->scale;
-    NPC* npc1 = new NPC("purifier10", npcScale );
-    npc1->Start();
+    //iPoint npcScale = player->controller->GetPosition();
+    //npcScale.x /= app->window->scale;
+    //npcScale.y /= app->window->scale;
+    //NPC* npc1 = new NPC("purifier10", npcScale );
+
+    Scene::Start();
+
     return true;
 }
 

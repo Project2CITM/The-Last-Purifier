@@ -28,11 +28,7 @@ GameObject::GameObject(GameObject& obj)
 
 GameObject::~GameObject()
 {
-	if(pBody != nullptr)
-	{
-		delete pBody;
-		pBody = nullptr;
-	}
+	if(pBody != nullptr) RELEASE(pBody);
 }
 
 void GameObject::OnCollisionEnter(PhysBody* col)
@@ -124,14 +120,14 @@ iPoint GameObject::GetDrawPosition(int index)
 {
 	if (pBody != nullptr)
 	{
-		b2Vec2 position;
+		b2Vec2 pos;
 
-		position = pBody->body->GetPosition();
+		pos = pBody->body->GetPosition();
 
-		position.x = METERS_TO_PIXELS(position.x) - pBody->gameObject->renderObjects[index].textureCenterX;
-		position.y = METERS_TO_PIXELS(position.y) - pBody->gameObject->renderObjects[index].textureCenterY;
+		pos.x = METERS_TO_PIXELS(pos.x) - pBody->gameObject->renderObjects[index].textureCenterX;
+		pos.y = METERS_TO_PIXELS(pos.y) - pBody->gameObject->renderObjects[index].textureCenterY;
 
-		return { (int)position.x, (int)position.y };
+		return { (int)pos.x, (int)pos.y };
 	}
 
 	return this->position;
@@ -155,13 +151,13 @@ iPoint GameObject::GetPosition()
 {
 	if (pBody != nullptr)
 	{
-		b2Vec2 position;
+		b2Vec2 pos;
 
-		position = pBody->body->GetPosition();
-		position.x = METERS_TO_PIXELS(position.x);
-		position.y = METERS_TO_PIXELS(position.y);
+		pos = pBody->body->GetPosition();
+		pos.x = METERS_TO_PIXELS(pos.x);
+		pos.y = METERS_TO_PIXELS(pos.y);
 
-		return { (int)position.x, (int)position.y };
+		return { (int)pos.x, (int)pos.y };
 	}
 
 	return this->position;

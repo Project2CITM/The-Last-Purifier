@@ -27,16 +27,16 @@ public:
 
 	void OnCollisionExit(PhysBody* col) override;
 
-	void Hit(int damage);
+	virtual void Hit(int damage);
 
 	virtual void Die();
 
-private:
+protected:
 	SpellSpawnManager* spawnManager = nullptr;
 
 	int health = 40;
 
-	int movespeed = 10;
+	int moveSpeed = 10;
 };
 
 #endif // !__ENEMY_H__

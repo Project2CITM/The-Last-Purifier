@@ -114,7 +114,7 @@ UpdateStatus ModuleInput::PreUpdate()
 		{
 		case(SDL_QUIT):// X(Close) Button event handler
 		{
-			return UpdateStatus::UPDATE_STOP;
+			app->ExitGame();
 			break;
 		}
 		case(SDL_CONTROLLERDEVICEADDED):

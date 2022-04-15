@@ -27,15 +27,23 @@ public:
 
 	void PostUpdate() override;
 
+	void Hit(int damage) override;
+
+	void Die() override;
+
 private:
 
 	void InitAnimation();
+
+	void InitStateMachine();
 
 private:
 	Animation animations[(int)GhoulState::MAX];
 	StateMachine stateMachine;
 	GhoulState currentState = GhoulState::IDLE;
 	LookingDirection lookingDir = LookingDirection::RIGHT;
+
+	PlayerController* player = nullptr;
 };
 
 #endif // !__GHOUL_H__
