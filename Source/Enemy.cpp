@@ -3,7 +3,7 @@
 #include "DamageArea.h"
 #include "SpellSpawnManager.h"
 
-Enemy::Enemy() :GameObject("Enemy", "None")
+Enemy::Enemy(std::string name) :GameObject(name, "Enemy")
 {
 	spawnManager = SpellSpawnManager::GetInstance();
 }
@@ -18,14 +18,17 @@ void Enemy::Start()
 
 void Enemy::PreUpdate()
 {
+	GameObject::PreUpdate();
 }
 
 void Enemy::Update()
 {
+	GameObject::Update();
 }
 
 void Enemy::PostUpdate()
 {
+	GameObject::PostUpdate();
 }
 
 void Enemy::CleanUp()

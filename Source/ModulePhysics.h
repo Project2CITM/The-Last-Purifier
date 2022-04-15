@@ -76,7 +76,7 @@ public:
 	UpdateStatus PostUpdate();
 	bool CleanUp();
 
-	PhysBody* CreateCircle(int x, int y, int radius, GameObject* gameObject = nullptr, bool isSensor = false);
+	PhysBody* CreateCircle(int x, int y, int radius, GameObject* gameObject = nullptr, bool isSensor = false, b2BodyType colType = b2BodyType::b2_kinematicBody);
 	PhysBody* CreateRectangle(iPoint pos, int width, int height, GameObject* gameObject = nullptr, b2BodyType colType = b2BodyType::b2_dynamicBody);
 	PhysBody* CreateRectangleSensor(iPoint pos, int width, int height, GameObject* g = nullptr, b2BodyType colType = b2BodyType::b2_dynamicBody);
 	PhysBody* CreateLine(b2Vec2 startPos, b2Vec2 dir, GameObject* gameObject);

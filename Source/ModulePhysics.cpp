@@ -116,10 +116,10 @@ UpdateStatus ModulePhysics::PostUpdate()
 	return UPDATE_CONTINUE;
 }
 
-PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius, GameObject* gameObject, bool isSensor)
+PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius, GameObject* gameObject, bool isSensor, b2BodyType colType)
 {
 	b2BodyDef body;
-	body.type = b2_dynamicBody;
+	body.type = colType;
 	body.position.Set(PIXELS_TO_METER(x), PIXELS_TO_METER(y));
 
 	b2Body* b = world->CreateBody(&body);
@@ -368,7 +368,7 @@ void ModulePhysics::ShapesRender()
 			{
 				b2CircleShape* shape = (b2CircleShape*)f->GetShape();
 				b2Vec2 pos = shape->m_p + f->GetBody()->GetPosition();
-				app->renderer->AddCircleRenderQueue(iPoint{ METERS_TO_PIXELS(pos.x), METERS_TO_PIXELS(pos.y) }, METERS_TO_PIXELS(shape->m_radius), SDL_Color{ 0,0,0,255 },3);
+				app->renderer->AddCircleRenderQueue(iPoint{ METERS_TO_PIXELS(pos.x), METERS_TO_PIXELS(pos.y) }, METERS_TO_PIXELS(shape->m_radius), SDL_Color{ 255,255,255,255 },3);
 			}
 			break;
 
@@ -408,7 +408,7 @@ void ModulePhysics::ShapesRender()
 				b2ChainShape* shape = (b2ChainShape*)f->GetShape();
 				b2Vec2 prev, v;
 
-				SDL_Color color = { 0,0,0,255 };
+				SDL_Color color = { 255,255,255,255 };
 
 				for (int32 i = 0; i < shape->m_count; ++i)
 				{
@@ -421,13 +421,12 @@ void ModulePhysics::ShapesRender()
 
 					if (g->isSensor)
 					{
-						color = { 0,0,0,100 };
+						color = { 255,255,255,100 };
 					}
 					else
 					{
-						color = { 0,0,0,255 };
+						color = { 255,255,255,255 };
 					}
-					// TODO BUG!!!!
 					v = b->GetWorldPoint(shape->m_vertices[i]);
 					if (i > 0)
 					{
@@ -435,7 +434,6 @@ void ModulePhysics::ShapesRender()
 							adjust, color, 3, 100);
 					}
 					prev = v;
-				
 				}
 				PhysBody* bb = (PhysBody*)f->GetBody()->GetUserData();
 				if (bb->chainLoop)

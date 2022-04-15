@@ -285,6 +285,9 @@
     <ClInclude Include="Projectile.h">
       <Filter>Archivos de encabezado\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="Ghoul.h">
+      <Filter>Archivos de encabezado\GameObject\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\PugiXml\src\pugixml.cpp">
@@ -454,6 +457,9 @@
     </ClCompile>
     <ClCompile Include="Projectile.cpp">
       <Filter>Archivos de origen\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Ghoul.cpp">
+      <Filter>Archivos de origen\GameObjects\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

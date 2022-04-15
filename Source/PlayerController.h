@@ -85,5 +85,4 @@ private:
 	friend class PlayerCombat;
 };
 
-
 #endif

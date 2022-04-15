@@ -9,7 +9,7 @@ class Enemy :  public GameObject
 {
 public: 
 	
-	Enemy();
+	Enemy(std::string name);
 
 	~Enemy();
 
@@ -35,6 +35,8 @@ private:
 	SpellSpawnManager* spawnManager = nullptr;
 
 	int health = 40;
+
+	int movespeed = 10;
 };
 
 #endif // !__ENEMY_H__

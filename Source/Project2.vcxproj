@@ -104,6 +104,7 @@
     <ClInclude Include="External\PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="External\PugiXml\src\pugixml.hpp" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Ghoul.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="GUI.h" />
     <ClInclude Include="GUIButton.h" />
@@ -167,6 +168,7 @@
     <ClCompile Include="ExecuteSpell.cpp" />
     <ClCompile Include="External\PugiXml\src\pugixml.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Ghoul.cpp" />
     <ClCompile Include="GUI.cpp" />
     <ClCompile Include="GUIButton.cpp" />
     <ClCompile Include="GUICheckbox.cpp" />
