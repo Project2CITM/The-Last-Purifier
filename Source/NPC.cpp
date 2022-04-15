@@ -2,13 +2,28 @@
 #include "Application.h"
 #include "ModuleInput.h"
 #include "Text.h"
+#include "SceneGame.h"
 #include "ModuleRender.h"
+#include "PlayerController.h"
+#include "SceneGame.h"
+#include "Trigger.h"
+#include "ModulePhysics.h"
 
 NPC::NPC(std::string name, iPoint position) : GameObject(name,"NPC")
 {
 	this->position = position;
 	textPosition = { position.x, position.y - npcData.h };
-	npcRect = { position.x, position.y, npcData.w,npcData.h };
+	npcSensor = { position.x - 32,position.y - 64,96,192 };
+	trigger = new Trigger({position.x+10,position.y+10}, 50, this,"triggerNpc",false);
+	InitRenderObjectWithXml("npc");
+
+	for (int i = 0; i < 2; i++)
+	{
+		idleAnim.PushBack({81*i,0,81,111});
+	}
+	idleAnim.loop = true;
+	idleAnim.speed = 0.2;
+	idleAnim.hasIdle = false;
 }
 
 NPC::~NPC()
@@ -18,7 +33,7 @@ NPC::~NPC()
 
 void NPC::Start()
 {
-	text = new Text({textPosition},"Pulse enter para hablar");
+	text = new Text({255,150}," ");
 	configDialog = app->config.child("dialogText");
 
 	pugi::xml_node npcNode = configDialog.child(name.c_str());
@@ -30,7 +45,7 @@ void NPC::Start()
 		
 		sentences.add(npcNode.child(temporalSentence.c_str()).child_value());
 	}
-	//Aqui se imprime el sprite del NPC
+
 }
 
 void NPC::PreUpdate()
@@ -45,6 +60,9 @@ void NPC::Update()
 	{
 		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) 
 		{
+			if (!speaking) {
+				speaking = true;
+			}
 			if (sentenceOrder >= sentences.count())
 			{
 				text->SetText(" ");		
@@ -60,12 +78,23 @@ void NPC::Update()
 
 void NPC::PostUpdate()
 {
-	
-	app->renderer->AddRectRenderQueue(npcRect, SDL_Color{ 250,0,0,255 }, true, 3, 50);
+	idleAnim.Update();
+	renderObjects[0].section = idleAnim.GetCurrentFrame();
+	GameObject::PostUpdate();
 }
 
 void NPC::CleanUp()
 {
 	sentences.clear();
 	//RELEASE(text); //No funciona no quitar barras
+}
+
+void NPC::OnTriggerEnter(std::string trigger, PhysBody* col) {
+
+	if (col->gameObject->name == "Player") {
+		if (!speaking) {
+			text->SetText("Pulse enter para hablar");
+		}
+		
+	}
 }
