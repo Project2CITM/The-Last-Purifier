@@ -6,7 +6,6 @@
 #include "ModuleAudio.h"
 #include "ModulePhysics.h"
 #include "ModuleScene.h"
-#include "ModuleUI.h"
 #include "ModuleMap.h"
 #include "ModuleEvents.h"
 #include <iostream>
@@ -32,7 +31,6 @@ bool Application::Init()
 	physics = new ModulePhysics();
 	scene = new ModuleScene();
 	map = new ModuleMap();
-	ui = new ModuleUI();
 	events = new ModuleEvents();
 
 	// The order of calls is very important!
