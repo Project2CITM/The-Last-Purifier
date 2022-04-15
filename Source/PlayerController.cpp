@@ -440,16 +440,19 @@ void PlayerController::OnCollisionEnter(PhysBody* col)
 	{
 		app->map->roof = !app->map->roof;
 	}*/
-
-	if (col->gameObject->CompareTag("HubDoorIN"))
+	if (col->gameObject != nullptr)
 	{
-		app->map->roof = false;
-	}
+		if (col->gameObject->CompareTag("HubDoorIN"))
+		{
+			app->map->roof = false;
+		}
 
-	if (col->gameObject->CompareTag("HubDoorOUT"))
-	{
-		app->map->roof = true;
+		if (col->gameObject->CompareTag("HubDoorOUT"))
+		{
+			app->map->roof = true;
+		}
 	}
+	
 }
 
 void PlayerController::OnCollisionExit(PhysBody* col)
