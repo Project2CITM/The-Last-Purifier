@@ -50,6 +50,9 @@ public:
 
 	void CleanUp() override;
 
+	void OnCollisionEnter(PhysBody* col) override;
+	void OnCollisionExit(PhysBody* col) override;
+
 	Player* player = nullptr;
 
 	PlayerCombat* combat = nullptr;

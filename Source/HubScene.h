@@ -2,6 +2,7 @@
 #include "Scene.h"
 #include "HUDInGame.h"
 
+#define HUB_MAP "Main_Hub.tmx"
 class Player;
 
 class HubScene : public Scene
@@ -11,6 +12,7 @@ public:
 	HubScene();
 	~HubScene();
 
+	bool InitScene() override;
 	bool Start() override;
 	bool CleanUp() override;
 
@@ -27,4 +29,5 @@ private:
 	HUDInGame* hudInGame = nullptr;
 
 	Player* player;
+	iPoint startPosition = { 926, 1579 };
 };

@@ -1,6 +1,8 @@
 #include "Scene.h"
 #include "ModuleRender.h"
 
+#include <iostream>
+
 
 Scene::Scene(std::string name)
 {
@@ -88,6 +90,8 @@ bool Scene::PostUpdate()
 
 bool Scene::CleanUp()
 {
+	std::cout << "hola" << std::endl;
+
 	for (int i = 0; i < gameObjects.count(); i++)
 	{
 		if (gameObjects[i])
