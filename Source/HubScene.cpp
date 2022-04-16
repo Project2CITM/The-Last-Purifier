@@ -1,6 +1,7 @@
 #include "HubScene.h"
 #include "PlayerController.h"
 #include "PlayerRevenant.h"
+#include "PlayerSage.h"
 #include "ModuleRender.h"
 #include "ModuleInput.h"
 #include "ModuleMap.h"
@@ -8,6 +9,7 @@
 #include "SceneSwitch.h"
 #include "ModuleScene.h"
 #include "NPC.h"
+
 
 HubScene::HubScene() : SceneGame("HubScene")
 {
@@ -72,7 +74,7 @@ bool HubScene::Start()
 	//Map
 
 	/*Player related*/
-	player = new PlayerRevenant();
+	player = new PlayerSage();
 	app->renderer->camera->SetTarget(player->controller);
 
 
@@ -96,6 +98,8 @@ bool HubScene::Start()
 
 	NPC* npc4 = new NPC("purifier6", {928,1867});//Puerta Castillo
 	npc4->Start();
+
+	
 	return true;
 }
 

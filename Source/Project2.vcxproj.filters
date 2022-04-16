@@ -300,6 +300,12 @@
     <ClInclude Include="ParticleAttackRevenant.h">
       <Filter>Archivos de encabezado\Tools\Particles</Filter>
     </ClInclude>
+    <ClInclude Include="ParticleAttackSage.h">
+      <Filter>Archivos de encabezado\Tools\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleHitSage.h">
+      <Filter>Archivos de encabezado\Tools\Particles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\PugiXml\src\pugixml.cpp">
@@ -477,6 +483,12 @@
       <Filter>Archivos de origen\Tools\Particles</Filter>
     </ClCompile>
     <ClCompile Include="ParticleAttackRevenant.cpp">
+      <Filter>Archivos de origen\Tools\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleAttackSage.cpp">
+      <Filter>Archivos de origen\Tools\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleHitSage.cpp">
       <Filter>Archivos de origen\Tools\Particles</Filter>
     </ClCompile>
   </ItemGroup>
