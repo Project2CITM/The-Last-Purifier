@@ -9,7 +9,7 @@ public:
 	Trigger(iPoint pos, int width, int height, GameObject* parent = nullptr, std::string name = "Trigger", bool follow = true);
 	Trigger(iPoint pos, int radius, GameObject* parent = nullptr, std::string name = "Trigger", bool follow = true);
 
-	void Update();
+	void Update() override;
 
 	void OnCollisionEnter(PhysBody* col) override;
 	void OnCollisionExit(PhysBody* col) override;

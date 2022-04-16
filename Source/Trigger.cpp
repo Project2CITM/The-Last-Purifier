@@ -34,11 +34,18 @@ Trigger::Trigger(iPoint pos, int radius, GameObject* parent, std::string name, b
 
 void Trigger::Update()
 {
-	if (!app->Exiting())
-	{
-		if (parent->pendingToDelete) pendingToDelete = true;
-		if (!followFather || parent == nullptr || parent->pendingToDelete) return;
+	if (app->Exiting()) return;
 
+	if (parent == nullptr) return;
+
+	if (parent->pendingToDelete)
+	{
+		pendingToDelete = true;
+		return;
+	}
+
+	if (followFather)
+	{
 		SetPosition(parent->GetPosition() + positionOffset);
 	}
 }
@@ -46,19 +53,19 @@ void Trigger::Update()
 void Trigger::OnCollisionEnter(PhysBody* col)
 {
 	if (pendingToDelete) return;
-	if (!app->Exiting())
-	{
-		if (parent) parent->OnTriggerEnter(this->name, col);
-	}
+
+	if (app->Exiting()) return;
+
+	if (parent) parent->OnTriggerEnter(this->name, col);
 }
 
 void Trigger::OnCollisionExit(PhysBody* col)
 {
 	if (pendingToDelete) return;
-	if (!app->Exiting())
-	{
-		if (parent) parent->OnTriggerExit(this->name, col);
-	}
+
+	if (app->Exiting()) return;
+
+	if (parent) parent->OnTriggerExit(this->name, col);
 }
 
 void Trigger::ReleaseParent()

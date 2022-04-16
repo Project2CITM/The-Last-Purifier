@@ -24,8 +24,12 @@ Ghoul::Ghoul(iPoint pos) : Enemy("ghoul")
 	pBody = app->physics->CreateCircle(pos.x, pos.y, 12, this, false, b2_dynamicBody, app->physics->ENEMY_LAYER);
 
 	detectTrigger = new Trigger(position, 16, 12, this, "EnemyDetectPlayer");
+	b2Filter filter;
+	filter.categoryBits = app->physics->TRIGGER_LAYER;
+	detectTrigger->pBody->body->GetFixtureList()->SetFilterData(filter);
 
 	attackTrigger = new Trigger(position, 16, 8, this, "EnemyAttack");
+	attackTrigger->pBody->body->GetFixtureList()->SetFilterData(filter);
 
 	// Init his position
 	this->position = pos;
