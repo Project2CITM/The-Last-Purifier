@@ -219,9 +219,6 @@
     <ClInclude Include="PlayerStats.h">
       <Filter>Archivos de encabezado\Player\Scripts</Filter>
     </ClInclude>
-    <ClInclude Include="DamageArea.h">
-      <Filter>Archivos de encabezado\Tools</Filter>
-    </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>Archivos de encabezado\GameObject\Enemy</Filter>
     </ClInclude>
@@ -287,6 +284,9 @@
     </ClInclude>
     <ClInclude Include="Ghoul.h">
       <Filter>Archivos de encabezado\GameObject\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageArea.h">
+      <Filter>Archivos de encabezado\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -398,9 +398,6 @@
     <ClCompile Include="PlayerStats.cpp">
       <Filter>Archivos de origen\Player\Scripts</Filter>
     </ClCompile>
-    <ClCompile Include="DamageArea.cpp">
-      <Filter>Archivos de origen\Tools</Filter>
-    </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>Archivos de origen\GameObjects\Enemy</Filter>
     </ClCompile>
@@ -460,6 +457,9 @@
     </ClCompile>
     <ClCompile Include="Ghoul.cpp">
       <Filter>Archivos de origen\GameObjects\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="DamageArea.cpp">
+      <Filter>Archivos de origen\GameObjects</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
