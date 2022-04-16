@@ -129,6 +129,7 @@
     <ClInclude Include="ModuleWindow.h" />
     <ClInclude Include="NPC.h" />
     <ClInclude Include="Particle.h" />
+    <ClInclude Include="ParticleAttackRevenant.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerCombat.h" />
     <ClInclude Include="PlayerController.h" />
@@ -191,6 +192,7 @@
     <ClCompile Include="ModuleWindow.cpp" />
     <ClCompile Include="NPC.cpp" />
     <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="ParticleAttackRevenant.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerCombat.cpp" />
     <ClCompile Include="PlayerController.cpp" />

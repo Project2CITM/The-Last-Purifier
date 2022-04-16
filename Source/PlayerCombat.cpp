@@ -5,6 +5,7 @@
 #include "SpellInfo.h"
 #include "Projectile.h"
 #include "ModuleEvents.h"
+#include "ParticleAttackRevenant.h"
 
 PlayerCombat::PlayerCombat(std::string name, std::string tag, Player* player) : GameObject(name, tag)
 {
@@ -217,6 +218,8 @@ void PlayerCombat::RevenantAttack()
 	
 	// Place on correct position
 	revenantAttack->pBody->body->SetTransform(player->controller->pBody->body->GetPosition() + attackOffset, attackRotation);
+
+	new ParticleAttackRevenant(revenantAttack->GetPosition(), 0.5f, 0, { 0,0 });
 
 	attackAreaActive = true;
 }

@@ -13,6 +13,7 @@
 #include "SpellSpawnManager.h"
 #include "ModuleWindow.h"
 #include "Ghoul.h"
+#include "ParticleAttackRevenant.h"
 
 TestScene::TestScene() : SceneGame("testScene")
 {
@@ -27,7 +28,7 @@ bool TestScene::Start()
 {
     //advisorString = "hi";
 
-    player = new PlayerSage();
+    player = new PlayerRevenant();
 
     spawnManager = SpellSpawnManager::GetInstance();
 

@@ -21,8 +21,8 @@
   <textures>
      <ghoul width = "32" height = "32" layer = "1" orderInLayer = "3.0" scale = "1" path="Assets/Sprites/Enemies/Ghoul/Ghoul.png"/>
      <npc width = "70" height = "95" layer = "1" orderInLayer = "3.0" scale = "0.3" path="Assets/Sprites/NPC/npcIdleAnim.png"/>
+	 <basicattackrevenant width = "64" height = "64" layer = "1" orderInLayer = "3.0" scale = "1" path="Assets/Sprites/Player/Revenant/basicAttackRevenant.png"/>
   </textures>
-
   <fonts>
     <defaultFont width = "48" height = "48" letter = "67" r = "0" g = "0" b = "0" a = "255" spaceInLetter = "-13" layer = "3" orderInLayer = "3.0" scale = "0.2" path="Assets/Fonts/defaultFont.png"/>
   </fonts>
