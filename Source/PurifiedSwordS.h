@@ -8,6 +8,8 @@ class PurifiedSwordS : public Spell, public EventListener
 public:
 	PurifiedSwordS();
 
+	~PurifiedSwordS();
+
 	void Execute(int level) override;
 
 	void Update() override;
@@ -15,6 +17,7 @@ public:
 	void CleanUp() override;
 
 	void GameEventTriggered() override;
+
 
 private:
 	int damage[3];

@@ -21,11 +21,15 @@ Ghoul::Ghoul(iPoint pos) : Enemy("ghoul")
 	InitAnimation();
 
 	// Init physBody 
-	pBody = app->physics->CreateCircle(pos.x, pos.y, 12, this);
-
-	//detectTrigger = new Trigger(position, 30, this, "EnemyDetectPlayer");
+	pBody = app->physics->CreateCircle(pos.x, pos.y, 12, this, false, b2_dynamicBody, app->physics->ENEMY_LAYER);
 
 	detectTrigger = new Trigger(position, 16, 12, this, "EnemyDetectPlayer");
+	b2Filter filter;
+	filter.categoryBits = app->physics->TRIGGER_LAYER;
+	detectTrigger->pBody->body->GetFixtureList()->SetFilterData(filter);
+
+	attackTrigger = new Trigger(position, 16, 8, this, "EnemyAttack");
+	attackTrigger->pBody->body->GetFixtureList()->SetFilterData(filter);
 
 	// Init his position
 	this->position = pos;
@@ -39,6 +43,13 @@ Ghoul::Ghoul(iPoint pos) : Enemy("ghoul")
 
 Ghoul::~Ghoul()
 {
+	detectTrigger->ReleaseParent();
+
+	detectTrigger->pendingToDelete = true;
+
+	attackTrigger->ReleaseParent();
+
+	attackTrigger->pendingToDelete = true;
 }
 
 void Ghoul::PreUpdate()
@@ -72,6 +83,10 @@ void Ghoul::Hit(int damage)
 {
 	stateMachine.ChangeState((int)GhoulState::HIT);
 
+	animations[stateMachine.GetCurrentState()].Reset();
+
+	renderObjects[0].SetColor({ 255,164,164,100 });
+
 	Enemy::Hit(damage);
 }
 
@@ -81,7 +96,6 @@ void Ghoul::OnTriggerEnter(std::string trigger, PhysBody* col)
 	{
 		if (col->gameObject->name == "Player")
 		{
-			printf("player enter\n");
 			detectPlayer = true;
 		}
 	}
@@ -102,20 +116,30 @@ void Ghoul::OnTriggerExit(std::string trigger, PhysBody* col)
 void Ghoul::Die()
 {
 	stateMachine.ChangeState((int)GhoulState::DIE);
-
-	Enemy::Die();
 }
 
 void Ghoul::UpdateStates()
 {
+	SetLinearVelocity(b2Vec2{ 0,0 });
+	
+	// printf("%d\n", stateMachine.GetCurrentState());
+
 	switch (stateMachine.GetCurrentState())
 	{
 	case (int)GhoulState::IDLE:
 	{
-		fPoint dir = { (float)(player->GetPosition().x - position.x), (float)(player->GetPosition().y - position.y) };
-		dir = dir.Normalize();
-		SetLinearVelocity(b2Vec2{ (float)(dir.x * moveSpeed),(float)(dir.y * moveSpeed) });
-		stateMachine.ChangeState((int)GhoulState::RUN);
+		if (detectPlayer)
+		{
+			stateMachine.ChangeState((int)GhoulState::ATTACK);
+			animations[stateMachine.GetCurrentState()].Reset();
+		}
+		else
+		{
+			fPoint dir = { (float)(player->GetPosition().x - position.x), (float)(player->GetPosition().y - position.y) };
+			dir = dir.Normalize();
+			SetLinearVelocity(b2Vec2{ (float)(dir.x * moveSpeed),(float)(dir.y * moveSpeed) });
+			stateMachine.ChangeState((int)GhoulState::RUN);
+		}
 	}
 	break;
 	case (int)GhoulState::RUN:
@@ -132,8 +156,9 @@ void Ghoul::UpdateStates()
 	}
 	break;
 	case (int)GhoulState::ATTACK:
+	{
 		SetLinearVelocity(b2Vec2{ 0,0 });
-		if(animations[stateMachine.GetCurrentState()].HasFinished())
+		if (animations[stateMachine.GetCurrentState()].HasFinished())
 		{
 			if (!detectPlayer)
 			{
@@ -145,10 +170,24 @@ void Ghoul::UpdateStates()
 				animations[stateMachine.GetCurrentState()].Reset();
 			}
 		}
+	}
 		break;
 	case (int)GhoulState::HIT:
+	{
+		if (animations[stateMachine.GetCurrentState()].HasFinished())
+		{
+			stateMachine.ChangeState((int)GhoulState::IDLE);
+			renderObjects[0].SetColor({ 255,255,255,255 });
+		}
+	}	
 		break;
 	case (int)GhoulState::DIE:
+	{
+		if (animations[stateMachine.GetCurrentState()].HasFinished())
+		{
+			Enemy::Die();
+		}
+	}	
 		break;
 	}
 }
@@ -181,7 +220,7 @@ void Ghoul::InitAnimation()
 	{
 		// Hit anim initialize
 		animations[(int)GhoulState::HIT].PushBack({ 32 * i, 96, 32, 32 });
-		animations[(int)GhoulState::HIT].loop = true;
+		animations[(int)GhoulState::HIT].loop = false;
 	}
 
 	for (int i = 0; i < 6; i++)
@@ -202,9 +241,9 @@ void Ghoul::InitStateMachine()
 {
 	stateMachine.AddState("Idle", 0);
 	stateMachine.AddState("Run", 0);
-	stateMachine.AddState("Attack", 1, 25);
-	stateMachine.AddState("Hit", 2, 25);
-	stateMachine.AddState("Die", 3);
+	stateMachine.AddState("Attack", 1, 35);
+	stateMachine.AddState("Hit", 2, 35);
+	stateMachine.AddState("Die", 35);
 
 	stateMachine.ChangeState((int)GhoulState::IDLE);
 }

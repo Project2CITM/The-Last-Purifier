@@ -35,6 +35,7 @@ public:
 	void PushBack(const SDL_Rect& rect)
 	{
 		frames[last_frame++] = rect;
+		totalFrames++;
 	}
 
 	void Reset()

@@ -16,6 +16,7 @@
 	<sage>
 		<armour quantity = "10" />
 		<damage quantity = "10" />
-		<attack_speed quantity = "90" />
+		<attack_speed quantity = "50" />
 	</sage>
 </stats>
+

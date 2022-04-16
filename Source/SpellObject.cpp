@@ -15,6 +15,10 @@ SpellObject::SpellObject(iPoint pos, SpellID id, int level) : GameObject("SpellO
 
 	// Create PhysBody
 	pBody = app->physics->CreateRectangle(pos, 8, 14, this);
+	b2Filter filter;
+	filter.categoryBits = app->physics->TRIGGER_LAYER;
+	filter.maskBits = app->physics->EVERY_LAYER & ~app->physics->ENEMY_LAYER;
+	pBody->body->GetFixtureList()->SetFilterData(filter);
 	// Add Texture
 }
 

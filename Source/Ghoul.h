@@ -57,6 +57,8 @@ private:
 
 	Trigger* detectTrigger;
 
+	Trigger* attackTrigger;
+
 	bool detectPlayer = false;
 };
 

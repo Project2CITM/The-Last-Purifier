@@ -66,7 +66,7 @@ private:
 	int attackAreaCounter;
 	bool attackAreaActive;
 
-	float projectileSpeed = 10;
+	float projectileSpeed = 20; //Velocidad de ba
 
 	DamageArea* revenantAttack = nullptr;
 

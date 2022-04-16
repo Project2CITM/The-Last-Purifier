@@ -5,6 +5,7 @@
 #include "SpellInfo.h"
 #include "Projectile.h"
 #include "ModuleEvents.h"
+#include "ParticleAttackRevenant.h"
 
 PlayerCombat::PlayerCombat(std::string name, std::string tag, Player* player) : GameObject(name, tag)
 {
@@ -218,6 +219,31 @@ void PlayerCombat::RevenantAttack()
 	// Place on correct position
 	revenantAttack->pBody->body->SetTransform(player->controller->pBody->body->GetPosition() + attackOffset, attackRotation);
 
+	iPoint particleOffset;
+	int particleRotation = 0;
+	switch (player->controller->lookingDir)
+	{
+	case LookingDirection::DOWN:
+		particleOffset = { -40, -25 };
+		particleRotation = 90;
+		break;
+	case LookingDirection::UP:
+		particleOffset = { -40, -25 };
+		particleRotation = 270;
+		break;
+	case LookingDirection::LEFT:
+		particleOffset = {-30, -25 };
+		particleRotation = 180;
+		break;
+	case LookingDirection::RIGHT:
+		particleOffset = { -40, -25 };
+		particleRotation = 0;
+		break;
+
+	}
+
+	new ParticleAttackRevenant(revenantAttack->GetPosition() + particleOffset, particleRotation, 0.3f, 0);
+
 	attackAreaActive = true;
 }
 
@@ -243,5 +269,5 @@ void PlayerCombat::SageAttack()
 		break;
 	}
 
-	new Projectile("Player", player->controller->GetPosition() + attackOffset, speed * projectileSpeed, player->damage);
+	new Projectile("Projectile", player->controller->GetPosition() + attackOffset, speed * projectileSpeed, player->damage);
 }

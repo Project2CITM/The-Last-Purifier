@@ -76,9 +76,9 @@ public:
 	UpdateStatus PostUpdate();
 	bool CleanUp();
 
-	PhysBody* CreateCircle(int x, int y, int radius, GameObject* gameObject = nullptr, bool isSensor = false, b2BodyType colType = b2BodyType::b2_kinematicBody);
-	PhysBody* CreateRectangle(iPoint pos, int width, int height, GameObject* gameObject = nullptr, b2BodyType colType = b2BodyType::b2_dynamicBody);
-	PhysBody* CreateRectangleSensor(iPoint pos, int width, int height, GameObject* g = nullptr, b2BodyType colType = b2BodyType::b2_dynamicBody);
+	PhysBody* CreateCircle(int x, int y, int radius, GameObject* gameObject = nullptr, bool isSensor = false, b2BodyType colType = b2BodyType::b2_kinematicBody, short filterLayer = 0x0001);
+	PhysBody* CreateRectangle(iPoint pos, int width, int height, GameObject* gameObject = nullptr, b2BodyType colType = b2BodyType::b2_dynamicBody, short filterLayer = 0x0001);
+	PhysBody* CreateRectangleSensor(iPoint pos, int width, int height, GameObject* g = nullptr, b2BodyType colType = b2BodyType::b2_dynamicBody, short filterLayer = 0x0001);
 	PhysBody* CreateLine(b2Vec2 startPos, b2Vec2 dir, GameObject* gameObject);
 	PhysBody* CreateChainObj(int x, int y, int* points, int size, bool loop, GameObject* gameObject = nullptr, b2BodyType colType = b2BodyType::b2_dynamicBody);
 	PhysBody* CreateEdgeObj(int x, int y, int* points, int size, bool loop);
@@ -98,6 +98,7 @@ public:
 	short PLAYER_LAYER = 0x0002;
 	short PROJECTILE_LAYER = 0x0004;
 	short ENEMY_LAYER = 0x0008;
+	short TRIGGER_LAYER = 0x0010;
 
 private:
 	b2Body* mouseBody = nullptr;

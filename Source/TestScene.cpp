@@ -13,6 +13,7 @@
 #include "SpellSpawnManager.h"
 #include "ModuleWindow.h"
 #include "Ghoul.h"
+#include "ParticleAttackRevenant.h"
 
 TestScene::TestScene() : SceneGame("testScene")
 {
@@ -27,7 +28,7 @@ bool TestScene::Start()
 {
     //advisorString = "hi";
 
-    player = new PlayerSage();
+    player = new PlayerRevenant();
 
     spawnManager = SpellSpawnManager::GetInstance();
 
@@ -68,12 +69,7 @@ bool TestScene::Start()
      
     new Ghoul(player->controller->GetPosition() + iPoint(-100, 0));
 
-    //npcScale.x /= app->window->scale;
-    //npcScale.y /= app->window->scale;
-
-    iPoint npcScale = player->controller->GetPosition();
-    NPC* npc1 = new NPC("purifier10", npcScale);
-    npc1->Start();
+   
 
     return true;
 }

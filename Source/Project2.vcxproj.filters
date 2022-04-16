@@ -94,6 +94,12 @@
     <Filter Include="Archivos de origen\GUI">
       <UniqueIdentifier>{a5bfeb4a-f892-494a-8a18-9c5a53f72a55}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de origen\Tools\Particles">
+      <UniqueIdentifier>{e230b0d0-5f7b-4bf8-b738-266bba94e6fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Tools\Particles">
+      <UniqueIdentifier>{c63edb79-72ba-4162-a3e2-159213dafac3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="External\PugiXml\src\pugixml.hpp">
@@ -219,9 +225,6 @@
     <ClInclude Include="PlayerStats.h">
       <Filter>Archivos de encabezado\Player\Scripts</Filter>
     </ClInclude>
-    <ClInclude Include="DamageArea.h">
-      <Filter>Archivos de encabezado\Tools</Filter>
-    </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>Archivos de encabezado\GameObject\Enemy</Filter>
     </ClInclude>
@@ -267,9 +270,6 @@
     <ClInclude Include="NPC.h">
       <Filter>Archivos de encabezado\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="Particle.h">
-      <Filter>Archivos de encabezado\GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="RenderObject.hpp">
       <Filter>Archivos de encabezado\Tools</Filter>
     </ClInclude>
@@ -290,6 +290,15 @@
     </ClInclude>
     <ClInclude Include="SceneSwitch.h">
       <Filter>Archivos de encabezado\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageArea.h">
+      <Filter>Archivos de encabezado\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>Archivos de encabezado\Tools\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleAttackRevenant.h">
+      <Filter>Archivos de encabezado\Tools\Particles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -350,9 +359,6 @@
     <ClCompile Include="StateMachine.cpp">
       <Filter>Archivos de origen\Tools</Filter>
     </ClCompile>
-    <ClCompile Include="Particle.cpp">
-      <Filter>Archivos de origen\Tools</Filter>
-    </ClCompile>
     <ClCompile Include="Spell.cpp">
       <Filter>Archivos de origen\Player\Spells</Filter>
     </ClCompile>
@@ -400,9 +406,6 @@
     </ClCompile>
     <ClCompile Include="PlayerStats.cpp">
       <Filter>Archivos de origen\Player\Scripts</Filter>
-    </ClCompile>
-    <ClCompile Include="DamageArea.cpp">
-      <Filter>Archivos de origen\Tools</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>Archivos de origen\GameObjects\Enemy</Filter>
@@ -466,6 +469,15 @@
     </ClCompile>
     <ClCompile Include="SceneSwitch.cpp">
       <Filter>Archivos de origen\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="DamageArea.cpp">
+      <Filter>Archivos de origen\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <Filter>Archivos de origen\Tools\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleAttackRevenant.cpp">
+      <Filter>Archivos de origen\Tools\Particles</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

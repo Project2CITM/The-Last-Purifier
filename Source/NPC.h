@@ -25,6 +25,9 @@ public:
 
 	void OnTriggerEnter(std::string trigger, PhysBody* col) override;
 
+	void OnTriggerExit(std::string trigger, PhysBody* col) override;
+
+
 public:
 	List<std::string> sentences;
 
@@ -37,8 +40,8 @@ public:
 
 	struct DATA 
 	{
-		int w = 32;
-		int h = 64;
+		int w = 170;
+		int h = 32;
 	}npcData;
 
 	iPoint playerPos = { 0,0 };
@@ -55,6 +58,8 @@ private:
 	Trigger* trigger = nullptr;
 
 	Animation idleAnim;
+
+	bool nearNpc = false;
 };
 
 #endif // !__NPC_H__

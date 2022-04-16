@@ -93,6 +93,10 @@ void PlayerController::PreUpdate()
 		}
 	}
 
+	// Check invulnerability counter
+	if (invulnerabilityCounter > 0) --invulnerabilityCounter;
+	if (invulnerabilityCounter <= 0) isInvulnerable = false;
+
 	// Every frame set the linear velocity to 0 in case we are not moving and we are not dashing
 	// This is done to prevent drifting when applying forces from other bodies into the player body.
 	if (!isDashing)pBody->body->SetLinearVelocity(b2Vec2(0, 0));
@@ -186,6 +190,7 @@ void PlayerController::CreatePhysBody()
 
 	b2Filter filter;
 	filter.categoryBits = app->physics->PLAYER_LAYER;
+	filter.maskBits = app->physics->EVERY_LAYER & ~app->physics->PLAYER_LAYER;
 
 	b2Fixture* bodyFixture = pBody->body->GetFixtureList();
 	while (bodyFixture != nullptr)
@@ -294,21 +299,6 @@ void PlayerController::MovementUpdateController()
 	// By default, the player is always IDLE
 	stateMachine.ChangeState((uint)PlayerState::IDLE);
 
-	if (app->input->GetControllerButton(BUTTON_B) == KEY_DOWN)
-	{
-		if (!isDashing)
-		{
-			//Reset Dash animation in case it hadn't finished yet
-			animations[(int)PlayerAnim::DASH].Reset();
-
-			//Change Player State
-			stateMachine.ChangeState((uint)PlayerState::DASH);
-
-			// do the dash
-			DashOn();
-		}
-	}
-
 	// If we are dashing, all other movement is disabled
 	if (isDashing) return;
 
@@ -362,6 +352,21 @@ void PlayerController::MovementUpdateController()
 		}
 	}
 
+	if (app->input->GetControllerButton(BUTTON_B) == KEY_DOWN)
+	{
+		if (!isDashing)
+		{
+			//Reset Dash animation in case it hadn't finished yet
+			animations[(int)PlayerAnim::DASH].Reset();
+
+			//Change Player State
+			stateMachine.ChangeState((uint)PlayerState::DASH);
+
+			// do the dash
+			DashOn();
+		}
+	}
+
 	// Add speed to direction vector
 	direction.x *= speed;
 	direction.y *= speed;
@@ -395,6 +400,8 @@ void PlayerController::CombatUpdate()
 
 void PlayerController::DashOn()
 {
+	Invulnerability(dashInvulnerability);
+
 	isDashing = true;
 	dashCounter = dashTime;
 
@@ -457,4 +464,40 @@ void PlayerController::OnCollisionEnter(PhysBody* col)
 void PlayerController::OnCollisionExit(PhysBody* col)
 {
 
+}
+
+void PlayerController::OnTriggerEnter(std::string trigger, PhysBody* col)
+{
+	if (col->gameObject == nullptr) return;
+
+	if (col->gameObject->name == "DamageArea")
+	{
+		if (isInvulnerable) return;
+		DamageArea* dArea = (DamageArea*)col->gameObject;
+		if (dArea->damage != nullptr)Hit(*dArea->damage);
+		if (dArea->stunTime != nullptr)Stun(*dArea->stunTime);
+	}
+
+	if (col->gameObject->CompareTag("Enemy"))
+	{
+		Enemy* enemy = (Enemy*)col->gameObject;
+	
+		Hit(enemy->GetDamage());
+	}
+}
+
+void PlayerController::Hit(int damage)
+{
+	player->hpPlayer -= damage;
+	if (player->hpPlayer <= 0) printf("Player Die!!\n");
+}
+
+void PlayerController::Stun(int frames)
+{
+}
+
+void PlayerController::Invulnerability(int frames)
+{
+	isInvulnerable = true;
+	invulnerabilityCounter = frames;
 }
