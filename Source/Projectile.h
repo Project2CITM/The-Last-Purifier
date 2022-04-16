@@ -2,22 +2,31 @@
 #define _PROJECTILE_
 
 #include "GameObject.h"
+#include "Animation.h"
 
 class DamageArea;
+class ParticleAttackSage;
+
 
 class Projectile : public GameObject
 {
 public:
-	Projectile(std::string name, iPoint position, fPoint speed, int damage, bool fire = true, bool stun = false, bool isEnemy = false);
+	Projectile(std::string name, iPoint position, fPoint speed, int damage, int rotation = 0, bool fire = true, bool stun = false, bool isEnemy = false);
 
 	void FireProjectile(fPoint speed);
 
 	void OnCollisionEnter(PhysBody* col) override;
 
+	void PostUpdate() override;
+
+public:
+
 	bool isEnemy = false;
 	bool stun = false;
 	int damage = 0;
 	DamageArea* damageArea;
+	int rotation = 0;
+	Animation anim;
+
 };
 #endif
-

@@ -7,9 +7,11 @@ class ParticleAttackRevenant :
 {
 public:
 
-	ParticleAttackRevenant(iPoint position, float life = 0, float delay = 0, iPoint velocity = { 0,0 }, std::string name = "Particle");
+	ParticleAttackRevenant(iPoint position,int rot = 0,  float life = 0, float delay = 0, bool hasPurifiedSword = false, iPoint velocity = { 0,0 }, std::string name = "Particle");
 
 	~ParticleAttackRevenant();
+
+	void PostUpdate() override;
 
 };
 

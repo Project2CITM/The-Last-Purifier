@@ -24,6 +24,7 @@ public:
 	PlayerController* controller = nullptr;
 	PlayerStats* stats = nullptr;
 
+	int souls = 0;
 	int hpPlayer = 100;
 	int spellSlots = 1;
 	int deckSlots = 2;

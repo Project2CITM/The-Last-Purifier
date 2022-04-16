@@ -113,6 +113,7 @@
     <ClInclude Include="HubScene.h" />
     <ClInclude Include="HUDInGame.h" />
     <ClInclude Include="Kaboom.h" />
+    <ClInclude Include="IntLabel.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="LogoScene.h" />
     <ClInclude Include="MainMenu.h" />
@@ -131,6 +132,8 @@
     <ClInclude Include="NPC.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="ParticleAttackRevenant.h" />
+    <ClInclude Include="ParticleAttackSage.h" />
+    <ClInclude Include="ParticleHitSage.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerCombat.h" />
     <ClInclude Include="PlayerController.h" />
@@ -145,6 +148,7 @@
     <ClInclude Include="RoomManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneGame.h" />
+    <ClInclude Include="SceneSwitch.h" />
     <ClInclude Include="Spell.h" />
     <ClInclude Include="SpellInfo.h" />
     <ClInclude Include="SpellList.h" />
@@ -178,6 +182,7 @@
     <ClCompile Include="HubScene.cpp" />
     <ClCompile Include="HUDInGame.cpp" />
     <ClCompile Include="Kaboom.cpp" />
+    <ClCompile Include="IntLabel.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="LogoScene.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -195,6 +200,8 @@
     <ClCompile Include="NPC.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="ParticleAttackRevenant.cpp" />
+    <ClCompile Include="ParticleAttackSage.cpp" />
+    <ClCompile Include="ParticleHitSage.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerCombat.cpp" />
     <ClCompile Include="PlayerController.cpp" />
@@ -207,6 +214,7 @@
     <ClCompile Include="RoomManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneGame.cpp" />
+    <ClCompile Include="SceneSwitch.cpp" />
     <ClCompile Include="Spell.cpp" />
     <ClCompile Include="SpellInfo.cpp" />
     <ClCompile Include="SpellList.cpp" />

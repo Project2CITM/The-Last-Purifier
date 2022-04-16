@@ -189,7 +189,7 @@ bool MainMenu::Update()
 		
 		if (PlayBUT->doAction || (ControllerPos == 0 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
 		{
-			app->scene->ChangeCurrentSceneRequest(LEVEL_1);
+			app->scene->ChangeCurrentSceneRequest(HUB);
 		}
 
 		if (OptionsBUT->doAction || (ControllerPos == 1 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))

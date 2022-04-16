@@ -1,12 +1,18 @@
 #include "Projectile.h"
 #include "ModulePhysics.h"
 #include "DamageArea.h"
+#include "ParticleAttackSage.h"
+#include "ModuleTextures.h"
+#include "ModuleRender.h"
+#include "Particle.h"
+#include "ParticleHitSage.h"
 
-Projectile::Projectile(std::string name, iPoint position, fPoint speed, int damage, bool fire, bool stun, bool isEnemy) : GameObject(name, name)
+Projectile::Projectile(std::string name, iPoint position, fPoint speed, int damage,int rotation, bool fire, bool stun, bool isEnemy) : GameObject(name, name)
 {
 	this->damage = damage;
 	this->isEnemy = isEnemy;
 	this->stun = stun;
+	this->rotation = rotation;
 
 	damageArea = new DamageArea(position, 4, 4, &this->damage, &this->stun);
 	pBody = app->physics->CreateRectangle(position, 4, 4, this);
@@ -21,7 +27,29 @@ Projectile::Projectile(std::string name, iPoint position, fPoint speed, int dama
 
 	if (fire) FireProjectile(speed);
 
+	if (rotation == 180)
+	{
+		renderObjects[0].flip = SDL_FLIP_HORIZONTAL;
+	}
+	else
+	{
+		renderObjects[0].flip = SDL_FLIP_NONE;
+	}
+	renderObjects[0].InitAsTexture(app->textures->Load("Assets/Sprites/Player/Sage/basicAttackSageDuring.png"), position, { 0,0,0,0 },1.0f,1,1.0f,this->rotation);
+
+	
 	// Particle Effect
+
+	for (int i = 0; i < 8; i++)
+	{
+		this->anim.PushBack({ 32 * i,0,32,32 });
+	}
+	this->anim.loop = true;
+	this->anim.hasIdle = false;
+	this->anim.speed = 0.5f;
+
+	//new ParticleAttackSage({ position.x - 20,position.y - 15 },this->rotation, 0.1f, 0.01f, { 1,0 });
+	
 }
 
 void Projectile::FireProjectile(fPoint speed)
@@ -35,5 +63,23 @@ void Projectile::OnCollisionEnter(PhysBody* col)
 {
 	pendingToDelete = true;
 	damageArea->pendingToDelete = true;
+
 	// Particle effect
+
+	new ParticleHitSage({ position.x - 20,position.y - 15 }, 1.5f);
+
+}
+
+void Projectile::PostUpdate()
+{
+	anim.Update();
+
+	renderObjects[0].section = anim.GetCurrentFrame();
+
+	renderObjects[0].destRect.x = GetDrawPosition().x - 20;
+	renderObjects[0].destRect.y = GetDrawPosition().y - 15;
+
+	
+	app->renderer->AddRenderObjectRenderQueue(renderObjects[0]);
+
 }
