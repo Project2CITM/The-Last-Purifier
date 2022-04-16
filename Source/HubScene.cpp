@@ -1,6 +1,7 @@
 #include "HubScene.h"
 #include "PlayerController.h"
 #include "PlayerRevenant.h"
+#include "PlayerSage.h"
 #include "ModuleRender.h"
 #include "ModuleInput.h"
 #include "ModuleMap.h"
@@ -9,6 +10,7 @@
 #include "ModuleScene.h"
 #include "NPC.h"
 #include "IntLabel.h"
+
 
 HubScene::HubScene() : SceneGame("HubScene")
 {
@@ -73,7 +75,7 @@ bool HubScene::Start()
 	//Map
 
 	/*Player related*/
-	player = new PlayerRevenant();
+	player = new PlayerSage();
 	app->renderer->camera->SetTarget(player->controller);
 
 
@@ -103,7 +105,7 @@ bool HubScene::Start()
 	IntLabel* int_lbl_Revenant = new IntLabel("REVENANT INSTRUCTOR", "Lbl_Revenant", { 1014, 939 }, 150);
 	IntLabel* int_lbl_Sage = new IntLabel("SAGE INSTRUCTOR", "Lbl_Sage", { 553, 1510 }, 180);
 	IntLabel* int_lbl_Gate = new IntLabel("DOOM'S GATE", "Lbl_Doom", { 1271, 211 }, 200);
-	
+
 	return true;
 }
 

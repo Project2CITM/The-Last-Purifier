@@ -37,10 +37,10 @@ bool HUDInGame::InitScene()
 
 bool HUDInGame::Start()
 {
-	PauseBG.InitAsTexture(app->textures->Load("Assets/Sprites/UI/PauseBG.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 0);
-	SettingsBG.InitAsTexture(app->textures->Load("Assets/Sprites/UI/FondoSettings.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 0);
-	Controls1.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Controls1_2.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 1);
-	Controls2.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Controls2_2.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 1);
+	PauseBG.InitAsTexture(app->textures->Load("Assets/Sprites/UI/PauseBG.png"), { app->renderer->camera->x + 10, app->renderer->camera->y -10 }, { 0,0,0,0 }, 0.35f, 4, 0, 0 , SDL_FLIP_NONE, 0);
+	SettingsBG.InitAsTexture(app->textures->Load("Assets/Sprites/UI/FondoSettings.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 0, 0, SDL_FLIP_NONE, 0);
+	Controls1.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Controls1_2.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 1, 0, SDL_FLIP_NONE, 0);
+	Controls2.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Controls2_2.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 1, 0, SDL_FLIP_NONE, 0);
 
 	Hover = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiHover.wav");
 	Press = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiSelect.wav");
@@ -59,15 +59,19 @@ bool HUDInGame::Start()
 	spell4_3 = { app->renderer->camera->x + 335, app->renderer->camera->y + 314, 30, 40 };
 	spell4_4 = { app->renderer->camera->x + 395, app->renderer->camera->y + 314, 30, 40 };
 
-	resumeBUT = { app->renderer->camera->x + 262, app->renderer->camera->y + + 70};//640 pixeles with pantalla
-	settingsBUT = { app->renderer->camera->x + 262, app->renderer->camera->y + 117};
-	controlsBUT = { app->renderer->camera->x + 262, app->renderer->camera->y +164};
-	giveUpBUT = { app->renderer->camera->x + 262, app->renderer->camera->y +211};
-	quitBUT = { app->renderer->camera->x + 262, app->renderer->camera->y +258};
+	resumeBUT = { app->renderer->camera->x + 155, app->renderer->camera->y + 70};//640 pixeles with pantalla
+	settingsBUT = { app->renderer->camera->x + 155, app->renderer->camera->y + 160};
+	controlsBUT = { app->renderer->camera->x + 155, app->renderer->camera->y +250};
+	saveBUT = { app->renderer->camera->x + 355, app->renderer->camera->y + 70 };
+	loadBUT = { app->renderer->camera->x + 355, app->renderer->camera->y + 130 };
+	giveUpBUT = { app->renderer->camera->x + 355, app->renderer->camera->y +190};
+	quitBUT = { app->renderer->camera->x + 355, app->renderer->camera->y +250};
 
 	ResumeBUT = new GUIButton(resumeBUT, 117, 47, MenuButton::INGAMEPUASE, "Assets/Sprites/UI/Resume.png");
 	SettingsBUT = new GUIButton(settingsBUT, 117, 47, MenuButton::INGAMEPUASE, "Assets/Sprites/UI/Settings.png");
 	ControlsBUT = new GUIButton(controlsBUT, 117, 47, MenuButton::INGAMEPUASE, "Assets/Sprites/UI/Controls.png");
+	SaveBUT = new GUIButton(saveBUT, 117, 47, MenuButton::INGAMEPUASE, "Assets/Sprites/UI/Resume.png");
+	LoadBUT = new GUIButton(loadBUT, 117, 47, MenuButton::INGAMEPUASE, "Assets/Sprites/UI/Resume.png");
 	GiveUpBUT = new GUIButton(giveUpBUT, 117, 47, MenuButton::INGAMEPUASE, "Assets/Sprites/UI/giveUp.png");
 	QuitBUT = new GUIButton(quitBUT, 117, 47, MenuButton::INGAMEPUASE, "Assets/Sprites/UI/Quit.png");
 

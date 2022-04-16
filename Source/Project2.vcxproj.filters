@@ -303,6 +303,12 @@
     <ClInclude Include="IntLabel.h">
       <Filter>Archivos de encabezado\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="ParticleAttackSage.h">
+      <Filter>Archivos de encabezado\Tools\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleHitSage.h">
+      <Filter>Archivos de encabezado\Tools\Particles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\PugiXml\src\pugixml.cpp">
@@ -484,6 +490,12 @@
     </ClCompile>
     <ClCompile Include="IntLabel.cpp">
       <Filter>Archivos de origen\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleAttackSage.cpp">
+      <Filter>Archivos de origen\Tools\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleHitSage.cpp">
+      <Filter>Archivos de origen\Tools\Particles</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
