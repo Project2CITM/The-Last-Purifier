@@ -14,6 +14,7 @@ public:
 
 	void OnCollisionEnter(PhysBody* col) override;
 
+
 	bool isEnemy = false;
 	bool stun = false;
 	int damage = 0;

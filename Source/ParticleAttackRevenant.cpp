@@ -1,8 +1,9 @@
 #include "ParticleAttackRevenant.h"
 
-ParticleAttackRevenant::ParticleAttackRevenant(iPoint position, float life, float delay, iPoint velocity, std::string name):Particle(position,life,delay,velocity,name)
+ParticleAttackRevenant::ParticleAttackRevenant(iPoint position, int rot, float life, float delay, bool hasPurifiedSword, iPoint velocity, std::string name):Particle(position,life,delay,velocity,name)
 {
-	InitRenderObjectWithXml("basicattackrevenant");
+	if (!hasPurifiedSword) InitRenderObjectWithXml("basicattackrevenant");
+	else {}; //InitRenderObjectWithXml("basicWithPurifiedSword")
 
 	for (int i = 0; i < 11; i++)
 	{
@@ -10,11 +11,18 @@ ParticleAttackRevenant::ParticleAttackRevenant(iPoint position, float life, floa
 	}
 	this->anim.loop = false;
 	this->anim.hasIdle = false;
-	this->anim.speed = 0.5f;
+	this->anim.speed = 0.7f;
+
+	this->rotation = rot;
 }
 
 ParticleAttackRevenant::~ParticleAttackRevenant()
 {
+}
+
+void ParticleAttackRevenant::PostUpdate()
+{
+	Particle::PostUpdate();
 }
 
 
