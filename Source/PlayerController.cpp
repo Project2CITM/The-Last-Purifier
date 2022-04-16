@@ -299,21 +299,6 @@ void PlayerController::MovementUpdateController()
 	// By default, the player is always IDLE
 	stateMachine.ChangeState((uint)PlayerState::IDLE);
 
-	if (app->input->GetControllerButton(BUTTON_B) == KEY_DOWN)
-	{
-		if (!isDashing)
-		{
-			//Reset Dash animation in case it hadn't finished yet
-			animations[(int)PlayerAnim::DASH].Reset();
-
-			//Change Player State
-			stateMachine.ChangeState((uint)PlayerState::DASH);
-
-			// do the dash
-			DashOn();
-		}
-	}
-
 	// If we are dashing, all other movement is disabled
 	if (isDashing) return;
 
@@ -364,6 +349,21 @@ void PlayerController::MovementUpdateController()
 			stateMachine.ChangeState((uint)PlayerState::RUN);
 
 			lookingDir = LookingDirection::DOWN;
+		}
+	}
+
+	if (app->input->GetControllerButton(BUTTON_B) == KEY_DOWN)
+	{
+		if (!isDashing)
+		{
+			//Reset Dash animation in case it hadn't finished yet
+			animations[(int)PlayerAnim::DASH].Reset();
+
+			//Change Player State
+			stateMachine.ChangeState((uint)PlayerState::DASH);
+
+			// do the dash
+			DashOn();
 		}
 	}
 
