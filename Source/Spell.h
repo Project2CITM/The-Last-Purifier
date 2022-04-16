@@ -35,6 +35,8 @@ class Spell
 public:
 	Spell();
 
+	~Spell();
+
 	virtual void Execute(int level);
 
 	virtual void Update();

@@ -21,6 +21,10 @@ Spell::Spell()
 	player = scene->player;
 }
 
+Spell::~Spell()
+{
+}
+
 void Spell::Execute(int level)
 {
 	printf("Empty Spell Slot!\n");
