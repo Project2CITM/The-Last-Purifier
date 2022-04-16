@@ -33,10 +33,12 @@
 		  <Sentence2>No se que haces aqui pero vuelve rapido a la aldea, aqui corres peligro</Sentence2>
 		  <Sentence3>...</Sentence3>
 		  <Sentence4>¡Espera! Antes de irte toma este guante, le vas a dar mejor uso que yo en este momento.¡Corre!</Sentence4>
+		 
 	  </purifier1>
-	  <doorGuardian>
+	  <doorGuardian Num="3">
 		  <Sentence1> Quien eres y que haces fuera de la aldea sin un protector</Sentence1>
 		  <Sentence2> Intenta no volver a salir sin proteccion, queda poco para que llegue el gran dia y debemos ser las maximas personas posibles.</Sentence2>
+		  <Sentence3> </Sentence3>
 	  </doorGuardian>
 	  <purifier2 Num="9">
 		  <Sentence1> ¿Que haces con un guante de purificador?</Sentence1>
@@ -121,7 +123,7 @@
 		  </Sentence2>
 		  <Sentence3>
 			  Sigo esperando que vuelva algún día.
-		  </Sentence3>
+		  </Sentence3> 
 	  </purifier10>
 
   </dialogText>

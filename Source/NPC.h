@@ -25,6 +25,9 @@ public:
 
 	void OnTriggerEnter(std::string trigger, PhysBody* col) override;
 
+	void OnTriggerExit(std::string trigger, PhysBody* col) override;
+
+
 public:
 	List<std::string> sentences;
 
@@ -55,6 +58,8 @@ private:
 	Trigger* trigger = nullptr;
 
 	Animation idleAnim;
+
+	bool nearNpc = false;
 };
 
 #endif // !__NPC_H__

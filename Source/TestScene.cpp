@@ -71,9 +71,17 @@ bool TestScene::Start()
     //npcScale.x /= app->window->scale;
     //npcScale.y /= app->window->scale;
 
-    iPoint npcScale = player->controller->GetPosition();
-    NPC* npc1 = new NPC("purifier10", npcScale);
+    iPoint npc1Pos = player->controller->GetPosition();
+    npc1Pos.x -= 190;
+    npc1Pos.y += 80;
+    NPC* npc1 = new NPC("purifier10", npc1Pos);
     npc1->Start();
+
+    iPoint npc2Pos = player->controller->GetPosition();
+    npc2Pos.x -= 190;
+    npc2Pos.y -= 80;
+    NPC* npc2 = new NPC("purifier1", npc2Pos);
+    npc2->Start();
 
     return true;
 }
