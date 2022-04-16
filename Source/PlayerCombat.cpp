@@ -242,7 +242,7 @@ void PlayerCombat::RevenantAttack()
 
 	}
 
-	new ParticleAttackRevenant(revenantAttack->GetPosition() + particleOffset, particleRotation, 0.3f, 0);
+	new ParticleAttackRevenant(revenantAttack->GetPosition() + particleOffset, particleRotation, 0.15f, 0);
 
 	attackAreaActive = true;
 }
@@ -253,21 +253,27 @@ void PlayerCombat::SageAttack()
 
 	// Get projectile speed
 	fPoint speed = { 0,0 };
+	iPoint particleOffset;
+	int particleRotation = 0;
 	switch (player->controller->lookingDir)
 	{
 	case LookingDirection::UP:
 		speed.y = -1;
+		particleRotation = 270;
 		break;
 	case LookingDirection::DOWN:
 		speed.y = 1;
+		particleRotation = 90;
 		break;
 	case LookingDirection::LEFT:
 		speed.x = -1;
+		particleRotation = -180;
 		break;
 	case LookingDirection::RIGHT:
 		speed.x = 1;
+		particleRotation = 0;
 		break;
 	}
 
-	new Projectile("Projectile", player->controller->GetPosition() + attackOffset, speed * projectileSpeed, player->damage);
+	new Projectile("Projectile", player->controller->GetPosition() + attackOffset, speed * projectileSpeed,player->damage,particleRotation);
 }
