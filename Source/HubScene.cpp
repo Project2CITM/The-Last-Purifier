@@ -78,28 +78,16 @@ bool HubScene::Start()
 
 	InitScene();
 	//NPC creators
-	iPoint npc1Pos = player->controller->GetPosition();
-	npc1Pos.x -= 190;
-	npc1Pos.y += 80;
-	NPC* npc1 = new NPC("purifier10", npc1Pos);
+	NPC* npc1 = new NPC("purifier10", {1228,1717});//Interior castillo o perdido por ahí
 	npc1->Start();
 
-	iPoint npc2Pos = player->controller->GetPosition();
-	npc2Pos.x -= 190;
-	npc2Pos.y -= 80;
-	NPC* npc2 = new NPC("purifier9", npc2Pos);
+	NPC* npc2 = new NPC("purifier9", {478,1470});//Cementerio
 	npc2->Start();
 
-	iPoint npc3Pos = player->controller->GetPosition();
-	npc3Pos.x += 170;
-	npc3Pos.y -= 80;
-	NPC* npc3 = new NPC("purifier8", npc3Pos);
+	NPC* npc3 = new NPC("purifier8", {1228,493});//Puerta Start Run
 	npc3->Start();
 
-	iPoint npc4Pos = player->controller->GetPosition();
-	npc4Pos.x += 170;
-	npc4Pos.y += 80;
-	NPC* npc4 = new NPC("purifier6", npc4Pos);
+	NPC* npc4 = new NPC("purifier6", {928,1867});//Puerta Castillo
 	npc4->Start();
 	return true;
 }
@@ -151,6 +139,9 @@ bool HubScene::Update()
 	//Updates
 	hudInGame->Update();
 
+	int x = player->controller->GetPosition().x;
+	int y = player->controller->GetPosition().y;
+	LOG("x:%d \n y:%d", x, y);
 	Scene::Update();
 	return true;
 }

@@ -64,7 +64,7 @@ void NPC::Update()
 	if (canSpeak) 
 	{
 		if (nearNpc) {
-			if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
+			if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN||app->input->GetControllerButton(BUTTON_A)==KEY_DOWN)
 			{
 				if (!speaking) {
 					speaking = true;
