@@ -65,7 +65,8 @@ bool TestScene::Start()
 
     spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-40, 0));
     spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-80, 0));
-    //new EnemyDummy(player->controller->GetPosition() + iPoint(40, 0));
+     
+    new Ghoul(player->controller->GetPosition() + iPoint(-100, 0));
 
     //npcScale.x /= app->window->scale;
     //npcScale.y /= app->window->scale;
