@@ -13,7 +13,6 @@ NPC::NPC(std::string name, iPoint position) : GameObject(name,"NPC")
 {
 	this->position = position;
 	textPosition = { position.x, position.y - npcData.h };
-	npcSensor = { position.x - 32,position.y - 64,96,192 };
 	trigger = new Trigger({position.x+10,position.y+10}, 50, this,"triggerNpc",false);
 
 	b2Filter filter;
@@ -63,19 +62,21 @@ void NPC::Update()
 //	npcRect = { npcPosition.x,npcPosition.y,npcData.w,npcData.h };
 	if (canSpeak) 
 	{
-		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) 
-		{
-			if (!speaking) {
-				speaking = true;
-			}
-			if (sentenceOrder >= sentences.count())
+		if (nearNpc) {
+			if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
 			{
-				text->SetText(" ");		
-			}
-			else 
-			{
-				text->SetText(sentences[sentenceOrder]);
-				sentenceOrder++;
+				if (!speaking) {
+					speaking = true;
+				}
+				if (sentenceOrder >= sentences.count())
+				{
+					text->SetText(" ");
+				}
+				else
+				{
+					text->SetText(sentences[sentenceOrder]);
+					sentenceOrder++;
+				}
 			}
 		}
 	}
@@ -98,9 +99,23 @@ void NPC::OnTriggerEnter(std::string trigger, PhysBody* col) {
 
 	if (col->gameObject->name == "Player") 
 	{
+		nearNpc = true;
+
+		LOG("Enter");
 		if (!speaking) 
 		{
 			text->SetText("Pulse enter para hablar");
 		}	
 	}
+}
+void NPC::OnTriggerExit(std::string trigger, PhysBody* col) {
+
+	if (col->gameObject->name == "Player") {
+		LOG("Exit");
+		nearNpc = false;
+		speaking = false;
+		text->SetText(" ");
+		sentenceOrder = 0;
+	}
+
 }
