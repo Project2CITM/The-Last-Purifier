@@ -8,6 +8,7 @@
 #include "SceneSwitch.h"
 #include "ModuleScene.h"
 #include "NPC.h"
+#include "IntLabel.h"
 
 HubScene::HubScene() : SceneGame("HubScene")
 {
@@ -96,6 +97,13 @@ bool HubScene::Start()
 
 	NPC* npc4 = new NPC("purifier6", {928,1867});//Puerta Castillo
 	npc4->Start();
+
+
+	//Labels
+	IntLabel* int_lbl_Revenant = new IntLabel("REVENANT INSTRUCTOR", "Lbl_Revenant", { 1014, 939 }, 150);
+	IntLabel* int_lbl_Sage = new IntLabel("SAGE INSTRUCTOR", "Lbl_Sage", { 553, 1510 }, 180);
+	IntLabel* int_lbl_Gate = new IntLabel("DOOM'S GATE", "Lbl_Doom", { 1271, 211 }, 200);
+	
 	return true;
 }
 
@@ -128,7 +136,7 @@ bool HubScene::PreUpdate()
 	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
 		iPoint aux = player->controller->GetPosition();
-		std::cout << "X-> " << aux.x << " | Y-> " << aux.y << std::endl;
+		std::cout << "{ " << aux.x << ", " << aux.y << " }" << std::endl;
 	}
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 	{

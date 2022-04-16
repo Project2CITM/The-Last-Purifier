@@ -6083,14 +6083,14 @@
    <tile gid="2858"/>
    <tile gid="2807"/>
    <tile gid="2755"/>
-   <tile gid="1294"/>
-   <tile gid="1261"/>
-   <tile gid="1294"/>
-   <tile gid="1261"/>
-   <tile gid="1260"/>
-   <tile gid="1261"/>
-   <tile gid="1260"/>
-   <tile gid="1261"/>
+   <tile gid="2755"/>
+   <tile gid="2755"/>
+   <tile gid="2755"/>
+   <tile gid="2755"/>
+   <tile gid="2755"/>
+   <tile gid="2755"/>
+   <tile gid="2806"/>
+   <tile gid="2755"/>
    <tile gid="1260"/>
    <tile gid="1261"/>
    <tile gid="1260"/>
@@ -44872,7 +44872,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="8" name="Debug" width="80" height="80">
+ <layer id="8" name="Debug" width="80" height="80" visible="0">
   <properties>
    <property name="Draw" type="int" value="0"/>
    <property name="Logic" type="int" value="1"/>
