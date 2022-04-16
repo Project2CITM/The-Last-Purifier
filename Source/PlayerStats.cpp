@@ -2,9 +2,12 @@
 #include "CommonTree.h"
 #include "ClassTree.h"
 
-PlayerStats::PlayerStats(Player* player)
+
+PlayerStats::PlayerStats(Player* player) : EventListener(GameEvent::SAVE_GAME)
 {
 	this->player = player;
+
+	app->events->AddListener(this);
 
 	// Create Trees
 	commonTree = new CommonTree();
@@ -35,6 +38,7 @@ void PlayerStats::Start()
 void PlayerStats::UpdatePlayerStats()
 {
 	// Common tree variables
+	player->souls = defaultValues.child("souls").attribute("quantity").as_int();
 	player->hpPlayer = defaultValues.child("hp").attribute("quantity").as_int() + commonTree->getValue(CommonUpgrades::HEALTH);
 	player->dashSpeed = defaultValues.child("speed").attribute("dash").as_float();
 	player->movementSpeed = defaultValues.child("speed").attribute("movement").as_float();
@@ -47,6 +51,16 @@ void PlayerStats::UpdatePlayerStats()
 	player->armour = classValues.child("armour").attribute("quantity").as_int() + commonTree->getValue(CommonUpgrades::ARMOUR);
 	player->attackSpeed = classValues.child("attack_speed").attribute("quantity").as_int() - commonTree->getValue(CommonUpgrades::ATTACK_SPEED);
 	player->damage = classValues.child("damage").attribute("quantity").as_int() + commonTree->getValue(CommonUpgrades::DAMAGE);
+}
+
+void PlayerStats::GameEventTriggered()
+{
+	
+	pugi::xml_node n = playerValuesXml.child("stats").child("common");
+
+	n.child("souls").attribute("quantity") = player->souls;
+
+	playerValuesXml.save_file("PlayerStats.xml");
 }
 
 void PlayerStats::CleanUp()

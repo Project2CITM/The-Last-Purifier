@@ -3,11 +3,12 @@
 
 #include "Player.h"
 #include "External/PugiXml/src/pugixml.hpp"
+#include "ModuleEvents.h"
 
 class CommonTree;
 class ClassTree;
 
-class PlayerStats
+class PlayerStats : public EventListener
 {
 public:
 	PlayerStats(Player* player);
@@ -15,6 +16,8 @@ public:
 	void Start();
 
 	void UpdatePlayerStats();
+
+	void GameEventTriggered() override;
 
 	void CleanUp();
 

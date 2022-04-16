@@ -12,6 +12,7 @@
 #include "SceneGame.h"
 #include "PlayerCombat.h"
 #include "PlayerController.h"
+#include "ModuleEvents.h"
 
 RenderObject Controls1;
 RenderObject Controls2;
@@ -196,6 +197,18 @@ bool HUDInGame::Update()
 			{
 				currentPauseMenu = CurrentPauseMenu::Settings;
 				SettingsBUT->doAction = false;
+			}
+
+			if (SaveBUT->doAction || (ControllerPos == 1 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
+			{
+				app->events->TriggerEvent(GameEvent::SAVE_GAME);
+				SaveBUT->doAction = false;
+			}
+
+			if (LoadBUT->doAction || (ControllerPos == 1 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
+			{
+				app->scene->ChangeCurrentSceneRequest(SCENES::HUB);
+				LoadBUT->doAction = false;
 			}
 
 			if (GiveUpBUT->doAction || (ControllerPos == 3 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))

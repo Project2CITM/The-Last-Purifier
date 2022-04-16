@@ -3,7 +3,8 @@
 
 enum class GameEvent
 {
-	PLAYER_ATTACK
+	PLAYER_ATTACK,
+	SAVE_GAME,
 };
 
 class Application;
