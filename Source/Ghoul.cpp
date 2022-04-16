@@ -23,9 +23,9 @@ Ghoul::Ghoul(iPoint pos) : Enemy("ghoul")
 	// Init physBody 
 	pBody = app->physics->CreateCircle(pos.x, pos.y, 12, this, false, b2_dynamicBody, app->physics->ENEMY_LAYER);
 
-	//detectTrigger = new Trigger(position, 30, this, "EnemyDetectPlayer");
-
 	detectTrigger = new Trigger(position, 16, 12, this, "EnemyDetectPlayer");
+
+	attackTrigger = new Trigger(position, 6, 8, this, "EnemyAttack");
 
 	// Init his position
 	this->position = pos;
@@ -74,6 +74,8 @@ void Ghoul::Hit(int damage)
 
 	animations[stateMachine.GetCurrentState()].Reset();
 
+	renderObjects[0].SetColor({ 255,164,164,100 });
+
 	Enemy::Hit(damage);
 }
 
@@ -83,7 +85,7 @@ void Ghoul::OnTriggerEnter(std::string trigger, PhysBody* col)
 	{
 		if (col->gameObject->name == "Player")
 		{
-			//detectPlayer = true;
+			detectPlayer = true;
 		}
 	}
 }
@@ -113,7 +115,7 @@ void Ghoul::UpdateStates()
 {
 	SetLinearVelocity(b2Vec2{ 0,0 });
 	
-	printf("%d\n", stateMachine.GetCurrentState());
+	// printf("%d\n", stateMachine.GetCurrentState());
 
 	switch (stateMachine.GetCurrentState())
 	{
@@ -147,8 +149,9 @@ void Ghoul::UpdateStates()
 	}
 	break;
 	case (int)GhoulState::ATTACK:
+	{
 		SetLinearVelocity(b2Vec2{ 0,0 });
-		if(animations[stateMachine.GetCurrentState()].HasFinished())
+		if (animations[stateMachine.GetCurrentState()].HasFinished())
 		{
 			if (!detectPlayer)
 			{
@@ -160,18 +163,24 @@ void Ghoul::UpdateStates()
 				animations[stateMachine.GetCurrentState()].Reset();
 			}
 		}
+	}
 		break;
 	case (int)GhoulState::HIT:
+	{
 		if (animations[stateMachine.GetCurrentState()].HasFinished())
 		{
 			stateMachine.ChangeState((int)GhoulState::IDLE);
+			renderObjects[0].SetColor({ 255,255,255,255 });
 		}
+	}	
 		break;
 	case (int)GhoulState::DIE:
+	{
 		if (animations[stateMachine.GetCurrentState()].HasFinished())
 		{
 			Enemy::Die();
 		}
+	}	
 		break;
 	}
 }
