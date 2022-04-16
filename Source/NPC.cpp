@@ -15,6 +15,11 @@ NPC::NPC(std::string name, iPoint position) : GameObject(name,"NPC")
 	textPosition = { position.x, position.y - npcData.h };
 	npcSensor = { position.x - 32,position.y - 64,96,192 };
 	trigger = new Trigger({position.x+10,position.y+10}, 50, this,"triggerNpc",false);
+
+	b2Filter filter;
+	filter.categoryBits = app->physics->TRIGGER_LAYER;
+	trigger->pBody->body->GetFixtureList()->SetFilterData(filter);
+
 	InitRenderObjectWithXml("npc");
 
 	for (int i = 0; i < 2; i++)
