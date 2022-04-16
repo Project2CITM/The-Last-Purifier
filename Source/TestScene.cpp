@@ -68,9 +68,7 @@ bool TestScene::Start()
      
     new Ghoul(player->controller->GetPosition() + iPoint(-100, 0));
 
-    //npcScale.x /= app->window->scale;
-    //npcScale.y /= app->window->scale;
-
+   //NPC creators
     iPoint npc1Pos = player->controller->GetPosition();
     npc1Pos.x -= 190;
     npc1Pos.y += 80;
@@ -82,11 +80,18 @@ bool TestScene::Start()
     npc2Pos.y -= 80;
     NPC* npc2 = new NPC("purifier9", npc2Pos);
     npc2->Start();
+
     iPoint npc3Pos = player->controller->GetPosition();
     npc3Pos.x += 170;
     npc3Pos.y -= 80;
     NPC* npc3 = new NPC("purifier8", npc3Pos);
     npc3->Start();
+
+    iPoint npc4Pos = player->controller->GetPosition();
+    npc4Pos.x += 170;
+    npc4Pos.y += 80;
+    NPC* npc4 = new NPC("purifier6", npc4Pos);
+    npc4->Start();
 
     return true;
 }

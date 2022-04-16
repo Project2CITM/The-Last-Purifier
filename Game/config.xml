@@ -94,14 +94,17 @@
 			  Solo unos pocos locos creen aún que llegará un angel que salve este sitio de las almas malditas.
 		  </Sentence1>
 	  </purifier5>
-	  <purifier6 Num="1">
+	  <purifier6 Num="2">
 		  <Sentence1>
-			  ¡Que ganas que llegue el gran día! Segun la profecia, será el dia en el que llegue nuestro salvador.
+			          Que ganas que llegue el gran dia. 
 		  </Sentence1>
+		  <Sentence2>
+			  Segun la profecia, será el dia en el que llegue nuestro salvador.
+		  </Sentence2>
 	  </purifier6>
 	  <purifier7 Num="1">
 		  <Sentence1>
-			  Ellos solo quieren morir en paz…
+			          Ellos solo quieren morir en paz…
 		  </Sentence1>
 	  </purifier7>
 	  <purifier8 Num="1">
