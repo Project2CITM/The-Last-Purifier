@@ -475,6 +475,13 @@ void PlayerController::OnTriggerEnter(std::string trigger, PhysBody* col)
 		if (dArea->damage != nullptr)Hit(*dArea->damage);
 		if (dArea->stunTime != nullptr)Stun(*dArea->stunTime);
 	}
+
+	if (col->gameObject->CompareTag("Enemy"))
+	{
+		Enemy* enemy = (Enemy*)col->gameObject;
+	
+		Hit(enemy->GetDamage());
+	}
 }
 
 void PlayerController::Hit(int damage)

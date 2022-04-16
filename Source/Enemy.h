@@ -31,10 +31,17 @@ public:
 
 	virtual void Die();
 
+	int GetDamage()
+	{
+		return damage;
+	}
+
 protected:
 	SpellSpawnManager* spawnManager = nullptr;
 
 	int health = 40;
+
+	int damage = 10;
 
 	int moveSpeed = 5;
 };
