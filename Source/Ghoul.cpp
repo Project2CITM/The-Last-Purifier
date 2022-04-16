@@ -25,7 +25,7 @@ Ghoul::Ghoul(iPoint pos) : Enemy("ghoul")
 
 	detectTrigger = new Trigger(position, 16, 12, this, "EnemyDetectPlayer");
 
-	attackTrigger = new Trigger(position, 6, 8, this, "EnemyAttack");
+	attackTrigger = new Trigger(position, 16, 8, this, "EnemyAttack");
 
 	// Init his position
 	this->position = pos;
@@ -109,6 +109,10 @@ void Ghoul::Die()
 	detectTrigger->ReleaseParent();
 
 	detectTrigger->pendingToDelete = true;
+
+	attackTrigger->ReleaseParent();
+
+	attackTrigger->pendingToDelete = true;
 }
 
 void Ghoul::UpdateStates()
