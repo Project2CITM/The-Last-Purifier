@@ -29,13 +29,13 @@ bool HubScene::InitScene()
 
 		switch (app->map->mapObjects[i].id)
 		{
-			case 0: //Walls
+			case 0: //Walls ^^
 
 				g = new GameObject("wall", "Wall");
 				g->pBody = app->physics->CreateRectangle(pos, width, height, g);
 				g->pBody->body->SetType(b2BodyType::b2_staticBody);
 				g->pBody->body->GetFixtureList()->SetFriction(0);
-				g->adjustToGrid = true;
+
 
 				break;
 			case 2: //Door IN
@@ -51,6 +51,7 @@ bool HubScene::InitScene()
 
 				break;
 		}
+		g->adjustToGrid = true;
 	}
 
 	return true;

@@ -243,5 +243,5 @@ void PlayerCombat::SageAttack()
 		break;
 	}
 
-	new Projectile("Player", player->controller->GetPosition() + attackOffset, speed * projectileSpeed, player->damage);
+	new Projectile("Projectile", player->controller->GetPosition() + attackOffset, speed * projectileSpeed, player->damage);
 }

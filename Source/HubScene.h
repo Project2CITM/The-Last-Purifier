@@ -28,5 +28,5 @@ private:
 
 	HUDInGame* hudInGame = nullptr;
 
-	iPoint startPosition = { 926, 1579 };
+	iPoint startPosition = { 966, 1896 };
 };
