@@ -54,6 +54,7 @@ void Trigger::OnCollisionEnter(PhysBody* col)
 
 void Trigger::OnCollisionExit(PhysBody* col)
 {
+	if (pendingToDelete) return;
 	if (!app->Exiting())
 	{
 		if (parent) parent->OnTriggerExit(this->name, col);

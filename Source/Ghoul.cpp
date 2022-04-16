@@ -39,6 +39,13 @@ Ghoul::Ghoul(iPoint pos) : Enemy("ghoul")
 
 Ghoul::~Ghoul()
 {
+	detectTrigger->ReleaseParent();
+
+	detectTrigger->pendingToDelete = true;
+
+	attackTrigger->ReleaseParent();
+
+	attackTrigger->pendingToDelete = true;
 }
 
 void Ghoul::PreUpdate()
@@ -105,14 +112,6 @@ void Ghoul::OnTriggerExit(std::string trigger, PhysBody* col)
 void Ghoul::Die()
 {
 	stateMachine.ChangeState((int)GhoulState::DIE);
-
-	detectTrigger->ReleaseParent();
-
-	detectTrigger->pendingToDelete = true;
-
-	attackTrigger->ReleaseParent();
-
-	attackTrigger->pendingToDelete = true;
 }
 
 void Ghoul::UpdateStates()
