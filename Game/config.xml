@@ -104,25 +104,28 @@
 			  Ellos solo quieren morir en paz…
 		  </Sentence1>
 	  </purifier7>
-	  <purifier8>
+	  <purifier8 Num="1">
 		  <Sentence1>
-			  Es ver esa puerta y vuelven todos esos recuerdos de batallas pasadas…
+			          Esa puerta chico... Ten cuidado con ella
 		  </Sentence1>
 	  </purifier8>
-	  <purifier9 Num="1">
+	  <purifier9 Num="2">
 		  <Sentence1>
-			  Nadie ha llegado aun al tercer piso. Me pregunto que habrá ahí.
+			          Nadie ha llegado aun al tercer piso. 
 		  </Sentence1>
+		  <Sentence2>
+			           Me pregunto que habra ahi.
+		  </Sentence2>
 	  </purifier9>
 	  <purifier10 Num ="3">
 		  <Sentence1>
-			  Sueño con ella todas las noches...
+			           Sueño con ella todas las noches...
 		  </Sentence1>
 		  <Sentence2>
-			  Recuerdo su sonrisa la última vez que salió por la puerta de casa.
+			  Recuerdo su sonrisa la ultima vez que salio por la puerta de casa.
 		  </Sentence2>
 		  <Sentence3>
-			  Sigo esperando que vuelva algún día.
+			           Sigo esperando que vuelva algun dia.
 		  </Sentence3> 
 	  </purifier10>
 

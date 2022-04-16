@@ -80,8 +80,13 @@ bool TestScene::Start()
     iPoint npc2Pos = player->controller->GetPosition();
     npc2Pos.x -= 190;
     npc2Pos.y -= 80;
-    NPC* npc2 = new NPC("purifier1", npc2Pos);
+    NPC* npc2 = new NPC("purifier9", npc2Pos);
     npc2->Start();
+    iPoint npc3Pos = player->controller->GetPosition();
+    npc3Pos.x += 170;
+    npc3Pos.y -= 80;
+    NPC* npc3 = new NPC("purifier8", npc3Pos);
+    npc3->Start();
 
     return true;
 }

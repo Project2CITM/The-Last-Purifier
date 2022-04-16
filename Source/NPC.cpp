@@ -12,7 +12,7 @@
 NPC::NPC(std::string name, iPoint position) : GameObject(name,"NPC")
 {
 	this->position = position;
-	textPosition = { position.x, position.y - npcData.h };
+	textPosition = { position.x-npcData.w, position.y - npcData.h };
 	trigger = new Trigger({position.x+10,position.y+10}, 50, this,"triggerNpc",false);
 
 	b2Filter filter;
@@ -28,6 +28,7 @@ NPC::NPC(std::string name, iPoint position) : GameObject(name,"NPC")
 	idleAnim.loop = true;
 	idleAnim.speed = 0.05;
 	idleAnim.hasIdle = false;
+	
 }
 
 NPC::~NPC()
@@ -104,7 +105,7 @@ void NPC::OnTriggerEnter(std::string trigger, PhysBody* col) {
 		LOG("Enter");
 		if (!speaking) 
 		{
-			text->SetText("Pulse enter para hablar");
+			text->SetText("               Pulse enter para hablar");
 		}	
 	}
 }
