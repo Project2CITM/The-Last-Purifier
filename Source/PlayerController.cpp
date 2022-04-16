@@ -478,8 +478,12 @@ void PlayerController::OnTriggerEnter(std::string trigger, PhysBody* col)
 
 	if (col->gameObject->CompareTag("Enemy"))
 	{
-		Enemy* enemy = (Enemy*)col->gameObject;
+		Trigger* enemyTrigger = (Trigger*)col->gameObject;
 	
+		Enemy* enemy = (Enemy*)enemyTrigger->GetParent();
+
+		if (enemy == nullptr) return;
+
 		Hit(enemy->GetDamage());
 	}
 }

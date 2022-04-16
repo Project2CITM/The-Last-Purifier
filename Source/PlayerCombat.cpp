@@ -14,7 +14,15 @@ PlayerCombat::PlayerCombat(std::string name, std::string tag, Player* player) : 
 
 void PlayerCombat::Start()
 {
+	// Change filter
+	b2Filter filter;
+
+	filter.categoryBits = app->physics->PLAYER_LAYER;
+
 	revenantAttack = new DamageArea(player->controller->GetPosition(), 12, 20, &player->damage);
+
+	revenantAttack->pBody->body->GetFixtureList()->SetFilterData(filter);
+
 	revenantAttack->pBody->body->SetActive(false);
 
 	executeSpellCommand = new ExecuteSpell();

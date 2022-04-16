@@ -68,7 +68,9 @@ void Trigger::OnCollisionExit(PhysBody* col)
 	if (parent) parent->OnTriggerExit(this->name, col);
 }
 
-void Trigger::ReleaseParent()
+void Trigger::Destroy()
 {
 	parent = nullptr;
+
+	pendingToDelete = true;
 }

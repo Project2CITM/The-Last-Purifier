@@ -4,12 +4,24 @@
 #include "SceneGame.h"
 #include "Player.h"
 #include "ModuleRender.h"
+#include "DamageArea.h"
 
 Ghoul::Ghoul(iPoint pos) : Enemy("ghoul")
 {
 	// Get player pointer
 	SceneGame* sceneGame = (SceneGame*)app->scene->scenes[app->scene->currentScene];
 	player = sceneGame->player->controller;
+
+	// Init general value
+	this->position = pos;
+
+	health = 20;
+
+	moveSpeed = 2;
+
+	damage = 5;
+
+	attackCoolDown = 10; // frame
 
 	// Init texture
 	InitRenderObjectWithXml("ghoul");
@@ -21,35 +33,16 @@ Ghoul::Ghoul(iPoint pos) : Enemy("ghoul")
 	InitAnimation();
 
 	// Init physBody 
-	pBody = app->physics->CreateCircle(pos.x, pos.y, 12, this, false, b2_dynamicBody, app->physics->ENEMY_LAYER);
-
-	detectTrigger = new Trigger(position, 16, 12, this, "EnemyDetectPlayer");
-	b2Filter filter;
-	filter.categoryBits = app->physics->TRIGGER_LAYER;
-	detectTrigger->pBody->body->GetFixtureList()->SetFilterData(filter);
-
-	attackTrigger = new Trigger(position, 16, 8, this, "EnemyAttack");
-	attackTrigger->pBody->body->GetFixtureList()->SetFilterData(filter);
-
-	// Init his position
-	this->position = pos;
-
-	// Init life
-	health = 20;
-
-	// Init movementSpeed
-	moveSpeed = 2;
+	InitPhysics();
 }
 
 Ghoul::~Ghoul()
 {
-	detectTrigger->ReleaseParent();
+	detectTrigger->Destroy();
 
-	detectTrigger->pendingToDelete = true;
+	damageTrigger->Destroy();
 
-	attackTrigger->ReleaseParent();
-
-	attackTrigger->pendingToDelete = true;
+	attack->pendingToDelete = true;
 }
 
 void Ghoul::PreUpdate()
@@ -99,6 +92,8 @@ void Ghoul::OnTriggerEnter(std::string trigger, PhysBody* col)
 			detectPlayer = true;
 		}
 	}
+
+	Enemy::OnTriggerEnter(trigger, col);
 }
 
 void Ghoul::OnTriggerExit(std::string trigger, PhysBody* col)
@@ -107,7 +102,6 @@ void Ghoul::OnTriggerExit(std::string trigger, PhysBody* col)
 	{
 		if (col->gameObject->name == "Player")
 		{
-			printf("player exit\n");
 			detectPlayer = false;
 		}
 	}
@@ -122,71 +116,67 @@ void Ghoul::UpdateStates()
 {
 	SetLinearVelocity(b2Vec2{ 0,0 });
 	
-	// printf("%d\n", stateMachine.GetCurrentState());
-
 	switch (stateMachine.GetCurrentState())
 	{
 	case (int)GhoulState::IDLE:
 	{
-		if (detectPlayer)
+		if (!detectPlayer)
 		{
-			stateMachine.ChangeState((int)GhoulState::ATTACK);
-			animations[stateMachine.GetCurrentState()].Reset();
-		}
-		else
-		{
-			fPoint dir = { (float)(player->GetPosition().x - position.x), (float)(player->GetPosition().y - position.y) };
-			dir = dir.Normalize();
-			SetLinearVelocity(b2Vec2{ (float)(dir.x * moveSpeed),(float)(dir.y * moveSpeed) });
+			ResetAttackCoolDown();
+
 			stateMachine.ChangeState((int)GhoulState::RUN);
+
+			return;			
 		}
+
+		if (attackCoolDown <= 0)
+		{
+			DoAttack();
+
+			ResetAttackCoolDown();
+
+			return;
+		}
+		
+		attackCoolDown--;
 	}
 	break;
 	case (int)GhoulState::RUN:
 	{
-		fPoint dir = { (float)(player->GetPosition().x - position.x), (float)(player->GetPosition().y - position.y) };
-		dir = dir.Normalize();
-		SetLinearVelocity(b2Vec2{ (float)(dir.x * moveSpeed),(float)(dir.y * moveSpeed) });
+		DoRun();
+
+		// Test codes
 		app->renderer->AddLineRenderQueue(position, player->GetPosition(), false, { 255,255,255,255 }, 2);
-		if(detectPlayer)
-		{
-			stateMachine.ChangeState((int)GhoulState::ATTACK);
-			animations[stateMachine.GetCurrentState()].Reset();
-		}
+
+		if(detectPlayer) DoAttack();
 	}
 	break;
 	case (int)GhoulState::ATTACK:
 	{
-		SetLinearVelocity(b2Vec2{ 0,0 });
+		// Just can hit a player when animation is attacking
+		if (animations[stateMachine.GetCurrentState()].getCurrentFrameI() > 2) 
+			attack->pBody->body->SetActive(true);
+
+		// When finish attack
 		if (animations[stateMachine.GetCurrentState()].HasFinished())
 		{
-			if (!detectPlayer)
-			{
-				stateMachine.ChangeState((int)GhoulState::IDLE);
-			}
-			else
-			{
-				stateMachine.ChangeState((int)GhoulState::ATTACK);
-				animations[stateMachine.GetCurrentState()].Reset();
-			}
+			stateMachine.ChangeState((int)GhoulState::IDLE);
+			attack->pBody->body->SetActive(false);
 		}
 	}
 		break;
 	case (int)GhoulState::HIT:
 	{
-		if (animations[stateMachine.GetCurrentState()].HasFinished())
-		{
-			stateMachine.ChangeState((int)GhoulState::IDLE);
-			renderObjects[0].SetColor({ 255,255,255,255 });
-		}
+		if (!animations[stateMachine.GetCurrentState()].HasFinished()) return;
+		
+		renderObjects[0].SetColor({ 255,255,255,255 });
+		
+		stateMachine.ChangeState((int)GhoulState::IDLE);
 	}	
 		break;
 	case (int)GhoulState::DIE:
 	{
-		if (animations[stateMachine.GetCurrentState()].HasFinished())
-		{
-			Enemy::Die();
-		}
+		if (animations[stateMachine.GetCurrentState()].HasFinished()) Enemy::Die();
 	}	
 		break;
 	}
@@ -243,7 +233,80 @@ void Ghoul::InitStateMachine()
 	stateMachine.AddState("Run", 0);
 	stateMachine.AddState("Attack", 1, 35);
 	stateMachine.AddState("Hit", 2, 35);
-	stateMachine.AddState("Die", 35);
+	stateMachine.AddState("Die", 3);
 
 	stateMachine.ChangeState((int)GhoulState::IDLE);
+}
+
+void Ghoul::InitPhysics()
+{
+	// Detect player 
+	b2Filter filter;
+
+	filter.categoryBits = app->physics->TRIGGER_LAYER;
+
+	filter.maskBits = app->physics->EVERY_LAYER & ~app->physics->ENEMY_LAYER;
+	
+	detectTrigger = new Trigger(position, 16, 12, this, "EnemyDetectPlayer");
+
+	detectTrigger->pBody->body->GetFixtureList()->SetFilterData(filter);
+
+	// Hit Player
+	b2Filter filterB;
+
+	filterB.categoryBits = app->physics->ENEMY_LAYER; // Who am I
+
+	filterB.maskBits = app->physics->EVERY_LAYER & ~app->physics->ENEMY_LAYER; // Who will coll with me
+
+	damageTrigger = new Trigger(position, 12, this, "ghoul");
+
+	damageTrigger->tag = "Enemy";
+
+	damageTrigger->pBody->body->GetFixtureList()->SetFilterData(filterB);
+
+	// Attack Trigger
+	attack = new DamageArea(position, 10, 18, &damage);
+
+	attack->pBody->body->SetActive(false);
+
+	attack->pBody->body->GetFixtureList()->SetFilterData(filterB);
+
+	// Body
+	b2Filter filterC;
+
+	filterC.categoryBits = app->physics->ENEMY_LAYER;
+
+	filterC.maskBits = app->physics->EVERY_LAYER & ~app->physics->ENEMY_LAYER & ~app->physics->PLAYER_LAYER;
+
+	pBody = app->physics->CreateCircle(position.x, position.y, 12, this, false, b2_dynamicBody, app->physics->ENEMY_LAYER);
+
+	pBody->body->GetFixtureList()->SetFilterData(filterC);
+}
+
+void Ghoul::DoAttack()
+{
+	stateMachine.ChangeState((int)GhoulState::ATTACK);
+
+	animations[stateMachine.GetCurrentState()].Reset();
+
+	iPoint attackOffset = { 0,0 };
+
+	if (renderObjects[0].flip == SDL_FLIP_HORIZONTAL) attackOffset = { -15,0 };
+	else attackOffset = { 15,0 };
+
+	attack->SetPosition(position + attackOffset);
+}
+
+void Ghoul::DoRun()
+{
+	fPoint dir = { (float)(player->GetPosition().x - position.x), (float)(player->GetPosition().y - position.y) };
+
+	dir = dir.Normalize();
+
+	SetLinearVelocity(b2Vec2{ (float)(dir.x * moveSpeed),(float)(dir.y * moveSpeed) });
+}
+
+void Ghoul::ResetAttackCoolDown()
+{
+	attackCoolDown = 10;
 }
