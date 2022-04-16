@@ -43,6 +43,7 @@ Text::Text(iPoint position, std::string text, std::string font) : position(posit
 
 	// Init renderObjecy
 	textRO.InitAsTexture(tex, position, { 0,0,width,height }, scale, layer, orderInLayer);
+	textRO.speedRegardCamera = 0;
 
 	// Add this text in current scen text list
 	app->scene->scenes[app->scene->currentScene]->AddText(this);
@@ -59,8 +60,6 @@ void Text::PreUpdate()
 void Text::Update()
 {
 	textCountTime -= app->dt;
-
-
 }
 
 void Text::PostUpdate()
@@ -95,9 +94,13 @@ void Text::SetText(std::string text)
 
 void Text::SetColor(SDL_Color color)
 {
-	SDL_SetTextureColorMod(textRO.texture, color.r, color.g, color.b);
+	textRO.SetColor(color);
+}
 
-	SDL_SetTextureAlphaMod(textRO.texture, color.a);
+void Text::ChangeDrawMode()
+{
+	if (textRO.speedRegardCamera < 1.0f) textRO.speedRegardCamera = 1.0f;
+	else textRO.speedRegardCamera = 0.0f;
 }
 
 void Text::DrawTextStepToStep()

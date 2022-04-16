@@ -57,12 +57,16 @@ private:
 	iPoint resumeBUT = { 0,0 };
 	iPoint settingsBUT = { 0,0 };
 	iPoint controlsBUT = { 0,0 };
+	iPoint saveBUT = { 0,0 };
+	iPoint loadBUT = { 0,0 };
 	iPoint quitBUT = { 0,0 };
 	iPoint giveUpBUT = { 0,0 };
 
 	GUIButton* ResumeBUT = nullptr;
 	GUIButton* SettingsBUT = nullptr;
 	GUIButton* ControlsBUT = nullptr;
+	GUIButton* SaveBUT = nullptr;
+	GUIButton* LoadBUT = nullptr;
 	GUIButton* GiveUpBUT = nullptr;
 	GUIButton* QuitBUT = nullptr;
 

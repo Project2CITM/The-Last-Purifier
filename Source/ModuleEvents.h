@@ -4,7 +4,6 @@
 #include "Module.h"
 #include "EventListener.h"
 
-
 class ModuleEvents : public Module
 {
 public:
@@ -17,6 +16,8 @@ public:
 	bool Init(pugi::xml_node&);
 
 	void AddListener(EventListener* listener);
+
+	void RemoveListener(EventListener* listener);
 
 	void TriggerEvent(GameEvent id);
 

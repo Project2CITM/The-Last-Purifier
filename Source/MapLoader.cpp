@@ -1,4 +1,5 @@
 #include "MapLoader.h"
+#include "Ghoul.h"
 
 void MapLoader::ExtractMapInfo(Room* r)
 {
@@ -75,27 +76,33 @@ void MapLoader::CreateColliders(Room* r)
 }
 
 void MapLoader::CreateEnemies(Room* r)
-{
+{	
+	//r->enemies.add(new EnemyDummy(iPoint(
+	//	r->roomPosition.x * TILE_SIZE * MAX_ROOM_TILES_COLUMNS + (TILE_SIZE * MAX_ROOM_TILES_COLUMNS) / 2,
+	//	r->roomPosition.y * TILE_SIZE * MAX_ROOM_TILES_ROWS + (TILE_SIZE * MAX_ROOM_TILES_ROWS) / 2 )));
 	
-	r->enemies.add(new EnemyDummy(iPoint(
-		r->roomPosition.x * TILE_SIZE * MAX_ROOM_TILES_COLUMNS + (TILE_SIZE * MAX_ROOM_TILES_COLUMNS) / 2,
-		r->roomPosition.y * TILE_SIZE * MAX_ROOM_TILES_ROWS + (TILE_SIZE * MAX_ROOM_TILES_ROWS) / 2 )));
-	
+	//r->enemies.add(new Ghoul(iPoint(
+	//	r->roomPosition.x * TILE_SIZE * MAX_ROOM_TILES_COLUMNS + (TILE_SIZE * MAX_ROOM_TILES_COLUMNS) / 2,
+	//	r->roomPosition.y * TILE_SIZE * MAX_ROOM_TILES_ROWS + (TILE_SIZE * MAX_ROOM_TILES_ROWS) / 2)));
 
 	//Find enemy layer
 	pugi::xml_node enemyLayer = mapNode.child("layer");
-	for (enemyLayer; enemyLayer != NULL; enemyLayer = enemyLayer.next_sibling()) {
+	for (enemyLayer; enemyLayer != NULL; enemyLayer = enemyLayer.next_sibling()) 
+	{
 		string name = enemyLayer.attribute("name").as_string();
 		if (name == "Enemics") break;
 	}
 
 	//Get node tiles (with gid attributes)
 	pugi::xml_node tile = enemyLayer.first_child().first_child();
-	for (int i = 0; i < MAX_ROOM_TILES_ROWS; ++i) {
-		for (int j = 0; j < MAX_ROOM_TILES_COLUMNS; ++j) {
+	for (int i = 0; i < MAX_ROOM_TILES_ROWS; ++i) 
+	{
+		for (int j = 0; j < MAX_ROOM_TILES_COLUMNS; ++j) 
+		{
 			int gid = tile.first_attribute().as_int();
 			
-			switch (gid) {
+			switch (gid) 
+			{
 				//Create enemy from gid
 			}
 

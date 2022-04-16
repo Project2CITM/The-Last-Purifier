@@ -138,7 +138,7 @@ public:
 	bool CleanUpScene();
 
     // Load new map
-    bool Load(const char* path);
+    bool Load(std::string path);
 
 	// L04: DONE 8: Create a method that translates x,y coordinates from map positions to world positions
 	iPoint MapToWorld(int x, int y) const;
@@ -155,6 +155,8 @@ public:
 	void LoadLayerMeta();
 
 	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer) const;
+
+	void Draw(ListItem<MapLayer*>* mapLayerItem);
 
 private:
 
@@ -181,10 +183,12 @@ public:
 
 	List<MapObject> mapObjects;
 
+	bool roof = false;
+
 private:
 
 	std::string currentMap = "null";
-    std::string folder = "";
+    std::string folder = "Assets/Maps/Hub/";
     bool mapLoaded = false;
 };
 

@@ -36,7 +36,7 @@ bool Scene::PreUpdate()
 
 	for (int i = 0; i < gameObjects.count(); i++)
 	{
-		if (gameObjects[i])
+		if (gameObjects[i] && gameObjects[i]->enable)
 		{
 			if (gameObjects[i]->pendingToDelete)
 			{
@@ -64,7 +64,7 @@ bool Scene::Update()
 	if (app->isPause) return true;
 	for (int i = 0; i < gameObjects.count(); i++)
 	{
-		if (gameObjects[i]) gameObjects[i]->Update();
+		if (gameObjects[i] && gameObjects[i]->enable) gameObjects[i]->Update();
 	}
 
 	for (int i = 0; i < texts.count(); i++)
@@ -79,7 +79,7 @@ bool Scene::PostUpdate()
 {
 	for (int i = 0; i < gameObjects.count(); i++)
 	{
-		if (gameObjects[i]) gameObjects[i]->PostUpdate();
+		if (gameObjects[i] && gameObjects[i]->enable) gameObjects[i]->PostUpdate();
 	}
 
 	for (int i = 0; i < texts.count(); i++)
@@ -165,6 +165,7 @@ void Scene::DestroyGameObject(GameObject* gameObject)
 
 	if (index >= 0)
 	{
+		gameObject->CleanUp();
 		gameObjects.delPtr(gameObjects.At(index));
 	}
 }

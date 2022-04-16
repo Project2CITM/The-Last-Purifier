@@ -9,7 +9,7 @@ class Enemy :  public GameObject
 {
 public: 
 	
-	Enemy();
+	Enemy(std::string name);
 
 	~Enemy();
 
@@ -27,14 +27,23 @@ public:
 
 	void OnCollisionExit(PhysBody* col) override;
 
-	void Hit(int damage);
+	virtual void Hit(int damage);
 
 	virtual void Die();
 
-private:
+	int GetDamage()
+	{
+		return damage;
+	}
+
+protected:
 	SpellSpawnManager* spawnManager = nullptr;
 
 	int health = 40;
+
+	int damage = 10;
+
+	int moveSpeed = 5;
 };
 
 #endif // !__ENEMY_H__

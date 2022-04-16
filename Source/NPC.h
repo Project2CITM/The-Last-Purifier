@@ -2,9 +2,10 @@
 #define __NPC_H__
 
 #include "GameObject.h"
+#include "Animation.h"
 
 class Text;
-
+class Trigger;
 class NPC : public GameObject
 {
 public:
@@ -22,19 +23,28 @@ public:
 
 	void CleanUp() override;
 
+	void OnTriggerEnter(std::string trigger, PhysBody* col) override;
+
+	void OnTriggerExit(std::string trigger, PhysBody* col) override;
+
+
 public:
 	List<std::string> sentences;
 
 	bool canSpeak = true;
+
+	bool speaking = false;
 
 	//iPoint npcPosition = { 0,0 };  // Ya existe position en GameObject, puedes utilizar funcion GetPosition() para obtenerlo
 	iPoint textPosition={0,0};
 
 	struct DATA 
 	{
-		int w = 32;
-		int h = 64;
+		int w = 170;
+		int h = 32;
 	}npcData;
+
+	iPoint playerPos = { 0,0 };
 
 private:
 	Text* text = nullptr;
@@ -44,6 +54,12 @@ private:
 	int sentenceOrder = 0;
 
 	SDL_Rect npcRect;
+	SDL_Rect npcSensor;
+	Trigger* trigger = nullptr;
+
+	Animation idleAnim;
+
+	bool nearNpc = false;
 };
 
 #endif // !__NPC_H__

@@ -2,8 +2,11 @@
 #define _PROJECTILE_
 
 #include "GameObject.h"
+#include "Animation.h"
 
 class DamageArea;
+class ParticleAttackSage;
+
 
 class Projectile : public GameObject
 {
@@ -14,10 +17,16 @@ public:
 
 	void OnCollisionEnter(PhysBody* col) override;
 
+	void PostUpdate() override;
+
+public:
+
 	bool isEnemy = false;
 	bool stun = false;
 	int damage = 0;
 	DamageArea* damageArea;
+
+	Animation anim;
+
 };
 #endif
-

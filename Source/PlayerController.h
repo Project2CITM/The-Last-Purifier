@@ -50,6 +50,17 @@ public:
 
 	void CleanUp() override;
 
+	void OnCollisionEnter(PhysBody* col) override;
+	void OnCollisionExit(PhysBody* col) override;
+
+	void OnTriggerEnter(std::string trigger, PhysBody* col) override;
+
+	void Hit(int damage);
+
+	void Stun(int frames);
+
+	void Invulnerability(int frames);
+
 	Player* player = nullptr;
 
 	PlayerCombat* combat = nullptr;
@@ -74,6 +85,10 @@ private:
 	int dashTime = 25;
 	int dashDistance = 14;	//6
 
+	bool isInvulnerable = false;
+	int invulnerabilityCounter = 0;
+	int dashInvulnerability = 15;
+
 	PlayerAnim currentAnim = PlayerAnim::IDLE;
 
 	StateMachine stateMachine;
@@ -84,6 +99,5 @@ private:
 
 	friend class PlayerCombat;
 };
-
 
 #endif

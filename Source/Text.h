@@ -24,6 +24,8 @@ public:
 
 	void SetColor(SDL_Color color);
 
+	void ChangeDrawMode();
+
 private:
 	void DrawTextStepToStep();
 

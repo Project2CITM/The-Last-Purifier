@@ -35,7 +35,7 @@ bool ModuleMap::Init(pugi::xml_node& config)
 
     bool ret = true;
 
-    folder = (config.child("folder").child_value());
+    folder = (config.child("hub_folder").child_value());
 
     return ret;
 }
@@ -54,41 +54,54 @@ UpdateStatus ModuleMap::PostUpdate()
 
 		if (mapLayerItem->data->properties.GetProperty("Draw") == 1)
 		{
-			for (int x = 0; x < mapLayerItem->data->width; x++)
-			{
-				for (int y = 0; y < mapLayerItem->data->height; y++)
-				{
-					// L04: DONE 9: Complete the draw function
-					int gid = mapLayerItem->data->Get(x, y);
+			Draw(mapLayerItem);
+		}
 
-					if (gid > 0) {
+		//Draws roof only when players isn't inside
+		if (mapLayerItem->data->properties.GetProperty("Roof") == 1 && roof)
+		{
+			Draw(mapLayerItem);
+		}
 
-						//L06: TODO 4: Obtain the tile set using GetTilesetFromTileId
-						//now we always use the firt tileset in the list
-						//TileSet* tileset = mapData.tilesets.start->data;
-						TileSet* tileset = GetTilesetFromTileId(gid);
-
-						SDL_Rect r = tileset->GetTileRect(gid);
-						iPoint pos = MapToWorld(x, y);
-
-						try
-						{
-							app->renderer->AddTextureRenderQueue(tileset->texture, iPoint(pos.x, pos.y), r, 1, 0, 0.5f);
-						}
-						catch (const std::exception& e)
-						{
-							LOG(e.what());
-						}
-					}
-
-				}
-			}
+		//Draws darkness
+		if (mapLayerItem->data->properties.GetProperty("Roof") == 2 && !roof)
+		{
+			Draw(mapLayerItem);
 		}
 
 		mapLayerItem = mapLayerItem->next;
 	}
 
 	return UpdateStatus::UPDATE_CONTINUE;
+}
+
+void ModuleMap::Draw(ListItem<MapLayer*>* mapLayerItem)
+{
+	for (int x = 0; x < mapLayerItem->data->width; x++)
+	{
+		for (int y = 0; y < mapLayerItem->data->height; y++)
+		{
+			int gid = mapLayerItem->data->Get(x, y);
+
+			if (gid > 0) {
+
+				TileSet* tileset = GetTilesetFromTileId(gid);
+
+				SDL_Rect r = tileset->GetTileRect(gid);
+				iPoint pos = MapToWorld(x, y);
+
+				try
+				{
+					app->renderer->AddTextureRenderQueue(tileset->texture, iPoint(pos.x, pos.y), r, 1, 0, 0.5f);
+				}
+				catch (const std::exception& e)
+				{
+					LOG(e.what());
+				}
+			}
+
+		}
+	}
 }
 
 // L04: DONE 8: Create a method that translates x,y coordinates from map positions to world positions
@@ -221,7 +234,7 @@ void ModuleMap::LoadLayerMeta()
 	// L06: TODO 4: Make sure we draw all the layers and not just the first one
 	while (mapLayerItem != NULL) 
 	{
-		if (mapLayerItem->data->properties.GetProperty("IsMeta") == 1)
+		if (mapLayerItem->data->properties.GetProperty("Logic") == 1)
 		{
 			for (int x = 0; x < mapLayerItem->data->width; x++)
 			{
@@ -377,7 +390,7 @@ bool ModuleMap::CleanUpScene()
 }
 
 // Load new map
-bool ModuleMap::Load(const char* filename)
+bool ModuleMap::Load(std::string filename)
 {
 	if (filename == currentMap) return true;
 	

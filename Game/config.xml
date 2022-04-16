@@ -19,9 +19,10 @@
   </window>
 
   <textures>
-   
+     <ghoul width = "32" height = "32" layer = "1" orderInLayer = "3.0" scale = "1" path="Assets/Sprites/Enemies/Ghoul/Ghoul.png"/>
+     <npc width = "70" height = "95" layer = "1" orderInLayer = "3.0" scale = "0.3" path="Assets/Sprites/NPC/npcIdleAnim.png"/>
+	 <basicattackrevenant width = "64" height = "64" layer = "1" orderInLayer = "3.0" scale = "1" path="Assets/Sprites/Player/Revenant/basicAttackRevenant.png"/>
   </textures>
-
   <fonts>
     <defaultFont width = "48" height = "48" letter = "67" r = "0" g = "0" b = "0" a = "255" spaceInLetter = "-13" layer = "3" orderInLayer = "3.0" scale = "0.2" path="Assets/Fonts/defaultFont.png"/>
   </fonts>
@@ -32,10 +33,12 @@
 		  <Sentence2>No se que haces aqui pero vuelve rapido a la aldea, aqui corres peligro</Sentence2>
 		  <Sentence3>...</Sentence3>
 		  <Sentence4>¡Espera! Antes de irte toma este guante, le vas a dar mejor uso que yo en este momento.¡Corre!</Sentence4>
+		 
 	  </purifier1>
-	  <doorGuardian>
+	  <doorGuardian Num="3">
 		  <Sentence1> Quien eres y que haces fuera de la aldea sin un protector</Sentence1>
 		  <Sentence2> Intenta no volver a salir sin proteccion, queda poco para que llegue el gran dia y debemos ser las maximas personas posibles.</Sentence2>
+		  <Sentence3> </Sentence3>
 	  </doorGuardian>
 	  <purifier2 Num="9">
 		  <Sentence1> ¿Que haces con un guante de purificador?</Sentence1>
@@ -55,17 +58,17 @@
 		  </Sentence7>
 		  <Sentence8>
 			  Hay una leyenda que cuenta que un día llegará un salvador y traerá la paz a este mundo de guerra y caos. Pero no es más que una vieja leyenda chico…
-			  Hace mucho que dejamos de creer en ella. Solo unos pocos siguen creyendo. 
+			  Hace mucho que dejamos de creer en ella. Solo unos pocos siguen creyendo.
 		  </Sentence8>
 		  <Sentence9> Acompáñame y te enseñaré a usar el guante que llevas puesto.</Sentence9>
 	  </purifier2>
 	  <purifier2Dialog2 Num="3">
 		  <Sentence1> Bienvenido al campo de entrenamiento, aquí podrás aprender a usar el guante.</Sentence1>
-		  <Sentence2> Hay 2 tipos de purificadores, los revenant y los sage. 
+		  <Sentence2> Hay 2 tipos de purificadores, los revenant y los sage.
 		  Si escoges ser revenant se te otorgará una arma melé, es una arma ligera y con mucho daño, que junto a tu guante conseguirás una letal combinación.
 	      </Sentence2>
 		  <Sentence3>
-			  En cambio, si escoges ser sage, se te otorgará una arma a distancia,es una arma pesada pero muy poderosa a larga distancia. 
+			  En cambio, si escoges ser sage, se te otorgará una arma a distancia,es una arma pesada pero muy poderosa a larga distancia.
 			  Combinalo bien con el guante para que nunca se te acerca un enemigo y poder salir vivo del terreno.
 		  </Sentence3>
 	  </purifier2Dialog2>
@@ -77,7 +80,7 @@
 			  El guante que llevas en el brazo lleva incorporado un detector de pulsaciones.
 		  </Sentence2>
 		  <Sentence3>
-			  En caso de que sean muy bajas y estés a punto de morir consumirá una gran cantidad de almas para volver a la aldea. 
+			  En caso de que sean muy bajas y estés a punto de morir consumirá una gran cantidad de almas para volver a la aldea.
 			  Buena suerte purificador, confiamos en ti.
 		  </Sentence3>
 	  </purifier3>
@@ -91,42 +94,48 @@
 			  Solo unos pocos locos creen aún que llegará un angel que salve este sitio de las almas malditas.
 		  </Sentence1>
 	  </purifier5>
-	  <purifier6 Num="1">
+	  <purifier6 Num="2">
 		  <Sentence1>
-			  ¡Que ganas que llegue el gran día! Segun la profecia, será el dia en el que llegue nuestro salvador.
+			          Que ganas que llegue el gran dia. 
 		  </Sentence1>
+		  <Sentence2>
+			  Segun la profecia, será el dia en el que llegue nuestro salvador.
+		  </Sentence2>
 	  </purifier6>
 	  <purifier7 Num="1">
 		  <Sentence1>
-			  Ellos solo quieren morir en paz…
+			          Ellos solo quieren morir en paz…
 		  </Sentence1>
 	  </purifier7>
-	  <purifier8>
+	  <purifier8 Num="1">
 		  <Sentence1>
-			  Es ver esa puerta y vuelven todos esos recuerdos de batallas pasadas…
+			          Esa puerta chico... Ten cuidado con ella
 		  </Sentence1>
 	  </purifier8>
-	  <purifier9 Num="1">
+	  <purifier9 Num="2">
 		  <Sentence1>
-			  Nadie ha llegado aun al tercer piso. Me pregunto que habrá ahí.
+			          Nadie ha llegado aun al tercer piso. 
 		  </Sentence1>
+		  <Sentence2>
+			           Me pregunto que habra ahi.
+		  </Sentence2>
 	  </purifier9>
 	  <purifier10 Num ="3">
 		  <Sentence1>
-			  Sueño con ella todas las noches...  
+			           Sueño con ella todas las noches...
 		  </Sentence1>
 		  <Sentence2>
-			  Recuerdo su sonrisa la última vez que salió por la puerta de casa.
+			  Recuerdo su sonrisa la ultima vez que salio por la puerta de casa.
 		  </Sentence2>
 		  <Sentence3>
-			  Sigo esperando que vuelva algún día.
-		  </Sentence3>
+			           Sigo esperando que vuelva algun dia.
+		  </Sentence3> 
 	  </purifier10>
-	  
+
   </dialogText>
-  
+
   <audios>
-  
+
   </audios>
 
   <scenes>
@@ -153,6 +162,7 @@
   <!-- L03: Added maps folder as config option -->
   <map>
     <folder>Assets/maps/</folder>
+	<hub_folder>Assets/Maps/Hub/</hub_folder>
   </map>
 
 </config>

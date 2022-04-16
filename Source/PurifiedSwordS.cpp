@@ -19,6 +19,11 @@ PurifiedSwordS::PurifiedSwordS() : Spell(), EventListener(GameEvent::PLAYER_ATTA
 	uses = spellStats.child("uses").attribute("quantity").as_int();
 }
 
+PurifiedSwordS::~PurifiedSwordS()
+{
+
+}
+
 void PurifiedSwordS::Execute(int level)
 {
 	printf("Execute Purified Sword at level %d\n", level);
@@ -30,6 +35,7 @@ void PurifiedSwordS::Update()
 
 void PurifiedSwordS::CleanUp()
 {
+	app->events->RemoveListener(this);
 }
 
 void PurifiedSwordS::GameEventTriggered()

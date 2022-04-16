@@ -88,7 +88,7 @@ public:
 	List<PhysBody*> colliders;
 	bool activeColliders = true;
 
-	List<Enemy*> enemies; // Utilizara en algun sitio?
+	List<Enemy*> enemies;
 	bool done = false;
 
 	List<Door*> doors;

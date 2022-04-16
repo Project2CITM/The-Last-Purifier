@@ -19,6 +19,8 @@ class ModuleInput;
 class ModuleAudio;
 class ModulePhysics;
 class ModuleScene;
+class ModuleMap;
+class ModuleUI;
 class ModuleEvents;
 class Module;
 
@@ -32,6 +34,8 @@ public:
 	ModuleAudio* audio = nullptr;
 	ModulePhysics* physics = nullptr;
 	ModuleScene* scene = nullptr;
+	ModuleMap* map = nullptr;
+	ModuleUI* ui = nullptr;
 	ModuleEvents* events = nullptr;
 
 	Timer globalTime;
@@ -67,6 +71,8 @@ public:
 	UpdateStatus Update();
 	bool CleanUp();
 
+	bool Exiting();
+
 	void LoadGameRequest();
 	void SaveGameRequest() const;
 
@@ -91,6 +97,7 @@ public:
 	bool fullScreen = false;
 
 	float musicVol = 0;
+
 	float fxVol = 0;
 
 private:
