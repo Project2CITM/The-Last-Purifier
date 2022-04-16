@@ -33,7 +33,8 @@ NPC::~NPC()
 
 void NPC::Start()
 {
-	text = new Text({255,150}," ");
+	text = new Text(textPosition," ");
+	text->ChangeDrawMode();
 	configDialog = app->config.child("dialogText");
 
 	pugi::xml_node npcNode = configDialog.child(name.c_str());
@@ -45,7 +46,6 @@ void NPC::Start()
 		
 		sentences.add(npcNode.child(temporalSentence.c_str()).child_value());
 	}
-
 }
 
 void NPC::PreUpdate()
@@ -91,10 +91,11 @@ void NPC::CleanUp()
 
 void NPC::OnTriggerEnter(std::string trigger, PhysBody* col) {
 
-	if (col->gameObject->name == "Player") {
-		if (!speaking) {
+	if (col->gameObject->name == "Player") 
+	{
+		if (!speaking) 
+		{
 			text->SetText("Pulse enter para hablar");
-		}
-		
+		}	
 	}
 }

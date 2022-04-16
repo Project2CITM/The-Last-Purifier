@@ -7,14 +7,14 @@
 /// <param name="pos"></param>
 /// <param name="width"></param>
 /// <param name="height"></param>
-/// <param name="father"></param>
+/// <param name="parent"></param>
 /// <param name="name"></param>
 /// <param name="follow"></param>
-Trigger::Trigger(iPoint pos, int width, int height, GameObject* father, std::string name, bool follow) : GameObject(name, name)
+Trigger::Trigger(iPoint pos, int width, int height, GameObject* parent, std::string name, bool follow) : GameObject(name, name)
 {
 	pBody = app->physics->CreateRectangleSensor(pos, width, height, this);
 	followFather = follow;
-	this->father = father;
+	this->parent = parent;
 }
 
 /// <summary>
@@ -22,24 +22,24 @@ Trigger::Trigger(iPoint pos, int width, int height, GameObject* father, std::str
 /// </summary>
 /// <param name="pos"></param>
 /// <param name="radius"></param>
-/// <param name="father"></param>
+/// <param name="parent"></param>
 /// <param name="name"></param>
 /// <param name="follow"></param>
-Trigger::Trigger(iPoint pos, int radius, GameObject* father, std::string name, bool follow) : GameObject(name, name)
+Trigger::Trigger(iPoint pos, int radius, GameObject* parent, std::string name, bool follow) : GameObject(name, name)
 {
 	pBody = app->physics->CreateCircle(pos.x, pos.y, radius, this, true);
 	followFather = follow;
-	this->father = father;
+	this->parent = parent;
 }
 
 void Trigger::Update()
 {
 	if (!app->Exiting())
 	{
-		if (!followFather || father == nullptr || father->pendingToDelete) return;
+		if (!followFather || parent == nullptr || parent->pendingToDelete) return;
 
-		SetPosition(father->GetPosition() + positionOffset);
-		if (father->pendingToDelete) pendingToDelete = true;
+		SetPosition(parent->GetPosition() + positionOffset);
+		if (parent->pendingToDelete) pendingToDelete = true;
 	}
 }
 
@@ -47,7 +47,7 @@ void Trigger::OnCollisionEnter(PhysBody* col)
 {
 	if (!app->Exiting())
 	{
-		if (father) father->OnTriggerEnter(this->name, col);
+		if (parent) parent->OnTriggerEnter(this->name, col);
 	}
 }
 
@@ -55,7 +55,11 @@ void Trigger::OnCollisionExit(PhysBody* col)
 {
 	if (!app->Exiting())
 	{
-		if (father) father->OnTriggerExit(this->name, col);
+		if (parent) parent->OnTriggerExit(this->name, col);
 	}
+}
 
+void Trigger::ReleaseParent()
+{
+	parent = nullptr;
 }

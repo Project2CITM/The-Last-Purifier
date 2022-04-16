@@ -126,6 +126,24 @@ public:
 		this->speedRegardCamera = speedRegardCamera;
 	}
 
+	void SetColor(SDL_Color color)
+	{
+		switch (type)
+		{
+		case RENDER_TEXTURE:
+			SDL_SetTextureColorMod(texture, color.r, color.g, color.b);
+			SDL_SetTextureAlphaMod(texture, color.a);
+			break;
+		case RENDER_RECT:			
+		case RENDER_LINE:		
+		case RENDER_CIRCLE:
+			this->color = color;
+		default:
+			break;
+		}
+
+	}
+
 	#pragma region Global parameter
 	SDL_Rect destRect = { 0,0,0,0 };
 	RenderType type;

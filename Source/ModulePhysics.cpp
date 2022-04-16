@@ -116,13 +116,14 @@ UpdateStatus ModulePhysics::PostUpdate()
 	return UPDATE_CONTINUE;
 }
 
-PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius, GameObject* gameObject, bool isSensor, b2BodyType colType)
+PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius, GameObject* gameObject, bool isSensor, b2BodyType colType, short filterLayer)
 {
 	b2BodyDef body;
 	body.type = colType;
 	body.position.Set(PIXELS_TO_METER(x), PIXELS_TO_METER(y));
 
 	b2Body* b = world->CreateBody(&body);
+	b->SetFixedRotation(true);
 
 	b2CircleShape shape;
 	shape.m_radius = PIXELS_TO_METER(radius);
@@ -130,6 +131,7 @@ PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius, GameObject* game
 	fixture.shape = &shape;
 	fixture.isSensor = isSensor;
 	fixture.density = 1.0f;
+	fixture.filter.categoryBits = filterLayer;
 
 	b->CreateFixture(&fixture);
 
@@ -144,19 +146,21 @@ PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius, GameObject* game
 	return pbody;
 }
 
-PhysBody* ModulePhysics::CreateRectangle(iPoint pos, int width, int height, GameObject* gameObject, b2BodyType colType)
+PhysBody* ModulePhysics::CreateRectangle(iPoint pos, int width, int height, GameObject* gameObject, b2BodyType colType, short filterLayer)
 {
 	b2BodyDef body;
 	body.type = colType;
 	body.position.Set(PIXELS_TO_METER(pos.x), PIXELS_TO_METER(pos.y));
 
 	b2Body* b = world->CreateBody(&body);
+	b->SetFixedRotation(true);
 	b2PolygonShape box;
 	box.SetAsBox(PIXELS_TO_METER(width), PIXELS_TO_METER(height));
 
 	b2FixtureDef fixture;
 	fixture.shape = &box;
 	fixture.density = 1.0f;
+	fixture.filter.categoryBits = filterLayer;
 
 	b->CreateFixture(&fixture);
 
@@ -172,19 +176,21 @@ PhysBody* ModulePhysics::CreateRectangle(iPoint pos, int width, int height, Game
 	return pbody;
 }
 
-PhysBody* ModulePhysics::CreateRectangleSensor(iPoint pos, int width, int height, GameObject* g, b2BodyType colType)
+PhysBody* ModulePhysics::CreateRectangleSensor(iPoint pos, int width, int height, GameObject* g, b2BodyType colType, short filterLayer)
 {
 	b2BodyDef body;
 	body.type = colType;
 	body.position.Set(PIXELS_TO_METER(pos.x), PIXELS_TO_METER(pos.y));
 
 	b2Body* b = world->CreateBody(&body);
+	b->SetFixedRotation(true);
 	b2PolygonShape box;
 	box.SetAsBox(PIXELS_TO_METER(width), PIXELS_TO_METER(height));
 
 	b2FixtureDef fixture;
 	fixture.shape = &box;
 	fixture.isSensor = true;
+	fixture.filter.categoryBits = filterLayer;
 
 	b->CreateFixture(&fixture);
 

@@ -6,19 +6,21 @@
 class Trigger : public GameObject
 {
 public:
-	Trigger(iPoint pos, int width, int height, GameObject* father = nullptr, std::string name = "Trigger", bool follow = true);
-	Trigger(iPoint pos, int radius, GameObject* father = nullptr, std::string name = "Trigger", bool follow = true);
+	Trigger(iPoint pos, int width, int height, GameObject* parent = nullptr, std::string name = "Trigger", bool follow = true);
+	Trigger(iPoint pos, int radius, GameObject* parent = nullptr, std::string name = "Trigger", bool follow = true);
 
 	void Update();
 
 	void OnCollisionEnter(PhysBody* col) override;
 	void OnCollisionExit(PhysBody* col) override;
 
+	void ReleaseParent();
+
 	iPoint positionOffset = { 0,0 };
 
 private:
 	bool followFather = true;
-	GameObject* father = nullptr;
+	GameObject* parent = nullptr;
 };
 
 #endif
