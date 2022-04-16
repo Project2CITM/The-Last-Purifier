@@ -59,6 +59,8 @@ public:
 
 	void Stun(int frames);
 
+	void Invulnerability(int frames);
+
 	Player* player = nullptr;
 
 	PlayerCombat* combat = nullptr;
@@ -82,6 +84,10 @@ private:
 	int dashCounter = 0;
 	int dashTime = 25;
 	int dashDistance = 14;	//6
+
+	bool isInvulnerable = false;
+	int invulnerabilityCounter = 0;
+	int dashInvulnerability = 15;
 
 	PlayerAnim currentAnim = PlayerAnim::IDLE;
 

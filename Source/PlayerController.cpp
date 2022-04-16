@@ -93,6 +93,10 @@ void PlayerController::PreUpdate()
 		}
 	}
 
+	// Check invulnerability counter
+	if (invulnerabilityCounter > 0) --invulnerabilityCounter;
+	if (invulnerabilityCounter <= 0) isInvulnerable = false;
+
 	// Every frame set the linear velocity to 0 in case we are not moving and we are not dashing
 	// This is done to prevent drifting when applying forces from other bodies into the player body.
 	if (!isDashing)pBody->body->SetLinearVelocity(b2Vec2(0, 0));
@@ -396,6 +400,8 @@ void PlayerController::CombatUpdate()
 
 void PlayerController::DashOn()
 {
+	Invulnerability(dashInvulnerability);
+
 	isDashing = true;
 	dashCounter = dashTime;
 
@@ -464,6 +470,7 @@ void PlayerController::OnTriggerEnter(std::string trigger, PhysBody* col)
 
 	if (col->gameObject->name == "DamageArea")
 	{
+		if (isInvulnerable) return;
 		DamageArea* dArea = (DamageArea*)col->gameObject;
 		Hit(*dArea->damage);
 		Stun(*dArea->stunTime);
@@ -478,4 +485,10 @@ void PlayerController::Hit(int damage)
 
 void PlayerController::Stun(int frames)
 {
+}
+
+void PlayerController::Invulnerability(int frames)
+{
+	isInvulnerable = true;
+	invulnerabilityCounter = frames;
 }
