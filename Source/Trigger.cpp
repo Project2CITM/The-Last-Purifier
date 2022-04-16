@@ -36,15 +36,16 @@ void Trigger::Update()
 {
 	if (!app->Exiting())
 	{
+		if (parent->pendingToDelete) pendingToDelete = true;
 		if (!followFather || parent == nullptr || parent->pendingToDelete) return;
 
 		SetPosition(parent->GetPosition() + positionOffset);
-		if (parent->pendingToDelete) pendingToDelete = true;
 	}
 }
 
 void Trigger::OnCollisionEnter(PhysBody* col)
 {
+	if (pendingToDelete) return;
 	if (!app->Exiting())
 	{
 		if (parent) parent->OnTriggerEnter(this->name, col);
