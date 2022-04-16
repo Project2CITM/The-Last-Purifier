@@ -26,6 +26,7 @@ bool ModulePhysics::Start()
 	LOG("Creating Physics 2D environment");
 
 	world = new b2World(b2Vec2(0, 0));
+	world->SetAllowSleeping(false);
 	b2BodyDef bd;
 	mouseBody = world->CreateBody(&bd);
 
