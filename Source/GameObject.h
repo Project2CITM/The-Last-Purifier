@@ -80,7 +80,7 @@ public:
 	/// <param name="vel"></param>
 	void SetLinearVelocity(b2Vec2 vel);
 
-	void SetLinearVelocity(iPoint vel);
+	void SetLinearVelocity(fPoint vel);
 
 protected:
 	void InitRenderObjectWithXml(std::string texName = "null", int index = 0);

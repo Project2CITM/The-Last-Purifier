@@ -206,6 +206,11 @@ bool Application::CleanUp()
 	return ret;
 }
 
+bool Application::Exiting()
+{
+	return isExiting;
+}
+
 pugi::xml_node Application::LoadConfig(pugi::xml_document& configFile) const
 {
 	pugi::xml_node ret;

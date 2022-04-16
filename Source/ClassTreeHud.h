@@ -1,4 +1,6 @@
-#pragma once
+#ifndef __CLASDD_TREE_HUD_H__
+#define __CLASDD_TREE_HUD_H__
+
 #include "Scene.h"
 #include "GUIButton.h"
 #include "ClassTree.h"
@@ -36,3 +38,4 @@ private:
 
 };
 
+#endif // !__CLASDD_TREE_HUD_H__
