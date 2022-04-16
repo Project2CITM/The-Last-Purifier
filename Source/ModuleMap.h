@@ -183,7 +183,7 @@ public:
 
 	List<MapObject> mapObjects;
 
-	bool roof = true;
+	bool roof = false;
 
 private:
 

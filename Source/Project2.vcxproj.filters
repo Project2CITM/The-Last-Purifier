@@ -288,6 +288,9 @@
     <ClInclude Include="Ghoul.h">
       <Filter>Archivos de encabezado\GameObject\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="SceneSwitch.h">
+      <Filter>Archivos de encabezado\GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\PugiXml\src\pugixml.cpp">
@@ -460,6 +463,9 @@
     </ClCompile>
     <ClCompile Include="Ghoul.cpp">
       <Filter>Archivos de origen\GameObjects\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitch.cpp">
+      <Filter>Archivos de origen\GameObjects</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

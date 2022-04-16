@@ -143,6 +143,7 @@
     <ClInclude Include="RoomManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneGame.h" />
+    <ClInclude Include="SceneSwitch.h" />
     <ClInclude Include="Spell.h" />
     <ClInclude Include="SpellInfo.h" />
     <ClInclude Include="SpellList.h" />
@@ -203,6 +204,7 @@
     <ClCompile Include="RoomManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneGame.cpp" />
+    <ClCompile Include="SceneSwitch.cpp" />
     <ClCompile Include="Spell.cpp" />
     <ClCompile Include="SpellInfo.cpp" />
     <ClCompile Include="SpellList.cpp" />

@@ -5,6 +5,8 @@
 #include "ModuleInput.h"
 #include "ModuleMap.h"
 #include "ModulePhysics.h"
+#include "SceneSwitch.h"
+#include "ModuleScene.h"
 
 HubScene::HubScene() : SceneGame("HubScene")
 {
@@ -36,6 +38,11 @@ bool HubScene::InitScene()
 				g->pBody->body->SetType(b2BodyType::b2_staticBody);
 				g->pBody->body->GetFixtureList()->SetFriction(0);
 
+				break;
+			case 1:
+
+				g = new SceneSwitch(LEVEL_1, "sceneSwitch", "SceneSwitch");
+				g->pBody = app->physics->CreateRectangleSensor(pos, width, height, g);
 
 				break;
 			case 2: //Door IN
