@@ -24,10 +24,10 @@ NPC::NPC(std::string name, iPoint position) : GameObject(name,"NPC")
 
 	for (int i = 0; i < 2; i++)
 	{
-		idleAnim.PushBack({81*i,0,81,111});
+		idleAnim.PushBack({70*i,0,70,95});
 	}
 	idleAnim.loop = true;
-	idleAnim.speed = 0.2;
+	idleAnim.speed = 0.05;
 	idleAnim.hasIdle = false;
 }
 

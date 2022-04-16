@@ -438,10 +438,6 @@ fPoint PlayerController::GetPlayerToMouseVector()
 
 void PlayerController::OnCollisionEnter(PhysBody* col)
 {
-	/*if (col->gameObject->CompareTag("HubDoorINOUT"))
-	{
-		app->map->roof = !app->map->roof;
-	}*/
 	if (col->gameObject != nullptr)
 	{
 		if (col->gameObject->CompareTag("HubDoorIN"))
@@ -454,7 +450,6 @@ void PlayerController::OnCollisionEnter(PhysBody* col)
 			app->map->roof = true;
 		}
 	}
-	
 }
 
 void PlayerController::OnCollisionExit(PhysBody* col)
