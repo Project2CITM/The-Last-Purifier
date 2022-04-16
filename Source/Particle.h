@@ -37,6 +37,7 @@ protected:
 	iPoint velocity = { 0,0 };
 
 	Animation anim;
+	
 };
 
 #endif // !__PARTICLE_H__

@@ -1,11 +1,15 @@
 #include "HubScene.h"
 #include "PlayerController.h"
 #include "PlayerRevenant.h"
+#include "PlayerSage.h"
 #include "ModuleRender.h"
 #include "ModuleInput.h"
 #include "ModuleMap.h"
 #include "ModulePhysics.h"
+#include "SceneSwitch.h"
+#include "ModuleScene.h"
 #include "NPC.h"
+
 
 HubScene::HubScene() : SceneGame("HubScene")
 {
@@ -37,6 +41,11 @@ bool HubScene::InitScene()
 				g->pBody->body->SetType(b2BodyType::b2_staticBody);
 				g->pBody->body->GetFixtureList()->SetFriction(0);
 
+				break;
+			case 1:
+
+				g = new SceneSwitch(LEVEL_1, "sceneSwitch", "SceneSwitch");
+				g->pBody = app->physics->CreateRectangleSensor(pos, width, height, g);
 
 				break;
 			case 2: //Door IN
@@ -65,7 +74,7 @@ bool HubScene::Start()
 	//Map
 
 	/*Player related*/
-	player = new PlayerRevenant();
+	player = new PlayerSage();
 	app->renderer->camera->SetTarget(player->controller);
 
 
@@ -78,7 +87,7 @@ bool HubScene::Start()
 
 	InitScene();
 	//NPC creators
-	NPC* npc1 = new NPC("purifier10", {1228,1717});//Interior castillo o perdido por ahí
+	NPC* npc1 = new NPC("purifier10", {1228,1717});//Interior castillo o perdido por ahï¿½
 	npc1->Start();
 
 	NPC* npc2 = new NPC("purifier9", {478,1470});//Cementerio
@@ -89,6 +98,8 @@ bool HubScene::Start()
 
 	NPC* npc4 = new NPC("purifier6", {928,1867});//Puerta Castillo
 	npc4->Start();
+
+	
 	return true;
 }
 

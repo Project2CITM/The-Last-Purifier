@@ -10,6 +10,8 @@ public:
 	SpellObject(iPoint position, SpellID id, int level);
 
 	void OnCollisionEnter(PhysBody* col) override;
+
+	void PostUpdate() override;
 private:
 	SpellInfo info;
 };

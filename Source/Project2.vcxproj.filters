@@ -288,6 +288,9 @@
     <ClInclude Include="Ghoul.h">
       <Filter>Archivos de encabezado\GameObject\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="SceneSwitch.h">
+      <Filter>Archivos de encabezado\GameObject</Filter>
+    </ClInclude>
     <ClInclude Include="DamageArea.h">
       <Filter>Archivos de encabezado\GameObject</Filter>
     </ClInclude>
@@ -295,6 +298,12 @@
       <Filter>Archivos de encabezado\Tools\Particles</Filter>
     </ClInclude>
     <ClInclude Include="ParticleAttackRevenant.h">
+      <Filter>Archivos de encabezado\Tools\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleAttackSage.h">
+      <Filter>Archivos de encabezado\Tools\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleHitSage.h">
       <Filter>Archivos de encabezado\Tools\Particles</Filter>
     </ClInclude>
   </ItemGroup>
@@ -464,6 +473,9 @@
     <ClCompile Include="Ghoul.cpp">
       <Filter>Archivos de origen\GameObjects\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="SceneSwitch.cpp">
+      <Filter>Archivos de origen\GameObjects</Filter>
+    </ClCompile>
     <ClCompile Include="DamageArea.cpp">
       <Filter>Archivos de origen\GameObjects</Filter>
     </ClCompile>
@@ -471,6 +483,12 @@
       <Filter>Archivos de origen\Tools\Particles</Filter>
     </ClCompile>
     <ClCompile Include="ParticleAttackRevenant.cpp">
+      <Filter>Archivos de origen\Tools\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleAttackSage.cpp">
+      <Filter>Archivos de origen\Tools\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleHitSage.cpp">
       <Filter>Archivos de origen\Tools\Particles</Filter>
     </ClCompile>
   </ItemGroup>
