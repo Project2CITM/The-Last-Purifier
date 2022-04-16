@@ -186,6 +186,7 @@ void PlayerController::CreatePhysBody()
 
 	b2Filter filter;
 	filter.categoryBits = app->physics->PLAYER_LAYER;
+	filter.maskBits = app->physics->EVERY_LAYER & ~app->physics->PLAYER_LAYER;
 
 	b2Fixture* bodyFixture = pBody->body->GetFixtureList();
 	while (bodyFixture != nullptr)
@@ -455,4 +456,26 @@ void PlayerController::OnCollisionEnter(PhysBody* col)
 void PlayerController::OnCollisionExit(PhysBody* col)
 {
 
+}
+
+void PlayerController::OnTriggerEnter(std::string trigger, PhysBody* col)
+{
+	if (col->gameObject == nullptr) return;
+
+	if (col->gameObject->name == "DamageArea")
+	{
+		DamageArea* dArea = (DamageArea*)col->gameObject;
+		Hit(*dArea->damage);
+		Stun(*dArea->stunTime);
+	}
+}
+
+void PlayerController::Hit(int damage)
+{
+	player->hpPlayer -= damage;
+	if (player->hpPlayer <= 0) printf("Player Die!!\n");
+}
+
+void PlayerController::Stun(int frames)
+{
 }

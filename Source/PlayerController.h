@@ -53,6 +53,12 @@ public:
 	void OnCollisionEnter(PhysBody* col) override;
 	void OnCollisionExit(PhysBody* col) override;
 
+	void OnTriggerEnter(std::string trigger, PhysBody* col) override;
+
+	void Hit(int damage);
+
+	void Stun(int frames);
+
 	Player* player = nullptr;
 
 	PlayerCombat* combat = nullptr;
