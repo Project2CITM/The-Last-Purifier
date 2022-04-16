@@ -470,9 +470,10 @@ void PlayerController::OnTriggerEnter(std::string trigger, PhysBody* col)
 {
 	if (col->gameObject == nullptr) return;
 
+	if (isInvulnerable) return;
+
 	if (col->gameObject->name == "DamageArea")
 	{
-		if (isInvulnerable) return;
 		DamageArea* dArea = (DamageArea*)col->gameObject;
 		if (dArea->damage != nullptr)Hit(*dArea->damage);
 		if (dArea->stunTime != nullptr)Stun(*dArea->stunTime);
