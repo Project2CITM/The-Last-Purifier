@@ -72,6 +72,8 @@ public:
 
 	void CleanUp();
 
+	void EnableEnemics();
+
 	iPoint GetDoorPos(DoorOrientations orient);
 
 	iPoint GetDoorSize(DoorOrientations orient);

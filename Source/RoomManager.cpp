@@ -58,8 +58,12 @@ void RoomManager::Update(iPoint playerPos)
 		//LOG("PosX: %.2f   PosY: %.2f", enterSensorX, enterSensorY);
 		
 		//Horizontal & Verticals limits to close doors
-		if (enterSensorX > 0.03f && enterSensorX < 0.97f && enterSensorY > 0.20f && enterSensorY < 0.95f)
+		if (enterSensorX > 0.03f && enterSensorX < 0.97f && enterSensorY > 0.20f && enterSensorY < 0.95f) {
 			r->CloseDoors();
+			r->EnableEnemics();
+		}
+
+
 	}
 
 	//Open Doors when no enemies
