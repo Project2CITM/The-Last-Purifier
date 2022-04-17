@@ -9,10 +9,10 @@
 #include "Text.h"
 #include "ModuleAudio.h"
 #include "CommonTree.h"
-#include "EnemyDummy.h"
 #include "SpellSpawnManager.h"
 #include "ModuleWindow.h"
 #include "Ghoul.h"
+#include "Kaboom.h"
 #include "ParticleAttackRevenant.h"
 
 TestScene::TestScene() : SceneGame("testScene")
@@ -67,9 +67,7 @@ bool TestScene::Start()
     spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-40, 0));
     spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-80, 0));
      
-    new Ghoul(player->controller->GetPosition() + iPoint(-100, 0));
-
-   
+    new Kaboom(player->controller->GetPosition() + iPoint(-100, 0));
 
     return true;
 }

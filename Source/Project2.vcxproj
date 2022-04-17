@@ -131,6 +131,7 @@
     <ClInclude Include="ModuleWindow.h" />
     <ClInclude Include="NPC.h" />
     <ClInclude Include="Particle.h" />
+    <ClInclude Include="ParticleAttackKaboom.h" />
     <ClInclude Include="ParticleAttackRevenant.h" />
     <ClInclude Include="ParticleAttackSage.h" />
     <ClInclude Include="ParticleHitSage.h" />
@@ -199,6 +200,7 @@
     <ClCompile Include="ModuleWindow.cpp" />
     <ClCompile Include="NPC.cpp" />
     <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="ParticleAttackKaboom.cpp" />
     <ClCompile Include="ParticleAttackRevenant.cpp" />
     <ClCompile Include="ParticleAttackSage.cpp" />
     <ClCompile Include="ParticleHitSage.cpp" />

@@ -26,16 +26,20 @@ void StateMachine::Update()
 	}
 }
 
-void StateMachine::ChangeState(uint state)
+bool StateMachine::ChangeState(uint state)
 {
 	if (states[currentState].currentFrames == 0) // If current state had a time and it is out, we ignore priority.
 	{
 		ChangeCurrentState(state);
+		return true;
 	}
 	if (states[currentState].priority <= states[state].priority) // If current state priority is the same or lower, we change state.
 	{
 		ChangeCurrentState(state);
+		return true;
 	}
+
+	return false;
 }
 
 uint StateMachine::GetCurrentState()

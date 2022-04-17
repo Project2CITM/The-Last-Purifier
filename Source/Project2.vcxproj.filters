@@ -312,6 +312,9 @@
     <ClInclude Include="ParticleHitSage.h">
       <Filter>Archivos de encabezado\Tools\Particles</Filter>
     </ClInclude>
+    <ClInclude Include="ParticleAttackKaboom.h">
+      <Filter>Archivos de encabezado\Tools\Particles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\PugiXml\src\pugixml.cpp">
@@ -501,6 +504,9 @@
       <Filter>Archivos de origen\Tools\Particles</Filter>
     </ClCompile>
     <ClCompile Include="ParticleHitSage.cpp">
+      <Filter>Archivos de origen\Tools\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleAttackKaboom.cpp">
       <Filter>Archivos de origen\Tools\Particles</Filter>
     </ClCompile>
   </ItemGroup>

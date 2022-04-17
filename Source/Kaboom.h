@@ -52,6 +52,8 @@ private:
 
 	void DoRun();
 
+	void ChangeColor();
+
 private:
 
 	Animation animations[(int)KaboomState::MAX];
@@ -68,7 +70,19 @@ private:
 
 	DamageArea* attack = nullptr;
 
+	int attackCoolDown = 15; // frame
+
 	bool detectPlayer = false;
+
+	// Effects
+
+	int changeColorTime = 20; // frame
+
+	int currentColorTime = 20; // frame
+
+	bool isFirstColor = true;
+
+	SDL_Color kaboomColors[2];
 };
 
 #endif // !__KABOOM_H__

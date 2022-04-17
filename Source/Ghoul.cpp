@@ -65,8 +65,6 @@ void Ghoul::PostUpdate()
 
 	animations[stateMachine.GetCurrentState()].Update();
 
-	int frame = animations[stateMachine.GetCurrentState()].getCurrentFrameI();
-
 	renderObjects[0].section = animations[stateMachine.GetCurrentState()].GetCurrentFrame();
 
 	Enemy::PostUpdate();
@@ -251,7 +249,7 @@ void Ghoul::InitPhysics()
 
 	detectTrigger->pBody->body->GetFixtureList()->SetFilterData(filter);
 
-	// Hit Player
+	// Hit Player or get hit
 	b2Filter filterB;
 
 	filterB.categoryBits = app->physics->ENEMY_LAYER; // Who am I

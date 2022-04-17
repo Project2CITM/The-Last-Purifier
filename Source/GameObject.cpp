@@ -123,10 +123,16 @@ iPoint GameObject::GetDrawPosition(int index)
 	{
 		b2Vec2 pos;
 
+		float scale = pBody->gameObject->renderObjects[index].scale;
+
 		pos = pBody->body->GetPosition();
 
-		pos.x = METERS_TO_PIXELS(pos.x) - pBody->gameObject->renderObjects[index].textureCenterX;
-		pos.y = METERS_TO_PIXELS(pos.y) - pBody->gameObject->renderObjects[index].textureCenterY;
+		float x = pBody->gameObject->renderObjects[index].textureCenterX * scale;
+
+		float y = pBody->gameObject->renderObjects[index].textureCenterY * scale;
+
+		pos.x = METERS_TO_PIXELS(pos.x) - x;
+		pos.y = METERS_TO_PIXELS(pos.y) - y;
 
 		return { (int)pos.x, (int)pos.y };
 	}

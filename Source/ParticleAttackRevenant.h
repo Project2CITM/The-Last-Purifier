@@ -1,9 +1,10 @@
-#pragma once
+#ifndef __PARTICLE_ATTACK_REVENANT_H__
+#define __PARTICLE_ATTACK_REVENANT_H__
+
 #include "Particle.h"
 #include "ModuleRender.h"
 
-class ParticleAttackRevenant :
-    public Particle
+class ParticleAttackRevenant : public Particle
 {
 public:
 
@@ -15,3 +16,4 @@ public:
 
 };
 
+#endif // !__PARTICLE_ATTACK_REVENANT_H__
