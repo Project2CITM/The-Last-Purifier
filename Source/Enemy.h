@@ -27,6 +27,8 @@ public:
 
 	void OnCollisionExit(PhysBody* col) override;
 
+	void OnTriggerEnter(std::string trigger, PhysBody* col) override;
+
 	virtual void Hit(int damage);
 
 	virtual void Die();

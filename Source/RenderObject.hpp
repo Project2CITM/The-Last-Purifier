@@ -25,6 +25,11 @@ public:
 		switch (type)
 		{
 		case RenderType::RENDER_TEXTURE:
+
+			// Temporal change texture color
+			SDL_SetTextureColorMod(texture, color.r, color.g, color.b);
+			SDL_SetTextureAlphaMod(texture, color.a);
+
 			if (section.w == 0 || section.h == 0)
 			{
 				if (SDL_RenderCopyEx(renderer, texture, nullptr, &destRect, rotation, NULL, flip) != 0)
@@ -42,8 +47,10 @@ public:
 			return true;
 			break;
 		case RenderType::RENDER_RECT:
+
 			SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 			SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
+
 			if (filled)
 			{
 				SDL_RenderFillRect(renderer, &destRect);
@@ -128,20 +135,7 @@ public:
 
 	void SetColor(SDL_Color color)
 	{
-		switch (type)
-		{
-		case RENDER_TEXTURE:
-			SDL_SetTextureColorMod(texture, color.r, color.g, color.b);
-			SDL_SetTextureAlphaMod(texture, color.a);
-			break;
-		case RENDER_RECT:			
-		case RENDER_LINE:		
-		case RENDER_CIRCLE:
-			this->color = color;
-		default:
-			break;
-		}
-
+		this->color = color;
 	}
 
 	#pragma region Global parameter
@@ -153,6 +147,7 @@ public:
 	float speedRegardCamera = 1.0f;
 	bool draw = true;
 	std::string name = "null";
+	SDL_Color color = { 255,255,255,255 };
 	#pragma endregion
 
 	#pragma region Texture parameter
@@ -165,7 +160,6 @@ public:
 	#pragma endregion
 
 	#pragma region Rect parameter
-	SDL_Color color = { 0,0,0,0 };
 	bool filled = false;
 	#pragma endregion
 

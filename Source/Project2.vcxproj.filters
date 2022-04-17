@@ -300,6 +300,9 @@
     <ClInclude Include="ParticleAttackRevenant.h">
       <Filter>Archivos de encabezado\Tools\Particles</Filter>
     </ClInclude>
+    <ClInclude Include="Kaboom.h">
+      <Filter>Archivos de encabezado\GameObject\Enemy</Filter>
+    </ClInclude>
     <ClInclude Include="IntLabel.h">
       <Filter>Archivos de encabezado\GameObject</Filter>
     </ClInclude>
@@ -311,6 +314,18 @@
     </ClInclude>
     <ClInclude Include="Instructor.h">
       <Filter>Archivos de encabezado\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleAttackKaboom.h">
+      <Filter>Archivos de encabezado\Tools\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Worm.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="PaticleHitFotieros.h">
+      <Filter>Archivos de encabezado\Tools\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleExplodeEkriksi.h">
+      <Filter>Archivos de encabezado\Tools\Particles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -491,6 +506,9 @@
     <ClCompile Include="ParticleAttackRevenant.cpp">
       <Filter>Archivos de origen\Tools\Particles</Filter>
     </ClCompile>
+    <ClCompile Include="Kaboom.cpp">
+      <Filter>Archivos de origen\GameObjects\Enemy</Filter>
+    </ClCompile>
     <ClCompile Include="IntLabel.cpp">
       <Filter>Archivos de origen\GameObjects</Filter>
     </ClCompile>
@@ -502,6 +520,18 @@
     </ClCompile>
     <ClCompile Include="Instructor.cpp">
       <Filter>Archivos de origen\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleAttackKaboom.cpp">
+      <Filter>Archivos de origen\Tools\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="Worm.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="PaticleHitFotieros.cpp">
+      <Filter>Archivos de origen\Tools\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleExplodeEkriksi.cpp">
+      <Filter>Archivos de origen\Tools\Particles</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

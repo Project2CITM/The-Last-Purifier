@@ -14,7 +14,15 @@ PlayerCombat::PlayerCombat(std::string name, std::string tag, Player* player) : 
 
 void PlayerCombat::Start()
 {
+	// Change filter
+	b2Filter filter;
+
+	filter.categoryBits = app->physics->PLAYER_LAYER;
+
 	revenantAttack = new DamageArea(player->controller->GetPosition(), 12, 20, &player->damage);
+
+	revenantAttack->pBody->body->GetFixtureList()->SetFilterData(filter);
+
 	revenantAttack->pBody->body->SetActive(false);
 
 	executeSpellCommand = new ExecuteSpell();
@@ -224,25 +232,25 @@ void PlayerCombat::RevenantAttack()
 	switch (player->controller->lookingDir)
 	{
 	case LookingDirection::DOWN:
-		particleOffset = { -40, -25 };
+		particleOffset = { -25, -30 };
 		particleRotation = 90;
 		break;
 	case LookingDirection::UP:
-		particleOffset = { -40, -25 };
+		particleOffset = { -25, -20 };
 		particleRotation = 270;
 		break;
 	case LookingDirection::LEFT:
-		particleOffset = {-30, -25 };
+		particleOffset = {-20, -25 };
 		particleRotation = 180;
 		break;
 	case LookingDirection::RIGHT:
-		particleOffset = { -40, -25 };
+		particleOffset = { -30, -25 };
 		particleRotation = 0;
 		break;
 
 	}
 
-	new ParticleAttackRevenant(revenantAttack->GetPosition() + particleOffset, particleRotation, 0.3f, 0);
+	new ParticleAttackRevenant(revenantAttack->GetPosition() + particleOffset, particleRotation, 0.15f, 0);
 
 	attackAreaActive = true;
 }
@@ -253,21 +261,27 @@ void PlayerCombat::SageAttack()
 
 	// Get projectile speed
 	fPoint speed = { 0,0 };
+	iPoint particleOffset;
+	int particleRotation = 0;
 	switch (player->controller->lookingDir)
 	{
 	case LookingDirection::UP:
 		speed.y = -1;
+		particleRotation = 270;
 		break;
 	case LookingDirection::DOWN:
 		speed.y = 1;
+		particleRotation = 90;
 		break;
 	case LookingDirection::LEFT:
 		speed.x = -1;
+		particleRotation = -180;
 		break;
 	case LookingDirection::RIGHT:
 		speed.x = 1;
+		particleRotation = 0;
 		break;
 	}
 
-	new Projectile("Projectile", player->controller->GetPosition() + attackOffset, speed * projectileSpeed, player->damage);
+	new Projectile("Projectile", player->controller->GetPosition() + attackOffset, speed * projectileSpeed,player->damage,particleRotation);
 }

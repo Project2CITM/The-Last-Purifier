@@ -37,7 +37,7 @@ public:
 	/// Changes current state. If the current state has a higher priority and hasn't ended yet, it ignores this attempt.
 	/// </summary>
 	/// <param name="state"></param>
-	void ChangeState(uint state);
+	bool ChangeState(uint state);
 
 	/// <summary>
 	/// Returns current state

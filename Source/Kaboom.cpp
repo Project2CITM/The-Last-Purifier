@@ -1,12 +1,13 @@
-#include "Ghoul.h"
+#include "Kaboom.h"
 #include "ModulePhysics.h"
 #include "ModuleScene.h"
 #include "SceneGame.h"
 #include "Player.h"
 #include "ModuleRender.h"
 #include "DamageArea.h"
+#include "ParticleAttackKaboom.h"
 
-Ghoul::Ghoul(iPoint pos) : Enemy("ghoul")
+Kaboom::Kaboom(iPoint pos) :Enemy("kaboom")
 {
 	// Get player pointer
 	SceneGame* sceneGame = (SceneGame*)app->scene->scenes[app->scene->currentScene];
@@ -15,14 +16,15 @@ Ghoul::Ghoul(iPoint pos) : Enemy("ghoul")
 	// Init general value
 	this->position = pos;
 
-	health = 20;
+	health = 80;
 
-	moveSpeed = 2;
+	moveSpeed = 4;
 
-	damage = 5;
-	
+	damage = 15;
 
-	attackCoolDown = 10; // frame
+	kaboomColors[0] = { 255,253,117,255 };
+
+	kaboomColors[1] = { 65,144,46,255 };
 
 	// Init texture
 	InitRenderObjectWithXml("ghoul");
@@ -37,31 +39,28 @@ Ghoul::Ghoul(iPoint pos) : Enemy("ghoul")
 	InitPhysics();
 }
 
-Ghoul::~Ghoul()
+Kaboom::~Kaboom()
 {
-	detectTrigger->Destroy();
-
-	damageTrigger->Destroy();
-
-	attack->pendingToDelete = true;
 }
 
-void Ghoul::PreUpdate()
+void Kaboom::PreUpdate()
 {
 	UpdateStates();
 
 	Enemy::PreUpdate();
 }
 
-void Ghoul::Update()
+void Kaboom::Update()
 {
 	stateMachine.Update();
 
 	Enemy::Update();
 }
 
-void Ghoul::PostUpdate()
+void Kaboom::PostUpdate()
 {
+	ChangeColor();
+
 	renderObjects[0].flip = GetLinearVelocity().x > 0 ? SDL_FLIP_NONE : GetLinearVelocity().x < 0 ? SDL_FLIP_HORIZONTAL : renderObjects[0].flip;
 
 	animations[stateMachine.GetCurrentState()].Update();
@@ -71,24 +70,23 @@ void Ghoul::PostUpdate()
 	Enemy::PostUpdate();
 }
 
-void Ghoul::Hit(int damage)
+void Kaboom::Hit(int damage)
 {
-	stateMachine.ChangeState((int)GhoulState::HIT);
+	stateMachine.ChangeState((int)KaboomState::HIT);
 
 	animations[stateMachine.GetCurrentState()].Reset();
 
 	renderObjects[0].SetColor({ 255,164,164,100 });
-
-	printf("Ghoul:%d \n", health);
+	printf("Boom:%d \n", health);
 
 	Enemy::Hit(damage);
 }
 
-void Ghoul::OnTriggerEnter(std::string trigger, PhysBody* col)
+void Kaboom::OnTriggerEnter(std::string trigger, PhysBody* col)
 {
 	if (col->gameObject == nullptr) return;
 
-	if(trigger=="EnemyDetectPlayer")
+	if (trigger == "EnemyDetectPlayer")
 	{
 		if (col->gameObject->name == "Player")
 		{
@@ -99,7 +97,7 @@ void Ghoul::OnTriggerEnter(std::string trigger, PhysBody* col)
 	Enemy::OnTriggerEnter(trigger, col);
 }
 
-void Ghoul::OnTriggerExit(std::string trigger, PhysBody* col)
+void Kaboom::OnTriggerExit(std::string trigger, PhysBody* col)
 {
 	if (col->gameObject == nullptr) return;
 
@@ -112,146 +110,135 @@ void Ghoul::OnTriggerExit(std::string trigger, PhysBody* col)
 	}
 }
 
-void Ghoul::Die()
+void Kaboom::Die()
 {
-	stateMachine.ChangeState((int)GhoulState::DIE);
+	stateMachine.ChangeState((int)KaboomState::DIE);
 }
 
-void Ghoul::UpdateStates()
+void Kaboom::UpdateStates()
 {
 	SetLinearVelocity(b2Vec2{ 0,0 });
-	
+
 	switch (stateMachine.GetCurrentState())
 	{
-	case (int)GhoulState::IDLE:
+	case (int)KaboomState::IDLE:
 	{
-		if (!detectPlayer)
-		{
-			ResetAttackCoolDown();
-
-			stateMachine.ChangeState((int)GhoulState::RUN);
-
-			return;			
-		}
-
-		if (attackCoolDown <= 0)
-		{
-			DoAttack();
-
-			ResetAttackCoolDown();
-
-			return;
-		}
-		
-		attackCoolDown--;
+		stateMachine.ChangeState((int)KaboomState::RUN);
+		DoRun();
 	}
 	break;
-	case (int)GhoulState::RUN:
+	case (int)KaboomState::RUN:
 	{
 		DoRun();
 
 		// Test codes
 		app->renderer->AddLineRenderQueue(position, player->GetPosition(), false, { 255,255,255,255 }, 2);
 
-		if(detectPlayer) DoAttack();
+		if (detectPlayer) DoAttack();
 	}
 	break;
-	case (int)GhoulState::ATTACK:
+	case (int)KaboomState::ATTACK:
 	{
-		// Just can hit a player when animation is attacking
-		if (animations[stateMachine.GetCurrentState()].getCurrentFrameI() > 2) 
-			attack->pBody->body->SetActive(true);
+		attackCoolDown--;
 
-		// When finish attack
-		if (animations[stateMachine.GetCurrentState()].HasFinished())
+		// Just can hit a player when animation is attacking
+		if (attackCoolDown == 0)
 		{
-			stateMachine.ChangeState((int)GhoulState::IDLE);
+			if (!attack->pBody->body->IsActive())
+			{
+				attack->pBody->body->SetActive(true);
+
+				iPoint attackOffset = { -27,-25 };
+
+				new ParticleAttackKaboom(position + attackOffset);
+			}
+		}
+			
+		// When finish attack
+		if(stateMachine.ChangeState((int)KaboomState::DIE))
+		{
 			attack->pBody->body->SetActive(false);
 		}
 	}
-		break;
-	case (int)GhoulState::HIT:
+	break;
+	case (int)KaboomState::HIT:
 	{
 		if (!animations[stateMachine.GetCurrentState()].HasFinished()) return;
-		
-		renderObjects[0].SetColor({ 255,255,255,255 });
-		
-		stateMachine.ChangeState((int)GhoulState::IDLE);
-	}	
-		break;
-	case (int)GhoulState::DIE:
+
+		renderObjects[0].SetColor(kaboomColors[isFirstColor]);
+
+		stateMachine.ChangeState((int)KaboomState::IDLE);
+	}
+	break;
+	case (int)KaboomState::DIE:
 	{
 		if (animations[stateMachine.GetCurrentState()].HasFinished()) Enemy::Die();
-	}	
-		break;
+	}
+	break;
 	}
 }
 
-void Ghoul::InitAnimation()
+void Kaboom::InitAnimation()
 {
 	// Create animations
 	for (int i = 0; i < 4; i++)
 	{
 		// Idle anim initialize
-		animations[(int)GhoulState::IDLE].PushBack({ 32 * i, 0, 32, 32 });
-		animations[(int)GhoulState::IDLE].loop = true;
+		animations[(int)KaboomState::IDLE].PushBack({ 32 * i, 0, 32, 32 });
+		animations[(int)KaboomState::IDLE].loop = true;
 	}
 
 	for (int i = 0; i < 8; i++)
 	{
 		// Run anim initialize
-		animations[(int)GhoulState::RUN].PushBack({ 32 * i, 32, 32, 32 });
-		animations[(int)GhoulState::RUN].loop = true;
+		animations[(int)KaboomState::RUN].PushBack({ 32 * i, 32, 32, 32 });
+		animations[(int)KaboomState::RUN].loop = true;
 	}
 
-	for (int i = 0; i < 6; i++)
-	{
-		// Attack anim initialize
-		animations[(int)GhoulState::ATTACK].PushBack({ 32 * i, 64, 32, 32 });
-		animations[(int)GhoulState::ATTACK].loop = false;
-	}
+	// Attack anim initialize
+	animations[(int)KaboomState::ATTACK] = animations[(int)KaboomState::IDLE];
 
 	for (int i = 0; i < 4; i++)
 	{
 		// Hit anim initialize
-		animations[(int)GhoulState::HIT].PushBack({ 32 * i, 96, 32, 32 });
-		animations[(int)GhoulState::HIT].loop = false;
+		animations[(int)KaboomState::HIT].PushBack({ 32 * i, 96, 32, 32 });
+		animations[(int)KaboomState::HIT].loop = false;
 	}
 
 	for (int i = 0; i < 6; i++)
 	{
 		// Die anim initialize
-		animations[(int)GhoulState::DIE].PushBack({ 32 * i, 128, 32, 32 });
-		animations[(int)GhoulState::DIE].loop = false;
+		animations[(int)KaboomState::DIE].PushBack({ 32 * i, 128, 32, 32 });
+		animations[(int)KaboomState::DIE].loop = false;
 	}
 
-	for (int i = 0; i < (int)GhoulState::MAX; i++)
+	for (int i = 0; i < (int)KaboomState::MAX; i++)
 	{
 		animations[i].hasIdle = false;
-		animations[i].speed = 0.2f;
+		animations[i].speed = 0.3f;
 	}
 }
 
-void Ghoul::InitStateMachine()
+void Kaboom::InitStateMachine()
 {
 	stateMachine.AddState("Idle", 0);
 	stateMachine.AddState("Run", 0);
-	stateMachine.AddState("Attack", 1, 35);
+	stateMachine.AddState("Attack", 4, 45);
 	stateMachine.AddState("Hit", 2, 35);
 	stateMachine.AddState("Die", 3);
 
-	stateMachine.ChangeState((int)GhoulState::IDLE);
+	stateMachine.ChangeState((int)KaboomState::IDLE);
 }
 
-void Ghoul::InitPhysics()
+void Kaboom::InitPhysics()
 {
 	// Detect player 
 	b2Filter filter;
 
-	filter.categoryBits = app->physics->TRIGGER_LAYER;
+	filter.categoryBits = app->physics->TRIGGER_LAYER; // Who am I
 
-	filter.maskBits = app->physics->EVERY_LAYER & ~app->physics->ENEMY_LAYER;
-	
+	filter.maskBits = app->physics->EVERY_LAYER & ~app->physics->ENEMY_LAYER; // Who will coll with me
+
 	detectTrigger = new Trigger(position, 16, 12, this, "EnemyDetectPlayer");
 
 	detectTrigger->pBody->body->GetFixtureList()->SetFilterData(filter);
@@ -270,7 +257,7 @@ void Ghoul::InitPhysics()
 	damageTrigger->pBody->body->GetFixtureList()->SetFilterData(filterB);
 
 	// Attack Trigger
-	attack = new DamageArea(position, 10, 18, &damage);
+	attack = new DamageArea(position, 26, &damage);
 
 	attack->pBody->body->SetActive(false);
 
@@ -288,21 +275,20 @@ void Ghoul::InitPhysics()
 	pBody->body->GetFixtureList()->SetFilterData(filterC);
 }
 
-void Ghoul::DoAttack()
+void Kaboom::DoAttack()
 {
-	stateMachine.ChangeState((int)GhoulState::ATTACK);
+	changeColorTime = 5;
 
-	animations[stateMachine.GetCurrentState()].Reset();
+	attack->SetPosition(position);
 
-	iPoint attackOffset = { 0,0 };
+	stateMachine.ChangeState((int)KaboomState::ATTACK);
 
-	if (renderObjects[0].flip == SDL_FLIP_HORIZONTAL) attackOffset = { -15,0 };
-	else attackOffset = { 15,0 };
+	pBody->body->SetActive(false);
 
-	attack->SetPosition(position + attackOffset);
+	detectTrigger->pBody->body->SetActive(false);
 }
 
-void Ghoul::DoRun()
+void Kaboom::DoRun()
 {
 	fPoint dir = { (float)(player->GetPosition().x - position.x), (float)(player->GetPosition().y - position.y) };
 
@@ -311,7 +297,18 @@ void Ghoul::DoRun()
 	SetLinearVelocity(b2Vec2{ (float)(dir.x * moveSpeed),(float)(dir.y * moveSpeed) });
 }
 
-void Ghoul::ResetAttackCoolDown()
+void Kaboom::ChangeColor()
 {
-	attackCoolDown = 10;
+	if (stateMachine.GetCurrentState() == (int)KaboomState::HIT) return;
+
+	if (currentColorTime <= 0)
+	{
+		isFirstColor = !isFirstColor;
+
+		currentColorTime = changeColorTime;
+
+		renderObjects[0].SetColor(kaboomColors[isFirstColor]);
+	}
+
+	currentColorTime--;
 }

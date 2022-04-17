@@ -1,5 +1,6 @@
 #include "MapLoader.h"
 #include "Ghoul.h"
+#include "Kaboom.h"
 
 void MapLoader::ExtractMapInfo(Room* r)
 {
@@ -101,10 +102,34 @@ void MapLoader::CreateEnemies(Room* r)
 		{
 			int gid = tile.first_attribute().as_int();
 			
-			switch (gid) 
+			switch (gid)
 			{
-				//Create enemy from gid
+			case 2562:
+			{
+
+				int rand = std::rand() % 2;
+				Enemy* g1 = nullptr;
+				
+				if (rand == 0) {
+					g1 = new Ghoul(iPoint(
+						r->roomPosition.x * MAX_ROOM_TILES_COLUMNS * TILE_SIZE + j * TILE_SIZE + TILE_SIZE / 2,
+						r->roomPosition.y * MAX_ROOM_TILES_ROWS * TILE_SIZE + i * TILE_SIZE + TILE_SIZE / 2));
+				}
+				else {
+					g1 = new Kaboom(iPoint(
+						r->roomPosition.x * MAX_ROOM_TILES_COLUMNS * TILE_SIZE + j * TILE_SIZE + TILE_SIZE / 2,
+						r->roomPosition.y * MAX_ROOM_TILES_ROWS * TILE_SIZE + i * TILE_SIZE + TILE_SIZE / 2));
+				}
+					r->enemies.add(g1);
+					g1->enable = false;
+				
 			}
+				break;
+			
+
+			}
+			
+			
 
 			tile = tile.next_sibling();
 		}

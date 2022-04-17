@@ -1,7 +1,7 @@
 #include "ParticleAttackSage.h"
 #include "ModuleTextures.h"
 
-ParticleAttackSage::ParticleAttackSage(iPoint position, float life, float delay, iPoint velocity, std::string name) :Particle(position, life, delay, velocity, name)
+ParticleAttackSage::ParticleAttackSage(iPoint position,int rot, float life, float delay, iPoint velocity, std::string name) :Particle(position, life, delay, velocity, name)
 {
 
 	for (int i = 0; i < 8; i++)
@@ -11,6 +11,7 @@ ParticleAttackSage::ParticleAttackSage(iPoint position, float life, float delay,
 	this->anim.loop = true;
 	this->anim.hasIdle = false;
 	this->anim.speed = 0.5f;
+	this->rotation = rot;
 
 	renderObjects[0].InitAsTexture(app->textures->Load("Assets/Sprites/Player/Sage/basicAttackSageInitial.png"), position, { 0,0,0,0 });
 	
@@ -19,3 +20,5 @@ ParticleAttackSage::ParticleAttackSage(iPoint position, float life, float delay,
 ParticleAttackSage::~ParticleAttackSage()
 {
 }
+
+

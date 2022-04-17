@@ -11,7 +11,7 @@ class ParticleAttackSage;
 class Projectile : public GameObject
 {
 public:
-	Projectile(std::string name, iPoint position, fPoint speed, int damage, bool fire = true, bool stun = false, bool isEnemy = false);
+	Projectile(std::string name, iPoint position, fPoint speed, int damage, int rotation = 0, bool fire = true, bool stun = false, bool isEnemy = false);
 
 	void FireProjectile(fPoint speed);
 
@@ -25,7 +25,7 @@ public:
 	bool stun = false;
 	int damage = 0;
 	DamageArea* damageArea;
-
+	int rotation = 0;
 	Animation anim;
 
 };

@@ -14,12 +14,15 @@ public:
 	void OnCollisionEnter(PhysBody* col) override;
 	void OnCollisionExit(PhysBody* col) override;
 
-	void ReleaseParent();
+	void Destroy();
+
+	GameObject* GetParent() { return parent; }
 
 	iPoint positionOffset = { 0,0 };
 
 private:
 	bool followFather = true;
+
 	GameObject* parent = nullptr;
 };
 

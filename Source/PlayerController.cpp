@@ -23,46 +23,6 @@ void PlayerController::Start()
 
 	player->stats->Start();
 
-	#pragma region TEMPORARY_CODE
-	// Every Animation and spirtes charging should be in the PlayerRevenant and PlayerSage classes!!!!!
-	// TEMPORARY CODE!---------------------------------------------------
-	// Charge Player Sprites and animations---------------------------------------------
-
-	// Charge texture
-	renderObjects[0].InitAsTexture(app->textures->Load("Assets/Sprites/Player/Knight/KnightAnims.png"), { 0,0 }, { 0,0,0,0 }, 1.0f, 1, 1,
-		0, SDL_RendererFlip::SDL_FLIP_NONE, 1.0f);
-
-	renderObjects[0].textureCenterX = 32;
-	renderObjects[0].textureCenterY = 15;
-
-	// Create animations
-	for (int i = 0; i < 15; i++)
-	{
-		// Idle anim initialize
-		animations[(int)PlayerAnim::IDLE].PushBack({ 64 * i, 0, 64, 30 });
-		animations[(int)PlayerAnim::IDLE].loop = true;
-
-		// Roll anim initialize
-		animations[(int)PlayerAnim::DASH].PushBack({ 64 * i, 30, 64, 30 });
-		animations[(int)PlayerAnim::DASH].loop = false;
-	}
-	
-	for (int i = 0; i < 8; i++)
-	{
-		animations[(int)PlayerAnim::RUN].PushBack({ 64 * i, 60, 64, 30 });
-		animations[(int)PlayerAnim::RUN].loop = true;
-	}
-
-	#pragma endregion
-
-	for (int i = 0; i < PLAYER_ANIMATIONS_NUM; i++)
-	{
-		animations[i].speed = 0.2f;
-		animations[i].hasIdle = false;
-	}
-
-	animations[(int)PlayerAnim::DASH].speed = 0.4f;
-	
 	// Initialize movement variables
 	speed = player->movementSpeed;
 
@@ -101,13 +61,18 @@ void PlayerController::PreUpdate()
 	// This is done to prevent drifting when applying forces from other bodies into the player body.
 	if (!isDashing)pBody->body->SetLinearVelocity(b2Vec2(0, 0));
 
-	// Get Movement Input
-	if (app->input->usingGameController) MovementUpdateController();
-	else MovementUpdateKeyboard();
+	// If player control is available
+	if (canControl)
+	{
+		// Get Movement Input
+		if (app->input->usingGameController) MovementUpdateController();
+		else MovementUpdateKeyboard();
 
-	// Get Combat Input
-	CombatUpdate();
+		// Get Combat Input
+		CombatUpdate();
 
+	}
+	
 	// If our current animation has finished, we reset it manually. This is made for DASH and ATTACK animations.
 	// When these animations end, you must Reset them for the next time you'll use them
 	if (animations[(int)currentAnim].HasFinished()) animations[(int)currentAnim].Reset();
@@ -133,13 +98,12 @@ void PlayerController::PostUpdate()
 	currentAnim = (PlayerAnim)currentState;
 
 	renderObjects[0].section = animations[(int)currentAnim].GetCurrentFrame();
-	renderObjects[0].destRect.x = GetDrawPosition().x;
-	renderObjects[0].destRect.y = GetDrawPosition().y-13;
+	renderObjects[0].destRect.x = GetDrawPosition().x + textureOffset.x;
+	renderObjects[0].destRect.y = GetDrawPosition().y + textureOffset.y;
 
 	if (lookingDir == LookingDirection::LEFT) renderObjects[0].flip = SDL_FLIP_HORIZONTAL;
 	else if (lookingDir == LookingDirection::RIGHT) renderObjects[0].flip = SDL_FLIP_NONE;
 
-	renderObjects[0].scale = 1.2f;
 	app->renderer->AddRenderObjectRenderQueue(renderObjects[0]);
 }
 
@@ -470,18 +434,22 @@ void PlayerController::OnTriggerEnter(std::string trigger, PhysBody* col)
 {
 	if (col->gameObject == nullptr) return;
 
+	if (isInvulnerable) return;
+
 	if (col->gameObject->name == "DamageArea")
 	{
-		if (isInvulnerable) return;
 		DamageArea* dArea = (DamageArea*)col->gameObject;
-		if (dArea->damage != nullptr)Hit(*dArea->damage);
+		if (dArea->damage != nullptr)Hit(dArea->GetDamage());
 		if (dArea->stunTime != nullptr)Stun(*dArea->stunTime);
 	}
 
 	if (col->gameObject->CompareTag("Enemy"))
 	{
-		Enemy* enemy = (Enemy*)col->gameObject;
+		Trigger* enemyTrigger = (Trigger*)col->gameObject;
 	
+		Enemy* enemy = (Enemy*)enemyTrigger->GetParent();
+
+		if (enemy == nullptr) return;
 		Hit(enemy->GetDamage());
 	}
 }

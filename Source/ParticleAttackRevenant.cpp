@@ -3,7 +3,7 @@
 ParticleAttackRevenant::ParticleAttackRevenant(iPoint position, int rot, float life, float delay, bool hasPurifiedSword, iPoint velocity, std::string name):Particle(position,life,delay,velocity,name)
 {
 	if (!hasPurifiedSword) InitRenderObjectWithXml("basicattackrevenant");
-	else {}; //InitRenderObjectWithXml("basicWithPurifiedSword")
+	else { InitRenderObjectWithXml("basicwithpurifiedsword"); };
 
 	for (int i = 0; i < 11; i++)
 	{
@@ -11,18 +11,20 @@ ParticleAttackRevenant::ParticleAttackRevenant(iPoint position, int rot, float l
 	}
 	this->anim.loop = false;
 	this->anim.hasIdle = false;
-	this->anim.speed = 0.7f;
-
-	this->rotation = rot;
+	this->anim.speed = 2.0f;
+	if (rot == 180)
+	{
+		renderObjects[0].flip = SDL_FLIP_HORIZONTAL;
+	}
+	else
+	{
+		this->rotation = rot;
+	}
 }
 
 ParticleAttackRevenant::~ParticleAttackRevenant()
 {
 }
 
-void ParticleAttackRevenant::PostUpdate()
-{
-	Particle::PostUpdate();
-}
 
 

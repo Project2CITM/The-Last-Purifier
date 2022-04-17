@@ -6,10 +6,9 @@ class ParticleAttackSage :
 {
 public:
 
-	ParticleAttackSage(iPoint position, float life = 0, float delay = 0, iPoint velocity = { 0,0 }, std::string name = "Particle");
+	ParticleAttackSage(iPoint position,int rot, float life = 0, float delay = 0, iPoint velocity = { 0,0 }, std::string name = "Particle");
 
 	~ParticleAttackSage();
-public:
 	
 };
 

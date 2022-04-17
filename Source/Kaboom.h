@@ -1,5 +1,5 @@
-﻿#ifndef __GHOUL_H__
-#define __GHOUL_H__
+#ifndef __KABOOM_H__
+#define __KABOOM_H__
 
 #include "Enemy.h"
 #include "PlayerController.h"
@@ -7,7 +7,7 @@
 class Trigger;
 class DamageArea;
 
-enum class GhoulState
+enum class KaboomState
 {
 	IDLE = 0,
 	RUN,
@@ -17,12 +17,12 @@ enum class GhoulState
 	MAX
 };
 
-class Ghoul : public Enemy
+class Kaboom : public Enemy
 {
 public:
-	Ghoul(iPoint pos);
+	Kaboom(iPoint pos);
 
-	~Ghoul();
+	~Kaboom();
 
 	void PreUpdate() override;
 
@@ -40,7 +40,7 @@ public:
 
 	void UpdateStates();
 
-protected:
+private:
 
 	void InitAnimation();
 
@@ -52,11 +52,11 @@ protected:
 
 	void DoRun();
 
-	void ResetAttackCoolDown();
+	void ChangeColor();
 
 private:
 
-	Animation animations[(int)GhoulState::MAX];
+	Animation animations[(int)KaboomState::MAX];
 
 	StateMachine stateMachine;
 
@@ -64,15 +64,25 @@ private:
 
 	PlayerController* player = nullptr;
 
-	Trigger* detectTrigger = nullptr;  // saber si jugador esta en rango de ataque
+	Trigger* detectTrigger = nullptr;
 
-	Trigger* damageTrigger = nullptr; // recibe y hace dany
+	Trigger* damageTrigger = nullptr;
 
-	DamageArea* attack = nullptr; // ataque al jugador
+	DamageArea* attack = nullptr;
+
+	int attackCoolDown = 15; // frame
 
 	bool detectPlayer = false;
 
-	int attackCoolDown = 10;
+	// Effects
+
+	int changeColorTime = 20; // frame
+
+	int currentColorTime = 20; // frame
+
+	bool isFirstColor = true;
+
+	SDL_Color kaboomColors[2];
 };
 
-#endif // !__GHOUL_H__
+#endif // !__KABOOM_H__

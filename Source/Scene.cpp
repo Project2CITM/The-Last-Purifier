@@ -40,7 +40,6 @@ bool Scene::PreUpdate()
 		{
 			if (gameObjects[i]->pendingToDelete)
 			{
-				gameObjects[i]->CleanUp();
 				DestroyGameObject(gameObjects[i]);
 			}
 			else gameObjects[i]->PreUpdate();
