@@ -44,10 +44,10 @@ void Trigger::Update()
 		return;
 	}
 
-	if (followFather)
-	{
-		SetPosition(parent->GetPosition() + positionOffset);
-	}
+	if (!followFather) return;
+	
+	SetPosition(parent->GetPosition() + positionOffset);
+	
 }
 
 void Trigger::OnCollisionEnter(PhysBody* col)

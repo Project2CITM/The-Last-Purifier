@@ -65,6 +65,7 @@ bool Scene::PreUpdate()
 bool Scene::Update()
 {
 	if (app->isPause) return true;
+
 	for (int i = 0; i < gameObjects.count(); i++)
 	{
 		if (gameObjects[i] && gameObjects[i]->enable) gameObjects[i]->Update();
