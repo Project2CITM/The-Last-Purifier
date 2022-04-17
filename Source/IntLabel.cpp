@@ -26,6 +26,7 @@ IntLabel::~IntLabel()
 void IntLabel::Start()
 {
 	text = new Text(textPosition, " ");
+	text->ChangeDrawMode();
 	//text->SetColor({ 197 ,20 , 0, 255 });
 	//text->ChangeDrawMode();
 }

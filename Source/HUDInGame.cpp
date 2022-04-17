@@ -280,6 +280,7 @@ bool HUDInGame::Update()
 			}
 		}
 	}
+
 	Scene::Update();
 
 	return true;

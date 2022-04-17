@@ -115,7 +115,8 @@ void NPC::OnTriggerExit(std::string trigger, PhysBody* col)
 {
 	if (col->gameObject == nullptr) return;
 
-	if (col->gameObject->name == "Player") {
+	if (col->gameObject->name == "Player") 
+	{
 		LOG("Exit");
 		nearNpc = false;
 		speaking = false;

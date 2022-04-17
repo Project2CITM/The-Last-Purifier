@@ -13,7 +13,6 @@
 #include "PlayerCombat.h"
 #include "ModuleEvents.h"
 
-
 HubScene::HubScene() : SceneGame("HubScene")
 {
 
@@ -102,6 +101,8 @@ bool HubScene::Start()
 
 	Scene::Start();
 	player->controller->SetPosition(startPosition);
+	
+	//t->ChangeDrawMode();
 
 	InitScene();
 	//NPC creators
@@ -185,7 +186,7 @@ bool HubScene::Update()
 
 	int x = player->controller->GetPosition().x;
 	int y = player->controller->GetPosition().y;
-	LOG("x:%d \n y:%d", x, y);
+	//LOG("x:%d \n y:%d", x, y);
 	Scene::Update();
 	return true;
 }

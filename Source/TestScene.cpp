@@ -58,7 +58,6 @@ bool TestScene::Start()
     p->renderObjects[0].InitAsRect({ p->GetPosition().x,p->GetPosition().y,50,50 }, { 0,255,0,255 }, true, 3);
 
     // Test text
-    //t =  new Text({ 0,0 },"");
     //t->SetText("Hello world");
     //advisor = new Text({ 0,0 },"","defaultFont");
     //t->SetColor({ 255,255,0,100 });
@@ -81,6 +80,8 @@ bool TestScene::Start()
     // new Ghoul(player->controller->GetPosition() + iPoint(-100, 0));
 
     new Worm(player->controller->GetPosition() + iPoint(-100, 0));
+
+    //new Text(player->controller->GetPosition() + iPoint(-100, 0), "H");
 
     return true;
 }

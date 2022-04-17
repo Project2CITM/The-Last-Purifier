@@ -15,7 +15,7 @@ Text::Text(iPoint position, std::string text, std::string font) : position(posit
 
 	int height = app->config.child("fonts").child(font.c_str()).attribute("height").as_int(1);
 
-	int layer = app->config.child("fonts").child(font.c_str()).attribute("height").as_int(1);
+	int layer = app->config.child("fonts").child(font.c_str()).attribute("layer").as_int(1);
 
 	float orderInLayer = app->config.child("fonts").child(font.c_str()).attribute("orderInLayer").as_float(1);
 
@@ -26,10 +26,10 @@ Text::Text(iPoint position, std::string text, std::string font) : position(posit
 	// Init Color
 	SDL_Color color;
 
-	color.r = app->config.child("fonts").child(font.c_str()).attribute("r").as_int(0);
-	color.g = app->config.child("fonts").child(font.c_str()).attribute("r").as_int(0);
-	color.b = app->config.child("fonts").child(font.c_str()).attribute("r").as_int(0);
-	color.a = app->config.child("fonts").child(font.c_str()).attribute("r").as_int(255);
+	color.r = app->config.child("fonts").child(font.c_str()).attribute("r").as_int(255);
+	color.g = app->config.child("fonts").child(font.c_str()).attribute("g").as_int(255);
+	color.b = app->config.child("fonts").child(font.c_str()).attribute("b").as_int(255);
+	color.a = app->config.child("fonts").child(font.c_str()).attribute("a").as_int(255);
 
 	SetColor(color);
 
@@ -44,6 +44,7 @@ Text::Text(iPoint position, std::string text, std::string font) : position(posit
 	// Init renderObjecy
 	textRO.InitAsTexture(tex, position, { 0,0,width,height }, scale, layer, orderInLayer);
 	textRO.speedRegardCamera = 0;
+	textRO.name = "Text";
 
 	// Add this text in current scen text list
 	app->scene->scenes[app->scene->currentScene]->AddText(this);
