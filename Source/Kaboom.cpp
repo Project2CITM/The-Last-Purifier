@@ -77,6 +77,7 @@ void Kaboom::Hit(int damage)
 	animations[stateMachine.GetCurrentState()].Reset();
 
 	renderObjects[0].SetColor({ 255,164,164,100 });
+	printf("Boom:%d \n", health);
 
 	Enemy::Hit(damage);
 }

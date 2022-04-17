@@ -52,7 +52,7 @@ void Enemy::OnTriggerEnter(std::string trigger, PhysBody* col)
 	{
 		DamageArea* takenDamage = (DamageArea*)col->gameObject;
 
-		Hit(*takenDamage->damage);
+		Hit(takenDamage->GetDamage());
 	}
 }
 
@@ -64,5 +64,6 @@ void Enemy::Hit(int damage)
 
 void Enemy::Die()
 {
+	isDie = true;
 	pendingToDelete = true;
 }

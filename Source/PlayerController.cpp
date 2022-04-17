@@ -439,7 +439,7 @@ void PlayerController::OnTriggerEnter(std::string trigger, PhysBody* col)
 	if (col->gameObject->name == "DamageArea")
 	{
 		DamageArea* dArea = (DamageArea*)col->gameObject;
-		if (dArea->damage != nullptr)Hit(*dArea->damage);
+		if (dArea->damage != nullptr)Hit(dArea->GetDamage());
 		if (dArea->stunTime != nullptr)Stun(*dArea->stunTime);
 	}
 
@@ -450,7 +450,6 @@ void PlayerController::OnTriggerEnter(std::string trigger, PhysBody* col)
 		Enemy* enemy = (Enemy*)enemyTrigger->GetParent();
 
 		if (enemy == nullptr) return;
-
 		Hit(enemy->GetDamage());
 	}
 }

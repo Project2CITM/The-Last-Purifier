@@ -20,6 +20,7 @@ Ghoul::Ghoul(iPoint pos) : Enemy("ghoul")
 	moveSpeed = 2;
 
 	damage = 5;
+	
 
 	attackCoolDown = 10; // frame
 
@@ -77,6 +78,8 @@ void Ghoul::Hit(int damage)
 	animations[stateMachine.GetCurrentState()].Reset();
 
 	renderObjects[0].SetColor({ 255,164,164,100 });
+
+	printf("Ghoul:%d \n", health);
 
 	Enemy::Hit(damage);
 }
