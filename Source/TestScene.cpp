@@ -58,16 +58,14 @@ bool TestScene::Start()
     classTreeHud = new ClassTreeHud();
     classTreeHud->Start();
 
-    //new NPC("purifier1", { 0,0 });
-    //NPC* npc1 = new NPC("purifier10", { 300,150 });
-    //NPC* npc2 =new NPC("purifier10", { 40,100 });
-
     Scene::Start();
 
     spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-40, 0));
     spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-80, 0));
      
     new Kaboom(player->controller->GetPosition() + iPoint(-100, 0));
+
+    new Ghoul(player->controller->GetPosition() + iPoint(-100, 0));
 
     return true;
 }

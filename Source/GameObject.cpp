@@ -77,6 +77,7 @@ void GameObject::PostUpdate()
 	for (int i = 0; i < MAX_GAMEOBJECT_TEXTURES; i++)
 	{
 		if (!renderObjects[i].draw) continue;
+
 		switch (renderObjects[i].type)
 		{
 		case RenderType::RENDER_TEXTURE:
@@ -86,18 +87,13 @@ void GameObject::PostUpdate()
 				renderObjects[i].destRect.y = GetDrawPosition(i).y;
 				renderObjects[i].rotation = GetDegreeAngle();
 
-				app->renderer->AddTextureRenderQueue(renderObjects[i].texture, { renderObjects[i].destRect.x,renderObjects[i].destRect.y },
-					renderObjects[i].section, renderObjects[i].scale, renderObjects[i].layer, renderObjects[i].orderInLayer,
-					renderObjects[i].rotation, renderObjects[i].flip, renderObjects[i].speedRegardCamera);
+				app->renderer->AddRenderObjectRenderQueue(renderObjects[i]);
 			}
 			break;
 		case RenderType::RENDER_CIRCLE:
-			break;
 		case RenderType::RENDER_LINE:
-			break;
 		case RenderType::RENDER_RECT:
-			app->renderer->AddRectRenderQueue(renderObjects[i].destRect, renderObjects[i].color, renderObjects[i].filled, renderObjects[i].layer,
-				renderObjects[i].orderInLayer, renderObjects[i].speedRegardCamera);
+			app->renderer->AddRenderObjectRenderQueue(renderObjects[i]);
 			break;	
 		}		
 	}
@@ -123,16 +119,10 @@ iPoint GameObject::GetDrawPosition(int index)
 	{
 		b2Vec2 pos;
 
-		float scale = pBody->gameObject->renderObjects[index].scale;
-
 		pos = pBody->body->GetPosition();
 
-		float x = pBody->gameObject->renderObjects[index].textureCenterX * scale;
-
-		float y = pBody->gameObject->renderObjects[index].textureCenterY * scale;
-
-		pos.x = METERS_TO_PIXELS(pos.x) - x;
-		pos.y = METERS_TO_PIXELS(pos.y) - y;
+		pos.x = METERS_TO_PIXELS(pos.x) - pBody->gameObject->renderObjects[index].textureCenterX;
+		pos.y = METERS_TO_PIXELS(pos.y) - pBody->gameObject->renderObjects[index].textureCenterY;
 
 		return { (int)pos.x, (int)pos.y };
 	}

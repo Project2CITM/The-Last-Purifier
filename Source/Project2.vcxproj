@@ -161,6 +161,7 @@
     <ClInclude Include="Text.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Trigger.h" />
+    <ClInclude Include="Worm.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
@@ -227,6 +228,7 @@
     <ClCompile Include="TestSpell.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Trigger.cpp" />
+    <ClCompile Include="Worm.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
