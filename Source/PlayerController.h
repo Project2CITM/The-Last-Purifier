@@ -67,6 +67,10 @@ public:
 
 	bool canControl = true;
 
+	Animation animations[PLAYER_ANIMATIONS_NUM];
+
+	iPoint textureOffset = { 0,0 };
+
 private:
 	void CreatePhysBody();
 
@@ -78,8 +82,6 @@ private:
 	void DashOn();
 
 	fPoint GetPlayerToMouseVector();
-
-	Animation animations[PLAYER_ANIMATIONS_NUM];
 
 	float speed = 12.0f;	//5
 	bool isDashing = false;

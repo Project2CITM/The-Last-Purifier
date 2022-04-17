@@ -83,6 +83,8 @@ void Ghoul::Hit(int damage)
 
 void Ghoul::OnTriggerEnter(std::string trigger, PhysBody* col)
 {
+	if (col->gameObject == nullptr) return;
+
 	if(trigger=="EnemyDetectPlayer")
 	{
 		if (col->gameObject->name == "Player")
@@ -96,6 +98,8 @@ void Ghoul::OnTriggerEnter(std::string trigger, PhysBody* col)
 
 void Ghoul::OnTriggerExit(std::string trigger, PhysBody* col)
 {
+	if (col->gameObject == nullptr) return;
+
 	if (trigger == "EnemyDetectPlayer")
 	{
 		if (col->gameObject->name == "Player")

@@ -28,7 +28,7 @@ bool TestScene::Start()
 {
     //advisorString = "hi";
 
-    player = new PlayerRevenant();
+    player = new PlayerSage();
 
     spawnManager = SpellSpawnManager::GetInstance();
 

@@ -83,6 +83,8 @@ void Kaboom::Hit(int damage)
 
 void Kaboom::OnTriggerEnter(std::string trigger, PhysBody* col)
 {
+	if (col->gameObject == nullptr) return;
+
 	if (trigger == "EnemyDetectPlayer")
 	{
 		if (col->gameObject->name == "Player")
@@ -96,6 +98,8 @@ void Kaboom::OnTriggerEnter(std::string trigger, PhysBody* col)
 
 void Kaboom::OnTriggerExit(std::string trigger, PhysBody* col)
 {
+	if (col->gameObject == nullptr) return;
+
 	if (trigger == "EnemyDetectPlayer")
 	{
 		if (col->gameObject->name == "Player")

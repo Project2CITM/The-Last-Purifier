@@ -96,7 +96,9 @@ void NPC::CleanUp()
 	//RELEASE(text); //No funciona no quitar barras
 }
 
-void NPC::OnTriggerEnter(std::string trigger, PhysBody* col) {
+void NPC::OnTriggerEnter(std::string trigger, PhysBody* col)
+{
+	if (col->gameObject == nullptr) return;
 
 	if (col->gameObject->name == "Player") 
 	{
@@ -109,7 +111,9 @@ void NPC::OnTriggerEnter(std::string trigger, PhysBody* col) {
 		}	
 	}
 }
-void NPC::OnTriggerExit(std::string trigger, PhysBody* col) {
+void NPC::OnTriggerExit(std::string trigger, PhysBody* col) 
+{
+	if (col->gameObject == nullptr) return;
 
 	if (col->gameObject->name == "Player") {
 		LOG("Exit");

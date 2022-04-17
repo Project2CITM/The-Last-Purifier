@@ -53,6 +53,8 @@ void IntLabel::CleanUp()
 
 void IntLabel::OnTriggerEnter(std::string trigger, PhysBody* col)
 {
+	if (col->gameObject == nullptr) return;
+
 	if (col->gameObject->name == "Player")
 	{
 		nearNpc = true;
@@ -66,6 +68,8 @@ void IntLabel::OnTriggerEnter(std::string trigger, PhysBody* col)
 
 void IntLabel::OnTriggerExit(std::string trigger, PhysBody* col)
 {
+	if (col->gameObject == nullptr) return;
+
 	if (col->gameObject->name == "Player") {
 		nearNpc = false;
 		speaking = false;
