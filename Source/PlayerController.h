@@ -65,6 +65,8 @@ public:
 
 	PlayerCombat* combat = nullptr;
 
+	bool canControl = true;
+
 private:
 	void CreatePhysBody();
 

@@ -82,6 +82,7 @@ UpdateStatus ModuleRender::Update()
 // PostUpdate present buffer to screen
 UpdateStatus ModuleRender::PostUpdate()
 {
+	
 	app->physics->ShapesRender();
 
 	// Sorting layers

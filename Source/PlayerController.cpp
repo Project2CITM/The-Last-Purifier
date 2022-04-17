@@ -101,13 +101,18 @@ void PlayerController::PreUpdate()
 	// This is done to prevent drifting when applying forces from other bodies into the player body.
 	if (!isDashing)pBody->body->SetLinearVelocity(b2Vec2(0, 0));
 
-	// Get Movement Input
-	if (app->input->usingGameController) MovementUpdateController();
-	else MovementUpdateKeyboard();
+	// If player control is available
+	if (canControl)
+	{
+		// Get Movement Input
+		if (app->input->usingGameController) MovementUpdateController();
+		else MovementUpdateKeyboard();
 
-	// Get Combat Input
-	CombatUpdate();
+		// Get Combat Input
+		CombatUpdate();
 
+	}
+	
 	// If our current animation has finished, we reset it manually. This is made for DASH and ATTACK animations.
 	// When these animations end, you must Reset them for the next time you'll use them
 	if (animations[(int)currentAnim].HasFinished()) animations[(int)currentAnim].Reset();
