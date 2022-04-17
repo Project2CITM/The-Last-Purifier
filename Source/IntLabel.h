@@ -9,7 +9,7 @@ class Trigger;
 class IntLabel : public GameObject
 {
 public:
-	IntLabel(std::string sentence, std::string name, iPoint position, int radius = 40);
+	IntLabel(std::string sentence, std::string name, iPoint position, iPoint textPos = { 255 , 20 }, int radius = 40);
 	~IntLabel();
 
 	void Start() override;
@@ -40,8 +40,5 @@ private:
 	Text* text = nullptr;
 
 	Trigger* trigger = nullptr;
-
-private:
-	void pixelCalculator();
 };
 

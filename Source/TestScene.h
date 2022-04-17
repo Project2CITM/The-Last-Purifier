@@ -39,7 +39,6 @@ private:
 
 	RoomManager roomManager;
 	HUDInGame* hudInGame = nullptr;
-	ClassTreeHud* classTreeHud = nullptr;
 
 	ClassTree* revenantTree = nullptr; //Test skill/spell tree
 

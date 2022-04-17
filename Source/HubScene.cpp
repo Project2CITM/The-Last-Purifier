@@ -100,11 +100,12 @@ bool HubScene::Start()
 	NPC* npc4 = new NPC("purifier6", {928,1867});//Puerta Castillo
 	npc4->Start();
 
+	revenantInstructor = new Instructor("What do you need ?", "RevenantInstructor", { 1016, 855 });
 
 	//Labels
-	IntLabel* int_lbl_Revenant = new IntLabel("REVENANT INSTRUCTOR", "Lbl_Revenant", { 1014, 939 }, 150);
-	IntLabel* int_lbl_Sage = new IntLabel("SAGE INSTRUCTOR", "Lbl_Sage", { 553, 1510 }, 180);
-	IntLabel* int_lbl_Gate = new IntLabel("DOOM'S GATE", "Lbl_Doom", { 1271, 211 }, 200);
+	IntLabel* int_lbl_Revenant = new IntLabel("REVENANT INSTRUCTOR", "Lbl_Revenant", { 1014, 939 }, { 255 , 20 },  150);
+	IntLabel* int_lbl_Sage = new IntLabel("SAGE INSTRUCTOR", "Lbl_Sage", { 553, 1510 }, { 270 , 20 }, 180);
+	IntLabel* int_lbl_Gate = new IntLabel("DOOM'S GATE", "Lbl_Doom", { 1271, 211 }, { 295 , 20 }, 200);
 
 	return true;
 }

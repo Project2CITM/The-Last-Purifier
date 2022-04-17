@@ -21,6 +21,7 @@
   <textures>
      <ghoul width = "32" height = "32" layer = "1" orderInLayer = "3.0" scale = "1" path="Assets/Sprites/Enemies/Ghoul/Ghoul.png"/>
      <npc width = "70" height = "95" layer = "1" orderInLayer = "3.0" scale = "0.3" path="Assets/Sprites/NPC/npcIdleAnim.png"/>
+     <revenantInstructor width = "70" height = "95" layer = "1" orderInLayer = "3.0" scale = "0.3" path="Assets/Sprites/NPC/revenantInstructor.png"/>
 	 <basicattackrevenant width = "64" height = "64" layer = "1" orderInLayer = "3.0" scale = "1" path="Assets/Sprites/Player/Revenant/basicAttackRevenant.png"/>
   </textures>
   <fonts>
@@ -33,7 +34,7 @@
 		  <Sentence2>No se que haces aqui pero vuelve rapido a la aldea, aqui corres peligro</Sentence2>
 		  <Sentence3>...</Sentence3>
 		  <Sentence4>¡Espera! Antes de irte toma este guante, le vas a dar mejor uso que yo en este momento.¡Corre!</Sentence4>
-		 
+
 	  </purifier1>
 	  <doorGuardian Num="3">
 		  <Sentence1> Quien eres y que haces fuera de la aldea sin un protector</Sentence1>
@@ -96,7 +97,7 @@
 	  </purifier5>
 	  <purifier6 Num="2">
 		  <Sentence1>
-			          Que ganas que llegue el gran dia. 
+			          Que ganas que llegue el gran dia.
 		  </Sentence1>
 		  <Sentence2>
 			  Segun la profecia, será el dia en el que llegue nuestro salvador.
@@ -114,7 +115,7 @@
 	  </purifier8>
 	  <purifier9 Num="2">
 		  <Sentence1>
-			          Nadie ha llegado aun al tercer piso. 
+			          Nadie ha llegado aun al tercer piso.
 		  </Sentence1>
 		  <Sentence2>
 			           Me pregunto que habra ahi.
@@ -129,7 +130,7 @@
 		  </Sentence2>
 		  <Sentence3>
 			           Sigo esperando que vuelva algun dia.
-		  </Sentence3> 
+		  </Sentence3>
 	  </purifier10>
 
   </dialogText>

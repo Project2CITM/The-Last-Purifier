@@ -55,9 +55,6 @@ bool TestScene::Start()
     hudInGame->Start();
     roomManager.Start();
 
-    classTreeHud = new ClassTreeHud();
-    classTreeHud->Start();
-
     //new NPC("purifier1", { 0,0 });
     //NPC* npc1 = new NPC("purifier10", { 300,150 });
     //NPC* npc2 =new NPC("purifier10", { 40,100 });
@@ -111,7 +108,6 @@ bool TestScene::PreUpdate()
 
     hudInGame->PreUpdate();
     revenantTree->PreUpdate();
-    classTreeHud->PreUpdate();
 
     //printf("%d  %d \n", player->controller->GetPosition().x, player->controller->GetPosition().y);
     Scene::PreUpdate();
@@ -135,7 +131,6 @@ bool TestScene::Update()
     roomManager.Update(player->controller->GetPosition());
     hudInGame->Update();
     revenantTree->Update();
-    classTreeHud->Update();
     Scene::Update();
     return true;
 }
@@ -159,7 +154,6 @@ bool TestScene::PostUpdate()
     //app->renderer->AddRectRenderQueue(SDL_Rect{ 50,50,50,50 }, SDL_Color{ 0,0,255,255 }, true, 2, 50);
     roomManager.PostUpdate();
     revenantTree->PostUpdate();
-    classTreeHud->PostUpdate();
     //app->physics->ShapesRender();
     hudInGame->PostUpdate();
     Scene::PostUpdate();
@@ -181,11 +175,6 @@ bool TestScene::CleanUp()
     {
         hudInGame->CleanUp();
         RELEASE(hudInGame);
-    }
-    if (classTreeHud != nullptr)
-    {
-        classTreeHud->CleanUp();
-        RELEASE(classTreeHud);
     }
     roomManager.CleanUp();
 

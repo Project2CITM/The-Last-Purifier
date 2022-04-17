@@ -1,6 +1,7 @@
 #pragma once
 #include "SceneGame.h"
 #include "HUDInGame.h"
+#include "Instructor.h"
 
 #define HUB_MAP "Main_Hub.tmx"
 class Player;
@@ -28,5 +29,8 @@ private:
 
 	HUDInGame* hudInGame = nullptr;
 
-	iPoint startPosition = { 969, 1485 };
+	iPoint startPosition = { 1017, 1054 }; //{ 969, 1485 };
+
+	Instructor* revenantInstructor = nullptr;
+
 };
