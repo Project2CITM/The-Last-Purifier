@@ -2,7 +2,7 @@
 
 ParticleAttackRevenant::ParticleAttackRevenant(iPoint position, int rot, float life, float delay, bool hasPurifiedSword, iPoint velocity, std::string name):Particle(position,life,delay,velocity,name)
 {
-	if (!hasPurifiedSword) InitRenderObjectWithXml("basicwithpurifiedsword");//InitRenderObjectWithXml("basicattackrevenant");
+	if (!hasPurifiedSword) InitRenderObjectWithXml("basicattackrevenant");
 	else { InitRenderObjectWithXml("basicwithpurifiedsword"); };
 
 	for (int i = 0; i < 11; i++)
