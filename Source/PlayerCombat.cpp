@@ -232,19 +232,19 @@ void PlayerCombat::RevenantAttack()
 	switch (player->controller->lookingDir)
 	{
 	case LookingDirection::DOWN:
-		particleOffset = { -40, -25 };
+		particleOffset = { -25, -30 };
 		particleRotation = 90;
 		break;
 	case LookingDirection::UP:
-		particleOffset = { -40, -25 };
+		particleOffset = { -25, -20 };
 		particleRotation = 270;
 		break;
 	case LookingDirection::LEFT:
-		particleOffset = {-30, -25 };
+		particleOffset = {-20, -25 };
 		particleRotation = 180;
 		break;
 	case LookingDirection::RIGHT:
-		particleOffset = { -40, -25 };
+		particleOffset = { -30, -25 };
 		particleRotation = 0;
 		break;
 

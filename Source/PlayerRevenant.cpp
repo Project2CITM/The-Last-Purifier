@@ -38,4 +38,12 @@ PlayerRevenant::PlayerRevenant() : Player()
 		controller->animations[(int)PlayerAnim::RUN].PushBack({ 64 * i, 60, 64, 30 });
 		controller->animations[(int)PlayerAnim::RUN].loop = true;
 	}
+
+	for (int i = 0; i < PLAYER_ANIMATIONS_NUM; i++)
+	{
+		controller->animations[i].speed = 0.2f;
+		controller->animations[i].hasIdle = false;
+	}
+
+	controller->animations[(int)PlayerAnim::DASH].speed = 0.4f;
 }

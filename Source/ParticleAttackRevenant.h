@@ -12,8 +12,6 @@ public:
 
 	~ParticleAttackRevenant();
 
-	void PostUpdate() override;
-
 };
 
 #endif // !__PARTICLE_ATTACK_REVENANT_H__

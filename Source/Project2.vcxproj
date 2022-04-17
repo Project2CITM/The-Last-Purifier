@@ -134,7 +134,9 @@
     <ClInclude Include="ParticleAttackKaboom.h" />
     <ClInclude Include="ParticleAttackRevenant.h" />
     <ClInclude Include="ParticleAttackSage.h" />
+    <ClInclude Include="ParticleExplodeEkriksi.h" />
     <ClInclude Include="ParticleHitSage.h" />
+    <ClInclude Include="PaticleHitFotieros.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerCombat.h" />
     <ClInclude Include="PlayerController.h" />
@@ -204,7 +206,9 @@
     <ClCompile Include="ParticleAttackKaboom.cpp" />
     <ClCompile Include="ParticleAttackRevenant.cpp" />
     <ClCompile Include="ParticleAttackSage.cpp" />
+    <ClCompile Include="ParticleExplodeEkriksi.cpp" />
     <ClCompile Include="ParticleHitSage.cpp" />
+    <ClCompile Include="PaticleHitFotieros.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerCombat.cpp" />
     <ClCompile Include="PlayerController.cpp" />
