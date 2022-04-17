@@ -7,7 +7,7 @@
 
 ClassTreeHud::ClassTreeHud() : Scene("ClassTreeHud")
 {
-
+	Start();
 }
 
 ClassTreeHud::~ClassTreeHud()
@@ -63,10 +63,10 @@ bool ClassTreeHud::CleanUp()
 
 bool ClassTreeHud::PreUpdate()
 {
-	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	/*if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
 		active = !active;
-	}
+	}*/
 
 	Scene::PreUpdate();
 
@@ -75,7 +75,7 @@ bool ClassTreeHud::PreUpdate()
 
 bool ClassTreeHud::Update()
 {
-	if (!active) return true;
+	//if (!active) return true;
 
 
 
@@ -84,7 +84,7 @@ bool ClassTreeHud::Update()
 
 bool ClassTreeHud::PostUpdate()
 {
-	if (!active) return true;
+	//if (!active) return true;
 
 	//
 

@@ -1,6 +1,7 @@
 #pragma once
 #include "SceneGame.h"
 #include "HUDInGame.h"
+#include "Instructor.h"
 
 #define HUB_MAP "Main_Hub.tmx"
 class Player;
@@ -24,9 +25,17 @@ public:
 	void AddGUIControls(GUI* gui) override;
 	void AddGUISettingsP(GUI* gui) override;
 
+	void ChangePlayer();
+
 private:
+
+	bool isChangingPlayer = false;
+	iPoint playerPos = { 0,0 }; // Use only for ChangePlayer function, NOT THE ACTUAL PLAYER POSITION!!!
 
 	HUDInGame* hudInGame = nullptr;
 
-	iPoint startPosition = { 969, 1485 };
+	iPoint startPosition = { 1017, 1054 }; //{ 969, 1485 };
+
+	Instructor* revenantInstructor = nullptr;
+
 };

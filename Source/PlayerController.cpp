@@ -41,6 +41,7 @@ void PlayerController::Start()
 
 void PlayerController::PreUpdate()
 {
+	if (pendingToDelete) return;
 	// Check dash cooldown
 	if (isDashing)
 	{
@@ -80,6 +81,7 @@ void PlayerController::PreUpdate()
 
 void PlayerController::Update()
 {
+	if (pendingToDelete) return;
 	// Update State Machine
 	stateMachine.Update();
 
@@ -92,6 +94,7 @@ void PlayerController::Update()
 
 void PlayerController::PostUpdate()
 {
+	if (pendingToDelete) return;
 	// Update current Animation state 
 	// For now it is the same as Player State, if this changes overtime, there has to be a switch here to translate between current player State
 	// and current Animation State

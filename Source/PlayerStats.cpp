@@ -56,15 +56,18 @@ void PlayerStats::UpdatePlayerStats()
 void PlayerStats::GameEventTriggered()
 {
 	
-	pugi::xml_node n = playerValuesXml.child("stats").child("common");
+	pugi::xml_node n = playerValuesXml.child("stats");
 
-	n.child("souls").attribute("quantity") = player->souls;
+	n.child("currentClass").attribute("class") = (int)player->playerClass;
+
+	n.child("common").child("souls").attribute("quantity") = player->souls;
 
 	playerValuesXml.save_file("PlayerStats.xml");
 }
 
 void PlayerStats::CleanUp()
 {
+	app->events->RemoveListener(this);
 }
 
 

@@ -46,7 +46,7 @@ public:
 
 	iPoint playerPos = { 0,0 };
 
-private:
+protected:
 	Text* text = nullptr;
 
 	pugi::xml_node configDialog;

@@ -43,5 +43,5 @@ PlayerSage::PlayerSage() : Player()
 		controller->animations[i].hasIdle = false;
 	}
 
-	controller->animations[(int)PlayerAnim::DASH].speed = 0.3f;
+	controller->animations[(int)PlayerAnim::DASH].speed = 0.25f;
 }

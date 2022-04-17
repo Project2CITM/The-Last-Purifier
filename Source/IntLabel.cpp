@@ -5,14 +5,14 @@
 
 #include <iostream>
 
-IntLabel::IntLabel(std::string sentence, std::string name, iPoint position, int radius) : GameObject (name, "Label")
+IntLabel::IntLabel(std::string sentence, std::string name, iPoint position, iPoint textPos, int radius) : GameObject (name, "Label")
 {
 	this->sentence = sentence;
 	this->name = name;
 	this->position = position;
 
 
-	textPosition = { 255 , 20 };
+	textPosition = textPos;
 	trigger = new Trigger({ position.x + 10,position.y + 10 }, radius, this, "triggerLabel", false);
 
 	Start();

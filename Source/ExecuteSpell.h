@@ -10,6 +10,8 @@ class ExecuteSpell
 public:
 	ExecuteSpell();
 
+	void Start();
+
 	bool Execute(SpellInfo* spell);
 
 	void CleanUp();

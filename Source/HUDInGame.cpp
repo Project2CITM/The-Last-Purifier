@@ -382,3 +382,8 @@ bool HUDInGame::CleanUp()
 
 	return true;
 }
+
+void HUDInGame::GetPlayerCombat(PlayerCombat* playerC)
+{
+	player = playerC;
+}

@@ -26,6 +26,7 @@ void PlayerCombat::Start()
 	revenantAttack->pBody->body->SetActive(false);
 
 	executeSpellCommand = new ExecuteSpell();
+	executeSpellCommand->Start();
 
 	// Attack action stats
 	attackCD = player->attackSpeed;
