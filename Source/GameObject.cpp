@@ -54,7 +54,6 @@ void GameObject::OnTriggerExit(std::string trigger, PhysBody* col)
 
 void GameObject::Start()
 {
-	//Cargar texturas
 }
 
 void GameObject::PreUpdate()
@@ -63,12 +62,8 @@ void GameObject::PreUpdate()
 
 void GameObject::Update()
 {
+	// Update position use b2Body, is this exist
 	position = GetPosition();
-	//for (int i = 0; i < MAX_GAMEOBJECT_TEXTURES; i++)
-	//{
-	//	renderObjects[i].destRect.x = position.x;
-	//	renderObjects[i].destRect.y = position.y;
-	//}
 }
 
 void GameObject::PostUpdate()

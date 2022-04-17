@@ -33,7 +33,7 @@ void Enemy::PostUpdate()
 
 void Enemy::CleanUp()
 {
-	if (!spawnManager->IsDeleted()) spawnManager->SpawnSpell(GetPosition());
+	
 }
 
 void Enemy::OnCollisionEnter(PhysBody* col)
@@ -62,8 +62,11 @@ void Enemy::Hit(int damage)
 	if (health <= 0) Die();
 }
 
-void Enemy::Die()
+void Enemy::Die(bool spawnPower)
 {
+	if (!spawnManager->IsDeleted() && spawnPower) spawnManager->SpawnSpell(GetPosition());
+
 	isDie = true;
+
 	pendingToDelete = true;
 }

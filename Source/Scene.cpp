@@ -34,25 +34,29 @@ bool Scene::PreUpdate()
 {
 	if (app->isPause) return true;
 
+	int num = 0;
+
 	for (int i = 0; i < gameObjects.count(); i++)
 	{
-		if (gameObjects[i] && gameObjects[i]->enable)
+		if (!gameObjects[i]) continue;
+
+		if (gameObjects[i]->pendingToDelete)
 		{
-			if (gameObjects[i]->pendingToDelete)
-			{
-				DestroyGameObject(gameObjects[i]);
-			}
-			else gameObjects[i]->PreUpdate();
+			num++;
+			if (gameObjects[i]->tag == "Enemy")printf("kill Enemy : %d\n", num);
+			DestroyGameObject(gameObjects[i]);
 		}
+
+		else if (gameObjects[i]->enable)gameObjects[i]->PreUpdate();
 	}
 
 	for (int i = 0; i < texts.count(); i++)
 	{
-		if (texts[i])
-		{
-			if (texts[i]->pendingToDelate) DestroyText(texts[i]);
-			else texts[i]->PreUpdate();
-		}
+		if (!texts[i]) continue;
+
+		if (texts[i]->pendingToDelate) DestroyText(texts[i]);
+
+		else texts[i]->PreUpdate();
 	}
 
 	return true;

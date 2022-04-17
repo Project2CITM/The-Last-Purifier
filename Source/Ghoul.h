@@ -36,11 +36,11 @@ public:
 
 	void OnTriggerExit(std::string trigger, PhysBody* col) override;
 
-	void Die() override;
+	void GoDie();
 
 	void UpdateStates();
 
-protected:
+private:
 
 	void InitAnimation();
 

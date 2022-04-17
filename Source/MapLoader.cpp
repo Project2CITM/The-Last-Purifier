@@ -110,26 +110,25 @@ void MapLoader::CreateEnemies(Room* r)
 				int rand = std::rand() % 2;
 				Enemy* g1 = nullptr;
 				
-				if (rand == 0) {
+				if (rand == 0) 
+				{
 					g1 = new Ghoul(iPoint(
 						r->roomPosition.x * MAX_ROOM_TILES_COLUMNS * TILE_SIZE + j * TILE_SIZE + TILE_SIZE / 2,
 						r->roomPosition.y * MAX_ROOM_TILES_ROWS * TILE_SIZE + i * TILE_SIZE + TILE_SIZE / 2));
 				}
-				else {
+				else 
+				{
 					g1 = new Kaboom(iPoint(
 						r->roomPosition.x * MAX_ROOM_TILES_COLUMNS * TILE_SIZE + j * TILE_SIZE + TILE_SIZE / 2,
 						r->roomPosition.y * MAX_ROOM_TILES_ROWS * TILE_SIZE + i * TILE_SIZE + TILE_SIZE / 2));
 				}
-					r->enemies.add(g1);
-					g1->enable = false;
+				r->enemies.add(g1);
+				g1->enable = false;
 				
 			}
 				break;
 			
-
-			}
-			
-			
+			}		
 
 			tile = tile.next_sibling();
 		}

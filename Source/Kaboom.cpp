@@ -41,6 +41,11 @@ Kaboom::Kaboom(iPoint pos) :Enemy("kaboom")
 
 Kaboom::~Kaboom()
 {
+	detectTrigger->Destroy();
+
+	damageTrigger->Destroy();
+
+	attack->pendingToDelete = true;
 }
 
 void Kaboom::PreUpdate()
@@ -77,7 +82,6 @@ void Kaboom::Hit(int damage)
 	animations[stateMachine.GetCurrentState()].Reset();
 
 	renderObjects[0].SetColor({ 255,164,164,100 });
-	printf("Boom:%d \n", health);
 
 	Enemy::Hit(damage);
 }
@@ -110,7 +114,7 @@ void Kaboom::OnTriggerExit(std::string trigger, PhysBody* col)
 	}
 }
 
-void Kaboom::Die()
+void Kaboom::GoDie()
 {
 	stateMachine.ChangeState((int)KaboomState::DIE);
 }
@@ -172,7 +176,7 @@ void Kaboom::UpdateStates()
 	break;
 	case (int)KaboomState::DIE:
 	{
-		if (animations[stateMachine.GetCurrentState()].HasFinished()) Enemy::Die();
+		if (animations[stateMachine.GetCurrentState()].HasFinished()) Enemy::Die(true);
 	}
 	break;
 	}
@@ -181,37 +185,27 @@ void Kaboom::UpdateStates()
 void Kaboom::InitAnimation()
 {
 	// Create animations
-	for (int i = 0; i < 4; i++)
-	{
-		// Idle anim initialize
-		animations[(int)KaboomState::IDLE].PushBack({ 32 * i, 0, 32, 32 });
-		animations[(int)KaboomState::IDLE].loop = true;
-	}
 
-	for (int i = 0; i < 8; i++)
-	{
-		// Run anim initialize
-		animations[(int)KaboomState::RUN].PushBack({ 32 * i, 32, 32, 32 });
-		animations[(int)KaboomState::RUN].loop = true;
-	}
+	// Idle anim initialize
+	for (int i = 0; i < 4; i++) animations[(int)KaboomState::IDLE].PushBack({ 32 * i, 0, 32, 32 });
+	animations[(int)KaboomState::IDLE].loop = true;
+
+	// Run anim initialize
+	for (int i = 0; i < 8; i++)animations[(int)KaboomState::RUN].PushBack({ 32 * i, 32, 32, 32 });
+	animations[(int)KaboomState::RUN].loop = true;
 
 	// Attack anim initialize
 	animations[(int)KaboomState::ATTACK] = animations[(int)KaboomState::IDLE];
 
-	for (int i = 0; i < 4; i++)
-	{
-		// Hit anim initialize
-		animations[(int)KaboomState::HIT].PushBack({ 32 * i, 96, 32, 32 });
-		animations[(int)KaboomState::HIT].loop = false;
-	}
+	// Hit anim initialize
+	for (int i = 0; i < 4; i++)animations[(int)KaboomState::HIT].PushBack({ 32 * i, 96, 32, 32 });
+	animations[(int)KaboomState::HIT].loop = false;
 
-	for (int i = 0; i < 6; i++)
-	{
-		// Die anim initialize
-		animations[(int)KaboomState::DIE].PushBack({ 32 * i, 128, 32, 32 });
-		animations[(int)KaboomState::DIE].loop = false;
-	}
+	// GoDie anim initialize
+	for (int i = 0; i < 6; i++)animations[(int)KaboomState::DIE].PushBack({ 32 * i, 128, 32, 32 });
+	animations[(int)KaboomState::DIE].loop = false;
 
+	// Init general value
 	for (int i = 0; i < (int)KaboomState::MAX; i++)
 	{
 		animations[i].hasIdle = false;

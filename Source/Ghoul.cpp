@@ -79,8 +79,6 @@ void Ghoul::Hit(int damage)
 
 	renderObjects[0].SetColor({ 255,164,164,100 });
 
-	printf("Ghoul:%d \n", health);
-
 	Enemy::Hit(damage);
 }
 
@@ -112,7 +110,7 @@ void Ghoul::OnTriggerExit(std::string trigger, PhysBody* col)
 	}
 }
 
-void Ghoul::Die()
+void Ghoul::GoDie()
 {
 	stateMachine.ChangeState((int)GhoulState::DIE);
 }
@@ -181,7 +179,7 @@ void Ghoul::UpdateStates()
 		break;
 	case (int)GhoulState::DIE:
 	{
-		if (animations[stateMachine.GetCurrentState()].HasFinished()) Enemy::Die();
+		if (animations[stateMachine.GetCurrentState()].HasFinished()) Enemy::Die(true);
 	}	
 		break;
 	}
@@ -190,41 +188,28 @@ void Ghoul::UpdateStates()
 void Ghoul::InitAnimation()
 {
 	// Create animations
-	for (int i = 0; i < 4; i++)
-	{
-		// Idle anim initialize
-		animations[(int)GhoulState::IDLE].PushBack({ 32 * i, 0, 32, 32 });
-		animations[(int)GhoulState::IDLE].loop = true;
-	}
 
-	for (int i = 0; i < 8; i++)
-	{
-		// Run anim initialize
-		animations[(int)GhoulState::RUN].PushBack({ 32 * i, 32, 32, 32 });
-		animations[(int)GhoulState::RUN].loop = true;
-	}
+	// Idle anim initialize
+	for (int i = 0; i < 4; i++) animations[(int)GhoulState::IDLE].PushBack({ 32 * i, 0, 32, 32 });
+	animations[(int)GhoulState::IDLE].loop = true;
 
-	for (int i = 0; i < 6; i++)
-	{
-		// Attack anim initialize
-		animations[(int)GhoulState::ATTACK].PushBack({ 32 * i, 64, 32, 32 });
-		animations[(int)GhoulState::ATTACK].loop = false;
-	}
+	// Run anim initialize
+	for (int i = 0; i < 8; i++) animations[(int)GhoulState::RUN].PushBack({ 32 * i, 32, 32, 32 });
+	animations[(int)GhoulState::RUN].loop = true;
 
-	for (int i = 0; i < 4; i++)
-	{
-		// Hit anim initialize
-		animations[(int)GhoulState::HIT].PushBack({ 32 * i, 96, 32, 32 });
-		animations[(int)GhoulState::HIT].loop = false;
-	}
+	// Attack anim initialize
+	for (int i = 0; i < 6; i++) animations[(int)GhoulState::ATTACK].PushBack({ 32 * i, 64, 32, 32 });
+	animations[(int)GhoulState::ATTACK].loop = false;
 
-	for (int i = 0; i < 6; i++)
-	{
-		// Die anim initialize
-		animations[(int)GhoulState::DIE].PushBack({ 32 * i, 128, 32, 32 });
-		animations[(int)GhoulState::DIE].loop = false;
-	}
+	// Hit anim initialize
+	for (int i = 0; i < 4; i++)	animations[(int)GhoulState::HIT].PushBack({ 32 * i, 96, 32, 32 });
+	animations[(int)GhoulState::HIT].loop = false;
 
+	// GoDie anim initialize
+	for (int i = 0; i < 6; i++) animations[(int)GhoulState::DIE].PushBack({ 32 * i, 128, 32, 32 });
+	animations[(int)GhoulState::DIE].loop = false;
+
+	// Init general value
 	for (int i = 0; i < (int)GhoulState::MAX; i++)
 	{
 		animations[i].hasIdle = false;

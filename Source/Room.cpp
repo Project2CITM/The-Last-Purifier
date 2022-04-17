@@ -49,6 +49,13 @@ void Room::CleanUp()
 		wallColliders[i] = nullptr;
 	}
 
+	for (int i = 0; i < enemies.count(); i++)
+	{
+		enemies[i]->Die();
+	}
+
+	enemies.clear();
+
 	colliders.clearPtr();
 }
 
