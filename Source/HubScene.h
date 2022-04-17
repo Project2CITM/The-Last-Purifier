@@ -25,7 +25,12 @@ public:
 	void AddGUIControls(GUI* gui) override;
 	void AddGUISettingsP(GUI* gui) override;
 
+	void ChangePlayer();
+
 private:
+
+	bool isChangingPlayer = false;
+	iPoint playerPos = { 0,0 }; // Use only for ChangePlayer function, NOT THE ACTUAL PLAYER POSITION!!!
 
 	HUDInGame* hudInGame = nullptr;
 

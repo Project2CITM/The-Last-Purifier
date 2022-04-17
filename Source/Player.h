@@ -16,6 +16,7 @@ class Application;
 class Player
 {
 public:
+
 	Player();
 
 	virtual void CleanUp();

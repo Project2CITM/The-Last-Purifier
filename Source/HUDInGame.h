@@ -38,6 +38,8 @@ public:
 
 	bool CleanUp() override;
 
+	void GetPlayerCombat(PlayerCombat* playerC);
+
 private:
 
 	//Player player;

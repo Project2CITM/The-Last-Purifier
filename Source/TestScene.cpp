@@ -26,9 +26,20 @@ TestScene::~TestScene()
 
 bool TestScene::Start()
 {
-    //advisorString = "hi";
+    PlayerClass playerClass;
+    pugi::xml_document playerStats;
+    pugi::xml_parse_result result = playerStats.load_file("PlayerStats.xml");
+    if (result == NULL)
+    {
+        LOG("Could not load xml file: %s. pugi error: %s", "PlayerStats.xml", result.description());
+    }
+    else 
+    {
+        playerClass = (PlayerClass)playerStats.child("stats").child("currentClass").attribute("class").as_int();
+    }
 
-    player = new PlayerRevenant();
+    if (playerClass == PlayerClass::REVENANT) player = new PlayerRevenant();
+    else player = new PlayerSage();
 
     spawnManager = SpellSpawnManager::GetInstance();
 

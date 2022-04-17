@@ -10,6 +10,8 @@
 #include "ModuleScene.h"
 #include "NPC.h"
 #include "IntLabel.h"
+#include "PlayerCombat.h"
+#include "ModuleEvents.h"
 
 
 HubScene::HubScene() : SceneGame("HubScene")
@@ -74,8 +76,23 @@ bool HubScene::Start()
 
 	//Map
 
+
+
 	/*Player related*/
-	player = new PlayerSage();
+	PlayerClass playerClass;
+	pugi::xml_document playerStats;
+	pugi::xml_parse_result result = playerStats.load_file("PlayerStats.xml");
+	if (result == NULL)
+	{
+		LOG("Could not load xml file: %s. pugi error: %s", "PlayerStats.xml", result.description());
+	}
+	else
+	{
+		playerClass = (PlayerClass)playerStats.child("stats").child("currentClass").attribute("class").as_int();
+	}
+
+	if (playerClass == PlayerClass::REVENANT) player = new PlayerRevenant();
+	else player = new PlayerSage();
 	app->renderer->camera->SetTarget(player->controller);
 
 
@@ -148,6 +165,15 @@ bool HubScene::PreUpdate()
 	//PreUpdates
 	hudInGame->PreUpdate();
 
+	if (isChangingPlayer)
+	{
+		ChangePlayer();
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN && !isChangingPlayer)
+	{
+		ChangePlayer();
+	}
 	Scene::PreUpdate();
 	return true;
 }
@@ -188,4 +214,37 @@ void HubScene::AddGUIControls(GUI* gui)
 void HubScene::AddGUISettingsP(GUI* gui)
 {
 	hudInGame->AddGUISettingsP(gui);
+}
+
+void HubScene::ChangePlayer()
+{
+	if (!isChangingPlayer)
+	{
+		PlayerClass currentClass = player->playerClass;
+
+		playerPos = player->controller->GetPosition();
+		player->CleanUp();
+		RELEASE(player);
+		
+		if (currentClass == PlayerClass::REVENANT)	player = new PlayerSage();
+		else player = new PlayerRevenant();
+	
+		player->controller->Start();
+		player->controller->combat->Start();
+		player->controller->SetPosition(playerPos);
+		app->renderer->camera->SetTarget(player->controller);
+
+		hudInGame->GetPlayerCombat(player->controller->combat);
+
+		isChangingPlayer = true;
+
+		app->events->TriggerEvent(GameEvent::SAVE_GAME);
+	}
+	else
+	{
+		player->controller->combat->executeSpellCommand->Start();
+		isChangingPlayer = false;
+	}
+
+
 }

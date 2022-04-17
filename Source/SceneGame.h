@@ -11,5 +11,6 @@ public:
 	SceneGame(std::string name);
 
 	Player* player = nullptr;
+
 };
 #endif

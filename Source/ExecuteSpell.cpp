@@ -3,6 +3,11 @@
 
 ExecuteSpell::ExecuteSpell()
 {
+	
+}
+
+void ExecuteSpell::Start()
+{
 	spellList = SpellList::GetInstance();
 }
 
@@ -15,5 +20,7 @@ bool ExecuteSpell::Execute(SpellInfo* spell)
 
 void ExecuteSpell::CleanUp()
 {
+	if (spellList == nullptr) return;
+
 	spellList->ReleaseInstance();
 }
