@@ -167,11 +167,6 @@ bool HubScene::PreUpdate()
 	//PreUpdates
 	hudInGame->PreUpdate();
 
-	if (isChangingPlayer)
-	{
-		ChangePlayer();
-	}
-
 	if (app->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN && !isChangingPlayer)
 	{
 		ChangePlayer();
@@ -180,6 +175,10 @@ bool HubScene::PreUpdate()
 	revenantTree->PreUpdate();
 
 	Scene::PreUpdate();
+	if (isChangingPlayer && app->input->GetKey(SDL_SCANCODE_N) != KEY_DOWN)
+	{
+		ChangePlayer();
+	}
 	return true;
 }
 
@@ -252,7 +251,7 @@ void HubScene::ChangePlayer()
 	}
 	else
 	{
-		player->controller->combat->executeSpellCommand->Start();
+		player->controller->combat->StartExecuteSpellCommand();
 		isChangingPlayer = false;
 	}
 }

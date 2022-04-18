@@ -71,6 +71,7 @@ void CommonTree::ReleaseInstance()
 
 void CommonTree::CleanUp()
 {
+	Application::GetInstance()->events->RemoveListener(this);
 	treeList->clearPtr();
 	RELEASE(treeList);
 }

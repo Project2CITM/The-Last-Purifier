@@ -20,6 +20,8 @@ public:
 
 	void Start() override;
 
+	void PreUpdate() override;
+
 	void Update() override;
 
 	void Attack();
@@ -27,6 +29,8 @@ public:
 	void CastSpell();
 
 	void ChangeSelectedSpellSlot(int num);
+
+	void StartExecuteSpellCommand(); // 
 
 	/// <summary>
 	/// Add the given spellID to either the Spell Slots or the Deck. Returns false if both are full.
@@ -65,6 +69,8 @@ public:
 	Player* player = nullptr;
 
 private:
+
+	bool isSpellCommandStarted = false;
 
 	// Combat Stats-------------------
 	int attackCD;
