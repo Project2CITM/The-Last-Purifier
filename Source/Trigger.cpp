@@ -40,6 +40,8 @@ void Trigger::Update()
 
 	if (parent == nullptr) return;
 
+	if (pendingToDelete) return;
+
 	if (parent->pendingToDelete)
 	{
 		pendingToDelete = true;
