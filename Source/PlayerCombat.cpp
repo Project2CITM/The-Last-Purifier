@@ -84,6 +84,8 @@ void PlayerCombat::Update()
 			attackAreaCounter = 0;
 		}
 	}
+
+	executeSpellCommand->Update();
 }
 
 void PlayerCombat::Attack()

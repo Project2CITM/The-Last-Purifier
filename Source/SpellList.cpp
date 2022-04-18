@@ -1,6 +1,7 @@
 #include "SpellList.h"
 #include "TestSpell.h"
 #include "PurifiedSwordS.h"
+#include "SoulShieldS.h"
 
 SpellList* SpellList::instance = nullptr;
 
@@ -23,7 +24,7 @@ SpellList::SpellList()
 	spells[(int)SpellID::PURIFICATION_THRUST] = new TestSpell();
 	spells[(int)SpellID::PURIFIED_SWORD] = new PurifiedSwordS();
 	spells[(int)SpellID::SACRED_SHIELD] = new TestSpell();
-	spells[(int)SpellID::SOUL_SHIELD] = new TestSpell();
+	spells[(int)SpellID::SOUL_SHIELD] = new SoulShieldS();
 	spells[(int)SpellID::TORMENT] = new TestSpell();
 	spells[(int)SpellID::COVER] = new TestSpell();
 

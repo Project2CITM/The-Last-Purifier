@@ -21,6 +21,8 @@ public:
 
 	virtual void CleanUp();
 
+	void ChangeShield(int num);
+
 	PlayerClass playerClass = PlayerClass::REVENANT;
 	PlayerController* controller = nullptr;
 	PlayerStats* stats = nullptr;

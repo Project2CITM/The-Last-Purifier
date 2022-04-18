@@ -466,7 +466,11 @@ void PlayerController::OnTriggerEnter(std::string trigger, PhysBody* col)
 
 void PlayerController::Hit(int damage)
 {
-	player->hpPlayer -= damage;
+	int totalDamage = damage - player->shield;
+	if (totalDamage < 0) totalDamage = 0;
+	player->ChangeShield(-damage);
+
+	player->hpPlayer -= totalDamage;
 
 	if (player->hpPlayer <= 0) 
 	{
