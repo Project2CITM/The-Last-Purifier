@@ -3,7 +3,7 @@
 #include "ClassTree.h"
 
 
-PlayerStats::PlayerStats(Player* player) 
+PlayerStats::PlayerStats(Player* player)
 {
 	this->listenTo = GameEvent::SAVE_GAME;
 
@@ -12,13 +12,11 @@ PlayerStats::PlayerStats(Player* player)
 	Application::GetInstance()->events->AddListener(this);
 
 	// Create Trees
-	commonTree = new CommonTree();
+	commonTree = CommonTree::GetInstance();
 }
 
 void PlayerStats::Start()
 {
-	commonTree->Start();
-
 	// Load XML with default values
 	pugi::xml_parse_result result;
 	result = playerValuesXml.load_file("PlayerStats.xml");
@@ -59,7 +57,7 @@ void PlayerStats::UpdatePlayerStats()
 
 void PlayerStats::GameEventTriggered()
 {
-	
+
 	pugi::xml_node n = playerValuesXml.child("stats");
 
 	n.child("currentClass").attribute("class") = (int)player->playerClass;
@@ -72,6 +70,6 @@ void PlayerStats::GameEventTriggered()
 void PlayerStats::CleanUp()
 {
 	Application::GetInstance()->events->RemoveListener(this);
+
+	commonTree->ReleaseInstance();
 }
-
-

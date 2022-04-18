@@ -38,4 +38,6 @@ private:
 
 	Instructor* revenantInstructor = nullptr;
 
+	ClassTree* revenantTree = nullptr;
+
 };

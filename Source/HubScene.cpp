@@ -76,8 +76,6 @@ bool HubScene::Start()
 
 	//Map
 
-
-
 	/*Player related*/
 	PlayerClass playerClass;
 	pugi::xml_document playerStats;
@@ -95,6 +93,7 @@ bool HubScene::Start()
 	else player = new PlayerSage();
 	app->renderer->camera->SetTarget(player->controller);
 
+	revenantTree = ClassTree::GetInstance();
 
 	//Starts
 	hudInGame = new HUDInGame();
@@ -137,13 +136,14 @@ bool HubScene::CleanUp()
 		RELEASE(player);
 	}
 
-
 	if (hudInGame != nullptr)
 	{
 		hudInGame->CleanUp();
 		RELEASE(hudInGame);
 	}
-
+	
+	revenantTree->ReleaseInstance();
+	
 	Scene::CleanUp();
 	return false;
 }
@@ -176,6 +176,9 @@ bool HubScene::PreUpdate()
 	{
 		ChangePlayer();
 	}
+
+	revenantTree->PreUpdate();
+
 	Scene::PreUpdate();
 	return true;
 }
@@ -188,6 +191,9 @@ bool HubScene::Update()
 	int x = player->controller->GetPosition().x;
 	int y = player->controller->GetPosition().y;
 	//LOG("x:%d \n y:%d", x, y);
+
+	revenantTree->Update();
+
 	Scene::Update();
 	return true;
 }
@@ -196,6 +202,8 @@ bool HubScene::PostUpdate()
 {
 	//PostUpdates
 	hudInGame->PostUpdate();
+
+	revenantTree->PostUpdate();
 
 	Scene::PostUpdate();
 	return true;
