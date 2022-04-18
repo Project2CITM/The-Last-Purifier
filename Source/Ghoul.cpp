@@ -92,7 +92,9 @@ void Ghoul::OnTriggerEnter(std::string trigger, PhysBody* col)
 		{
 			detectPlayer = true;
 		}
+		return;
 	}
+
 
 	Enemy::OnTriggerEnter(trigger, col);
 }

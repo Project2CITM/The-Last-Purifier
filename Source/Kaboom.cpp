@@ -16,7 +16,7 @@ Kaboom::Kaboom(iPoint pos) :Enemy("kaboom")
 	// Init general value
 	this->position = pos;
 
-	health = 80;
+	health = 40;
 
 	moveSpeed = 4;
 
@@ -96,6 +96,8 @@ void Kaboom::OnTriggerEnter(std::string trigger, PhysBody* col)
 		{
 			detectPlayer = true;
 		}
+		return;
+
 	}
 
 	Enemy::OnTriggerEnter(trigger, col);
