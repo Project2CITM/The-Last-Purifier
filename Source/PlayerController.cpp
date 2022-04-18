@@ -490,7 +490,11 @@ void PlayerController::Hit(int damage)
 		if (totalDamage < 0) totalDamage = 0;
 		player->ChangeShield(-damage);
 
+		printf("Player beefore HP:%d\t", player->hpPlayer);
+
 		player->hpPlayer -= totalDamage;
+
+		printf("Player after HP:%d\n", player->hpPlayer);
 
 		if (player->hpPlayer <= 0)
 		{

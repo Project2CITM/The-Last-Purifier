@@ -191,6 +191,8 @@ void Ghoul::UpdateStates()
 		// Disable Triggers
 		SetTriggeeActive(false);
 
+		if (pBody->body->IsActive())pBody->body->SetActive(false);
+
 		if (animations[stateMachine.GetCurrentState()].HasFinished()) Enemy::Die(true);
 	}	
 		break;
