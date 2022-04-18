@@ -4,12 +4,13 @@
 #include "SceneGame.h"
 #include "Player.h"
 #include "ModuleRender.h"
+#include "ModuleAudio.h"
 
 Worm::Worm(iPoint pos) : Enemy("worm")
 {
 	// Get player pointer
 	SceneGame* sceneGame = (SceneGame*)app->scene->scenes[app->scene->currentScene];
-	player = sceneGame->player->controller;
+	playerController = sceneGame->player->controller;
 
 	// Init general value
 	this->position = pos;
@@ -33,6 +34,10 @@ Worm::Worm(iPoint pos) : Enemy("worm")
 
 	// Init physBody 
 	InitPhysics();
+
+	HitFX = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Ghoul/sfx_enemyHit2.wav");
+	//idleFX = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Ghoul/sfx_enemyIdle2.wav");
+	digFX = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Worm/earthwormdig.wav");
 }
 
 Worm::~Worm()
@@ -76,6 +81,7 @@ void Worm::Hit(int damage)
 	renderObjects[0].SetColor({ 255,164,164,100 });
 
 	Enemy::Hit(damage);
+	app->audio->PlayFx(HitFX);
 }
 
 void Worm::OnTriggerEnter(std::string trigger, PhysBody* col)
@@ -101,6 +107,7 @@ void Worm::UpdateStates()
 	{
 	case (int)WormState::IDLE:
 	{
+		app->audio->PlayFx(idleFX);
 		if (groundCoolDown <= 0)
 		{
 			DoInGround();
@@ -259,17 +266,21 @@ void Worm::DoInGround()
 	stateMachine.ChangeState((int)WormState::INGROUND);
 
 	animations[stateMachine.GetCurrentState()].Reset();
+
+	app->audio->PlayFx(digFX);
 }
 
 void Worm::DoOutGround()
 {
-	SetPosition(player->GetPosition());
+	SetPosition(playerController->GetPosition());
 
 	ResetAllCoolDown();
 
 	stateMachine.ChangeState((int)WormState::OUTGROUND);
 
 	animations[stateMachine.GetCurrentState()].Reset();
+
+	app->audio->PlayFx(digFX);
 }
 
 void Worm::ResetAllCoolDown()

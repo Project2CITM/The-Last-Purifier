@@ -21,3 +21,9 @@ void Player::CleanUp()
 	if (controller != nullptr)controller->pendingToDelete = true;
 		
 }
+
+void Player::ChangeShield(int num)
+{
+	shield += num;
+	if (shield < 0) shield = 0;
+}

@@ -11,6 +11,11 @@ void ExecuteSpell::Start()
 	spellList = SpellList::GetInstance();
 }
 
+void ExecuteSpell::Update()
+{
+	if (spellList != nullptr) spellList->Update();
+}
+
 bool ExecuteSpell::Execute(SpellInfo* spell)
 {
 	spellList->spells[(int)spell->id]->Execute(spell->spellLevel);

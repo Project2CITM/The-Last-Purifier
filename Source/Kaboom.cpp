@@ -6,12 +6,13 @@
 #include "ModuleRender.h"
 #include "DamageArea.h"
 #include "ParticleAttackKaboom.h"
+#include "ModuleAudio.h"
 
 Kaboom::Kaboom(iPoint pos) :Enemy("kaboom")
 {
 	// Get player pointer
 	SceneGame* sceneGame = (SceneGame*)app->scene->scenes[app->scene->currentScene];
-	player = sceneGame->player->controller;
+	playerController = sceneGame->player->controller;
 
 	// Init general value
 	this->position = pos;
@@ -37,6 +38,11 @@ Kaboom::Kaboom(iPoint pos) :Enemy("kaboom")
 
 	// Init physBody 
 	InitPhysics();
+
+	
+	HitFX = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Ghoul/sfx_enemyHit3.wav");
+	idleFX = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Ghoul/sfx_enemyIdle3.wav");
+	deadFX = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Kaboom/sfx_kaboomDeath.wav");
 }
 
 Kaboom::~Kaboom()
@@ -84,6 +90,7 @@ void Kaboom::Hit(int damage)
 	renderObjects[0].SetColor({ 255,164,164,100 });
 
 	Enemy::Hit(damage);
+	app->audio->PlayFx(HitFX);
 }
 
 void Kaboom::OnTriggerEnter(std::string trigger, PhysBody* col)
@@ -97,7 +104,6 @@ void Kaboom::OnTriggerEnter(std::string trigger, PhysBody* col)
 			detectPlayer = true;
 		}
 		return;
-
 	}
 
 	Enemy::OnTriggerEnter(trigger, col);
@@ -119,6 +125,7 @@ void Kaboom::OnTriggerExit(std::string trigger, PhysBody* col)
 void Kaboom::Die(bool spawnPower)
 {
 	stateMachine.ChangeState((int)KaboomState::DIE);
+	app->audio->PlayFx(deadFX);
 }
 
 void Kaboom::UpdateStates()
@@ -129,8 +136,12 @@ void Kaboom::UpdateStates()
 	{
 	case (int)KaboomState::IDLE:
 	{
+		if(detectPlayer && !playerController->isVulnerable()) DoAttack();
+
 		stateMachine.ChangeState((int)KaboomState::RUN);
+
 		DoRun();
+		
 	}
 	break;
 	case (int)KaboomState::RUN:
@@ -138,9 +149,9 @@ void Kaboom::UpdateStates()
 		DoRun();
 
 		// Test codes
-		app->renderer->AddLineRenderQueue(position, player->GetPosition(), false, { 255,255,255,255 }, 2);
+		// app->renderer->AddLineRenderQueue(position, player->GetPosition(), false, { 255,255,255,255 }, 2);
 
-		if (detectPlayer) DoAttack();
+		if (detectPlayer && !playerController->isVulnerable()) DoAttack();
 	}
 	break;
 	case (int)KaboomState::ATTACK:
@@ -282,15 +293,18 @@ void Kaboom::DoAttack()
 	pBody->body->SetActive(false);
 
 	detectTrigger->pBody->body->SetActive(false);
+
+	app->audio->PlayFx(deadFX);
 }
 
 void Kaboom::DoRun()
 {
-	fPoint dir = { (float)(player->GetPosition().x - position.x), (float)(player->GetPosition().y - position.y) };
+	fPoint dir = { (float)(playerController->GetPosition().x - position.x), (float)(playerController->GetPosition().y - position.y) };
 
 	dir = dir.Normalize();
 
 	SetLinearVelocity(b2Vec2{ (float)(dir.x * moveSpeed),(float)(dir.y * moveSpeed) });
+	
 }
 
 void Kaboom::ChangeColor()

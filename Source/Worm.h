@@ -65,7 +65,7 @@ public:
 
 	LookingDirection lookingDir = LookingDirection::RIGHT;
 
-	PlayerController* player = nullptr;
+	PlayerController* playerController = nullptr;
 
 	Trigger* damageTrigger = nullptr;
 
@@ -76,6 +76,10 @@ public:
 	int shakeOutGround = 30;
 
 	bool animPause = false;
+
+	uint HitFX = NULL;
+	uint idleFX = NULL;
+	uint digFX = NULL;
 };
 
 #endif // !__WORM_H__

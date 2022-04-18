@@ -5,6 +5,7 @@
 #include "ModuleTextures.h"
 #include "ModulePhysics.h"
 #include "ModuleInput.h"
+#include "ModuleScene.h"
 
 #include "RoomManager.h"
 #include "Room.h"
@@ -15,6 +16,7 @@
 PlayerController::PlayerController(std::string name, std::string tag, Player* player) : GameObject(name, tag)
 {
 	this->listenTo = GameEvent::COMPLETE_ROOM;
+	app->events->AddListener(this);
 	this->player = player;
 }
 
@@ -93,6 +95,23 @@ void PlayerController::Update()
 
 	// Update animation
 	animations[(int)currentAnim].Update();	
+
+
+	//GodMode Active
+	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN && !godMode) {
+		godMode = !godMode;
+		normalDamage = player->damage;
+		player->damage = 1000;
+		
+	}
+	else if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN && godMode) {
+		godMode = !godMode;
+		player->damage = normalDamage;
+	}
+
+
+	LOG("Damage: %d", player->damage);
+	
 }
 
 void PlayerController::PostUpdate()
@@ -105,6 +124,7 @@ void PlayerController::PostUpdate()
 	// and current Animation State
 	currentAnim = (PlayerAnim)currentState;
 
+	UpdateOrderInLayer(0);
 	renderObjects[0].section = animations[(int)currentAnim].GetCurrentFrame();
 	renderObjects[0].destRect.x = GetDrawPosition().x + textureOffset.x;
 	renderObjects[0].destRect.y = GetDrawPosition().y + textureOffset.y;
@@ -123,6 +143,8 @@ void PlayerController::CleanUp()
 	{
 		combat->pendingToDelete = true;
 	}
+
+	app->events->RemoveListener(this);
 
 	GameObject::CleanUp();
 }
@@ -428,9 +450,6 @@ void PlayerController::OnCollisionEnter(PhysBody* col)
 	{
 		app->map->roof = true;
 	}
-	
-
-
 }
 
 void PlayerController::OnCollisionExit(PhysBody* col)
@@ -464,16 +483,26 @@ void PlayerController::OnTriggerEnter(std::string trigger, PhysBody* col)
 
 void PlayerController::Hit(int damage)
 {
-	player->hpPlayer -= damage;
+	if (!godMode) 
+	{
+		int totalDamage = damage - player->shield;
+		if (totalDamage < 0) totalDamage = 0;
+		player->ChangeShield(-damage);
 
-	//printf("Player HP:%d\n", player->hpPlayer);
+		player->hpPlayer -= totalDamage;
 
-	if (player->hpPlayer <= 0) printf("Player Die!!\n");
+		if (player->hpPlayer <= 0)
+		{
+			app->scene->ChangeCurrentSceneRequest(SCENES::HUB);
 
-	beenHit = true;
-	Invulnerability(invulnerabilityTimeHit);
+			return;
+		}
 
-	app->events->TriggerEvent(GameEvent::PLAYER_HIT);
+		beenHit = true;
+		Invulnerability(invulnerabilityTimeHit);
+
+		app->events->TriggerEvent(GameEvent::PLAYER_HIT);
+	}
 }
 
 void PlayerController::Stun(int frames)

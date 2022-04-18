@@ -11,5 +11,14 @@ public:
 
 	void CleanUp() override;
 
+private:
+	int shield[3];
+	int frames[3];
+
+	int currentDuration = 0;
+	int currentLevel;
+
+	bool isOn = false;
+
 };
 

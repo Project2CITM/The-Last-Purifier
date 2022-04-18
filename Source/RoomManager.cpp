@@ -1,34 +1,39 @@
 #include "RoomManager.h"
 #include "ModuleRender.h"
 #include "ModuleEvents.h"
+#include "ModuleScene.h"
+#include "Scene.h"
+#include "Trigger.h"
 
 void RoomManager::Start()
 {
+
+	doorTopTexture = app->textures->Load("Assets/Maps/TestDoor_top.png");
+	doorBotTexture = app->textures->Load("Assets/Maps/TestDoor_bottom.png");
+	doorSpikeTexture = app->textures->Load("Assets/Maps/wallDoorClosed.png");
+
+	wallTexture[0] = app->textures->Load("Assets/Maps/wallDoorLeft.png");
+	wallTexture[1] = app->textures->Load("Assets/Maps/wallDoorTop.png");
+	wallTexture[2] = app->textures->Load("Assets/Maps/TestDoor_bottom.png");
+
 	mapLoader = new MapLoader();
 
 	GenerateMap(10);
-	
+
 	CreateDoors();
 
 	//Deactivate all colliders
 	for (int i = 0; i < rooms.count(); ++i) {
 		rooms[i]->DeactivateColliders();
 	}
-
-	doorTopTexture = app->textures->Load("Assets/Maps/TestDoor_top.png");
-	doorBotTexture = app->textures->Load("Assets/Maps/TestDoor_bottom.png");
-
-	wallTexture[0] = app->textures->Load("Assets/Maps/wallDoorLeft.png");
-	wallTexture[1] = app->textures->Load("Assets/Maps/wallDoorTop.png");
-	wallTexture[2] = app->textures->Load("Assets/Maps/TestDoor_bottom.png");
-
-	/*for (int i = 0; i < rooms.count(); ++i)
-		rooms[i]->CloseDoors();*/
-
 }
 
 void RoomManager::Update(iPoint playerPos)
 {
+	if (exitTrigger->onTriggerEnter) {
+		app->scene->ChangeCurrentSceneRequest(SCENES::HUB);
+	}
+
 	//Check current room
 	Room* r = roomPositions[playerPos.x / (TILE_SIZE * MAX_ROOM_TILES_COLUMNS)][playerPos.y / (TILE_SIZE * MAX_ROOM_TILES_ROWS)];
 	
@@ -101,11 +106,6 @@ void RoomManager::CleanUp()
 		}
 	}
 
-	/*ListItem<Room*>* currentRoom = rooms.start;
-	while (currentRoom != nullptr) {
-		currentRoom->data->CleanUp();
-		currentRoom = currentRoom->next;
-	}*/
 	for (int i = 0; i < rooms.count(); i++)
 	{
 		rooms[i]->CleanUp();
@@ -114,9 +114,10 @@ void RoomManager::CleanUp()
 
 	RELEASE(mapLoader);
 
-	//I assume it unloads in renderer?
+	app->scene->scenes[app->scene->currentScene]->DestroyGameObject(exitTrigger);
 	doorTopTexture = nullptr;
 	doorBotTexture = nullptr;
+	doorSpikeTexture = nullptr;
 }
 
 //FUNCTIONS
@@ -186,8 +187,14 @@ void RoomManager::GenerateMap(short RoomNumber)
 		adjacentSpaces--;
 	} while (bossRoomPos == iPoint(-1,-1));
 
-	bossRoom = bossRoomPos;
 	CreateRoom(bossRoomPos, -1);
+
+	//Exit trigger in boss room
+	exitTrigger = new Trigger(iPoint(4 * MAX_ROOM_TILES_COLUMNS, 4 * MAX_ROOM_TILES_ROWS) * TILE_SIZE, 200);
+	b2Filter filter;
+	filter.categoryBits = app->physics->TRIGGER_LAYER;
+	filter.maskBits = app->physics->PLAYER_LAYER;
+	exitTrigger->pBody->body->GetFixtureList()->SetFilterData(filter);
 }
 
 //Check the number of blank spaces next to the room
@@ -375,18 +382,42 @@ void RoomManager::DrawRooms()
 void RoomManager::DrawDoors()
 {
 	for (int i = 0; i < rooms.count(); ++i) {
-		int k = rooms[i]->doors.count();
+		Room* r = rooms[i];
+		int k = r->doors.count();
 		
 		for (int j = 0; j < k; ++j) {
-			Door* d = rooms[i]->doors[j];
+			Door* d = r->doors[j];
 			if (d->orientation == DoorOrientations::TOP)
 				app->renderer->AddTextureRenderQueue(doorTopTexture, d->GetPosition() - d->size, { 0,0,0,0 }, TILE_SIZE / 16.0f, 3);
 			if (d->orientation == DoorOrientations::BOTTOM)
 				app->renderer->AddTextureRenderQueue(doorBotTexture, d->GetPosition() - d->size - iPoint(0, TILE_SIZE), { 0,0,0,0 }, TILE_SIZE / 16.0f, 3);
 		}	
 
+		//Draw Spikes
+		if (r->closedDoors) {
+			for (int j = 0; j < k; ++j) {
+				Door* d = r->doors[j];
+				iPoint p = d->GetPosition() - d->size;
+				switch (d->orientation) {
+				case DoorOrientations::BOTTOM:
+					p += iPoint(0, 1) * TILE_SIZE;
+				case DoorOrientations::TOP:
+					p.y -= TILE_SIZE / 2;
+					app->renderer->AddTextureRenderQueue(doorSpikeTexture, p + iPoint(0, 2) * TILE_SIZE, { 0,0,0,0 }, TILE_SIZE / 16.0f, 1);
+					app->renderer->AddTextureRenderQueue(doorSpikeTexture, p + iPoint(1, 2) * TILE_SIZE, { 0,0,0,0 }, TILE_SIZE / 16.0f, 1);
+					app->renderer->AddTextureRenderQueue(doorSpikeTexture, p + iPoint(2, 2) * TILE_SIZE, { 0,0,0,0 }, TILE_SIZE / 16.0f, 1);
+					break;
+				case DoorOrientations::LEFT:
+				case DoorOrientations::RIGHT:
+					app->renderer->AddTextureRenderQueue(doorSpikeTexture, p + iPoint(0, -3) * TILE_SIZE, { 0,0,0,0 }, TILE_SIZE / 16.0f, 1);
+					app->renderer->AddTextureRenderQueue(doorSpikeTexture, p + iPoint(0, -2) * TILE_SIZE, { 0,0,0,0 }, TILE_SIZE / 16.0f, 1);
+					app->renderer->AddTextureRenderQueue(doorSpikeTexture, p + iPoint(0, -1) * TILE_SIZE, { 0,0,0,0 }, TILE_SIZE / 16.0f, 1);
+					break;
+				}
+			}
+		}
+
 		//Draw Walls on Non-doors
-		Room* r = rooms[i];
 		if (r->wallColliders[0] != nullptr)
 			app->renderer->AddTextureRenderQueue(wallTexture[0], 
 				r->GetDoorPos(DoorOrientations::RIGHT) - r->GetDoorSize(DoorOrientations::RIGHT) - iPoint(0, TILE_SIZE * 4),

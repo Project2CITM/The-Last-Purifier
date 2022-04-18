@@ -5,11 +5,6 @@
 #include "NPC.h"
 #include "ClassTreeHud.h"
 
-class PlayerRevenant;
-class PlayerSage;
-class ClassTree;
-class SpellSpawnManager;
-
 class TestScene :  public SceneGame
 {
 public:
@@ -28,7 +23,6 @@ public:
 
 	bool CleanUp() override;
 
-
 	void AddGUIPause(GUI* gui) override;
 
 	void AddGUIControls(GUI* gui) override;
@@ -38,16 +32,10 @@ public:
 private:
 
 	RoomManager roomManager;
+
 	HUDInGame* hudInGame = nullptr;
 
 	ClassTree* revenantTree = nullptr; //Test skill/spell tree
 
 	SpellSpawnManager* spawnManager = nullptr;
-
-	//Dialog
-	/*pugi::xml_node configDialog;
-	bool dialogEnable = false;
-	bool separador = false;
-	int separadorCont = 0;
-	int dialogCont = 1;*/
 };

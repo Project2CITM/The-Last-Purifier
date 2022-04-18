@@ -17,7 +17,7 @@ ModuleScene::ModuleScene(bool start_enabled) : Module(start_enabled)
 	scenes[HUB] = new HubScene();
 	scenes[LEVEL_1] = new TestScene();
 
-	currentScene = HUB;
+	currentScene = LEVEL_1;
 }
 
 ModuleScene::~ModuleScene()
@@ -116,11 +116,11 @@ bool ModuleScene::ChangeCurrentSceneRequest(uint index)
 {
 	changeTo = index;
 
+	if (scenes[changeTo] == nullptr) return false;
+
 	isChangingScene = true;
 
 	changeState = SCENECHANGESTATES::fade_in;
-
-	if (scenes[changeTo] == nullptr) return false;
 
 	fadeSpeed = 10.0f;
 

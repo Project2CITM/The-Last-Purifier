@@ -5,12 +5,13 @@
 #include "Player.h"
 #include "ModuleRender.h"
 #include "DamageArea.h"
+#include "ModuleAudio.h"
 
 Ghoul::Ghoul(iPoint pos) : Enemy("ghoul")
 {
 	// Get player pointer
 	SceneGame* sceneGame = (SceneGame*)app->scene->scenes[app->scene->currentScene];
-	player = sceneGame->player->controller;
+	playerController = sceneGame->player->controller;
 
 	// Init general value
 	this->position = pos;
@@ -35,6 +36,12 @@ Ghoul::Ghoul(iPoint pos) : Enemy("ghoul")
 
 	// Init physBody 
 	InitPhysics();
+
+	//Init Sounds
+
+	attackFX = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Ghoul/sfx_enemyAttack1.wav");
+	HitFX = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Ghoul/sfx_enemyHit2.wav");
+	idleFX = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Ghoul/sfx_enemyIdle1.wav");
 }
 
 Ghoul::~Ghoul()
@@ -80,6 +87,7 @@ void Ghoul::Hit(int damage)
 	renderObjects[0].SetColor({ 255,164,164,100 });
 
 	Enemy::Hit(damage);
+	app->audio->PlayFx(HitFX);
 }
 
 void Ghoul::OnTriggerEnter(std::string trigger, PhysBody* col)
@@ -141,7 +149,6 @@ void Ghoul::UpdateStates()
 
 			return;
 		}
-		
 		attackCoolDown--;
 	}
 	break;
@@ -150,7 +157,7 @@ void Ghoul::UpdateStates()
 		DoRun();
 
 		// Test codes
-		app->renderer->AddLineRenderQueue(position, player->GetPosition(), false, { 255,255,255,255 }, 2);
+		//app->renderer->AddLineRenderQueue(position, player->GetPosition(), false, { 255,255,255,255 }, 2);
 
 		if(detectPlayer) DoAttack();
 	}
@@ -158,9 +165,10 @@ void Ghoul::UpdateStates()
 	case (int)GhoulState::ATTACK:
 	{
 		// Just can hit a player when animation is attacking
-		if (animations[stateMachine.GetCurrentState()].getCurrentFrameI() > 2) 
+		if (animations[stateMachine.GetCurrentState()].getCurrentFrameI() > 2)
+		{
 			attack->pBody->body->SetActive(true);
-
+		}
 		// When finish attack
 		if (animations[stateMachine.GetCurrentState()].HasFinished())
 		{
@@ -270,7 +278,7 @@ void Ghoul::InitPhysics()
 
 	filterC.categoryBits = app->physics->ENEMY_LAYER;
 
-	filterC.maskBits = app->physics->EVERY_LAYER & ~app->physics->ENEMY_LAYER & ~app->physics->PLAYER_LAYER;
+	filterC.maskBits = app->physics->EVERY_LAYER & ~app->physics->PLAYER_LAYER;
 
 	pBody = app->physics->CreateCircle(position.x, position.y, 12, this, false, b2_dynamicBody, app->physics->ENEMY_LAYER);
 
@@ -289,11 +297,14 @@ void Ghoul::DoAttack()
 	else attackOffset = { 15,0 };
 
 	attack->SetPosition(position + attackOffset);
+
+	app->audio->PlayFx(attackFX);
+		
 }
 
 void Ghoul::DoRun()
 {
-	fPoint dir = { (float)(player->GetPosition().x - position.x), (float)(player->GetPosition().y - position.y) };
+	fPoint dir = { (float)(playerController->GetPosition().x - position.x), (float)(playerController->GetPosition().y - position.y) };
 
 	dir = dir.Normalize();
 

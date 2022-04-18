@@ -7,6 +7,7 @@
 #include "ModuleEvents.h"
 #include "ParticleAttackRevenant.h"
 
+
 PlayerCombat::PlayerCombat(std::string name, std::string tag, Player* player) : GameObject(name, tag)
 {
 	this->player = player;
@@ -84,6 +85,8 @@ void PlayerCombat::Update()
 			attackAreaCounter = 0;
 		}
 	}
+
+	executeSpellCommand->Update();
 }
 
 void PlayerCombat::Attack()

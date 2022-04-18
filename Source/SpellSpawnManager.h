@@ -19,6 +19,8 @@ public:
 private:
 	SpellSpawnManager(PlayerClass playerClass);
 
+	~SpellSpawnManager();
+
 	int CalculateSpellLevel(SpellID id);
 
 	static SpellSpawnManager* instance;

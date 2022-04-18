@@ -11,7 +11,10 @@ public:
 
 	void Update() override;
 
+	void PostUpdate() override;
+
 	void OnCollisionEnter(PhysBody* col) override;
+
 	void OnCollisionExit(PhysBody* col) override;
 
 	void Destroy();
@@ -19,6 +22,12 @@ public:
 	GameObject* GetParent() { return parent; }
 
 	iPoint positionOffset = { 0,0 };
+
+	bool onTriggerEnter = false;
+
+	bool onTriggerStay = false;
+
+	bool onTriggerExit = false;
 
 private:
 	bool followFather = true;

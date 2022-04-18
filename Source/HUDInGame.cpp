@@ -13,11 +13,18 @@
 #include "PlayerCombat.h"
 #include "PlayerController.h"
 #include "ModuleEvents.h"
+#include "SpellInfo.h"
 
 RenderObject Controls1;
 RenderObject Controls2;
 RenderObject PauseBG;
 RenderObject SettingsBG;
+
+RenderObject iconSouls;
+
+RenderObject iconSpells;
+RenderObject deckSpells1;
+RenderObject deckSpells2;
 
 HUDInGame::HUDInGame() :Scene("HUDInGame")
 {
@@ -46,12 +53,18 @@ bool HUDInGame::Start()
 	Controls1.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Controls1_2.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 1, 0, SDL_FLIP_NONE, 0);
 	Controls2.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Controls2_2.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 1, 0, SDL_FLIP_NONE, 0);
 
+	iconSouls.InitAsTexture(app->textures->Load("Assets/Sprites/UI/icons.png"), { app->renderer->camera->x + 15, app->renderer->camera->y + 21 }, { 62,31,31,31 }, 0.5f, 4, 0, 0, SDL_FLIP_NONE, 0);
+
+	iconSpells.InitAsTexture(app->textures->Load("Assets/Sprites/UI/icons.png"), { app->renderer->camera->x + 304, app->renderer->camera->y + 320 }, { 0,0,0,0 }, 1, 4, 0, 0, SDL_FLIP_NONE, 0);
+	deckSpells1.InitAsTexture(app->textures->Load("Assets/Sprites/UI/icons.png"), { app->renderer->camera->x + 350, app->renderer->camera->y + 335 }, { 0,0,0,0 }, 0.5f, 4, 0, 0, SDL_FLIP_NONE, 0);
+	deckSpells2.InitAsTexture(app->textures->Load("Assets/Sprites/UI/icons.png"), { app->renderer->camera->x + 375, app->renderer->camera->y + 335 }, { 0,0,0,0 }, 0.5f, 4, 0, 0, SDL_FLIP_NONE, 0);
+
 	Hover = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiHover.wav");
 	Press = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiSelect.wav");
 
-	text = new Text({app->renderer->camera->x + 15, app->renderer->camera->y + 25 }, std::to_string(score));
+	text = new Text({app->renderer->camera->x + 30, app->renderer->camera->y + 25 }, std::to_string(score));
 
-	playerHp.bg = playerHp.currentHp = { app->renderer->camera->x + 15, app->renderer->camera->y + 10, 200, 10 };
+	playerHp.bg = playerHp.delayHp = playerHp.currentHp = { app->renderer->camera->x + 15, app->renderer->camera->y + 10, 200, 10 };
 	miniMap = { app->renderer->camera->x + 535, app->renderer->camera->y + 5, 100, 100 };
 
 	spell1 = { app->renderer->camera->x + 305, app->renderer->camera->y + 314, 30, 40 };
@@ -349,19 +362,88 @@ bool HUDInGame::Update()
 			}
 		}
 	}
+
+	UpdatePlayerHp();
+
 	return true;
 }
 
 bool HUDInGame::PostUpdate()
 {
-	app->renderer->AddRectRenderQueue(playerHp.currentHp, playerHp.hpColor, true, 3, 3.0f, 0.0f);
-	app->renderer->AddRectRenderQueue(playerHp.bg, playerHp.bgColor, false, 3, 2.0f, 0.0f);
+	// Player Hp
+	app->renderer->AddRectRenderQueue(playerHp.bg, playerHp.bgColor, false, 4, 2.0f, 0.0f);
+	app->renderer->AddRectRenderQueue(playerHp.delayHp, playerHp.hpDelayColor, true, 4, 2.5f, 0.0f);
+	app->renderer->AddRectRenderQueue(playerHp.currentHp, playerHp.hpColor, true, 4, 3.0f, 0.0f);
+
 	app->renderer->AddRectRenderQueue(miniMap, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
 
 	if (player->availableSpellSlots == 1)
 	{
 		app->renderer->AddRectRenderQueue(spell1, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
-		if (player->selectedSpell == 0)	app->renderer->AddRectRenderQueue(spell1, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
+		if (player->selectedSpell == 0)	app->renderer->AddRectRenderQueue(spell1, { 255, 0, 0, 255 }, false, 3, 3.0f, 0.0f);
+
+		switch ((int)player->spellSlots[0]->id)
+		{
+		case (int)SpellID::PURIFIED_SWORD:
+			iconSpells.section = { 31,0,31,31 };
+			break;
+		case (int)SpellID::SOUL_SHIELD:
+			iconSpells.section = { 31,31,31,31 };
+			break;
+		case (int)SpellID::PURIFICATION_SLASH:
+			iconSpells.section = { 0,31,31,31 };
+			break;
+		case (int)SpellID::EKRISKI:
+			iconSpells.section = { 61,0,31,31 };
+			break;
+		case (int)SpellID::FOTEIROS:
+			iconSpells.section = { 0,0,31,31 };
+			break;
+		default:
+			iconSpells.section = { 300,300,3,3 };
+		}
+
+		switch ((int)player->deckSlots[0]->id)
+		{
+		case (int)SpellID::PURIFIED_SWORD:
+			deckSpells1.section = { 31,0,31,31 };
+			break;
+		case (int)SpellID::SOUL_SHIELD:
+			deckSpells1.section = { 31,31,31,31 };
+			break;
+		case (int)SpellID::PURIFICATION_SLASH:
+			deckSpells1.section = { 0,31,31,31 };
+			break;
+		case (int)SpellID::EKRISKI:
+			deckSpells1.section = { 61,0,31,31 };
+			break;
+		case (int)SpellID::FOTEIROS:
+			deckSpells1.section = { 0,0,31,31 };
+			break;
+		default:
+			deckSpells1.section = { 300,300,3,3 };
+		}
+		switch ((int)player->deckSlots[1]->id)
+		{
+		case (int)SpellID::PURIFIED_SWORD:
+			deckSpells2.section = { 31,0,31,31 };
+			break;
+		case (int)SpellID::SOUL_SHIELD:
+			deckSpells2.section = { 31,31,31,31 };
+			break;
+		case (int)SpellID::PURIFICATION_SLASH:
+			deckSpells2.section = { 0,31,31,31 };
+			break;
+		case (int)SpellID::EKRISKI:
+			deckSpells2.section = { 61,0,31,31 };
+			break;
+		case (int)SpellID::FOTEIROS:
+			deckSpells2.section = { 0,0,31,31 };
+			break;
+		default:
+			deckSpells2.section = { 300,300,3,3 };
+		}
+
 	}
 	if (player->availableSpellSlots == 2)
 	{
@@ -438,6 +520,12 @@ bool HUDInGame::PostUpdate()
 		}
 	}
 
+	app->renderer->AddRenderObjectRenderQueue(iconSouls);
+
+	app->renderer->AddRenderObjectRenderQueue(iconSpells);
+	app->renderer->AddRenderObjectRenderQueue(deckSpells1);
+	app->renderer->AddRenderObjectRenderQueue(deckSpells2);
+
 	Scene::PostUpdate();
 
 	return true;
@@ -466,4 +554,32 @@ void HUDInGame::GameEventTriggered()
 void HUDInGame::SetPlayerCombat(PlayerCombat* playerC)
 {
 	player = playerC;
+}
+
+void HUDInGame::UpdatePlayerHp()
+{
+	do
+	{
+		if (playerHp.delayHp.w < playerHp.currentHp.w) break;
+
+		playerHp.startDelay--;
+
+		if (playerHp.startDelay > 0) break;
+
+		if (playerHp.countDelay <= 0)
+		{
+			playerHp.delayHp.w--;
+
+			playerHp.countDelay = playerHp.maxCountDelay;
+		}
+		else
+		{
+			playerHp.countDelay -= playerHp.delaySpeed;
+
+			if (playerHp.delayHp.w > playerHp.currentHp.w) break;
+
+			playerHp.startDelay = playerHp.MaxStartDelay;
+		}
+
+	} while (false);
 }

@@ -13,7 +13,6 @@
 #include "PlayerCombat.h"
 #include "ModuleEvents.h"
 
-
 HubScene::HubScene() : SceneGame("HubScene")
 {
 
@@ -91,7 +90,6 @@ bool HubScene::Start()
 
 	if (playerClass == PlayerClass::REVENANT) player = new PlayerRevenant();
 	else player = new PlayerSage();
-	app->renderer->camera->SetTarget(player->controller);
 
 	revenantTree = ClassTree::GetInstance();
 
@@ -100,10 +98,13 @@ bool HubScene::Start()
 	hudInGame->Start();
 
 	Scene::Start();
-	player->controller->SetPosition(startPosition);
-	
-	//t->ChangeDrawMode();
 
+	player->controller->SetPosition(startPosition);
+
+	app->renderer->camera->SetPosition(startPosition);
+
+	app->renderer->camera->SetTarget(player->controller);
+	
 	InitScene();
 	//NPC creators
 	NPC* npc1 = new NPC("purifier10", {1228,1717});//Interior castillo o perdido por ah�

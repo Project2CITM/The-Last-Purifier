@@ -65,6 +65,10 @@ public:
 
 	void GameEventTriggered() override;
 
+	bool isVulnerable() { return isInvulnerable; }
+
+public:
+
 	Player* player = nullptr;
 
 	PlayerCombat* combat = nullptr;
@@ -74,6 +78,13 @@ public:
 	Animation animations[PLAYER_ANIMATIONS_NUM];
 
 	iPoint textureOffset = { 0,0 };
+
+	bool godMode = false;
+
+	int normalDamage = 0;
+
+	LookingDirection lookingDir = LookingDirection::RIGHT;
+
 
 private:
 	void CreatePhysBody();
@@ -104,7 +115,6 @@ private:
 
 	StateMachine stateMachine;
 	PlayerState currentState = PlayerState::IDLE;
-	LookingDirection lookingDir = LookingDirection::RIGHT;
 
 	Trigger* enemyTrigger = nullptr;
 

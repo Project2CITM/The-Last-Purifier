@@ -28,8 +28,7 @@ NPC::NPC(std::string name, iPoint position) : GameObject(name,"NPC")
 	}
 	idleAnim.loop = true;
 	idleAnim.speed = 0.05;
-	idleAnim.hasIdle = false;
-	
+	idleAnim.hasIdle = false;	
 }
 
 NPC::~NPC()
@@ -43,7 +42,7 @@ void NPC::Start()
 	text->ChangeDrawMode();
 	configDialog = app->config.child("dialogText");
 
-	pugi::xml_node npcNode = configDialog.child("spanish").child(name.c_str());
+	pugi::xml_node npcNode = configDialog.child("english").child(name.c_str());
 	int sentenceNum = npcNode.attribute("Num").as_int(0);
 
 	for (int i = 1; i <= sentenceNum; i++)
@@ -112,10 +111,11 @@ void NPC::OnTriggerEnter(std::string trigger, PhysBody* col)
 		LOG("Enter");
 		if (!speaking) 
 		{
-			text->SetText("               Pulse enter para hablar");
+			text->SetText("               Press Enter to talk");
 		}	
 	}
 }
+
 void NPC::OnTriggerExit(std::string trigger, PhysBody* col) 
 {
 	if (col->gameObject == nullptr) return;

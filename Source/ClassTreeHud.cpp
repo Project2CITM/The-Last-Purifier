@@ -68,6 +68,8 @@ bool ClassTreeHud::Start()
 	//testBtn->setRenderColour({ 155, 0, 0, 155 });
 	//testBtn->setRenderLayer(4, 1);
 
+	//classTree->unlock(&player->souls)
+
 	Scene::Start();
 
 	return true;

@@ -21,9 +21,16 @@ enum class CurrentPauseMenu
 struct PlayerHpGUI
 {
 	SDL_Rect currentHp = { 0,0,0,0 };
+	SDL_Rect delayHp = { 0,0,0,0 };
 	SDL_Rect bg = { 0,0,0,0 };
 	SDL_Color hpColor = { 255,0,0,255 };
+	SDL_Color hpDelayColor = { 168, 162, 50,255 };
 	SDL_Color bgColor = { 155,155,155,255 };
+	int startDelay = 15;
+	int MaxStartDelay = 15;
+	int countDelay = 5;//frame
+	int maxCountDelay = 5;
+	int delaySpeed = 3;
 };
 
 class HUDInGame : public Scene, public EventListener
@@ -51,6 +58,8 @@ public:
 	void GameEventTriggered() override;
 
 	void SetPlayerCombat(PlayerCombat* playerC);
+
+	void UpdatePlayerHp();
 
 private:
 

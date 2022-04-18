@@ -87,7 +87,7 @@ void ClassTree::ReleaseInstance()
 {
 	if (instance != nullptr)
 	{
-		CleanUp();
+		ClassTree::CleanUp();
 		delete instance;
 		instance = nullptr;
 	}
@@ -101,7 +101,7 @@ void ClassTree::CleanUp()
 
 	for (int i = 0; i < TREE_SIZE; i++)
 	{
-		RELEASE(skillTree[i]);
+		RELEASE(this->instance->skillTree[i]);
 	}
 }
 

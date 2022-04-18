@@ -21,6 +21,8 @@ public:
 
 	void SetTarget(GameObject * target);
 
+	void SetPosition(iPoint pos);
+
 	void ReleaseTarget();
 
 private:
@@ -45,7 +47,8 @@ public:
 	int cameraSpeed = 20;
 
 	// mas grande, mas lento se mueve la camera
-	int cameraDelay = 10;
+	int cameraDelayInRange = 10;
+	int cameraDelayOutRange = 3;
 
 	// distancia donde la camera empieza a perseguirte
 	int followDistance = 100;
