@@ -105,6 +105,7 @@ void PlayerController::PostUpdate()
 	// and current Animation State
 	currentAnim = (PlayerAnim)currentState;
 
+	UpdateOrderInLayer(0);
 	renderObjects[0].section = animations[(int)currentAnim].GetCurrentFrame();
 	renderObjects[0].destRect.x = GetDrawPosition().x + textureOffset.x;
 	renderObjects[0].destRect.y = GetDrawPosition().y + textureOffset.y;

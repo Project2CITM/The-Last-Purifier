@@ -66,6 +66,8 @@ public:
 
 	iPoint GetDrawPosition(int index = 0);
 
+	void UpdateOrderInLayer(int index = 0);
+
 	/// <summary>
 	/// Si exixte pBody devuelve angluo de pBody, si no el de GameObject 
 	/// </summary>

@@ -28,8 +28,7 @@ NPC::NPC(std::string name, iPoint position) : GameObject(name,"NPC")
 	}
 	idleAnim.loop = true;
 	idleAnim.speed = 0.05;
-	idleAnim.hasIdle = false;
-	
+	idleAnim.hasIdle = false;	
 }
 
 NPC::~NPC()

@@ -22,6 +22,8 @@ public:
 	SDL_Renderer* renderer = nullptr;
 	Camera* camera = nullptr;
 
+	bool showCollisions = false;
+
 	//int zoom = 1;
 
 	SDL_DisplayMode displayMode;
