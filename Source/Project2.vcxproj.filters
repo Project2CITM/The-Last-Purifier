@@ -327,6 +327,9 @@
     <ClInclude Include="ParticleExplodeEkriksi.h">
       <Filter>Archivos de encabezado\Tools\Particles</Filter>
     </ClInclude>
+    <ClInclude Include="SoulShieldS.h">
+      <Filter>Archivos de encabezado\Player\Spells</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\PugiXml\src\pugixml.cpp">
@@ -524,14 +527,17 @@
     <ClCompile Include="ParticleAttackKaboom.cpp">
       <Filter>Archivos de origen\Tools\Particles</Filter>
     </ClCompile>
+    <ClCompile Include="Worm.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
     <ClCompile Include="PaticleHitFotieros.cpp">
       <Filter>Archivos de origen\Tools\Particles</Filter>
     </ClCompile>
     <ClCompile Include="ParticleExplodeEkriksi.cpp">
       <Filter>Archivos de origen\Tools\Particles</Filter>
     </ClCompile>
-    <ClCompile Include="Worm.cpp">
-      <Filter>Archivos de origen\GameObjects\Enemy</Filter>
+    <ClCompile Include="SoulShieldS.cpp">
+      <Filter>Archivos de origen\Player\Spells</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
