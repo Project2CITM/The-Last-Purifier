@@ -68,6 +68,9 @@ public:
 
 	Player* player = nullptr;
 
+	List<SpellInfo*> spellSlots; // A list of every spell slot and its current spell. If empty, it contains NONE.
+	List<SpellInfo*> deckSlots; // A list of every spell in the deck. If empty, contains NONE
+
 private:
 
 	bool isSpellCommandStarted = false;
@@ -84,9 +87,6 @@ private:
 	float projectileSpeed = 20; //Velocidad de ba
 
 	DamageArea* revenantAttack = nullptr;
-
-	List<SpellInfo*> spellSlots; // A list of every spell slot and its current spell. If empty, it contains NONE.
-	List<SpellInfo*> deckSlots; // A list of every spell in the deck. If empty, contains NONE
 
 	friend class PlayerController;
 };

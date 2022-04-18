@@ -13,11 +13,14 @@
 #include "PlayerCombat.h"
 #include "PlayerController.h"
 #include "ModuleEvents.h"
+#include "SpellInfo.h"
 
 RenderObject Controls1;
 RenderObject Controls2;
 RenderObject PauseBG;
 RenderObject SettingsBG;
+
+RenderObject iconSpells;
 
 HUDInGame::HUDInGame() :Scene("HUDInGame")
 {
@@ -45,6 +48,8 @@ bool HUDInGame::Start()
 	SettingsBG.InitAsTexture(app->textures->Load("Assets/Sprites/UI/FondoSettings.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 0, 0, SDL_FLIP_NONE, 0);
 	Controls1.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Controls1_2.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 1, 0, SDL_FLIP_NONE, 0);
 	Controls2.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Controls2_2.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 1, 0, SDL_FLIP_NONE, 0);
+
+	iconSpells.InitAsTexture(app->textures->Load("Assets/Sprites/UI/icons.png"), { app->renderer->camera->x + 304, app->renderer->camera->y + 320 }, { 0,0,0,0 }, 1, 4, 0, 0, SDL_FLIP_NONE, 0);
 
 	Hover = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiHover.wav");
 	Press = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiSelect.wav");
@@ -361,7 +366,29 @@ bool HUDInGame::PostUpdate()
 	if (player->availableSpellSlots == 1)
 	{
 		app->renderer->AddRectRenderQueue(spell1, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
-		if (player->selectedSpell == 0)	app->renderer->AddRectRenderQueue(spell1, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
+		if (player->selectedSpell == 0)	app->renderer->AddRectRenderQueue(spell1, { 255, 0, 0, 255 }, false, 4, 2.0f, 0.0f);
+
+		switch ((int)player->spellSlots[0]->id)
+		{
+		case 1:
+			iconSpells.section = { 31,0,31,31 };
+			break;
+		case 2:
+			iconSpells.section = { 31,31,31,31 };
+			break;
+		case 3:
+			iconSpells.section = { 0,31,31,31 };
+			break;
+		case 4:
+			iconSpells.section = { 61,0,31,31 };
+			break;
+		case 5:
+			iconSpells.section = { 0,0,31,31 };
+			break;
+		default:
+			iconSpells.section = { 300,300,3,3 };
+		}
+
 	}
 	if (player->availableSpellSlots == 2)
 	{
@@ -437,6 +464,8 @@ bool HUDInGame::PostUpdate()
 			app->renderer->AddRenderObjectRenderQueue(SettingsBG);
 		}
 	}
+
+	app->renderer->AddRenderObjectRenderQueue(iconSpells);
 
 	Scene::PostUpdate();
 

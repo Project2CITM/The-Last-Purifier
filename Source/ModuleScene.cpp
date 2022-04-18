@@ -17,7 +17,7 @@ ModuleScene::ModuleScene(bool start_enabled) : Module(start_enabled)
 	scenes[HUB] = new HubScene();
 	scenes[LEVEL_1] = new TestScene();
 
-	currentScene = LOGO;
+	currentScene = LEVEL_1;
 }
 
 ModuleScene::~ModuleScene()
