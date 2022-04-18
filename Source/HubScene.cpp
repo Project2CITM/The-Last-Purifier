@@ -90,7 +90,6 @@ bool HubScene::Start()
 
 	if (playerClass == PlayerClass::REVENANT) player = new PlayerRevenant();
 	else player = new PlayerSage();
-	app->renderer->camera->SetTarget(player->controller);
 
 	revenantTree = ClassTree::GetInstance();
 
@@ -99,23 +98,26 @@ bool HubScene::Start()
 	hudInGame->Start();
 
 	Scene::Start();
-	player->controller->SetPosition(startPosition);
-	
-	//t->ChangeDrawMode();
 
+	player->controller->SetPosition(startPosition);
+
+	app->renderer->camera->SetPosition(startPosition);
+
+	app->renderer->camera->SetTarget(player->controller);
+	
 	InitScene();
 	//NPC creators
 	NPC* npc1 = new NPC("purifier10", {1228,1717});//Interior castillo o perdido por ah�
 	npc1->Start();
 
-	//NPC* npc2 = new NPC("purifier9", {478,1470});//Cementerio
-	//npc2->Start();
+	NPC* npc2 = new NPC("purifier9", {478,1470});//Cementerio
+	npc2->Start();
 
-	//NPC* npc3 = new NPC("purifier8", {1228,493});//Puerta Start Run
-	//npc3->Start();
+	NPC* npc3 = new NPC("purifier8", {1228,493});//Puerta Start Run
+	npc3->Start();
 
-	//NPC* npc4 = new NPC("purifier6", {928,1867});//Puerta Castillo
-	//npc4->Start();
+	NPC* npc4 = new NPC("purifier6", {928,1867});//Puerta Castillo
+	npc4->Start();
 
 	revenantInstructor = new Instructor("What do you need ?", "RevenantInstructor", { 1016, 855 }, PlayerClass::REVENANT);
 	revenantInstructor->setIndoors();

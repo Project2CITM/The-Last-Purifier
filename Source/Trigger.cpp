@@ -36,7 +36,7 @@ void Trigger::Update()
 {
 	if (app->Exiting()) return;
 
-	if (parent == nullptr) return;
+	if (parent == nullptr|| !parent->enable) return;
 
 	if (pendingToDelete) return;
 
@@ -57,7 +57,9 @@ void Trigger::OnCollisionEnter(PhysBody* col)
 
 	if (app->Exiting()) return;
 
-	if (parent) parent->OnTriggerEnter(this->name, col);
+	if (parent == nullptr || !parent->enable) return;
+
+	parent->OnTriggerEnter(this->name, col);
 }
 
 void Trigger::OnCollisionExit(PhysBody* col)
@@ -66,7 +68,9 @@ void Trigger::OnCollisionExit(PhysBody* col)
 
 	if (app->Exiting()) return;
 
-	if (parent) parent->OnTriggerExit(this->name, col);
+	if (parent == nullptr || !parent->enable) return;
+	
+	parent->OnTriggerExit(this->name, col);
 }
 
 void Trigger::Destroy()

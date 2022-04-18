@@ -60,6 +60,12 @@ void Camera::UpdatePosition()
 {
 	if (target == nullptr || app->scene->isChangingScene || debug) return;
 
+	if (cameraDelayInRange == 0 || cameraDelayOutRange == 0)
+	{
+		x = target->GetPosition().x * app->window->scale;
+		y = target->GetPosition().y * app->window->scale;
+	}
+
 	// Update Y
 	int targetPosY = target->GetPosition().y * app->window->scale;
 	targetPosY = (targetPosY - pivotY) * moveY;
@@ -68,11 +74,11 @@ void Camera::UpdatePosition()
 
 	if (distance > followDistance)
 	{
-		targetPosY > y ? y += distance / (cameraDelay / 3) : targetPosY < y ? y -= distance / (cameraDelay / 3) : y = y;
+		targetPosY > y ? y += distance / cameraDelayOutRange : targetPosY < y ? y -= distance / cameraDelayOutRange : y = y;
 	}
 	else if (distance != 0)
 	{
-		targetPosY > y ? y += distance / cameraDelay : targetPosY < y ? y -= distance / cameraDelay : y = y;
+		targetPosY > y ? y += distance / cameraDelayInRange : targetPosY < y ? y -= distance / cameraDelayInRange : y = y;
 	}
 
 	// Update X
@@ -83,11 +89,11 @@ void Camera::UpdatePosition()
 
 	if (distance > followDistance)
 	{
-		targetPosX > x ? x += distance / (cameraDelay / 3) : targetPosX < x ? x -= distance / (cameraDelay / 3) : x = x;
+		targetPosX > x ? x += distance / cameraDelayOutRange : targetPosX < x ? x -= distance / cameraDelayOutRange : x = x;
 	}
 	else if (distance != 0)
 	{
-		targetPosX > x ? x += distance / cameraDelay : targetPosX < x ? x -= distance / cameraDelay : x = x;
+		targetPosX > x ? x += distance / cameraDelayInRange : targetPosX < x ? x -= distance / cameraDelayInRange : x = x;
 	}
 
 	// Limite de camera
@@ -98,6 +104,19 @@ void Camera::UpdatePosition()
 void Camera::SetTarget(GameObject* target)
 {
 	this->target = target;
+}
+
+void Camera::SetPosition(iPoint pos)
+{
+	int targetPosX = pos.x * app->window->scale;
+	targetPosX = (targetPosX - pivotX) * moveX;
+
+	x = targetPosX;
+
+	int targetPosY = pos.y * app->window->scale;
+	targetPosY = (targetPosY - pivotY) * moveY;
+
+	y = targetPosY;
 }
 
 void Camera::ReleaseTarget()
