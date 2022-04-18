@@ -69,6 +69,8 @@ void Enemy::Die(bool spawnPower)
 		int randNum = rand() % 10;
 		if (randNum == 1) spawnManager->SpawnSpell(GetPosition());
 	}
+	Player player;
+	player.souls += 3;
 
 	isDie = true;
 
