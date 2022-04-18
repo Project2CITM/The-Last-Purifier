@@ -14,6 +14,7 @@
 
 PlayerController::PlayerController(std::string name, std::string tag, Player* player) : GameObject(name, tag)
 {
+	this->listenTo = GameEvent::COMPLETE_ROOM;
 	this->player = player;
 }
 
@@ -464,10 +465,15 @@ void PlayerController::OnTriggerEnter(std::string trigger, PhysBody* col)
 void PlayerController::Hit(int damage)
 {
 	player->hpPlayer -= damage;
+
+	//printf("Player HP:%d\n", player->hpPlayer);
+
 	if (player->hpPlayer <= 0) printf("Player Die!!\n");
 
 	beenHit = true;
 	Invulnerability(invulnerabilityTimeHit);
+
+	app->events->TriggerEvent(GameEvent::PLAYER_HIT);
 }
 
 void PlayerController::Stun(int frames)
@@ -478,4 +484,9 @@ void PlayerController::Invulnerability(int frames)
 {
 	isInvulnerable = true;
 	invulnerabilityCounter = frames;
+}
+
+void PlayerController::GameEventTriggered()
+{
+	combat->CheckDeck();
 }

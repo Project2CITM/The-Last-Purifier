@@ -28,6 +28,7 @@ public:
 	// Basic stats
 	int souls = 0;
 	int hpPlayer = 100;
+	int hpMax = 100;
 	int spellSlots = 1;
 	int deckSlots = 2;
 	int shield = 0;
@@ -46,7 +47,6 @@ public:
 
 	// Spell stats
 	bool purifiedSwordOn = false;
-
 };
 
 #endif

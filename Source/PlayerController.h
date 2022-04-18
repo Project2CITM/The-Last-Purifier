@@ -5,6 +5,8 @@
 #include "StateMachine.h"
 #include "Animation.h"
 #include "Trigger.h"
+#include "ModuleEvents.h"
+
 
 #define PLAYER_ANIMATIONS_NUM 4
 
@@ -35,7 +37,7 @@ enum class LookingDirection
 class Player;
 class PlayerCombat;
 
-class PlayerController : public GameObject
+class PlayerController : public GameObject, public EventListener
 {
 public:
 	PlayerController(std::string name, std::string tag, Player* player);
@@ -60,6 +62,8 @@ public:
 	void Stun(int frames);
 
 	void Invulnerability(int frames);
+
+	void GameEventTriggered() override;
 
 	Player* player = nullptr;
 

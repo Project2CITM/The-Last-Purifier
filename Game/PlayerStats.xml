@@ -12,7 +12,7 @@
 	<revenant>
 		<armour quantity="20" />
 		<damage quantity="20" />
-		<attack_speed quantity="75" />
+		<attack_speed quantity="60" />
 	</revenant>
 	<sage>
 		<armour quantity="10" />

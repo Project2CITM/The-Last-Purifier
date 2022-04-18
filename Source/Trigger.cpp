@@ -38,6 +38,8 @@ void Trigger::Update()
 
 	if (parent == nullptr) return;
 
+	if (pendingToDelete) return;
+
 	if (parent->pendingToDelete)
 	{
 		pendingToDelete = true;
@@ -47,7 +49,6 @@ void Trigger::Update()
 	if (!followFather) return;
 	
 	SetPosition(parent->GetPosition() + positionOffset);
-	
 }
 
 void Trigger::OnCollisionEnter(PhysBody* col)

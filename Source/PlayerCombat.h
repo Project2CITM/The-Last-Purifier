@@ -57,7 +57,14 @@ private:
 	b2Vec2 GetAttackOffset();
 
 	void RevenantAttack();
+
 	void SageAttack();
+
+public:
+
+	Player* player = nullptr;
+
+private:
 
 	// Combat Stats-------------------
 	int attackCD;
@@ -75,10 +82,7 @@ private:
 	List<SpellInfo*> spellSlots; // A list of every spell slot and its current spell. If empty, it contains NONE.
 	List<SpellInfo*> deckSlots; // A list of every spell in the deck. If empty, contains NONE
 
-	Player* player = nullptr;
-
 	friend class PlayerController;
-
 };
 
 #endif

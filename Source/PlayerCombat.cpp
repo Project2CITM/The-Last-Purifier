@@ -19,7 +19,7 @@ void PlayerCombat::Start()
 
 	filter.categoryBits = app->physics->PLAYER_LAYER;
 
-	revenantAttack = new DamageArea(player->controller->GetPosition(), 12, 20, player->damage);
+	revenantAttack = new DamageArea(player->controller->GetPosition(), 15, 20, player->damage);
 
 	revenantAttack->pBody->body->GetFixtureList()->SetFilterData(filter);
 

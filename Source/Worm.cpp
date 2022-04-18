@@ -37,6 +37,7 @@ Worm::Worm(iPoint pos) : Enemy("worm")
 
 Worm::~Worm()
 {
+	damageTrigger->Destroy();
 }
 
 void Worm::PreUpdate()
@@ -275,7 +276,7 @@ void Worm::ResetAllCoolDown()
 {
 	groundCoolDown = 120;
 
-	unergroundCoolDown = 120;
+	unergroundCoolDown = (rand() % 180 + 120);
 
 	shakeOutGround = 30;
 }

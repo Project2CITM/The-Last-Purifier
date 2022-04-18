@@ -3,11 +3,13 @@
 #include "ClassTree.h"
 
 
-PlayerStats::PlayerStats(Player* player) : EventListener(GameEvent::SAVE_GAME)
+PlayerStats::PlayerStats(Player* player)
 {
+	this->listenTo = GameEvent::SAVE_GAME;
+
 	this->player = player;
 
-	app->events->AddListener(this);
+	Application::GetInstance()->events->AddListener(this);
 
 	// Create Trees
 	commonTree = CommonTree::GetInstance();
@@ -49,11 +51,13 @@ void PlayerStats::UpdatePlayerStats()
 	player->armour = classValues.child("armour").attribute("quantity").as_int() + commonTree->getValue(CommonUpgrades::ARMOUR);
 	player->attackSpeed = classValues.child("attack_speed").attribute("quantity").as_int() - commonTree->getValue(CommonUpgrades::ATTACK_SPEED);
 	player->damage = classValues.child("damage").attribute("quantity").as_int() + commonTree->getValue(CommonUpgrades::DAMAGE);
+
+	player->hpMax = player->hpPlayer;
 }
 
 void PlayerStats::GameEventTriggered()
 {
-	
+
 	pugi::xml_node n = playerValuesXml.child("stats");
 
 	n.child("currentClass").attribute("class") = (int)player->playerClass;
@@ -65,9 +69,7 @@ void PlayerStats::GameEventTriggered()
 
 void PlayerStats::CleanUp()
 {
-	app->events->RemoveListener(this);
+	Application::GetInstance()->events->RemoveListener(this);
 
 	commonTree->ReleaseInstance();
 }
-
-

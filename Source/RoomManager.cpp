@@ -1,5 +1,6 @@
 #include "RoomManager.h"
 #include "ModuleRender.h"
+#include "ModuleEvents.h"
 
 void RoomManager::Start()
 {
@@ -68,8 +69,10 @@ void RoomManager::Update(iPoint playerPos)
 
 	//Open Doors when no enemies
 	if (r->done && r->closedDoors)
+	{
 		r->OpenDoors();
-
+		app->events->TriggerEvent(GameEvent::COMPLETE_ROOM);
+	}
 	//Player has changed room (activate/deactivate colliders)
 	if(!r->activeColliders)
 		for (int i = 0; i < rooms.count(); ++i) {
@@ -334,7 +337,7 @@ Room* RoomManager::CreateRoom(iPoint mapPosition, short mapId)
 
 	switch (mapId) {
 	case -1:
-		s = "MiniBoss";	//CHANGE boss room
+		s = "Boss";
 		break;
 	case -2:
 		s = "MiniBoss";
@@ -352,8 +355,6 @@ Room* RoomManager::CreateRoom(iPoint mapPosition, short mapId)
 	folder += s += file;
 
 	r->roomTexture = app->textures->Load(folder);
-
-	//LOG("Room Id: %d", r->id);
 
 	//Extract colliders & enemies
 	mapLoader->ExtractMapInfo(r);
