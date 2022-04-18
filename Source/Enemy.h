@@ -2,8 +2,10 @@
 #define __ENEMY_H__
 
 #include "GameObject.h"
+#include "Player.h"
 
 class SpellSpawnManager;
+class Player;
 
 class Enemy :  public GameObject
 {
@@ -46,6 +48,10 @@ protected:
 	int damage = 10;
 
 	int moveSpeed = 5;
+
+private:
+	Player* player = nullptr;
+
 };
 
 #endif // !__ENEMY_H__

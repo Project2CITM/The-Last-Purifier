@@ -2,6 +2,8 @@
 #include "ModulePhysics.h"
 #include "DamageArea.h"
 #include "SpellSpawnManager.h"
+#include "SceneGame.h"
+#include "ModuleScene.h"
 
 Enemy::Enemy(std::string name) :GameObject(name, "Enemy")
 {
@@ -69,8 +71,13 @@ void Enemy::Die(bool spawnPower)
 		int randNum = rand() % 10;
 		if (randNum == 1) spawnManager->SpawnSpell(GetPosition());
 	}
-	Player player;
-	player.souls += 3;
+
+	if (player == nullptr)
+	{
+		SceneGame* scene = (SceneGame*)app->scene->scenes[app->scene->currentScene];
+		player = scene->player;
+		player->souls += 3;
+	}
 
 	isDie = true;
 
