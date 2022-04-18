@@ -48,6 +48,11 @@ SpellSpawnManager::SpellSpawnManager(PlayerClass playerClass)
     classTree = ClassTree::GetInstance();
 }
 
+SpellSpawnManager::~SpellSpawnManager()
+{
+    classTree->ReleaseInstance();
+}
+
 void SpellSpawnManager::ReleaseInstance()
 {
     if (instance != nullptr)

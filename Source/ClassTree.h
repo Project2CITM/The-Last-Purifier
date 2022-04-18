@@ -65,7 +65,7 @@ public:
 
 	void ReleaseInstance();
 
-	virtual void CleanUp();
+	void CleanUp();
 
 	void GameEventTriggered() override;
 
