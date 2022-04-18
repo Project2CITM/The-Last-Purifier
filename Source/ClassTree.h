@@ -9,7 +9,7 @@
 #include "External/PugiXml/src/pugixml.hpp"
 #include "ModuleEvents.h"
 
-#define TREE_SIZE 10
+#define TREE_SIZE 20
 #define SAGE_TREE_XML "BaseClassTree.xml"
 #define REVENANT_TREE_XML "BaseClassTree.xml"
 #define SAVE_CLASS_TREE_XML "SaveClassTree.xml"
@@ -20,6 +20,12 @@ enum class SkillLevel {
 	BLUE,
 	PURPLE,
 	YELLOW
+};
+
+enum InitialClassId
+{
+	REVENANT_FIRST_ID = 1,
+	SAGE_FIRST_ID = 11
 };
 
 struct SkillTreeElement
@@ -34,9 +40,9 @@ struct SkillTreeElement
 	SkillLevel currentLevel = SkillLevel::LOCKED;
 	SkillLevel maxLevel = SkillLevel::PURPLE;
 
-	fPoint position;
+	iPoint position;
 
-	SkillTreeElement(int id, std::string name, std::string description, int cost, int requiresID, fPoint position, SkillLevel maxLevel = SkillLevel::PURPLE)
+	SkillTreeElement(int id, std::string name, std::string description, int cost, int requiresID, iPoint position, SkillLevel maxLevel = SkillLevel::PURPLE)
 	{
 		this->id = id;
 		this->name = name;

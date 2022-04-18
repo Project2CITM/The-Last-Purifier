@@ -97,8 +97,6 @@ bool TestScene::PreUpdate()
 
     hudInGame->PreUpdate();
 
-    revenantTree->PreUpdate();
-
     Scene::PreUpdate();
     return true;
 }
@@ -119,7 +117,6 @@ bool TestScene::Update()
 
     roomManager.Update(player->controller->GetPosition());
     hudInGame->Update();
-    revenantTree->Update();
     Scene::Update();
     return true;
 }
@@ -127,8 +124,6 @@ bool TestScene::Update()
 bool TestScene::PostUpdate()
 {
     roomManager.PostUpdate();
-
-    revenantTree->PostUpdate();
 
     hudInGame->PostUpdate();
 
