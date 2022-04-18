@@ -4,13 +4,16 @@
 #include "ModuleRender.h"
 #include "ModuleScene.h"
 #include "SceneGame.h"
-#include <iostream>
 
 ClassTree* ClassTree::instance = nullptr;
 
 ClassTree::ClassTree(PlayerClass pClass)
 {
+	this->listenTo = GameEvent::SAVE_GAME;
+
 	playerClass = pClass;
+	Application::GetInstance()->events->AddListener(this);
+
 	Start();
 }
 
@@ -31,22 +34,26 @@ ClassTree* ClassTree::GetInstance()
 
 void ClassTree::Start()
 {
-	pugi::xml_parse_result result;
+	pugi::xml_parse_result result1;
+	pugi::xml_parse_result result2;
+
+	result2 = saveFile.load_file(SAVE_CLASS_TREE_XML);
+
 	switch (playerClass)
 	{
 	case PlayerClass::REVENANT:
-		result = classFile->load_file(REVENANT_TREE_XML);
-		//treeTexture = app->textures->Load("Assets/Sprites/UI/Trees/Revenant_Tree.png");
+		result1 = classFile.load_file(REVENANT_TREE_XML);
 		break;
 	case PlayerClass::SAGE:
-		result = classFile->load_file(SAGE_TREE_XML);
-		//treeTexture = app->textures->Load("Assets/Sprites/UI/Trees/Sage_Tree.png");
+		result1 = classFile.load_file(SAGE_TREE_XML);
 		break;
 	}
 
-	if (result == NULL) LOG("Could not load xml file: %s. pugi error: %s", REVENANT_TREE_XML, result.description());
+	if (result1 == NULL) LOG("Could not load xml file: %s. pugi error: %s", REVENANT_TREE_XML, result1.description());
+	if (result2 == NULL) LOG("Could not load xml file: %s. pugi error: %s", SAVE_CLASS_TREE_XML, result2.description());
 
-	LoadTree();
+	LoadBaseTree();
+	SaveLoadTree(true);
 }
 
 void ClassTree::PreUpdate()
@@ -88,8 +95,10 @@ void ClassTree::ReleaseInstance()
 
 void ClassTree::CleanUp()
 {
-	RELEASE(classFile);
+	//RELEASE(classFile);
 	
+	Application::GetInstance()->events->RemoveListener(this);
+
 	for (int i = 0; i < TREE_SIZE; i++)
 	{
 		RELEASE(skillTree[i]);
@@ -125,21 +134,27 @@ bool ClassTree::unlockSkill(int* classPoints, int skillId)
 	return false;
 }
 
-bool ClassTree::LoadTree()
+bool ClassTree::LoadBaseTree()
 {
-	pugi::xml_node bNode = classFile->child("class_tree").first_child();
+	pugi::xml_node bNode = classFile.first_child().child("class_tree");
+
+	while (bNode.attribute("id").as_int() != (int) playerClass)
+	{
+		bNode = bNode.next_sibling();
+	}
+	bNode = bNode.first_child();
 	
 	for (int i = 0; i < TREE_SIZE; i++)
 	{
 		fPoint temp = { bNode.child("position").attribute("x").as_float(), bNode.child("position").attribute("y").as_float() };
 		skillTree[i] = new SkillTreeElement(
 			bNode.attribute("id").as_int(),
-			(std::string) bNode.child_value("name"),
-			(std::string) bNode.child_value("description"),
-			(int) bNode.child_value("cost"),
-			(int) bNode.child_value("requiresID"),
+			(std::string)bNode.child_value("name"),
+			(std::string)bNode.child_value("description"),
+			bNode.child("cost").text().as_int(),
+			bNode.child("requiresID").text().as_int(),
 			temp,
-			(SkillLevel) (int) bNode.child_value("maxLevel")
+			(SkillLevel) bNode.child("maxLevel").text().as_int()
 		);
 
 		bNode = bNode.next_sibling();
@@ -148,10 +163,44 @@ bool ClassTree::LoadTree()
 	return true;
 }
 
-bool ClassTree::SaveTree()
+bool ClassTree::SaveLoadTree(bool load)
 {
+	if (saveFile == nullptr) return false;
+
+	pugi::xml_node bNode = saveFile.first_child().child("class_tree");
+
+	while (bNode.attribute("id").as_int() != (int)playerClass)
+	{
+		bNode = bNode.next_sibling();
+	}
+	bNode = bNode.first_child();
+
+	for (int i = 0; i < TREE_SIZE; i++)
+	{
+		if (load) //Loads
+		{
+			skillTree[i]->currentLevel = (SkillLevel)bNode.attribute("level").as_int();
+		}
+		else //Saves
+		{
+			bNode.attribute("level") = (int)skillTree[i]->currentLevel;
+		}
+
+		bNode = bNode.next_sibling();
+	};
+
+	if (!load) //In case is called as a Save, it saves it back to the file
+	{
+		saveFile.save_file(SAVE_CLASS_TREE_XML);
+	}
+
 
 	return true;
+}
+
+void ClassTree::GameEventTriggered()
+{
+	SaveLoadTree();
 }
 
 /*
@@ -160,6 +209,7 @@ bool ClassTree::SaveTree()
 
 SkillTreeElement* ClassTree::getSkillTree(int value)
 {
+	value--; //Equals the value of the enum id to the array position (Enum starts at 1 because 0 = NONE)
 	if (value >= TREE_SIZE) return skillTree[TREE_SIZE - 1];
 	return skillTree[value];
 }

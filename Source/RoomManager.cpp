@@ -337,7 +337,7 @@ Room* RoomManager::CreateRoom(iPoint mapPosition, short mapId)
 
 	switch (mapId) {
 	case -1:
-		s = "MiniBoss";	//CHANGE boss room
+		s = "Boss";
 		break;
 	case -2:
 		s = "MiniBoss";
@@ -355,8 +355,6 @@ Room* RoomManager::CreateRoom(iPoint mapPosition, short mapId)
 	folder += s += file;
 
 	r->roomTexture = app->textures->Load(folder);
-
-	//LOG("Room Id: %d", r->id);
 
 	//Extract colliders & enemies
 	mapLoader->ExtractMapInfo(r);

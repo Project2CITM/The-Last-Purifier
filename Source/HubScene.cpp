@@ -76,8 +76,6 @@ bool HubScene::Start()
 
 	//Map
 
-
-
 	/*Player related*/
 	PlayerClass playerClass;
 	pugi::xml_document playerStats;
@@ -95,6 +93,7 @@ bool HubScene::Start()
 	else player = new PlayerSage();
 	app->renderer->camera->SetTarget(player->controller);
 
+	revenantTree = ClassTree::GetInstance();
 
 	//Starts
 	hudInGame = new HUDInGame();
@@ -137,13 +136,14 @@ bool HubScene::CleanUp()
 		RELEASE(player);
 	}
 
-
 	if (hudInGame != nullptr)
 	{
 		hudInGame->CleanUp();
 		RELEASE(hudInGame);
 	}
-
+	
+	revenantTree->ReleaseInstance();
+	
 	Scene::CleanUp();
 	return false;
 }
@@ -167,16 +167,18 @@ bool HubScene::PreUpdate()
 	//PreUpdates
 	hudInGame->PreUpdate();
 
-	if (isChangingPlayer)
-	{
-		ChangePlayer();
-	}
-
 	if (app->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN && !isChangingPlayer)
 	{
 		ChangePlayer();
 	}
+
+	revenantTree->PreUpdate();
+
 	Scene::PreUpdate();
+	if (isChangingPlayer && app->input->GetKey(SDL_SCANCODE_N) != KEY_DOWN)
+	{
+		ChangePlayer();
+	}
 	return true;
 }
 
@@ -188,6 +190,9 @@ bool HubScene::Update()
 	int x = player->controller->GetPosition().x;
 	int y = player->controller->GetPosition().y;
 	//LOG("x:%d \n y:%d", x, y);
+
+	revenantTree->Update();
+
 	Scene::Update();
 	return true;
 }
@@ -196,6 +201,8 @@ bool HubScene::PostUpdate()
 {
 	//PostUpdates
 	hudInGame->PostUpdate();
+
+	revenantTree->PostUpdate();
 
 	Scene::PostUpdate();
 	return true;
@@ -244,7 +251,7 @@ void HubScene::ChangePlayer()
 	}
 	else
 	{
-		player->controller->combat->executeSpellCommand->Start();
+		player->controller->combat->StartExecuteSpellCommand();
 		isChangingPlayer = false;
 	}
 }

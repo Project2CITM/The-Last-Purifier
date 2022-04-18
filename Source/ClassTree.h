@@ -7,10 +7,12 @@
 #include "Point.h"
 #include "Player.h"
 #include "External/PugiXml/src/pugixml.hpp"
+#include "ModuleEvents.h"
 
 #define TREE_SIZE 10
-#define SAGE_TREE_XML "RevenantTree.xml"
-#define REVENANT_TREE_XML "RevenantTree.xml"
+#define SAGE_TREE_XML "BaseClassTree.xml"
+#define REVENANT_TREE_XML "BaseClassTree.xml"
+#define SAVE_CLASS_TREE_XML "SaveClassTree.xml"
 
 enum class SkillLevel {
 	LOCKED = 0,
@@ -47,7 +49,7 @@ struct SkillTreeElement
 	};
 };
 
-class ClassTree 
+class ClassTree : public EventListener
 {
 public:
 
@@ -64,16 +66,20 @@ public:
 	void ReleaseInstance();
 
 	virtual void CleanUp();
+
+	void GameEventTriggered() override;
+
 public:
 	SkillTreeElement* getSkillTree(int value);
 	bool unlockSkill(int* classPoints, int skillId);
 	bool levelUpCheck(SkillTreeElement* theSkill);
 
-	//Loads the tree with all its upgrades
-	bool LoadTree();
+	//Loads the base tree
+	bool LoadBaseTree();
 
-	//Saves the tree
-	bool SaveTree();
+	//Saves and loads the tree (in case there is a save file)
+	bool SaveLoadTree(bool load = false);
+
 
 	int getCurrentLevel(int id);
 
@@ -86,7 +92,8 @@ private:
 
 	SkillTreeElement* skillTree[TREE_SIZE];
 
-	pugi::xml_document* classFile = new pugi::xml_document;
+	pugi::xml_document classFile;
+	pugi::xml_document saveFile;
 
 	//SDL_Rect rect = { 0, 0, 0, 0 };
 	//iPoint drawP = { 0 , 0 };

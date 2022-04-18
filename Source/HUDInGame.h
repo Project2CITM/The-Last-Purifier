@@ -9,6 +9,7 @@ class GUIButton;
 class GUISlider;
 class GUICheckbox;
 class PlayerCombat;
+class Text;
 
 enum class CurrentPauseMenu
 {
@@ -100,6 +101,8 @@ private:
 
 	uint Hover = NULL;
 	uint Press = NULL;
+	
+	Text* text = nullptr;
 
 	int ControllerPos = 0;
 	int ControllerPosOpY = 0;
@@ -109,6 +112,8 @@ private:
 	bool startPause = false;
 
 	int* currentSpell = nullptr;
+
+	int score = 0;
 };
 
 #endif //__HUD_IN_GAME_H__

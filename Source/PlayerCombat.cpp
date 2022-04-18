@@ -26,7 +26,6 @@ void PlayerCombat::Start()
 	revenantAttack->pBody->body->SetActive(false);
 
 	executeSpellCommand = new ExecuteSpell();
-	executeSpellCommand->Start();
 
 	// Attack action stats
 	attackCD = player->attackSpeed;
@@ -53,6 +52,14 @@ void PlayerCombat::Start()
 	}
 
 	selectedSpell = 0;
+}
+
+void PlayerCombat::PreUpdate()
+{
+	if (!isSpellCommandStarted) 
+	{
+		executeSpellCommand->Start();
+	}
 }
 
 void PlayerCombat::Update()
@@ -121,6 +128,12 @@ void PlayerCombat::ChangeSelectedSpellSlot(int num)
 	}
 
 	printf("Current Spell Slot: %d\n", selectedSpell);
+}
+
+void PlayerCombat::StartExecuteSpellCommand()
+{
+	executeSpellCommand->Start();
+	isSpellCommandStarted = true;
 }
 
 bool PlayerCombat::AddSpell(SpellInfo spell)
