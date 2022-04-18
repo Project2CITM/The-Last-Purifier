@@ -34,16 +34,12 @@ bool Scene::PreUpdate()
 {
 	if (app->isPause) return true;
 
-	int num = 0;
-
 	for (int i = 0; i < gameObjects.count(); i++)
 	{
 		if (!gameObjects[i]) continue;
 
 		if (gameObjects[i]->pendingToDelete)
 		{
-			num++;
-			if (gameObjects[i]->tag == "Enemy")printf("kill Enemy : %d\n", num);
 			DestroyGameObject(gameObjects[i]);
 		}
 

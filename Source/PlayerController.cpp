@@ -465,6 +465,9 @@ void PlayerController::OnTriggerEnter(std::string trigger, PhysBody* col)
 void PlayerController::Hit(int damage)
 {
 	player->hpPlayer -= damage;
+
+	printf("Player HP:%d\n", player->hpPlayer);
+
 	if (player->hpPlayer <= 0) printf("Player Die!!\n");
 
 	beenHit = true;
