@@ -20,7 +20,7 @@ void SoulShieldS::Execute(int level)
 {
 	if (currentDuration > 0) player->ChangeShield(-shield[currentLevel]);
 
-	currentLevel = level;
+	currentLevel = level-1;
 	currentDuration = frames[currentLevel];
 
 	player->ChangeShield(shield[currentLevel]);
