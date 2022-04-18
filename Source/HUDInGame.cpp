@@ -60,7 +60,7 @@ bool HUDInGame::Start()
 
 	text = new Text({app->renderer->camera->x + 15, app->renderer->camera->y + 25 }, std::to_string(score));
 
-	playerHp.bg = playerHp.currentHp = { app->renderer->camera->x + 15, app->renderer->camera->y + 10, 200, 10 };
+	playerHp.bg = playerHp.delayHp = playerHp.currentHp = { app->renderer->camera->x + 15, app->renderer->camera->y + 10, 200, 10 };
 	miniMap = { app->renderer->camera->x + 535, app->renderer->camera->y + 5, 100, 100 };
 
 	spell1 = { app->renderer->camera->x + 305, app->renderer->camera->y + 314, 30, 40 };
@@ -363,8 +363,31 @@ bool HUDInGame::Update()
 
 bool HUDInGame::PostUpdate()
 {
-	app->renderer->AddRectRenderQueue(playerHp.currentHp, playerHp.hpColor, true, 3, 3.0f, 0.0f);
-	app->renderer->AddRectRenderQueue(playerHp.bg, playerHp.bgColor, false, 3, 2.0f, 0.0f);
+	// Player Hp
+	if (playerHp.delayHp.w > playerHp.currentHp.w)
+	{
+		if (playerHp.startDelay <= 0)
+		{
+			if (playerHp.countDelay <= 0)
+			{
+				playerHp.delayHp.w--;
+				playerHp.countDelay = playerHp.maxCountDelay;
+			}
+			else
+			{
+				playerHp.countDelay -= playerHp.delaySpeed;
+				if (playerHp.delayHp.w <= playerHp.currentHp.w)playerHp.startDelay = playerHp.MaxStartDelay;
+			}
+		}
+		else
+		{
+			playerHp.startDelay--;
+		}
+	}
+	app->renderer->AddRectRenderQueue(playerHp.bg, playerHp.bgColor, false, 4, 2.0f, 0.0f);
+	app->renderer->AddRectRenderQueue(playerHp.delayHp, playerHp.hpDelayColor, true, 4, 2.5f, 0.0f);
+	app->renderer->AddRectRenderQueue(playerHp.currentHp, playerHp.hpColor, true, 4, 3.0f, 0.0f);
+
 	app->renderer->AddRectRenderQueue(miniMap, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
 
 	if (player->availableSpellSlots == 1)
