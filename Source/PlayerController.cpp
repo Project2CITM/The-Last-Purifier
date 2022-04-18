@@ -124,6 +124,9 @@ void PlayerController::PostUpdate()
 	// and current Animation State
 	currentAnim = (PlayerAnim)currentState;
 
+	if (godMode) renderObjects[0].SetColor({ 0, 255, 17 ,255 });
+	else  renderObjects[0].SetColor({ 255, 255, 255 ,255 });
+
 	UpdateOrderInLayer(0);
 	renderObjects[0].section = animations[(int)currentAnim].GetCurrentFrame();
 	renderObjects[0].destRect.x = GetDrawPosition().x + textureOffset.x;
@@ -423,9 +426,7 @@ void PlayerController::DashOn()
 			dir = { (float)1 * dashDistance, 0};
 			break;
 		}
-
 	}
-
 	pBody->body->SetLinearVelocity(dir);
 }
 

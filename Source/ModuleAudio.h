@@ -41,10 +41,21 @@ public:
 	// Play a previously loaded WAV
 	bool PlayFx(unsigned int fx, int repeat = 0);
 
+	void SetMusicVolume(int vol);
+
+	void SetSFXVolume(int vol);
+
+public:
+	float musicVol = 0;
+
+	float fxVol = 0;
+
 private:
 
 	Mix_Music*			music = nullptr;
+
 	List<Mix_Chunk*>	fx;
+
 	List<std::string> audioPaths;
 };
 

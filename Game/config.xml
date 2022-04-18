@@ -1,283 +1,260 @@
-<!-- Config file for the game -->
-<!-- L01: DONE 1: Create configuration file-->
+<?xml version="1.0"?>
 <config>
-  <app>
-    <title>The Last Purifier</title>
-    <organization>UPC</organization>
-  </app>
-
-  <renderer>
-    <vsync value = "true"/>
-  </renderer>
-
-  <window>
-    <resolution width = "1280" height = "720" scale = "2"/>
-    <fullscreen value = "false"/>
-    <borderless value = "false"/>
-    <resizable value = "false"/>
-    <fullscreen_window value = "false"/>
-  </window>
-
-  <textures>
-     <ghoul width = "32" height = "32" layer = "1" orderInLayer = "3.0" scale = "1" path="Assets/Sprites/Enemies/Ghoul/Ghoul.png"/>
-     <worm width = "32" height = "32" layer = "1" orderInLayer = "3.0" scale = "1.2" path="Assets/Sprites/Enemies/Worm/Worm.png"/>
-     <kaboomExplotion width = "32" height = "32" layer = "1" orderInLayer = "3.0" scale = "1.6" path="Assets/Sprites/Enemies/Ghoul/KaboomExplotion.png"/>
-     <npc width = "32" height = "32" layer = "1" orderInLayer = "3.0" scale = "0.3" path="Assets/Sprites/NPC/npcIdleAnim.png"/>
-     <revenantInstructor width = "70" height = "95" layer = "1" orderInLayer = "3.0" scale = "0.3" path="Assets/Sprites/NPC/revenantInstructor.png"/>
-	 <sageInstructor width = "70" height = "95" layer = "1" orderInLayer = "3.0" scale = "0.3" path="Assets/Sprites/NPC/sagetInstructor.png"/>
-     <basicattackrevenant width = "64" height = "64" layer = "1" orderInLayer = "3.0" scale = "0.8" path="Assets/Sprites/Player/Revenant/basicAttackRevenant.png"/>
-	 <basicwithpurifiedsword width = "64" height = "64" layer = "1" orderInLayer = "3.0" scale = "0.8" path="Assets/Sprites/Player/Revenant/basicWithPurifiedSword.png"/>
-	 <purificationslashrevenant width = "64" height = "128" layer = "1" orderInLayer = "3.0" scale = "1" path="Assets/Sprites/Player/Revenant/purificationSlashRevenant.png"/>
-     <purificationslashwithpurifiedsword width = "64" height = "128" layer = "1" orderInLayer = "3.0" scale = "1" path="Assets/Sprites/Player/Revenant/purificationSlashWithPurifiedSword.png"/>
-  </textures>
-  <fonts>
-    <defaultFont width = "48" height = "48" letter = "67" r = "255" g = "255" b = "255" a = "255" spaceInLetter = "-13" layer = "3" orderInLayer = "3.0" scale = "0.2" path="Assets/Fonts/defaultFont.png"/>
-  </fonts>
-
-  <dialogText>
-	  <spanish>
-		  <purifier1 Num="4">
-			  <Sentence1>Chico... ¡Acercate rapido!</Sentence1>
-			  <Sentence2>No se que haces aqui pero vuelve rapido a la aldea, aqui corres peligro</Sentence2>
-			  <Sentence3>...</Sentence3>
-			  <Sentence4>¡Espera! Antes de irte toma este guante, le vas a dar mejor uso que yo en este momento.¡Corre!</Sentence4>
-
-		  </purifier1>
-		  <doorGuardian Num="3">
-			  <Sentence1> Quien eres y que haces fuera de la aldea sin un protector</Sentence1>
-			  <Sentence2> Intenta no volver a salir sin proteccion, queda poco para que llegue el gran dia y debemos ser las maximas personas posibles.</Sentence2>
-			  <Sentence3> </Sentence3>
-		  </doorGuardian>
-		  <purifier2 Num="9">
-			  <Sentence1> ¿Que haces con un guante de purificador?</Sentence1>
-			  <Sentence2> Encontré a un señor con túnica y me cedió el guante. Parecía que estaba en serios apuros.</Sentence2>
-			  <Sentence3> Llevas un guante de purificador, con él puedes usar magia arcana. </Sentence3>
-			  <Sentence4>
+	<app>
+		<title>The Last Purifier</title>
+		<organization>UPC</organization>
+	</app>
+	<renderer>
+		<vsync value="true" />
+	</renderer>
+	<window>
+		<resolution width="1280" height="720" scale="2" />
+		<fullscreen value="false" />
+		<borderless value="false" />
+		<resizable value="false" />
+		<fullscreen_window value="false" />
+	</window>
+	<textures>
+		<ghoul width="32" height="32" layer="1" orderInLayer="3.0" scale="1" path="Assets/Sprites/Enemies/Ghoul/Ghoul.png" />
+		<worm width="32" height="32" layer="1" orderInLayer="3.0" scale="1.2" path="Assets/Sprites/Enemies/Worm/Worm.png" />
+		<kaboomExplotion width="32" height="32" layer="1" orderInLayer="3.0" scale="1.6" path="Assets/Sprites/Enemies/Ghoul/KaboomExplotion.png" />
+		<npc width="32" height="32" layer="1" orderInLayer="3.0" scale="0.3" path="Assets/Sprites/NPC/npcIdleAnim.png" />
+		<revenantInstructor width="70" height="95" layer="1" orderInLayer="3.0" scale="0.3" path="Assets/Sprites/NPC/revenantInstructor.png" />
+		<sageInstructor width="70" height="95" layer="1" orderInLayer="3.0" scale="0.3" path="Assets/Sprites/NPC/sagetInstructor.png" />
+		<basicattackrevenant width="64" height="64" layer="1" orderInLayer="3.0" scale="0.8" path="Assets/Sprites/Player/Revenant/basicAttackRevenant.png" />
+		<basicwithpurifiedsword width="64" height="64" layer="1" orderInLayer="3.0" scale="0.8" path="Assets/Sprites/Player/Revenant/basicWithPurifiedSword.png" />
+		<purificationslashrevenant width="64" height="128" layer="1" orderInLayer="3.0" scale="1" path="Assets/Sprites/Player/Revenant/purificationSlashRevenant.png" />
+		<purificationslashwithpurifiedsword width="64" height="128" layer="1" orderInLayer="3.0" scale="1" path="Assets/Sprites/Player/Revenant/purificationSlashWithPurifiedSword.png" />
+	</textures>
+	<fonts>
+		<defaultFont width="48" height="48" letter="67" r="255" g="255" b="255" a="255" spaceInLetter="-13" layer="3" orderInLayer="3.0" scale="0.2" path="Assets/Fonts/defaultFont.png" />
+	</fonts>
+	<dialogText>
+		<spanish>
+			<purifier1 Num="4">
+				<Sentence1>Chico... ¡Acercate rapido!</Sentence1>
+				<Sentence2>No se que haces aqui pero vuelve rapido a la aldea, aqui corres peligro</Sentence2>
+				<Sentence3>...</Sentence3>
+				<Sentence4>¡Espera! Antes de irte toma este guante, le vas a dar mejor uso que yo en este momento.¡Corre!</Sentence4>
+			</purifier1>
+			<doorGuardian Num="3">
+				<Sentence1> Quien eres y que haces fuera de la aldea sin un protector</Sentence1>
+				<Sentence2> Intenta no volver a salir sin proteccion, queda poco para que llegue el gran dia y debemos ser las maximas personas posibles.</Sentence2>
+				<Sentence3 />
+			</doorGuardian>
+			<purifier2 Num="9">
+				<Sentence1> ¿Que haces con un guante de purificador?</Sentence1>
+				<Sentence2> Encontré a un señor con túnica y me cedió el guante. Parecía que estaba en serios apuros.</Sentence2>
+				<Sentence3> Llevas un guante de purificador, con él puedes usar magia arcana. </Sentence3>
+				<Sentence4>
 				  Estos guantes** fueron forjados en el cielo hace siglos y posteriormente traídos aquí por angeles.
 				  Los guantes han sido portados por  purificadores durante milenios con la intención de terminar con la expansión del infierno en el mundo de las almas.
 			  </Sentence4>
-			  <Sentence5>
+				<Sentence5>
 				  Estar en posesión de uno otorga un poder sobrenatural y conlleva una gran
 				  responsabilidad.
 			  </Sentence5>
-			  <Sentence6> Co.. ¡¿Como… Como qué el mundo de las animas. Eso significa que estoy muerto?! </Sentence6>
-			  <Sentence7>
+				<Sentence6> Co.. ¡¿Como… Como qué el mundo de las animas. Eso significa que estoy muerto?! </Sentence6>
+				<Sentence7>
 				  Así es. Y por algún motivo que no entiendo, has aparecido en las cercanías de nuestro pueblo.
 			  </Sentence7>
-			  <Sentence8>
+				<Sentence8>
 				  Hay una leyenda que cuenta que un día llegará un salvador y traerá la paz a este mundo de guerra y caos. Pero no es más que una vieja leyenda chico…
 				  Hace mucho que dejamos de creer en ella. Solo unos pocos siguen creyendo.
 			  </Sentence8>
-			  <Sentence9> Acompáñame y te enseñaré a usar el guante que llevas puesto.</Sentence9>
-		  </purifier2>
-		  <purifier2Dialog2 Num="3">
-			  <Sentence1> Bienvenido al campo de entrenamiento, aquí podrás aprender a usar el guante.</Sentence1>
-			  <Sentence2>
+				<Sentence9> Acompáñame y te enseñaré a usar el guante que llevas puesto.</Sentence9>
+			</purifier2>
+			<purifier2Dialog2 Num="3">
+				<Sentence1> Bienvenido al campo de entrenamiento, aquí podrás aprender a usar el guante.</Sentence1>
+				<Sentence2>
 				  Hay 2 tipos de purificadores, los revenant y los sage.
 				  Si escoges ser revenant se te otorgará una arma melé, es una arma ligera y con mucho daño, que junto a tu guante conseguirás una letal combinación.
 			  </Sentence2>
-			  <Sentence3>
+				<Sentence3>
 				  En cambio, si escoges ser sage, se te otorgará una arma a distancia,es una arma pesada pero muy poderosa a larga distancia.
 				  Combinalo bien con el guante para que nunca se te acerca un enemigo y poder salir vivo del terreno.
 			  </Sentence3>
-		  </purifier2Dialog2>
-		  <purifier3 Num="3">
-			  <Sentence1>
+			</purifier2Dialog2>
+			<purifier3 Num="3">
+				<Sentence1>
 				  Espera! Si cruzas esta puerta te expondrás a los peligros del infierno exterior. Siempre que quieras puedes volver aquí gastando x almas.
 			  </Sentence1>
-			  <Sentence2>
+				<Sentence2>
 				  El guante que llevas en el brazo lleva incorporado un detector de pulsaciones.
 			  </Sentence2>
-			  <Sentence3>
+				<Sentence3>
 				  En caso de que sean muy bajas y estés a punto de morir consumirá una gran cantidad de almas para volver a la aldea.
 				  Buena suerte purificador, confiamos en ti.
 			  </Sentence3>
-		  </purifier3>
-		  <purifier4 Num="1">
-			  <Sentence1>
+			</purifier3>
+			<purifier4 Num="1">
+				<Sentence1>
 				  Aun sueño con el dia en el que llegará el salvador y haga de este sitio un mundo mejor.
 			  </Sentence1>
-		  </purifier4>
-		  <purifier5 Num="1">
-			  <Sentence1>
+			</purifier4>
+			<purifier5 Num="1">
+				<Sentence1>
 				  Solo unos pocos locos creen aún que llegará un angel que salve este sitio de las almas malditas.
 			  </Sentence1>
-		  </purifier5>
-		  <purifier6 Num="2">
-			  <Sentence1>
+			</purifier5>
+			<purifier6 Num="2">
+				<Sentence1>
 				  Que ganas que llegue el gran dia.
 			  </Sentence1>
-			  <Sentence2>
+				<Sentence2>
 				  Segun la profecia, será el dia en el que llegue nuestro salvador.
 			  </Sentence2>
-		  </purifier6>
-		  <purifier7 Num="1">
-			  <Sentence1>
+			</purifier6>
+			<purifier7 Num="1">
+				<Sentence1>
 				  Ellos solo quieren morir en paz…
 			  </Sentence1>
-		  </purifier7>
-		  <purifier8 Num="1">
-			  <Sentence1>
+			</purifier7>
+			<purifier8 Num="1">
+				<Sentence1>
 				  Esa puerta chico... Ten cuidado con ella
 			  </Sentence1>
-		  </purifier8>
-		  <purifier9 Num="2">
-			  <Sentence1>
+			</purifier8>
+			<purifier9 Num="2">
+				<Sentence1>
 				  Nadie ha llegado aun al tercer piso.
 			  </Sentence1>
-			  <Sentence2>
+				<Sentence2>
 				  Me pregunto que habra ahi.
 			  </Sentence2>
-		  </purifier9>
-		  <purifier10 Num ="3">
-			  <Sentence1>
+			</purifier9>
+			<purifier10 Num="3">
+				<Sentence1>
 				  Sueño con ella todas las noches...
 			  </Sentence1>
-			  <Sentence2>
+				<Sentence2>
 				  Recuerdo su sonrisa la ultima vez que salio por la puerta de casa.
 			  </Sentence2>
-			  <Sentence3>
+				<Sentence3>
 				  Sigo esperando que vuelva algun dia.
 			  </Sentence3>
-		  </purifier10>
-	  </spanish>
-	  <english>
-		  <purifier1 Num="4">
-			  <Sentence1>Hey kid... Come quick!</Sentence1>
-			  <Sentence2>I do not know what you are doing here, but you have to go to the village, it is dangerous here.</Sentence2>
-			  <Sentence3>...</Sentence3>
-			  <Sentence4>¡Wait! Take this gauntlet before going, you are going to give it a better use. Run!</Sentence4>
-
-		  </purifier1>
-		  <doorGuardian Num="3">
-			  <Sentence1> Who are you? What are you doing outside of the village without a protector.</Sentence1>
-			  <Sentence2> Try not to come here again without a protection, the big day is near and we need to get as much people as we can.</Sentence2>
-			  <Sentence3> </Sentence3>
-		  </doorGuardian>
-		  <purifier2 Num="9">
-			  <Sentence1> What are you doing with a purifier gauntlet?</Sentence1>
-			  <Sentence2> I found a guy with a tunic, he gave it to me. He seemed to be in great trouble.</Sentence2>
-			  <Sentence3> You have a purifier gauntlet, you can use arcane magic with it.</Sentence3>
-			  <Sentence4>
+			</purifier10>
+		</spanish>
+		<english>
+			<purifier1 Num="4">
+				<Sentence1>Hey kid... Come quick!</Sentence1>
+				<Sentence2>I do not know what you are doing here, but you have to go to the village, it is dangerous here.</Sentence2>
+				<Sentence3>...</Sentence3>
+				<Sentence4>¡Wait! Take this gauntlet before going, you are going to give it a better use. Run!</Sentence4>
+			</purifier1>
+			<doorGuardian Num="3">
+				<Sentence1> Who are you? What are you doing outside of the village without a protector.</Sentence1>
+				<Sentence2> Try not to come here again without a protection, the big day is near and we need to get as much people as we can.</Sentence2>
+				<Sentence3 />
+			</doorGuardian>
+			<purifier2 Num="9">
+				<Sentence1> What are you doing with a purifier gauntlet?</Sentence1>
+				<Sentence2> I found a guy with a tunic, he gave it to me. He seemed to be in great trouble.</Sentence2>
+				<Sentence3> You have a purifier gauntlet, you can use arcane magic with it.</Sentence3>
+				<Sentence4>
 				  This gauntlets** where forged in heaven centuries ago and brought here by angels.
 				  Gauntlets have been worn by purifiers during centuries with the purpose of ending hell expansion to the soul world.
 			  </Sentence4>
-			  <Sentence5>
+				<Sentence5>
 				  Wearing one gives you a supernatural power, which carries great responsibility.
 			  </Sentence5>
-			  <Sentence6> Wh.. What... Soul world? Does that mean I am dead?! </Sentence6>
-			  <Sentence7>
+				<Sentence6> Wh.. What... Soul world? Does that mean I am dead?! </Sentence6>
+				<Sentence7>
 				  Yes indeed. And for a reason that i do not know, you have appeared next to our village.
 			  </Sentence7>
-			  <Sentence8>
+				<Sentence8>
 				  There is a tale that says that a hero will come one day and bring peace to this world of war and caos. But it is no more than an old tale kid...
 				  It was long time ago we stopped believing in it. Only a few still do.
 			  </Sentence8>
-			  <Sentence9> Come with me, I will show you how to use your gauntlet.</Sentence9>
-		  </purifier2>
-		  <purifier2Dialog2 Num="3">
-			  <Sentence1> Welcome to training field, here you can use the gauntlet.</Sentence1>
-			  <Sentence2>
+				<Sentence9> Come with me, I will show you how to use your gauntlet.</Sentence9>
+			</purifier2>
+			<purifier2Dialog2 Num="3">
+				<Sentence1> Welcome to training field, here you can use the gauntlet.</Sentence1>
+				<Sentence2>
 				  There are 2 types of purifiers, the revenant, and the sage.
 				  If you choose revenant, a melee weapon will be given to you, it is a light weapon with lots of damage. If you combine it with the gauntlet you can get a lethal combination.
 			  </Sentence2>
-			  <Sentence3>
+				<Sentence3>
 				  If you choose sage instead, you will be given a range weapon, it is a heavy but very powerful weapon at long ranges.
 				  Combine it with the gauntlet to mantain enemies far from you and get out alive from the dungeon.
 			  </Sentence3>
-		  </purifier2Dialog2>
-		  <purifier3 Num="3">
-			  <Sentence1>
+			</purifier2Dialog2>
+			<purifier3 Num="3">
+				<Sentence1>
 				  Wait! If you walk through the door you will expose to dangers from exterior hell. You can always come back here in exchange of souls.
 			  </Sentence1>
-			  <Sentence2>
+				<Sentence2>
 				  The gauntlet you are wearing in your arm is equipped with a pulse detector.
 			  </Sentence2>
-			  <Sentence3>
+				<Sentence3>
 				  In case they are too low and you are about to die, it will consume a great number of souls to get back to the village.
 				  Good luck purifier, we believe in you.
 			  </Sentence3>
-		  </purifier3>
-		  <purifier4 Num="1">
-			  <Sentence1>
+			</purifier3>
+			<purifier4 Num="1">
+				<Sentence1>
 				  I still dream about a day when the savior arrives and makes the world a better place.
 			  </Sentence1>
-		  </purifier4>
-		  <purifier5 Num="1">
-			  <Sentence1>
+			</purifier4>
+			<purifier5 Num="1">
+				<Sentence1>
 				  Only a few fools think that an angel will save this place from the cursed souls.
 			  </Sentence1>
-		  </purifier5>
-		  <purifier6 Num="2">
-			  <Sentence1>
+			</purifier5>
+			<purifier6 Num="2">
+				<Sentence1>
 				  Cannot wait for the big day to arrive.
 			  </Sentence1>
-			  <Sentence2>
+				<Sentence2>
 				  According to the prophecy, it will be the day our savior arrives.
 			  </Sentence2>
-		  </purifier6>
-		  <purifier7 Num="1">
-			  <Sentence1>
+			</purifier6>
+			<purifier7 Num="1">
+				<Sentence1>
 				  They only want to die peacefully...
 			  </Sentence1>
-		  </purifier7>
-		  <purifier8 Num="1">
-			  <Sentence1>
+			</purifier7>
+			<purifier8 Num="1">
+				<Sentence1>
 				  This door kid... Be careful with it.
 			  </Sentence1>
-		  </purifier8>
-		  <purifier9 Num="2">
-			  <Sentence1>
+			</purifier8>
+			<purifier9 Num="2">
+				<Sentence1>
 				  No one has ever reached the third floor.
 			  </Sentence1>
-			  <Sentence2>
+				<Sentence2>
 				  I wonder what is there.
 			  </Sentence2>
-		  </purifier9>
-		  <purifier10 Num ="3">
-			  <Sentence1>
+			</purifier9>
+			<purifier10 Num="3">
+				<Sentence1>
 				  I dream with her every night...
 			  </Sentence1>
-			  <Sentence2>
+				<Sentence2>
 				  I remember her smile the last day she walked through the house door.
 			  </Sentence2>
-			  <Sentence3>
+				<Sentence3>
 				  I am still waiting for her to come back one day.
 			  </Sentence3>
-		  </purifier10>
-	  </english>
-
-  </dialogText>
-
-  <audios>
-
-  </audios>
-
-  <scenes>
-    <level1>
-      <enviroument>
-
-      </enviroument>
-    </level1>
-
-    <level2>
-
-      <enviroument>
-
-      </enviroument>
-
-      <enemies>
-
-      </enemies>
-
-    </level2>
-
-  </scenes>
-
-  <!-- L03: Added maps folder as config option -->
-  <map>
-    <folder>Assets/maps/</folder>
-	<hub_folder>Assets/Maps/Hub/</hub_folder>
-  </map>
-
+			</purifier10>
+		</english>
+	</dialogText>
+	<audios>
+		<music volume="106" />
+		<sfx volume="82" />
+	</audios>
+	<scenes>
+		<level1>
+			<enviroument />
+		</level1>
+		<level2>
+			<enviroument />
+			<enemies />
+		</level2>
+	</scenes>
+	<map>
+		<folder>Assets/maps/</folder>
+		<hub_folder>Assets/Maps/Hub/</hub_folder>
+	</map>
 </config>

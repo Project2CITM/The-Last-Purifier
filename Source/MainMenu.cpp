@@ -99,10 +99,12 @@ bool MainMenu::Start()
 	MusicSlider = new GUISlider({ 200, 125 }, 300, 14, MenuButton::OPTIONS, "Assets/Sprites/UI/Slider1.png");
 	MusicBUT = new GUIButton({ 200, 125 }, 27, 46, MenuButton::OPTIONS, "Assets/Sprites/UI/fireSlider.png");
 	MusicSlider->CreateGUIBtn(MusicBUT);
+	MusicSlider->SetValue(app->audio->musicVol / 255);
 
 	fxSlider = new GUISlider({ 200, 200 }, 300, 14, MenuButton::OPTIONS, "Assets/Sprites/UI/Slider1.png");
 	fxBUT = new GUIButton({ 200, 200 }, 27, 46, MenuButton::OPTIONS, "Assets/Sprites/UI/fireSlider.png");
 	fxSlider->CreateGUIBtn(fxBUT);
+	fxSlider->SetValue(app->audio->fxVol / 255);
 
 	CredtisCre = new GUIButton({ 125, 70 }, 117, 47, MenuButton::CREDITS, "Assets/Sprites/UI/Credtis1.png");
 	CredtisAud = new GUIButton({ 125, 130 }, 117, 47, MenuButton::CREDITS, "Assets/Sprites/UI/Credtis2.png");
@@ -305,10 +307,8 @@ bool MainMenu::Update()
 			app->window->ToggleFullScreen(false);
 			FullScreenCHK->ChangeState(false);
 		}
-
-
-		app->musicVol = MusicSlider->GetValue() * 255;
-		app->fxVol = fxSlider->GetValue() * 255;
+		app->audio->SetMusicVolume(MusicSlider->GetValue() * 255);
+		app->audio->SetSFXVolume(fxSlider->GetValue() * 255);
 	}
 
 	if (currentMenu == CurrentMenu::Credtis)

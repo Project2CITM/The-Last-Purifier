@@ -252,8 +252,6 @@ void Worm::InitPhysics()
 
 	pBody = app->physics->CreateRectangle(position, 8, 8, this, b2_dynamicBody, app->physics->ENEMY_LAYER);
 
-	//pBody = app->physics->CreateCircle(position.x, position.y, 8, this, false, b2_dynamicBody, app->physics->ENEMY_LAYER);
-
 	pBody->body->GetFixtureList()->SetFilterData(filterB);
 }
 
