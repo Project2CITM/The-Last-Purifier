@@ -51,7 +51,7 @@ void Room::CleanUp()
 
 	for (int i = 0; i < enemies.count(); i++)
 	{
-		enemies[i]->Die();
+		enemies[i]->Enemy::Die();
 	}
 
 	enemies.clear();
@@ -59,12 +59,12 @@ void Room::CleanUp()
 	colliders.clearPtr();
 }
 
-void Room::EnableEnemics() {
+void Room::EnableEnemics()
+{
 	for (int i = 0; i < enemies.count(); i++)
 	{
 		enemies[i]->enable = true;
 	}
-
 }
 
 iPoint Room::GetDoorPos(DoorOrientations orient)

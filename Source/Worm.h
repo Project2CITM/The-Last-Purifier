@@ -37,11 +37,11 @@ public:
 
 	void OnTriggerExit(std::string trigger, PhysBody* col) override;
 
-	void GoDie();
-
-	void UpdateStates();
+	void Die(bool spawnPower) override;
 
 private:
+
+	void UpdateStates();
 
 	void InitAnimation();
 
@@ -49,9 +49,13 @@ private:
 
 	void InitPhysics();
 
+	void DoInGround();
+
 	void DoOutGround();
 
-	void ResetGroundsCoolDown();
+	void ResetAllCoolDown();
+
+	void SetTriggeeActive(bool active);
 
 public:
 
@@ -65,9 +69,13 @@ public:
 
 	Trigger* damageTrigger = nullptr;
 
-	int groundCoolDown = 20; // frame
+	int groundCoolDown = 120; // frame
 
-	int unergroundCoolDown = 60; // frame
+	int unergroundCoolDown = 120; // frame
+
+	int shakeOutGround = 30;
+
+	bool animPause = false;
 };
 
 #endif // !__WORM_H__
