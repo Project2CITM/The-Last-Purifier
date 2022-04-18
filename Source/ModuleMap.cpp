@@ -99,7 +99,6 @@ void ModuleMap::Draw(ListItem<MapLayer*>* mapLayerItem)
 					LOG(e.what());
 				}
 			}
-
 		}
 	}
 }

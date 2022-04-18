@@ -90,7 +90,7 @@ bool ModuleTextures::CleanUp()
 //	return true;
 //}
 
- //Load new texture from file path
+//Load new texture from file path
 SDL_Texture* ModuleTextures::Load(std::string path, bool isName)
 {
 	if(isName)

@@ -4,7 +4,7 @@
 #include "ModuleScene.h"
 #include "ModuleAudio.h"
 
-RenderObject Logo;
+RenderObject Logos[2];
 
 LogoScene::LogoScene():Scene("logoScene")
 {
@@ -23,9 +23,10 @@ bool LogoScene::InitScene()
 
 bool LogoScene::Start()
 {
-	Logo.InitAsTexture(app->textures->Load("Assets/Sprites/UI/logoGame.png"), { 155,20 }, { 0,0,0,0 }, 0.3f);
-
-		/*TODO*/
+	Logos[0].InitAsTexture(app->textures->Load("Assets/Sprites/UI/Team_Logo.png"), { 170,40 }, { 0,0,0,0 }, 1);
+	Logos[1].InitAsTexture(app->textures->Load("Assets/Sprites/UI/logoGame.png"), { 170,40 }, { 0,0,0,0 }, 1);
+	
+	/*TODO*/
 	//Logo appearing
 	LogoAppear_FX = app->audio->LoadFx("Assets/Audio/SFX/UI/logoFX.wav");
 	app->audio->PlayFx(LogoAppear_FX);
@@ -44,10 +45,9 @@ bool LogoScene::PreUpdate()
 
 bool LogoScene::Update()
 {
-	if (count > 255)
-		app->scene->ChangeCurrentSceneRequest(MAIN_MENU);
-	else
-		count++;
+	if (count > 200) drawLogo = 1;	
+	if (count > 455) app->scene->ChangeCurrentSceneRequest(MAIN_MENU);
+	else count++;
 
 	Scene::Update();
 
@@ -56,7 +56,7 @@ bool LogoScene::Update()
 
 bool LogoScene::PostUpdate()
 {
-	app->renderer->AddRenderObjectRenderQueue(Logo);
+	app->renderer->AddRenderObjectRenderQueue(Logos[drawLogo]);
 
 	Scene::PostUpdate();
 
