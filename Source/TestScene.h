@@ -5,6 +5,8 @@
 #include "NPC.h"
 #include "ClassTreeHud.h"
 
+class SpellSpawnManager;
+
 class TestScene :  public SceneGame
 {
 public:

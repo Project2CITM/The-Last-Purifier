@@ -228,9 +228,6 @@
     <ClInclude Include="Enemy.h">
       <Filter>Archivos de encabezado\GameObject\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyDummy.h">
-      <Filter>Archivos de encabezado\GameObject\Enemy</Filter>
-    </ClInclude>
     <ClInclude Include="ClassTreeHud.h">
       <Filter>Archivos de encabezado\GUI</Filter>
     </ClInclude>
@@ -447,9 +444,6 @@
       <Filter>Archivos de origen\Player\Scripts</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
-      <Filter>Archivos de origen\GameObjects\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyDummy.cpp">
       <Filter>Archivos de origen\GameObjects\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="ClassTreeHud.cpp">

@@ -4,6 +4,7 @@
 #include "ModuleScene.h"
 #include "Scene.h"
 #include "Trigger.h"
+#include "Enemy.h"
 
 void RoomManager::Start()
 {

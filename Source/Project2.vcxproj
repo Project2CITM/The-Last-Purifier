@@ -98,7 +98,6 @@
     <ClInclude Include="CommonTree.h" />
     <ClInclude Include="DamageArea.h" />
     <ClInclude Include="Enemy.h" />
-    <ClInclude Include="EnemyDummy.h" />
     <ClInclude Include="EventListener.h" />
     <ClInclude Include="ExecuteSpell.h" />
     <ClInclude Include="External\PugiXml\src\pugiconfig.hpp" />
@@ -178,7 +177,6 @@
     <ClCompile Include="CommonTree.cpp" />
     <ClCompile Include="DamageArea.cpp" />
     <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="EnemyDummy.cpp" />
     <ClCompile Include="EventListener.cpp" />
     <ClCompile Include="ExecuteSpell.cpp" />
     <ClCompile Include="External\PugiXml\src\pugixml.cpp" />

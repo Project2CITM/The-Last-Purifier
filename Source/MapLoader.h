@@ -3,7 +3,6 @@
 
 #include "GameObject.h"
 #include "ModulePhysics.h"
-#include "EnemyDummy.h"
 #include "Room.h"
 
 class MapLoader

@@ -11,6 +11,8 @@
 #include "Room.h"
 #include "PlayerStats.h"
 
+#include "Enemy.h"
+
 #include "ModuleMap.h"
 
 PlayerController::PlayerController(std::string name, std::string tag, Player* player) : GameObject(name, tag)
