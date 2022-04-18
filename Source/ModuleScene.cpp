@@ -17,7 +17,7 @@ ModuleScene::ModuleScene(bool start_enabled) : Module(start_enabled)
 	scenes[HUB] = new HubScene();
 	scenes[LEVEL_1] = new TestScene();
 
-	currentScene = MAIN_MENU;
+	currentScene = LOGO;
 }
 
 ModuleScene::~ModuleScene()
@@ -94,7 +94,7 @@ UpdateStatus ModuleScene::PostUpdate()
 
 	scenes[currentScene]->PostUpdate();
 
-	if (fade != 0) app->renderer->AddRectRenderQueue(SDL_Rect{ 0,0,(int)app->window->width,(int)app->window->height }, SDL_Color{ 0,0,0,(Uint8)fade }, true, 4, 200);
+	if (fade != 0) app->renderer->AddRectRenderQueue(SDL_Rect{ 0,0,(int)app->window->width,(int)app->window->height }, SDL_Color{ 0,0,0,(Uint8)fade }, true, 4, 200, 0);
 
 	return UpdateStatus::UPDATE_CONTINUE;
 }

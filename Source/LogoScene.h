@@ -30,6 +30,7 @@ private:
 
 	uint LogoAppear_FX = NULL;
 
+	int drawLogo = 0;
 };
 
 #endif //__LOGO_SCENE_H__
