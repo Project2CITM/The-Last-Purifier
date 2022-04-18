@@ -17,6 +17,7 @@ void RoomManager::Start()
 
 	doorTopTexture = app->textures->Load("Assets/Maps/TestDoor_top.png");
 	doorBotTexture = app->textures->Load("Assets/Maps/TestDoor_bottom.png");
+	doorSpikeTexture = app->textures->Load("Assets/Maps/wallDoorClosed.png");
 
 	wallTexture[0] = app->textures->Load("Assets/Maps/wallDoorLeft.png");
 	wallTexture[1] = app->textures->Load("Assets/Maps/wallDoorTop.png");
@@ -101,11 +102,6 @@ void RoomManager::CleanUp()
 		}
 	}
 
-	/*ListItem<Room*>* currentRoom = rooms.start;
-	while (currentRoom != nullptr) {
-		currentRoom->data->CleanUp();
-		currentRoom = currentRoom->next;
-	}*/
 	for (int i = 0; i < rooms.count(); i++)
 	{
 		rooms[i]->CleanUp();
@@ -114,9 +110,9 @@ void RoomManager::CleanUp()
 
 	RELEASE(mapLoader);
 
-	//I assume it unloads in renderer?
 	doorTopTexture = nullptr;
 	doorBotTexture = nullptr;
+	doorSpikeTexture = nullptr;
 }
 
 //FUNCTIONS
@@ -375,18 +371,42 @@ void RoomManager::DrawRooms()
 void RoomManager::DrawDoors()
 {
 	for (int i = 0; i < rooms.count(); ++i) {
-		int k = rooms[i]->doors.count();
+		Room* r = rooms[i];
+		int k = r->doors.count();
 		
 		for (int j = 0; j < k; ++j) {
-			Door* d = rooms[i]->doors[j];
+			Door* d = r->doors[j];
 			if (d->orientation == DoorOrientations::TOP)
 				app->renderer->AddTextureRenderQueue(doorTopTexture, d->GetPosition() - d->size, { 0,0,0,0 }, TILE_SIZE / 16.0f, 3);
 			if (d->orientation == DoorOrientations::BOTTOM)
 				app->renderer->AddTextureRenderQueue(doorBotTexture, d->GetPosition() - d->size - iPoint(0, TILE_SIZE), { 0,0,0,0 }, TILE_SIZE / 16.0f, 3);
 		}	
 
+		//Draw Spikes
+		if (r->closedDoors) {
+			for (int j = 0; j < k; ++j) {
+				Door* d = r->doors[j];
+				iPoint p = d->GetPosition() - d->size;
+				switch (d->orientation) {
+				case DoorOrientations::BOTTOM:
+					p += iPoint(0, 1) * TILE_SIZE;
+				case DoorOrientations::TOP:
+					p.y -= TILE_SIZE / 2;
+					app->renderer->AddTextureRenderQueue(doorSpikeTexture, p + iPoint(0, 2) * TILE_SIZE, { 0,0,0,0 }, TILE_SIZE / 16.0f, 1);
+					app->renderer->AddTextureRenderQueue(doorSpikeTexture, p + iPoint(1, 2) * TILE_SIZE, { 0,0,0,0 }, TILE_SIZE / 16.0f, 1);
+					app->renderer->AddTextureRenderQueue(doorSpikeTexture, p + iPoint(2, 2) * TILE_SIZE, { 0,0,0,0 }, TILE_SIZE / 16.0f, 1);
+					break;
+				case DoorOrientations::LEFT:
+				case DoorOrientations::RIGHT:
+					app->renderer->AddTextureRenderQueue(doorSpikeTexture, p + iPoint(0, -3) * TILE_SIZE, { 0,0,0,0 }, TILE_SIZE / 16.0f, 1);
+					app->renderer->AddTextureRenderQueue(doorSpikeTexture, p + iPoint(0, -2) * TILE_SIZE, { 0,0,0,0 }, TILE_SIZE / 16.0f, 1);
+					app->renderer->AddTextureRenderQueue(doorSpikeTexture, p + iPoint(0, -1) * TILE_SIZE, { 0,0,0,0 }, TILE_SIZE / 16.0f, 1);
+					break;
+				}
+			}
+		}
+
 		//Draw Walls on Non-doors
-		Room* r = rooms[i];
 		if (r->wallColliders[0] != nullptr)
 			app->renderer->AddTextureRenderQueue(wallTexture[0], 
 				r->GetDoorPos(DoorOrientations::RIGHT) - r->GetDoorSize(DoorOrientations::RIGHT) - iPoint(0, TILE_SIZE * 4),
