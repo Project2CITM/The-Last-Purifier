@@ -13,7 +13,7 @@
 	</soul_shield>
 	<purification_slash id = "6">
 		<uses quantity = "3" />
-		<damage lvl1 = "10" lvl2 = "15" lvl3 = "20" />
+		<damage lvl1 = "30" lvl2 = "45" lvl3 = "60" />
 	</purification_slash>
 	<foteiros id = "11">
 		<uses quantity = "3" />

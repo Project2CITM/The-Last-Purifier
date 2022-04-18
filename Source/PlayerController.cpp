@@ -16,6 +16,7 @@
 PlayerController::PlayerController(std::string name, std::string tag, Player* player) : GameObject(name, tag)
 {
 	this->listenTo = GameEvent::COMPLETE_ROOM;
+	app->events->AddListener(this);
 	this->player = player;
 }
 
@@ -142,6 +143,8 @@ void PlayerController::CleanUp()
 	{
 		combat->pendingToDelete = true;
 	}
+
+	app->events->RemoveListener(this);
 
 	GameObject::CleanUp();
 }
