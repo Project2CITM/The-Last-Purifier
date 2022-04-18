@@ -3,8 +3,10 @@
 #include "Player.h"
 
 
-PurifiedSwordS::PurifiedSwordS() : Spell(), EventListener(GameEvent::PLAYER_ATTACK)
+PurifiedSwordS::PurifiedSwordS() : Spell()
 {
+	this->listenTo = GameEvent::PLAYER_ATTACK;
+
 	Application::GetInstance()->events->AddListener(this);
 
 	spellStats = spellStats.child("purified_sword");
@@ -45,7 +47,7 @@ void PurifiedSwordS::Update()
 
 void PurifiedSwordS::CleanUp()
 {
-	app->events->RemoveListener(this);
+	Application::GetInstance()->events->RemoveListener(this);
 }
 
 void PurifiedSwordS::GameEventTriggered()

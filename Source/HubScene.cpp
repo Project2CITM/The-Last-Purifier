@@ -13,6 +13,7 @@
 #include "PlayerCombat.h"
 #include "ModuleEvents.h"
 
+
 HubScene::HubScene() : SceneGame("HubScene")
 {
 

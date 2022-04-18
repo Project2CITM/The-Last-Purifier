@@ -1,5 +1,6 @@
 #include "RoomManager.h"
 #include "ModuleRender.h"
+#include "ModuleEvents.h"
 
 void RoomManager::Start()
 {
@@ -68,8 +69,10 @@ void RoomManager::Update(iPoint playerPos)
 
 	//Open Doors when no enemies
 	if (r->done && r->closedDoors)
+	{
 		r->OpenDoors();
-
+		app->events->TriggerEvent(GameEvent::COMPLETE_ROOM);
+	}
 	//Player has changed room (activate/deactivate colliders)
 	if(!r->activeColliders)
 		for (int i = 0; i < rooms.count(); ++i) {

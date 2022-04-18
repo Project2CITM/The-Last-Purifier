@@ -3,11 +3,13 @@
 #include "ClassTree.h"
 
 
-PlayerStats::PlayerStats(Player* player) : EventListener(GameEvent::SAVE_GAME)
+PlayerStats::PlayerStats(Player* player) 
 {
+	this->listenTo = GameEvent::SAVE_GAME;
+
 	this->player = player;
 
-	app->events->AddListener(this);
+	Application::GetInstance()->events->AddListener(this);
 
 	// Create Trees
 	commonTree = new CommonTree();
@@ -67,7 +69,7 @@ void PlayerStats::GameEventTriggered()
 
 void PlayerStats::CleanUp()
 {
-	app->events->RemoveListener(this);
+	Application::GetInstance()->events->RemoveListener(this);
 }
 
 

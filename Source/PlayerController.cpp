@@ -14,6 +14,7 @@
 
 PlayerController::PlayerController(std::string name, std::string tag, Player* player) : GameObject(name, tag)
 {
+	this->listenTo = GameEvent::COMPLETE_ROOM;
 	this->player = player;
 }
 
@@ -478,4 +479,9 @@ void PlayerController::Invulnerability(int frames)
 {
 	isInvulnerable = true;
 	invulnerabilityCounter = frames;
+}
+
+void PlayerController::GameEventTriggered()
+{
+	combat->CheckDeck();
 }

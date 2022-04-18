@@ -1,8 +1,10 @@
 #include "TestSpell.h"
 #include <stdio.h>
 
-TestSpell::TestSpell() : Spell(), EventListener(GameEvent::PLAYER_ATTACK)
+TestSpell::TestSpell() : Spell()
 {
+	this->listenTo = GameEvent::PLAYER_ATTACK;
+
 	this->uses = spellStats.child("purified_sword").child("uses").attribute("quantity").as_int();
 	//Application::GetInstance()->events->AddListener(this);
 }

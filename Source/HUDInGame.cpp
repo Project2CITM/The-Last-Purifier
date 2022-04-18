@@ -184,8 +184,6 @@ bool HUDInGame::Update()
 
 				GUIButton* selectedButton = (GUIButton*)guisPause.At(ControllerPos)->data;
 				selectedButton->buttonState = ButtonState::FOCUS;
-
-				printf("%d", ControllerPos);
 			}
 
 			if (ResumeBUT->doAction || (ControllerPos == 0 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN) || app->input->GetControllerButton(BUTTON_B) == KEY_DOWN)

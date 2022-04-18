@@ -5,6 +5,7 @@ enum class GameEvent
 {
 	PLAYER_ATTACK,
 	SAVE_GAME,
+	COMPLETE_ROOM
 };
 
 class Application;
@@ -15,15 +16,12 @@ class Application;
 class EventListener
 {
 public:
-	EventListener(GameEvent id);
 
-	virtual void GameEventTriggered();
+	virtual void GameEventTriggered() = 0;
 
-	~EventListener();
+	virtual ~EventListener() {};
 
 	GameEvent listenTo;
-
-	Application* app = nullptr;
 };
 #endif
 
