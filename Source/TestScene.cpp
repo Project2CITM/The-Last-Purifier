@@ -158,7 +158,6 @@ bool TestScene::CleanUp()
     return false;
 }
 
-
 void TestScene::AddGUIPause(GUI* gui)
 {
     hudInGame->AddGUIPause(gui);

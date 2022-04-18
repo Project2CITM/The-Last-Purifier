@@ -57,6 +57,7 @@ void Trigger::Update()
 void Trigger::PostUpdate()
 {
 	onTriggerEnter = false;
+
 	onTriggerExit = false;
 }
 

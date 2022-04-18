@@ -450,9 +450,6 @@ void PlayerController::OnCollisionEnter(PhysBody* col)
 	{
 		app->map->roof = true;
 	}
-	
-
-
 }
 
 void PlayerController::OnCollisionExit(PhysBody* col)
@@ -486,7 +483,8 @@ void PlayerController::OnTriggerEnter(std::string trigger, PhysBody* col)
 
 void PlayerController::Hit(int damage)
 {
-	if (!godMode) {
+	if (!godMode) 
+	{
 		int totalDamage = damage - player->shield;
 		if (totalDamage < 0) totalDamage = 0;
 		player->ChangeShield(-damage);
@@ -496,6 +494,7 @@ void PlayerController::Hit(int damage)
 		if (player->hpPlayer <= 0)
 		{
 			app->scene->ChangeCurrentSceneRequest(SCENES::HUB);
+
 			return;
 		}
 

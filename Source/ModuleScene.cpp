@@ -116,11 +116,11 @@ bool ModuleScene::ChangeCurrentSceneRequest(uint index)
 {
 	changeTo = index;
 
+	if (scenes[changeTo] == nullptr) return false;
+
 	isChangingScene = true;
 
 	changeState = SCENECHANGESTATES::fade_in;
-
-	if (scenes[changeTo] == nullptr) return false;
 
 	fadeSpeed = 10.0f;
 
