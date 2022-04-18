@@ -41,6 +41,7 @@ public:
 private:
 	SDL_Texture* doorTopTexture = nullptr;
 	SDL_Texture* doorBotTexture = nullptr;
+	SDL_Texture* doorSpikeTexture = nullptr;
 
 	SDL_Texture* wallTexture[3] = {nullptr, nullptr, nullptr};
 
