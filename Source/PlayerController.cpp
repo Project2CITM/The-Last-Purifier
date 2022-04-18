@@ -94,6 +94,23 @@ void PlayerController::Update()
 
 	// Update animation
 	animations[(int)currentAnim].Update();	
+
+
+	//GodMode Active
+	if (app->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN && !godMode) {
+		godMode = !godMode;
+		normalDamage = player->damage;
+		player->damage = 1000;
+		
+	}
+	else if (app->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN && godMode) {
+		godMode = !godMode;
+		player->damage = normalDamage;
+	}
+
+
+	LOG("Damage: %d", player->damage);
+	
 }
 
 void PlayerController::PostUpdate()
@@ -466,22 +483,24 @@ void PlayerController::OnTriggerEnter(std::string trigger, PhysBody* col)
 
 void PlayerController::Hit(int damage)
 {
-	int totalDamage = damage - player->shield;
-	if (totalDamage < 0) totalDamage = 0;
-	player->ChangeShield(-damage);
+	if (!godMode) {
+		int totalDamage = damage - player->shield;
+		if (totalDamage < 0) totalDamage = 0;
+		player->ChangeShield(-damage);
 
-	player->hpPlayer -= totalDamage;
+		player->hpPlayer -= totalDamage;
 
-	if (player->hpPlayer <= 0) 
-	{
-		app->scene->ChangeCurrentSceneRequest(SCENES::HUB);
-		return;
+		if (player->hpPlayer <= 0)
+		{
+			app->scene->ChangeCurrentSceneRequest(SCENES::HUB);
+			return;
+		}
+
+		beenHit = true;
+		Invulnerability(invulnerabilityTimeHit);
+
+		app->events->TriggerEvent(GameEvent::PLAYER_HIT);
 	}
-
-	beenHit = true;
-	Invulnerability(invulnerabilityTimeHit);
-
-	app->events->TriggerEvent(GameEvent::PLAYER_HIT);
 }
 
 void PlayerController::Stun(int frames)

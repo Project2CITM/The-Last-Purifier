@@ -79,6 +79,11 @@ public:
 
 	iPoint textureOffset = { 0,0 };
 
+	bool godMode = false;
+
+	int normalDamage = 0;
+	
+
 private:
 	void CreatePhysBody();
 
