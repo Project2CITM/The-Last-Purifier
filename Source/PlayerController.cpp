@@ -5,6 +5,7 @@
 #include "ModuleTextures.h"
 #include "ModulePhysics.h"
 #include "ModuleInput.h"
+#include "ModuleScene.h"
 
 #include "RoomManager.h"
 #include "Room.h"
@@ -467,9 +468,11 @@ void PlayerController::Hit(int damage)
 {
 	player->hpPlayer -= damage;
 
-	//printf("Player HP:%d\n", player->hpPlayer);
-
-	if (player->hpPlayer <= 0) printf("Player Die!!\n");
+	if (player->hpPlayer <= 0) 
+	{
+		app->scene->ChangeCurrentSceneRequest(SCENES::HUB);
+		return;
+	}
 
 	beenHit = true;
 	Invulnerability(invulnerabilityTimeHit);

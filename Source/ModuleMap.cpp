@@ -1,6 +1,7 @@
 ﻿#include "ModuleMap.h"
 #include "ModuleRender.h"
 #include "ModuleTextures.h"
+#include "ModuleScene.h"
 
 ModuleMap::ModuleMap(bool start_enabled) : Module(start_enabled), mapLoaded(false)
 {
@@ -43,7 +44,7 @@ bool ModuleMap::Init(pugi::xml_node& config)
 // Draw the map (all requried layers)
 UpdateStatus ModuleMap::PostUpdate()
 {
-	if (mapLoaded == false) return UpdateStatus::UPDATE_CONTINUE;
+	if (mapLoaded == false || app->scene->currentScene != SCENES::HUB) return UpdateStatus::UPDATE_CONTINUE;
 
 	// L04: DONE 5: Prepare the loop to draw all tilesets + DrawTexture()
 	ListItem<MapLayer*>* mapLayerItem = nullptr;

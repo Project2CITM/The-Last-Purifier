@@ -1,5 +1,6 @@
 #include "Trigger.h"
 #include "ModulePhysics.h"
+#include "ModuleScene.h"
 
 /// <summary>
 /// Create Rectangle Sensor attached to a gameobject
@@ -36,6 +37,8 @@ void Trigger::Update()
 {
 	if (app->Exiting()) return;
 
+	if (app->scene->isChangingScene) return;
+
 	if (parent == nullptr|| !parent->enable) return;
 
 	if (pendingToDelete) return;
@@ -57,6 +60,8 @@ void Trigger::OnCollisionEnter(PhysBody* col)
 
 	if (app->Exiting()) return;
 
+	if (app->scene->isChangingScene) return;
+
 	if (parent == nullptr || !parent->enable) return;
 
 	parent->OnTriggerEnter(this->name, col);
@@ -67,6 +72,8 @@ void Trigger::OnCollisionExit(PhysBody* col)
 	if (pendingToDelete) return;
 
 	if (app->Exiting()) return;
+
+	if (app->scene->isChangingScene) return;
 
 	if (parent == nullptr || !parent->enable) return;
 	

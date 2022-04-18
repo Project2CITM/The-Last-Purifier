@@ -65,6 +65,10 @@ public:
 
 	void GameEventTriggered() override;
 
+	bool isVulnerable() { return isInvulnerable; }
+
+public:
+
 	Player* player = nullptr;
 
 	PlayerCombat* combat = nullptr;

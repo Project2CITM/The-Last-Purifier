@@ -97,7 +97,6 @@ void Kaboom::OnTriggerEnter(std::string trigger, PhysBody* col)
 			detectPlayer = true;
 		}
 		return;
-
 	}
 
 	Enemy::OnTriggerEnter(trigger, col);
@@ -129,7 +128,10 @@ void Kaboom::UpdateStates()
 	{
 	case (int)KaboomState::IDLE:
 	{
+		if(detectPlayer && !player->isVulnerable()) DoAttack();
+
 		stateMachine.ChangeState((int)KaboomState::RUN);
+
 		DoRun();
 	}
 	break;
@@ -140,7 +142,7 @@ void Kaboom::UpdateStates()
 		// Test codes
 		// app->renderer->AddLineRenderQueue(position, player->GetPosition(), false, { 255,255,255,255 }, 2);
 
-		if (detectPlayer) DoAttack();
+		if (detectPlayer && !player->isVulnerable()) DoAttack();
 	}
 	break;
 	case (int)KaboomState::ATTACK:
