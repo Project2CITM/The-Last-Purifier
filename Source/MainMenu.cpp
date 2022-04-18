@@ -161,58 +161,68 @@ bool MainMenu::Update()
 	{
 		if (app->input->usingGameController)
 		{
-			if ((leftYMain > 0 || app->input->GetControllerButton(BUTTON_DOWN) == KEY_DOWN) && !AxisPress && ControllerPos <= 3)
+			if ((leftYMain > 10000 || app->input->GetControllerButton(BUTTON_DOWN) == KEY_DOWN) && !AxisPress)
 			{
 				ControllerPos += 1;
+				if (ControllerPos > 4) ControllerPos = 0;
 				app->audio->PlayFx(Hover);
 				AxisPress = true;
 			}
-			else if ((leftYMain < 0 || app->input->GetControllerButton(BUTTON_UP) == KEY_DOWN) && !AxisPress && ControllerPos >= 1)
+			else if ((leftYMain < -10000 || app->input->GetControllerButton(BUTTON_UP) == KEY_DOWN) && !AxisPress)
 			{
 				ControllerPos -= 1;
+				if (ControllerPos < 0) ControllerPos = 4;
 				app->audio->PlayFx(Hover);
 				AxisPress = true;
 			}
-			else if (leftYMain == 0)
+			else if (abs(leftYMain) < 1000)
 			{
 				AxisPress = false;
 			}
 
-			if (ControllerPos == 0)	app->renderer->AddRenderObjectRenderQueue(PlayController);
+			GUIButton* selectedButton = (GUIButton*)guisMainMenu.At(ControllerPos)->data;
+			selectedButton->buttonState = ButtonState::FOCUS;
+
+			/*if (ControllerPos == 0)	app->renderer->AddRenderObjectRenderQueue(PlayController);
 			if (ControllerPos == 1)	app->renderer->AddRenderObjectRenderQueue(SettingsController);
 			if (ControllerPos == 2)	app->renderer->AddRenderObjectRenderQueue(CredtisController);
 			if (ControllerPos == 3)	app->renderer->AddRenderObjectRenderQueue(QuitController);
-			if (ControllerPos == 4)	app->renderer->AddRenderObjectRenderQueue(LinkController);
-
+			if (ControllerPos == 4)	app->renderer->AddRenderObjectRenderQueue(LinkController);*/
 		}
 
 		
 		if (PlayBUT->doAction || (ControllerPos == 0 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
 		{
 			app->scene->ChangeCurrentSceneRequest(HUB);
+			PlayBUT->PressButton();
 		}
 
 		if (OptionsBUT->doAction || (ControllerPos == 1 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
 		{
 			currentMenu = CurrentMenu::Options;
+			PlayBUT->PressButton();
 			OptionsBUT->doAction = false;
 		}
 
 		if (CreditBUT->doAction || (ControllerPos == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
 		{
 			currentMenu = CurrentMenu::Credtis;
+			CreditBUT->PressButton();
 			CreditBUT->doAction = false;
 		}
 
 		if (ExitBUT->doAction || (ControllerPos == 3 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
 		{
-			return false;
+			ExitBUT->PressButton();
+			app->ExitGame();
 		}
 
 		if (LinkBUT->doAction || (ControllerPos == 4 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
 		{
 			ShellExecuteA(NULL, "open", "https://github.com/Project2CITM/The-last-purifier/wiki", NULL, NULL, SW_SHOWNORMAL);		//change the url for the url of the web
+			LinkBUT->PressButton();
 			LinkBUT->doAction = false;
+
 		}
 	}
 
@@ -220,28 +230,62 @@ bool MainMenu::Update()
 	{
 		if (app->input->usingGameController)
 		{
-			if ((leftYOptions > 0 || app->input->GetControllerButton(BUTTON_DOWN) == KEY_DOWN) && !AxisPress && ControllerPosOpY <= 2)
+			if ((leftYOptions > 10000 || app->input->GetControllerButton(BUTTON_DOWN) == KEY_DOWN) && !AxisPress)
 			{
 				ControllerPosOpY += 1;
+				if (ControllerPosOpY > 3) ControllerPosOpY = 0;
 				app->audio->PlayFx(Hover);
 				AxisPress = true;
 			}
-			else if ((leftYOptions < 0 || app->input->GetControllerButton(BUTTON_UP) == KEY_DOWN) && !AxisPress && ControllerPosOpY >= 1)
+			else if ((leftYOptions < -10000 || app->input->GetControllerButton(BUTTON_UP) == KEY_DOWN) && !AxisPress)
 			{
 				ControllerPosOpY -= 1;
+				if (ControllerPosOpY < 0) ControllerPosOpY = 3;
 				app->audio->PlayFx(Hover);
 				AxisPress = true;
 			}
-			else if (leftYOptions == 0)
+			else if (abs(leftYOptions) < 1000)
 			{
 				AxisPress = false;
 			}
 
-			if (ControllerPosOpY == 0)	app->renderer->AddRenderObjectRenderQueue(FireController);
-			if (ControllerPosOpY == 1)	app->renderer->AddRenderObjectRenderQueue(FireController);
-			if (ControllerPosOpY == 2)	app->renderer->AddRenderObjectRenderQueue(CheckController);
-			if (ControllerPosOpY == 3)	app->renderer->AddRenderObjectRenderQueue(BackController);
+			switch (ControllerPosOpY)
+			{
+			case 0:
+				MusicBUT->buttonState = ButtonState::FOCUS;
+				break;
+			case 1:
+				fxBUT->buttonState = ButtonState::FOCUS;
+				break;
+			case 2:
+				if (!FullScreenCHK->isActive) FullScreenCHK->checkboxState = CheckboxState::FOCUS;
+				break;
+			case 3:
+				CloseOptBUT->buttonState = ButtonState::FOCUS;
+				break;
+			}
+		}
+		if (app->input->usingGameController)
+		{
+			// Music controller with Gamepad
+			if (ControllerPosOpY == 0 && leftXOptions > 10000)
+			{
+				MusicSlider->SetValue(MusicSlider->GetValue() + 0.01f);
+			}
+			if (ControllerPosOpY == 0 && leftXOptions < -10000)
+			{
+				MusicSlider->SetValue(MusicSlider->GetValue() - 0.01f);
+			}
 
+			// SFX controller with Gamepad
+			if (ControllerPosOpY == 1 && leftXOptions > 10000)
+			{
+				fxSlider->SetValue(fxSlider->GetValue() + 0.01f);
+			}
+			if (ControllerPosOpY == 1 && leftXOptions < -10000)
+			{
+				fxSlider->SetValue(fxSlider->GetValue() - 0.01f);
+			}
 		}
 
 		if (CloseOptBUT->doAction || (ControllerPosOpY == 3 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN) || app->input->GetControllerButton(BUTTON_B) == KEY_DOWN)
@@ -254,12 +298,12 @@ bool MainMenu::Update()
 		if ((FullScreenCHK->isActive || (ControllerPosOpY == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)) && !app->FullScreenDesktop)
 		{
 			app->window->ToggleFullScreen(true);
-			FullScreenCHK->isActive = true;
+			FullScreenCHK->ChangeState(true);
 		}
 		else if ((!FullScreenCHK->isActive || (ControllerPosOpY == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)) && app->FullScreenDesktop)
 		{
 			app->window->ToggleFullScreen(false);
-			FullScreenCHK->isActive = false;
+			FullScreenCHK->ChangeState(false);
 		}
 
 

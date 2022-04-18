@@ -26,12 +26,14 @@ public:
 
 	void ChangeState(bool isOn);
 
+	CheckboxState checkboxState = CheckboxState::OFF;
+
 private:
 	RenderObject* renderObject = nullptr;
 
 	SDL_Rect renderSections[3];
 
-	CheckboxState checkboxState = CheckboxState::OFF;
+	
 
 public:
 	bool isActive = false;

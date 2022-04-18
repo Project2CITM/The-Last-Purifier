@@ -319,6 +319,12 @@ void PlayerController::MovementUpdateController()
 		}
 	}
 
+	// Add speed to direction vector
+	direction.x *= speed;
+	direction.y *= speed;
+	// Apply speed
+	pBody->body->SetLinearVelocity(direction);
+
 	if (app->input->GetControllerButton(BUTTON_B) == KEY_DOWN)
 	{
 		if (!isDashing)
@@ -333,12 +339,6 @@ void PlayerController::MovementUpdateController()
 			DashOn();
 		}
 	}
-
-	// Add speed to direction vector
-	direction.x *= speed;
-	direction.y *= speed;
-	// Apply speed
-	pBody->body->SetLinearVelocity(direction);
 }
 
 void PlayerController::CombatUpdate()

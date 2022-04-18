@@ -21,8 +21,6 @@ private:
 
 	ButtonState lastState = ButtonState::IDLE;
 
-	ButtonState buttonState = ButtonState::IDLE;
-
 	friend class GUISlider;
 
 	SDL_Color renderColour = { defaultColor.r, defaultColor.g, defaultColor.b, defaultColor.a };
@@ -40,11 +38,15 @@ public:
 
 	void PostUpdate() override;
 
+	void PressButton();
+
 	bool navigation = false;
 
 	bool isPressed = false;
 
 	bool doAction = false;
+
+	ButtonState buttonState = ButtonState::IDLE;
 
 	uint Hover = NULL;
 	uint Press = NULL;

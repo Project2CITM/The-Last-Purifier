@@ -43,12 +43,7 @@ void GUIButton::Update()
 {
 	if (CheckOnMouse() && (app->input->GetMouseButton(1) == KEY_DOWN))
 	{
-		lastState = buttonState;
-		buttonState = ButtonState::PRESS_DOWN;
-		isPressed = true;
-
-		// Sound Effect
-		if (lastState != buttonState && !navigation) app->audio->PlayFx(Press);
+		PressButton();
 	}
 	else if (isPressed && app->input->GetMouseButton(1) == KEY_REPEAT)
 	{
@@ -120,4 +115,14 @@ void GUIButton::PostUpdate()
 	{
 		app->renderer->AddRectRenderQueue(SDL_Rect{ position.x,position.y,boxShape.w,boxShape.h }, renderColour, true, layer, orderInlayer, 0);
 	}
+}
+
+void GUIButton::PressButton()
+{
+	lastState = buttonState;
+	buttonState = ButtonState::PRESS_DOWN;
+	isPressed = true;
+
+	// Sound Effect
+	if (lastState != buttonState && !navigation) app->audio->PlayFx(Press);
 }

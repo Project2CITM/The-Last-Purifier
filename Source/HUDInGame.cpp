@@ -71,8 +71,8 @@ bool HUDInGame::Start()
 	ResumeBUT = new GUIButton(resumeBUT, 117, 47, MenuButton::INGAMEPUASE, "Assets/Sprites/UI/Resume.png");
 	SettingsBUT = new GUIButton(settingsBUT, 117, 47, MenuButton::INGAMEPUASE, "Assets/Sprites/UI/Settings.png");
 	ControlsBUT = new GUIButton(controlsBUT, 117, 47, MenuButton::INGAMEPUASE, "Assets/Sprites/UI/Controls.png");
-	SaveBUT = new GUIButton(saveBUT, 117, 47, MenuButton::INGAMEPUASE, "Assets/Sprites/UI/Resume.png");
-	LoadBUT = new GUIButton(loadBUT, 117, 47, MenuButton::INGAMEPUASE, "Assets/Sprites/UI/Resume.png");
+	SaveBUT = new GUIButton(saveBUT, 117, 47, MenuButton::INGAMEPUASE, "Assets/Sprites/UI/Save.png");
+	LoadBUT = new GUIButton(loadBUT, 117, 47, MenuButton::INGAMEPUASE, "Assets/Sprites/UI/Load.png");
 	GiveUpBUT = new GUIButton(giveUpBUT, 117, 47, MenuButton::INGAMEPUASE, "Assets/Sprites/UI/giveUp.png");
 	QuitBUT = new GUIButton(quitBUT, 117, 47, MenuButton::INGAMEPUASE, "Assets/Sprites/UI/Quit.png");
 
@@ -163,66 +163,87 @@ bool HUDInGame::Update()
 		{
 			if (app->input->usingGameController)
 			{
-				if ((leftYMain > 0 || app->input->GetControllerButton(BUTTON_DOWN) == KEY_DOWN) && !AxisPress && ControllerPos <= 3)
+				if ((leftYMain > 10000 || app->input->GetControllerButton(BUTTON_DOWN) == KEY_DOWN) && !AxisPress)
 				{
 					ControllerPos += 1;
+					if (ControllerPos >= 7) ControllerPos = 0;
 					app->audio->PlayFx(Hover);
 					AxisPress = true;
 				}
-				else if ((leftYMain < 0 || app->input->GetControllerButton(BUTTON_UP) == KEY_DOWN) && !AxisPress && ControllerPos >= 1)
+				else if ((leftYMain < -10000 || app->input->GetControllerButton(BUTTON_UP) == KEY_DOWN) && !AxisPress)
 				{
 					ControllerPos -= 1;
+					if (ControllerPos < 0) ControllerPos = 6;
 					app->audio->PlayFx(Hover);
 					AxisPress = true;
 				}
-				else if (leftYMain == 0)
+				else if (abs(leftYMain) < 1000)
 				{
 					AxisPress = false;
 				}
+
+				GUIButton* selectedButton = (GUIButton*)guisPause.At(ControllerPos)->data;
+				selectedButton->buttonState = ButtonState::FOCUS;
+
+				printf("%d", ControllerPos);
 			}
 
 			if (ResumeBUT->doAction || (ControllerPos == 0 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN) || app->input->GetControllerButton(BUTTON_B) == KEY_DOWN)
 			{
 				app->isPause = false;
+				ResumeBUT->PressButton();
 				ResumeBUT->doAction = false;
+				return true;
 			}
 
 			if (ControlsBUT->doAction || (ControllerPos == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
 			{
 				currentPauseMenu = CurrentPauseMenu::Controls;
+				ResumeBUT->PressButton();
 				ControlsBUT->doAction = false;
+				return true;
 			}
 
 			if (SettingsBUT->doAction || (ControllerPos == 1 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
 			{
 				currentPauseMenu = CurrentPauseMenu::Settings;
+				ResumeBUT->PressButton();
 				SettingsBUT->doAction = false;
+				return true;
 			}
 
-			if (SaveBUT->doAction || (ControllerPos == 1 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
+			if (SaveBUT->doAction || (ControllerPos == 3 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
 			{
 				app->events->TriggerEvent(GameEvent::SAVE_GAME);
+				ResumeBUT->PressButton();
 				SaveBUT->doAction = false;
+				return true;
 			}
 
-			if (LoadBUT->doAction || (ControllerPos == 1 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
+			if (LoadBUT->doAction || (ControllerPos ==4 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
 			{
 				app->scene->ChangeCurrentSceneRequest(SCENES::HUB);
+				ResumeBUT->PressButton();
 				LoadBUT->doAction = false;
+				return true;
 			}
 
-			if (GiveUpBUT->doAction || (ControllerPos == 3 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
+			if (GiveUpBUT->doAction || (ControllerPos == 5 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
 			{
 				app->scene->ChangeCurrentSceneRequest(HUB);//et porta al hall
 				app->isPause = false;
+				ResumeBUT->PressButton();
 				GiveUpBUT->doAction = false;
+				return true;
 			}
 
-			if (QuitBUT->doAction || (ControllerPos == 4 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
+			if (QuitBUT->doAction || (ControllerPos == 6 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
 			{
 				app->scene->ChangeCurrentSceneRequest(MAIN_MENU);
 				app->isPause = false;
+				ResumeBUT->PressButton();
 				QuitBUT->doAction = false;
+				return true;
 			}
 		}
 
@@ -230,21 +251,62 @@ bool HUDInGame::Update()
 		{
 			if (app->input->usingGameController)
 			{
-				if ((leftYOptions > 0 || app->input->GetControllerButton(BUTTON_DOWN) == KEY_DOWN) && !AxisPress && ControllerPosOpY <= 2)
+				if ((leftYOptions > 10000 || app->input->GetControllerButton(BUTTON_DOWN) == KEY_DOWN) && !AxisPress)
 				{
 					ControllerPosOpY += 1;
+					if (ControllerPosOpY > 3) ControllerPosOpY = 0;
 					app->audio->PlayFx(Hover);
 					AxisPress = true;
 				}
-				else if ((leftYOptions < 0 || app->input->GetControllerButton(BUTTON_UP) == KEY_DOWN) && !AxisPress && ControllerPosOpY >= 1)
+				else if ((leftYOptions < -10000 || app->input->GetControllerButton(BUTTON_UP) == KEY_DOWN) && !AxisPress)
 				{
 					ControllerPosOpY -= 1;
+					if (ControllerPosOpY < 0) ControllerPosOpY = 3;
 					app->audio->PlayFx(Hover);
 					AxisPress = true;
 				}
-				else if (leftYOptions == 0)
+				else if (abs(leftYOptions) < 1000)
 				{
 					AxisPress = false;
+				}
+
+				switch (ControllerPosOpY)
+				{
+				case 0:
+					MusicBUT->buttonState = ButtonState::FOCUS;
+					break;
+				case 1:
+					fxBUT->buttonState = ButtonState::FOCUS;
+					break;
+				case 2:
+					if (!FullScreenCHK->isActive) FullScreenCHK->checkboxState = CheckboxState::FOCUS;
+					break;
+				case 3:
+					CloseSettingsBUT->buttonState = ButtonState::FOCUS;
+					break;
+				}
+			}
+
+			if (app->input->usingGameController)
+			{
+				// Music controller with Gamepad
+				if (ControllerPosOpY == 0 && leftXOptions > 10000)
+				{
+					MusicSlider->SetValue(MusicSlider->GetValue() + 0.01f);
+				}
+				if (ControllerPosOpY == 0 && leftXOptions < -10000)
+				{
+					MusicSlider->SetValue(MusicSlider->GetValue() - 0.01f);
+				}
+
+				// SFX controller with Gamepad
+				if (ControllerPosOpY == 1 && leftXOptions > 10000)
+				{
+					fxSlider->SetValue(fxSlider->GetValue() + 0.01f);
+				}
+				if (ControllerPosOpY == 1 && leftXOptions < -10000)
+				{
+					fxSlider->SetValue(fxSlider->GetValue() - 0.01f);
 				}
 			}
 
@@ -258,12 +320,12 @@ bool HUDInGame::Update()
 			if ((FullScreenCHK->isActive || (ControllerPosOpY == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)) && !app->FullScreenDesktop)
 			{
 				app->window->ToggleFullScreen(true);
-				FullScreenCHK->isActive = true;
+				FullScreenCHK->ChangeState(true);
 			}
 			else if ((!FullScreenCHK->isActive || (ControllerPosOpY == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)) && app->FullScreenDesktop)
 			{
 				app->window->ToggleFullScreen(false);
-				FullScreenCHK->isActive = false;
+				FullScreenCHK->ChangeState(false);
 			}
 
 			app->musicVol = MusicSlider->GetValue() * 255;
@@ -277,12 +339,10 @@ bool HUDInGame::Update()
 			{
 				currentPauseMenu = CurrentPauseMenu::Pause;
 				CloseControlsBUT->doAction = false;
+				return true;
 			}
 		}
 	}
-
-	Scene::Update();
-
 	return true;
 }
 
