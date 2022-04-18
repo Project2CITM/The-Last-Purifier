@@ -16,7 +16,7 @@ SpellObject::SpellObject(iPoint pos, SpellID id, int level) : GameObject("SpellO
 	info.uses = SpellList::GetInstance()->spells[(int)id]->GetUses();
 
 	// Create PhysBody
-	pBody = app->physics->CreateRectangle(pos, 8, 8, this);
+	pBody = app->physics->CreateRectangleSensor(pos, 8, 8, this);
 	b2Filter filter;
 	filter.categoryBits = app->physics->TRIGGER_LAYER;
 	filter.maskBits = app->physics->EVERY_LAYER & ~app->physics->ENEMY_LAYER;
@@ -55,9 +55,9 @@ void SpellObject::OnCollisionEnter(PhysBody* col)
 		
 		SceneGame* scene = (SceneGame*)app->scene->scenes[app->scene->currentScene];
 
-		scene->player->controller->combat->AddSpell(info);
+		if (scene->player->controller->combat->AddSpell(info)) pendingToDelete = true;
 
-		pendingToDelete = true;
+		
 	}
 	
 }
