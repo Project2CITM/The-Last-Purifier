@@ -12,7 +12,7 @@ Kaboom::Kaboom(iPoint pos) :Enemy("kaboom")
 {
 	// Get player pointer
 	SceneGame* sceneGame = (SceneGame*)app->scene->scenes[app->scene->currentScene];
-	player = sceneGame->player->controller;
+	playerController = sceneGame->player->controller;
 
 	// Init general value
 	this->position = pos;
@@ -136,7 +136,7 @@ void Kaboom::UpdateStates()
 	{
 	case (int)KaboomState::IDLE:
 	{
-		if(detectPlayer && !player->isVulnerable()) DoAttack();
+		if(detectPlayer && !playerController->isVulnerable()) DoAttack();
 
 		stateMachine.ChangeState((int)KaboomState::RUN);
 
@@ -151,7 +151,7 @@ void Kaboom::UpdateStates()
 		// Test codes
 		// app->renderer->AddLineRenderQueue(position, player->GetPosition(), false, { 255,255,255,255 }, 2);
 
-		if (detectPlayer && !player->isVulnerable()) DoAttack();
+		if (detectPlayer && !playerController->isVulnerable()) DoAttack();
 	}
 	break;
 	case (int)KaboomState::ATTACK:
@@ -299,7 +299,7 @@ void Kaboom::DoAttack()
 
 void Kaboom::DoRun()
 {
-	fPoint dir = { (float)(player->GetPosition().x - position.x), (float)(player->GetPosition().y - position.y) };
+	fPoint dir = { (float)(playerController->GetPosition().x - position.x), (float)(playerController->GetPosition().y - position.y) };
 
 	dir = dir.Normalize();
 

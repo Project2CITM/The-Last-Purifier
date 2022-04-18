@@ -1,5 +1,7 @@
 #include "SoulShieldS.h"
 #include "Player.h"
+#include "ParticleSoulShield.h"
+#include "PlayerController.h"
 
 SoulShieldS::SoulShieldS()
 {
@@ -25,7 +27,12 @@ void SoulShieldS::Execute(int level)
 
 	player->ChangeShield(shield[currentLevel]);
 
+	float particlelifetimeinseconds = (float)(frames[currentLevel]) / 60.0f;
+	
 	isOn = true;
+
+	new ParticleSoulShield(player->controller->GetPosition(), player->controller, particlelifetimeinseconds);
+
 }
 
 void SoulShieldS::Update()

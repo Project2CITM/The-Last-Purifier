@@ -11,7 +11,7 @@ Ghoul::Ghoul(iPoint pos) : Enemy("ghoul")
 {
 	// Get player pointer
 	SceneGame* sceneGame = (SceneGame*)app->scene->scenes[app->scene->currentScene];
-	player = sceneGame->player->controller;
+	playerController = sceneGame->player->controller;
 
 	// Init general value
 	this->position = pos;
@@ -304,7 +304,7 @@ void Ghoul::DoAttack()
 
 void Ghoul::DoRun()
 {
-	fPoint dir = { (float)(player->GetPosition().x - position.x), (float)(player->GetPosition().y - position.y) };
+	fPoint dir = { (float)(playerController->GetPosition().x - position.x), (float)(playerController->GetPosition().y - position.y) };
 
 	dir = dir.Normalize();
 

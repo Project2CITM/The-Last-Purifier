@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <stats>
-	<currentClass class="1" />
+	<currentClass class="0" />
 	<common>
 		<souls quantity="600" gain="1.0f" />
 		<luck quantity="1.0f" />
