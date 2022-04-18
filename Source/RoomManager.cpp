@@ -1,19 +1,12 @@
 #include "RoomManager.h"
 #include "ModuleRender.h"
 #include "ModuleEvents.h"
+#include "ModuleScene.h"
+#include "Scene.h"
+#include "Trigger.h"
 
 void RoomManager::Start()
 {
-	mapLoader = new MapLoader();
-
-	GenerateMap(10);
-	
-	CreateDoors();
-
-	//Deactivate all colliders
-	for (int i = 0; i < rooms.count(); ++i) {
-		rooms[i]->DeactivateColliders();
-	}
 
 	doorTopTexture = app->textures->Load("Assets/Maps/TestDoor_top.png");
 	doorBotTexture = app->textures->Load("Assets/Maps/TestDoor_bottom.png");
@@ -23,13 +16,24 @@ void RoomManager::Start()
 	wallTexture[1] = app->textures->Load("Assets/Maps/wallDoorTop.png");
 	wallTexture[2] = app->textures->Load("Assets/Maps/TestDoor_bottom.png");
 
-	/*for (int i = 0; i < rooms.count(); ++i)
-		rooms[i]->CloseDoors();*/
+	mapLoader = new MapLoader();
 
+	GenerateMap(10);
+
+	CreateDoors();
+
+	//Deactivate all colliders
+	for (int i = 0; i < rooms.count(); ++i) {
+		rooms[i]->DeactivateColliders();
+	}
 }
 
 void RoomManager::Update(iPoint playerPos)
 {
+	if (exitTrigger->onTriggerEnter) {
+		app->scene->ChangeCurrentSceneRequest(SCENES::HUB);
+	}
+
 	//Check current room
 	Room* r = roomPositions[playerPos.x / (TILE_SIZE * MAX_ROOM_TILES_COLUMNS)][playerPos.y / (TILE_SIZE * MAX_ROOM_TILES_ROWS)];
 	
@@ -110,6 +114,7 @@ void RoomManager::CleanUp()
 
 	RELEASE(mapLoader);
 
+	app->scene->scenes[app->scene->currentScene]->DestroyGameObject(exitTrigger);
 	doorTopTexture = nullptr;
 	doorBotTexture = nullptr;
 	doorSpikeTexture = nullptr;
@@ -182,8 +187,14 @@ void RoomManager::GenerateMap(short RoomNumber)
 		adjacentSpaces--;
 	} while (bossRoomPos == iPoint(-1,-1));
 
-	bossRoom = bossRoomPos;
 	CreateRoom(bossRoomPos, -1);
+
+	//Exit trigger in boss room
+	exitTrigger = new Trigger(iPoint(4 * MAX_ROOM_TILES_COLUMNS, 4 * MAX_ROOM_TILES_ROWS) * TILE_SIZE, 200);
+	b2Filter filter;
+	filter.categoryBits = app->physics->TRIGGER_LAYER;
+	filter.maskBits = app->physics->PLAYER_LAYER;
+	exitTrigger->pBody->body->GetFixtureList()->SetFilterData(filter);
 }
 
 //Check the number of blank spaces next to the room
