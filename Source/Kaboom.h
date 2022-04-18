@@ -62,7 +62,7 @@ private:
 
 	LookingDirection lookingDir = LookingDirection::RIGHT;
 
-	PlayerController* player = nullptr;
+	PlayerController* playerController = nullptr;
 
 	Trigger* detectTrigger = nullptr;
 

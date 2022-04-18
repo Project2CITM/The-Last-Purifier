@@ -72,12 +72,7 @@ void Enemy::Die(bool spawnPower)
 		if (randNum == 1) spawnManager->SpawnSpell(GetPosition());
 	}
 
-	if (player == nullptr)
-	{
-		SceneGame* scene = (SceneGame*)app->scene->scenes[app->scene->currentScene];
-		player = scene->player;
-		player->souls += 3;
-	}
+	if (player != nullptr) player->souls += 3;
 
 	isDie = true;
 

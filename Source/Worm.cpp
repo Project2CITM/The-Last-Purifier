@@ -10,7 +10,7 @@ Worm::Worm(iPoint pos) : Enemy("worm")
 {
 	// Get player pointer
 	SceneGame* sceneGame = (SceneGame*)app->scene->scenes[app->scene->currentScene];
-	player = sceneGame->player->controller;
+	playerController = sceneGame->player->controller;
 
 	// Init general value
 	this->position = pos;
@@ -272,7 +272,7 @@ void Worm::DoInGround()
 
 void Worm::DoOutGround()
 {
-	SetPosition(player->GetPosition());
+	SetPosition(playerController->GetPosition());
 
 	ResetAllCoolDown();
 

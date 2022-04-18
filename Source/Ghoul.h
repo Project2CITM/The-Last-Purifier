@@ -64,7 +64,7 @@ private:
 
 	LookingDirection lookingDir = LookingDirection::RIGHT;
 
-	PlayerController* player = nullptr;
+	PlayerController* playerController = nullptr;
 
 	Trigger* detectTrigger = nullptr;  // saber si jugador esta en rango de ataque
 
