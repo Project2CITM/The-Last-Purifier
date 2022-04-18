@@ -10,6 +10,8 @@
 #define MAX_ROOMS_COLUMNS 8
 #define MAX_ROOMS_ROWS 8
 
+class Trigger;
+
 class RoomManager{
 	
 public:
@@ -36,14 +38,14 @@ public:
 	Application* app = nullptr;
 	List<Room*> rooms;
 	Room* roomPositions[MAX_ROOMS_COLUMNS][MAX_ROOMS_ROWS];
-	iPoint bossRoom = iPoint(-1, -1);
 
 private:
 	SDL_Texture* doorTopTexture = nullptr;
 	SDL_Texture* doorBotTexture = nullptr;
 	SDL_Texture* doorSpikeTexture = nullptr;
-
 	SDL_Texture* wallTexture[3] = {nullptr, nullptr, nullptr};
+
+	Trigger* exitTrigger = nullptr;
 
 	MapLoader* mapLoader = nullptr;
 };
