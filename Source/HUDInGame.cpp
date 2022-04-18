@@ -440,6 +440,8 @@ bool HUDInGame::PostUpdate()
 
 bool HUDInGame::CleanUp()
 {
+	app->events->RemoveListener(this);
+
 	Scene::CleanUp();
 
 	return true;
