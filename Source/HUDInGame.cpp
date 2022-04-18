@@ -20,6 +20,8 @@ RenderObject Controls2;
 RenderObject PauseBG;
 RenderObject SettingsBG;
 
+RenderObject iconSouls;
+
 RenderObject iconSpells;
 RenderObject deckSpells1;
 RenderObject deckSpells2;
@@ -51,6 +53,8 @@ bool HUDInGame::Start()
 	Controls1.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Controls1_2.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 1, 0, SDL_FLIP_NONE, 0);
 	Controls2.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Controls2_2.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 1, 0, SDL_FLIP_NONE, 0);
 
+	iconSouls.InitAsTexture(app->textures->Load("Assets/Sprites/UI/icons.png"), { app->renderer->camera->x + 15, app->renderer->camera->y + 21 }, { 62,31,31,31 }, 0.5f, 4, 0, 0, SDL_FLIP_NONE, 0);
+
 	iconSpells.InitAsTexture(app->textures->Load("Assets/Sprites/UI/icons.png"), { app->renderer->camera->x + 304, app->renderer->camera->y + 320 }, { 0,0,0,0 }, 1, 4, 0, 0, SDL_FLIP_NONE, 0);
 	deckSpells1.InitAsTexture(app->textures->Load("Assets/Sprites/UI/icons.png"), { app->renderer->camera->x + 350, app->renderer->camera->y + 335 }, { 0,0,0,0 }, 0.5f, 4, 0, 0, SDL_FLIP_NONE, 0);
 	deckSpells2.InitAsTexture(app->textures->Load("Assets/Sprites/UI/icons.png"), { app->renderer->camera->x + 375, app->renderer->camera->y + 335 }, { 0,0,0,0 }, 0.5f, 4, 0, 0, SDL_FLIP_NONE, 0);
@@ -58,7 +62,7 @@ bool HUDInGame::Start()
 	Hover = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiHover.wav");
 	Press = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiSelect.wav");
 
-	text = new Text({app->renderer->camera->x + 15, app->renderer->camera->y + 25 }, std::to_string(score));
+	text = new Text({app->renderer->camera->x + 30, app->renderer->camera->y + 25 }, std::to_string(score));
 
 	playerHp.bg = playerHp.currentHp = { app->renderer->camera->x + 15, app->renderer->camera->y + 10, 200, 10 };
 	miniMap = { app->renderer->camera->x + 535, app->renderer->camera->y + 5, 100, 100 };
@@ -370,7 +374,7 @@ bool HUDInGame::PostUpdate()
 	if (player->availableSpellSlots == 1)
 	{
 		app->renderer->AddRectRenderQueue(spell1, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
-		if (player->selectedSpell == 0)	app->renderer->AddRectRenderQueue(spell1, { 255, 0, 0, 255 }, false, 4, 2.0f, 0.0f);
+		if (player->selectedSpell == 0)	app->renderer->AddRectRenderQueue(spell1, { 255, 0, 0, 255 }, false, 3, 3.0f, 0.0f);
 
 		switch ((int)player->spellSlots[0]->id)
 		{
@@ -509,6 +513,8 @@ bool HUDInGame::PostUpdate()
 			app->renderer->AddRenderObjectRenderQueue(SettingsBG);
 		}
 	}
+
+	app->renderer->AddRenderObjectRenderQueue(iconSouls);
 
 	app->renderer->AddRenderObjectRenderQueue(iconSpells);
 	app->renderer->AddRenderObjectRenderQueue(deckSpells1);

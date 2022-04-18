@@ -6,6 +6,7 @@
 #include "ModuleRender.h"
 #include "DamageArea.h"
 #include "ParticleAttackKaboom.h"
+#include "ModuleAudio.h"
 
 Kaboom::Kaboom(iPoint pos) :Enemy("kaboom")
 {
@@ -37,6 +38,11 @@ Kaboom::Kaboom(iPoint pos) :Enemy("kaboom")
 
 	// Init physBody 
 	InitPhysics();
+
+	
+	HitFX = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Ghoul/sfx_enemyHit3.wav");
+	idleFX = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Ghoul/sfx_enemyIdle3.wav");
+	deadFX = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Kaboom/sfx_kaboomDeath.wav");
 }
 
 Kaboom::~Kaboom()
@@ -84,6 +90,7 @@ void Kaboom::Hit(int damage)
 	renderObjects[0].SetColor({ 255,164,164,100 });
 
 	Enemy::Hit(damage);
+	app->audio->PlayFx(HitFX);
 }
 
 void Kaboom::OnTriggerEnter(std::string trigger, PhysBody* col)
@@ -118,6 +125,7 @@ void Kaboom::OnTriggerExit(std::string trigger, PhysBody* col)
 void Kaboom::Die(bool spawnPower)
 {
 	stateMachine.ChangeState((int)KaboomState::DIE);
+	app->audio->PlayFx(deadFX);
 }
 
 void Kaboom::UpdateStates()
@@ -133,6 +141,7 @@ void Kaboom::UpdateStates()
 		stateMachine.ChangeState((int)KaboomState::RUN);
 
 		DoRun();
+		
 	}
 	break;
 	case (int)KaboomState::RUN:
@@ -284,6 +293,8 @@ void Kaboom::DoAttack()
 	pBody->body->SetActive(false);
 
 	detectTrigger->pBody->body->SetActive(false);
+
+	app->audio->PlayFx(deadFX);
 }
 
 void Kaboom::DoRun()
@@ -293,6 +304,7 @@ void Kaboom::DoRun()
 	dir = dir.Normalize();
 
 	SetLinearVelocity(b2Vec2{ (float)(dir.x * moveSpeed),(float)(dir.y * moveSpeed) });
+	
 }
 
 void Kaboom::ChangeColor()
