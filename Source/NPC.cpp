@@ -42,7 +42,7 @@ void NPC::Start()
 	text->ChangeDrawMode();
 	configDialog = app->config.child("dialogText");
 
-	pugi::xml_node npcNode = configDialog.child(name.c_str());
+	pugi::xml_node npcNode = configDialog.child("spanish").child(name.c_str());
 	int sentenceNum = npcNode.attribute("Num").as_int(0);
 
 	for (int i = 1; i <= sentenceNum; i++)

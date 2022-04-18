@@ -49,6 +49,8 @@ bool HUDInGame::Start()
 	Hover = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiHover.wav");
 	Press = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiSelect.wav");
 
+	text = new Text({app->renderer->camera->x + 15, app->renderer->camera->y + 25 }, std::to_string(score));
+
 	playerHp.bg = playerHp.currentHp = { app->renderer->camera->x + 15, app->renderer->camera->y + 10, 200, 10 };
 	miniMap = { app->renderer->camera->x + 535, app->renderer->camera->y + 5, 100, 100 };
 
@@ -128,6 +130,9 @@ bool HUDInGame::Update()
 	leftYMain = app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTY);
 	leftYOptions = app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTY);
 	leftXOptions = app->input->GetControllerAxis(SDL_CONTROLLER_AXIS_LEFTX);
+
+	score = player->player->souls;
+	text->SetText(std::to_string(score));
 
 	if (app->isPause)
 	{
