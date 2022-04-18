@@ -1,10 +1,11 @@
 #pragma once
 #include <map>
 
-#include "GameObject.h"
+#include "ModuleEvents.h"
 #include "External/PugiXml/src/pugixml.hpp"
 
-#define COMMON_TREE_XML "CommonTree.xml"
+#define COMMON_TREE_XML "BaseCommonTree.xml"
+#define SAVE_COMMON_TREE_XML "SaveCommonTree.xml"
 
 enum class CommonUpgrades
 {
@@ -39,22 +40,25 @@ struct TreeElement
     }
 };
 
-class CommonTree :
-    public GameObject
+class CommonTree : public EventListener
 {
 public:
-    CommonTree();
-    ~CommonTree();
 
-    void Start() override;
+    static CommonTree* GetInstance();
 
-    void PreUpdate() override;
+    void Start();
 
-    void Update() override;
+    void PreUpdate();
 
-    void PostUpdate() override;
+    void Update();
+
+    void PostUpdate();
+
+    void ReleaseInstance();
 
     virtual void CleanUp();
+
+    void GameEventTriggered() override;
 
 private:
     //Stores the value of an individual upgrade
@@ -70,10 +74,10 @@ private:
     bool LoadDictionary();
 
     //Loads the tree with all its upgrades
-    bool LoadTree();
+    bool LoadBaseTree();
 
     //Saves the tree with all the unlocks
-    bool SaveTree();
+    bool SaveLoadTree(bool load = false);
 
     //Checks all the unlocked Upgrades and Updates the unlockedDic
     bool CheckUpgrades();
@@ -93,6 +97,13 @@ public:
     float getValue(CommonUpgrades id);
 
 private:
+
+    static CommonTree* instance;
+
+    CommonTree();
+    ~CommonTree();
+
     pugi::xml_document treeFile;
+    pugi::xml_document saveFile;
 };
 

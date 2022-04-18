@@ -1,8 +1,14 @@
 #include "CommonTree.h"
+#include "ModuleScene.h"
+#include "SceneGame.h"
 
-CommonTree::CommonTree() : GameObject(name, tag)
+CommonTree* CommonTree::instance = nullptr;
+
+CommonTree::CommonTree() : EventListener(GameEvent::SAVE_GAME)
 {
+	app->events->AddListener(this);
 
+	Start();
 }
 
 CommonTree::~CommonTree()
@@ -10,36 +16,55 @@ CommonTree::~CommonTree()
 
 }
 
+CommonTree* CommonTree::GetInstance()
+{
+	if (instance == nullptr)
+	{
+		SceneGame* scene = (SceneGame*)Application::GetInstance()->scene->scenes[Application::GetInstance()->scene->currentScene];
+		instance = new CommonTree();
+	}
+	return instance;
+}
+
 void CommonTree::Start()
 {
 	//Loads Values
-	pugi::xml_parse_result result;
-	result = treeFile.load_file(COMMON_TREE_XML);
-	if (result == NULL) LOG("Could not load xml file: %s. pugi error: %s", COMMON_TREE_XML, result.description());
+	pugi::xml_parse_result result1;
+	pugi::xml_parse_result result2;
 
-	LoadTree();
+	result1 = treeFile.load_file(COMMON_TREE_XML);
+	result2 = saveFile.load_file(SAVE_COMMON_TREE_XML);
+	if (result1 == NULL) LOG("Could not load xml file: %s. pugi error: %s", COMMON_TREE_XML, result1.description());
+	if (result2 == NULL) LOG("Could not load xml file: %s. pugi error: %s", SAVE_COMMON_TREE_XML, result2.description());
+
+	LoadBaseTree();
 	LoadDictionary();
-	Upgrade(0);
-	Upgrade(1);
-	Upgrade(2);
-	Upgrade(3);
-	Upgrade(4);
-	//CheckUpgrades();
+	SaveLoadTree(true);
 }
 
 void CommonTree::PreUpdate()
 {
-
+	
 }
 
 void CommonTree::Update()
 {
-
+	
 }
 
 void CommonTree::PostUpdate()
 {
 
+}
+
+void CommonTree::ReleaseInstance()
+{
+	if (instance != nullptr)
+	{
+		CleanUp();
+		delete instance;
+		instance = nullptr;
+	}
 }
 
 void CommonTree::CleanUp()
@@ -62,7 +87,7 @@ bool CommonTree::LoadDictionary()
 	return true;
 }
 
-bool CommonTree::LoadTree()
+bool CommonTree::LoadBaseTree()
 {
 	pugi::xml_node bNode = treeFile.child("common_tree").child("elements").first_child();
 
@@ -82,11 +107,42 @@ bool CommonTree::LoadTree()
 	return true;
 }
 
-bool CommonTree::SaveTree()
+bool CommonTree::SaveLoadTree(bool load)
 {
+	if (saveFile == nullptr) return false;
+
+	pugi::xml_node bNode = saveFile.first_child().first_child();
+
+	ListItem<TreeElement*>* element = treeList->start;
+
+	while (element != NULL)
+	{
+		if (load) //Loads
+		{
+			element->data->unlocked = bNode.attribute("unlocked").as_bool();
+		}
+		else //Saves
+		{
+			bNode.attribute("unlocked") = element->data->unlocked;
+		}
+
+		bNode = bNode.next_sibling();
+		element = element->next;
+	}
+
+
+	if (!load) //In case is called as a Save, it saves it back to the file
+	{
+		saveFile.save_file(SAVE_COMMON_TREE_XML);
+	}
 
 
 	return true;
+}
+
+void CommonTree::GameEventTriggered()
+{
+	SaveLoadTree();
 }
 
 bool CommonTree::Upgrade(int id)

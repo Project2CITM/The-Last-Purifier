@@ -10,13 +10,11 @@ PlayerStats::PlayerStats(Player* player) : EventListener(GameEvent::SAVE_GAME)
 	app->events->AddListener(this);
 
 	// Create Trees
-	commonTree = new CommonTree();
+	commonTree = CommonTree::GetInstance();
 }
 
 void PlayerStats::Start()
 {
-	commonTree->Start();
-
 	// Load XML with default values
 	pugi::xml_parse_result result;
 	result = playerValuesXml.load_file("PlayerStats.xml");
@@ -68,6 +66,8 @@ void PlayerStats::GameEventTriggered()
 void PlayerStats::CleanUp()
 {
 	app->events->RemoveListener(this);
+
+	commonTree->ReleaseInstance();
 }
 
 
