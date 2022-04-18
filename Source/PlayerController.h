@@ -89,6 +89,9 @@ private:
 	int dashTime = 25;
 	int dashDistance = 14;	//6
 
+	int invulnerabilityTimeHit = 120;
+	bool beenHit = false;
+
 	bool isInvulnerable = false;
 	int invulnerabilityCounter = 0;
 	int dashInvulnerability = 15;

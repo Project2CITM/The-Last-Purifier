@@ -58,6 +58,8 @@ void PlayerController::PreUpdate()
 	if (invulnerabilityCounter > 0) --invulnerabilityCounter;
 	if (invulnerabilityCounter <= 0) isInvulnerable = false;
 
+	if (!isInvulnerable && beenHit)beenHit = false;
+
 	// Every frame set the linear velocity to 0 in case we are not moving and we are not dashing
 	// This is done to prevent drifting when applying forces from other bodies into the player body.
 	if (!isDashing)pBody->body->SetLinearVelocity(b2Vec2(0, 0));
@@ -95,6 +97,8 @@ void PlayerController::Update()
 void PlayerController::PostUpdate()
 {
 	if (pendingToDelete) return;
+
+	if (invulnerabilityCounter % 10 == 1 && beenHit) return;
 	// Update current Animation state 
 	// For now it is the same as Player State, if this changes overtime, there has to be a switch here to translate between current player State
 	// and current Animation State
@@ -461,6 +465,9 @@ void PlayerController::Hit(int damage)
 {
 	player->hpPlayer -= damage;
 	if (player->hpPlayer <= 0) printf("Player Die!!\n");
+
+	beenHit = true;
+	Invulnerability(invulnerabilityTimeHit);
 }
 
 void PlayerController::Stun(int frames)
