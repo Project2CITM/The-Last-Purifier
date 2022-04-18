@@ -150,7 +150,7 @@ void Ghoul::UpdateStates()
 		DoRun();
 
 		// Test codes
-		app->renderer->AddLineRenderQueue(position, player->GetPosition(), false, { 255,255,255,255 }, 2);
+		//app->renderer->AddLineRenderQueue(position, player->GetPosition(), false, { 255,255,255,255 }, 2);
 
 		if(detectPlayer) DoAttack();
 	}

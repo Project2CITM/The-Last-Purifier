@@ -78,6 +78,7 @@ void GameObject::PostUpdate()
 		case RenderType::RENDER_TEXTURE:
 			if (renderObjects[i].texture != nullptr)
 			{
+				UpdateOrderInLayer(i);
 				renderObjects[i].destRect.x = GetDrawPosition(i).x;
 				renderObjects[i].destRect.y = GetDrawPosition(i).y;
 				renderObjects[i].rotation = GetDegreeAngle();
@@ -116,13 +117,25 @@ iPoint GameObject::GetDrawPosition(int index)
 
 		pos = pBody->body->GetPosition();
 
-		pos.x = METERS_TO_PIXELS(pos.x) - pBody->gameObject->renderObjects[index].textureCenterX;
-		pos.y = METERS_TO_PIXELS(pos.y) - pBody->gameObject->renderObjects[index].textureCenterY;
+		pos.x = METERS_TO_PIXELS(pos.x) - renderObjects[index].textureCenterX;
+		pos.y = METERS_TO_PIXELS(pos.y) - renderObjects[index].textureCenterY;	
 
 		return { (int)pos.x, (int)pos.y };
 	}
 
-	return this->position;
+	return position;
+}
+
+void GameObject::UpdateOrderInLayer(int index)
+{
+	if (pBody != nullptr)
+	{
+		renderObjects[index].orderInLayer = GetPosition().y + pBody->height;
+	}
+	else
+	{
+		renderObjects[index].orderInLayer = GetPosition().y + renderObjects[index].destRect.h;
+	}
 }
 
 float GameObject::GetDegreeAngle()
