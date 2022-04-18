@@ -5,8 +5,9 @@
 #include "ModuleScene.h"
 #include <iostream>
 
-ClassTreeHud::ClassTreeHud() : Scene("ClassTreeHud")
+ClassTreeHud::ClassTreeHud(PlayerClass pClass) : Scene("ClassTreeHud")
 {
+	this->pClass = pClass;
 	Start();
 }
 
@@ -28,7 +29,15 @@ bool ClassTreeHud::Start()
 
 	bRect = { 10, 30, 215, 300 };
 
-	treeTexture = app->textures->Load("Assets/Sprites/UI/Trees/Revenant_Tree.png");
+	switch (pClass)
+	{
+	case PlayerClass::REVENANT:
+		treeTexture = app->textures->Load("Assets/Sprites/UI/Trees/Revenant_Tree.png");
+		break;
+	case PlayerClass::SAGE:
+		treeTexture = app->textures->Load("Assets/Sprites/UI/Trees/Sage_Tree.png");
+		break;
+	}
 
 	//Buttons
 	//testBtnPoint = {(bPoint.x + 125), (bPoint.y + 245)};

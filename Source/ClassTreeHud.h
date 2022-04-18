@@ -9,7 +9,7 @@ class ClassTreeHud : public Scene
 {
 public:
 
-	ClassTreeHud();
+	ClassTreeHud(PlayerClass pClass = PlayerClass::REVENANT);
 	~ClassTreeHud();
 
 	virtual bool InitScene();
@@ -32,6 +32,8 @@ private:
 
 	iPoint bPoint = { 0, 0 };
 	iPoint testBtnPoint = { 0, 0 };
+
+	PlayerClass pClass;
 
     //GUIButton* testBtn = nullptr;
 	//GUIButton* unlockBtn[TREE_SIZE];

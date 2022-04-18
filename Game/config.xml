@@ -24,6 +24,7 @@
      <kaboomExplotion width = "32" height = "32" layer = "1" orderInLayer = "3.0" scale = "1.6" path="Assets/Sprites/Enemies/Ghoul/KaboomExplotion.png"/>
      <npc width = "32" height = "32" layer = "1" orderInLayer = "3.0" scale = "0.3" path="Assets/Sprites/NPC/npcIdleAnim.png"/>
      <revenantInstructor width = "70" height = "95" layer = "1" orderInLayer = "3.0" scale = "0.3" path="Assets/Sprites/NPC/revenantInstructor.png"/>
+	 <sageInstructor width = "70" height = "95" layer = "1" orderInLayer = "3.0" scale = "0.3" path="Assets/Sprites/NPC/sagetInstructor.png"/>
      <basicattackrevenant width = "64" height = "64" layer = "1" orderInLayer = "3.0" scale = "0.8" path="Assets/Sprites/Player/Revenant/basicAttackRevenant.png"/>
 	   <basicwithpurifiedsword width = "64" height = "64" layer = "1" orderInLayer = "3.0" scale = "0.8" path="Assets/Sprites/Player/Revenant/basicWithPurifiedSword.png"/>
   </textures>

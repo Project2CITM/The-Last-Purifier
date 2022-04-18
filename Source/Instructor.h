@@ -6,7 +6,7 @@
 class Instructor : public NPC
 {
 public:
-	Instructor(std::string sentence, std::string name, iPoint position);
+	Instructor(std::string sentence, std::string name, iPoint position, PlayerClass pClass);
 	~Instructor();
 
 	void Start() override;
@@ -24,6 +24,8 @@ public:
 
 public:
 	ClassTreeHud* classTreeHud = nullptr;
+
+	PlayerClass pClass = PlayerClass::REVENANT;
 
 private:
 	std::string sentence;

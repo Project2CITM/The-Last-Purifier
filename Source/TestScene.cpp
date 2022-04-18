@@ -50,9 +50,6 @@ bool TestScene::Start()
     //gameObjects.add(playerController); // Ahora se anade automatico a la lista
     app->renderer->camera->SetTarget(player->controller);
 
-    //Test Skill/Spell tree
-    revenantTree = ClassTree::GetInstance();
-
     // Test particle
     Particle* p = new Particle({ 0,0 }, 2, 0, { 1,0 });
     p->renderObjects[0].InitAsRect({ p->GetPosition().x,p->GetPosition().y,50,50 }, { 0,255,0,255 }, true, 3);
@@ -195,8 +192,6 @@ bool TestScene::CleanUp()
     roomManager.CleanUp();
 
     spawnManager->ReleaseInstance();
-
-    revenantTree->ReleaseInstance();
 
     Scene::CleanUp();
     return false;

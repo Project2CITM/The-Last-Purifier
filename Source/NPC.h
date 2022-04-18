@@ -60,6 +60,13 @@ protected:
 	Animation idleAnim;
 
 	bool nearNpc = false;
+
+	bool exterior = true;
+
+public:
+	virtual void setIndoors() { exterior = false; }
+	virtual void setOutDoors() { exterior = true; }
+
 };
 
 #endif // !__NPC_H__

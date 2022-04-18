@@ -3,17 +3,27 @@
 #include "ModuleInput.h"
 #include "Trigger.h"
 #include "Text.h"
+#include "ModuleMap.h"
 
-Instructor::Instructor(std::string sentence, std::string name, iPoint position) : NPC(name, position)
+Instructor::Instructor(std::string sentence, std::string name, iPoint position, PlayerClass pClass) : NPC(name, position)
 {
 	this->sentence = sentence;
 	this->name = name;
 	this->position = position;
+	this->pClass = pClass;
 
 	textPosition = { position.x - npcData.w, position.y - npcData.h };
 	//trigger = new Trigger({ position.x + 10,position.y + 10 }, 40, this, "triggerInstructor", false);
 
-	InitRenderObjectWithXml("revenantInstructor");
+	switch (pClass)
+	{
+	case PlayerClass::REVENANT:
+		InitRenderObjectWithXml("revenantInstructor");
+		break;
+	case PlayerClass::SAGE:
+		InitRenderObjectWithXml("sageInstructor");
+		break;
+	}
 
 	for (int i = 0; i < 2; i++)
 	{
@@ -36,7 +46,7 @@ void Instructor::Start()
 	text = new Text(textPosition, " ");
 	text->ChangeDrawMode();
 
-	classTreeHud = new ClassTreeHud();
+	classTreeHud = new ClassTreeHud(pClass);
 
 }
 
@@ -51,7 +61,6 @@ void Instructor::CleanUp()
 
 void Instructor::PreUpdate()
 {
-
 	if (toggle) classTreeHud->PreUpdate();
 }
 
@@ -72,6 +81,8 @@ void Instructor::Update()
 
 void Instructor::PostUpdate()
 {
+	if (exterior && !app->map->roof) return;
+	if (!exterior && app->map->roof) return;
 
 	if (toggle) classTreeHud->PostUpdate();
 

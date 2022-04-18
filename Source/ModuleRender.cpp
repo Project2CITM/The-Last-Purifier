@@ -1,6 +1,7 @@
 #include "ModuleRender.h"
 #include "ModuleWindow.h"
 #include "ModulePhysics.h"
+#include "ModuleInput.h"
 #include <string.h>
 
 int cameraSpeed = 1;
@@ -83,8 +84,9 @@ UpdateStatus ModuleRender::Update()
 // PostUpdate present buffer to screen
 UpdateStatus ModuleRender::PostUpdate()
 {
-	
-	app->physics->ShapesRender();
+	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) showCollisions = !showCollisions;
+
+	if (showCollisions) app->physics->ShapesRender();
 
 	// Sorting layers
 	for (int i = 0; i < renderLayers.size(); ++i)
