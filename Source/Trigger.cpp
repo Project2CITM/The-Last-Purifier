@@ -54,8 +54,18 @@ void Trigger::Update()
 	SetPosition(parent->GetPosition() + positionOffset);
 }
 
+void Trigger::PostUpdate()
+{
+	onTriggerEnter = false;
+	onTriggerExit = false;
+}
+
 void Trigger::OnCollisionEnter(PhysBody* col)
 {
+	onTriggerEnter = true;
+
+	onTriggerStay = true;
+
 	if (pendingToDelete) return;
 
 	if (app->Exiting()) return;
@@ -69,6 +79,10 @@ void Trigger::OnCollisionEnter(PhysBody* col)
 
 void Trigger::OnCollisionExit(PhysBody* col)
 {
+	onTriggerExit = true;
+
+	onTriggerStay = false;
+
 	if (pendingToDelete) return;
 
 	if (app->Exiting()) return;

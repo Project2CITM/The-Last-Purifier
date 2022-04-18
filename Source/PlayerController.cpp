@@ -98,13 +98,13 @@ void PlayerController::Update()
 
 
 	//GodMode Active
-	if (app->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN && !godMode) {
+	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN && !godMode) {
 		godMode = !godMode;
 		normalDamage = player->damage;
 		player->damage = 1000;
 		
 	}
-	else if (app->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN && godMode) {
+	else if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN && godMode) {
 		godMode = !godMode;
 		player->damage = normalDamage;
 	}
