@@ -118,7 +118,10 @@ bool HubScene::Start()
 	NPC* npc4 = new NPC("purifier6", {928,1867});//Puerta Castillo
 	npc4->Start();
 
-	revenantInstructor = new Instructor("What do you need ?", "RevenantInstructor", { 1016, 855 });
+	revenantInstructor = new Instructor("What do you need ?", "RevenantInstructor", { 1016, 855 }, PlayerClass::REVENANT);
+	revenantInstructor->setIndoors();
+
+	sageInstructor = new Instructor("What do you need ?", "SageInstructor", { 550, 1395 }, PlayerClass::SAGE);
 
 	//Labels
 	IntLabel* int_lbl_Revenant = new IntLabel("REVENANT INSTRUCTOR", "Lbl_Revenant", { 1014, 939 }, { 255 , 20 },  150);

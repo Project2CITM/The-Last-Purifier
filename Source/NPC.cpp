@@ -8,6 +8,7 @@
 #include "SceneGame.h"
 #include "Trigger.h"
 #include "ModulePhysics.h"
+#include "ModuleMap.h"
 
 NPC::NPC(std::string name, iPoint position) : GameObject(name,"NPC")
 {
@@ -85,6 +86,10 @@ void NPC::Update()
 
 void NPC::PostUpdate()
 {
+	if (exterior && !app->map->roof) return;
+	if (!exterior && app->map->roof) return;
+	
+
 	idleAnim.Update();
 	renderObjects[0].section = idleAnim.GetCurrentFrame();
 	GameObject::PostUpdate();
