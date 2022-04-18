@@ -21,6 +21,8 @@ RenderObject PauseBG;
 RenderObject SettingsBG;
 
 RenderObject iconSpells;
+RenderObject deckSpells1;
+RenderObject deckSpells2;
 
 HUDInGame::HUDInGame() :Scene("HUDInGame")
 {
@@ -50,6 +52,8 @@ bool HUDInGame::Start()
 	Controls2.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Controls2_2.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 1, 0, SDL_FLIP_NONE, 0);
 
 	iconSpells.InitAsTexture(app->textures->Load("Assets/Sprites/UI/icons.png"), { app->renderer->camera->x + 304, app->renderer->camera->y + 320 }, { 0,0,0,0 }, 1, 4, 0, 0, SDL_FLIP_NONE, 0);
+	deckSpells1.InitAsTexture(app->textures->Load("Assets/Sprites/UI/icons.png"), { app->renderer->camera->x + 350, app->renderer->camera->y + 335 }, { 0,0,0,0 }, 0.5f, 4, 0, 0, SDL_FLIP_NONE, 0);
+	deckSpells2.InitAsTexture(app->textures->Load("Assets/Sprites/UI/icons.png"), { app->renderer->camera->x + 375, app->renderer->camera->y + 335 }, { 0,0,0,0 }, 0.5f, 4, 0, 0, SDL_FLIP_NONE, 0);
 
 	Hover = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiHover.wav");
 	Press = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiSelect.wav");
@@ -370,23 +374,64 @@ bool HUDInGame::PostUpdate()
 
 		switch ((int)player->spellSlots[0]->id)
 		{
-		case 1:
+		case (int)SpellID::PURIFIED_SWORD:
 			iconSpells.section = { 31,0,31,31 };
 			break;
-		case 2:
+		case (int)SpellID::SOUL_SHIELD:
 			iconSpells.section = { 31,31,31,31 };
 			break;
-		case 3:
+		case (int)SpellID::PURIFICATION_SLASH:
 			iconSpells.section = { 0,31,31,31 };
 			break;
-		case 4:
+		case (int)SpellID::EKRISKI:
 			iconSpells.section = { 61,0,31,31 };
 			break;
-		case 5:
+		case (int)SpellID::FOTEIROS:
 			iconSpells.section = { 0,0,31,31 };
 			break;
 		default:
 			iconSpells.section = { 300,300,3,3 };
+		}
+
+		switch ((int)player->deckSlots[0]->id)
+		{
+		case (int)SpellID::PURIFIED_SWORD:
+			deckSpells1.section = { 31,0,31,31 };
+			break;
+		case (int)SpellID::SOUL_SHIELD:
+			deckSpells1.section = { 31,31,31,31 };
+			break;
+		case (int)SpellID::PURIFICATION_SLASH:
+			deckSpells1.section = { 0,31,31,31 };
+			break;
+		case (int)SpellID::EKRISKI:
+			deckSpells1.section = { 61,0,31,31 };
+			break;
+		case (int)SpellID::FOTEIROS:
+			deckSpells1.section = { 0,0,31,31 };
+			break;
+		default:
+			deckSpells1.section = { 300,300,3,3 };
+		}
+		switch ((int)player->deckSlots[1]->id)
+		{
+		case (int)SpellID::PURIFIED_SWORD:
+			deckSpells2.section = { 31,0,31,31 };
+			break;
+		case (int)SpellID::SOUL_SHIELD:
+			deckSpells2.section = { 31,31,31,31 };
+			break;
+		case (int)SpellID::PURIFICATION_SLASH:
+			deckSpells2.section = { 0,31,31,31 };
+			break;
+		case (int)SpellID::EKRISKI:
+			deckSpells2.section = { 61,0,31,31 };
+			break;
+		case (int)SpellID::FOTEIROS:
+			deckSpells2.section = { 0,0,31,31 };
+			break;
+		default:
+			deckSpells2.section = { 300,300,3,3 };
 		}
 
 	}
@@ -466,6 +511,8 @@ bool HUDInGame::PostUpdate()
 	}
 
 	app->renderer->AddRenderObjectRenderQueue(iconSpells);
+	app->renderer->AddRenderObjectRenderQueue(deckSpells1);
+	app->renderer->AddRenderObjectRenderQueue(deckSpells2);
 
 	Scene::PostUpdate();
 
