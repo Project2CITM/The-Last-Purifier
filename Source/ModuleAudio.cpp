@@ -42,7 +42,13 @@ bool ModuleAudio::Init(pugi::xml_node& config)
 		ret = false;
 	}
 
-	Mix_Volume(-1, app->saveF.child("game_state").child("settings").attribute("sfx").as_float() * 200);
+	musicVol = app->config.child("audios").child("music").attribute("volume").as_int(100);
+
+	fxVol = app->config.child("audios").child("sfx").attribute("volume").as_int(100);
+
+	SetMusicVolume(musicVol);
+
+	SetSFXVolume(fxVol);
 
 	return ret;
 }
@@ -50,6 +56,13 @@ bool ModuleAudio::Init(pugi::xml_node& config)
 // Called before quitting
 bool ModuleAudio::CleanUp()
 {
+	// Save audio info
+	app->config.child("audios").child("music").attribute("volume") = musicVol;
+
+	app->config.child("audios").child("sfx").attribute("volume") = fxVol;
+
+	app->SaveGame();
+
 	LOG("Freeing sound FX, closing Mixer and Audio subsystem");
 
 	if(music != NULL)
@@ -171,4 +184,18 @@ bool ModuleAudio::PlayFx(unsigned int id, int repeat)
 	}
 
 	return ret;
+}
+
+void ModuleAudio::SetMusicVolume(int vol)
+{
+	musicVol = vol;
+
+	Mix_VolumeMusic(vol);
+}
+
+void ModuleAudio::SetSFXVolume(int vol)
+{
+	fxVol = vol;
+
+	Mix_Volume(-1, vol);
 }

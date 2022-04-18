@@ -100,10 +100,12 @@ bool HUDInGame::Start()
 	MusicBUT = new GUIButton({ app->renderer->camera->x + 200, app->renderer->camera->y + 125 }, 27, 46, MenuButton::SETTINGSPAUSE, "Assets/Sprites/UI/fireSlider.png");
 	MusicSlider = new GUISlider({ app->renderer->camera->x + 200, app->renderer->camera->y + 125 }, 300, 14, MenuButton::SETTINGSPAUSE, "Assets/Sprites/UI/Slider1.png");
 	MusicSlider->CreateGUIBtn(MusicBUT);
+	MusicSlider->SetValue(app->audio->musicVol/255);
 
 	fxBUT = new GUIButton({ app->renderer->camera->x + 200, app->renderer->camera->y + 200 }, 27, 46, MenuButton::SETTINGSPAUSE, "Assets/Sprites/UI/fireSlider.png");
 	fxSlider = new GUISlider({ app->renderer->camera->x + 200, app->renderer->camera->y + 200 }, 300, 14, MenuButton::SETTINGSPAUSE, "Assets/Sprites/UI/Slider1.png");
 	fxSlider->CreateGUIBtn(fxBUT);
+	fxSlider->SetValue(app->audio->fxVol / 255);
 
 	FullScreenCHK = new GUICheckbox({ app->renderer->camera->x + 350, app->renderer->camera->y + 215 }, 60, 60, MenuButton::SETTINGSPAUSE, "Assets/Sprites/UI/CheckBox.png");
 
@@ -118,8 +120,8 @@ bool HUDInGame::PreUpdate()
 	{
 		if (startPause)
 		{
-			app->musicVol = app->musicVol * 2;
-			app->fxVol = app->fxVol * 2;
+			app->audio->SetMusicVolume(app->audio->musicVol*2);
+			app->audio->SetSFXVolume(app->audio->fxVol * 2);
 			//currentPauseMenu = CurrentPauseMenu::Pause;
 			ControllerPos = 0;
 			startPause = false;
@@ -151,8 +153,8 @@ bool HUDInGame::Update()
 	{
 		if (!startPause)
 		{
-			app->musicVol = app->musicVol * 0.5f ;
-			app->fxVol = app->fxVol * 0.5f ;
+			app->audio->SetMusicVolume(app->audio->musicVol/2);
+			app->audio->SetSFXVolume(app->audio->fxVol/2);
 			startPause = true;
 		}
 
@@ -347,9 +349,8 @@ bool HUDInGame::Update()
 				FullScreenCHK->ChangeState(false);
 			}
 
-			app->musicVol = MusicSlider->GetValue() * 255;
-			app->fxVol = fxSlider->GetValue() * 255;
-
+			app->audio->SetMusicVolume(MusicSlider->GetValue() * 255);
+			app->audio->SetSFXVolume(fxSlider->GetValue() * 255);
 		}
 
 		if (currentPauseMenu == CurrentPauseMenu::Controls)

@@ -68,12 +68,15 @@ public:
 	~Application();
 
 	bool Init();
+
 	UpdateStatus Update();
+
 	bool CleanUp();
 
 	bool Exiting();
 
 	void LoadGameRequest();
+
 	void SaveGameRequest() const;
 
 	static Application* GetInstance();
@@ -81,9 +84,11 @@ public:
 	void ShowTime();
 
 	const char* GetTitle() const;
+
 	const char* GetOrganization() const;
 
 	pugi::xml_node LoadConfig(pugi::xml_document&) const;
+
 	bool LoadSaveFile();
 
 	void ExitGame();
@@ -96,14 +101,12 @@ public:
 
 	bool fullScreen = false;
 
-	float musicVol = 0;
-
-	float fxVol = 0;
-
-private:
 	// Load / Save
 	bool LoadGame();
+
 	bool SaveGame();
+
+private:
 
 	void UpdateTitle();
 
