@@ -4,9 +4,11 @@
 
 CommonTree* CommonTree::instance = nullptr;
 
-CommonTree::CommonTree() : EventListener(GameEvent::SAVE_GAME)
+CommonTree::CommonTree()
 {
-	app->events->AddListener(this);
+	this->listenTo = GameEvent::SAVE_GAME;
+
+	Application::GetInstance()->events->AddListener(this);
 
 	Start();
 }

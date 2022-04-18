@@ -7,10 +7,12 @@
 
 ClassTree* ClassTree::instance = nullptr;
 
-ClassTree::ClassTree(PlayerClass pClass) : EventListener(GameEvent::SAVE_GAME)
+ClassTree::ClassTree(PlayerClass pClass)
 {
+	this->listenTo = GameEvent::SAVE_GAME;
+
 	playerClass = pClass;
-	app->events->AddListener(this);
+	Application::GetInstance()->events->AddListener(this);
 
 	Start();
 }
