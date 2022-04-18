@@ -64,7 +64,7 @@ void Enemy::Hit(int damage)
 
 void Enemy::Die(bool spawnPower)
 {
-	if (spawnManager->IsDeleted() && spawnPower)
+	if (!spawnManager->IsDeleted() && spawnPower)
 	{
 		int randNum = rand() % 10;
 		if (randNum == 1) spawnManager->SpawnSpell(GetPosition());

@@ -1,5 +1,7 @@
 #include "Trigger.h"
 #include "ModulePhysics.h"
+#include "ModuleScene.h"
+#include "Scene.h"
 
 /// <summary>
 /// Create Rectangle Sensor attached to a gameobject
