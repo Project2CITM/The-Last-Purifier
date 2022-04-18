@@ -19,7 +19,7 @@ ClassTree::ClassTree(PlayerClass pClass)
 
 ClassTree::~ClassTree()
 {
-
+	
 }
 
 ClassTree* ClassTree::GetInstance()
@@ -120,10 +120,10 @@ bool ClassTree::unlockSkill(int* classPoints, int skillId)
 		if (theRequiredSkill->currentLevel >= SkillLevel::BLUE)
 		{
 			//Checks if there are enough points to unlock
-			if (*classPoints <= theSkill->cost)
+			if (*classPoints >= theSkill->cost)
 			{   //Unlocks
 				theSkill->currentLevel = (SkillLevel) ((int)theSkill->currentLevel + 1);
-				classPoints -= theSkill->cost;
+				*classPoints -= theSkill->cost;
 				
 				return true;
 			}
@@ -146,7 +146,7 @@ bool ClassTree::LoadBaseTree()
 	
 	for (int i = 0; i < TREE_SIZE; i++)
 	{
-		fPoint temp = { bNode.child("position").attribute("x").as_float(), bNode.child("position").attribute("y").as_float() };
+		iPoint temp = { bNode.child("position").attribute("x").as_int(), bNode.child("position").attribute("y").as_int() };
 		skillTree[i] = new SkillTreeElement(
 			bNode.attribute("id").as_int(),
 			(std::string)bNode.child_value("name"),

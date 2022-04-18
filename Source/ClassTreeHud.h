@@ -23,6 +23,8 @@ public:
 
 private:
 
+	int startId = 0;
+
 	bool active = false;
 	int btnSize = 40;
 
@@ -34,9 +36,11 @@ private:
 	iPoint testBtnPoint = { 0, 0 };
 
 	PlayerClass pClass;
+	ClassTree* tree;
+	Player* player;
 
     //GUIButton* testBtn = nullptr;
-	//GUIButton* unlockBtn[TREE_SIZE];
+	List<GUIButton*>* unlockBtn = nullptr;
 
 };
 

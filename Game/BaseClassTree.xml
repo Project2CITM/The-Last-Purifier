@@ -7,7 +7,7 @@
 			<cost>100</cost>
 			<requiresID>-1</requiresID>
 			<maxLevel>3</maxLevel>
-			<position x="5" y="5" />
+			<position x="15" y="35" />
 		</tree_element>
 		<tree_element id="2">
 			<name>Soul Shield</name>
@@ -15,7 +15,7 @@
 			<cost>100</cost>
 			<requiresID>1</requiresID>
 			<maxLevel>3</maxLevel>
-			<position x="60" y="5" />
+			<position x="75" y="35" />
 		</tree_element>
 		<tree_element id="3">
 			<name>Flame Cape</name>
@@ -23,7 +23,7 @@
 			<cost>100</cost>
 			<requiresID>2</requiresID>
 			<maxLevel>3</maxLevel>
-			<position x="125" y="5" />
+			<position x="135" y="35" />
 		</tree_element>
 		<tree_element id="4">
 			<name>Sacred Shield</name>
@@ -31,7 +31,7 @@
 			<cost>100</cost>
 			<requiresID>3</requiresID>
 			<maxLevel>3</maxLevel>
-			<position x="125" y="245" />
+			<position x="135" y="275" />
 		</tree_element>
 		<tree_element id="5">
 			<name>Cover</name>
@@ -39,7 +39,7 @@
 			<cost>100</cost>
 			<requiresID>2</requiresID>
 			<maxLevel>3</maxLevel>
-			<position x="65" y="125" />
+			<position x="75" y="155" />
 		</tree_element>
 		<tree_element id="6">
 			<name>Purification Slash</name>
@@ -47,7 +47,7 @@
 			<cost>100</cost>
 			<requiresID>1</requiresID>
 			<maxLevel>3</maxLevel>
-			<position x="5" y="65" />
+			<position x="15" y="95" />
 		</tree_element>
 		<tree_element id="7">
 			<name>Purification Thrust</name>
@@ -55,7 +55,7 @@
 			<cost>100</cost>
 			<requiresID>6</requiresID>
 			<maxLevel>3</maxLevel>
-			<position x="5" y="125" />
+			<position x="15" y="155" />
 		</tree_element>
 		<tree_element id="8">
 			<name>Dash Slash</name>
@@ -63,7 +63,7 @@
 			<cost>100</cost>
 			<requiresID>7</requiresID>
 			<maxLevel>3</maxLevel>
-			<position x="5" y="185" />
+			<position x="15" y="215" />
 		</tree_element>
 		<tree_element id="9">
 			<name>Torment</name>
@@ -71,7 +71,7 @@
 			<cost>100</cost>
 			<requiresID>8</requiresID>
 			<maxLevel>3</maxLevel>
-			<position x="5" y="245" />
+			<position x="15" y="275" />
 		</tree_element>
 		<tree_element id="10">
 			<name>Crematorium</name>
@@ -79,17 +79,15 @@
 			<cost>100</cost>
 			<requiresID>9</requiresID>
 			<maxLevel>3</maxLevel>
-			<position x="65" y="245" />
+			<position x="75" y="275" />
 		</tree_element>
-	</class_tree>
-	<class_tree id="1" name="Sage">
 		<tree_element id="11">
 			<name>Fotieros</name>
 			<description>It's a sword</description>
 			<cost>100</cost>
 			<requiresID>-1</requiresID>
 			<maxLevel>3</maxLevel>
-			<position x="5" y="5" />
+			<position x="15" y="35" />
 		</tree_element>
 		<tree_element id="12">
 			<name>Tychaia</name>
@@ -97,7 +95,7 @@
 			<cost>100</cost>
 			<requiresID>11</requiresID>
 			<maxLevel>3</maxLevel>
-			<position x="60" y="5" />
+			<position x="15" y="95" />
 		</tree_element>
 		<tree_element id="13">
 			<name>Pneuma</name>
@@ -105,7 +103,7 @@
 			<cost>100</cost>
 			<requiresID>12</requiresID>
 			<maxLevel>3</maxLevel>
-			<position x="125" y="5" />
+			<position x="75" y="95" />
 		</tree_element>
 		<tree_element id="14">
 			<name>Ekriski</name>
@@ -113,7 +111,7 @@
 			<cost>100</cost>
 			<requiresID>13</requiresID>
 			<maxLevel>3</maxLevel>
-			<position x="125" y="245" />
+			<position x="75" y="155" />
 		</tree_element>
 		<tree_element id="15">
 			<name>Egeiro</name>
@@ -121,7 +119,7 @@
 			<cost>100</cost>
 			<requiresID>11</requiresID>
 			<maxLevel>3</maxLevel>
-			<position x="65" y="125" />
+			<position x="135" y="35" />
 		</tree_element>
 		<tree_element id="16">
 			<name>Timoria</name>
@@ -129,7 +127,7 @@
 			<cost>100</cost>
 			<requiresID>12</requiresID>
 			<maxLevel>3</maxLevel>
-			<position x="5" y="65" />
+			<position x="15" y="155" />
 		</tree_element>
 		<tree_element id="17">
 			<name>Astrapi</name>
@@ -137,7 +135,7 @@
 			<cost>100</cost>
 			<requiresID>16</requiresID>
 			<maxLevel>3</maxLevel>
-			<position x="5" y="125" />
+			<position x="15" y="275" />
 		</tree_element>
 		<tree_element id="18">
 			<name>Soteria</name>
@@ -145,7 +143,7 @@
 			<cost>100</cost>
 			<requiresID>17</requiresID>
 			<maxLevel>3</maxLevel>
-			<position x="5" y="185" />
+			<position x="70" y="275" />
 		</tree_element>
 		<tree_element id="19">
 			<name>Psyche</name>
@@ -153,7 +151,7 @@
 			<cost>100</cost>
 			<requiresID>15</requiresID>
 			<maxLevel>3</maxLevel>
-			<position x="5" y="245" />
+			<position x="135" y="275" />
 		</tree_element>
 		<tree_element id="20">
 			<name>Crematorium</name>
@@ -161,7 +159,7 @@
 			<cost>100</cost>
 			<requiresID>18</requiresID>
 			<maxLevel>3</maxLevel>
-			<position x="65" y="245" />
+			<position x="135" y="95" />
 		</tree_element>
 	</class_tree>
 </classes>

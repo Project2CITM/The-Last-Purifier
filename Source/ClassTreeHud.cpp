@@ -3,7 +3,9 @@
 #include "ModuleRender.h"
 #include "ModuleInput.h"
 #include "ModuleScene.h"
+#include "Scene.h"
 #include <iostream>
+#include "SceneGame.h"
 
 ClassTreeHud::ClassTreeHud(PlayerClass pClass) : Scene("ClassTreeHud")
 {
@@ -29,28 +31,38 @@ bool ClassTreeHud::Start()
 
 	bRect = { 10, 30, 215, 300 };
 
+	tree = ClassTree::GetInstance();
+	SceneGame* scene = (SceneGame*)Application::GetInstance()->scene->scenes[Application::GetInstance()->scene->currentScene];
+	player = scene->player;
+
 	switch (pClass)
 	{
 	case PlayerClass::REVENANT:
 		treeTexture = app->textures->Load("Assets/Sprites/UI/Trees/Revenant_Tree.png");
+		startId = REVENANT_FIRST_ID;
 		break;
 	case PlayerClass::SAGE:
 		treeTexture = app->textures->Load("Assets/Sprites/UI/Trees/Sage_Tree.png");
+		startId = SAGE_FIRST_ID;
 		break;
 	}
 
 	//Buttons
 	//testBtnPoint = {(bPoint.x + 125), (bPoint.y + 245)};
 
-	iPoint aux = { 0, 0 };
-	//for (int i = 0; i < TREE_SIZE; i++)
-	//{
-	//	//aux = {app->scene.}
+	unlockBtn = new List<GUIButton*>;
 
-	//	unlockBtn[i] = new GUIButton(testBtnPoint, btnSize, btnSize, MenuButton::NONE);
-	//	unlockBtn[i]->setRenderColour({ 155, 0, 0, 155 });
-	//	unlockBtn[i]->setRenderLayer(4, 1);
-	//}
+	iPoint aux = { 0, 0 };
+	for (int i = startId; i < (startId+10); i++)
+	{
+		aux = tree->getSkillTree(i)->position;
+
+		GUIButton* bttn = new GUIButton(aux, btnSize, btnSize, MenuButton::NONE, "Assets/Sprites/UI/Trees/Tree_Debug_Btn.png");
+		bttn->setRenderColour({ 155, 0, 0, 155 });
+		bttn->setRenderLayer(4, 1);
+
+		unlockBtn->add(bttn);
+	}
 
 	//testBtn = new GUIButton(testBtnPoint, 40, 40, MenuButton::NONE);
 	//testBtn->setRenderColour({ 155, 0, 0, 155 });
@@ -63,7 +75,10 @@ bool ClassTreeHud::Start()
 
 bool ClassTreeHud::CleanUp()
 {
-	//testBtn = nullptr;
+
+	unlockBtn->clearPtr();
+	delete unlockBtn;
+	unlockBtn = nullptr;
 
 	Scene::CleanUp();
 
@@ -72,10 +87,6 @@ bool ClassTreeHud::CleanUp()
 
 bool ClassTreeHud::PreUpdate()
 {
-	/*if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
-	{
-		active = !active;
-	}*/
 
 	Scene::PreUpdate();
 
@@ -86,7 +97,21 @@ bool ClassTreeHud::Update()
 {
 	//if (!active) return true;
 
+	ListItem<GUIButton*>* element = unlockBtn->start;
+	int aux = startId;
+	while (element != NULL)
+	{
+		element->data->Update();
 
+		if (element->data->doAction)
+		{
+			tree->unlockSkill(&player->souls, aux);
+			element->data->doAction = false;
+		}
+
+		aux++;
+		element = element->next;
+	}
 
 	return true;
 }
@@ -95,13 +120,21 @@ bool ClassTreeHud::PostUpdate()
 {
 	//if (!active) return true;
 
-	//
-
+	//Base
 	app->renderer->AddRectRenderQueue(bRect, { 155, 0, 0, 255 }, true, 3, 1.0f, 0.0f);
 	app->renderer->AddTextureRenderQueue(treeTexture, bPoint, { 0 , 0, 0, 0 }, 0.5f, 4, 0, 0, SDL_FLIP_NONE, 0.0f);
 
 	//Buttons
 	//testBtn->PostUpdate();
+
+	ListItem<GUIButton*>* element = unlockBtn->start;
+
+	while (element != NULL)
+	{
+		element->data->PostUpdate();
+
+		element = element->next;
+	}
 
 	return true;
 }
