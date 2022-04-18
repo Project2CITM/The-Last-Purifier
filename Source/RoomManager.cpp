@@ -113,11 +113,14 @@ void RoomManager::CleanUp()
 	rooms.clearPtr();
 
 	RELEASE(mapLoader);
-
-	app->scene->scenes[app->scene->currentScene]->DestroyGameObject(exitTrigger);
+	
 	doorTopTexture = nullptr;
 	doorBotTexture = nullptr;
 	doorSpikeTexture = nullptr;
+
+	if (app->Exiting()) return;
+
+	app->scene->scenes[app->scene->currentScene]->DestroyGameObject(exitTrigger);
 }
 
 //FUNCTIONS
