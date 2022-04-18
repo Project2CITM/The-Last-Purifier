@@ -19,7 +19,7 @@ void PlayerCombat::Start()
 
 	filter.categoryBits = app->physics->PLAYER_LAYER;
 
-	revenantAttack = new DamageArea(player->controller->GetPosition(), 12, 20, &player->damage);
+	revenantAttack = new DamageArea(player->controller->GetPosition(), 12, 20, player->damage);
 
 	revenantAttack->pBody->body->GetFixtureList()->SetFilterData(filter);
 
@@ -225,6 +225,11 @@ void PlayerCombat::RevenantAttack()
 	float attackRotation = 0;
 	if (attackOffset.x == 0.25f) attackRotation = 90 * DEGTORAD;
 	
+	// Update revenantAttack
+	revenantAttack->damage = player->damage + player->extraDamage;
+	revenantAttack->stunTime = player->stunTime;
+	revenantAttack->pushDistance = player->pushDistance;
+
 	// Place on correct position
 	revenantAttack->pBody->body->SetTransform(player->controller->pBody->body->GetPosition() + attackOffset, attackRotation);
 
@@ -251,7 +256,7 @@ void PlayerCombat::RevenantAttack()
 
 	}
 
-	new ParticleAttackRevenant(revenantAttack->GetPosition() + particleOffset, particleRotation, 0.15f, 0);
+	new ParticleAttackRevenant(revenantAttack->GetPosition() + particleOffset, particleRotation, 0.15f, 0, player->purifiedSwordOn);
 
 	attackAreaActive = true;
 }

@@ -446,8 +446,8 @@ void PlayerController::OnTriggerEnter(std::string trigger, PhysBody* col)
 	if (col->gameObject->name == "DamageArea")
 	{
 		DamageArea* dArea = (DamageArea*)col->gameObject;
-		if (dArea->damage != nullptr)Hit(dArea->GetDamage());
-		if (dArea->stunTime != nullptr)Stun(*dArea->stunTime);
+		Hit(dArea->GetDamage());
+	    Stun(dArea->stunTime);
 	}
 
 	if (col->gameObject->CompareTag("Enemy"))

@@ -1,5 +1,7 @@
 #include "PurifiedSwordS.h"
 #include <string>
+#include "Player.h"
+
 
 PurifiedSwordS::PurifiedSwordS() : Spell(), EventListener(GameEvent::PLAYER_ATTACK)
 {
@@ -26,7 +28,15 @@ PurifiedSwordS::~PurifiedSwordS()
 
 void PurifiedSwordS::Execute(int level)
 {
-	printf("Execute Purified Sword at level %d\n", level);
+	// Si ya habiamos usado el Spell y lo volvemos a usar, quitamos el daño extra aplicado anteriormente
+	if (currentAttacks != 0)
+	{
+		player->extraDamage -= damage[currentLevel - 1];
+	}
+	currentLevel = level;
+	player->extraDamage += damage[currentLevel];
+	currentAttacks = attackUses;
+	player->purifiedSwordOn = true;
 }
 
 void PurifiedSwordS::Update()
@@ -40,5 +50,15 @@ void PurifiedSwordS::CleanUp()
 
 void PurifiedSwordS::GameEventTriggered()
 {
+	if (currentAttacks <= 0) return;
+
+	currentAttacks--;
+
+	if (currentAttacks <= 0)
+	{
+		player->extraDamage -= damage[currentLevel - 1];
+		player->purifiedSwordOn = false;
+	}
+
 	printf("\nPurified Sword detected Player Attack\n");
 }

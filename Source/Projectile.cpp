@@ -14,7 +14,7 @@ Projectile::Projectile(std::string name, iPoint position, fPoint speed, int dama
 	this->stun = stun;
 	this->rotation = rotation;
 
-	damageArea = new DamageArea(position, 4, 4, &this->damage, &this->stun);
+	damageArea = new DamageArea(position, 4, 4, this->damage);
 	pBody = app->physics->CreateRectangle(position, 4, 4, this);
 	b2Filter filter;
 	filter.categoryBits = app->physics->PROJECTILE_LAYER;

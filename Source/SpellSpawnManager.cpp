@@ -20,13 +20,26 @@ SpellSpawnManager* SpellSpawnManager::GetInstance()
 void SpellSpawnManager::SpawnSpell(iPoint p)
 {
     if (classTree == nullptr) return;
+   
+    
     int randomSpell;
-    if (pClass == PlayerClass::REVENANT) randomSpell = rand() % revenantSpells + 1;
+    /*if (pClass == PlayerClass::REVENANT) randomSpell = rand() % revenantSpells + 1;
     else randomSpell = (rand() % revenantSpells + 1) + sageSpells;
+    */
 
-    iPoint pos = p;
-
-    new SpellObject(pos, (SpellID)randomSpell, CalculateSpellLevel((SpellID)randomSpell));
+    if (pClass == PlayerClass::REVENANT)
+    {
+        randomSpell = rand() % revenantSpells;
+        new SpellObject(p, (SpellID)currentRevenantSpells[randomSpell], CalculateSpellLevel((SpellID)currentRevenantSpells[randomSpell]));
+    }
+    else 
+    {
+        randomSpell = rand() % sageSpells;
+        new SpellObject(p, (SpellID)currentSageSpells[randomSpell], CalculateSpellLevel((SpellID)currentSageSpells[randomSpell]));
+    }
+ 
+  
+    //new SpellObject(pos, (SpellID)randomSpell, CalculateSpellLevel((SpellID)randomSpell));
 }
 
 SpellSpawnManager::SpellSpawnManager(PlayerClass playerClass)

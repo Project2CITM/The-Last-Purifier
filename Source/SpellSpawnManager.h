@@ -27,8 +27,11 @@ private:
 
 	PlayerClass pClass;
 
-	int revenantSpells = 10;
-	int sageSpells = 9;
+	int revenantSpells = 3;
+	int sageSpells = 2;
+
+	int currentRevenantSpells[3] = { 1,2,6 };
+	int currentSageSpells[2] = { 11, 14 };
 
 	int fakepoints = 1000000;
 

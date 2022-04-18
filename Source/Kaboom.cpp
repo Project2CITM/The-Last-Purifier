@@ -251,7 +251,7 @@ void Kaboom::InitPhysics()
 	damageTrigger->pBody->body->GetFixtureList()->SetFilterData(filterB);
 
 	// Attack Trigger
-	attack = new DamageArea(position, 26, &damage);
+	attack = new DamageArea(position, 26, damage);
 
 	attack->pBody->body->SetActive(false);
 

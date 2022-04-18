@@ -23,6 +23,10 @@ private:
 	int damage[3];
 	bool stun[3];
 	int stunDuration[3];
+
+	int attackUses = 5;
+	int currentAttacks = 0;
+	int currentLevel = 1;
 };
 #endif
 
