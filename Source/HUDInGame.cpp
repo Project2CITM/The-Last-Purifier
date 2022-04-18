@@ -358,32 +358,15 @@ bool HUDInGame::Update()
 			}
 		}
 	}
+
+	UpdatePlayerHp();
+
 	return true;
 }
 
 bool HUDInGame::PostUpdate()
 {
 	// Player Hp
-	if (playerHp.delayHp.w > playerHp.currentHp.w)
-	{
-		if (playerHp.startDelay <= 0)
-		{
-			if (playerHp.countDelay <= 0)
-			{
-				playerHp.delayHp.w--;
-				playerHp.countDelay = playerHp.maxCountDelay;
-			}
-			else
-			{
-				playerHp.countDelay -= playerHp.delaySpeed;
-				if (playerHp.delayHp.w <= playerHp.currentHp.w)playerHp.startDelay = playerHp.MaxStartDelay;
-			}
-		}
-		else
-		{
-			playerHp.startDelay--;
-		}
-	}
 	app->renderer->AddRectRenderQueue(playerHp.bg, playerHp.bgColor, false, 4, 2.0f, 0.0f);
 	app->renderer->AddRectRenderQueue(playerHp.delayHp, playerHp.hpDelayColor, true, 4, 2.5f, 0.0f);
 	app->renderer->AddRectRenderQueue(playerHp.currentHp, playerHp.hpColor, true, 4, 3.0f, 0.0f);
@@ -565,4 +548,32 @@ void HUDInGame::GameEventTriggered()
 void HUDInGame::SetPlayerCombat(PlayerCombat* playerC)
 {
 	player = playerC;
+}
+
+void HUDInGame::UpdatePlayerHp()
+{
+	do
+	{
+		if (playerHp.delayHp.w < playerHp.currentHp.w) break;
+
+		playerHp.startDelay--;
+
+		if (playerHp.startDelay > 0) break;
+
+		if (playerHp.countDelay <= 0)
+		{
+			playerHp.delayHp.w--;
+
+			playerHp.countDelay = playerHp.maxCountDelay;
+		}
+		else
+		{
+			playerHp.countDelay -= playerHp.delaySpeed;
+
+			if (playerHp.delayHp.w > playerHp.currentHp.w) break;
+
+			playerHp.startDelay = playerHp.MaxStartDelay;
+		}
+
+	} while (false);
 }

@@ -59,6 +59,8 @@ public:
 
 	void SetPlayerCombat(PlayerCombat* playerC);
 
+	void UpdatePlayerHp();
+
 private:
 
 	//Player player;
