@@ -54,6 +54,8 @@ private:
 
 	void ResetAttackCoolDown();
 
+	void SetTriggeeActive(bool active);
+
 private:
 
 	Animation animations[(int)GhoulState::MAX];

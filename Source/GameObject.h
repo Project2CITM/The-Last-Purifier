@@ -22,11 +22,34 @@ public:
 
 	virtual ~GameObject();
 
+	/// <summary>
+	/// IMPORTANT: Do not destroy or disable anythink related to body in Trigger or Collision
+	/// </summary>
+	/// <param name="col"></param>
 	virtual void OnCollisionEnter(PhysBody* col);
+
+	/// <summary>
+	/// IMPORTANT: Do not destroy or disable anythink related to body in Trigger or Collision
+	/// </summary>
+	/// <param name="col"></param>
 	virtual void OnCollisionExit(PhysBody* col);
 
+	/// <summary>
+	/// IMPORTANT: Do not destroy or disable anythink related to body in Trigger or Collision
+	/// </summary>
+	/// <param name="col"></param>
 	virtual void OnTriggerEnter(std::string trigger, PhysBody* col);
+
+	/// <summary>
+	/// IMPORTANT: Do not destroy or disable anythink related to body in Trigger or Collision
+	/// </summary>
+	/// <param name="col"></param>
 	virtual void OnTriggerStay(std::string trigger, PhysBody* col);
+
+	/// <summary>
+	/// IMPORTANT: Do not destroy or disable anythink related to body in Trigger or Collision
+	/// </summary>
+	/// <param name="col"></param>
 	virtual void OnTriggerExit(std::string trigger, PhysBody* col);
 
 	virtual void Start();

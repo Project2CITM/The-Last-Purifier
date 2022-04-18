@@ -1,7 +1,5 @@
 #include "Trigger.h"
 #include "ModulePhysics.h"
-#include "ModuleScene.h"
-#include "Scene.h"
 
 /// <summary>
 /// Create Rectangle Sensor attached to a gameobject
@@ -51,7 +49,6 @@ void Trigger::Update()
 	if (!followFather) return;
 	
 	SetPosition(parent->GetPosition() + positionOffset);
-	
 }
 
 void Trigger::OnCollisionEnter(PhysBody* col)

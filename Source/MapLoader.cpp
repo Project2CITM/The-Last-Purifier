@@ -20,7 +20,7 @@ void MapLoader ::LoadMap(short id)
 	else {
 		switch (id) {
 		case -1:
-			filePath += "MiniBoss";	//CHANGE boss room
+			filePath += "Boss";
 			break;
 		case -2:
 			filePath += "MiniBoss";
