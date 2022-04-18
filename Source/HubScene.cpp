@@ -236,7 +236,7 @@ void HubScene::ChangePlayer()
 		player->controller->SetPosition(playerPos);
 		app->renderer->camera->SetTarget(player->controller);
 
-		hudInGame->GetPlayerCombat(player->controller->combat);
+		hudInGame->SetPlayerCombat(player->controller->combat);
 
 		isChangingPlayer = true;
 
@@ -247,6 +247,4 @@ void HubScene::ChangePlayer()
 		player->controller->combat->executeSpellCommand->Start();
 		isChangingPlayer = false;
 	}
-
-
 }

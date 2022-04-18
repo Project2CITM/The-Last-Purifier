@@ -3,6 +3,7 @@
 
 #include "Scene.h"
 #include "Player.h"
+#include "ModuleEvents.h"
 
 class GUIButton;
 class GUISlider;
@@ -16,7 +17,15 @@ enum class CurrentPauseMenu
 	Controls
 };
 
-class HUDInGame : public Scene
+struct PlayerHpGUI
+{
+	SDL_Rect currentHp = { 0,0,0,0 };
+	SDL_Rect bg = { 0,0,0,0 };
+	SDL_Color hpColor = { 255,0,0,255 };
+	SDL_Color bgColor = { 155,155,155,255 };
+};
+
+class HUDInGame : public Scene, public EventListener
 {
 public:
 
@@ -38,12 +47,14 @@ public:
 
 	bool CleanUp() override;
 
-	void GetPlayerCombat(PlayerCombat* playerC);
+	void GameEventTriggered() override;
+
+	void SetPlayerCombat(PlayerCombat* playerC);
 
 private:
 
 	//Player player;
-	SDL_Rect hpRect = {0,0,0,0};
+	PlayerHpGUI playerHp;
 	SDL_Rect miniMap = {0,0,0,0};
 	SDL_Rect spell1 = {0,0,0,0};
 	SDL_Rect spell2_1 = {0,0,0,0};

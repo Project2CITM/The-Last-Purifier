@@ -466,12 +466,14 @@ void PlayerController::Hit(int damage)
 {
 	player->hpPlayer -= damage;
 
-	printf("Player HP:%d\n", player->hpPlayer);
+	//printf("Player HP:%d\n", player->hpPlayer);
 
 	if (player->hpPlayer <= 0) printf("Player Die!!\n");
 
 	beenHit = true;
 	Invulnerability(invulnerabilityTimeHit);
+
+	app->events->TriggerEvent(GameEvent::PLAYER_HIT);
 }
 
 void PlayerController::Stun(int frames)

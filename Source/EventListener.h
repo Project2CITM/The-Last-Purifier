@@ -5,7 +5,9 @@ enum class GameEvent
 {
 	PLAYER_ATTACK,
 	SAVE_GAME,
-	COMPLETE_ROOM
+	COMPLETE_ROOM,
+	PLAYER_HIT,
+	MAX
 };
 
 class Application;

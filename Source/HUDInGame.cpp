@@ -21,7 +21,10 @@ RenderObject SettingsBG;
 
 HUDInGame::HUDInGame() :Scene("HUDInGame")
 {
+	// Init event sysem
+	this->listenTo = GameEvent::PLAYER_HIT;
 
+	app->events->AddListener(this);
 }
 
 HUDInGame::~HUDInGame()
@@ -46,7 +49,7 @@ bool HUDInGame::Start()
 	Hover = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiHover.wav");
 	Press = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiSelect.wav");
 
-	hpRect = { app->renderer->camera->x + 15, app->renderer->camera->y + 10, 200, 10 };
+	playerHp.bg = playerHp.currentHp = { app->renderer->camera->x + 15, app->renderer->camera->y + 10, 200, 10 };
 	miniMap = { app->renderer->camera->x + 535, app->renderer->camera->y + 5, 100, 100 };
 
 	spell1 = { app->renderer->camera->x + 305, app->renderer->camera->y + 314, 30, 40 };
@@ -346,8 +349,8 @@ bool HUDInGame::Update()
 
 bool HUDInGame::PostUpdate()
 {
-	app->renderer->AddRectRenderQueue(hpRect, { 155, 0, 0, 255 }, true, 3, 2.0f, 0.0f);
-	app->renderer->AddRectRenderQueue(hpRect, { 155, 155, 155, 255 }, false, 3, 3.0f, 0.0f);
+	app->renderer->AddRectRenderQueue(playerHp.currentHp, playerHp.hpColor, true, 3, 3.0f, 0.0f);
+	app->renderer->AddRectRenderQueue(playerHp.bg, playerHp.bgColor, false, 3, 2.0f, 0.0f);
 	app->renderer->AddRectRenderQueue(miniMap, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
 
 	if (player->availableSpellSlots == 1)
@@ -442,7 +445,18 @@ bool HUDInGame::CleanUp()
 	return true;
 }
 
-void HUDInGame::GetPlayerCombat(PlayerCombat* playerC)
+void HUDInGame::GameEventTriggered()
+{
+	// Call when player Hit
+
+	float percent = (float)player->player->hpPlayer / (float)player->player->hpMax;
+
+	float hp = (playerHp.bg.w * percent);
+
+	playerHp.currentHp.w = (int)hp;
+}
+
+void HUDInGame::SetPlayerCombat(PlayerCombat* playerC)
 {
 	player = playerC;
 }
