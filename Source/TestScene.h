@@ -35,7 +35,5 @@ private:
 
 	HUDInGame* hudInGame = nullptr;
 
-	ClassTree* revenantTree = nullptr; //Test skill/spell tree
-
 	SpellSpawnManager* spawnManager = nullptr;
 };

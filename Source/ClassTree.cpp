@@ -138,10 +138,10 @@ bool ClassTree::LoadBaseTree()
 {
 	pugi::xml_node bNode = classFile.first_child().child("class_tree");
 
-	while (bNode.attribute("id").as_int() != (int) playerClass)
+	/*while (bNode.attribute("id").as_int() != (int) playerClass)
 	{
 		bNode = bNode.next_sibling();
-	}
+	}*/
 	bNode = bNode.first_child();
 	
 	for (int i = 0; i < TREE_SIZE; i++)
@@ -169,10 +169,10 @@ bool ClassTree::SaveLoadTree(bool load)
 
 	pugi::xml_node bNode = saveFile.first_child().child("class_tree");
 
-	while (bNode.attribute("id").as_int() != (int)playerClass)
+	/*while (bNode.attribute("id").as_int() != (int)playerClass)
 	{
 		bNode = bNode.next_sibling();
-	}
+	}*/
 	bNode = bNode.first_child();
 
 	for (int i = 0; i < TREE_SIZE; i++)

@@ -64,12 +64,6 @@ bool ClassTreeHud::Start()
 		unlockBtn->add(bttn);
 	}
 
-	//testBtn = new GUIButton(testBtnPoint, 40, 40, MenuButton::NONE);
-	//testBtn->setRenderColour({ 155, 0, 0, 155 });
-	//testBtn->setRenderLayer(4, 1);
-
-	//classTree->unlock(&player->souls)
-
 	Scene::Start();
 
 	return true;
@@ -79,6 +73,7 @@ bool ClassTreeHud::CleanUp()
 {
 
 	unlockBtn->clearPtr();
+	unlockBtn->clear();
 	delete unlockBtn;
 	unlockBtn = nullptr;
 
