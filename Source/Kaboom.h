@@ -83,6 +83,11 @@ private:
 	bool isFirstColor = true;
 
 	SDL_Color kaboomColors[2];
+
+	
+	uint HitFX = NULL;
+	uint idleFX = NULL;
+	uint deadFX = NULL;
 };
 
 #endif // !__KABOOM_H__

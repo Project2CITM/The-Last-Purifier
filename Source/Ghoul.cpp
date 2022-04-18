@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "ModuleRender.h"
 #include "DamageArea.h"
+#include "ModuleAudio.h"
 
 Ghoul::Ghoul(iPoint pos) : Enemy("ghoul")
 {
@@ -35,6 +36,12 @@ Ghoul::Ghoul(iPoint pos) : Enemy("ghoul")
 
 	// Init physBody 
 	InitPhysics();
+
+	//Init Sounds
+
+	attackFX = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Ghoul/sfx_enemyAttack1.wav");
+	HitFX = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Ghoul/sfx_enemyHit2.wav");
+	idleFX = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Ghoul/sfx_enemyIdle1.wav");
 }
 
 Ghoul::~Ghoul()
@@ -80,6 +87,7 @@ void Ghoul::Hit(int damage)
 	renderObjects[0].SetColor({ 255,164,164,100 });
 
 	Enemy::Hit(damage);
+	app->audio->PlayFx(HitFX);
 }
 
 void Ghoul::OnTriggerEnter(std::string trigger, PhysBody* col)
@@ -141,7 +149,6 @@ void Ghoul::UpdateStates()
 
 			return;
 		}
-		
 		attackCoolDown--;
 	}
 	break;
@@ -158,9 +165,10 @@ void Ghoul::UpdateStates()
 	case (int)GhoulState::ATTACK:
 	{
 		// Just can hit a player when animation is attacking
-		if (animations[stateMachine.GetCurrentState()].getCurrentFrameI() > 2) 
+		if (animations[stateMachine.GetCurrentState()].getCurrentFrameI() > 2)
+		{
 			attack->pBody->body->SetActive(true);
-
+		}
 		// When finish attack
 		if (animations[stateMachine.GetCurrentState()].HasFinished())
 		{
@@ -289,6 +297,9 @@ void Ghoul::DoAttack()
 	else attackOffset = { 15,0 };
 
 	attack->SetPosition(position + attackOffset);
+
+	app->audio->PlayFx(attackFX);
+		
 }
 
 void Ghoul::DoRun()

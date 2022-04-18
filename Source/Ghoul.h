@@ -75,6 +75,12 @@ private:
 	bool detectPlayer = false;
 
 	int attackCoolDown = 10;
+
+	int attackFXCoolDown = 0;
+
+	uint attackFX = NULL;
+	uint HitFX = NULL;
+	uint idleFX = NULL;
 };
 
 #endif // !__GHOUL_H__
