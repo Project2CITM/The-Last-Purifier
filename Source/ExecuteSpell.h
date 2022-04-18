@@ -12,6 +12,8 @@ public:
 
 	void Start();
 
+	void Update();
+
 	bool Execute(SpellInfo* spell);
 
 	void CleanUp();

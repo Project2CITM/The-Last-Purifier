@@ -318,9 +318,6 @@
     <ClInclude Include="ParticleAttackKaboom.h">
       <Filter>Archivos de encabezado\Tools\Particles</Filter>
     </ClInclude>
-    <ClInclude Include="Worm.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="PaticleHitFotieros.h">
       <Filter>Archivos de encabezado\Tools\Particles</Filter>
     </ClInclude>
@@ -329,6 +326,15 @@
     </ClInclude>
     <ClInclude Include="SoulShieldS.h">
       <Filter>Archivos de encabezado\Player\Spells</Filter>
+    </ClInclude>
+    <ClInclude Include="PurificationSlashS.h">
+      <Filter>Archivos de encabezado\Player\Spells</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticlePurificationSlash.h">
+      <Filter>Archivos de encabezado\Tools\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Worm.h">
+      <Filter>Archivos de encabezado\GameObject\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -535,6 +541,12 @@
     </ClCompile>
     <ClCompile Include="SoulShieldS.cpp">
       <Filter>Archivos de origen\Player\Spells</Filter>
+    </ClCompile>
+    <ClCompile Include="PurificationSlashS.cpp">
+      <Filter>Archivos de origen\Player\Spells</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticlePurificationSlash.cpp">
+      <Filter>Archivos de origen\Tools\Particles</Filter>
     </ClCompile>
     <ClCompile Include="Worm.cpp">
       <Filter>Archivos de origen\GameObjects\Enemy</Filter>

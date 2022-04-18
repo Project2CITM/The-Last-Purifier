@@ -60,8 +60,8 @@ bool TestScene::Start()
 
     app->renderer->camera->SetTarget(player->controller);
 
-    //spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-40, 0));
-    //spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-80, 0));
+    spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-40, 0));
+    spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-80, 0));
 
     //new Kaboom(player->controller->GetPosition() + iPoint(-100, 0));
 

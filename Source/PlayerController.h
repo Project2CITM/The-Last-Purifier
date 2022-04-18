@@ -79,6 +79,13 @@ public:
 
 	iPoint textureOffset = { 0,0 };
 
+	bool godMode = false;
+
+	int normalDamage = 0;
+
+	LookingDirection lookingDir = LookingDirection::RIGHT;
+
+
 private:
 	void CreatePhysBody();
 
@@ -108,7 +115,6 @@ private:
 
 	StateMachine stateMachine;
 	PlayerState currentState = PlayerState::IDLE;
-	LookingDirection lookingDir = LookingDirection::RIGHT;
 
 	Trigger* enemyTrigger = nullptr;
 

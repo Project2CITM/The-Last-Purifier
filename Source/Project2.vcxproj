@@ -137,6 +137,7 @@
     <ClInclude Include="ParticleAttackSage.h" />
     <ClInclude Include="ParticleExplodeEkriksi.h" />
     <ClInclude Include="ParticleHitSage.h" />
+    <ClInclude Include="ParticlePurificationSlash.h" />
     <ClInclude Include="PaticleHitFotieros.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerCombat.h" />
@@ -146,6 +147,7 @@
     <ClInclude Include="PlayerStats.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Projectile.h" />
+    <ClInclude Include="PurificationSlashS.h" />
     <ClInclude Include="PurifiedSwordS.h" />
     <ClInclude Include="RenderObject.hpp" />
     <ClInclude Include="Room.h" />
@@ -211,6 +213,7 @@
     <ClCompile Include="ParticleAttackSage.cpp" />
     <ClCompile Include="ParticleExplodeEkriksi.cpp" />
     <ClCompile Include="ParticleHitSage.cpp" />
+    <ClCompile Include="ParticlePurificationSlash.cpp" />
     <ClCompile Include="PaticleHitFotieros.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerCombat.cpp" />
@@ -219,6 +222,7 @@
     <ClCompile Include="PlayerSage.cpp" />
     <ClCompile Include="PlayerStats.cpp" />
     <ClCompile Include="Projectile.cpp" />
+    <ClCompile Include="PurificationSlashS.cpp" />
     <ClCompile Include="PurifiedSwordS.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="RoomManager.cpp" />

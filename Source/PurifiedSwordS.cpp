@@ -33,9 +33,9 @@ void PurifiedSwordS::Execute(int level)
 	// Si ya habiamos usado el Spell y lo volvemos a usar, quitamos el daño extra aplicado anteriormente
 	if (currentAttacks != 0)
 	{
-		player->extraDamage -= damage[currentLevel - 1];
+		player->extraDamage -= damage[currentLevel];
 	}
-	currentLevel = level;
+	currentLevel = level-1;
 	player->extraDamage += damage[currentLevel];
 	currentAttacks = attackUses;
 	player->purifiedSwordOn = true;
@@ -58,7 +58,7 @@ void PurifiedSwordS::GameEventTriggered()
 
 	if (currentAttacks <= 0)
 	{
-		player->extraDamage -= damage[currentLevel - 1];
+		player->extraDamage -= damage[currentLevel];
 		player->purifiedSwordOn = false;
 	}
 
