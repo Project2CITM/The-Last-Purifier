@@ -95,7 +95,6 @@ void Ghoul::OnTriggerEnter(std::string trigger, PhysBody* col)
 		return;
 	}
 
-
 	Enemy::OnTriggerEnter(trigger, col);
 }
 
@@ -181,6 +180,9 @@ void Ghoul::UpdateStates()
 		break;
 	case (int)GhoulState::DIE:
 	{
+		// Disable Triggers
+		SetTriggeeActive(false);
+
 		if (animations[stateMachine.GetCurrentState()].HasFinished()) Enemy::Die(true);
 	}	
 		break;
@@ -301,4 +303,13 @@ void Ghoul::DoRun()
 void Ghoul::ResetAttackCoolDown()
 {
 	attackCoolDown = 10;
+}
+
+void Ghoul::SetTriggeeActive(bool active)
+{
+	if (detectTrigger->pBody->body->IsActive() == active) return;
+
+	detectTrigger->pBody->body->SetActive(active);
+
+	detectTrigger->pBody->body->SetActive(active);
 }

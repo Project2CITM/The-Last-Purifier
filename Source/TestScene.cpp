@@ -77,7 +77,7 @@ bool TestScene::Start()
 
    // new Kaboom(player->controller->GetPosition() + iPoint(-100, 0));
 
-    new Ghoul(player->controller->GetPosition() + iPoint(-100, 0));
+    //new Ghoul(player->controller->GetPosition() + iPoint(-100, 0));
 
     
    //new Worm(player->controller->GetPosition() + iPoint(-100, 0));
