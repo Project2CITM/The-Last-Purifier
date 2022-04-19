@@ -7,11 +7,15 @@
 #include "ModuleEvents.h"
 #include "ParticleAttackRevenant.h"
 #include "DamageArea.h"
+#include "ModuleAudio.h"
 
 
 PlayerCombat::PlayerCombat(std::string name, std::string tag, Player* player) : GameObject(name, tag)
 {
 	this->player = player;
+
+	playerAttackFX = app->audio->LoadFx("Assets/Audio/SFX/Player/Melee/sfx_playerAttackHit1.wav");
+	
 }
 
 void PlayerCombat::Start()
@@ -98,6 +102,7 @@ void PlayerCombat::Attack()
 	{
 	case PlayerClass::REVENANT:
 		RevenantAttack();
+		app->audio->PlayFx(playerAttackFX);
 		printf("Attack Revenant!\n");
 		break;
 	case PlayerClass::SAGE:

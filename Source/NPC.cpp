@@ -9,6 +9,7 @@
 #include "Trigger.h"
 #include "ModulePhysics.h"
 #include "ModuleMap.h"
+#include "ModuleAudio.h"
 
 NPC::NPC(std::string name, iPoint position) : GameObject(name,"NPC")
 {
@@ -29,6 +30,12 @@ NPC::NPC(std::string name, iPoint position) : GameObject(name,"NPC")
 	idleAnim.loop = true;
 	idleAnim.speed = 0.05;
 	idleAnim.hasIdle = false;	
+
+	
+	dialogNPCFX[0] = app->audio->LoadFx("Assets/Audio/SFX/NPCs/sfx_npcPhrase1.wav");
+	dialogNPCFX[1] = app->audio->LoadFx("Assets/Audio/SFX/NPCs/sfx_npcPhrase2.wav");
+	dialogNPCFX[2] = app->audio->LoadFx("Assets/Audio/SFX/NPCs/sfx_npcPhrase3.wav");
+	dialogNPCFX[3] = app->audio->LoadFx("Assets/Audio/SFX/NPCs/sfx_npcPhrase4.wav");
 }
 
 NPC::~NPC()
@@ -66,6 +73,8 @@ void NPC::Update()
 		if (nearNpc) {
 			if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN||app->input->GetControllerButton(BUTTON_A)==KEY_DOWN)
 			{
+				int num = rand() % (4);
+				app->audio->PlayFx(dialogNPCFX[num]);
 				if (!speaking) {
 					speaking = true;
 				}
@@ -111,6 +120,7 @@ void NPC::OnTriggerEnter(std::string trigger, PhysBody* col)
 		LOG("Enter");
 		if (!speaking) 
 		{
+			
 			if (app->input->usingGameController)text->SetText("               Press A to talk");
 			else text->SetText("               Press F to talk");
 		}	

@@ -92,6 +92,9 @@ private:
 
 	DamageArea* revenantAttack = nullptr;
 
+
+	uint playerAttackFX = NULL;
+
 	friend class PlayerController;
 };
 

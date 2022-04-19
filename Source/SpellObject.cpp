@@ -7,6 +7,7 @@
 #include "PlayerCombat.h"
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
+#include "ModuleAudio.h"
 
 SpellObject::SpellObject(iPoint pos, SpellID id, int level) : GameObject("SpellObject", "SpellObject")
 {
@@ -43,6 +44,9 @@ SpellObject::SpellObject(iPoint pos, SpellID id, int level) : GameObject("SpellO
 	default:
 		renderObjects[0].section = {300,300,3,3};
 	}
+
+	pickupspellFX = app->audio->LoadFx("Assets/Audio/SFX/Player/sfx_playerPickUpSpell.wav");
+
 }
 
 void SpellObject::OnCollisionEnter(PhysBody* col)
@@ -55,9 +59,11 @@ void SpellObject::OnCollisionEnter(PhysBody* col)
 		
 		SceneGame* scene = (SceneGame*)app->scene->scenes[app->scene->currentScene];
 
-		if (scene->player->controller->combat->AddSpell(info)) pendingToDelete = true;
-
-		
+		if (scene->player->controller->combat->AddSpell(info))
+		{
+			pendingToDelete = true;
+			app->audio->PlayFx(pickupspellFX);
+		}
 	}
 	
 }

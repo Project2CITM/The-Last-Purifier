@@ -14,6 +14,8 @@ public:
 	void PostUpdate() override;
 private:
 	SpellInfo info;
+
+	uint pickupspellFX = NULL;
 };
 #endif  
 
