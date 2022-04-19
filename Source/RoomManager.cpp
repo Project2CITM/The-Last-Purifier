@@ -19,7 +19,7 @@ void RoomManager::Start()
 
 	mapLoader = new MapLoader();
 
-	GenerateMap(10);
+	GenerateMap(1);
 
 	CreateDoors();
 
@@ -194,7 +194,12 @@ void RoomManager::GenerateMap(short RoomNumber)
 	CreateRoom(bossRoomPos, -1);
 
 	//Exit trigger in boss room
-	exitTrigger = new Trigger(iPoint(4 * MAX_ROOM_TILES_COLUMNS, 4 * MAX_ROOM_TILES_ROWS) * TILE_SIZE, 200);
+	iPoint triggerPos = bossRoomPos;
+	triggerPos.x *= MAX_ROOM_TILES_COLUMNS;
+	triggerPos.y *= MAX_ROOM_TILES_ROWS;
+	triggerPos += iPoint(31, 11);
+	triggerPos *= TILE_SIZE;
+	exitTrigger = new Trigger(triggerPos, 2 * TILE_SIZE);
 	b2Filter filter;
 	filter.categoryBits = app->physics->TRIGGER_LAYER;
 	filter.maskBits = app->physics->PLAYER_LAYER;
