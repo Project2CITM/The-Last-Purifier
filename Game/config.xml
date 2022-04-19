@@ -241,8 +241,8 @@
 		</english>
 	</dialogText>
 	<audios>
-		<music volume="106" />
-		<sfx volume="18" />
+		<music volume="44" />
+		<sfx volume="80" />
 	</audios>
 	<scenes>
 		<level1>

@@ -65,6 +65,8 @@ bool TestScene::Start()
     spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-60, 0));
     spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-20, 0));
 
+    app->audio->PlayMusic("Assets/Audio/Ambience/amb_dungeon1_2.ogg");
+
     //new Kaboom(player->controller->GetPosition() + iPoint(-100, 0));
 
     //new Ghoul(player->controller->GetPosition() + iPoint(-100, 0));
@@ -78,11 +80,11 @@ bool TestScene::Start()
 
 bool TestScene::PreUpdate()
 {
-    if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
+   /* if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
     {
         roomManager.CleanUp();
         roomManager.Start();
-    }
+    }*/
     // Test Code-------------
     if (app->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
     {
