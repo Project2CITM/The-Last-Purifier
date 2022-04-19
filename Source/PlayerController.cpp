@@ -6,6 +6,7 @@
 #include "ModulePhysics.h"
 #include "ModuleInput.h"
 #include "ModuleScene.h"
+#include "ModuleAudio.h"
 
 #include "RoomManager.h"
 #include "Room.h"
@@ -21,6 +22,9 @@ PlayerController::PlayerController(std::string name, std::string tag, Player* pl
 	this->listenTo = GameEvent::COMPLETE_ROOM;
 	app->events->AddListener(this);
 	this->player = player;
+
+	playerdodgeFX = app->audio->LoadFx("Assets/Audio/SFX/Player/sfx_playerDodge.wav");
+	playerhitFX = app->audio->LoadFx("Assets/Audio/SFX/Player/sfx_playerHit2");
 }
 
 void PlayerController::Start() 
@@ -280,6 +284,7 @@ void PlayerController::MovementUpdateKeyboard()
 
 			// do the dash
 			DashOn();
+			app->audio->PlayFx(playerdodgeFX);
 		}
 	}
 
@@ -399,6 +404,7 @@ void PlayerController::CombatUpdate()
 
 void PlayerController::DashOn()
 {
+
 	Invulnerability(dashInvulnerability);
 
 	isDashing = true;
@@ -488,6 +494,7 @@ void PlayerController::Hit(int damage)
 {
 	if (!godMode) 
 	{
+		app->audio->PlayFx(playerhitFX);
 		int totalDamage = damage - player->shield;
 		if (totalDamage < 0) totalDamage = 0;
 		player->ChangeShield(-damage);

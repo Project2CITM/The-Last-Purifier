@@ -66,7 +66,8 @@ protected:
 public:
 	virtual void setIndoors() { exterior = false; }
 	virtual void setOutDoors() { exterior = true; }
-
+private:
+	uint dialogNPCFX[4];
 };
 
 #endif // !__NPC_H__

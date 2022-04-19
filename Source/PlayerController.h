@@ -120,6 +120,10 @@ private:
 
 	Trigger* enemyTrigger = nullptr;
 
+	uint playerdodgeFX = NULL;
+
+	uint playerhitFX = NULL;
+
 	friend class PlayerCombat;
 };
 
