@@ -53,7 +53,7 @@ public:
 
 	UpdateStatus EndUpdate() override;
 
-	bool ChangeCurrentSceneRequest(uint index);
+	bool ChangeCurrentSceneRequest(uint index, int frames = 0);
 
 	void GetSaveData(pugi::xml_document& save) override;
 
@@ -86,6 +86,8 @@ public:
 	Scene* scenes[SCENES_NUM] = { nullptr };
 
 	bool isChangingScene = false;
+
+	int changeSceneWaitFrames = 0;
 
 	int changeTo = -1;
 

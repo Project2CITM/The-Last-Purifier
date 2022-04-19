@@ -182,6 +182,7 @@ void PlayerCombat::CheckDeck()
 			{
 				spellSlots[i]->ChangeSpell(deckSlots[j]->id, deckSlots[j]->spellLevel);
 				deckSlots[j]->EmptySpell();
+				break;
 			}
 		}
 		

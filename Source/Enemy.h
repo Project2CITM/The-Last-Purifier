@@ -3,11 +3,12 @@
 
 #include "GameObject.h"
 #include "Player.h"
+#include "ModuleEvents.h"
 
 class SpellSpawnManager;
 class Player;
 
-class Enemy :  public GameObject
+class Enemy :  public GameObject, EventListener
 {
 public: 
 	
@@ -40,6 +41,8 @@ public:
 		return damage;
 	}
 
+	void GameEventTriggered();
+
 protected:
 	SpellSpawnManager* spawnManager = nullptr;
 
@@ -48,6 +51,8 @@ protected:
 	int damage = 10;
 
 	int moveSpeed = 5;
+
+	bool sceneGettingDeleted = false;
 
 private:
 	Player* player = nullptr;

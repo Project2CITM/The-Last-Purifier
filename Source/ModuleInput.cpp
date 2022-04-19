@@ -171,6 +171,10 @@ void ModuleInput::UpdateControllerInput()
 		// Get Button State
 		buttons[i] = SDL_GameControllerGetButton(controllerHandles[controllerIndex], sdlJoystickButtons[i]);
 
+		if (buttons[i] && i == 9)
+		{
+			printf("R2\n");
+		}
 		// If button is pressed
 		if (buttons[i] == true)
 		{

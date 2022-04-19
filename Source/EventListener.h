@@ -7,6 +7,7 @@ enum class GameEvent
 	SAVE_GAME,
 	COMPLETE_ROOM,
 	PLAYER_HIT,
+	DELETING_SCENE,
 	MAX
 };
 

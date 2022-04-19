@@ -501,7 +501,9 @@ void PlayerController::Hit(int damage)
 
 		if (player->hpPlayer <= 0)
 		{
-			app->scene->ChangeCurrentSceneRequest(SCENES::HUB);
+			app->scene->ChangeCurrentSceneRequest(SCENES::HUB, 60);
+
+			canControl = false;
 
 			return;
 		}

@@ -70,7 +70,9 @@ UpdateStatus ModuleScene::Update()
 		return UpdateStatus::UPDATE_CONTINUE;
 	}
 
-	if(isChangingScene)
+	if (changeSceneWaitFrames > 0)changeSceneWaitFrames--;
+
+	if(isChangingScene && changeSceneWaitFrames <= 0)
 	{
 		ChangeSceneSteptoStep();
 
@@ -112,7 +114,7 @@ UpdateStatus ModuleScene::EndUpdate()
 }
 
 //CleanUp current scene, change current scene (index), Start current Scene
-bool ModuleScene::ChangeCurrentSceneRequest(uint index)
+bool ModuleScene::ChangeCurrentSceneRequest(uint index, int frames)
 {
 	changeTo = index;
 
@@ -123,6 +125,8 @@ bool ModuleScene::ChangeCurrentSceneRequest(uint index)
 	changeState = SCENECHANGESTATES::fade_in;
 
 	fadeSpeed = 10.0f;
+
+	changeSceneWaitFrames = frames;
 
 	return true;
 }
