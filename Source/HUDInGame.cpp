@@ -109,6 +109,9 @@ bool HUDInGame::Start()
 
 	FullScreenCHK = new GUICheckbox({ app->renderer->camera->x + 350, app->renderer->camera->y + 215 }, 60, 60, MenuButton::SETTINGSPAUSE, "Assets/Sprites/UI/CheckBox.png");
 
+	InitializeSpellSlotsPositions();
+
+
 	Scene::Start();
 
 	return true;
@@ -132,6 +135,7 @@ bool HUDInGame::PreUpdate()
 	{
 		SceneGame* scene = (SceneGame*)app->scene->scenes[app->scene->currentScene];
 		player = scene->player->controller->combat;
+		InitializeSlots();
 	}
 
 	Scene::PreUpdate();
@@ -378,7 +382,22 @@ bool HUDInGame::PostUpdate()
 
 	app->renderer->AddRectRenderQueue(miniMap, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
 
-	if (player->availableSpellSlots == 1)
+	for (int i = 0; i < player->availableSpellSlots; i++)
+	{
+		app->renderer->AddRectRenderQueue(spellSlotsPositions[player->availableSpellSlots-1][i], { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
+		spellSlots[i].section = GetSpellSection(i, false);
+		app->renderer->AddRenderObjectRenderQueue(spellSlots[i]);
+	}
+
+	for (int i = 0; i < player->availableDeckSlots; i++)
+	{
+		deckSlots[i].section = GetSpellSection(i, true);
+		app->renderer->AddRenderObjectRenderQueue(deckSlots[i]);
+	}
+
+	app->renderer->AddRectRenderQueue(spellSlotsPositions[player->availableSpellSlots - 1][player->selectedSpell], { 255, 0, 0, 255 }, false, 3, 3.0f, 0.0f);
+
+	/*if (player->availableSpellSlots == 1)
 	{
 		app->renderer->AddRectRenderQueue(spell1, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
 		if (player->selectedSpell == 0)	app->renderer->AddRectRenderQueue(spell1, { 255, 0, 0, 255 }, false, 3, 3.0f, 0.0f);
@@ -472,7 +491,7 @@ bool HUDInGame::PostUpdate()
 		if (player->selectedSpell == 1)	app->renderer->AddRectRenderQueue(spell4_2, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
 		if (player->selectedSpell == 2)	app->renderer->AddRectRenderQueue(spell4_3, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
 		if (player->selectedSpell == 3)	app->renderer->AddRectRenderQueue(spell4_4, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
-	}
+	}*/
 
 	//LOG("Spell: %d", player->selectedSpell);
 
@@ -523,9 +542,9 @@ bool HUDInGame::PostUpdate()
 
 	app->renderer->AddRenderObjectRenderQueue(iconSouls);
 
-	app->renderer->AddRenderObjectRenderQueue(iconSpells);
+	/*app->renderer->AddRenderObjectRenderQueue(iconSpells);
 	app->renderer->AddRenderObjectRenderQueue(deckSpells1);
-	app->renderer->AddRenderObjectRenderQueue(deckSpells2);
+	app->renderer->AddRenderObjectRenderQueue(deckSpells2);*/
 
 	Scene::PostUpdate();
 
@@ -583,4 +602,75 @@ void HUDInGame::UpdatePlayerHp()
 		}
 
 	} while (false);
+}
+
+void HUDInGame::InitializeSlots()
+{
+	for (int i = 0; i < player->availableSpellSlots; i++)
+	{
+		RenderObject rO;
+		iPoint pos = { spellSlotsPositions[player->availableSpellSlots - 1][i].x, spellSlotsPositions[player->availableSpellSlots - 1][i].y };
+		rO.InitAsTexture(app->textures->Load("Assets/Sprites/UI/icons.png"), pos, { 0,0,0,0 }, 1, 3, 0, 0, SDL_FLIP_NONE, 0);
+		spellSlots.add(rO);
+	}
+
+	for (int i = 0; i < player->availableDeckSlots; i++)
+	{
+		RenderObject rO;
+		iPoint spellPos = { spellSlotsPositions[player->availableSpellSlots - 1].end->data.x, spellSlotsPositions[player->availableSpellSlots - 1].end->data.y };
+		iPoint position = spellPos + iPoint(40, 0);
+		position.x += 20 * i;
+		position.y = 340;
+		rO.InitAsTexture(app->textures->Load("Assets/Sprites/UI/icons.png"), position, { 0,0,0,0 }, 0.5f, 3, 0, 0, SDL_FLIP_NONE, 0);
+		deckSlots.add(rO);
+	}
+}
+
+void HUDInGame::InitializeSpellSlotsPositions()
+{
+	spellSlotsPositions[0].add({ 304, 320, 30, 40 });
+
+	spellSlotsPositions[1].add({280, 320, 30, 40 });
+	spellSlotsPositions[1].add({ 320, 320 , 30, 40 });
+
+	spellSlotsPositions[2].add({ 320, 320 , 30, 40 });
+	spellSlotsPositions[2].add({ 320, 320, 30, 40 });
+	spellSlotsPositions[2].add({ 320, 320 , 30, 40 });
+
+	spellSlotsPositions[3].add({ 320, 320 , 30, 40 });
+	spellSlotsPositions[3].add({ 320, 320 , 30, 40 });
+	spellSlotsPositions[3].add({ 320, 320 , 30, 40 });
+	spellSlotsPositions[3].add({ 320, 320 , 30, 40 });
+}
+
+SDL_Rect HUDInGame::GetSpellSection(int slot, bool isDeck)
+{
+	SDL_Rect sect;
+
+	int spellSlot;
+
+	if (isDeck) spellSlot = (int)player->deckSlots[slot]->id;
+	else spellSlot = (int)player->spellSlots[slot]->id;
+
+	switch (spellSlot)
+	{
+	case (int)SpellID::PURIFIED_SWORD:
+		sect = { 31,0,31,31 };
+		break;
+	case (int)SpellID::SOUL_SHIELD:
+		sect = { 31,31,31,31 };
+		break;
+	case (int)SpellID::PURIFICATION_SLASH:
+		sect = { 0,31,31,31 };
+		break;
+	case (int)SpellID::EKRISKI:
+		sect = { 61,0,31,31 };
+		break;
+	case (int)SpellID::FOTEIROS:
+		sect = { 0,0,31,31 };
+		break;
+	default:
+		sect = { 300,300,3,3 };
+	}
+	return sect;
 }

@@ -43,11 +43,11 @@ void CommonTree::Start()
 	LoadDictionary();
 	SaveLoadTree(true);
 
-	Upgrade(0);
+	/*Upgrade(0);
 	Upgrade(1);
 	Upgrade(2);
 	Upgrade(3);
-	Upgrade(4);
+	Upgrade(4);*/
 }
 
 void CommonTree::PreUpdate()

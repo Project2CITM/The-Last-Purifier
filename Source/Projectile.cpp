@@ -80,7 +80,7 @@ Projectile::Projectile(iPoint position, int damage, int rotation, fPoint speed) 
 	FireProjectile(speed);
 
 	
-	renderObjects[0].InitAsTexture(app->textures->Load("Assets/Sprites/Player/Sage/foteiros.png"), position, { 0,0,0,0 }, 1.0f, 1, 1.0f, this->rotation);
+	renderObjects[0].InitAsTexture(app->textures->Load("Assets/Sprites/Player/Sage/foteiros46x32.png"), position, { 0,0,0,0 }, 1.0f, 1, 1.0f, this->rotation);
 
 	if (rotation == 0)
 	{

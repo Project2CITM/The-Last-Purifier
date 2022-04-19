@@ -355,7 +355,7 @@
       <Filter>Archivos de encabezado\Player\Spells\SageSpells</Filter>
     </ClInclude>
     <ClInclude Include="EkriskiDamageArea.h">
-      <Filter>Archivos de encabezado</Filter>
+      <Filter>Archivos de encabezado\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -579,7 +579,7 @@
       <Filter>Archivos de origen\Player\Spells\SageSpells</Filter>
     </ClCompile>
     <ClCompile Include="EkriskiDamageArea.cpp">
-      <Filter>Archivos de origen</Filter>
+      <Filter>Archivos de origen\GameObjects</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

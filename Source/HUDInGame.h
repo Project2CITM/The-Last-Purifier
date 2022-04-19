@@ -4,6 +4,7 @@
 #include "Scene.h"
 #include "Player.h"
 #include "ModuleEvents.h"
+#include "RenderObject.hpp"
 
 class GUIButton;
 class GUISlider;
@@ -62,6 +63,11 @@ public:
 	void UpdatePlayerHp();
 
 private:
+	void InitializeSlots();
+	void InitializeSpellSlotsPositions();
+	SDL_Rect GetSpellSection(int slot, bool isDeck);
+
+private:
 
 	//Player player;
 	PlayerHpGUI playerHp;
@@ -76,6 +82,11 @@ private:
 	SDL_Rect spell4_2 = {0,0,0,0};
 	SDL_Rect spell4_3 = {0,0,0,0};
 	SDL_Rect spell4_4 = {0,0,0,0};
+
+	List<RenderObject> spellSlots;
+	List<RenderObject> deckSlots;
+
+	List<SDL_Rect> spellSlotsPositions[4];
 
 	iPoint resumeBUT = { 0,0 };
 	iPoint settingsBUT = { 0,0 };
