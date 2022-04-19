@@ -79,6 +79,7 @@ UpdateStatus ModuleInput::PreUpdate()
 	{
 		if (buttons & SDL_BUTTON(i))
 		{
+			usingGameController = false;
 			if (mouse_buttons[i] == KEY_IDLE)
 				mouse_buttons[i] = KEY_DOWN;
 			else

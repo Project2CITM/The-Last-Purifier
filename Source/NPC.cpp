@@ -111,7 +111,8 @@ void NPC::OnTriggerEnter(std::string trigger, PhysBody* col)
 		LOG("Enter");
 		if (!speaking) 
 		{
-			text->SetText("               Press F to talk");
+			if (app->input->usingGameController)text->SetText("               Press A to talk");
+			else text->SetText("               Press F to talk");
 		}	
 	}
 }
