@@ -19,7 +19,7 @@ void RoomManager::Start()
 
 	mapLoader = new MapLoader();
 
-	GenerateMap(1);
+	GenerateMap(10);
 
 	CreateDoors();
 
@@ -31,15 +31,16 @@ void RoomManager::Start()
 
 void RoomManager::Update(iPoint playerPos)
 {
-	if (exitTrigger->onTriggerEnter) {
-		app->scene->ChangeCurrentSceneRequest(SCENES::HUB);
-	}
-
 	//Check current room
 	Room* r = roomPositions[playerPos.x / (TILE_SIZE * MAX_ROOM_TILES_COLUMNS)][playerPos.y / (TILE_SIZE * MAX_ROOM_TILES_ROWS)];
-	
+
 	//Player is not in any room
 	if (r == nullptr) return;
+
+	//Trigger collider (boss room)
+	if (exitTrigger->onTriggerEnter && r->done) {
+		app->scene->ChangeCurrentSceneRequest(SCENES::HUB);
+	}
 
 	//Erase enemies if dead
 	for (int i = 0; i < r->enemies.count(); ++i) {
