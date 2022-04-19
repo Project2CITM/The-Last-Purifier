@@ -65,7 +65,9 @@ public:
 
 	void GameEventTriggered() override;
 
-	bool isVulnerable() { return isInvulnerable; }
+	bool IsInvulnerable() { return isInvulnerable; }
+
+	bool IsDashing() { return isDashing; }
 
 public:
 

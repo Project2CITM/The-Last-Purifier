@@ -136,7 +136,7 @@ void Kaboom::UpdateStates()
 	{
 	case (int)KaboomState::IDLE:
 	{
-		if(detectPlayer && !playerController->isVulnerable()) DoAttack();
+		if(detectPlayer && !playerController->IsInvulnerable() && !playerController->IsDashing()) DoAttack();
 
 		stateMachine.ChangeState((int)KaboomState::RUN);
 
@@ -151,7 +151,7 @@ void Kaboom::UpdateStates()
 		// Test codes
 		// app->renderer->AddLineRenderQueue(position, player->GetPosition(), false, { 255,255,255,255 }, 2);
 
-		if (detectPlayer && !playerController->isVulnerable()) DoAttack();
+		if (detectPlayer && !playerController->IsInvulnerable() && !playerController->IsDashing()) DoAttack();
 	}
 	break;
 	case (int)KaboomState::ATTACK:
@@ -163,6 +163,10 @@ void Kaboom::UpdateStates()
 		{
 			if (!attack->pBody->body->IsActive())
 			{
+				damageTrigger->pBody->body->SetActive(false);
+
+				pBody->body->SetActive(false);
+
 				attack->pBody->body->SetActive(true);
 
 				iPoint attackOffset = { -27,-25 };
@@ -275,7 +279,7 @@ void Kaboom::InitPhysics()
 
 	filterC.categoryBits = app->physics->ENEMY_LAYER;
 
-	filterC.maskBits = app->physics->EVERY_LAYER & ~app->physics->ENEMY_LAYER & ~app->physics->PLAYER_LAYER;
+	filterC.maskBits = app->physics->EVERY_LAYER & ~app->physics->PLAYER_LAYER;
 
 	pBody = app->physics->CreateCircle(position.x, position.y, 12, this, false, b2_dynamicBody, app->physics->ENEMY_LAYER);
 

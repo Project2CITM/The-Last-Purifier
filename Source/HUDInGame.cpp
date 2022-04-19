@@ -55,7 +55,7 @@ bool HUDInGame::Start()
 
 	iconSouls.InitAsTexture(app->textures->Load("Assets/Sprites/UI/icons.png"), { app->renderer->camera->x + 15, app->renderer->camera->y + 21 }, { 62,31,31,31 }, 0.5f, 4, 0, 0, SDL_FLIP_NONE, 0);
 
-	iconSpells.InitAsTexture(app->textures->Load("Assets/Sprites/UI/icons.png"), { app->renderer->camera->x + 304, app->renderer->camera->y + 320 }, { 0,0,0,0 }, 1, 4, 0, 0, SDL_FLIP_NONE, 0);
+	iconSpells.InitAsTexture(app->textures->Load("Assets/Sprites/UI/icons.png"), { app->renderer->camera->x + 304, app->renderer->camera->y + 320 }, { 0,0,0,0 }, 1, 3, 0, 0, SDL_FLIP_NONE, 0);
 	deckSpells1.InitAsTexture(app->textures->Load("Assets/Sprites/UI/icons.png"), { app->renderer->camera->x + 350, app->renderer->camera->y + 335 }, { 0,0,0,0 }, 0.5f, 4, 0, 0, SDL_FLIP_NONE, 0);
 	deckSpells2.InitAsTexture(app->textures->Load("Assets/Sprites/UI/icons.png"), { app->renderer->camera->x + 375, app->renderer->camera->y + 335 }, { 0,0,0,0 }, 0.5f, 4, 0, 0, SDL_FLIP_NONE, 0);
 
@@ -372,7 +372,7 @@ bool HUDInGame::Update()
 bool HUDInGame::PostUpdate()
 {
 	// Player Hp
-	app->renderer->AddRectRenderQueue(playerHp.bg, playerHp.bgColor, false, 4, 2.0f, 0.0f);
+	app->renderer->AddRectRenderQueue(playerHp.bg, playerHp.bgColor, false, 4, 3.5f, 0.0f);
 	app->renderer->AddRectRenderQueue(playerHp.delayHp, playerHp.hpDelayColor, true, 4, 2.5f, 0.0f);
 	app->renderer->AddRectRenderQueue(playerHp.currentHp, playerHp.hpColor, true, 4, 3.0f, 0.0f);
 
