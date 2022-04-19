@@ -96,6 +96,8 @@ bool TestScene::PreUpdate()
     }
 
     if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN || app->input->GetControllerButton(BUTTON_START) == KEY_DOWN) app->TogglePause(!app->isPause);
+    
+    roomManager.PreUpdate(player->controller->GetPosition());
 
     hudInGame->PreUpdate();
 
@@ -118,8 +120,11 @@ bool TestScene::Update()
     //    roomManager.mapMovement.y += 10;
 
     roomManager.Update(player->controller->GetPosition());
+
     hudInGame->Update();
+
     Scene::Update();
+
     return true;
 }
 

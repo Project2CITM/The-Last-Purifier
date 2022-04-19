@@ -21,6 +21,7 @@ public:
 	}
 
 	void Start();
+	void PreUpdate(iPoint playerPos);
 	void Update(iPoint playerPos);
 	void PostUpdate();
 	void CleanUp();

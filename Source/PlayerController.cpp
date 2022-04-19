@@ -507,6 +507,9 @@ void PlayerController::Hit(int damage)
 			return;
 		}
 
+		// Camera Shake effect
+		app->renderer->camera->Shake(30, 10, 2);
+
 		beenHit = true;
 		Invulnerability(invulnerabilityTimeHit);
 

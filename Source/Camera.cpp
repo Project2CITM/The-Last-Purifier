@@ -60,10 +60,15 @@ void Camera::UpdatePosition()
 {
 	if (target == nullptr || app->scene->isChangingScene || debug) return;
 
+	// Shake Effect
+	if (shakeTime > 0 && shakePower > 0) DoShake();
+
+	// If delay = 0;
 	if (cameraDelayInRange == 0 || cameraDelayOutRange == 0)
 	{
 		x = target->GetPosition().x * app->window->scale;
 		y = target->GetPosition().y * app->window->scale;
+		return;
 	}
 
 	// Update Y
@@ -123,6 +128,25 @@ void Camera::ReleaseTarget()
 {
 	target = nullptr;
 	x = y = 0;
+}
+
+void Camera::Shake(int power, int time, int attenuate)
+{
+	this->shakePower = power;
+	this->shakeTime = time;
+	this->shakeAttenuate = attenuate;
+}
+
+void Camera::DoShake()
+{
+	int currentShakeX = rand() % shakePower - (shakePower / 2);
+	int currentShakeY = rand() % shakePower - (shakePower / 2);
+
+	x += currentShakeX;
+	y += currentShakeY;
+
+	shakePower -= shakeAttenuate;
+	shakeTime--;
 }
 
 iPoint Camera::GetCenter()
