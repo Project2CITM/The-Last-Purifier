@@ -29,6 +29,20 @@ void RoomManager::Start()
 	}
 }
 
+void RoomManager::PreUpdate(iPoint playerPos)
+{
+	//Check current room
+	Room* r = roomPositions[playerPos.x / (TILE_SIZE * MAX_ROOM_TILES_COLUMNS)][playerPos.y / (TILE_SIZE * MAX_ROOM_TILES_ROWS)];
+
+	//Erase enemies if dead
+	for (int i = 0; i < r->enemies.count(); ++i) 
+	{
+		if (r->enemies[i]->isDie) {
+			r->enemies.remove(r->enemies.At(r->enemies.find(r->enemies[i])));
+		}
+	}
+}
+
 void RoomManager::Update(iPoint playerPos)
 {
 	//Check current room
@@ -40,13 +54,6 @@ void RoomManager::Update(iPoint playerPos)
 	//Trigger collider (boss room)
 	if (exitTrigger->onTriggerEnter && r->done) {
 		app->scene->ChangeCurrentSceneRequest(SCENES::HUB);
-	}
-
-	//Erase enemies if dead
-	for (int i = 0; i < r->enemies.count(); ++i) {
-		if (r->enemies[i]->isDie) {
-			r->enemies.remove(r->enemies.At(r->enemies.find(r->enemies[i])));
-		}
 	}
 
 	//No enemies -> Completed room
