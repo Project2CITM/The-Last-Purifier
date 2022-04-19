@@ -54,6 +54,7 @@ void RoomManager::Update(iPoint playerPos)
 	//Trigger collider (boss room)
 	if (exitTrigger->onTriggerEnter && r->done)
 	{
+		app->events->TriggerEvent(GameEvent::SAVE_GAME);
 		app->scene->ChangeCurrentSceneRequest(SCENES::HUB);
 	}
 
