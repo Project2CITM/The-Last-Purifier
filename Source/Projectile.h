@@ -13,6 +13,8 @@ class Projectile : public GameObject
 public:
 	Projectile(std::string name, iPoint position, fPoint speed, int damage, int rotation = 0, bool fire = true, bool stun = false, bool isEnemy = false);
 
+	Projectile(iPoint position, int damage, int rotation, fPoint speed);
+
 	void FireProjectile(fPoint speed);
 
 	void OnCollisionEnter(PhysBody* col) override;
@@ -28,5 +30,7 @@ public:
 	int rotation = 0;
 	Animation anim;
 
+private:
+	bool isFoteiros = false;
 };
 #endif

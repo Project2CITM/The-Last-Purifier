@@ -187,6 +187,52 @@ void PlayerCombat::CheckDeck()
 	}
 }
 
+fPoint PlayerCombat::GetProjectileOffset()
+{
+	// Get projectile speed
+	fPoint speed = { 0,0 };
+	switch (player->controller->lookingDir)
+	{
+	case LookingDirection::UP:
+		speed.y = -1;
+		break;
+	case LookingDirection::DOWN:
+		speed.y = 1;
+		break;
+	case LookingDirection::LEFT:
+		speed.x = -1;
+		break;
+	case LookingDirection::RIGHT:
+		speed.x = 1;
+		break;
+	}
+
+	return speed;
+
+}
+
+int PlayerCombat::GetProjectileRotation()
+{
+	int particleRotation = 0;
+	switch (player->controller->lookingDir)
+	{
+	case LookingDirection::DOWN:
+		particleRotation = 90;
+		break;
+	case LookingDirection::UP:
+		particleRotation = 270;
+		break;
+	case LookingDirection::LEFT:
+		particleRotation = 180;
+		break;
+	case LookingDirection::RIGHT:
+		particleRotation = 0;
+		break;
+	}
+	return particleRotation;
+}
+
+
 void PlayerCombat::CleanUp()
 {
 	if (pendingToDelete) revenantAttack->pendingToDelete = true;
@@ -283,7 +329,6 @@ void PlayerCombat::SageAttack()
 
 	// Get projectile speed
 	fPoint speed = { 0,0 };
-	iPoint particleOffset;
 	int particleRotation = 0;
 	switch (player->controller->lookingDir)
 	{

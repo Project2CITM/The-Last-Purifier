@@ -100,6 +100,18 @@
     <Filter Include="Archivos de encabezado\Tools\Particles">
       <UniqueIdentifier>{c63edb79-72ba-4162-a3e2-159213dafac3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de origen\Player\Spells\RevenantSpells">
+      <UniqueIdentifier>{c7c623b5-66da-4b65-9494-db1ee2a7a8a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Player\Spells\RevenantSpells">
+      <UniqueIdentifier>{2a5f9328-b5cb-44b4-ba76-1ec1da0a6827}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Player\Spells\SageSpells">
+      <UniqueIdentifier>{629156aa-6ca0-4c69-97f2-76a67f40e725}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Player\Spells\SageSpells">
+      <UniqueIdentifier>{fdadd64d-9eef-43a4-ab78-bbfba9428b92}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="External\PugiXml\src\pugixml.hpp">
@@ -219,9 +231,6 @@
     <ClInclude Include="SpellList.h">
       <Filter>Archivos de encabezado\Player\Spells\SpellScripts</Filter>
     </ClInclude>
-    <ClInclude Include="PurifiedSwordS.h">
-      <Filter>Archivos de encabezado\Player\Spells</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerStats.h">
       <Filter>Archivos de encabezado\Player\Scripts</Filter>
     </ClInclude>
@@ -321,11 +330,17 @@
     <ClInclude Include="ParticleExplodeEkriksi.h">
       <Filter>Archivos de encabezado\Tools\Particles</Filter>
     </ClInclude>
-    <ClInclude Include="SoulShieldS.h">
-      <Filter>Archivos de encabezado\Player\Spells</Filter>
-    </ClInclude>
     <ClInclude Include="PurificationSlashS.h">
-      <Filter>Archivos de encabezado\Player\Spells</Filter>
+      <Filter>Archivos de encabezado\Player\Spells\RevenantSpells</Filter>
+    </ClInclude>
+    <ClInclude Include="PurifiedSwordS.h">
+      <Filter>Archivos de encabezado\Player\Spells\RevenantSpells</Filter>
+    </ClInclude>
+    <ClInclude Include="SoulShieldS.h">
+      <Filter>Archivos de encabezado\Player\Spells\RevenantSpells</Filter>
+    </ClInclude>
+    <ClInclude Include="FoteirosS.h">
+      <Filter>Archivos de encabezado\Player\Spells\SageSpells</Filter>
     </ClInclude>
     <ClInclude Include="ParticlePurificationSlash.h">
       <Filter>Archivos de encabezado\Tools\Particles</Filter>
@@ -437,9 +452,6 @@
     <ClCompile Include="SpellList.cpp">
       <Filter>Archivos de origen\Player\Spells\SpellScripts</Filter>
     </ClCompile>
-    <ClCompile Include="PurifiedSwordS.cpp">
-      <Filter>Archivos de origen\Player\Spells</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerStats.cpp">
       <Filter>Archivos de origen\Player\Scripts</Filter>
     </ClCompile>
@@ -536,11 +548,17 @@
     <ClCompile Include="ParticleExplodeEkriksi.cpp">
       <Filter>Archivos de origen\Tools\Particles</Filter>
     </ClCompile>
-    <ClCompile Include="SoulShieldS.cpp">
-      <Filter>Archivos de origen\Player\Spells</Filter>
-    </ClCompile>
     <ClCompile Include="PurificationSlashS.cpp">
-      <Filter>Archivos de origen\Player\Spells</Filter>
+      <Filter>Archivos de origen\Player\Spells\RevenantSpells</Filter>
+    </ClCompile>
+    <ClCompile Include="PurifiedSwordS.cpp">
+      <Filter>Archivos de origen\Player\Spells\RevenantSpells</Filter>
+    </ClCompile>
+    <ClCompile Include="SoulShieldS.cpp">
+      <Filter>Archivos de origen\Player\Spells\RevenantSpells</Filter>
+    </ClCompile>
+    <ClCompile Include="FoteirosS.cpp">
+      <Filter>Archivos de origen\Player\Spells\SageSpells</Filter>
     </ClCompile>
     <ClCompile Include="ParticlePurificationSlash.cpp">
       <Filter>Archivos de origen\Tools\Particles</Filter>

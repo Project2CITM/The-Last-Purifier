@@ -43,6 +43,12 @@ public:
 	/// </summary>
 	void CheckDeck();
 
+	fPoint GetProjectileOffset();
+
+	int GetProjectileRotation();
+
+	b2Vec2 GetAttackOffset();
+
 	void CleanUp();
 
 	int availableSpellSlots; // Determines how many available spell slots the player has.
@@ -57,8 +63,6 @@ private:
 	/// debug function to show current spell and deck slots.
 	/// </summary>
 	void PrintSlotsState();
-
-	b2Vec2 GetAttackOffset();
 
 	void RevenantAttack();
 

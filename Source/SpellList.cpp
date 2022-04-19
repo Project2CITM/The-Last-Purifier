@@ -3,6 +3,7 @@
 #include "PurifiedSwordS.h"
 #include "SoulShieldS.h"
 #include "PurificationSlashS.h"
+#include "FoteirosS.h"
 
 SpellList* SpellList::instance = nullptr;
 
@@ -29,7 +30,7 @@ SpellList::SpellList()
 	spells[(int)SpellID::TORMENT] = new TestSpell();
 	spells[(int)SpellID::COVER] = new TestSpell();
 
-	spells[(int)SpellID::FOTEIROS] = new TestSpell();
+	spells[(int)SpellID::FOTEIROS] = new FoteirosS();
 	spells[(int)SpellID::TYCHAIA] = new TestSpell();
 	spells[(int)SpellID::PNEUMA] = new TestSpell();
 	spells[(int)SpellID::EKRISKI] = new TestSpell();

@@ -6,6 +6,7 @@
 #include "ModuleRender.h"
 #include "Particle.h"
 #include "ParticleHitSage.h"
+#include "PaticleHitFotieros.h"
 
 Projectile::Projectile(std::string name, iPoint position, fPoint speed, int damage,int rotation, bool fire, bool stun, bool isEnemy) : GameObject(name, name)
 {
@@ -52,6 +53,65 @@ Projectile::Projectile(std::string name, iPoint position, fPoint speed, int dama
 	
 }
 
+/// <summary>
+/// Foteiros Projectile!!
+/// </summary>
+/// <param name="position"></param>
+/// <param name="damage"></param>
+/// <param name="rotation"></param>
+/// <param name="speed"></param>
+Projectile::Projectile(iPoint position, int damage, int rotation, fPoint speed) : GameObject("Foteiros", "Foteiros")
+{
+	this->damage = damage;
+	this->rotation = rotation;
+	this->isFoteiros = true;
+
+	damageArea = new DamageArea(position, 6, 6, this->damage);
+	pBody = app->physics->CreateRectangle(position, 4, 4, this);
+	b2Filter filter;
+	filter.categoryBits = app->physics->PROJECTILE_LAYER;
+
+	if (isEnemy) filter.maskBits = app->physics->EVERY_LAYER & ~app->physics->ENEMY_LAYER & ~app->physics->PROJECTILE_LAYER & ~app->physics->TRIGGER_LAYER;
+	else filter.maskBits = app->physics->EVERY_LAYER & ~app->physics->PLAYER_LAYER & ~app->physics->PROJECTILE_LAYER & ~app->physics->TRIGGER_LAYER;
+
+	pBody->body->GetFixtureList()[0].SetFilterData(filter);
+	damageArea->pBody->body->GetFixtureList()[0].SetFilterData(filter);
+
+	FireProjectile(speed);
+
+	
+	renderObjects[0].InitAsTexture(app->textures->Load("Assets/Sprites/Player/Sage/foteiros.png"), position, { 0,0,0,0 }, 1.0f, 1, 1.0f, this->rotation);
+
+	if (rotation == 0)
+	{
+		renderObjects[0].flip = SDL_FLIP_HORIZONTAL;
+	}
+	else if (rotation == 180)
+	{
+		renderObjects[0].flip = SDL_FLIP_NONE;
+		renderObjects[0].rotation = 0;
+	}
+	else if (rotation == 270)
+	{
+		renderObjects[0].rotation = 90;
+	}
+	else 
+	{
+		renderObjects[0].rotation = 270;
+	}
+
+	// Particle Effect
+
+	for (int i = 0; i < 4; i++)
+	{
+		this->anim.PushBack({ 46 * i,0,46,32 });
+	}
+	this->anim.loop = true;
+	this->anim.hasIdle = false;
+	this->anim.speed = 0.25f;
+
+}
+
 void Projectile::FireProjectile(fPoint speed)
 {
 	b2Vec2 s = { speed.x, speed.y };
@@ -66,7 +126,8 @@ void Projectile::OnCollisionEnter(PhysBody* col)
 
 	// Particle effect
 
-	new ParticleHitSage({ position.x - 20,position.y - 15 }, 1.5f);
+	if (!isFoteiros)new ParticleHitSage({ position.x - 20,position.y - 15 }, 1.5f);
+	else new PaticleHitFotieros({ position.x - 20,position.y - 15 }, 0.1f);
 
 }
 
