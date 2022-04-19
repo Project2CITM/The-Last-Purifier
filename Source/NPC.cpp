@@ -64,7 +64,7 @@ void NPC::Update()
 	if (canSpeak) 
 	{
 		if (nearNpc) {
-			if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN||app->input->GetControllerButton(BUTTON_A)==KEY_DOWN)
+			if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN||app->input->GetControllerButton(BUTTON_A)==KEY_DOWN)
 			{
 				if (!speaking) {
 					speaking = true;
@@ -111,7 +111,7 @@ void NPC::OnTriggerEnter(std::string trigger, PhysBody* col)
 		LOG("Enter");
 		if (!speaking) 
 		{
-			text->SetText("               Press Enter to talk");
+			text->SetText("               Press F to talk");
 		}	
 	}
 }
