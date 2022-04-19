@@ -52,6 +52,8 @@ protected:
 
 	int moveSpeed = 5;
 
+	int soulsAmount = 0;
+
 	bool sceneGettingDeleted = false;
 
 private:

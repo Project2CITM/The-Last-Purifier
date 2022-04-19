@@ -22,6 +22,7 @@ Ghoul::Ghoul(iPoint pos) : Enemy("ghoul")
 
 	damage = 5;
 	
+	soulsAmount = 10;
 
 	attackCoolDown = 10; // frame
 

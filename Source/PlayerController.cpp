@@ -502,6 +502,8 @@ void PlayerController::Hit(int damage)
 		{
 			app->scene->ChangeCurrentSceneRequest(SCENES::HUB, 60);
 
+			app->events->TriggerEvent(GameEvent::SAVE_GAME);
+
 			canControl = false;
 
 			return;

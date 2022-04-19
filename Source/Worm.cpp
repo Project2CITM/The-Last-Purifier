@@ -19,6 +19,8 @@ Worm::Worm(iPoint pos) : Enemy("worm")
 
 	damage = 10;
 
+	soulsAmount = 14;
+
 	groundCoolDown = 120; // frame
 
 	unergroundCoolDown = 120; // frame

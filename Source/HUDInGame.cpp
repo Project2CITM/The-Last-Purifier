@@ -110,7 +110,7 @@ bool HUDInGame::Start()
 	FullScreenCHK = new GUICheckbox({ app->renderer->camera->x + 350, app->renderer->camera->y + 215 }, 60, 60, MenuButton::SETTINGSPAUSE, "Assets/Sprites/UI/CheckBox.png");
 
 	InitializeSpellSlotsPositions();
-
+	currentSpellText = new Text({ 280, 300 }, "");
 
 	Scene::Start();
 
@@ -396,6 +396,10 @@ bool HUDInGame::PostUpdate()
 	}
 
 	app->renderer->AddRectRenderQueue(spellSlotsPositions[player->availableSpellSlots - 1][player->selectedSpell], { 255, 0, 0, 255 }, false, 3, 3.0f, 0.0f);
+	
+	std::string selectedSpellText = GetSpellName(player->spellSlots[player->selectedSpell]->id) + " x" + std::to_string(player->spellSlots[player->selectedSpell]->uses);
+	if (player->spellSlots[player->selectedSpell]->id != SpellID::NONE) currentSpellText->SetText(selectedSpellText);
+	else currentSpellText->SetText("");
 
 	/*if (player->availableSpellSlots == 1)
 	{
@@ -673,4 +677,28 @@ SDL_Rect HUDInGame::GetSpellSection(int slot, bool isDeck)
 		sect = { 300,300,3,3 };
 	}
 	return sect;
+}
+
+std::string HUDInGame::GetSpellName(SpellID id)
+{
+	std::string text = "";
+	switch (id)
+	{
+	case SpellID::PURIFIED_SWORD:
+		text = "Purified Sword";
+		break;
+	case SpellID::SOUL_SHIELD:
+		text = "Soul Shield";
+		break;
+	case SpellID::PURIFICATION_SLASH:
+		text = "Purification Slash";
+		break;
+	case SpellID::EKRISKI:
+		text = "Ekriski";
+		break;
+	case SpellID::FOTEIROS:
+		text = "Foteiros";
+		break;
+	}
+	return text;
 }

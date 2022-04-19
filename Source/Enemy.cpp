@@ -89,7 +89,7 @@ void Enemy::Die(bool spawnPower)
 	}
 
 
-	if (player != nullptr) player->souls += 3;
+	if (player != nullptr) player->souls += this->soulsAmount;
 }
 
 void Enemy::GameEventTriggered()

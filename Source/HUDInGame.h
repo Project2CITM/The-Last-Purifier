@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "ModuleEvents.h"
 #include "RenderObject.hpp"
+#include "Spell.h"
 
 class GUIButton;
 class GUISlider;
@@ -66,6 +67,7 @@ private:
 	void InitializeSlots();
 	void InitializeSpellSlotsPositions();
 	SDL_Rect GetSpellSection(int slot, bool isDeck);
+	std::string GetSpellName(SpellID id);
 
 private:
 
@@ -87,6 +89,8 @@ private:
 	List<RenderObject> deckSlots;
 
 	List<SDL_Rect> spellSlotsPositions[4];
+
+	Text* currentSpellText = nullptr;
 
 	iPoint resumeBUT = { 0,0 };
 	iPoint settingsBUT = { 0,0 };

@@ -23,6 +23,8 @@ Kaboom::Kaboom(iPoint pos) :Enemy("kaboom")
 
 	damage = 15;
 
+	soulsAmount = 14;
+
 	kaboomColors[0] = { 255,253,117,255 };
 
 	kaboomColors[1] = { 65,144,46,255 };
