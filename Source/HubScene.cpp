@@ -12,6 +12,7 @@
 #include "IntLabel.h"
 #include "PlayerCombat.h"
 #include "ModuleEvents.h"
+#include "ModuleAudio.h"
 
 HubScene::HubScene() : SceneGame("HubScene")
 {
@@ -132,6 +133,8 @@ bool HubScene::Start()
 	IntLabel* int_lbl_Revenant = new IntLabel("REVENANT INSTRUCTOR", "Lbl_Revenant", { 1014, 939 }, { 255 , 20 },  150);
 	IntLabel* int_lbl_Sage = new IntLabel("SAGE INSTRUCTOR", "Lbl_Sage", { 553, 1510 }, { 270 , 20 }, 180);
 	IntLabel* int_lbl_Gate = new IntLabel("DOOM'S GATE", "Lbl_Doom", { 1271, 211 }, { 295 , 20 }, 200);
+
+	app->audio->PlayMusic("Assets/Audio/Music/HubMusic.ogg");
 
 	return true;
 }
