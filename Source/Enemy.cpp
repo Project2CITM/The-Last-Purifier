@@ -16,7 +16,7 @@ Enemy::Enemy(std::string name) :GameObject(name, "Enemy")
 
 Enemy::~Enemy()
 {
-	app->events->RemoveListener(this);
+	
 }
 
 void Enemy::Start()
@@ -75,7 +75,9 @@ void Enemy::Die(bool spawnPower)
 
 	pendingToDelete = true;
 
+	Application::GetInstance()->events->RemoveListener(this);
  	if (sceneGettingDeleted) return;
+
 
 	if (spawnManager != nullptr)
 	{

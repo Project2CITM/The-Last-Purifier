@@ -116,8 +116,6 @@ bool Scene::CleanUp()
 		app->renderer->camera->ReleaseTarget();
 	}
 
-	app->events->TriggerEvent(GameEvent::DELETING_SCENE);
-
 	return true;
 }
 

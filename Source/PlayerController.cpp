@@ -143,14 +143,13 @@ void PlayerController::PostUpdate()
 
 void PlayerController::CleanUp()
 {
+	app->events->RemoveListener(this);
 	// PlayerCombat is not deleted here because it gets added automatically to the scene.
 	// Therefor, is deleted by the scene.
 	if (combat != nullptr)
 	{
 		combat->pendingToDelete = true;
 	}
-
-	app->events->RemoveListener(this);
 
 	GameObject::CleanUp();
 }

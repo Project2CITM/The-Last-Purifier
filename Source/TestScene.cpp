@@ -134,6 +134,8 @@ bool TestScene::PostUpdate()
 
 bool TestScene::CleanUp()
 {
+    app->events->TriggerEvent(GameEvent::DELETING_SCENE);
+
     if (player != nullptr)
     {
         player->CleanUp();
