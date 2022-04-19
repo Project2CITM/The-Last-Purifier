@@ -1,4 +1,5 @@
 #include "ModuleWindow.h"
+#include "External/SDL_image/include/SDL_image.h"
 
 ModuleWindow::ModuleWindow(bool start_enabled) : Module(start_enabled)
 {
@@ -60,6 +61,10 @@ bool ModuleWindow::Init(pugi::xml_node& config)
 			screenSurface = SDL_GetWindowSurface(window);
 		}
 	}
+
+	SDL_Surface* iconSurface = IMG_Load("Assets/Sprites/UI/logoGame.png");
+	
+	SetWindowIcon(iconSurface);
 
 	return ret;
 }
