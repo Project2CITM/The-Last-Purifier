@@ -6,6 +6,7 @@
 #include "Projectile.h"
 #include "ModuleEvents.h"
 #include "ParticleAttackRevenant.h"
+#include "DamageArea.h"
 
 
 PlayerCombat::PlayerCombat(std::string name, std::string tag, Player* player) : GameObject(name, tag)

@@ -3,7 +3,8 @@
 class ParticleExplodeEkriksi :
     public Particle
 {
-    ParticleExplodeEkriksi(iPoint position, float life, float delay, iPoint velocity, std::string name);
+public:
+    ParticleExplodeEkriksi(iPoint position, float life, float delay = 0, iPoint velocity = { 0,0 }, std::string name = "EkriskiParticle");
 
     ~ParticleExplodeEkriksi();
 };

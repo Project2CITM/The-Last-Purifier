@@ -10,6 +10,7 @@
 #include "RoomManager.h"
 #include "Room.h"
 #include "PlayerStats.h"
+#include "DamageArea.h"
 
 #include "Enemy.h"
 

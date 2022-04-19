@@ -6,12 +6,12 @@
 #include "SpellList.h"
 #include "ExecuteSpell.h"
 #include "GameObject.h"
-#include "DamageArea.h"
 
 class Player;
 class PhysBody;
 class PlayerController;
 struct b2Vec2;
+class DamageArea;
 
 class PlayerCombat : GameObject
 {

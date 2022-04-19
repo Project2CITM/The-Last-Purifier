@@ -351,6 +351,12 @@
     <ClInclude Include="ParticleSoulShield.h">
       <Filter>Archivos de encabezado\Tools\Particles</Filter>
     </ClInclude>
+    <ClInclude Include="EkriskiS.h">
+      <Filter>Archivos de encabezado\Player\Spells\SageSpells</Filter>
+    </ClInclude>
+    <ClInclude Include="EkriskiDamageArea.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\PugiXml\src\pugixml.cpp">
@@ -568,6 +574,12 @@
     </ClCompile>
     <ClCompile Include="ParticleSoulShield.cpp">
       <Filter>Archivos de origen\Tools\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="EkriskiS.cpp">
+      <Filter>Archivos de origen\Player\Spells\SageSpells</Filter>
+    </ClCompile>
+    <ClCompile Include="EkriskiDamageArea.cpp">
+      <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
