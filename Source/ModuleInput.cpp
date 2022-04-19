@@ -101,10 +101,10 @@ UpdateStatus ModuleInput::PreUpdate()
 			GetControllerAxis(SDL_CONTROLLER_AXIS_RIGHTX) > 10000 || GetControllerAxis(SDL_CONTROLLER_AXIS_RIGHTY) > 10000) usingGameController = true;
 	}
 
-	if (keyboard[SDL_SCANCODE_ESCAPE] == KEY_DOWN) 
+	/*if (keyboard[SDL_SCANCODE_ESCAPE] == KEY_DOWN)
 	{
 		app->ExitGame();
-	}
+	}*/
 
 	// Handle X button on window
 
