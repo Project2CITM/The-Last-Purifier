@@ -112,6 +112,9 @@
     <Filter Include="Archivos de origen\Player\Spells\SageSpells">
       <UniqueIdentifier>{fdadd64d-9eef-43a4-ab78-bbfba9428b92}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de recursos\Icon">
+      <UniqueIdentifier>{cf98d4be-d1d3-462a-b944-c23174d6c8d0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="External\PugiXml\src\pugixml.hpp">
@@ -355,7 +358,10 @@
       <Filter>Archivos de encabezado\Player\Spells\SageSpells</Filter>
     </ClInclude>
     <ClInclude Include="EkriskiDamageArea.h">
-      <Filter>Archivos de encabezado\GameObject</Filter>
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -579,7 +585,17 @@
       <Filter>Archivos de origen\Player\Spells\SageSpells</Filter>
     </ClCompile>
     <ClCompile Include="EkriskiDamageArea.cpp">
-      <Filter>Archivos de origen\GameObjects</Filter>
+      <Filter>Archivos de origen</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="TheLastPurifier.rc">
+      <Filter>Archivos de recursos</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Game\Assets\icon.ico">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
   </ItemGroup>
 </Project>

@@ -153,6 +153,7 @@
     <ClInclude Include="PurificationSlashS.h" />
     <ClInclude Include="PurifiedSwordS.h" />
     <ClInclude Include="RenderObject.hpp" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="RoomManager.h" />
     <ClInclude Include="Scene.h" />
@@ -247,6 +248,12 @@
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Trigger.cpp" />
     <ClCompile Include="Worm.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="TheLastPurifier.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Game\Assets\icon.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
