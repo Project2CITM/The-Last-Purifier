@@ -136,7 +136,7 @@ void Kaboom::UpdateStates()
 	{
 	case (int)KaboomState::IDLE:
 	{
-		if(detectPlayer && !playerController->isVulnerable()) DoAttack();
+		if(detectPlayer && !playerController->IsInvulnerable() && !playerController->IsDashing()) DoAttack();
 
 		stateMachine.ChangeState((int)KaboomState::RUN);
 
@@ -151,7 +151,7 @@ void Kaboom::UpdateStates()
 		// Test codes
 		// app->renderer->AddLineRenderQueue(position, player->GetPosition(), false, { 255,255,255,255 }, 2);
 
-		if (detectPlayer && !playerController->isVulnerable()) DoAttack();
+		if (detectPlayer && !playerController->IsInvulnerable() && !playerController->IsDashing()) DoAttack();
 	}
 	break;
 	case (int)KaboomState::ATTACK:

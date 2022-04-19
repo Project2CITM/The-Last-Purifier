@@ -372,7 +372,7 @@ bool HUDInGame::Update()
 bool HUDInGame::PostUpdate()
 {
 	// Player Hp
-	app->renderer->AddRectRenderQueue(playerHp.bg, playerHp.bgColor, false, 4, 2.0f, 0.0f);
+	app->renderer->AddRectRenderQueue(playerHp.bg, playerHp.bgColor, false, 4, 3.5f, 0.0f);
 	app->renderer->AddRectRenderQueue(playerHp.delayHp, playerHp.hpDelayColor, true, 4, 2.5f, 0.0f);
 	app->renderer->AddRectRenderQueue(playerHp.currentHp, playerHp.hpColor, true, 4, 3.0f, 0.0f);
 
