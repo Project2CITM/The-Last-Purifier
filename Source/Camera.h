@@ -25,7 +25,17 @@ public:
 
 	void ReleaseTarget();
 
+	/// <summary>
+	/// Camera shake effect
+	/// </summary>
+	/// <param name="power">pixel</param>
+	/// <param name="time">frame</param>
+	/// <param name="attenuate">pixel</param>
+	void Shake(int power, int time = 20, int attenuate = 1);
+
 private:
+
+	void DoShake();
 
 	iPoint GetCenter();
 
@@ -39,6 +49,11 @@ private:
 	int distanceFromTarget = 0;
 
 	bool debug = false;
+
+	int mapHeight = 0, mapWidth = 0;
+
+	// ShakeEffect
+	int shakePower = 0, shakeTime = 0, shakeAttenuate = 0;
 
 public:
 	int x = 0;
@@ -55,8 +70,6 @@ public:
 
 	// decidir si se mueve o no
 	int moveX = 1, moveY = 1;
-
-	int mapHeight = 0, mapWidth = 0;
 };
 
 #endif // !__CAMERA_H__
