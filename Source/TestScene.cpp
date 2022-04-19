@@ -80,11 +80,11 @@ bool TestScene::Start()
 
 bool TestScene::PreUpdate()
 {
-    if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
+   /* if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
     {
         roomManager.CleanUp();
         roomManager.Start();
-    }
+    }*/
     // Test Code-------------
     if (app->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
     {
