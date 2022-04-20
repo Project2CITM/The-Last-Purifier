@@ -37,7 +37,7 @@ void RoomManager::PreUpdate(iPoint playerPos)
 	//Erase enemies if dead
 	for (int i = 0; i < r->enemies.count(); ++i)
 	{
-		if (r->enemies[i]->isDie) {
+		if (r->enemies[i]->pendingToDelete) {
 			r->enemies.remove(r->enemies.At(r->enemies.find(r->enemies[i])));
 		}
 	}
