@@ -112,6 +112,41 @@ SDL_Texture* ModuleTextures::Load(std::string path, bool isName)
 	SDL_Texture* texture = nullptr;
 	SDL_Surface* surface = IMG_Load(path.c_str());
 
+	// Testing
+	SDL_Surface* surface2 = IMG_Load(path.c_str());
+
+	// https://bacprogramming.wordpress.com/2018/01/10/box-blur-with-sdl2/
+
+	//https://stackoverflow.com/questions/19107476/get-pixel-info-from-sdl2-texture
+
+	/*
+	* 
+	for (int y = 0; y < surface2->h; y++)
+	{
+		for (int x = 0; x < (surface2->pitch / 4); x++)
+		{
+			Uint32 color = ((Uint32*)surface2->pixels)[(y * (surface2->pitch / 4)) + x];
+
+			Uint8 r = 0, g = 0, b = 0, a = 0;
+
+			SDL_GetRGBA(color, surface2->format, &r, &g, &b, &a);
+
+			if (a != 0)
+			{
+				r = 0;
+				g = 255;
+				b = 0;
+				a = 255;
+			}
+
+			color = (r) | (g << 8) | (b << 16) | (a << 24);
+
+			((Uint32*)surface2->pixels)[(y * (surface2->pitch / 4)) + x] = color;
+		}
+	}
+
+	*/
+
 	if(surface == NULL)
 	{
 		LOG("Could not load surface with path: %s. IMG_Load: %s", path, IMG_GetError());
@@ -134,6 +169,12 @@ SDL_Texture* ModuleTextures::Load(std::string path, bool isName)
 		}
 
 		SDL_FreeSurface(surface);
+
+		/*
+		SDL_UpdateTexture(texture, nullptr, surface2->pixels, surface2->pitch);
+
+		SDL_FreeSurface(surface2);
+		*/
 	}
 	return texture;
 }
