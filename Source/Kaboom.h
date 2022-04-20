@@ -54,6 +54,8 @@ private:
 
 	void ChangeColor();
 
+	void SetTriggeeActive(bool active);
+
 private:
 
 	Animation animations[(int)KaboomState::MAX];

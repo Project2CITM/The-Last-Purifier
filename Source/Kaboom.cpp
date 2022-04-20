@@ -195,6 +195,10 @@ void Kaboom::UpdateStates()
 	break;
 	case (int)KaboomState::DIE:
 	{
+		SetTriggeeActive(false);
+
+		if (pBody->body->IsActive()) pBody->body->SetActive(false);
+
 		if (animations[stateMachine.GetCurrentState()].HasFinished()) Enemy::Die(true);
 	}
 	break;
@@ -327,4 +331,15 @@ void Kaboom::ChangeColor()
 	}
 
 	currentColorTime--;
+}
+
+void Kaboom::SetTriggeeActive(bool active)
+{
+	if (detectTrigger->pBody->body->IsActive() == active) return;
+
+	detectTrigger->pBody->body->SetActive(active);
+
+	damageTrigger->pBody->body->SetActive(active);
+
+	attack->pBody->body->SetActive(active);
 }

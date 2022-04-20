@@ -192,7 +192,7 @@ void Ghoul::UpdateStates()
 		// Disable Triggers
 		SetTriggeeActive(false);
 
-		if (pBody->body->IsActive())pBody->body->SetActive(false);
+		if (pBody->body->IsActive()) pBody->body->SetActive(false);
 
 		if (animations[stateMachine.GetCurrentState()].HasFinished()) Enemy::Die(true);
 	}	
@@ -325,5 +325,7 @@ void Ghoul::SetTriggeeActive(bool active)
 
 	detectTrigger->pBody->body->SetActive(active);
 
-	detectTrigger->pBody->body->SetActive(active);
+	damageTrigger->pBody->body->SetActive(active);
+
+	attack->pBody->body->SetActive(active);
 }

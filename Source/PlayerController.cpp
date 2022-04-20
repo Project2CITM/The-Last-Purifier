@@ -116,9 +116,7 @@ void PlayerController::Update()
 		player->damage = normalDamage;
 	}
 
-
-	LOG("Damage: %d", player->damage);
-	
+	//LOG("Damage: %d", player->damage);
 }
 
 void PlayerController::PostUpdate()
