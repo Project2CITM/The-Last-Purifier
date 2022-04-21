@@ -28,11 +28,19 @@ public:
 
 	void Unload(SDL_Texture* texture);
 
+	void SetGauss(SDL_Texture* texture, float sigma = 1, int size = 5);
+
+	// test func
+	void TestTransition(int loop = 0);
+
 public:
 	List<SDL_Texture*> textures;
 
 private:
 	List<TexturePath> texturePath;
+
+	// test texture
+	SDL_Texture* screenTex = nullptr;
 };
 
 #endif // !__MODULE_TEXTURE_H__

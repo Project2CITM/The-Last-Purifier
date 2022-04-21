@@ -26,11 +26,18 @@ public:
 	bool CleanUp() override;
 
 private:
+	void GaussEffect();
+
+private:
 	int count = 0;
 
 	uint LogoAppear_FX = NULL;
 
 	int drawLogo = 0;
+
+	int gaussCount = 1;
+
+	float gaussPower = 3.0f;
 };
 
 #endif //__LOGO_SCENE_H__

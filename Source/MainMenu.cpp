@@ -115,6 +115,8 @@ bool MainMenu::Start()
 
 	CloseCrdBUT = new GUIButton({ 297, 300 }, 46, 46, MenuButton::CREDITS, "Assets/Sprites/UI/Back.png");
 
+	testTrans = app->window->width * app->window->height;
+
 	Scene::Start();
 
 	return true;
@@ -378,6 +380,8 @@ bool MainMenu::Update()
 
 bool MainMenu::PostUpdate()
 {
+	app->textures->TestTransition();
+
 	if (currentMenu == CurrentMenu::Options)
 	{
 		for (int i = 0; i < guisOptions.count(); i++)

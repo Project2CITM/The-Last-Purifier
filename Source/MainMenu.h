@@ -44,10 +44,7 @@ public:
 
 	bool CleanUp() override;
 
-
-
 private:
-
 	GUIButton* PlayBUT = nullptr;
 	GUIButton* OptionsBUT = nullptr;
 	GUIButton* CreditBUT = nullptr;

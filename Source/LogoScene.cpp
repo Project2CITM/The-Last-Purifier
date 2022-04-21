@@ -49,9 +49,13 @@ bool LogoScene::PreUpdate()
 
 bool LogoScene::Update()
 {
-	if (count > 200) drawLogo = 1;	
+	if (count > 200) drawLogo = 1;
 	if (count > 455) app->scene->ChangeCurrentSceneRequest(MAIN_MENU);
-	else count++;
+	else
+	{
+		GaussEffect();
+		count++;
+	}
 
 	Scene::Update();
 
@@ -72,4 +76,20 @@ bool LogoScene::CleanUp()
 	Scene::CleanUp();
 
 	return true;
+}
+
+void LogoScene::GaussEffect()
+{
+	gaussCount--;
+
+	if (gaussCount <= 0)
+	{
+		gaussCount = 5;
+
+		app->textures->SetGauss(Logos[0].texture, gaussPower);
+
+		gaussPower -= 0.1f;
+
+		if (gaussPower < 0.43f) gaussPower = 0.43f;
+	}
 }
