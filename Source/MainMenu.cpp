@@ -115,7 +115,7 @@ bool MainMenu::Start()
 
 	CloseCrdBUT = new GUIButton({ 297, 300 }, 46, 46, MenuButton::CREDITS, "Assets/Sprites/UI/Back.png");
 
-	testTrans = app->window->width * app->window->height;
+	//testTrans = app->window->width * app->window->height;
 
 	Scene::Start();
 
@@ -179,13 +179,13 @@ bool MainMenu::Update()
 				app->audio->PlayFx(Hover);
 				AxisPress = true;
 			}
-			else if (abs(leftYMain) < 1000)
+			else if (abs(leftYMain) < 2500)
 			{
 				AxisPress = false;
 			}
 
 			GUIButton* selectedButton = (GUIButton*)guisMainMenu.At(ControllerPos)->data;
-			selectedButton->buttonState = ButtonState::FOCUS;
+			selectedButton->HoverButton();
 
 			/*if (ControllerPos == 0)	app->renderer->AddRenderObjectRenderQueue(PlayController);
 			if (ControllerPos == 1)	app->renderer->AddRenderObjectRenderQueue(SettingsController);
@@ -213,6 +213,7 @@ bool MainMenu::Update()
 			currentMenu = CurrentMenu::Credtis;
 			CreditBUT->PressButton();
 			CreditBUT->doAction = false;
+			return true;
 		}
 
 		if (ExitBUT->doAction || (ControllerPos == 3 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
@@ -256,16 +257,16 @@ bool MainMenu::Update()
 			switch (ControllerPosOpY)
 			{
 			case 0:
-				MusicBUT->buttonState = ButtonState::FOCUS;
+				MusicBUT->HoverButton();
 				break;
 			case 1:
-				fxBUT->buttonState = ButtonState::FOCUS;
+				fxBUT->HoverButton();
 				break;
 			case 2:
 				if (!FullScreenCHK->isActive) FullScreenCHK->checkboxState = CheckboxState::FOCUS;
 				break;
 			case 3:
-				CloseOptBUT->buttonState = ButtonState::FOCUS;
+				CloseOptBUT->HoverButton();
 				break;
 			}
 		}
@@ -317,56 +318,54 @@ bool MainMenu::Update()
 	{
 		if (app->input->usingGameController)
 		{
-			if ((leftYCredtis > 0 || app->input->GetControllerButton(BUTTON_DOWN) == KEY_DOWN) && !AxisPress && ControllerPosCr <= 3)
+			if ((leftYOptions > 10000 || app->input->GetControllerButton(BUTTON_DOWN) == KEY_DOWN) && !AxisPress)
 			{
 				ControllerPosCr += 1;
+				if (ControllerPosCr > 4) ControllerPosCr = 0;
 				app->audio->PlayFx(Hover);
 				AxisPress = true;
 			}
-			else if ((leftYCredtis < 0 || app->input->GetControllerButton(BUTTON_UP) == KEY_DOWN) && !AxisPress && ControllerPosCr >= 1)
+			else if ((leftYOptions < -10000 || app->input->GetControllerButton(BUTTON_UP) == KEY_DOWN) && !AxisPress)
 			{
 				ControllerPosCr -= 1;
+				if (ControllerPosCr < 0) ControllerPosCr = 4;
 				app->audio->PlayFx(Hover);
 				AxisPress = true;
 			}
-			else if (leftYCredtis == 0)
+			else if (abs(leftYOptions) < 1000)
 			{
 				AxisPress = false;
 			}
 
-			if (ControllerPosOpY == 0)	app->renderer->AddRenderObjectRenderQueue(CreadorsController);
-			if (ControllerPosOpY == 1)	app->renderer->AddRenderObjectRenderQueue(AudioController);
-			if (ControllerPosOpY == 2)	app->renderer->AddRenderObjectRenderQueue(ArtController);
-			if (ControllerPosOpY == 3)	app->renderer->AddRenderObjectRenderQueue(OtrosController);
-			if (ControllerPosOpY == 4)	app->renderer->AddRenderObjectRenderQueue(BackController);
-
+			GUIButton* selectedButton = (GUIButton*)guisCredtis.At(ControllerPosCr)->data;
+			selectedButton->HoverButton();
 		}
 
-		if (CloseCrdBUT->doAction || (ControllerPosOpY == 4 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN) || app->input->GetControllerButton(BUTTON_B) == KEY_DOWN)
+		if (CloseCrdBUT->doAction || (ControllerPosCr == 4 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN) || app->input->GetControllerButton(BUTTON_B) == KEY_DOWN)
 		{
 			currentMenu = CurrentMenu::Main;
 			CloseCrdBUT->doAction = false;
 		}
 
-		if (CredtisCre->doAction || (ControllerPosOpY == 0 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
+		if (CredtisCre->doAction || (ControllerPosCr == 0 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
 		{
 			currentCredtis = CurrentCredtis::Creadors;
 			CredtisCre->doAction = false;
 		}
 
-		if (CredtisAud->doAction || (ControllerPosOpY == 1 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
+		if (CredtisAud->doAction || (ControllerPosCr == 1 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
 		{
 			currentCredtis = CurrentCredtis::Audio;
 			CredtisAud->doAction = false;
 		}
 
-		if (CredtisArt->doAction || (ControllerPosOpY == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
+		if (CredtisArt->doAction || (ControllerPosCr == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
 		{
 			currentCredtis = CurrentCredtis::Art;
 			CredtisArt->doAction = false;
 		}
 
-		if (CredtisOtr->doAction || (ControllerPosOpY == 3 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
+		if (CredtisOtr->doAction || (ControllerPosCr == 3 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
 		{
 			currentCredtis = CurrentCredtis::Otros;
 			CredtisOtr->doAction = false;

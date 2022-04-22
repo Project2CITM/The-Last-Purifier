@@ -194,14 +194,14 @@ bool HUDInGame::Update()
 				{
 					ControllerPos += 1;
 					if (ControllerPos >= 7) ControllerPos = 0;
-					app->audio->PlayFx(Hover);
+					//app->audio->PlayFx(Hover);
 					AxisPress = true;
 				}
 				else if ((leftYMain < -10000 || app->input->GetControllerButton(BUTTON_UP) == KEY_DOWN) && !AxisPress)
 				{
 					ControllerPos -= 1;
 					if (ControllerPos < 0) ControllerPos = 6;
-					app->audio->PlayFx(Hover);
+					//app->audio->PlayFx(Hover);
 					AxisPress = true;
 				}
 				else if (abs(leftYMain) < 1000)
@@ -210,7 +210,7 @@ bool HUDInGame::Update()
 				}
 
 				GUIButton* selectedButton = (GUIButton*)guisPause.At(ControllerPos)->data;
-				selectedButton->buttonState = ButtonState::FOCUS;
+				selectedButton->HoverButton();
 			}
 
 			if (ResumeBUT->doAction || (ControllerPos == 0 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN) || app->input->GetControllerButton(BUTTON_B) == KEY_DOWN)
@@ -298,16 +298,16 @@ bool HUDInGame::Update()
 				switch (ControllerPosOpY)
 				{
 				case 0:
-					MusicBUT->buttonState = ButtonState::FOCUS;
+					MusicBUT->HoverButton();
 					break;
 				case 1:
-					fxBUT->buttonState = ButtonState::FOCUS;
+					fxBUT->HoverButton();
 					break;
 				case 2:
 					if (!FullScreenCHK->isActive) FullScreenCHK->checkboxState = CheckboxState::FOCUS;
 					break;
 				case 3:
-					CloseSettingsBUT->buttonState = ButtonState::FOCUS;
+					CloseSettingsBUT->HoverButton();
 					break;
 				}
 			}

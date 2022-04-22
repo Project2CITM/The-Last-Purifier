@@ -41,6 +41,51 @@ GUIButton::~GUIButton()
 
 void GUIButton::Update()
 {
+	if (!app->input->usingGameController) UpdateMouse();
+	else
+	{
+		lastState = buttonState;
+		buttonState = ButtonState::IDLE;
+	}
+}
+
+void GUIButton::PostUpdate()
+{
+	if (renderObject != nullptr && renderObject->texture != nullptr)
+	{
+		int newBtnState = CLAMP((int)buttonState, 0, 2);
+
+		app->renderer->AddTextureRenderQueue(renderObject->texture, { position.x, position.y }, renderSections[newBtnState], renderObject->scale,
+											  renderObject->layer, renderObject->orderInLayer, 0, SDL_FLIP_NONE, 0);
+
+		//if(app->debug->debugViewGUIBounds)
+		//app->renderer->AddRectRenderQueue(SDL_Rect{ position.x,position.y,boxShape.w,boxShape.h }, defaultColor.r, defaultColor.g, defaultColor.b, 150, 3, 100, true, 0);
+	}
+	else
+	{
+		app->renderer->AddRectRenderQueue(SDL_Rect{ position.x,position.y,boxShape.w,boxShape.h }, renderColour, true, layer, orderInlayer, 0);
+	}
+}
+
+void GUIButton::PressButton()
+{
+	lastState = buttonState;
+	buttonState = ButtonState::PRESS_DOWN;
+	isPressed = true;
+
+	// Sound Effect
+	if (lastState != buttonState && !navigation) app->audio->PlayFx(Press);
+}
+
+void GUIButton::HoverButton()
+{
+	if (buttonState == ButtonState::FOCUS) return;
+	buttonState = ButtonState::FOCUS;
+	if (lastState != buttonState && !navigation) app->audio->PlayFx(Hover);
+}
+
+void GUIButton::UpdateMouse()
+{
 	if (CheckOnMouse() && (app->input->GetMouseButton(1) == KEY_DOWN))
 	{
 		PressButton();
@@ -84,45 +129,17 @@ void GUIButton::Update()
 
 	switch (buttonState)
 	{
-		case ButtonState::IDLE:
-			defaultColor = { 255, 255, 255, 255};
+	case ButtonState::IDLE:
+		defaultColor = { 255, 255, 255, 255 };
 		break;
 
-		case ButtonState::FOCUS:
-			defaultColor = { 100, 200, 100, 255};
-			break;
+	case ButtonState::FOCUS:
+		defaultColor = { 100, 200, 100, 255 };
+		break;
 
-		case ButtonState::PRESS_DOWN:
-		case ButtonState::PRESSED:
-			defaultColor = { 100, 0, 0, 255};
-			break;
+	case ButtonState::PRESS_DOWN:
+	case ButtonState::PRESSED:
+		defaultColor = { 100, 0, 0, 255 };
+		break;
 	}
-}
-
-void GUIButton::PostUpdate()
-{
-	if (renderObject != nullptr && renderObject->texture != nullptr)
-	{
-		int newBtnState = CLAMP((int)buttonState, 0, 2);
-
-		app->renderer->AddTextureRenderQueue(renderObject->texture, { position.x, position.y }, renderSections[newBtnState], renderObject->scale,
-											  renderObject->layer, renderObject->orderInLayer, 0, SDL_FLIP_NONE, 0);
-
-		//if(app->debug->debugViewGUIBounds)
-		//app->renderer->AddRectRenderQueue(SDL_Rect{ position.x,position.y,boxShape.w,boxShape.h }, defaultColor.r, defaultColor.g, defaultColor.b, 150, 3, 100, true, 0);
-	}
-	else
-	{
-		app->renderer->AddRectRenderQueue(SDL_Rect{ position.x,position.y,boxShape.w,boxShape.h }, renderColour, true, layer, orderInlayer, 0);
-	}
-}
-
-void GUIButton::PressButton()
-{
-	lastState = buttonState;
-	buttonState = ButtonState::PRESS_DOWN;
-	isPressed = true;
-
-	// Sound Effect
-	if (lastState != buttonState && !navigation) app->audio->PlayFx(Press);
 }

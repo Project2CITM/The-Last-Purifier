@@ -50,6 +50,8 @@ bool ModuleAudio::Init(pugi::xml_node& config)
 
 	SetSFXVolume(fxVol);
 
+	Mix_AllocateChannels(24);
+
 	return ret;
 }
 

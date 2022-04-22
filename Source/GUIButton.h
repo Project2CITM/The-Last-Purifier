@@ -40,6 +40,8 @@ public:
 
 	void PressButton();
 
+	void HoverButton();
+
 	bool navigation = false;
 
 	bool isPressed = false;
@@ -63,6 +65,8 @@ public:
 		this->layer = layer;
 		this->orderInlayer = orderInlayer;
 	};
+private:
+	void UpdateMouse();
 };
 
 #endif // !__GUIBUTTON_H__

@@ -74,9 +74,10 @@ void NPC::Update()
 			if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN||app->input->GetControllerButton(BUTTON_A)==KEY_DOWN)
 			{
 				int num = rand() % (4);
-				app->audio->PlayFx(dialogNPCFX[num]);
+				
 				if (!speaking) {
 					speaking = true;
+					app->audio->PlayFx(dialogNPCFX[num]);
 				}
 				if (sentenceOrder >= sentences.count())
 				{
