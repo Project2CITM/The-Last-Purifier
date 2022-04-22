@@ -31,7 +31,7 @@ public:
 	void SetGauss(SDL_Texture* texture, float sigma = 1, int size = 5);
 
 	// test func
-	void TestTransition(int loop = 0);
+	void TestEffect();
 
 public:
 	List<SDL_Texture*> textures;

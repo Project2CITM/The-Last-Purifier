@@ -380,7 +380,7 @@ bool MainMenu::Update()
 
 bool MainMenu::PostUpdate()
 {
-	app->textures->TestTransition();
+	app->textures->TestEffect();
 
 	if (currentMenu == CurrentMenu::Options)
 	{
