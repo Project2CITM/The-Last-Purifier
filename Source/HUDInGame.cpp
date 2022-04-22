@@ -22,10 +22,6 @@ RenderObject SettingsBG;
 
 RenderObject iconSouls;
 
-RenderObject iconSpells;
-RenderObject deckSpells1;
-RenderObject deckSpells2;
-
 HUDInGame::HUDInGame() :Scene("HUDInGame")
 {
 	// Init event sysem
@@ -55,10 +51,6 @@ bool HUDInGame::Start()
 
 	iconSouls.InitAsTexture(app->textures->Load("Assets/Sprites/UI/icons.png"), { app->renderer->camera->x + 15, app->renderer->camera->y + 21 }, { 62,31,31,31 }, 0.5f, 4, 0, 0, SDL_FLIP_NONE, 0);
 
-	iconSpells.InitAsTexture(app->textures->Load("Assets/Sprites/UI/icons.png"), { app->renderer->camera->x + 304, app->renderer->camera->y + 320 }, { 0,0,0,0 }, 1, 3, 0, 0, SDL_FLIP_NONE, 0);
-	deckSpells1.InitAsTexture(app->textures->Load("Assets/Sprites/UI/icons.png"), { app->renderer->camera->x + 350, app->renderer->camera->y + 335 }, { 0,0,0,0 }, 0.5f, 4, 0, 0, SDL_FLIP_NONE, 0);
-	deckSpells2.InitAsTexture(app->textures->Load("Assets/Sprites/UI/icons.png"), { app->renderer->camera->x + 375, app->renderer->camera->y + 335 }, { 0,0,0,0 }, 0.5f, 4, 0, 0, SDL_FLIP_NONE, 0);
-
 	Hover = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiHover.wav");
 	Press = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiSelect.wav");
 
@@ -66,17 +58,6 @@ bool HUDInGame::Start()
 
 	playerHp.bg = playerHp.delayHp = playerHp.currentHp = { app->renderer->camera->x + 15, app->renderer->camera->y + 10, 200, 10 };
 	miniMap = { app->renderer->camera->x + 535, app->renderer->camera->y + 5, 100, 100 };
-
-	spell1 = { app->renderer->camera->x + 305, app->renderer->camera->y + 314, 30, 40 };
-	spell2_1 = { app->renderer->camera->x + 275, app->renderer->camera->y + 314, 30, 40 };
-	spell2_2 = { app->renderer->camera->x + 335, app->renderer->camera->y + 314, 30, 40 };
-	spell3_1 = { app->renderer->camera->x + 245, app->renderer->camera->y + 314, 30, 40 };
-	spell3_2 = { app->renderer->camera->x + 305, app->renderer->camera->y + 314, 30, 40 };
-	spell3_3 = { app->renderer->camera->x + 365, app->renderer->camera->y + 314, 30, 40 };
-	spell4_1 = { app->renderer->camera->x + 215, app->renderer->camera->y + 314, 30, 40 };
-	spell4_2 = { app->renderer->camera->x + 275, app->renderer->camera->y + 314, 30, 40 };
-	spell4_3 = { app->renderer->camera->x + 335, app->renderer->camera->y + 314, 30, 40 };
-	spell4_4 = { app->renderer->camera->x + 395, app->renderer->camera->y + 314, 30, 40 };
 
 	resumeBUT = { app->renderer->camera->x + 155, app->renderer->camera->y + 70};//640 pixeles with pantalla
 	settingsBUT = { app->renderer->camera->x + 155, app->renderer->camera->y + 160};
@@ -194,14 +175,12 @@ bool HUDInGame::Update()
 				{
 					ControllerPos += 1;
 					if (ControllerPos >= 7) ControllerPos = 0;
-					//app->audio->PlayFx(Hover);
 					AxisPress = true;
 				}
 				else if ((leftYMain < -10000 || app->input->GetControllerButton(BUTTON_UP) == KEY_DOWN) && !AxisPress)
 				{
 					ControllerPos -= 1;
 					if (ControllerPos < 0) ControllerPos = 6;
-					//app->audio->PlayFx(Hover);
 					AxisPress = true;
 				}
 				else if (abs(leftYMain) < 1000)
@@ -280,14 +259,12 @@ bool HUDInGame::Update()
 				{
 					ControllerPosOpY += 1;
 					if (ControllerPosOpY > 3) ControllerPosOpY = 0;
-					app->audio->PlayFx(Hover);
 					AxisPress = true;
 				}
 				else if ((leftYOptions < -10000 || app->input->GetControllerButton(BUTTON_UP) == KEY_DOWN) && !AxisPress)
 				{
 					ControllerPosOpY -= 1;
 					if (ControllerPosOpY < 0) ControllerPosOpY = 3;
-					app->audio->PlayFx(Hover);
 					AxisPress = true;
 				}
 				else if (abs(leftYOptions) < 1000)
@@ -400,102 +377,6 @@ bool HUDInGame::PostUpdate()
 	std::string selectedSpellText = GetSpellName(player->spellSlots[player->selectedSpell]->id) + " x" + std::to_string(player->spellSlots[player->selectedSpell]->uses);
 	if (player->spellSlots[player->selectedSpell]->id != SpellID::NONE) currentSpellText->SetText(selectedSpellText);
 	else currentSpellText->SetText("");
-
-	/*if (player->availableSpellSlots == 1)
-	{
-		app->renderer->AddRectRenderQueue(spell1, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
-		if (player->selectedSpell == 0)	app->renderer->AddRectRenderQueue(spell1, { 255, 0, 0, 255 }, false, 3, 3.0f, 0.0f);
-
-		switch ((int)player->spellSlots[0]->id)
-		{
-		case (int)SpellID::PURIFIED_SWORD:
-			iconSpells.section = { 31,0,31,31 };
-			break;
-		case (int)SpellID::SOUL_SHIELD:
-			iconSpells.section = { 31,31,31,31 };
-			break;
-		case (int)SpellID::PURIFICATION_SLASH:
-			iconSpells.section = { 0,31,31,31 };
-			break;
-		case (int)SpellID::EKRISKI:
-			iconSpells.section = { 61,0,31,31 };
-			break;
-		case (int)SpellID::FOTEIROS:
-			iconSpells.section = { 0,0,31,31 };
-			break;
-		default:
-			iconSpells.section = { 300,300,3,3 };
-		}
-
-		switch ((int)player->deckSlots[0]->id)
-		{
-		case (int)SpellID::PURIFIED_SWORD:
-			deckSpells1.section = { 31,0,31,31 };
-			break;
-		case (int)SpellID::SOUL_SHIELD:
-			deckSpells1.section = { 31,31,31,31 };
-			break;
-		case (int)SpellID::PURIFICATION_SLASH:
-			deckSpells1.section = { 0,31,31,31 };
-			break;
-		case (int)SpellID::EKRISKI:
-			deckSpells1.section = { 61,0,31,31 };
-			break;
-		case (int)SpellID::FOTEIROS:
-			deckSpells1.section = { 0,0,31,31 };
-			break;
-		default:
-			deckSpells1.section = { 300,300,3,3 };
-		}
-		switch ((int)player->deckSlots[1]->id)
-		{
-		case (int)SpellID::PURIFIED_SWORD:
-			deckSpells2.section = { 31,0,31,31 };
-			break;
-		case (int)SpellID::SOUL_SHIELD:
-			deckSpells2.section = { 31,31,31,31 };
-			break;
-		case (int)SpellID::PURIFICATION_SLASH:
-			deckSpells2.section = { 0,31,31,31 };
-			break;
-		case (int)SpellID::EKRISKI:
-			deckSpells2.section = { 61,0,31,31 };
-			break;
-		case (int)SpellID::FOTEIROS:
-			deckSpells2.section = { 0,0,31,31 };
-			break;
-		default:
-			deckSpells2.section = { 300,300,3,3 };
-		}
-
-	}
-	if (player->availableSpellSlots == 2)
-	{
-		app->renderer->AddRectRenderQueue(spell2_1, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
-		app->renderer->AddRectRenderQueue(spell2_2, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
-		if (player->selectedSpell == 0)	app->renderer->AddRectRenderQueue(spell2_1, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
-		if (player->selectedSpell == 1)	app->renderer->AddRectRenderQueue(spell2_2, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
-	}	
-	if (player->availableSpellSlots == 3)
-	{
-		app->renderer->AddRectRenderQueue(spell3_1, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
-		app->renderer->AddRectRenderQueue(spell3_2, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
-		app->renderer->AddRectRenderQueue(spell3_3, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
-		if (player->selectedSpell == 0)	app->renderer->AddRectRenderQueue(spell3_1, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
-		if (player->selectedSpell == 1)	app->renderer->AddRectRenderQueue(spell3_2, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
-		if (player->selectedSpell == 2)	app->renderer->AddRectRenderQueue(spell3_3, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
-	}
-	if (player->availableSpellSlots == 4)
-	{
-		app->renderer->AddRectRenderQueue(spell4_1, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
-		app->renderer->AddRectRenderQueue(spell4_2, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
-		app->renderer->AddRectRenderQueue(spell4_3, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
-		app->renderer->AddRectRenderQueue(spell4_4, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
-		if (player->selectedSpell == 0)	app->renderer->AddRectRenderQueue(spell4_1, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
-		if (player->selectedSpell == 1)	app->renderer->AddRectRenderQueue(spell4_2, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
-		if (player->selectedSpell == 2)	app->renderer->AddRectRenderQueue(spell4_3, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
-		if (player->selectedSpell == 3)	app->renderer->AddRectRenderQueue(spell4_4, { 255, 0, 0, 255 }, true, 4, 2.0f, 0.0f);
-	}*/
 
 	//LOG("Spell: %d", player->selectedSpell);
 

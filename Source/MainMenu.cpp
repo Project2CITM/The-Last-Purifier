@@ -169,14 +169,12 @@ bool MainMenu::Update()
 			{
 				ControllerPos += 1;
 				if (ControllerPos > 4) ControllerPos = 0;
-				app->audio->PlayFx(Hover);
 				AxisPress = true;
 			}
 			else if ((leftYMain < -10000 || app->input->GetControllerButton(BUTTON_UP) == KEY_DOWN) && !AxisPress)
 			{
 				ControllerPos -= 1;
 				if (ControllerPos < 0) ControllerPos = 4;
-				app->audio->PlayFx(Hover);
 				AxisPress = true;
 			}
 			else if (abs(leftYMain) < 2500)
@@ -239,14 +237,12 @@ bool MainMenu::Update()
 			{
 				ControllerPosOpY += 1;
 				if (ControllerPosOpY > 3) ControllerPosOpY = 0;
-				app->audio->PlayFx(Hover);
 				AxisPress = true;
 			}
 			else if ((leftYOptions < -10000 || app->input->GetControllerButton(BUTTON_UP) == KEY_DOWN) && !AxisPress)
 			{
 				ControllerPosOpY -= 1;
 				if (ControllerPosOpY < 0) ControllerPosOpY = 3;
-				app->audio->PlayFx(Hover);
 				AxisPress = true;
 			}
 			else if (abs(leftYOptions) < 1000)
@@ -322,14 +318,12 @@ bool MainMenu::Update()
 			{
 				ControllerPosCr += 1;
 				if (ControllerPosCr > 4) ControllerPosCr = 0;
-				app->audio->PlayFx(Hover);
 				AxisPress = true;
 			}
 			else if ((leftYOptions < -10000 || app->input->GetControllerButton(BUTTON_UP) == KEY_DOWN) && !AxisPress)
 			{
 				ControllerPosCr -= 1;
 				if (ControllerPosCr < 0) ControllerPosCr = 4;
-				app->audio->PlayFx(Hover);
 				AxisPress = true;
 			}
 			else if (abs(leftYOptions) < 1000)
