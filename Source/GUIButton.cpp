@@ -73,6 +73,8 @@ void GUIButton::PressButton()
 	buttonState = ButtonState::PRESS_DOWN;
 	isPressed = true;
 
+	if (app->input->GetMouseButton(1) == KEY_UP) return;
+
 	// Sound Effect
 	if (lastState != buttonState && !navigation) app->audio->PlayFx(Press);
 }

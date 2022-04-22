@@ -14,8 +14,11 @@ PlayerCombat::PlayerCombat(std::string name, std::string tag, Player* player) : 
 {
 	this->player = player;
 
-	playerAttackFX = app->audio->LoadFx("Assets/Audio/SFX/Player/Melee/sfx_playerAttackHit1.wav");
-	
+	for (int i = 0; i < 5; i++)
+	{
+		std::string attack = "Assets/Audio/SFX/Player/Melee/sfx_playerMeleeAttack" + std::to_string(i+1) + ".wav";
+		playerAttackFX[i] = app->audio->LoadFx(attack.c_str());
+	}
 }
 
 void PlayerCombat::Start()
@@ -98,11 +101,14 @@ void PlayerCombat::Attack()
 {
 	if (!canAttack) return;
 
+	int randomNum = rand() % 5;
+
 	switch (player->playerClass)
 	{
 	case PlayerClass::REVENANT:
 		RevenantAttack();
-		app->audio->PlayFx(playerAttackFX);
+	
+		app->audio->PlayFx(playerAttackFX[randomNum]);
 		printf("Attack Revenant!\n");
 		break;
 	case PlayerClass::SAGE:

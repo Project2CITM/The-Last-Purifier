@@ -74,16 +74,6 @@ private:
 	//Player player;
 	PlayerHpGUI playerHp;
 	SDL_Rect miniMap = {0,0,0,0};
-	SDL_Rect spell1 = {0,0,0,0};
-	SDL_Rect spell2_1 = {0,0,0,0};
-	SDL_Rect spell2_2 = {0,0,0,0};
-	SDL_Rect spell3_1 = {0,0,0,0};
-	SDL_Rect spell3_2 = {0,0,0,0};
-	SDL_Rect spell3_3 = {0,0,0,0};
-	SDL_Rect spell4_1 = {0,0,0,0};
-	SDL_Rect spell4_2 = {0,0,0,0};
-	SDL_Rect spell4_3 = {0,0,0,0};
-	SDL_Rect spell4_4 = {0,0,0,0};
 
 	List<RenderObject> spellSlots;
 	List<RenderObject> deckSlots;

@@ -37,7 +37,7 @@ bool LogoScene::Start()
 
 bool LogoScene::PreUpdate()
 {
-	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN ||app->input->GetControllerButton(JoystickButtons::BUTTON_A) == KEY_DOWN)
 	{
 		count = 456;
 	}
