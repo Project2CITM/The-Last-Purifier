@@ -359,26 +359,34 @@ bool HUDInGame::PostUpdate()
 
 	app->renderer->AddRectRenderQueue(miniMap, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
 
+	// Draw an empty rectangle for every abailable spell slot space
 	for (int i = 0; i < player->availableSpellSlots; i++)
 	{
+		// Get position from spellSlotsPosition[numberOfSlots][currentSlot] (Initialized at InitializeSpellSlotsPositions())
 		app->renderer->AddRectRenderQueue(spellSlotsPositions[player->availableSpellSlots-1][i], { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
+		// Get current Spell section from GetSpellSection()
 		spellSlots[i].section = GetSpellSection(i, false);
+		// Draw Spell icon
 		app->renderer->AddRenderObjectRenderQueue(spellSlots[i]);
 	}
 
+	// Draw a spell for every available deck slots
 	for (int i = 0; i < player->availableDeckSlots; i++)
 	{
+		// Get spell section from GetSpellSection()
 		deckSlots[i].section = GetSpellSection(i, true);
+		// Draw spell slot
 		app->renderer->AddRenderObjectRenderQueue(deckSlots[i]);
 	}
 
+	// Draw red rectangle on spellSlotsPosition[numberOfSlots][player->selectedSpell] position
 	app->renderer->AddRectRenderQueue(spellSlotsPositions[player->availableSpellSlots - 1][player->selectedSpell], { 255, 0, 0, 255 }, false, 3, 3.0f, 0.0f);
 	
+	// Get selected spell name and current uses.
 	std::string selectedSpellText = GetSpellName(player->spellSlots[player->selectedSpell]->id) + " x" + std::to_string(player->spellSlots[player->selectedSpell]->uses);
+	// If we dont have an empty spell slot, we set Text
 	if (player->spellSlots[player->selectedSpell]->id != SpellID::NONE) currentSpellText->SetText(selectedSpellText);
-	else currentSpellText->SetText("");
-
-	//LOG("Spell: %d", player->selectedSpell);
+	else currentSpellText->SetText(""); // Else, clear current text
 
 	if (app->isPause)
 	{
@@ -491,6 +499,7 @@ void HUDInGame::UpdatePlayerHp()
 
 void HUDInGame::InitializeSlots()
 {
+	// Create a render Object per available spell slot
 	for (int i = 0; i < player->availableSpellSlots; i++)
 	{
 		RenderObject rO;
@@ -499,10 +508,13 @@ void HUDInGame::InitializeSlots()
 		spellSlots.add(rO);
 	}
 
+	// Create a render object per available deck slot
 	for (int i = 0; i < player->availableDeckSlots; i++)
 	{
 		RenderObject rO;
+		// Get position from last spell slot position
 		iPoint spellPos = { spellSlotsPositions[player->availableSpellSlots - 1].end->data.x, spellSlotsPositions[player->availableSpellSlots - 1].end->data.y };
+		// Add an offset to that position based on the current iteration
 		iPoint position = spellPos + iPoint(40, 0);
 		position.x += 20 * i;
 		position.y = 340;
@@ -513,19 +525,24 @@ void HUDInGame::InitializeSlots()
 
 void HUDInGame::InitializeSpellSlotsPositions()
 {
-	spellSlotsPositions[0].add({ 304, 320, 30, 40 });
+	// This is an array of Lists, where we keep the desired position of every spell slot instead of creating an algorythm
+	// To understand this, keep in mind:
+	// spellSlotsPositions[numberOfSlots][slot]
+	// Example: spellSlotsPositions[2Slots][slot1] = There are 2 available slots, and we are refering to the first one
+	
+	spellSlotsPositions[0].add({ 304, 320, 30, 40 }); // 1 Available: Refering to slot 1
 
-	spellSlotsPositions[1].add({280, 320, 30, 40 });
-	spellSlotsPositions[1].add({ 320, 320 , 30, 40 });
+	spellSlotsPositions[1].add({280, 320, 30, 40 });// 2 Available: Refering to slot 1
+	spellSlotsPositions[1].add({ 320, 320 , 30, 40 });// 2 Available: Refering to slot 2
 
-	spellSlotsPositions[2].add({ 320, 320 , 30, 40 });
-	spellSlotsPositions[2].add({ 320, 320, 30, 40 });
-	spellSlotsPositions[2].add({ 320, 320 , 30, 40 });
+	spellSlotsPositions[2].add({ 320, 320 , 30, 40 });// 3 Available: Refering to slot 1
+	spellSlotsPositions[2].add({ 320, 320, 30, 40 });// 3 Available: Refering to slot 2
+	spellSlotsPositions[2].add({ 320, 320 , 30, 40 });// 3 Available: Refering to slot 3
 
-	spellSlotsPositions[3].add({ 320, 320 , 30, 40 });
-	spellSlotsPositions[3].add({ 320, 320 , 30, 40 });
-	spellSlotsPositions[3].add({ 320, 320 , 30, 40 });
-	spellSlotsPositions[3].add({ 320, 320 , 30, 40 });
+	spellSlotsPositions[3].add({ 320, 320 , 30, 40 });// 4 Available: Refering to slot 1
+	spellSlotsPositions[3].add({ 320, 320 , 30, 40 });// 4 Available: Refering to slot 2
+	spellSlotsPositions[3].add({ 320, 320 , 30, 40 });// 4 Available: Refering to slot 3
+	spellSlotsPositions[3].add({ 320, 320 , 30, 40 });// 4 Available: Refering to slot 4
 }
 
 SDL_Rect HUDInGame::GetSpellSection(int slot, bool isDeck)
