@@ -148,6 +148,7 @@ public:
 	bool draw = true;
 	std::string name = "null";
 	SDL_Color color = { 255,255,255,255 };
+	bool orderOnHeight = true;
 	#pragma endregion
 
 	#pragma region Texture parameter

@@ -16,6 +16,7 @@
 #include "Enemy.h"
 
 #include "ModuleMap.h"
+#include "PlayerShadow.h"
 
 PlayerController::PlayerController(std::string name, std::string tag, Player* player) : GameObject(name, tag)
 {
@@ -25,6 +26,7 @@ PlayerController::PlayerController(std::string name, std::string tag, Player* pl
 
 	playerdodgeFX = app->audio->LoadFx("Assets/Audio/SFX/Player/sfx_playerDodge.wav");
 	playerhitFX = app->audio->LoadFx("Assets/Audio/SFX/Player/sfx_playerHit2");
+	new PlayerShadow(this);
 }
 
 void PlayerController::Start() 

@@ -147,6 +147,7 @@
     <ClInclude Include="PlayerController.h" />
     <ClInclude Include="PlayerRevenant.h" />
     <ClInclude Include="PlayerSage.h" />
+    <ClInclude Include="PlayerShadow.h" />
     <ClInclude Include="PlayerStats.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Projectile.h" />
@@ -227,6 +228,7 @@
     <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="PlayerRevenant.cpp" />
     <ClCompile Include="PlayerSage.cpp" />
+    <ClCompile Include="PlayerShadow.cpp" />
     <ClCompile Include="PlayerStats.cpp" />
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="PurificationSlashS.cpp" />

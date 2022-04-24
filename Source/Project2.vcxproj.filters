@@ -363,6 +363,9 @@
     <ClInclude Include="EkriskiDamageArea.h">
       <Filter>Archivos de encabezado\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerShadow.h">
+      <Filter>Archivos de encabezado\Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\PugiXml\src\pugixml.cpp">
@@ -586,6 +589,9 @@
     </ClCompile>
     <ClCompile Include="EkriskiDamageArea.cpp">
       <Filter>Archivos de origen\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerShadow.cpp">
+      <Filter>Archivos de origen\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

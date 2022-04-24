@@ -128,6 +128,7 @@ iPoint GameObject::GetDrawPosition(int index)
 
 void GameObject::UpdateOrderInLayer(int index)
 {
+	if (!renderObjects[index].orderOnHeight) return;
 	if (pBody != nullptr)
 	{
 		renderObjects[index].orderInLayer = GetPosition().y + pBody->height;
