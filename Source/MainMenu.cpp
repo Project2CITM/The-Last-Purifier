@@ -374,7 +374,7 @@ bool MainMenu::Update()
 
 bool MainMenu::PostUpdate()
 {
-	app->textures->TestEffect();
+	//app->textures->TestEffect();
 
 	if (currentMenu == CurrentMenu::Options)
 	{
