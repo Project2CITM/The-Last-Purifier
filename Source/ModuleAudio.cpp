@@ -55,6 +55,16 @@ bool ModuleAudio::Init(pugi::xml_node& config)
 	return ret;
 }
 
+UpdateStatus ModuleAudio::PreUpdate()
+{
+	for (auto it = frameAudios.begin(); it != frameAudios.end(); ++it)
+	{
+		PlayFrameFx(it->first, it->second);
+	}
+	frameAudios.clear();
+	return UpdateStatus::UPDATE_CONTINUE;
+}
+
 // Called before quitting
 bool ModuleAudio::CleanUp()
 {
@@ -172,20 +182,30 @@ unsigned int ModuleAudio::LoadFx(const char* path)
 // Play WAV
 bool ModuleAudio::PlayFx(unsigned int id, int repeat)
 {
-	if(IsEnabled() == false)
-		return false;
-
-	bool ret = false;
-
-	if (fx.count() < id-1) return false;
-
-	if (fx.find(fx[id-1]) != -1)
+	// Check if this sound is already been played on this frame
+	for (auto it = frameAudios.begin(); it != frameAudios.end(); ++it)
 	{
-		Mix_PlayChannel(-1, fx[id-1], repeat);
-		ret = true;
+		if (it->first == id) return true;
+	}
+	// If not, add it to Frame Audios
+
+	frameAudios.insert({ id, repeat });
+	return true;
+}
+
+void ModuleAudio::PlayFrameFx(unsigned int id, int repeat)
+{
+	if (IsEnabled() == false)
+		return;
+
+	if (fx.count() < id - 1) return;
+
+	if (fx.find(fx[id - 1]) != -1)
+	{
+		Mix_PlayChannel(-1, fx[id - 1], repeat);
 	}
 
-	return ret;
+	return;
 }
 
 void ModuleAudio::SetMusicVolume(int vol)

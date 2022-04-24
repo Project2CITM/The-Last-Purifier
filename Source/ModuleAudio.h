@@ -3,6 +3,7 @@
 
 #include "Module.h"
 #include "External/SDL_mixer\include\SDL_mixer.h"
+#include <map>
 
 #define DEFAULT_MUSIC_FADE_TIME 2.0f
 
@@ -22,6 +23,12 @@ enum SFX
 	MOUSEDOWN
 };
 
+struct FxInfo
+{
+	uint id;
+	int repeat;
+};
+
 class ModuleAudio : public Module
 {
 public:
@@ -30,6 +37,9 @@ public:
 	~ModuleAudio();
 
 	bool Init(pugi::xml_node&);
+
+	UpdateStatus PreUpdate() override;
+
 	bool CleanUp();
 
 	// Play a music file
@@ -39,11 +49,15 @@ public:
 	unsigned int LoadFx(const char* path);
 
 	// Play a previously loaded WAV
-	bool PlayFx(unsigned int fx, int repeat = 0);
+	bool PlayFx(unsigned int id, int repeat = 0);
 
 	void SetMusicVolume(int vol);
 
 	void SetSFXVolume(int vol);
+
+private:
+
+	void PlayFrameFx(unsigned int id, int repeat = 0);
 
 public:
 	float musicVol = 0;
@@ -57,6 +71,8 @@ private:
 	List<Mix_Chunk*>	fx;
 
 	List<std::string> audioPaths;
+
+	std::map<uint, int> frameAudios;
 };
 
 #endif // __Module_Audio_H__
