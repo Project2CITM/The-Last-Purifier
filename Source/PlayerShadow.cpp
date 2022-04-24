@@ -10,7 +10,11 @@ PlayerShadow::PlayerShadow(GameObject* follow) : GameObject("PlayerShadow", "Pla
 
 void PlayerShadow::PreUpdate()
 {
-	if (follow->pendingToDelete) return;
+	if (follow->pendingToDelete)
+	{
+		pendingToDelete = true;
+		return;
+	}
 	if (pendingToDelete) return;
 	SetPosition(follow->GetPosition() + offset);
 }
