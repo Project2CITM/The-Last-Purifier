@@ -89,6 +89,8 @@ bool HUDInGame::Start()
 	fxSlider->SetValue(app->audio->fxVol / 255);
 
 	FullScreenCHK = new GUICheckbox({ app->renderer->camera->x + 350, app->renderer->camera->y + 215 }, 60, 60, MenuButton::SETTINGSPAUSE, "Assets/Sprites/UI/CheckBox.png");
+	FullScreenCHK->ChangeState(app->FullScreenDesktop);
+
 
 	InitializeSpellSlotsPositions();
 	currentSpellText = new Text({ 280, 300 }, "");

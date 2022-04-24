@@ -34,7 +34,7 @@ bool ModuleWindow::Init(pugi::xml_node& config)
 		// L01: DONE 6: Load all required configurations from config.xml
 		Uint32 flags = SDL_WINDOW_SHOWN;
 		//bool fullscreen = n.attribute("fullScreen").as_bool(false);
-		bool fullscreen = false;
+		bool fullscreen = config.child("fullscreen").attribute("value").as_bool(false);
 		bool borderless = config.child("borderless").attribute("value").as_bool(false);
 		bool resizable = config.child("resizable").attribute("value").as_bool(false);
 		bool fullscreen_window = config.child("fullscreen_window").attribute("value").as_bool(false);
@@ -43,12 +43,15 @@ bool ModuleWindow::Init(pugi::xml_node& config)
 		height = config.child("resolution").attribute("height").as_int(480);
 		scale = config.child("resolution").attribute("scale").as_int(1);
 
-		if (fullscreen == true) flags |= SDL_WINDOW_FULLSCREEN;
+		//if (fullscreen == true) flags |= SDL_WINDOW_FULLSCREEN;
 		if (borderless == true) flags |= SDL_WINDOW_BORDERLESS;
 		if (resizable == true) flags |= SDL_WINDOW_RESIZABLE;
 		if (fullscreen_window == true) flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
 
 		window = SDL_CreateWindow(app->GetTitle(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
+
+		if (fullscreen) ToggleFullScreen(fullscreen);
+		app->FullScreenDesktop = fullscreen;
 
 		if (window == NULL)
 		{
@@ -72,6 +75,8 @@ bool ModuleWindow::Init(pugi::xml_node& config)
 // Called before quitting
 bool ModuleWindow::CleanUp()
 {
+	app->config.child("window").child("fullscreen").attribute("value") = app->FullScreenDesktop;
+	app->SaveGame();
 	LOG("Destroying SDL window and quitting all SDL systems");
 
 	//Destroy window

@@ -99,8 +99,6 @@ public:
 
 	bool isPause = false;
 
-	bool fullScreen = false;
-
 	// Load / Save
 	bool LoadGame();
 
