@@ -68,6 +68,7 @@ private:
 	void InitializeSpellSlotsPositions();
 	SDL_Rect GetSpellSection(int slot, bool isDeck);
 	std::string GetSpellName(SpellID id);
+	void UpdateSpellText();
 
 private:
 
@@ -81,6 +82,7 @@ private:
 	List<SDL_Rect> spellSlotsPositions[4];
 
 	Text* currentSpellText = nullptr;
+	Text* currentSpellLevelText = nullptr;
 
 	iPoint resumeBUT = { 0,0 };
 	iPoint settingsBUT = { 0,0 };

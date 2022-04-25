@@ -94,7 +94,8 @@ bool HUDInGame::Start()
 
 
 	InitializeSpellSlotsPositions();
-	currentSpellText = new Text({ 280, 300 }, "");
+	currentSpellText = new Text({ 280, 280 }, "");
+	currentSpellLevelText = new Text({ 280, 300 }, "");
 
 	Scene::Start();
 
@@ -384,12 +385,9 @@ bool HUDInGame::PostUpdate()
 
 	// Draw red rectangle on spellSlotsPosition[numberOfSlots][player->selectedSpell] position
 	app->renderer->AddRectRenderQueue(spellSlotsPositions[player->player->spellSlots - 1][player->selectedSpell], { 255, 0, 0, 255 }, false, 3, 3.0f, 0.0f);
-	
-	// Get selected spell name and current uses.
-	std::string selectedSpellText = GetSpellName(player->spellSlots[player->selectedSpell]->id) + " x" + std::to_string(player->spellSlots[player->selectedSpell]->uses);
-	// If we dont have an empty spell slot, we set Text
-	if (player->spellSlots[player->selectedSpell]->id != SpellID::NONE) currentSpellText->SetText(selectedSpellText);
-	else currentSpellText->SetText(""); // Else, clear current text
+
+	// Update Text with spell information
+	UpdateSpellText();
 
 	if (app->isPause)
 	{
@@ -611,4 +609,22 @@ std::string HUDInGame::GetSpellName(SpellID id)
 		break;
 	}
 	return text;
+}
+
+void HUDInGame::UpdateSpellText()
+{
+	// Get selected spell name and current uses.
+	std::string selectedSpellText = GetSpellName(player->spellSlots[player->selectedSpell]->id) + " x" + std::to_string(player->spellSlots[player->selectedSpell]->uses);
+	std::string selectedSpellLvl = "Lvl " + std::to_string(player->spellSlots[player->selectedSpell]->spellLevel);
+	// If we dont have an empty spell slot, we set Text
+	if (player->spellSlots[player->selectedSpell]->id != SpellID::NONE)
+	{
+		currentSpellText->SetText(selectedSpellText);
+		currentSpellLevelText->SetText(selectedSpellLvl);
+	}
+	else  // Else, clear current text
+	{
+		currentSpellText->SetText("");
+		currentSpellLevelText->SetText("");
+	} 
 }

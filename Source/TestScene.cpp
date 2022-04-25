@@ -58,8 +58,8 @@ bool TestScene::Start()
 
     Scene::Start();
 
-    Souls soul1(player->controller->GetPosition());
-    soul1.Start();
+    Souls* soul1 = new Souls(player->controller->GetPosition());
+    soul1->Start();
     app->renderer->camera->SetPosition(player->controller->GetPosition());
 
     app->renderer->camera->SetTarget(player->controller);
