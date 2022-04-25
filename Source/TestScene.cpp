@@ -15,6 +15,7 @@
 #include "Kaboom.h"
 #include "Worm.h"
 #include "ParticleAttackRevenant.h"
+#include "PlayerStats.h"
 
 TestScene::TestScene() : SceneGame("testScene")
 {

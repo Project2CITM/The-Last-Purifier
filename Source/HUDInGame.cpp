@@ -26,6 +26,7 @@ HUDInGame::HUDInGame() :Scene("HUDInGame")
 {
 	// Init event sysem
 	this->listenTo[0] = GameEvent::PLAYER_HIT;
+	this->listenTo[1] = GameEvent::UPDATE_COMMON_TREE;
 
 	app->events->AddListener(this);
 }
@@ -362,10 +363,10 @@ bool HUDInGame::PostUpdate()
 	app->renderer->AddRectRenderQueue(miniMap, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
 
 	// Draw an empty rectangle for every abailable spell slot space
-	for (int i = 0; i < player->availableSpellSlots; i++)
+	for (int i = 0; i < player->player->spellSlots; i++)
 	{
 		// Get position from spellSlotsPosition[numberOfSlots][currentSlot] (Initialized at InitializeSpellSlotsPositions())
-		app->renderer->AddRectRenderQueue(spellSlotsPositions[player->availableSpellSlots-1][i], { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
+		app->renderer->AddRectRenderQueue(spellSlotsPositions[player->player->spellSlots -1][i], { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
 		// Get current Spell section from GetSpellSection()
 		spellSlots[i].section = GetSpellSection(i, false);
 		// Draw Spell icon
@@ -373,7 +374,7 @@ bool HUDInGame::PostUpdate()
 	}
 
 	// Draw a spell for every available deck slots
-	for (int i = 0; i < player->availableDeckSlots; i++)
+	for (int i = 0; i < player->player->deckSlots; i++)
 	{
 		// Get spell section from GetSpellSection()
 		deckSlots[i].section = GetSpellSection(i, true);
@@ -382,7 +383,7 @@ bool HUDInGame::PostUpdate()
 	}
 
 	// Draw red rectangle on spellSlotsPosition[numberOfSlots][player->selectedSpell] position
-	app->renderer->AddRectRenderQueue(spellSlotsPositions[player->availableSpellSlots - 1][player->selectedSpell], { 255, 0, 0, 255 }, false, 3, 3.0f, 0.0f);
+	app->renderer->AddRectRenderQueue(spellSlotsPositions[player->player->spellSlots - 1][player->selectedSpell], { 255, 0, 0, 255 }, false, 3, 3.0f, 0.0f);
 	
 	// Get selected spell name and current uses.
 	std::string selectedSpellText = GetSpellName(player->spellSlots[player->selectedSpell]->id) + " x" + std::to_string(player->spellSlots[player->selectedSpell]->uses);
@@ -457,13 +458,20 @@ bool HUDInGame::CleanUp()
 
 void HUDInGame::GameEventTriggered(GameEvent id)
 {
-	// Call when player Hit
-
 	float percent = (float)player->player->hpPlayer / (float)player->player->hpMax;
 
 	float hp = (playerHp.bg.w * percent);
+	// Call when player Hit
+	switch (id)
+	{
+	case GameEvent::PLAYER_HIT:
+		playerHp.currentHp.w = (int)hp;
+		break;
+	case GameEvent::UPDATE_COMMON_TREE:
+		InitializeSlots();
+		break;
+	}
 
-	playerHp.currentHp.w = (int)hp;
 }
 
 void HUDInGame::SetPlayerCombat(PlayerCombat* playerC)
@@ -501,21 +509,23 @@ void HUDInGame::UpdatePlayerHp()
 
 void HUDInGame::InitializeSlots()
 {
+	spellSlots.clear();
+	deckSlots.clear();
 	// Create a render Object per available spell slot
-	for (int i = 0; i < player->availableSpellSlots; i++)
+	for (int i = 0; i < player->player->spellSlots; i++)
 	{
 		RenderObject rO;
-		iPoint pos = { spellSlotsPositions[player->availableSpellSlots - 1][i].x, spellSlotsPositions[player->availableSpellSlots - 1][i].y };
+		iPoint pos = { spellSlotsPositions[player->player->spellSlots - 1][i].x, spellSlotsPositions[player->player->spellSlots - 1][i].y };
 		rO.InitAsTexture(app->textures->Load("Assets/Sprites/UI/icons.png"), pos, { 0,0,0,0 }, 1, 3, 0, 0, SDL_FLIP_NONE, 0);
 		spellSlots.add(rO);
 	}
 
 	// Create a render object per available deck slot
-	for (int i = 0; i < player->availableDeckSlots; i++)
+	for (int i = 0; i < player->player->deckSlots; i++)
 	{
 		RenderObject rO;
 		// Get position from last spell slot position
-		iPoint spellPos = { spellSlotsPositions[player->availableSpellSlots - 1].end->data.x, spellSlotsPositions[player->availableSpellSlots - 1].end->data.y };
+		iPoint spellPos = { spellSlotsPositions[player->player->spellSlots - 1].end->data.x, spellSlotsPositions[player->player->spellSlots - 1].end->data.y };
 		// Add an offset to that position based on the current iteration
 		iPoint position = spellPos + iPoint(40, 0);
 		position.x += 20 * i;

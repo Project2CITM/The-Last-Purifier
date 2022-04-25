@@ -6,6 +6,7 @@
 #include "SpellList.h"
 #include "ExecuteSpell.h"
 #include "GameObject.h"
+#include "ModuleEvents.h"
 
 class Player;
 class PhysBody;
@@ -13,7 +14,7 @@ class PlayerController;
 struct b2Vec2;
 class DamageArea;
 
-class PlayerCombat : GameObject
+class PlayerCombat : GameObject, EventListener
 {
 public:
 	PlayerCombat(std::string name, std::string tag, Player* player);
@@ -51,9 +52,6 @@ public:
 
 	void CleanUp();
 
-	int availableSpellSlots; // Determines how many available spell slots the player has.
-	int availableDeckSlots;
-
 	int selectedSpell; // The current selected spell slot on the list. This is an index.
 
 	ExecuteSpell* executeSpellCommand = nullptr; // The command that fires the selected spell on the current spell slot to the SpellList.
@@ -63,6 +61,8 @@ private:
 	/// debug function to show current spell and deck slots.
 	/// </summary>
 	void PrintSlotsState();
+
+	void GameEventTriggered(GameEvent id);
 
 	void RevenantAttack();
 

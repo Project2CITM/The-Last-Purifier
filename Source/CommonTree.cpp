@@ -1,6 +1,7 @@
 #include "CommonTree.h"
 #include "ModuleScene.h"
 #include "SceneGame.h"
+#include "ModuleInput.h"
 
 CommonTree* CommonTree::instance = nullptr;
 
@@ -42,17 +43,10 @@ void CommonTree::Start()
 	LoadBaseTree();
 	LoadDictionary();
 	SaveLoadTree(true);
-
-	Upgrade(0);
-	Upgrade(1);
-	Upgrade(2);
-	Upgrade(3);
-	Upgrade(4);
 }
 
 void CommonTree::PreUpdate()
 {
-	
 }
 
 void CommonTree::Update()
@@ -182,6 +176,9 @@ bool CommonTree::Upgrade(int id)
 
 	//Increases the bonus attribute of an upgrade
 	IncreaseValue((CommonUpgrades) element->type);
+
+	// If we have unlocked a node from the tree, we trigger an event
+	if (toReturn) Application::GetInstance()->events->TriggerEvent(GameEvent::UPDATE_COMMON_TREE);
 
 	return toReturn;
 }

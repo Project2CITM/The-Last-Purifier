@@ -13,6 +13,8 @@
 PlayerCombat::PlayerCombat(std::string name, std::string tag, Player* player) : GameObject(name, tag)
 {
 	this->player = player;
+	this->listenTo[0] = GameEvent::UPDATE_PLAYER_STATS;
+	app->events->AddListener(this);
 
 	for (int i = 0; i < 5; i++)
 	{
@@ -46,16 +48,12 @@ void PlayerCombat::Start()
 	attackAreaCD = 5;
 	attackAreaCounter = 0;
 
-	// Initialize available spell slots and deck slots
-	availableSpellSlots = player->spellSlots;
-	availableDeckSlots = player->deckSlots;
-
-	for (int i = 0; i < availableSpellSlots; i++)
+	for (int i = 0; i < player->spellSlots; i++)
 	{
 		spellSlots.add(new SpellInfo());
 	}
 
-	for (int i = 0; i < availableDeckSlots; i++)
+	for (int i = 0; i < player->deckSlots; i++)
 	{
 		deckSlots.add(new SpellInfo());
 	}
@@ -133,13 +131,13 @@ void PlayerCombat::ChangeSelectedSpellSlot(int num)
 {
 	selectedSpell += num; // Change Selected Spell Slot
 
-	if (selectedSpell >= availableSpellSlots) // If we are over the limit, go back to first
+	if (selectedSpell >= player->spellSlots) // If we are over the limit, go back to first
 	{
 		selectedSpell = 0;
 	}
 	else if (selectedSpell < 0) // If we are under the first, go to the last slot
 	{
-		selectedSpell = availableSpellSlots - 1;
+		selectedSpell = player->spellSlots - 1;
 	}
 
 	printf("Current Spell Slot: %d\n", selectedSpell);
@@ -250,6 +248,7 @@ void PlayerCombat::CleanUp()
 {
 	if (pendingToDelete) revenantAttack->pendingToDelete = true;
 	
+	app->events->RemoveListener(this);
 	executeSpellCommand->CleanUp();
 	RELEASE(executeSpellCommand);
 	spellSlots.clearPtr();
@@ -266,6 +265,24 @@ void PlayerCombat::PrintSlotsState()
 	{
 		printf("Deck slot %d contains spell %d at level %d\n", i, (int)deckSlots[i]->id, deckSlots[i]->spellLevel);
 	}
+}
+
+void PlayerCombat::GameEventTriggered(GameEvent id)
+{
+	spellSlots.clearPtr();
+	deckSlots.clearPtr();
+
+	for (int i = 0; i < player->spellSlots; i++)
+	{
+		spellSlots.add(new SpellInfo());
+	}
+
+	for (int i = 0; i < player->deckSlots; i++)
+	{
+		deckSlots.add(new SpellInfo());
+	}
+
+	selectedSpell = 0;
 }
 
 b2Vec2 PlayerCombat::GetAttackOffset()
