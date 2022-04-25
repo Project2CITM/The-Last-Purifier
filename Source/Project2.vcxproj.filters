@@ -366,6 +366,9 @@
     <ClInclude Include="PlayerShadow.h">
       <Filter>Archivos de encabezado\Player</Filter>
     </ClInclude>
+    <ClInclude Include="Souls.h">
+      <Filter>Archivos de encabezado\GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\PugiXml\src\pugixml.cpp">
@@ -592,6 +595,9 @@
     </ClCompile>
     <ClCompile Include="PlayerShadow.cpp">
       <Filter>Archivos de origen\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Souls.cpp">
+      <Filter>Archivos de origen\GameObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

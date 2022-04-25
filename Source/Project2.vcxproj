@@ -160,6 +160,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneGame.h" />
     <ClInclude Include="SceneSwitch.h" />
+    <ClInclude Include="Souls.h" />
     <ClInclude Include="SoulShieldS.h" />
     <ClInclude Include="Spell.h" />
     <ClInclude Include="SpellInfo.h" />
@@ -238,6 +239,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneGame.cpp" />
     <ClCompile Include="SceneSwitch.cpp" />
+    <ClCompile Include="Souls.cpp" />
     <ClCompile Include="SoulShieldS.cpp" />
     <ClCompile Include="Spell.cpp" />
     <ClCompile Include="SpellInfo.cpp" />
