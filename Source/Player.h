@@ -23,6 +23,8 @@ public:
 
 	void ChangeShield(int num);
 
+	void AddSouls(int num);
+
 	PlayerClass playerClass = PlayerClass::REVENANT;
 	PlayerController* controller = nullptr;
 	PlayerStats* stats = nullptr;

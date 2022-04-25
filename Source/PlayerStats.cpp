@@ -42,7 +42,8 @@ void PlayerStats::UpdatePlayerStats()
 	player->hpPlayer = defaultValues.child("hp").attribute("quantity").as_int() + commonTree->getValue(CommonUpgrades::HEALTH);
 	player->dashSpeed = defaultValues.child("speed").attribute("dash").as_float();
 	player->movementSpeed = defaultValues.child("speed").attribute("movement").as_float();
-	player->spellSlots = defaultValues.child("slots").attribute("spell").as_int() + commonTree->getValue(CommonUpgrades::SKILL_SLOT);
+	//player->spellSlots = defaultValues.child("slots").attribute("spell").as_int() + commonTree->getValue(CommonUpgrades::SKILL_SLOT);
+	player->spellSlots = 4;
 	player->deckSlots = defaultValues.child("slots").attribute("deck").as_int() + commonTree->getValue(CommonUpgrades::DECK);
 	player->shield = defaultValues.child("shield").attribute("quantity").as_int();
 	player->luck = defaultValues.child("luck").attribute("quantity").as_int() + commonTree->getValue(CommonUpgrades::LUCK);

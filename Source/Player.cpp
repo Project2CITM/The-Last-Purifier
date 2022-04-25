@@ -27,3 +27,8 @@ void Player::ChangeShield(int num)
 	shield += num;
 	if (shield < 0) shield = 0;
 }
+
+void Player::AddSouls(int num)
+{
+	souls+= num * this->soulGain;
+}

@@ -534,17 +534,17 @@ void HUDInGame::InitializeSpellSlotsPositions()
 	
 	spellSlotsPositions[0].add({ 304, 320, 30, 40 }); // 1 Available: Refering to slot 1
 
-	spellSlotsPositions[1].add({280, 320, 30, 40 });// 2 Available: Refering to slot 1
-	spellSlotsPositions[1].add({ 320, 320 , 30, 40 });// 2 Available: Refering to slot 2
+	spellSlotsPositions[1].add({290, 320, 30, 40 });// 2 Available: Refering to slot 1
+	spellSlotsPositions[1].add({ 330, 320 , 30, 40 });// 2 Available: Refering to slot 2
 
-	spellSlotsPositions[2].add({ 320, 320 , 30, 40 });// 3 Available: Refering to slot 1
-	spellSlotsPositions[2].add({ 320, 320, 30, 40 });// 3 Available: Refering to slot 2
-	spellSlotsPositions[2].add({ 320, 320 , 30, 40 });// 3 Available: Refering to slot 3
+	spellSlotsPositions[2].add({ 304, 320 , 30, 40 });// 3 Available: Refering to slot 1
+	spellSlotsPositions[2].add({ 270, 320, 30, 40 });// 3 Available: Refering to slot 2
+	spellSlotsPositions[2].add({ 338, 320 , 30, 40 });// 3 Available: Refering to slot 3
 
-	spellSlotsPositions[3].add({ 320, 320 , 30, 40 });// 4 Available: Refering to slot 1
-	spellSlotsPositions[3].add({ 320, 320 , 30, 40 });// 4 Available: Refering to slot 2
-	spellSlotsPositions[3].add({ 320, 320 , 30, 40 });// 4 Available: Refering to slot 3
-	spellSlotsPositions[3].add({ 320, 320 , 30, 40 });// 4 Available: Refering to slot 4
+	spellSlotsPositions[3].add({ 250, 320 , 30, 40 });// 4 Available: Refering to slot 1
+	spellSlotsPositions[3].add({ 290, 320 , 30, 40 });// 4 Available: Refering to slot 2
+	spellSlotsPositions[3].add({ 330, 320 , 30, 40 });// 4 Available: Refering to slot 3
+	spellSlotsPositions[3].add({ 370, 320 , 30, 40 });// 4 Available: Refering to slot 4
 }
 
 SDL_Rect HUDInGame::GetSpellSection(int slot, bool isDeck)
