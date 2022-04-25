@@ -9,7 +9,7 @@ ClassTree* ClassTree::instance = nullptr;
 
 ClassTree::ClassTree(PlayerClass pClass)
 {
-	this->listenTo = GameEvent::SAVE_GAME;
+	this->listenTo[0] = GameEvent::SAVE_GAME;
 
 	playerClass = pClass;
 	Application::GetInstance()->events->AddListener(this);
@@ -198,7 +198,7 @@ bool ClassTree::SaveLoadTree(bool load)
 	return true;
 }
 
-void ClassTree::GameEventTriggered()
+void ClassTree::GameEventTriggered(GameEvent id)
 {
 	SaveLoadTree();
 }

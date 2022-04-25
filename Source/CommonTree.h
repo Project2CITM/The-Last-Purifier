@@ -58,7 +58,7 @@ public:
 
     virtual void CleanUp();
 
-    void GameEventTriggered() override;
+    void GameEventTriggered(GameEvent id) override;
 
 private:
     //Stores the value of an individual upgrade

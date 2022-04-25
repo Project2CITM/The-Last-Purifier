@@ -16,7 +16,7 @@ public:
 
 	void CleanUp() override;
 
-	void GameEventTriggered() override;
+	void GameEventTriggered(GameEvent id) override;
 
 
 private:

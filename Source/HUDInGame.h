@@ -57,7 +57,7 @@ public:
 
 	bool CleanUp() override;
 
-	void GameEventTriggered() override;
+	void GameEventTriggered(GameEvent id) override;
 
 	void SetPlayerCombat(PlayerCombat* playerC);
 

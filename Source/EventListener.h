@@ -1,8 +1,11 @@
 #ifndef _EVENT_LISTENER_
 #define _EVENT_LISTENER
 
+#define MAX_EVENTS_PER_EVENTLISTENER 4
+
 enum class GameEvent
 {
+	NONE,
 	PLAYER_ATTACK,
 	SAVE_GAME,
 	COMPLETE_ROOM,
@@ -20,11 +23,11 @@ class EventListener
 {
 public:
 
-	virtual void GameEventTriggered() = 0;
+	virtual void GameEventTriggered(GameEvent id) = 0;
 
 	virtual ~EventListener() {};
 
-	GameEvent listenTo;
+	GameEvent listenTo[MAX_EVENTS_PER_EVENTLISTENER];
 };
 #endif
 

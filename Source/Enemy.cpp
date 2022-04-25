@@ -7,7 +7,7 @@
 
 Enemy::Enemy(std::string name) :GameObject(name, "Enemy")
 {
-	this->listenTo = GameEvent::DELETING_SCENE;
+	this->listenTo[0] = GameEvent::DELETING_SCENE;
 	app->events->AddListener(this);
 	spawnManager = SpellSpawnManager::GetInstance();
 	SceneGame* scene = (SceneGame*)app->scene->scenes[app->scene->currentScene];
@@ -92,7 +92,7 @@ void Enemy::Die(bool spawnPower)
 	if (player != nullptr) player->AddSouls(this->soulsAmount);
 }
 
-void Enemy::GameEventTriggered()
+void Enemy::GameEventTriggered(GameEvent id)
 {
 	sceneGettingDeleted = true;
 }

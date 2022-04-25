@@ -6,7 +6,7 @@ CommonTree* CommonTree::instance = nullptr;
 
 CommonTree::CommonTree()
 {
-	this->listenTo = GameEvent::SAVE_GAME;
+	this->listenTo[0] = GameEvent::SAVE_GAME;
 
 	Application::GetInstance()->events->AddListener(this);
 
@@ -149,7 +149,7 @@ bool CommonTree::SaveLoadTree(bool load)
 	return true;
 }
 
-void CommonTree::GameEventTriggered()
+void CommonTree::GameEventTriggered(GameEvent id)
 {
 	SaveLoadTree();
 }

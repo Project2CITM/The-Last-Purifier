@@ -17,7 +17,7 @@ public:
 
 	void UpdatePlayerStats();
 
-	void GameEventTriggered() override;
+	void GameEventTriggered(GameEvent id) override;
 
 	void CleanUp();
 

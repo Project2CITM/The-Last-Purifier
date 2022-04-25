@@ -20,7 +20,7 @@
 
 PlayerController::PlayerController(std::string name, std::string tag, Player* player) : GameObject(name, tag)
 {
-	this->listenTo = GameEvent::COMPLETE_ROOM;
+	this->listenTo[0] = GameEvent::COMPLETE_ROOM;
 	app->events->AddListener(this);
 	this->player = player;
 
@@ -536,7 +536,7 @@ void PlayerController::Invulnerability(int frames)
 	invulnerabilityCounter = frames;
 }
 
-void PlayerController::GameEventTriggered()
+void PlayerController::GameEventTriggered(GameEvent id)
 {
 	combat->CheckDeck();
 }

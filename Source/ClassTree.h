@@ -73,7 +73,7 @@ public:
 
 	void CleanUp();
 
-	void GameEventTriggered() override;
+	void GameEventTriggered(GameEvent id) override;
 
 public:
 	SkillTreeElement* getSkillTree(int value);

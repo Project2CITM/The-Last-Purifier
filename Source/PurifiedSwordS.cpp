@@ -5,7 +5,7 @@
 
 PurifiedSwordS::PurifiedSwordS() : Spell()
 {
-	this->listenTo = GameEvent::PLAYER_ATTACK;
+	this->listenTo[0] = GameEvent::PLAYER_ATTACK;
 
 	Application::GetInstance()->events->AddListener(this);
 
@@ -50,7 +50,7 @@ void PurifiedSwordS::CleanUp()
 	Application::GetInstance()->events->RemoveListener(this);
 }
 
-void PurifiedSwordS::GameEventTriggered()
+void PurifiedSwordS::GameEventTriggered(GameEvent id)
 {
 	if (currentAttacks <= 0) return;
 

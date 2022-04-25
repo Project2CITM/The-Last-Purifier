@@ -63,7 +63,7 @@ public:
 
 	void Invulnerability(int frames);
 
-	void GameEventTriggered() override;
+	void GameEventTriggered(GameEvent id) override;
 
 	bool IsInvulnerable() { return isInvulnerable; }
 

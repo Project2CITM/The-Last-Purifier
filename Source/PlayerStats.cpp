@@ -5,7 +5,7 @@
 
 PlayerStats::PlayerStats(Player* player)
 {
-	this->listenTo = GameEvent::SAVE_GAME;
+	this->listenTo[0] = GameEvent::SAVE_GAME;
 
 	this->player = player;
 
@@ -56,7 +56,7 @@ void PlayerStats::UpdatePlayerStats()
 	player->hpMax = player->hpPlayer;
 }
 
-void PlayerStats::GameEventTriggered()
+void PlayerStats::GameEventTriggered(GameEvent id)
 {
 
 	pugi::xml_node n = playerValuesXml.child("stats");

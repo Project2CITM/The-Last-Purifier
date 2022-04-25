@@ -34,11 +34,15 @@ void ModuleEvents::TriggerEvent(GameEvent id)
 	for (int i = 0; i < listeners.count(); i++)
 	{
 		if (listeners[i] == nullptr) return;
-
-		if (listeners[i]->listenTo == id)
+		for (int j = 0; j< MAX_EVENTS_PER_EVENTLISTENER; j++)
 		{
-			listeners[i]->GameEventTriggered();
+			if (listeners[i]->listenTo[j] == id)
+			{
+				listeners[i]->GameEventTriggered(id);
+			}
 		}
+
+		
 	}
 }
 

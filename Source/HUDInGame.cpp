@@ -25,7 +25,7 @@ RenderObject iconSouls;
 HUDInGame::HUDInGame() :Scene("HUDInGame")
 {
 	// Init event sysem
-	this->listenTo = GameEvent::PLAYER_HIT;
+	this->listenTo[0] = GameEvent::PLAYER_HIT;
 
 	app->events->AddListener(this);
 }
@@ -455,7 +455,7 @@ bool HUDInGame::CleanUp()
 	return true;
 }
 
-void HUDInGame::GameEventTriggered()
+void HUDInGame::GameEventTriggered(GameEvent id)
 {
 	// Call when player Hit
 

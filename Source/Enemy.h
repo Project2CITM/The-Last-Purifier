@@ -41,7 +41,7 @@ public:
 		return damage;
 	}
 
-	void GameEventTriggered();
+	void GameEventTriggered(GameEvent id);
 
 protected:
 	SpellSpawnManager* spawnManager = nullptr;

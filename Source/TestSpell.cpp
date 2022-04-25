@@ -3,7 +3,7 @@
 
 TestSpell::TestSpell() : Spell()
 {
-	this->listenTo = GameEvent::PLAYER_ATTACK;
+	this->listenTo[0] = GameEvent::PLAYER_ATTACK;
 
 	this->uses = spellStats.child("purified_sword").child("uses").attribute("quantity").as_int();
 	//Application::GetInstance()->events->AddListener(this);
@@ -18,7 +18,7 @@ void TestSpell::Update()
 {
 }
 
-void TestSpell::GameEventTriggered()
+void TestSpell::GameEventTriggered(GameEvent id)
 {
 	printf("Detected Event Trigger!!");
 }

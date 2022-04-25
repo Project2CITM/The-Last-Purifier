@@ -11,7 +11,7 @@ public:
 	
 	void Update() override;
 
-	void GameEventTriggered() override;
+	void GameEventTriggered(GameEvent id) override;
 
 };
 
