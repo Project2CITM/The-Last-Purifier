@@ -92,7 +92,7 @@ void Trigger::OnCollisionExit(PhysBody* col)
 
 	if (parent == nullptr || !parent->enable) return;
 	
-	parent->OnTriggerExit(this->name, col);
+   parent->OnTriggerExit(this->name, col);
 }
 
 void Trigger::Destroy()

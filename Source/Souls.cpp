@@ -11,7 +11,7 @@
 Souls::Souls(iPoint position):GameObject("Souls", "Souls")
 {
 	this->position = position;
-	trigger = new Trigger(position, 25, this, "SoulsTrigger", false);
+	trigger = new Trigger({ position.x+4,position.y+10 }, 10, this, "SoulsTrigger", false);
 	InitRenderObjectWithXml("soul");
 
 
