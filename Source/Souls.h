@@ -29,6 +29,10 @@ public:
 
 private:
 	Trigger* trigger = nullptr;
+	SDL_Texture* soul = nullptr;
+protected:
+	Animation idleAnim;
+
 
 };
 

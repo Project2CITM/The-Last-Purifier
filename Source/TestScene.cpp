@@ -58,8 +58,7 @@ bool TestScene::Start()
 
     Scene::Start();
 
-    Souls* soul1 = new Souls(player->controller->GetPosition());
-    soul1->Start();
+    
     app->renderer->camera->SetPosition(player->controller->GetPosition());
 
     app->renderer->camera->SetTarget(player->controller);
@@ -125,6 +124,9 @@ bool TestScene::Update()
     //if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
     //    roomManager.mapMovement.y += 10;
 
+    if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) {
+        Souls* soul1 = new Souls(player->controller->GetPosition());
+    }
     roomManager.Update(player->controller->GetPosition());
 
     hudInGame->Update();
