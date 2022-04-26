@@ -4,6 +4,7 @@
 #include "SpellSpawnManager.h"
 #include "SceneGame.h"
 #include "ModuleScene.h"
+#include "Souls.h"
 
 Enemy::Enemy(std::string name) :GameObject(name, "Enemy")
 {
@@ -89,7 +90,11 @@ void Enemy::Die(bool spawnPower)
 	}
 
 
-	if (player != nullptr) player->AddSouls(this->soulsAmount);
+	if (player != nullptr) {
+		player->AddSouls(this->soulsAmount);
+		Souls* soul1 = new Souls(GetPosition());
+
+	}
 }
 
 void Enemy::GameEventTriggered(GameEvent id)

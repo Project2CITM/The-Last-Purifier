@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Animation.h"
+#include "Player.h"
 
 class Trigger;
 
@@ -32,6 +33,8 @@ private:
 	SDL_Texture* soul = nullptr;
 protected:
 	Animation idleAnim;
+	Player *player = nullptr;
+	int soulsAmount = 2;
 
 
 };

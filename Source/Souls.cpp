@@ -4,11 +4,14 @@
 #include "ModulePhysics.h"
 #include "ModuleRender.h"
 #include "ModuleTextures.h"
+#include "SpellSpawnManager.h"
+#include "SceneGame.h"
+#include "ModuleScene.h"
 
 Souls::Souls(iPoint position):GameObject("Souls", "Souls")
 {
 	this->position = position;
-	trigger = new Trigger(position, 50, this, "SoulsTrigger", false);
+	trigger = new Trigger(position, 25, this, "SoulsTrigger", false);
 	InitRenderObjectWithXml("soul");
 
 
@@ -28,6 +31,9 @@ Souls::~Souls()
 
 void Souls::Start()
 {
+	SceneGame* scene = (SceneGame*)app->scene->scenes[app->scene->currentScene];
+	player = scene->player;
+
 }
 
 void Souls::PreUpdate()
@@ -59,7 +65,9 @@ void Souls::OnTriggerEnter(std::string trigger, PhysBody* col)
 	{
 		LOG("Enter");
 		//Colocar velocidad hacia jugador
-
+		if (player != nullptr) player->AddSouls(soulsAmount);
+		pendingToDelete = true;
+		//isDie = true;
 	}
 
 }
