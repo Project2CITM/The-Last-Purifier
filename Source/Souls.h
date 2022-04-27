@@ -10,7 +10,7 @@ class Souls : public GameObject
 {
 public:
 
-	Souls(iPoint position);
+	Souls(iPoint position, int soulsAmount);
 
 	~Souls();
 
@@ -26,7 +26,6 @@ public:
 
 	void OnTriggerEnter(std::string trigger, PhysBody* col) override;
 
-	void OnTriggerExit(std::string trigger, PhysBody* col) override;
 
 private:
 	Trigger* trigger = nullptr;
@@ -34,8 +33,7 @@ private:
 protected:
 	Animation idleAnim;
 	Player *player = nullptr;
-	int soulsAmount = 2;
-
+	int soulsAmount = 0;
 
 };
 

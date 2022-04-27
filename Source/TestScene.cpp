@@ -124,9 +124,7 @@ bool TestScene::Update()
     //if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
     //    roomManager.mapMovement.y += 10;
 
-    if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) {
-        Souls* soul1 = new Souls(player->controller->GetPosition());
-    }
+   
     roomManager.Update(player->controller->GetPosition());
 
     hudInGame->Update();

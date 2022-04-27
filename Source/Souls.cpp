@@ -8,9 +8,10 @@
 #include "SceneGame.h"
 #include "ModuleScene.h"
 
-Souls::Souls(iPoint position):GameObject("Souls", "Souls")
+Souls::Souls(iPoint position, int soulsAmount):GameObject("Souls", "Souls")
 {
 	this->position = position;
+	this->soulsAmount = soulsAmount;
 	trigger = new Trigger({ position.x+4,position.y+10 }, 10, this, "SoulsTrigger", false);
 	InitRenderObjectWithXml("soul");
 
@@ -72,12 +73,3 @@ void Souls::OnTriggerEnter(std::string trigger, PhysBody* col)
 
 }
 
-void Souls::OnTriggerExit(std::string trigger, PhysBody* col)
-{
-	if (col->gameObject->name == "Player")
-	{
-		LOG("EXIT");
-		//Colocar velocidad hacia jugador
-
-	}
-}
