@@ -369,6 +369,9 @@
     <ClInclude Include="Souls.h">
       <Filter>Archivos de encabezado\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="Quest.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\PugiXml\src\pugixml.cpp">
@@ -598,6 +601,9 @@
     </ClCompile>
     <ClCompile Include="Souls.cpp">
       <Filter>Archivos de origen\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Quest.cpp">
+      <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

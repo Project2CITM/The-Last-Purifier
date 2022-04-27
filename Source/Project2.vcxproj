@@ -153,6 +153,7 @@
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="PurificationSlashS.h" />
     <ClInclude Include="PurifiedSwordS.h" />
+    <ClInclude Include="Quest.h" />
     <ClInclude Include="RenderObject.hpp" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Room.h" />
@@ -234,6 +235,7 @@
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="PurificationSlashS.cpp" />
     <ClCompile Include="PurifiedSwordS.cpp" />
+    <ClCompile Include="Quest.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="RoomManager.cpp" />
     <ClCompile Include="Scene.cpp" />
