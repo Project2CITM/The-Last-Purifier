@@ -26,7 +26,6 @@ public:
 
 	void OnTriggerEnter(std::string trigger, PhysBody* col) override;
 
-
 private:
 	Trigger* trigger = nullptr;
 	SDL_Texture* soul = nullptr;
