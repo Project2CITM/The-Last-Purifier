@@ -372,6 +372,9 @@
     <ClInclude Include="Quest.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="Minimap.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\PugiXml\src\pugixml.cpp">
@@ -603,6 +606,9 @@
       <Filter>Archivos de origen\GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="Quest.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniMap.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
