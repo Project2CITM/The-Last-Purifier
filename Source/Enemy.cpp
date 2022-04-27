@@ -91,7 +91,6 @@ void Enemy::Die(bool spawnPower)
 
 
 	if (player != nullptr) {
-		//player->AddSouls(this->soulsAmount);
 		Souls* soul1 = new Souls(GetPosition());
 		soul1->Start();
 

@@ -72,12 +72,3 @@ void Souls::OnTriggerEnter(std::string trigger, PhysBody* col)
 
 }
 
-void Souls::OnTriggerExit(std::string trigger, PhysBody* col)
-{
-	if (col->gameObject->name == "Player")
-	{
-		LOG("EXIT");
-		//Colocar velocidad hacia jugador
-
-	}
-}
