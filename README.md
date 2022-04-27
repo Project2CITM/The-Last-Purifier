@@ -6,25 +6,25 @@ Doors close when entering rooms and open when all enemies are dead.
 
 ## Game Controls ( Keyboard / XBOX controller - PlayStation controller )
 
-Move
-	Walk			→	Left Joystick
-	Walk Up			→	W  /  Axis -Y
-	Walk Down		→	S  /  Axis +Y
-	Walk Left		→	A  /  Axis -X
-	Walk Right		→	D  /  Axis +X
-	Dash			→	Spacebar  /  B - O
+Move:
+- 	Walk			→	Left Joystick
+- 	Walk Up			→	W  /  Axis -Y
+- 	Walk Down		→	S  /  Axis +Y
+- 	Walk Left		→	A  /  Axis -X
+- 	Walk Right		→	D  /  Axis +X
+- 	Dash			→	Spacebar  /  B - O
 
-Spells
-	Cast Spell		→	Right Click  /  A - X
-	Change Left Spell 	→	Q  /  LB - L1
-	Change Right Spell	→	E  /  RB - R1
+Spells:
+- 	Cast Spell		→	Right Click  /  A - X
+- 	Change Left Spell 	→	Q  /  LB - L1
+- 	Change Right Spell	→	E  /  RB - R1
 
-Others
-	Pause			→	Escape  /  Start
-	Attack			→	Left Click  /  X - Square
-	Interact		→	F  /  Y - Triangle
+Others:
+- 	Pause			→	Escape  /  Start
+- 	Attack			→	Left Click  /  X - Square
+- 	Interact		→	F  /  Y - Triangle
 
-Debug Keys
-	Show Hitbox		→	F1
-	God Mode		→	F10
-	Change Player (In HUB)	→	N
+Debug Keys:
+- 	Show Hitbox		→	F1
+- 	God Mode		→	F10
+- 	Change Player (In HUB)	→	N
