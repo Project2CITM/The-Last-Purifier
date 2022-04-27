@@ -52,6 +52,8 @@ void Trigger::Update()
 	if (!followFather) return;
 	
 	SetPosition(parent->GetPosition() + positionOffset);
+
+	if (onTriggerStay && trig) parent->OnTriggerStay(this->name, trig);
 }
 
 void Trigger::PostUpdate()
@@ -75,11 +77,15 @@ void Trigger::OnCollisionEnter(PhysBody* col)
 
 	if (parent == nullptr || !parent->enable) return;
 
+	trig = col;
+
 	parent->OnTriggerEnter(this->name, col);
 }
 
 void Trigger::OnCollisionExit(PhysBody* col)
 {
+	trig = nullptr;
+
 	onTriggerExit = true;
 
 	onTriggerStay = false;

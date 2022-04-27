@@ -28,11 +28,22 @@ public:
 
 private:
 	Trigger* trigger = nullptr;
+
+	Trigger* triggerDetectPlayer = nullptr;
+
 	SDL_Texture* soul = nullptr;
+
+	int followDelay = 10;
+
+	int minSpeed = 3;
+
 protected:
 	Animation idleAnim;
-	Player *player = nullptr;
-	int soulsAmount = 0;
 
+	Player *player = nullptr;
+
+	bool detectPlayer = false;
+
+	int soulsAmount = 0;
 };
 

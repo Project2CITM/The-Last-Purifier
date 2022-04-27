@@ -33,6 +33,8 @@ private:
 	bool followFather = true;
 
 	GameObject* parent = nullptr;
+
+	PhysBody* trig = nullptr;
 };
 
 #endif

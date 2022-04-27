@@ -89,15 +89,7 @@ void Enemy::Die(bool spawnPower)
 		}
 	}
 
-
-	if (player != nullptr) {
-
-
-		Souls* soul1 = new Souls(GetPosition());
-
-		soul1->Start();
-
-	}
+	if (player != nullptr) Souls* soul1 = new Souls(GetPosition(), 3);
 }
 
 void Enemy::GameEventTriggered(GameEvent id)
