@@ -45,18 +45,33 @@ void Souls::Update()
 {
 	if (!player || !detectPlayer) return;
 
-	// Update Y
-	//int targetPosY = player->controller->GetPosition().y;
+	// TODO
 
-	//int targetPosX = player->controller->GetPosition().x;
+	int targetPosY = player->controller->GetPosition().y;
 
-	//iPoint distance = { targetPosX,targetPosY };
+	int targetPosX = player->controller->GetPosition().x;
 
-	//distance.Normalize();
+	// distance always = 0
+	iPoint distance = { targetPosX - position.x, targetPosY - position.y };
 
-	//iPoint minSpeed = distance * (8 / followDelay);
+	iPoint dir;
 
-	//position += distance * (8 / followDelay);
+	dir.x = distance.x < 0 ? -1 : 1;
+	dir.y = distance.y < 0 ? -1 : 1;
+
+	distance = distance.Normalize();
+
+	iPoint minSpeed = distance * (10 / followDelay);
+
+	minSpeed.x = minSpeed.x <= 0 ? 1 : minSpeed.x;
+
+	minSpeed.y = minSpeed.y <= 0 ? 1 : minSpeed.y;
+
+	minSpeed.x *= dir.x;
+
+	minSpeed.y *= dir.y;
+
+	position += minSpeed;
 }
 
 void Souls::PostUpdate()
