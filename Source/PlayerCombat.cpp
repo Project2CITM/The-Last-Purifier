@@ -107,10 +107,14 @@ void PlayerCombat::Attack()
 		RevenantAttack();
 	
 		app->audio->PlayFx(playerAttackFX[randomNum]);
+		app->renderer->camera->Shake(5, 10, 2);
+
 		printf("Attack Revenant!\n");
 		break;
 	case PlayerClass::SAGE:
 		printf("Attack Sage!\n");
+		app->renderer->camera->Shake(5, 10, 2);
+
 		SageAttack();
 		break;
 	}

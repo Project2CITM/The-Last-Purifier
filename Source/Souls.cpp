@@ -80,7 +80,9 @@ void Souls::PostUpdate()
 
 	renderObjects[0].section = idleAnim.GetCurrentFrame();
 
-	if (player->hpPlayer <= 0) player = nullptr;
+	if (player->hpPlayer <= 0){
+		player = nullptr;//Peta aquí al modificar la vida ns el motivo!
+	}
 
 	GameObject::PostUpdate();
 }
