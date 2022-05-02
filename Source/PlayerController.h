@@ -6,6 +6,7 @@
 #include "Animation.h"
 #include "Trigger.h"
 #include "ModuleEvents.h"
+#include "Timer.h"
 
 
 #define PLAYER_ANIMATIONS_NUM 4
@@ -103,15 +104,15 @@ private:
 	float speed = 12.0f;	//5
 	bool isDashing = false;
 	int dashCounter = 0;
-	int dashTime = 25;
+	int dashTime = 400;
 	int dashDistance = 14;	//6
 
-	int invulnerabilityTimeHit = 120;
+	int invulnerabilityTimeHit = 1920;
 	bool beenHit = false;
 
 	bool isInvulnerable = false;
 	int invulnerabilityCounter = 0;
-	int dashInvulnerability = 15;
+	int dashInvulnerability = 240;
 
 	PlayerAnim currentAnim = PlayerAnim::IDLE;
 
@@ -123,6 +124,8 @@ private:
 	uint playerdodgeFX = NULL;
 
 	uint playerhitFX = NULL;
+
+	Timer playerTimer;
 
 	friend class PlayerCombat;
 };

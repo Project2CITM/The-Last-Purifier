@@ -1,4 +1,5 @@
 #include "StateMachine.h"
+#include "Application.h"
 
 StateMachine::StateMachine()
 {
@@ -20,15 +21,17 @@ uint StateMachine::AddState(std::string name, int priority, int frames)
 
 void StateMachine::Update()
 {
+	stateTimer.Update();
 	if (states[currentState].currentFrames > 0)
 	{
-		states[currentState].currentFrames--;
+		states[currentState].currentFrames -= stateTimer.getDeltaTime() * 1000;
 	}
+	stateTimer.Reset();
 }
 
 bool StateMachine::ChangeState(uint state)
 {
-	if (states[currentState].currentFrames == 0) // If current state had a time and it is out, we ignore priority.
+	if (states[currentState].currentFrames <= 0) // If current state had a time and it is out, we ignore priority.
 	{
 		ChangeCurrentState(state);
 		return true;

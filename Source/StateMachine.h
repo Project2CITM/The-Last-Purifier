@@ -4,6 +4,7 @@
 #include "Globals.h"
 #include "List.h"
 #include <string>
+#include "Timer.h"
 
 struct StateObject
 {
@@ -51,6 +52,7 @@ private:
 
 	List<StateObject> states; // List of every state added to the State Machine
 	uint currentState; // List index of the current state
+	Timer stateTimer;
 };
 
 #endif

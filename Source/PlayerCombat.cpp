@@ -45,7 +45,7 @@ void PlayerCombat::Start()
 
 	// Attack area stats
 	attackAreaActive = false;
-	attackAreaCD = 5;
+	attackAreaCD = 80;
 	attackAreaCounter = 0;
 
 	for (int i = 0; i < player->spellSlots; i++)
@@ -67,13 +67,10 @@ void PlayerCombat::PreUpdate()
 	{
 		executeSpellCommand->Start();
 	}
-}
-
-void PlayerCombat::Update()
-{
+	combatTimer.Update();
 	if (!canAttack)
 	{
-		attackCounter++;
+		attackCounter += combatTimer.getDeltaTime()*1000;
 		if (attackCounter >= attackCD)
 		{
 			canAttack = true;
@@ -83,7 +80,7 @@ void PlayerCombat::Update()
 
 	if (attackAreaActive)
 	{
-		attackAreaCounter++;
+		attackAreaCounter += combatTimer.getDeltaTime() * 1000;
 		if (attackAreaCounter >= attackAreaCD)
 		{
 			attackAreaActive = false;
@@ -92,6 +89,11 @@ void PlayerCombat::Update()
 		}
 	}
 
+	combatTimer.Reset();
+}
+
+void PlayerCombat::Update()
+{
 	executeSpellCommand->Update();
 }
 

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <stats>
-	<currentClass class="1" />
+	<currentClass class="0" />
 	<common>
 		<souls quantity="1592" gain="1.0f" />
 		<luck quantity="1.0f" />
@@ -12,11 +12,11 @@
 	<revenant>
 		<armour quantity="20" />
 		<damage quantity="20" />
-		<attack_speed quantity="60" />
+		<attack_speed quantity="960" />
 	</revenant>
 	<sage>
 		<armour quantity="10" />
 		<damage quantity="10" />
-		<attack_speed quantity="10" />
+		<attack_speed quantity="160" />
 	</sage>
 </stats>

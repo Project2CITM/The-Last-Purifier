@@ -397,6 +397,7 @@ bool HUDInGame::PostUpdate()
 			{
 				if (guisPause[i]) guisPause[i]->PostUpdate();
 			}
+			app->renderer->AddRenderObjectRenderQueue(PauseBG);
 		}
 
 		if (currentPauseMenu == CurrentPauseMenu::Controls)
@@ -413,11 +414,6 @@ bool HUDInGame::PostUpdate()
 			{
 				if (guisSettingsP[i]) guisSettingsP[i]->PostUpdate();
 			}
-		}
-
-		if (currentPauseMenu == CurrentPauseMenu::Pause)
-		{
-			app->renderer->AddRenderObjectRenderQueue(PauseBG);
 		}
 
 		if (currentPauseMenu == CurrentPauseMenu::Controls)

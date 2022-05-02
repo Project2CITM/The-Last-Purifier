@@ -70,7 +70,7 @@ public:
 		// mElapsedTicks = tiempo que ha pasado desde ultimo reset en segundo
 		mDeltaTime = mElapsedTicks * 0.001f;
 		// retornar frame2frame en segundo
-		return (frameTime * 0.001f);
+		return (frameTime);
 	}
 };
 

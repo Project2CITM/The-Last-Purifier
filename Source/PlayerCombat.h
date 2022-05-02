@@ -7,6 +7,7 @@
 #include "ExecuteSpell.h"
 #include "GameObject.h"
 #include "ModuleEvents.h"
+#include "Timer.h"
 
 class Player;
 class PhysBody;
@@ -92,6 +93,7 @@ private:
 
 	DamageArea* revenantAttack = nullptr;
 
+	Timer combatTimer;
 
 	uint playerAttackFX[5];
 

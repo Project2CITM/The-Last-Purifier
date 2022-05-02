@@ -44,8 +44,8 @@ void PlayerController::Start()
 	// WARNING: They must be added following the order specified on the PlayerState Enum!!!
 	stateMachine.AddState("idle", 0);			//IDLE = 0
 	stateMachine.AddState("run", 0);			//RUN = 1
-	stateMachine.AddState("attack", 1, 5);		//ATTACK = 2
-	stateMachine.AddState("dash", 2, 25);		//DASH = 3
+	stateMachine.AddState("attack", 1, 80);		//ATTACK = 2
+	stateMachine.AddState("dash", 2, 400);		//DASH = 3
 
 	// Initialize physic body
 	CreatePhysBody();
@@ -54,10 +54,12 @@ void PlayerController::Start()
 void PlayerController::PreUpdate()
 {
 	if (pendingToDelete) return;
+
+	playerTimer.Update();
 	// Check dash cooldown
 	if (isDashing)
 	{
-		dashCounter--;
+		dashCounter-= playerTimer.getDeltaTime() * 1000;
 		// If Cooldown is done, you stop dashing
 		if (dashCounter <= 0)
 		{
@@ -67,8 +69,12 @@ void PlayerController::PreUpdate()
 	}
 
 	// Check invulnerability counter
-	if (invulnerabilityCounter > 0) --invulnerabilityCounter;
+	if (invulnerabilityCounter > 0) invulnerabilityCounter -= playerTimer.getDeltaTime() * 1000;
 	if (invulnerabilityCounter <= 0) isInvulnerable = false;
+
+	playerTimer.Reset();
+
+	printf("DashCounter: %d\nInvulnerabilityCounter: %d\n", dashCounter, invulnerabilityCounter);
 
 	if (!isInvulnerable && beenHit)beenHit = false;
 

@@ -105,6 +105,8 @@ UpdateStatus Application::Update()
 	UpdateStatus ret = UPDATE_CONTINUE;
 	ListItem<Module*>* item = list_modules.start;
 
+	globalTime.Update();
+
 	while (item != NULL && ret == UPDATE_CONTINUE)
 	{
 		if (item->data->IsEnabled())
