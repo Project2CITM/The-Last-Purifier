@@ -8,16 +8,8 @@
 #define DEFAULT_WIDTH 300
 #define DEFAULT_HEIGHT 200
 
-enum class RoomState {
-	NO_ROOM,
-	UNDONE,
-	DONE
-};
-
-enum class MiniMapState {
-	DUNGEON,
-	HUB,
-};
+#define RECT_WIDTH 75
+#define RECT_HEIGHT 50
 
 class MiniMap
 {
@@ -27,20 +19,21 @@ public:
 		this->app = Application::GetInstance();
 	}
 
-	void Init(bool hub);
-	void Update();
+	~MiniMap();
+
+	void Init(bool isHub, List<Room*> rooms);
 	void SetScale(float scale);
+	void SetAlpha(int alpha);
 	void MiniMapPrint(iPoint pos);
 
 private:
 	
 	Application* app = nullptr;
-	bool hubState;
-	int scale = 1.0f;
+	bool isHub = true;
+	SDL_Texture* textureHub = nullptr;
+	float scale = 1.0f;
 	int alpha = 255;
-	List<SDL_Rect> rects;
-	//RoomState rooms[MAX_ROOMS_COLUMNS][MAX_ROOMS_ROWS];
-	//int roomIds[MAX_ROOMS_COLUMNS][MAX_ROOMS_ROWS];
+	List<Room*> rooms;
 };
 
 #endif //__MINIMAP_H__
