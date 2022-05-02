@@ -605,11 +605,11 @@
     <ClCompile Include="Souls.cpp">
       <Filter>Archivos de origen\GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="Quest.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="MiniMap.cpp">
       <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Quest.cpp">
+      <Filter>Archivos de origen\GameObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

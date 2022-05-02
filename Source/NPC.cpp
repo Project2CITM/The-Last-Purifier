@@ -45,6 +45,7 @@ NPC::~NPC()
 
 void NPC::Start()
 {
+	
 	text = new Text(textPosition," ");
 	text->ChangeDrawMode();
 	configDialog = app->config.child("dialogText");
@@ -58,6 +59,7 @@ void NPC::Start()
 		
 		sentences.add(npcNode.child(temporalSentence.c_str()).child_value());
 	}
+
 }
 
 void NPC::PreUpdate()
@@ -67,9 +69,7 @@ void NPC::PreUpdate()
 
 void NPC::Update()
 {
-//	npcRect = { npcPosition.x,npcPosition.y,npcData.w,npcData.h };
-	if (canSpeak) 
-	{
+
 		if (nearNpc) {
 			if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN||app->input->GetControllerButton(BUTTON_A)==KEY_DOWN)
 			{
@@ -90,7 +90,7 @@ void NPC::Update()
 				}
 			}
 		}
-	}
+	
 }
 
 void NPC::PostUpdate()

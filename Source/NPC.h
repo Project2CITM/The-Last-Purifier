@@ -46,6 +46,8 @@ public:
 
 	iPoint playerPos = { 0,0 };
 
+	bool questActive = false;
+
 protected:
 	Text* text = nullptr;
 
@@ -53,8 +55,6 @@ protected:
 
 	int sentenceOrder = 0;
 
-	SDL_Rect npcRect;
-	SDL_Rect npcSensor;
 	Trigger* trigger = nullptr;
 
 	Animation idleAnim;

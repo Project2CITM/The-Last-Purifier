@@ -30,6 +30,28 @@
 	<fonts>
 		<defaultFont width="48" height="48" letter="67" r="255" g="255" b="255" a="255" spaceInLetter="-13" layer="3" orderInLayer="3.0" scale="0.2" path="Assets/Fonts/defaultFont.png" />
 	</fonts>
+	<quest>
+		<english>
+			<quest1 Num="3" active="false">
+				<default>
+					<Sentence1>
+						Antes de irte, podrías traerme un diente del guardián del sello.
+					</Sentence1>
+					<Sentence2>
+						Lo necesitamos para preparar el gran dia y nos quedamos sin hace tiempo.
+					</Sentence2>
+				</default>
+				<done>
+					<Sentence1>
+						Gracias, espero que vengas a la plaza el gran día.
+					</Sentence1>
+					<Sentence2>
+						Toma estas almas como agradecimiento por traerme el cuerno.
+					</Sentence2>
+				</done>
+			</quest1>
+		</english>
+	</quest>
 	<dialogText>
 		<spanish>
 			<purifier1 Num="4">
