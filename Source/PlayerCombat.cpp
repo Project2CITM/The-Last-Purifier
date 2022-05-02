@@ -114,7 +114,7 @@ void PlayerCombat::Attack()
 	case PlayerClass::SAGE:
 		printf("Attack Sage!\n");
 		app->renderer->camera->Shake(5, 10, 2);
-
+		
 		SageAttack();
 		break;
 	}

@@ -2,6 +2,7 @@
 #include "SceneGame.h"
 #include "HUDInGame.h"
 #include "Instructor.h"
+#include "PlayerConverter.h"
 
 #define HUB_MAP "Main_Hub.tmx"
 class Player;
@@ -26,10 +27,14 @@ public:
 	void AddGUISettingsP(GUI* gui) override;
 
 	void ChangePlayer();
-
-private:
+public:
 
 	bool isChangingPlayer = false;
+
+	PlayerClass currentclass;
+
+private:
+	
 	iPoint playerPos = { 0,0 }; // Use only for ChangePlayer function, NOT THE ACTUAL PLAYER POSITION!!!
 
 	HUDInGame* hudInGame = nullptr;
@@ -41,4 +46,5 @@ private:
 
 	ClassTree* revenantTree = nullptr;
 
+	PlayerConverter* PlayerChangeClass = nullptr;
 };
