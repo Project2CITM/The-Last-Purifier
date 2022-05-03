@@ -36,5 +36,7 @@ private:
     HubScene* pointerscene = nullptr;
 
     bool ReadyToChangeClass = false;
+
+    bool playerHasalreadychanged = false;
 };
 

@@ -11,9 +11,9 @@
 PlayerConverter::PlayerConverter(std::string name):GameObject(name,"PlayerConverter")
 {
 	renderObjects[0].InitAsTexture(app->textures->Load("Assets/Sprites/Player/Icons/RevenantSpriteInHub.png"), { 870,1970 }, { 0,0,0,0 },1.5f,2,0.8f);
-	renderObjects[1].InitAsTexture(app->textures->Load("Assets/Sprites/Player/Icons/SageSpriteInHub.png"), { 870,1970 }, { 0,0,0,0 }, 1.0f, 2, 0.8f);
+	renderObjects[1].InitAsTexture(app->textures->Load("Assets/Sprites/Player/Icons/SageSpriteInHub.png"), { 870,1970 }, { 0,0,0,0 }, 0.9f, 2, 0.8f);
 
-	trigger = new Trigger({ renderObjects[0].destRect.x + 16,renderObjects[0].destRect.y + 19}, 15, 15, this, "ConvertClassTrigger", false);
+	trigger = new Trigger({ renderObjects[0].destRect.x + 16,renderObjects[0].destRect.y + 19}, 15, 25, this, "ConvertClassTrigger", false);
 
 	b2Filter filter;
 	filter.categoryBits = app->physics->TRIGGER_LAYER;
@@ -36,9 +36,10 @@ void PlayerConverter::Update()
 {
 	if (ReadyToChangeClass)
 	{
-		if (app->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN && pointerscene->isChangingPlayer == false)
+		if (pointerscene->isChangingPlayer == false)
 		{
 			pointerscene->ChangePlayer();
+			playerHasalreadychanged = true;
 		}
 		
 	}
@@ -67,7 +68,15 @@ void PlayerConverter::OnTriggerEnter(std::string trigger, PhysBody* col)
 	if (col->gameObject->name == "Player")
 	{
 		LOG("Ready to change class");
-		ReadyToChangeClass = true;
+		if (playerHasalreadychanged == false)
+		{
+			ReadyToChangeClass = true;
+			playerHasalreadychanged = true;
+		}
+		else
+		{
+			ReadyToChangeClass = false;
+		}
 	}
 }
 
@@ -79,5 +88,6 @@ void PlayerConverter::OnTriggerExit(std::string trigger, PhysBody* col)
 	{
 		LOG(" Not ready to change class");
 		ReadyToChangeClass = false;
+		playerHasalreadychanged = false;
 	}
 }
