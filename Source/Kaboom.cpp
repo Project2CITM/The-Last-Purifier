@@ -163,7 +163,7 @@ void Kaboom::UpdateStates()
 		// TODO: No debería reiniciarse esta variable en algún lugar? (attackCoolDown)
 		attackCoolDown -= kaboomTimer.getDeltaTime() * 1000;
 
-		// Just can hit a player when animation is attacking
+		// Just can hit a player when animation is attackingsa
 		if (attackCoolDown <= 0)
 		{
 			if (!attack->pBody->body->IsActive())
@@ -245,7 +245,7 @@ void Kaboom::InitStateMachine()
 	stateMachine.AddState("Run", 0);
 	stateMachine.AddState("Attack", 4, 720);
 	stateMachine.AddState("Hit", 2, 560);
-	stateMachine.AddState("Die", 48);
+	stateMachine.AddState("Die", 3, 48);
 
 	stateMachine.ChangeState((int)KaboomState::IDLE);
 }

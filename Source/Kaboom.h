@@ -79,9 +79,9 @@ private:
 
 	// Effects
 
-	int changeColorTime = 320; // frame
+	int changeColorTime = 320; // milisegundos
 
-	int currentColorTime = 320; // frame
+	int currentColorTime = 320; // milisegundos
 
 	bool isFirstColor = true;
 
