@@ -11,6 +11,7 @@
 #define MAX_ROOMS_ROWS 8
 
 class Trigger;
+class MiniMap;
 
 class RoomManager{
 	
@@ -49,6 +50,7 @@ private:
 	Trigger* exitTrigger = nullptr;
 
 	MapLoader* mapLoader = nullptr;
+	MiniMap* miniMap = nullptr;
 };
 
 #endif //__ROOMMANAGER_H_

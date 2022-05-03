@@ -1,27 +1,38 @@
 #include "MiniMap.h"
 #include "RoomManager.h"
 
-void MiniMap::Init(bool hub)
+MiniMap::~MiniMap()
 {
-	if (hub) {
-		hubState = true;
+	app = nullptr;
+	isHub = true;
+	textureHub = nullptr;
+	scale = 1.0f;
+	alpha = 255;
+	rooms.clearPtr();
+}
+
+void MiniMap::Init(bool isHub, List<Room*> rooms)
+{
+	if (isHub) {
+		this->isHub = true;
 		//TODO: change minimap hub png or smth
 	}
 	else {
-		hubState = false;
-		//Charge room manager rooms for rects
+		this->isHub = false;
+		this->rooms = rooms;
 	}
-}
-
-void MiniMap::Update()
-{
-	//Update minimap every frame in hub, when changing room ingame
 }
 
 void MiniMap::SetScale(float scale)
 {
-	if (scale < 0) return;
+	if (scale < 0.0f) return;
 	this->scale = scale;
+}
+
+void MiniMap::SetAlpha(int alpha)
+{
+	if (alpha < 0 || alpha > 255) return;
+	this->alpha = alpha;
 }
 
 void MiniMap::MiniMapPrint(iPoint pos)
@@ -29,13 +40,16 @@ void MiniMap::MiniMapPrint(iPoint pos)
 	//Scale 0 - No map
 	if (scale == 0.0f) return;
 
-	if (hubState) {
-		//print for hub
+	//Minimap Frame
+	app->renderer->AddRectRenderQueue({ pos.x, pos.y, int (DEFAULT_WIDTH * scale), int (DEFAULT_HEIGHT * scale) }, { 200, 200, 200, 255 }, false, 2);
+
+	if (isHub) {
+		//TODO: print for hub
 
 		return;
 	}
 
-	//print ingame scene
+	//TODO: print ingame scene
 
 
 }

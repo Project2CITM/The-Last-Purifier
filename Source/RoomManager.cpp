@@ -5,6 +5,7 @@
 #include "Scene.h"
 #include "Trigger.h"
 #include "Enemy.h"
+#include "Minimap.h"
 
 void RoomManager::Start()
 {
@@ -27,6 +28,11 @@ void RoomManager::Start()
 	for (int i = 0; i < rooms.count(); ++i) {
 		rooms[i]->DeactivateColliders();
 	}
+
+	miniMap = new MiniMap();
+	//TODO: Breaks HERE!
+	//miniMap->Init(false, rooms);
+
 }
 
 void RoomManager::PreUpdate(iPoint playerPos)
@@ -128,6 +134,7 @@ void RoomManager::CleanUp()
 	rooms.clearPtr();
 
 	RELEASE(mapLoader);
+	//RELEASE(miniMap);
 
 	doorTopTexture = nullptr;
 	doorBotTexture = nullptr;

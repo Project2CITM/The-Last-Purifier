@@ -87,6 +87,14 @@ bool HubScene::Start()
 	else
 	{
 		playerClass = (PlayerClass)playerStats.child("stats").child("currentClass").attribute("class").as_int();
+		if (playerClass != PlayerClass::REVENANT)
+		{
+			currentclass = PlayerClass::REVENANT;
+		}
+		else
+		{
+			currentclass = PlayerClass::SAGE;
+		}
 	}
 
 	if (playerClass == PlayerClass::REVENANT) player = new PlayerRevenant();
@@ -134,7 +142,11 @@ bool HubScene::Start()
 	IntLabel* int_lbl_Sage = new IntLabel("SAGE INSTRUCTOR", "Lbl_Sage", { 553, 1510 }, { 270 , 20 }, 180);
 	IntLabel* int_lbl_Gate = new IntLabel("DOOM'S GATE", "Lbl_Doom", { 1271, 211 }, { 295 , 20 }, 200);
 
+	//Music
 	app->audio->PlayMusic("Assets/Audio/Music/HubMusic.ogg");
+
+	//PlayerClassChanger
+	PlayerChangeClass = new PlayerConverter("ClassChanger");
 
 	return true;
 }
@@ -178,18 +190,19 @@ bool HubScene::PreUpdate()
 	//PreUpdates
 	hudInGame->PreUpdate();
 
-	if (app->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN && !isChangingPlayer)
+	/*if (app->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN && !isChangingPlayer)
 	{
 		ChangePlayer();
-	}
+	}*/
+	PlayerChangeClass->PreUpdate();
 
 	revenantTree->PreUpdate();
 
 	Scene::PreUpdate();
-	if (isChangingPlayer && app->input->GetKey(SDL_SCANCODE_N) != KEY_DOWN)
+	/*if (isChangingPlayer && app->input->GetKey(SDL_SCANCODE_N) != KEY_DOWN)
 	{
 		ChangePlayer();
-	}
+	}*/
 	return true;
 }
 
@@ -201,6 +214,8 @@ bool HubScene::Update()
 	int x = player->controller->GetPosition().x;
 	int y = player->controller->GetPosition().y;
 	//LOG("x:%d \n y:%d", x, y);
+
+	PlayerChangeClass->Update();
 
 	revenantTree->Update();
 
@@ -214,6 +229,8 @@ bool HubScene::PostUpdate()
 	hudInGame->PostUpdate();
 
 	revenantTree->PostUpdate();
+
+	PlayerChangeClass->PostUpdate();
 
 	Scene::PostUpdate();
 	return true;
@@ -246,8 +263,17 @@ void HubScene::ChangePlayer()
 		player->CleanUp();
 		RELEASE(player);
 		
-		if (currentClass == PlayerClass::REVENANT)	player = new PlayerSage();
-		else player = new PlayerRevenant();
+		if (currentClass == PlayerClass::REVENANT)
+		{
+			currentclass = currentClass;
+			player = new PlayerSage();
+			
+		}
+		else
+		{
+			currentclass = currentClass;
+			player = new PlayerRevenant();
+		}
 	
 		player->controller->Start();
 		player->controller->combat->Start();
@@ -264,5 +290,6 @@ void HubScene::ChangePlayer()
 	{
 		player->controller->combat->StartExecuteSpellCommand();
 		isChangingPlayer = false;
+		
 	}
 }

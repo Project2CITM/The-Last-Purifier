@@ -115,6 +115,12 @@
     <Filter Include="Archivos de recursos\Icon">
       <UniqueIdentifier>{cf98d4be-d1d3-462a-b944-c23174d6c8d0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de origen\Scenes\Hub">
+      <UniqueIdentifier>{01c45903-e8ed-491f-bc8d-9c5757f4ea96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Scenes\Hub">
+      <UniqueIdentifier>{5e32e2d7-6df6-444a-8f7f-6cbf7d62bc9e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="External\PugiXml\src\pugixml.hpp">
@@ -246,9 +252,6 @@
     <ClInclude Include="TestScene.h">
       <Filter>Archivos de encabezado\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="HubScene.h">
-      <Filter>Archivos de encabezado\Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="MainMenu.h">
       <Filter>Archivos de encabezado\Scenes</Filter>
     </ClInclude>
@@ -375,6 +378,12 @@
     <ClInclude Include="Minimap.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="HubScene.h">
+      <Filter>Archivos de encabezado\Scenes\Hub</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerConverter.h">
+      <Filter>Archivos de encabezado\Scenes\Hub</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\PugiXml\src\pugixml.cpp">
@@ -484,9 +493,6 @@
     </ClCompile>
     <ClCompile Include="ClassTreeHud.cpp">
       <Filter>Archivos de origen\Player\Trees</Filter>
-    </ClCompile>
-    <ClCompile Include="HubScene.cpp">
-      <Filter>Archivos de origen\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="MainMenu.cpp">
       <Filter>Archivos de origen\Scenes</Filter>
@@ -605,11 +611,17 @@
     <ClCompile Include="Souls.cpp">
       <Filter>Archivos de origen\GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="Quest.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
     <ClCompile Include="MiniMap.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="Quest.cpp">
-      <Filter>Archivos de origen\GameObjects</Filter>
+    <ClCompile Include="HubScene.cpp">
+      <Filter>Archivos de origen\Scenes\Hub</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerConverter.cpp">
+      <Filter>Archivos de origen\Scenes\Hub</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
