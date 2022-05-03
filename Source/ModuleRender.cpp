@@ -263,12 +263,6 @@ void ModuleRender::AddRenderObjectRenderQueue(RenderObject renderObject)
 	}
 	case RENDER_TEXTURE:
 	{
-		if (!InScreen(SDL_Rect{ renderObject.destRect.x, renderObject.destRect.y,
-			(int)(renderObject.section.w * renderObject.scale), (int)(renderObject.section.h * renderObject.scale) }, renderObject.speedRegardCamera)) return;
-
-		// Adjust destination position using camera and screen size
-		renderObject.destRect.x = (int)(-camera->x * renderObject.speedRegardCamera) + renderObject.destRect.x * app->window->scale;
-		renderObject.destRect.y = (int)(-camera->y * renderObject.speedRegardCamera) + renderObject.destRect.y * app->window->scale;
 		if (renderObject.section.h != 0 && renderObject.section.w != 0)
 		{
 			renderObject.destRect.w = renderObject.section.w;
@@ -279,6 +273,12 @@ void ModuleRender::AddRenderObjectRenderQueue(RenderObject renderObject)
 			// Collect the texture size into rect.w and rect.h variables
 			SDL_QueryTexture(renderObject.texture, nullptr, nullptr, &renderObject.destRect.w, &renderObject.destRect.h);
 		}
+
+		if (!InScreen(renderObject.destRect, renderObject.speedRegardCamera)) return;
+
+		// Adjust destination position using camera and screen size
+		renderObject.destRect.x = (int)(-camera->x * renderObject.speedRegardCamera) + renderObject.destRect.x * app->window->scale;
+		renderObject.destRect.y = (int)(-camera->y * renderObject.speedRegardCamera) + renderObject.destRect.y * app->window->scale;
 		renderObject.destRect.w *= renderObject.scale * app->window->scale;
 		renderObject.destRect.h *= renderObject.scale * app->window->scale;
 		break;
