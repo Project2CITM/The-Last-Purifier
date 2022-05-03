@@ -264,7 +264,7 @@ void ModuleRender::AddRenderObjectRenderQueue(RenderObject renderObject)
 	case RENDER_TEXTURE:
 	{
 		if (!InScreen(SDL_Rect{ renderObject.destRect.x, renderObject.destRect.y,
-			(int)(renderObject.section.w), (int)(renderObject.section.h )}, renderObject.speedRegardCamera)) return;
+			(int)(renderObject.section.w * renderObject.scale), (int)(renderObject.section.h * renderObject.scale) }, renderObject.speedRegardCamera)) return;
 
 		// Adjust destination position using camera and screen size
 		renderObject.destRect.x = (int)(-camera->x * renderObject.speedRegardCamera) + renderObject.destRect.x * app->window->scale;
