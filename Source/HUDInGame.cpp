@@ -45,7 +45,7 @@ bool HUDInGame::InitScene()
 
 bool HUDInGame::Start()
 {
-	PauseBG.InitAsTexture(app->textures->Load("Assets/Sprites/UI/PauseBG.png"), { 10, 10 }, { 0,0,0,0 }, 0.35f, 4, 0, 0 , SDL_FLIP_NONE, 0);
+	PauseBG.InitAsTexture(app->textures->Load("Assets/Sprites/UI/PauseBG.png"), { 10, 0 }, { 0,0,0,0 }, 0.35f, 4, 0, 0 , SDL_FLIP_NONE, 0);
 	SettingsBG.InitAsTexture(app->textures->Load("Assets/Sprites/UI/FondoSettings.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 0, 0, SDL_FLIP_NONE, 0);
 	Controls1.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Controls1_2.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 1, 0, SDL_FLIP_NONE, 0);
 	Controls2.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Controls2_2.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 1, 0, SDL_FLIP_NONE, 0);

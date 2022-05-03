@@ -33,10 +33,7 @@ bool ModuleRender::Init(pugi::xml_node& config)
 
 	this->config = config;
 	
-	if (app->saveF.child("game_state").child("settings").attribute("vSync").as_bool(false))
-	{
-		app->vsync = true;
-	}
+	app->vsync = app->config.child("renderer").child("vsync").attribute("value").as_bool(false);
 
 	flags |= SDL_RENDERER_PRESENTVSYNC;
 
