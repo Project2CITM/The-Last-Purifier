@@ -58,6 +58,7 @@ Kaboom::~Kaboom()
 
 void Kaboom::PreUpdate()
 {
+	kaboomTimer.Update();
 	UpdateStates();
 
 	Enemy::PreUpdate();
@@ -81,6 +82,7 @@ void Kaboom::PostUpdate()
 	renderObjects[0].section = animations[stateMachine.GetCurrentState()].GetCurrentFrame();
 
 	Enemy::PostUpdate();
+	kaboomTimer.Reset();
 }
 
 void Kaboom::Hit(int damage)
@@ -158,10 +160,11 @@ void Kaboom::UpdateStates()
 	break;
 	case (int)KaboomState::ATTACK:
 	{
-		attackCoolDown--;
+		// TODO: No debería reiniciarse esta variable en algún lugar? (attackCoolDown)
+		attackCoolDown -= kaboomTimer.getDeltaTime() * 1000;
 
 		// Just can hit a player when animation is attacking
-		if (attackCoolDown == 0)
+		if (attackCoolDown <= 0)
 		{
 			if (!attack->pBody->body->IsActive())
 			{
@@ -240,9 +243,9 @@ void Kaboom::InitStateMachine()
 {
 	stateMachine.AddState("Idle", 0);
 	stateMachine.AddState("Run", 0);
-	stateMachine.AddState("Attack", 4, 45);
-	stateMachine.AddState("Hit", 2, 35);
-	stateMachine.AddState("Die", 3);
+	stateMachine.AddState("Attack", 4, 720);
+	stateMachine.AddState("Hit", 2, 560);
+	stateMachine.AddState("Die", 48);
 
 	stateMachine.ChangeState((int)KaboomState::IDLE);
 }
@@ -330,7 +333,7 @@ void Kaboom::ChangeColor()
 		renderObjects[0].SetColor(kaboomColors[isFirstColor]);
 	}
 
-	currentColorTime--;
+	currentColorTime-= kaboomTimer.getDeltaTime()* 1000;
 }
 
 void Kaboom::SetTriggeeActive(bool active)

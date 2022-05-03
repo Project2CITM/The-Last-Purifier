@@ -3,6 +3,7 @@
 
 #include "Enemy.h"
 #include "PlayerController.h"
+#include "Timer.h"
 
 class Trigger;
 
@@ -69,13 +70,15 @@ public:
 
 	Trigger* damageTrigger = nullptr;
 
-	int groundCoolDown = 120; // frame
+	int groundCoolDown = 1920; // milisegundos
 
-	int unergroundCoolDown = 120; // frame
+	int unergroundCoolDown = 1920; // milisegundos
 
-	int shakeOutGround = 30;
+	int shakeOutGround = 480;
 
 	bool animPause = false;
+
+	Timer wormTimer;
 
 	uint HitFX = NULL;
 	uint idleFX = NULL;

@@ -21,9 +21,9 @@ Worm::Worm(iPoint pos) : Enemy("worm")
 
 	soulsAmount = 14;
 
-	groundCoolDown = 120; // frame
+	groundCoolDown = 1920; // frame
 
-	unergroundCoolDown = 120; // frame
+	unergroundCoolDown = 1920; // frame
 
 	// Init texture
 	InitRenderObjectWithXml("worm");
@@ -49,8 +49,9 @@ Worm::~Worm()
 
 void Worm::PreUpdate()
 {
+	wormTimer.Update();
 	UpdateStates();
-
+	wormTimer.Reset();
 	Enemy::PreUpdate();
 }
 
@@ -117,7 +118,7 @@ void Worm::UpdateStates()
 			return;
 		}
 
-		groundCoolDown--;
+		groundCoolDown-= wormTimer.getDeltaTime() * 1000;
 	}
 	break;
 		break;
@@ -137,7 +138,7 @@ void Worm::UpdateStates()
 			return;
 		}
 
-		unergroundCoolDown--;
+		unergroundCoolDown-= wormTimer.getDeltaTime() * 1000;
 	}
 	case (int)WormState::OUTGROUND:
 	{
@@ -146,7 +147,7 @@ void Worm::UpdateStates()
 			if (shakeOutGround > 0)
 			{
 				animPause = true;
-				shakeOutGround--;
+				shakeOutGround -= wormTimer.getDeltaTime() * 1000;
 			}
 			else
 			{
@@ -221,11 +222,11 @@ void Worm::InitAnimation()
 void Worm::InitStateMachine()
 {
 	stateMachine.AddState("Idle", 0);
-	stateMachine.AddState("InGround", 1);
-	stateMachine.AddState("UnderGround", 1);
-	stateMachine.AddState("OutGround", 1, 10);
+	stateMachine.AddState("InGround", 16);
+	stateMachine.AddState("UnderGround", 16);
+	stateMachine.AddState("OutGround", 1, 160);
 	stateMachine.AddState("Hit", 0);
-	stateMachine.AddState("Die", 2);
+	stateMachine.AddState("Die", 32);
 
 	stateMachine.ChangeState((int)WormState::IDLE);
 }
@@ -285,11 +286,11 @@ void Worm::DoOutGround()
 
 void Worm::ResetAllCoolDown()
 {
-	groundCoolDown = 120;
+	groundCoolDown = 1920;
 
-	unergroundCoolDown = (rand() % 180 + 120);
+	unergroundCoolDown = (rand() % 180) * 16;
 
-	shakeOutGround = 30;
+	shakeOutGround = 480;
 }
 
 void Worm::SetTriggeeActive(bool active)

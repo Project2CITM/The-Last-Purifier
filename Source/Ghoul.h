@@ -3,6 +3,7 @@
 
 #include "Enemy.h"
 #include "PlayerController.h"
+#include "Timer.h"
 
 class Trigger;
 class DamageArea;
@@ -74,9 +75,11 @@ private:
 
 	bool detectPlayer = false;
 
-	int attackCoolDown = 10;
+	int attackCoolDown = 160;
 
 	int attackFXCoolDown = 0;
+
+	Timer ghoulTimer;
 
 	uint attackFX = NULL;
 	uint HitFX = NULL;

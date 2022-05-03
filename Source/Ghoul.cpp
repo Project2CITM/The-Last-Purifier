@@ -24,7 +24,7 @@ Ghoul::Ghoul(iPoint pos) : Enemy("ghoul")
 	
 	soulsAmount = 10;
 
-	attackCoolDown = 10; // frame
+	attackCoolDown = 160; // milisegundos
 
 	// Init texture
 	InitRenderObjectWithXml("ghoul");
@@ -56,8 +56,9 @@ Ghoul::~Ghoul()
 
 void Ghoul::PreUpdate()
 {
+	ghoulTimer.Update();
 	UpdateStates();
-
+	ghoulTimer.Reset();
 	Enemy::PreUpdate();
 }
 
@@ -150,7 +151,7 @@ void Ghoul::UpdateStates()
 
 			return;
 		}
-		attackCoolDown--;
+		attackCoolDown-= ghoulTimer.getDeltaTime() * 1000;
 	}
 	break;
 	case (int)GhoulState::RUN:
@@ -236,9 +237,9 @@ void Ghoul::InitStateMachine()
 {
 	stateMachine.AddState("Idle", 0);
 	stateMachine.AddState("Run", 0);
-	stateMachine.AddState("Attack", 1, 35);
-	stateMachine.AddState("Hit", 2, 35);
-	stateMachine.AddState("Die", 3);
+	stateMachine.AddState("Attack", 1, 720);
+	stateMachine.AddState("Hit", 2, 560);
+	stateMachine.AddState("Die", 48);
 
 	stateMachine.ChangeState((int)GhoulState::IDLE);
 }
@@ -316,7 +317,7 @@ void Ghoul::DoRun()
 
 void Ghoul::ResetAttackCoolDown()
 {
-	attackCoolDown = 10;
+	attackCoolDown = 160;
 }
 
 void Ghoul::SetTriggeeActive(bool active)

@@ -3,6 +3,7 @@
 
 #include "Enemy.h"
 #include "PlayerController.h"
+#include "Timer.h"
 
 class Trigger;
 class DamageArea;
@@ -72,21 +73,22 @@ private:
 
 	DamageArea* attack = nullptr;
 
-	int attackCoolDown = 15; // frame
+	int attackCoolDown = 240; // milisegundos
 
 	bool detectPlayer = false;
 
 	// Effects
 
-	int changeColorTime = 20; // frame
+	int changeColorTime = 320; // frame
 
-	int currentColorTime = 20; // frame
+	int currentColorTime = 320; // frame
 
 	bool isFirstColor = true;
 
 	SDL_Color kaboomColors[2];
 
-	
+	Timer kaboomTimer;
+
 	uint HitFX = NULL;
 	uint idleFX = NULL;
 	uint deadFX = NULL;
