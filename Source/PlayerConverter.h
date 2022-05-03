@@ -3,6 +3,7 @@
 
 class Trigger;
 class HubScene;
+class Text;
 
 class PlayerConverter :
     public GameObject
@@ -12,6 +13,8 @@ public:
     PlayerConverter(std::string name);
 
     ~PlayerConverter();
+
+    void Start()override;
 
     void PreUpdate()override;
 
@@ -27,6 +30,8 @@ public:
 
 private:
 
+    iPoint textPosition = { 0,0 };
+
     RenderObject RevenantClassSprite;
 
     RenderObject SageClassSprite;
@@ -38,5 +43,7 @@ private:
     bool ReadyToChangeClass = false;
 
     bool playerHasalreadychanged = false;
+
+    Text* text = nullptr;
 };
 

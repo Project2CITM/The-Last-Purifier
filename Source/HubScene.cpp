@@ -148,6 +148,8 @@ bool HubScene::Start()
 	//PlayerClassChanger
 	PlayerChangeClass = new PlayerConverter("ClassChanger");
 
+	PlayerChangeClass->Start();
+
 	return true;
 }
 
