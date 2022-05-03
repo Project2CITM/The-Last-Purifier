@@ -11,7 +11,7 @@ ParticleAttackRevenant::ParticleAttackRevenant(iPoint position, int rot, float l
 	}
 	this->anim.loop = false;
 	this->anim.hasIdle = false;
-	this->anim.speed = 2.0f;
+	this->anim.duration = 0.008f;
 	if (rot == 180)
 	{
 		renderObjects[0].flip = SDL_FLIP_HORIZONTAL;

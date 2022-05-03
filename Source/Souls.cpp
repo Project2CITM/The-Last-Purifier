@@ -22,7 +22,7 @@ Souls::Souls(iPoint position, int soulsAmount):GameObject("Souls", "Souls")
 		idleAnim.PushBack({ 50 * i, 0, 50, 105 });
 	}
 	idleAnim.loop = true;
-	idleAnim.speed = 0.1;
+	idleAnim.duration = 0.0160;
 	idleAnim.hasIdle = false;
 
 	SceneGame* scene = (SceneGame*)app->scene->scenes[app->scene->currentScene];

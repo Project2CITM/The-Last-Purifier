@@ -30,7 +30,7 @@ Instructor::Instructor(std::string sentence, std::string name, iPoint position, 
 		idleAnim.PushBack({ 70 * i,0,70,95 });
 	}
 	idleAnim.loop = true;
-	idleAnim.speed = 0.05;
+	idleAnim.duration = 0.320;
 	idleAnim.hasIdle = false;
 
 	Instructor::Start();

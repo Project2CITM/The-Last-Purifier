@@ -11,11 +11,11 @@ class ParticleAttackSage;
 class Projectile : public GameObject
 {
 public:
-	Projectile(std::string name, iPoint position, fPoint speed, int damage, int rotation = 0, bool fire = true, bool stun = false, bool isEnemy = false);
+	Projectile(std::string name, iPoint position, fPoint duration, int damage, int rotation = 0, bool fire = true, bool stun = false, bool isEnemy = false);
 
-	Projectile(iPoint position, int damage, int rotation, fPoint speed);
+	Projectile(iPoint position, int damage, int rotation, fPoint duration);
 
-	void FireProjectile(fPoint speed);
+	void FireProjectile(fPoint duration);
 
 	void OnCollisionEnter(PhysBody* col) override;
 

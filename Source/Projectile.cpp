@@ -8,7 +8,7 @@
 #include "ParticleHitSage.h"
 #include "PaticleHitFotieros.h"
 
-Projectile::Projectile(std::string name, iPoint position, fPoint speed, int damage,int rotation, bool fire, bool stun, bool isEnemy) : GameObject(name, name)
+Projectile::Projectile(std::string name, iPoint position, fPoint duration, int damage,int rotation, bool fire, bool stun, bool isEnemy) : GameObject(name, name)
 {
 	this->damage = damage;
 	this->isEnemy = isEnemy;
@@ -26,7 +26,7 @@ Projectile::Projectile(std::string name, iPoint position, fPoint speed, int dama
 	pBody->body->GetFixtureList()[0].SetFilterData(filter);
 	damageArea->pBody->body->GetFixtureList()[0].SetFilterData(filter);
 
-	if (fire) FireProjectile(speed);
+	if (fire) FireProjectile(duration);
 
 	if (rotation == 180)
 	{
@@ -47,7 +47,7 @@ Projectile::Projectile(std::string name, iPoint position, fPoint speed, int dama
 	}
 	this->anim.loop = true;
 	this->anim.hasIdle = false;
-	this->anim.speed = 0.5f;
+	this->anim.duration = 0.032f;
 
 	//new ParticleAttackSage({ position.x - 20,position.y - 15 },this->rotation, 0.1f, 0.01f, { 1,0 });
 	
@@ -60,7 +60,7 @@ Projectile::Projectile(std::string name, iPoint position, fPoint speed, int dama
 /// <param name="damage"></param>
 /// <param name="rotation"></param>
 /// <param name="speed"></param>
-Projectile::Projectile(iPoint position, int damage, int rotation, fPoint speed) : GameObject("Foteiros", "Foteiros")
+Projectile::Projectile(iPoint position, int damage, int rotation, fPoint duration) : GameObject("Foteiros", "Foteiros")
 {
 	this->damage = damage;
 	this->rotation = rotation;
@@ -77,7 +77,7 @@ Projectile::Projectile(iPoint position, int damage, int rotation, fPoint speed) 
 	pBody->body->GetFixtureList()[0].SetFilterData(filter);
 	damageArea->pBody->body->GetFixtureList()[0].SetFilterData(filter);
 
-	FireProjectile(speed);
+	FireProjectile(duration);
 
 	
 	renderObjects[0].InitAsTexture(app->textures->Load("Assets/Sprites/Player/Sage/foteiros46x32.png"), position, { 0,0,0,0 }, 1.0f, 1, 1.0f, this->rotation);
@@ -108,13 +108,13 @@ Projectile::Projectile(iPoint position, int damage, int rotation, fPoint speed) 
 	}
 	this->anim.loop = true;
 	this->anim.hasIdle = false;
-	this->anim.speed = 0.25f;
+	this->anim.duration = 0.064f;
 
 }
 
-void Projectile::FireProjectile(fPoint speed)
+void Projectile::FireProjectile(fPoint duration)
 {
-	b2Vec2 s = { speed.x, speed.y };
+	b2Vec2 s = { duration.x, duration.y };
 	damageArea->pBody->body->SetLinearVelocity(s);
 	pBody->body->SetLinearVelocity(s);
 }

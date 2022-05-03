@@ -21,10 +21,10 @@ FoteirosS::FoteirosS()
 void FoteirosS::Execute(int level)
 {
 	iPoint offset = { (int)player->controller->combat->GetAttackOffset().x, (int)player->controller->combat->GetAttackOffset().y };
-	fPoint speed = player->controller->combat->GetProjectileOffset();
+	fPoint duration = player->controller->combat->GetProjectileOffset();
 	int rot = player->controller->combat->GetProjectileRotation();
 
-	new Projectile(player->controller->GetPosition() + offset, damage[level - 1], rot, speed * 20);
+	new Projectile(player->controller->GetPosition() + offset, damage[level - 1], rot, duration * 20);
 }
 
 void FoteirosS::Update()

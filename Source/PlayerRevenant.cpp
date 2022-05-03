@@ -41,9 +41,9 @@ PlayerRevenant::PlayerRevenant() : Player()
 
 	for (int i = 0; i < PLAYER_ANIMATIONS_NUM; i++)
 	{
-		controller->animations[i].speed = 0.2f;
+		controller->animations[i].duration = 0.081f;
 		controller->animations[i].hasIdle = false;
 	}
 
-	controller->animations[(int)PlayerAnim::DASH].speed = 0.4f;
+	controller->animations[(int)PlayerAnim::DASH].duration = 0.04f;
 }

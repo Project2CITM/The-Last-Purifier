@@ -232,7 +232,7 @@ void Kaboom::InitAnimation()
 	for (int i = 0; i < (int)KaboomState::MAX; i++)
 	{
 		animations[i].hasIdle = false;
-		animations[i].speed = 0.3f;
+		animations[i].duration = 0.0528f;
 	}
 }
 

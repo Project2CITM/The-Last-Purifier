@@ -101,7 +101,7 @@ private:
 
 	fPoint GetPlayerToMouseVector();
 
-	float speed = 12.0f;	//5
+	float duration = 12.0f;	//5
 	bool isDashing = false;
 	int dashCounter = 0;
 	int dashTime = 400;

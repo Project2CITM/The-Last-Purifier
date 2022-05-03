@@ -214,7 +214,7 @@ void Worm::InitAnimation()
 	for (int i = 0; i < (int)WormState::MAX; i++)
 	{
 		animations[i].hasIdle = false;
-		animations[i].speed = 0.2f;
+		animations[i].duration = 0.08f;
 	}
 }
 

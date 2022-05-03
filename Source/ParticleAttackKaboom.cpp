@@ -11,7 +11,7 @@ ParticleAttackKaboom::ParticleAttackKaboom(iPoint position) :Particle(position, 
 
 	anim.loop = false;
 
-	anim.speed = 0.15f;
+	anim.duration = 0.106f;
 
 	anim.hasIdle = false;
 }

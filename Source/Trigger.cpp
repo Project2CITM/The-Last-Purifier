@@ -90,7 +90,7 @@ void Trigger::OnCollisionExit(PhysBody* col)
 
 	onTriggerStay = false;
 
-	if (pendingToDelete) return;
+	if (pendingToDelete || parent->pendingToDelete) return;
 
 	if (app->Exiting()) return;
 

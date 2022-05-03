@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "External/SDL/include/SDL_rect.h"
+#include "Timer.h"
 
 #define MAX_FRAMES 30
 
@@ -10,7 +11,7 @@ class Animation
 {
 public:
 	bool loop = true;
-	float speed = 1.0f;
+	float duration = 1.0f;
 	bool hasIdle = true;
 
 private:
@@ -19,6 +20,8 @@ private:
 	int totalFrames = 0;
 	float current_frame = 0.0f;
 	int last_frame = 0;
+	Timer animationTimer;
+	float durationCounter = 0;
 
 public:
 
@@ -45,6 +48,7 @@ public:
 
 	void Update()
 	{
+		animationTimer.Update();
 		// if the animation doesn't loop and has reached its end, don't update
 		if (!loop && current_frame >= last_frame-1)
 		{
@@ -56,9 +60,16 @@ public:
 			current_frame = 0;
 		}
 		else {
-			current_frame += speed;
+			durationCounter += animationTimer.getDeltaTime();
+			if (duration == 0.81f) printf("%f\n", durationCounter);
+			if (durationCounter >= duration) 
+			{ 
+				current_frame++;
+				durationCounter = 0;
+			}
 			if (current_frame >= last_frame && loop) current_frame = 0;
 		}
+		animationTimer.Reset();
 	}
 
 	SDL_Rect& GetCurrentFrame()

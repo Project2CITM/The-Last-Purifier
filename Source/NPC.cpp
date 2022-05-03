@@ -28,7 +28,7 @@ NPC::NPC(std::string name, iPoint position) : GameObject(name,"NPC")
 		idleAnim.PushBack({70*i,0,70,95});
 	}
 	idleAnim.loop = true;
-	idleAnim.speed = 0.05;
+	idleAnim.duration = 0.320;
 	idleAnim.hasIdle = false;	
 
 	

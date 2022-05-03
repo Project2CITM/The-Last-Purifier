@@ -39,9 +39,9 @@ PlayerSage::PlayerSage() : Player()
 
 	for (int i = 0; i < PLAYER_ANIMATIONS_NUM; i++)
 	{
-		controller->animations[i].speed = 0.1f;
+		controller->animations[i].duration = 0.16f;
 		controller->animations[i].hasIdle = false;
 	}
 
-	controller->animations[(int)PlayerAnim::DASH].speed = 0.25f;
+	controller->animations[(int)PlayerAnim::DASH].duration = 0.0640f;
 }

@@ -207,24 +207,24 @@ void PlayerCombat::CheckDeck()
 fPoint PlayerCombat::GetProjectileOffset()
 {
 	// Get projectile speed
-	fPoint speed = { 0,0 };
+	fPoint duration = { 0,0 };
 	switch (player->controller->lookingDir)
 	{
 	case LookingDirection::UP:
-		speed.y = -1;
+		duration.y = -1;
 		break;
 	case LookingDirection::DOWN:
-		speed.y = 1;
+		duration.y = 1;
 		break;
 	case LookingDirection::LEFT:
-		speed.x = -1;
+		duration.x = -1;
 		break;
 	case LookingDirection::RIGHT:
-		speed.x = 1;
+		duration.x = 1;
 		break;
 	}
 
-	return speed;
+	return duration;
 
 }
 
@@ -364,27 +364,27 @@ void PlayerCombat::SageAttack()
 	iPoint attackOffset = { METERS_TO_PIXELS(GetAttackOffset().x), METERS_TO_PIXELS(GetAttackOffset().y) };
 
 	// Get projectile speed
-	fPoint speed = { 0,0 };
+	fPoint duration = { 0,0 };
 	int particleRotation = 0;
 	switch (player->controller->lookingDir)
 	{
 	case LookingDirection::UP:
-		speed.y = -1;
+		duration.y = -1;
 		particleRotation = 270;
 		break;
 	case LookingDirection::DOWN:
-		speed.y = 1;
+		duration.y = 1;
 		particleRotation = 90;
 		break;
 	case LookingDirection::LEFT:
-		speed.x = -1;
+		duration.x = -1;
 		particleRotation = -180;
 		break;
 	case LookingDirection::RIGHT:
-		speed.x = 1;
+		duration.x = 1;
 		particleRotation = 0;
 		break;
 	}
 
-	new Projectile("Projectile", player->controller->GetPosition() + attackOffset, speed * projectileSpeed,player->damage,particleRotation);
+	new Projectile("Projectile", player->controller->GetPosition() + attackOffset, duration * projectileSpeed,player->damage,particleRotation);
 }

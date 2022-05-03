@@ -9,7 +9,7 @@ PaticleHitFotieros::PaticleHitFotieros(iPoint position, float life, float delay,
 	}
 	this->anim.loop = false;
 	this->anim.hasIdle = false;
-	this->anim.speed = 0.5f;
+	this->anim.duration = 0.0320f;
 
 	renderObjects[0].InitAsTexture(app->textures->Load("Assets/Sprites/Player/Sage/hitfoteiros.png"), position, { 0,0,0,0 });
 }

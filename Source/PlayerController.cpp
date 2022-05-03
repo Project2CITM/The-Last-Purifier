@@ -36,7 +36,7 @@ void PlayerController::Start()
 	player->stats->Start();
 
 	// Initialize movement variables
-	speed = player->movementSpeed;
+	duration = player->movementSpeed;
 
 	currentAnim = PlayerAnim::IDLE;
 
@@ -73,8 +73,6 @@ void PlayerController::PreUpdate()
 	if (invulnerabilityCounter <= 0) isInvulnerable = false;
 
 	playerTimer.Reset();
-
-	printf("DashCounter: %d\nInvulnerabilityCounter: %d\n", dashCounter, invulnerabilityCounter);
 
 	if (!isInvulnerable && beenHit)beenHit = false;
 
@@ -225,7 +223,7 @@ void PlayerController::MovementUpdateKeyboard()
 	// Vertical 
 	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 	{
-		pBody->body->SetLinearVelocity({ pBody->body->GetLinearVelocity().x, -speed });
+		pBody->body->SetLinearVelocity({ pBody->body->GetLinearVelocity().x, -duration });
 
 		//Change Player State
 		stateMachine.ChangeState((uint)PlayerState::RUN);
@@ -238,7 +236,7 @@ void PlayerController::MovementUpdateKeyboard()
 	}
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
 	{
-		pBody->body->SetLinearVelocity({ pBody->body->GetLinearVelocity().x, speed });
+		pBody->body->SetLinearVelocity({ pBody->body->GetLinearVelocity().x, duration });
 
 		//Change Player State
 		stateMachine.ChangeState((uint)PlayerState::RUN);
@@ -253,7 +251,7 @@ void PlayerController::MovementUpdateKeyboard()
 	// Horizontal
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
-		pBody->body->SetLinearVelocity({ speed,pBody->body->GetLinearVelocity().y });
+		pBody->body->SetLinearVelocity({ duration,pBody->body->GetLinearVelocity().y });
 
 		//Change Player State
 		stateMachine.ChangeState((uint)PlayerState::RUN);
@@ -266,7 +264,7 @@ void PlayerController::MovementUpdateKeyboard()
 	}
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
-		pBody->body->SetLinearVelocity({ -speed,pBody->body->GetLinearVelocity().y });
+		pBody->body->SetLinearVelocity({ -duration,pBody->body->GetLinearVelocity().y });
 
 		//Change Player State
 		stateMachine.ChangeState((uint)PlayerState::RUN);
@@ -363,8 +361,8 @@ void PlayerController::MovementUpdateController()
 	}
 
 	// Add speed to direction vector
-	direction.x *= speed;
-	direction.y *= speed;
+	direction.x *= duration;
+	direction.y *= duration;
 	// Apply speed
 	pBody->body->SetLinearVelocity(direction);
 

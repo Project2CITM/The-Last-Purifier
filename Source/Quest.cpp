@@ -17,7 +17,7 @@ Quest::Quest(iPoint position, std::string questNum, std::string name):GameObject
 		idleAnim.PushBack({ 70 * i,0,70,95 });
 	}
 	idleAnim.loop = true;
-	idleAnim.speed = 0.05;
+	idleAnim.duration = 0.0320;
 	idleAnim.hasIdle = false;
 
 
