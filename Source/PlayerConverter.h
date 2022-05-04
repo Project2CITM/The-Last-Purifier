@@ -4,6 +4,7 @@
 class Trigger;
 class HubScene;
 class Text;
+class Player;
 
 class PlayerConverter :
     public GameObject
@@ -15,8 +16,6 @@ public:
     ~PlayerConverter();
 
     void Start()override;
-
-    void PreUpdate()override;
 
     void Update()override;
 
@@ -42,11 +41,9 @@ private:
 
     Trigger* trigger = nullptr;
 
-    HubScene* pointerscene = nullptr;
+    Player* player = nullptr;
 
     bool ReadyToChangeClass = false;
-
-    bool playerHasalreadychanged = false;
 
     Text* text = nullptr;
 

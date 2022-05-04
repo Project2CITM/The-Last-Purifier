@@ -99,6 +99,22 @@ public:
 	int size() {
 		return last_frame;
 	}
+
+	void EmptyAnimation()
+	{
+		loop = true;
+		duration = 1.0f;
+		hasIdle = true;
+		for (int i = 0; i < MAX_FRAMES; i++)
+		{
+			frames[i] = { 0,0,0,0 };
+		}
+		loopCount = 0;
+		totalFrames = 0;
+		current_frame = 0.0f;
+		last_frame = 0;
+		durationCounter = 0;
+	}
 };
 
 #endif // !__ANIMAION_H__

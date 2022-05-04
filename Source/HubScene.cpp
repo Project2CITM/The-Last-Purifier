@@ -66,11 +66,6 @@ bool HubScene::InitScene()
 		}
 		g->adjustToGrid = true;
 	}
-
-	PlayerChangeClass = new PlayerConverter({ 870,1970 }, "ClassChanger");
-
-	PlayerChangeClassBeforeRun = new PlayerConverter({ 1478,281 }, "ClassChangerBeforeRun");
-
 	return true;
 }
 
@@ -109,6 +104,10 @@ bool HubScene::Start()
 	//Starts
 	hudInGame = new HUDInGame();
 	hudInGame->Start();
+
+	PlayerChangeClass = new PlayerConverter({ 870,1970 }, "ClassChanger");
+
+	PlayerChangeClassBeforeRun = new PlayerConverter({ 1478,281 }, "ClassChangerBeforeRun");
 
 	Scene::Start();
 
@@ -151,9 +150,9 @@ bool HubScene::Start()
 
 	//PlayerClassChanger
 	PlayerChangeClass->setOutside();
-	PlayerChangeClass->Start();
+
 	PlayerChangeClassBeforeRun->setInside();
-	PlayerChangeClassBeforeRun->Start();
+
 
 	return true;
 }
@@ -223,9 +222,6 @@ bool HubScene::Update()
 	int y = player->controller->GetPosition().y;
 	//LOG("x:%d \n y:%d", x, y);
 
-	PlayerChangeClass->Update();
-	PlayerChangeClassBeforeRun->Update();
-
 	revenantTree->Update();
 
 	Scene::Update();
@@ -238,9 +234,6 @@ bool HubScene::PostUpdate()
 	hudInGame->PostUpdate();
 
 	revenantTree->PostUpdate();
-
-	PlayerChangeClass->PostUpdate();
-	PlayerChangeClassBeforeRun->PostUpdate();
 
 	Scene::PostUpdate();
 	return true;

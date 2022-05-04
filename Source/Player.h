@@ -25,6 +25,15 @@ public:
 
 	void AddSouls(int num);
 
+	void ChangeClass(PlayerClass c);
+
+	void InitClassSprites(PlayerClass c);
+
+private:
+	void InitRevenantSprites();
+	void InitSageSprites();
+public:
+
 	PlayerClass playerClass = PlayerClass::REVENANT;
 	PlayerController* controller = nullptr;
 	PlayerStats* stats = nullptr;

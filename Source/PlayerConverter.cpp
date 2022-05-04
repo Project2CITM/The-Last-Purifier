@@ -21,8 +21,8 @@ PlayerConverter::PlayerConverter(iPoint pos,std::string name):GameObject(name,"P
 
 	this->position = pos;
 	
-
-	pointerscene = (HubScene*)app->scene->scenes[app->scene->currentScene];
+	SceneGame* scene = (SceneGame*)app->scene->scenes[app->scene->currentScene];
+	player = scene->player;
 }
 
 PlayerConverter::~PlayerConverter()
@@ -35,19 +35,15 @@ void PlayerConverter::Start()
 	text->ChangeDrawMode();
 }
 
-void PlayerConverter::PreUpdate()
-{
-	pointerscene->isChangingPlayer = false;
-}
 
 void PlayerConverter::Update()
 {
 	if (ReadyToChangeClass)
 	{
-		if (app->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN && pointerscene->isChangingPlayer == false)
+		if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
 		{
-			pointerscene->ChangePlayer();
-			
+			PlayerClass newClass = player->playerClass == PlayerClass::REVENANT ? PlayerClass::SAGE : PlayerClass::REVENANT;
+			player->ChangeClass(newClass);
 		}
 		
 	}
@@ -58,7 +54,7 @@ void PlayerConverter::PostUpdate()
 	if (exterior && !app->map->roof) return;
 	if (!exterior && app->map->roof) return;
 
-	if (pointerscene->currentclass == PlayerClass::REVENANT)
+	if (player->playerClass == PlayerClass::REVENANT)
 	{
 		app->renderer->AddRenderObjectRenderQueue(renderObjects[0]);
 	}
@@ -76,13 +72,13 @@ void PlayerConverter::OnTriggerEnter(std::string trigger, PhysBody* col)
 {
 	if (col->gameObject == nullptr)return;
 
-	if (col->gameObject->name == "Player")
+	if (col->gameObject->name == "Player" && !ReadyToChangeClass)
 	{
 		LOG("Ready to change class");
 		
 		ReadyToChangeClass = true;
 
-		text->SetText("Press N to change player class");
+		text->SetText("Press F to change player class");
 	}
 	
 }
