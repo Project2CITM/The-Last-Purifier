@@ -17,22 +17,6 @@ RenderObject options;
 RenderObject credtis1;
 RenderObject credtis2;
 
-RenderObject PlayController;
-RenderObject SettingsController;
-RenderObject CredtisController;
-RenderObject QuitController;
-RenderObject LinkController;
-
-RenderObject FireController;
-RenderObject CheckController;
-
-RenderObject CreadorsController;
-RenderObject AudioController;
-RenderObject ArtController;
-RenderObject OtrosController;
-
-RenderObject BackController;
-
 
 MainMenu::MainMenu():Scene("MainMenu")
 {
@@ -59,22 +43,6 @@ bool MainMenu::Start()
 	options.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Options.png"), { 0,0 }, {0,0,0,0}, 0.5f);
 	credtis1.InitAsTexture(app->textures->Load("Assets/Sprites/UI/CredtisCre.png"), { 0,0 }, {0,0,0,0}, 0.5f);
 	credtis2.InitAsTexture(app->textures->Load("Assets/Sprites/UI/CreditsProba.png"), { 0,0 }, {0,0,0,0}, 0.5f);
-
-	PlayController.InitAsTexture(app->textures->Load("Assets/Sprites/UI/PlayBUTController.png"), { 0,0 }, { 0,0,0,0 }, 1);
-	SettingsController.InitAsTexture(app->textures->Load("Assets/Sprites/UI/OptionBUTController.png"), { 0,0 }, { 0,0,0,0 }, 1);
-	CredtisController.InitAsTexture(app->textures->Load("Assets/Sprites/UI/CredtisBUTController.png"), { 0,0 }, { 0,0,0,0 }, 1);
-	QuitController.InitAsTexture(app->textures->Load("Assets/Sprites/UI/QuitBUTController.png"), { 0,0 }, { 0,0,0,0 }, 1);
-	LinkController.InitAsTexture(app->textures->Load("Assets/Sprites/UI/linkBUTController.png"), { 0,0 }, { 0,0,0,0 }, 1);
-
-	FireController.InitAsTexture(app->textures->Load("Assets/Sprites/UI/fireSliderController.png"), { 0,0 }, { 0,0,0,0 }, 1);
-	CheckController.InitAsTexture(app->textures->Load("Assets/Sprites/UI/CheckBoxController.png"), { 0,0 }, { 0,0,0,0 }, 1);
-	
-	CreadorsController.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Credtis1Controller.png"), { 0,0 }, { 0,0,0,0 }, 1);
-	AudioController.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Credtis2Controller.png"), { 0,0 }, { 0,0,0,0 }, 1);
-	ArtController.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Credtis3Controller.png"), { 0,0 }, { 0,0,0,0 }, 1);
-	OtrosController.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Credtis4Controller.png"), { 0,0 }, { 0,0,0,0 }, 1);
-
-	BackController.InitAsTexture(app->textures->Load("Assets/Sprites/UI/BackController.png"), { 0,0 }, { 0,0,0,0 }, 1);
 
 	Hover = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiHover.wav");
 	Press = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiSelect.wav");
