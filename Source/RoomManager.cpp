@@ -30,7 +30,6 @@ void RoomManager::Start()
 	}
 
 	miniMap = new MiniMap();
-	//TODO: Breaks HERE!
 	miniMap->Init(false, &rooms);
 
 }
@@ -117,10 +116,13 @@ void RoomManager::PostUpdate()
 {
 	DrawRooms();
 	DrawDoors();
+	miniMap->MiniMapPrint(iPoint(485, 255));
 }
 
 void RoomManager::CleanUp()
 {
+	//TODO: save room states only when not finished the floor
+	
 	for (int i = 0; i < MAX_ROOMS_COLUMNS; ++i) {
 		for (int j = 0; j < MAX_ROOMS_ROWS; j++) {
 			roomPositions[i][j] = nullptr;
@@ -151,6 +153,8 @@ void RoomManager::GenerateMap(short RoomNumber)
 	//if the Room number is too big or too little
 	if (RoomNumber < 1 || RoomNumber > MAX_ROOMS_ROWS * MAX_ROOMS_COLUMNS)
 		return;
+
+	//TODO: implement seed
 
 	iPoint p;	//create centered room
 	p.x = MAX_ROOMS_COLUMNS / 2;

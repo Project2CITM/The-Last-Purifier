@@ -4,12 +4,13 @@
 #include "RoomManager.h"
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
+#include "List.h"
 
-#define DEFAULT_WIDTH 300
-#define DEFAULT_HEIGHT 200
+#define DEFAULT_WIDTH 150
+#define DEFAULT_HEIGHT 100
 
-#define RECT_WIDTH 75
-#define RECT_HEIGHT 50
+#define RECT_WIDTH 30
+#define RECT_HEIGHT 15
 
 class MiniMap
 {
@@ -32,7 +33,7 @@ private:
 	bool isHub = true;
 	SDL_Texture* textureHub = nullptr;
 	float scale = 1.0f;
-	int alpha = 255;
+	int alpha = 100;
 	List<Room*> rooms;
 };
 
