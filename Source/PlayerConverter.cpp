@@ -6,17 +6,20 @@
 #include "HubScene.h"
 #include "ModuleScene.h"
 #include "SceneGame.h"
+#include "ModuleMap.h"
 
-PlayerConverter::PlayerConverter(std::string name):GameObject(name,"PlayerConverter")
+PlayerConverter::PlayerConverter(iPoint pos,std::string name):GameObject(name,"PlayerConverter")
 {
-	renderObjects[0].InitAsTexture(app->textures->Load("Assets/Sprites/Player/Icons/RevenantSpriteInHub.png"), { 870,1970 }, { 0,0,0,0 },1.5f,2,0.8f);
-	renderObjects[1].InitAsTexture(app->textures->Load("Assets/Sprites/Player/Icons/SageSpriteInHub.png"), { 870,1970 }, { 0,0,0,0 }, 0.85f, 2, 0.8f);
+	renderObjects[0].InitAsTexture(app->textures->Load("Assets/Sprites/Player/Icons/RevenantSpriteInHub.png"),pos, { 0,0,0,0 },1.5f,2,0.8f);
+	renderObjects[1].InitAsTexture(app->textures->Load("Assets/Sprites/Player/Icons/SageSpriteInHub.png"), pos, { 0,0,0,0 }, 0.85f, 2, 0.8f);//870,1970
 
 	trigger = new Trigger({ renderObjects[0].destRect.x + 23,renderObjects[0].destRect.y + 24}, 25, 25, this, "ConvertClassTrigger", false);
 
 	b2Filter filter;
 	filter.categoryBits = app->physics->TRIGGER_LAYER;
 	trigger->pBody->body->GetFixtureList()->SetFilterData(filter);
+
+	this->position = pos;
 	
 
 	pointerscene = (HubScene*)app->scene->scenes[app->scene->currentScene];
@@ -28,7 +31,7 @@ PlayerConverter::~PlayerConverter()
 
 void PlayerConverter::Start()
 {
-	text = new Text({865,1960}, " ");
+	text = new Text({this->position.x - 5,this->position.y - 10}, " ");
 	text->ChangeDrawMode();
 }
 
@@ -52,6 +55,9 @@ void PlayerConverter::Update()
 
 void PlayerConverter::PostUpdate()
 {
+	if (exterior && !app->map->roof) return;
+	if (!exterior && app->map->roof) return;
+
 	if (pointerscene->currentclass == PlayerClass::REVENANT)
 	{
 		app->renderer->AddRenderObjectRenderQueue(renderObjects[0]);
@@ -75,8 +81,10 @@ void PlayerConverter::OnTriggerEnter(std::string trigger, PhysBody* col)
 		LOG("Ready to change class");
 		
 		ReadyToChangeClass = true;
+
+		text->SetText("Press N to change player class");
 	}
-	text->SetText("Press N to change player class");
+	
 }
 
 void PlayerConverter::OnTriggerExit(std::string trigger, PhysBody* col)
@@ -88,6 +96,8 @@ void PlayerConverter::OnTriggerExit(std::string trigger, PhysBody* col)
 		LOG(" Not ready to change class");
 
 		ReadyToChangeClass = false;
+
+		text->SetText(" ");
 	}
-	text->SetText(" ");
+	
 }

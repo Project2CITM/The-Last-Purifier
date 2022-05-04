@@ -10,7 +10,7 @@ class PlayerConverter :
 {
 public:
 
-    PlayerConverter(std::string name);
+    PlayerConverter(iPoint position,std::string name);
 
     ~PlayerConverter();
 
@@ -27,6 +27,10 @@ public:
     void OnTriggerEnter(std::string trigger, PhysBody* col) override;
 
     void OnTriggerExit(std::string trigger, PhysBody* col) override;
+
+    void setInside() { exterior = false; }
+
+    void setOutside() { exterior = true; }
 
 private:
 
@@ -45,5 +49,9 @@ private:
     bool playerHasalreadychanged = false;
 
     Text* text = nullptr;
+
+    iPoint position;
+
+    bool exterior = true;
 };
 

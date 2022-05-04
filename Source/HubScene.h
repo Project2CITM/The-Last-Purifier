@@ -47,4 +47,5 @@ private:
 	ClassTree* revenantTree = nullptr;
 
 	PlayerConverter* PlayerChangeClass = nullptr;
+	PlayerConverter* PlayerChangeClassBeforeRun = nullptr;
 };

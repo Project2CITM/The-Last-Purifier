@@ -67,6 +67,10 @@ bool HubScene::InitScene()
 		g->adjustToGrid = true;
 	}
 
+	PlayerChangeClass = new PlayerConverter({ 870,1970 }, "ClassChanger");
+
+	PlayerChangeClassBeforeRun = new PlayerConverter({ 1478,281 }, "ClassChangerBeforeRun");
+
 	return true;
 }
 
@@ -146,9 +150,10 @@ bool HubScene::Start()
 	app->audio->PlayMusic("Assets/Audio/Music/HubMusic.ogg");
 
 	//PlayerClassChanger
-	PlayerChangeClass = new PlayerConverter("ClassChanger");
-
+	PlayerChangeClass->setOutside();
 	PlayerChangeClass->Start();
+	PlayerChangeClassBeforeRun->setInside();
+	PlayerChangeClassBeforeRun->Start();
 
 	return true;
 }
@@ -196,7 +201,8 @@ bool HubScene::PreUpdate()
 	{
 		ChangePlayer();
 	}*/
-	PlayerChangeClass->PreUpdate();
+	/*PlayerChangeClass->PreUpdate();*/
+
 
 	revenantTree->PreUpdate();
 
@@ -218,6 +224,7 @@ bool HubScene::Update()
 	//LOG("x:%d \n y:%d", x, y);
 
 	PlayerChangeClass->Update();
+	PlayerChangeClassBeforeRun->Update();
 
 	revenantTree->Update();
 
@@ -233,6 +240,7 @@ bool HubScene::PostUpdate()
 	revenantTree->PostUpdate();
 
 	PlayerChangeClass->PostUpdate();
+	PlayerChangeClassBeforeRun->PostUpdate();
 
 	Scene::PostUpdate();
 	return true;
