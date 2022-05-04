@@ -50,12 +50,12 @@ bool HUDInGame::Start()
 	Controls1.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Controls1_2.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 1, 0, SDL_FLIP_NONE, 0);
 	Controls2.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Controls2_2.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 1, 0, SDL_FLIP_NONE, 0);
 
-	iconSouls.InitAsTexture(app->textures->Load("Assets/Sprites/UI/icons.png"), { app->renderer->camera->x + 15, app->renderer->camera->y + 21 }, { 62,31,31,31 }, 0.5f, 4, 0, 0, SDL_FLIP_NONE, 0);
+	iconSouls.InitAsTexture(app->textures->Load("Assets/Sprites/Soul/soul.png"), { app->renderer->camera->x + 15, app->renderer->camera->y + 21 }, { 0,0,50,89 }, 0.25f, 4, 0, 0, SDL_FLIP_NONE, 0);
 
 	Hover = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiHover.wav");
 	Press = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiSelect.wav");
 
-	text = new Text({app->renderer->camera->x + 30, app->renderer->camera->y + 25 }, std::to_string(score));
+	text = new Text({app->renderer->camera->x + 30, app->renderer->camera->y + 28 }, std::to_string(score));
 
 	playerHp.bg = playerHp.delayHp = playerHp.currentHp = { app->renderer->camera->x + 15, app->renderer->camera->y + 10, 200, 10 };
 	miniMap = { app->renderer->camera->x + 535, app->renderer->camera->y + 5, 100, 100 };

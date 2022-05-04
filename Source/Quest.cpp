@@ -61,7 +61,7 @@ void Quest::Start()
 			sentences.add(doneNode.child(temporalSentence.c_str()).child_value());
 		}
 	}
-	
+
 }
 
 void Quest::PreUpdate()
