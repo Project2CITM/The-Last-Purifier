@@ -14,6 +14,7 @@ class PhysBody;
 class PlayerController;
 struct b2Vec2;
 class DamageArea;
+class RevenantWeapon;
 
 class PlayerCombat : GameObject, EventListener
 {
@@ -65,8 +66,6 @@ private:
 
 	void GameEventTriggered(GameEvent id);
 
-	void RevenantAttack();
-
 	void SageAttack();
 
 public:
@@ -80,22 +79,9 @@ private:
 
 	bool isSpellCommandStarted = false;
 
-	// Combat Stats-------------------
-	int attackCD;
-	int attackCounter;
-	bool canAttack;
-
-	int attackAreaCD;
-	int attackAreaCounter;
-	bool attackAreaActive;
-
 	float projectileSpeed = 20; //Velocidad de ba
 
-	DamageArea* revenantAttack = nullptr;
-
-	Timer combatTimer;
-
-	uint playerAttackFX[5];
+	RevenantWeapon* revenantWeapon = nullptr;
 
 	friend class PlayerController;
 };

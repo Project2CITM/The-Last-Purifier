@@ -5,10 +5,9 @@
 #include "SpellInfo.h"
 #include "Projectile.h"
 #include "ModuleEvents.h"
-#include "ParticleAttackRevenant.h"
-#include "DamageArea.h"
 #include "ModuleAudio.h"
-
+#include "RevenantSword.h"
+#include "ModuleRender.h"
 
 PlayerCombat::PlayerCombat(std::string name, std::string tag, Player* player) : GameObject(name, tag)
 {
@@ -16,37 +15,13 @@ PlayerCombat::PlayerCombat(std::string name, std::string tag, Player* player) : 
 	this->listenTo[0] = GameEvent::UPDATE_PLAYER_STATS;
 	app->events->AddListener(this);
 
-	for (int i = 0; i < 5; i++)
-	{
-		std::string attack = "Assets/Audio/SFX/Player/Melee/sfx_playerMeleeAttack" + std::to_string(i+1) + ".wav";
-		playerAttackFX[i] = app->audio->LoadFx(attack.c_str());
-	}
+	revenantWeapon = new RevenantSword(this->player->controller);
+
 }
 
 void PlayerCombat::Start()
 {
-	// Change filter
-	b2Filter filter;
-
-	filter.categoryBits = app->physics->PLAYER_LAYER;
-
-	revenantAttack = new DamageArea(player->controller->GetPosition(), 15, 20, player->damage);
-
-	revenantAttack->pBody->body->GetFixtureList()->SetFilterData(filter);
-
-	revenantAttack->pBody->body->SetActive(false);
-
 	executeSpellCommand = new ExecuteSpell();
-
-	// Attack action stats
-	attackCD = player->attackSpeed;
-	attackCounter = 0;
-	canAttack = true;
-
-	// Attack area stats
-	attackAreaActive = false;
-	attackAreaCD = 80;
-	attackAreaCounter = 0;
 
 	for (int i = 0; i < player->spellSlots; i++)
 	{
@@ -67,29 +42,8 @@ void PlayerCombat::PreUpdate()
 	{
 		executeSpellCommand->Start();
 	}
-	combatTimer.Update();
-	if (!canAttack)
-	{
-		attackCounter += combatTimer.getDeltaTime()*1000;
-		if (attackCounter >= attackCD)
-		{
-			canAttack = true;
-			attackCounter = 0;
-		}
-	}
-
-	if (attackAreaActive)
-	{
-		attackAreaCounter += combatTimer.getDeltaTime() * 1000;
-		if (attackAreaCounter >= attackAreaCD)
-		{
-			attackAreaActive = false;
-			revenantAttack->pBody->body->SetActive(false);
-			attackAreaCounter = 0;
-		}
-	}
-
-	combatTimer.Reset();
+	// Clas weapon preupdate
+	if (player->playerClass == PlayerClass::REVENANT) revenantWeapon->PreUpdate();
 }
 
 void PlayerCombat::Update()
@@ -99,29 +53,23 @@ void PlayerCombat::Update()
 
 void PlayerCombat::Attack()
 {
-	if (!canAttack) return;
-
-	int randomNum = rand() % 5;
-
 	switch (player->playerClass)
 	{
 	case PlayerClass::REVENANT:
-		RevenantAttack();
-	
-		app->audio->PlayFx(playerAttackFX[randomNum]);
+
+		if(revenantWeapon->Attack()) app->events->TriggerEvent(GameEvent::PLAYER_ATTACK);
+
 		app->renderer->camera->Shake(5, 10, 2);
 
-		printf("Attack Revenant!\n");
 		break;
 	case PlayerClass::SAGE:
-		printf("Attack Sage!\n");
+
 		app->renderer->camera->Shake(5, 10, 2);
 		
 		SageAttack();
 		break;
 	}
-	app->events->TriggerEvent(GameEvent::PLAYER_ATTACK);
-	canAttack = false;
+
 }
 
 void PlayerCombat::CastSpell()
@@ -252,8 +200,12 @@ int PlayerCombat::GetProjectileRotation()
 
 void PlayerCombat::CleanUp()
 {
-	if (pendingToDelete) revenantAttack->pendingToDelete = true;
-	
+	if (revenantWeapon != nullptr)
+	{
+		revenantWeapon->CleanUp();
+		RELEASE(revenantWeapon);
+	}
+
 	app->events->RemoveListener(this);
 	executeSpellCommand->CleanUp();
 	RELEASE(executeSpellCommand);
@@ -311,52 +263,6 @@ b2Vec2 PlayerCombat::GetAttackOffset()
 	}
 
 	return attackOffset;
-}
-
-void PlayerCombat::RevenantAttack()
-{
-	// Set area as active
-	revenantAttack->pBody->body->SetActive(true);
-
-	// Calculate attack offset and rotation based on looking direction
-	b2Vec2 attackOffset = GetAttackOffset();
-	float attackRotation = 0;
-	if (attackOffset.x == 0.25f) attackRotation = 90 * DEGTORAD;
-	
-	// Update revenantAttack
-	revenantAttack->damage = player->damage + player->extraDamage;
-	revenantAttack->stunTime = player->stunTime;
-	revenantAttack->pushDistance = player->pushDistance;
-
-	// Place on correct position
-	revenantAttack->pBody->body->SetTransform(player->controller->pBody->body->GetPosition() + attackOffset, attackRotation);
-
-	iPoint particleOffset;
-	int particleRotation = 0;
-	switch (player->controller->lookingDir)
-	{
-	case LookingDirection::DOWN:
-		particleOffset = { -25, -30 };
-		particleRotation = 90;
-		break;
-	case LookingDirection::UP:
-		particleOffset = { -25, -20 };
-		particleRotation = 270;
-		break;
-	case LookingDirection::LEFT:
-		particleOffset = {-20, -25 };
-		particleRotation = 180;
-		break;
-	case LookingDirection::RIGHT:
-		particleOffset = { -30, -25 };
-		particleRotation = 0;
-		break;
-
-	}
-
-	new ParticleAttackRevenant(revenantAttack->GetPosition() + particleOffset, particleRotation, 0.15f, 0, player->purifiedSwordOn);
-
-	attackAreaActive = true;
 }
 
 void PlayerCombat::SageAttack()

@@ -121,6 +121,12 @@
     <Filter Include="Archivos de encabezado\Scenes\Hub">
       <UniqueIdentifier>{5e32e2d7-6df6-444a-8f7f-6cbf7d62bc9e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de origen\Player\Weapons">
+      <UniqueIdentifier>{481eb25b-5ead-4f7b-b0d5-9f6b9b1bd5eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Player\Weapons">
+      <UniqueIdentifier>{dc4f452a-18ca-43ef-ac1a-c2aa007ae5ce}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="External\PugiXml\src\pugixml.hpp">
@@ -384,6 +390,12 @@
     <ClInclude Include="PlayerConverter.h">
       <Filter>Archivos de encabezado\Scenes\Hub</Filter>
     </ClInclude>
+    <ClInclude Include="RevenantWeapon.h">
+      <Filter>Archivos de encabezado\Player\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="RevenantSword.h">
+      <Filter>Archivos de encabezado\Player\Weapons</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\PugiXml\src\pugixml.cpp">
@@ -512,9 +524,6 @@
     <ClCompile Include="ModuleEvents.cpp">
       <Filter>Archivos de origen\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="EventListener.cpp">
-      <Filter>Archivos de origen\Tools</Filter>
-    </ClCompile>
     <ClCompile Include="SpellSpawnManager.cpp">
       <Filter>Archivos de origen\Player\Spells\SpellScripts</Filter>
     </ClCompile>
@@ -622,6 +631,12 @@
     </ClCompile>
     <ClCompile Include="PlayerConverter.cpp">
       <Filter>Archivos de origen\Scenes\Hub</Filter>
+    </ClCompile>
+    <ClCompile Include="RevenantWeapon.cpp">
+      <Filter>Archivos de origen\Player\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="RevenantSword.cpp">
+      <Filter>Archivos de origen\Player\Weapons</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

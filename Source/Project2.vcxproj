@@ -158,6 +158,8 @@
     <ClInclude Include="Quest.h" />
     <ClInclude Include="RenderObject.hpp" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="RevenantSword.h" />
+    <ClInclude Include="RevenantWeapon.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="RoomManager.h" />
     <ClInclude Include="Scene.h" />
@@ -188,7 +190,6 @@
     <ClCompile Include="EkriskiDamageArea.cpp" />
     <ClCompile Include="EkriskiS.cpp" />
     <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="EventListener.cpp" />
     <ClCompile Include="ExecuteSpell.cpp" />
     <ClCompile Include="External\PugiXml\src\pugixml.cpp" />
     <ClCompile Include="FoteirosS.cpp" />
@@ -240,6 +241,8 @@
     <ClCompile Include="PurificationSlashS.cpp" />
     <ClCompile Include="PurifiedSwordS.cpp" />
     <ClCompile Include="Quest.cpp" />
+    <ClCompile Include="RevenantSword.cpp" />
+    <ClCompile Include="RevenantWeapon.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="RoomManager.cpp" />
     <ClCompile Include="Scene.cpp" />
