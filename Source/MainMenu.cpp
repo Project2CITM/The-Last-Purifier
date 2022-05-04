@@ -39,7 +39,7 @@ bool MainMenu::InitScene()
 
 bool MainMenu::Start()
 {
-	fondo.InitAsTexture(app->textures->Load("Assets/Sprites/UI/background.png"), { 0,0 }, {0,0,0,0}, 0.5f);
+	fondo.InitAsTexture(app->textures->Load("Assets/Sprites/UI/background.png"), { 0,0 }, { 0,0,0,0 }, 0.5f, 0, 0, 0, SDL_FLIP_NONE, 0);
 	options.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Options.png"), { 0,0 }, {0,0,0,0}, 0.5f);
 	credtis1.InitAsTexture(app->textures->Load("Assets/Sprites/UI/CredtisCre.png"), { 0,0 }, {0,0,0,0}, 0.5f);
 	credtis2.InitAsTexture(app->textures->Load("Assets/Sprites/UI/CreditsProba.png"), { 0,0 }, {0,0,0,0}, 0.5f);
