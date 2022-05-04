@@ -31,7 +31,7 @@ void RoomManager::Start()
 
 	miniMap = new MiniMap();
 	//TODO: Breaks HERE!
-	//miniMap->Init(false, rooms);
+	miniMap->Init(false, &rooms);
 
 }
 

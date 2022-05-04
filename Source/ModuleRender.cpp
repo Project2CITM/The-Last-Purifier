@@ -84,7 +84,7 @@ UpdateStatus ModuleRender::PostUpdate()
 	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) showCollisions = !showCollisions;
 
 	if (showCollisions) app->physics->ShapesRender();
-
+	
 	// Sorting layers
 	for (int i = 0; i < renderLayers.size(); ++i)
 	{

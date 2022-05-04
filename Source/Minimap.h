@@ -21,7 +21,7 @@ public:
 
 	~MiniMap();
 
-	void Init(bool isHub, List<Room*> rooms);
+	void Init(bool isHub, List<Room*>* room);
 	void SetScale(float scale);
 	void SetAlpha(int alpha);
 	void MiniMapPrint(iPoint pos);

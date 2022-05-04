@@ -11,7 +11,7 @@ MiniMap::~MiniMap()
 	rooms.clearPtr();
 }
 
-void MiniMap::Init(bool isHub, List<Room*> rooms)
+void MiniMap::Init(bool isHub, List<Room*>* room)
 {
 	if (isHub) {
 		this->isHub = true;
@@ -19,7 +19,7 @@ void MiniMap::Init(bool isHub, List<Room*> rooms)
 	}
 	else {
 		this->isHub = false;
-		this->rooms = rooms;
+		this->rooms = *room;
 	}
 }
 
