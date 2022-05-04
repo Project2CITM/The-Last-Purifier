@@ -26,13 +26,6 @@ public:
 	void AddGUIControls(GUI* gui) override;
 	void AddGUISettingsP(GUI* gui) override;
 
-	void ChangePlayer();
-public:
-
-	bool isChangingPlayer = false;
-
-	PlayerClass currentclass;
-
 private:
 	
 	iPoint playerPos = { 0,0 }; // Use only for ChangePlayer function, NOT THE ACTUAL PLAYER POSITION!!!

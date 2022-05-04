@@ -86,14 +86,6 @@ bool HubScene::Start()
 	else
 	{
 		playerClass = (PlayerClass)playerStats.child("stats").child("currentClass").attribute("class").as_int();
-		if (playerClass != PlayerClass::REVENANT)
-		{
-			currentclass = PlayerClass::REVENANT;
-		}
-		else
-		{
-			currentclass = PlayerClass::SAGE;
-		}
 	}
 
 	if (playerClass == PlayerClass::REVENANT) player = new PlayerRevenant();
@@ -196,20 +188,10 @@ bool HubScene::PreUpdate()
 	//PreUpdates
 	hudInGame->PreUpdate();
 
-	/*if (app->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN && !isChangingPlayer)
-	{
-		ChangePlayer();
-	}*/
-	/*PlayerChangeClass->PreUpdate();*/
-
-
 	revenantTree->PreUpdate();
 
 	Scene::PreUpdate();
-	/*if (isChangingPlayer && app->input->GetKey(SDL_SCANCODE_N) != KEY_DOWN)
-	{
-		ChangePlayer();
-	}*/
+
 	return true;
 }
 
@@ -256,43 +238,3 @@ void HubScene::AddGUISettingsP(GUI* gui)
 	hudInGame->AddGUISettingsP(gui);
 }
 
-void HubScene::ChangePlayer()
-{
-	if (!isChangingPlayer)
-	{
-		PlayerClass currentClass = player->playerClass;
-
-		playerPos = player->controller->GetPosition();
-		player->CleanUp();
-		RELEASE(player);
-		
-		if (currentClass == PlayerClass::REVENANT)
-		{
-			currentclass = currentClass;
-			player = new PlayerSage();
-			
-		}
-		else
-		{
-			currentclass = currentClass;
-			player = new PlayerRevenant();
-		}
-	
-		player->controller->Start();
-		player->controller->combat->Start();
-		player->controller->SetPosition(playerPos);
-		app->renderer->camera->SetTarget(player->controller);
-
-		hudInGame->SetPlayerCombat(player->controller->combat);
-
-		isChangingPlayer = true;
-
-		app->events->TriggerEvent(GameEvent::SAVE_GAME);
-	}
-	else
-	{
-		player->controller->combat->StartExecuteSpellCommand();
-		isChangingPlayer = false;
-		
-	}
-}
