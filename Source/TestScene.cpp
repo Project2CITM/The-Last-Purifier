@@ -136,7 +136,7 @@ bool TestScene::Update()
 
 bool TestScene::PostUpdate()
 {
-    roomManager.PostUpdate();
+    roomManager.PostUpdate(player->controller->GetPosition());
 
     hudInGame->PostUpdate();
 

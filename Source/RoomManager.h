@@ -24,7 +24,7 @@ public:
 	void Start();
 	void PreUpdate(iPoint playerPos);
 	void Update(iPoint playerPos);
-	void PostUpdate();
+	void PostUpdate(iPoint playerPos);
 	void CleanUp();
 
 	void GenerateMap(short RoomNumber);

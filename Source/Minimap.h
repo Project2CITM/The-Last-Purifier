@@ -10,7 +10,7 @@
 #define DEFAULT_HEIGHT 100
 
 #define RECT_WIDTH 30
-#define RECT_HEIGHT 15
+#define RECT_HEIGHT 20
 
 class MiniMap
 {
@@ -23,16 +23,18 @@ public:
 	~MiniMap();
 
 	void Init(bool isHub, List<Room*>* room);
-	void SetScale(float scale);
+	void SetScale(int scale);
 	void SetAlpha(int alpha);
-	void MiniMapPrint(iPoint pos);
+	void MiniMapPrint(iPoint pos, iPoint playerPos);
 
 private:
 	
+	
+
 	Application* app = nullptr;
 	bool isHub = true;
 	SDL_Texture* textureHub = nullptr;
-	float scale = 1.0f;
+	int scale = 1;
 	int alpha = 100;
 	List<Room*> rooms;
 };

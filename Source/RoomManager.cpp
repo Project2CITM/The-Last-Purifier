@@ -6,6 +6,7 @@
 #include "Trigger.h"
 #include "Enemy.h"
 #include "Minimap.h"
+#include "ModuleInput.h"
 
 void RoomManager::Start()
 {
@@ -50,6 +51,9 @@ void RoomManager::PreUpdate(iPoint playerPos)
 
 void RoomManager::Update(iPoint playerPos)
 {
+	//MiniMap resize
+	miniMap->SetScale((app->input->GetKey(SDL_SCANCODE_TAB) == KEY_REPEAT) ? 2 : 1);
+	
 	//Check current room
 	Room* r = roomPositions[playerPos.x / (TILE_SIZE * MAX_ROOM_TILES_COLUMNS)][playerPos.y / (TILE_SIZE * MAX_ROOM_TILES_ROWS)];
 
@@ -112,11 +116,12 @@ void RoomManager::Update(iPoint playerPos)
 		}
 }
 
-void RoomManager::PostUpdate()
+void RoomManager::PostUpdate(iPoint playerPos)
 {
 	DrawRooms();
 	DrawDoors();
-	miniMap->MiniMapPrint(iPoint(485, 255));
+	miniMap->MiniMapPrint(iPoint(485, 255), 
+		iPoint(playerPos.x / (TILE_SIZE * MAX_ROOM_TILES_COLUMNS),playerPos.y / (TILE_SIZE * MAX_ROOM_TILES_ROWS)));
 }
 
 void RoomManager::CleanUp()

@@ -22,9 +22,9 @@ void MiniMap::Init(bool isHub, List<Room*>* room)
 	}
 }
 
-void MiniMap::SetScale(float scale)
+void MiniMap::SetScale(int scale)
 {
-	if (scale < 0.0f) return;
+	if (scale < 0) return;
 	this->scale = scale;
 }
 
@@ -34,21 +34,25 @@ void MiniMap::SetAlpha(int alpha)
 	this->alpha = alpha;
 }
 
-void MiniMap::MiniMapPrint(iPoint pos)
+void MiniMap::MiniMapPrint(iPoint pos, iPoint playerPos)
 {
-	//Scale 0 - No map
-	if (scale == 0.0f) return;
-
 	//Minimap Frame
-	app->renderer->AddRectRenderQueue({ pos.x, pos.y, int (DEFAULT_WIDTH * scale), int (DEFAULT_HEIGHT * scale) }, { 200, 200, 200, 255 }, false, 3, 2.0f, 0.0f);
+	pos.x += DEFAULT_WIDTH;
+	pos.y += DEFAULT_HEIGHT;
+	pos.x -= DEFAULT_WIDTH * scale;
+	pos.y -= DEFAULT_HEIGHT * scale;
+	SDL_Rect outRect = { pos.x, pos.y, DEFAULT_WIDTH * scale, DEFAULT_HEIGHT * scale };
 
+	//Print Hub
 	if (isHub) {
 		//TODO: print for hub
 
+		//Print minimap frame
+		app->renderer->AddRectRenderQueue(outRect, { 200, 200, 200, 255 }, false, 3, 2.0f, 0.0f);
 		return;
 	}
 
-	//TODO: print ingame scene
+	//Print ingame scene
 	for (int i = 0; i < rooms.count(); i++) {
 		
 		SDL_Color color{ 100, 100, 100 , alpha};
@@ -60,15 +64,28 @@ void MiniMap::MiniMapPrint(iPoint pos)
 		
 		iPoint position = rooms[i]->roomPosition;
 
-		position -= {2, 1};
+		position += {2*scale, 2*scale};
+		position -= playerPos;
 
 		position.x *= RECT_WIDTH;
 		position.y *= RECT_HEIGHT;
 		position += pos;
-
-		SDL_Rect rect{ position.x, position.y, RECT_WIDTH * scale, RECT_HEIGHT * scale };
-		app->renderer->AddRectRenderQueue(rect, color, true, 3, 2.0f, 0.0f);
-		//app->renderer->AddRectRenderQueue(rect, SDL_Color{ 0,0,0 }, false, 3, 1.9f, 0.0f);
+		
+		SDL_Rect rect{ position.x, position.y, RECT_WIDTH, RECT_HEIGHT };
+		
+		if (SDL_HasIntersection(&outRect, &rect)) {
+			/*
+			SDL_Rect resRect;
+			SDL_UnionRect(&outRect, &rect, &resRect);
+			if (!SDL_RectEquals(&resRect, &outRect)) {
+				rect.w /= 2;
+				rect.h /= 2;
+			}
+			*/
+			app->renderer->AddRectRenderQueue(rect, color, true, 3, 2.0f, 0.0f);
+			app->renderer->AddRectRenderQueue(rect, SDL_Color{ 0, 0, 0, 200 }, false, 3, 2.1f, 0.0f);
+		}
 	}
-
+	//Print minimap frame
+	app->renderer->AddRectRenderQueue(outRect, { 200, 200, 200, 255 }, false, 3, 2.0f, 0.0f);
 }
