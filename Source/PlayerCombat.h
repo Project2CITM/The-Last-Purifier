@@ -27,6 +27,8 @@ public:
 
 	void Update() override;
 
+	void CombatUpdate();
+
 	void Attack();
 
 	void CastSpell();
@@ -40,6 +42,8 @@ public:
 	/// </summary>
 	/// <param name="spell"></param>
 	bool AddSpell(SpellInfo spell);
+
+	bool ChangeWeapon();
 
 	/// <summary>
 	/// Checks for empty spell Slots and fills them with any spells in the deck.

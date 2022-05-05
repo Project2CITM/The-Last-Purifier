@@ -20,6 +20,9 @@ public:
 
 	virtual void CleanUp();
 
+public:
+	bool canAttack = true;
+	int attackSpeedCD = 0;
 protected:
 
 	DamageArea* damageArea = nullptr;
@@ -27,7 +30,7 @@ protected:
 
 	int damage = 0;
 
-	int attackSpeedCD = 0;
+	
 	int currentAttackCD = 0;
 
 	int attackAreaCD = 0;
@@ -35,8 +38,6 @@ protected:
 
 	Timer* weaponTimer;
 
-	
-	bool canAttack = true;
 	bool attackAreaActive = false;
 
 	Application* app = nullptr;

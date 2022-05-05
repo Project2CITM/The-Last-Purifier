@@ -10,8 +10,8 @@ struct StateObject
 {
 	std::string name; //For debug purposes
 	int priority;
-	int totalFrames;
-	int currentFrames;
+	int totalTime;
+	int currentTime;
 };
 
 class StateMachine
@@ -46,11 +46,12 @@ public:
 	/// <returns></returns>
 	uint GetCurrentState();
 
+public:
+	List<StateObject> states; // List of every state added to the State Machine
 private:
 
 	void ChangeCurrentState(uint state);
 
-	List<StateObject> states; // List of every state added to the State Machine
 	uint currentState; // List index of the current state
 	Timer stateTimer;
 };

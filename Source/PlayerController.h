@@ -88,6 +88,8 @@ public:
 
 	LookingDirection lookingDir = LookingDirection::RIGHT;
 
+	bool tryingToMove = false;
+
 
 private:
 	void CreatePhysBody();
@@ -95,13 +97,11 @@ private:
 	void MovementUpdateKeyboard();
 	void MovementUpdateController();
 
-	void CombatUpdate();
-
 	void DashOn();
 
 	fPoint GetPlayerToMouseVector();
 
-	float duration = 12.0f;	//5
+	float speed = 12.0f;	//5
 	bool isDashing = false;
 	int dashCounter = 0;
 	int dashTime = 400;

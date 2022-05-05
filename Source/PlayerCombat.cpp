@@ -8,6 +8,7 @@
 #include "ModuleAudio.h"
 #include "RevenantSword.h"
 #include "ModuleRender.h"
+#include "ModuleInput.h"
 
 PlayerCombat::PlayerCombat(std::string name, std::string tag, Player* player) : GameObject(name, tag)
 {
@@ -16,6 +17,8 @@ PlayerCombat::PlayerCombat(std::string name, std::string tag, Player* player) : 
 	app->events->AddListener(this);
 
 	revenantWeapon = new RevenantSword(this->player->controller);
+
+	player->controller->stateMachine.states[(uint)PlayerState::ATTACK].totalTime = revenantWeapon->attackSpeedCD + (int)(revenantWeapon->attackSpeedCD/4);
 
 }
 
@@ -51,14 +54,42 @@ void PlayerCombat::Update()
 	executeSpellCommand->Update();
 }
 
+void PlayerCombat::CombatUpdate()
+{
+	// Check for attack and Spell input
+	if (app->input->GetMouseButton(1) == KEY_DOWN || app->input->GetControllerButton(BUTTON_X) == KEY_DOWN)
+	{
+		Attack();
+	}
+	else if (app->input->GetMouseButton(3) == KEY_DOWN || app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)
+	{
+		CastSpell();
+	}
+
+	// Check for spell changing input
+
+	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN || app->input->GetControllerButton(BUTTON_LEFT_SHOULDER) == KEY_DOWN)
+	{
+		ChangeSelectedSpellSlot(-1);
+	}
+	else if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || app->input->GetControllerButton(BUTTON_RIGHT_SHOULDER) == KEY_DOWN)
+	{
+		ChangeSelectedSpellSlot(1);
+	}
+}
+
 void PlayerCombat::Attack()
 {
 	switch (player->playerClass)
 	{
 	case PlayerClass::REVENANT:
-
-		if(revenantWeapon->Attack()) app->events->TriggerEvent(GameEvent::PLAYER_ATTACK);
-
+		// If the weapon is ready, the player can attack and the player isn't already attacking
+		if (revenantWeapon->canAttack && player->controller->stateMachine.GetCurrentState() != (uint)PlayerState::ATTACK 
+			&& player->controller->stateMachine.ChangeState((uint)PlayerState::ATTACK))
+		{
+			revenantWeapon->Attack(); // Attack and trigger attack event.
+			app->events->TriggerEvent(GameEvent::PLAYER_ATTACK);
+		}
 		app->renderer->camera->Shake(5, 10, 2);
 
 		break;
@@ -129,6 +160,13 @@ bool PlayerCombat::AddSpell(SpellInfo spell)
 
 	// If neither the spell slots nor the deck slots have an empty slot, return false
 	return false;
+}
+
+bool PlayerCombat::ChangeWeapon()
+{
+	// After changing the current weapon you must change the player Attack State time.
+	player->controller->stateMachine.states[(uint)PlayerState::ATTACK].totalTime = revenantWeapon->attackSpeedCD;
+	return true;
 }
 
 void PlayerCombat::CheckDeck()

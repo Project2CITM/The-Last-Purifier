@@ -14,7 +14,7 @@ RevenantSword::RevenantSword(PlayerController* playerController) : RevenantWeapo
 	// Initialize stats (damage and attackSpeed)
 
 	this->damage = 20;
-	this->attackSpeedCD = 960;
+	this->attackSpeedCD = 240;
 	this->attackAreaCD = 80;
 
 	// Create DamageArea with correct filter
