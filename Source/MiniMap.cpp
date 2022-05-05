@@ -56,10 +56,27 @@ void MiniMap::MiniMapPrint(iPoint pos, iPoint playerPos)
 	for (int i = 0; i < rooms.count(); i++) {
 		
 		SDL_Color color{ 100, 100, 100 , alpha};
+		
+		switch (rooms[i]->id) {
+		case -1:
+			color.r += 100;
+			color.b -= 100;
+			color.g -= 100;
+			break;
+		case -2:
+			color.r += 55;
+			color.g -= 100;
+			break;
+		case -3:	
+			color.b -= 100;
+			color.r -= 100;
+			break;
+		}
+		
 		if (rooms[i]->done) {
-			color.r = 200;
-			color.g = 200;
-			color.b = 200;
+			color.r += 100;
+			color.g += 100;
+			color.b += 100;
 		}
 		
 		iPoint position = rooms[i]->roomPosition;
@@ -82,8 +99,11 @@ void MiniMap::MiniMapPrint(iPoint pos, iPoint playerPos)
 				rect.h /= 2;
 			}
 			*/
+			rect.x += 1;
+			rect.y += 1;
+			rect.w -= 2;
+			rect.h -= 2;
 			app->renderer->AddRectRenderQueue(rect, color, true, 3, 2.0f, 0.0f);
-			app->renderer->AddRectRenderQueue(rect, SDL_Color{ 0, 0, 0, 200 }, false, 3, 2.1f, 0.0f);
 		}
 	}
 	//Print minimap frame
