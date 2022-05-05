@@ -141,7 +141,7 @@ void RoomManager::CleanUp()
 	rooms.clearPtr();
 
 	RELEASE(mapLoader);
-	//RELEASE(miniMap);
+	RELEASE(miniMap);
 
 	doorTopTexture = nullptr;
 	doorBotTexture = nullptr;

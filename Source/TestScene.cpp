@@ -70,14 +70,6 @@ bool TestScene::Start()
 
     app->audio->PlayMusic("Assets/Audio/Ambience/amb_dungeon1_2.ogg");
 
-    //new Kaboom(player->controller->GetPosition() + iPoint(-100, 0));
-
-    //new Ghoul(player->controller->GetPosition() + iPoint(-100, 0));
-
-    //new Worm(player->controller->GetPosition() + iPoint(-100, 0));
-
-    //new Text(player->controller->GetPosition() + iPoint(-100, 0), "H");
-
     return true;
 }
 

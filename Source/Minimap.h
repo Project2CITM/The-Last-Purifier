@@ -36,7 +36,7 @@ private:
 	SDL_Texture* textureHub = nullptr;
 	int scale = 1;
 	int alpha = 100;
-	List<Room*> rooms;
+	List<Room*>* rooms;
 };
 
 #endif //__MINIMAP_H__

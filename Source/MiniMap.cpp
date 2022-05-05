@@ -7,7 +7,6 @@ MiniMap::~MiniMap()
 	textureHub = nullptr;
 	scale = 1.0f;
 	alpha = 255;
-	rooms.clearPtr();
 }
 
 void MiniMap::Init(bool isHub, List<Room*>* room)
@@ -18,7 +17,7 @@ void MiniMap::Init(bool isHub, List<Room*>* room)
 	}
 	else {
 		this->isHub = false;
-		this->rooms = *room;
+		this->rooms = room;
 	}
 }
 
@@ -53,11 +52,11 @@ void MiniMap::MiniMapPrint(iPoint pos, iPoint playerPos)
 	}
 
 	//Print ingame scene
-	for (int i = 0; i < rooms.count(); i++) {
+	for (int i = 0; i < rooms->count(); i++) {
 		
 		SDL_Color color{ 100, 100, 100 , alpha};
 		
-		switch (rooms[i]->id) {
+		switch (rooms->At(i)->data->id) {
 		case -1:
 			color.r += 100;
 			color.b -= 100;
@@ -73,13 +72,13 @@ void MiniMap::MiniMapPrint(iPoint pos, iPoint playerPos)
 			break;
 		}
 		
-		if (rooms[i]->done) {
+		if (rooms->At(i)->data->done) {
 			color.r += 100;
 			color.g += 100;
 			color.b += 100;
 		}
 		
-		iPoint position = rooms[i]->roomPosition;
+		iPoint position = rooms->At(i)->data->roomPosition;
 
 		position += {2*scale, 2*scale};
 		position -= playerPos;
