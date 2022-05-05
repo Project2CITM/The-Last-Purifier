@@ -54,7 +54,7 @@ void PlayerConverter::PostUpdate()
 	if (exterior && !app->map->roof) return;
 	if (!exterior && app->map->roof) return;
 
-	if (player->playerClass == PlayerClass::REVENANT)
+	if (player->playerClass != PlayerClass::REVENANT)
 	{
 		app->renderer->AddRenderObjectRenderQueue(renderObjects[0]);
 	}
