@@ -70,6 +70,8 @@ public:
 
 	bool IsDashing() { return isDashing; }
 
+	void AttackImpulse();
+
 public:
 
 	Player* player = nullptr;
@@ -106,6 +108,11 @@ private:
 	int dashCounter = 0;
 	int dashTime = 400;
 	int dashDistance = 14;	//6
+
+	bool isAttackImpulse = false;
+	int attackImpulseCounter = 0;
+	int attackImpulseTime = 120;
+	int attackImpulseDistance = 10;
 
 	int invulnerabilityTimeHit = 1920;
 	bool beenHit = false;

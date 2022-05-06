@@ -88,6 +88,10 @@ void PlayerCombat::Attack()
 			&& player->controller->stateMachine.ChangeState((uint)PlayerState::ATTACK))
 		{
 			revenantWeapon->Attack(); // Attack and trigger attack event.
+			if (player->controller->tryingToMove && revenantWeapon->addImpulse)
+			{
+				player->controller->AttackImpulse(); // Move when attacking if player is trying to move
+			}
 			app->events->TriggerEvent(GameEvent::PLAYER_ATTACK);
 		}
 		app->renderer->camera->Shake(5, 10, 2);

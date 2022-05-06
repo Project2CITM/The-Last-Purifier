@@ -73,6 +73,17 @@ void PlayerController::PreUpdate()
 		}
 	}
 
+	if (isAttackImpulse)
+	{
+		attackImpulseCounter -= playerTimer.getDeltaTime() * 1000;
+		// If Cooldown is done, you stop dashing
+		if (attackImpulseCounter <= 0)
+		{
+			isAttackImpulse = false;
+			//pBody->body->SetLinearVelocity({ 0,0 });
+		}
+	}
+
 	playerTimer.Reset();
 
 	if (!isInvulnerable && beenHit)beenHit = false;
@@ -217,6 +228,7 @@ void PlayerController::CreatePhysBody()
 
 void PlayerController::MovementUpdateKeyboard()
 {
+	tryingToMove = false;
 	// By default, the player is always IDLE
 	stateMachine.ChangeState((uint)PlayerState::IDLE);
 
@@ -232,6 +244,7 @@ void PlayerController::MovementUpdateKeyboard()
 		stateMachine.ChangeState((uint)PlayerState::RUN);
 
 		lookingDir = LookingDirection::UP;
+		tryingToMove = true;
 	}
 	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_UP)
 	{
@@ -245,6 +258,7 @@ void PlayerController::MovementUpdateKeyboard()
 		stateMachine.ChangeState((uint)PlayerState::RUN);
 
 		lookingDir = LookingDirection::DOWN;
+		tryingToMove = true;
 	}
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_UP)
 	{
@@ -260,6 +274,7 @@ void PlayerController::MovementUpdateKeyboard()
 		stateMachine.ChangeState((uint)PlayerState::RUN);
 
 		lookingDir = LookingDirection::RIGHT;
+		tryingToMove = true;
 	}
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_UP)
 	{
@@ -273,6 +288,7 @@ void PlayerController::MovementUpdateKeyboard()
 		stateMachine.ChangeState((uint)PlayerState::RUN);
 
 		lookingDir = LookingDirection::LEFT;
+		tryingToMove = true;
 	}
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_UP)
 	{
@@ -289,7 +305,7 @@ void PlayerController::MovementUpdateKeyboard()
 	}
 
 	// If we are not in running state, we undo any velocity changes into our physic body.
-	if (stateMachine.GetCurrentState() != (uint)PlayerState::RUN) pBody->body->SetLinearVelocity({0,0});
+	if (stateMachine.GetCurrentState() != (uint)PlayerState::RUN && !isAttackImpulse) pBody->body->SetLinearVelocity({0,0});
 
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
@@ -312,6 +328,7 @@ void PlayerController::MovementUpdateKeyboard()
 
 void PlayerController::MovementUpdateController()
 {
+	tryingToMove = false;
 	// By default, the player is always IDLE
 	stateMachine.ChangeState((uint)PlayerState::IDLE);
 
@@ -341,13 +358,13 @@ void PlayerController::MovementUpdateController()
 		if (direction.x > 0)
 		{
 			stateMachine.ChangeState((uint)PlayerState::RUN);
-
+			tryingToMove = true;
 			lookingDir = LookingDirection::RIGHT;
 		}
 		else if (direction.x < 0)
 		{
 			stateMachine.ChangeState((uint)PlayerState::RUN);
-
+			tryingToMove = true;
 			lookingDir = LookingDirection::LEFT;
 		}
 	}
@@ -356,14 +373,14 @@ void PlayerController::MovementUpdateController()
 		if (direction.y < 0)
 		{
 			stateMachine.ChangeState((uint)PlayerState::RUN);
-
+			tryingToMove = true;
 			lookingDir = LookingDirection::UP;
 		}
 		else if (direction.y > 0)
 		{
 			//Change Player State
 			stateMachine.ChangeState((uint)PlayerState::RUN);
-
+			tryingToMove = true;
 			lookingDir = LookingDirection::DOWN;
 		}
 	}
@@ -388,15 +405,16 @@ void PlayerController::MovementUpdateController()
 
 			// do the dash
 			DashOn();
+
+			// Disable Attack Impulse
+			attackImpulseCounter = 0;
 		}
 	}
 }
 
 void PlayerController::DashOn()
 {
-
 	Invulnerability(dashInvulnerability);
-
 	isDashing = true;
 	dashCounter = dashTime;
 
@@ -530,3 +548,30 @@ void PlayerController::GameEventTriggered(GameEvent id)
 {
 	combat->CheckDeck();
 }
+
+void PlayerController::AttackImpulse()
+{
+	isAttackImpulse = true;
+	attackImpulseCounter = attackImpulseTime;
+
+	b2Vec2 dir;
+	//We dash on the current direction we are facing
+	switch (lookingDir)
+	{
+	case LookingDirection::UP:
+		dir = { 0, (float)-1 * attackImpulseDistance };
+		break;
+	case LookingDirection::DOWN:
+		dir = { 0, (float)1 * attackImpulseDistance };
+		break;
+	case LookingDirection::LEFT:
+		dir = { (float)-1 * attackImpulseDistance, 0 };
+		break;
+	case LookingDirection::RIGHT:
+		dir = { (float)1 * attackImpulseDistance, 0 };
+		break;
+	}
+
+	pBody->body->SetLinearVelocity(dir);
+}
+
