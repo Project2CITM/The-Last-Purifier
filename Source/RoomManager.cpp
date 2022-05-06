@@ -20,6 +20,8 @@ void RoomManager::Start()
 	wallTexture[2] = app->textures->Load("Assets/Maps/TestDoor_bottom.png");
 
 	mapLoader = new MapLoader();
+	mapSave = new MapSave();
+	mapSave->Init();
 
 	GenerateMap(10);
 
@@ -30,9 +32,9 @@ void RoomManager::Start()
 		rooms[i]->DeactivateColliders();
 	}
 
+	//MiniMap
 	miniMap = new MiniMap();
 	miniMap->Init(false, &rooms);
-
 }
 
 void RoomManager::PreUpdate(iPoint playerPos)
@@ -51,6 +53,13 @@ void RoomManager::PreUpdate(iPoint playerPos)
 
 void RoomManager::Update(iPoint playerPos)
 {
+#pragma region //ERASE THIS
+	if (app->input->GetKey(SDL_SCANCODE_U) == KEY_DOWN) {
+		mapSave->ClearSeed();
+	}
+#pragma endregion
+	
+	
 	//MiniMap resize
 	miniMap->SetScale((app->input->GetKey(SDL_SCANCODE_TAB) == KEY_REPEAT) ? 2 : 1);
 	
@@ -64,6 +73,10 @@ void RoomManager::Update(iPoint playerPos)
 	if (exitTrigger->onTriggerEnter && r->done)
 	{
 		app->events->TriggerEvent(GameEvent::SAVE_GAME);
+
+		mapSave->ClearSeed();
+		mapSave->ClearRoomStates();
+
 		app->scene->ChangeCurrentSceneRequest(SCENES::HUB);
 	}
 
@@ -126,8 +139,6 @@ void RoomManager::PostUpdate(iPoint playerPos)
 
 void RoomManager::CleanUp()
 {
-	//TODO: save room states only when not finished the floor
-	
 	for (int i = 0; i < MAX_ROOMS_COLUMNS; ++i) {
 		for (int j = 0; j < MAX_ROOMS_ROWS; j++) {
 			roomPositions[i][j] = nullptr;
@@ -142,6 +153,7 @@ void RoomManager::CleanUp()
 
 	RELEASE(mapLoader);
 	RELEASE(miniMap);
+	RELEASE(mapSave);
 
 	doorTopTexture = nullptr;
 	doorBotTexture = nullptr;
@@ -159,7 +171,13 @@ void RoomManager::GenerateMap(short RoomNumber)
 	if (RoomNumber < 1 || RoomNumber > MAX_ROOMS_ROWS * MAX_ROOMS_COLUMNS)
 		return;
 
-	//TODO: implement seed
+	//Seed
+	if (mapSave->CurrentSeed() == 0) {
+		mapSave->GenerateSeed();
+	}
+	else {
+		mapSave->UseCurrentSeed();
+	}
 
 	iPoint p;	//create centered room
 	p.x = MAX_ROOMS_COLUMNS / 2;
@@ -379,7 +397,6 @@ Room* RoomManager::CreateRoom(iPoint mapPosition, short mapId)
 	r->roomPosition = mapPosition;
 	r->id = mapId;
 
-	//srand(time(NULL));
 	std::string folder = "Assets/Maps/map";
 	std::string file = ".png";
 
