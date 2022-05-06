@@ -80,7 +80,6 @@ void PlayerController::PreUpdate()
 		if (attackImpulseCounter <= 0)
 		{
 			isAttackImpulse = false;
-			//pBody->body->SetLinearVelocity({ 0,0 });
 		}
 	}
 
@@ -517,6 +516,7 @@ void PlayerController::Hit(int damage)
 		{
 			app->scene->ChangeCurrentSceneRequest(SCENES::HUB, 60);
 
+			app->events->TriggerEvent(GameEvent::PLAYER_DIE);
 			app->events->TriggerEvent(GameEvent::SAVE_GAME);
 
 			canControl = false;

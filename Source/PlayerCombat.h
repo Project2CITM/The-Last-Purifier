@@ -29,7 +29,7 @@ public:
 
 	void CombatUpdate();
 
-	void Attack();
+	void Attack(int chargedTime = 0);
 
 	void CastSpell();
 
@@ -84,6 +84,10 @@ private:
 	bool isSpellCommandStarted = false;
 
 	float projectileSpeed = 20; //Velocidad de ba
+
+	int chargedAttackTime = 0;
+
+	Timer combatTimer;
 
 	RevenantWeapon* revenantWeapon = nullptr;
 

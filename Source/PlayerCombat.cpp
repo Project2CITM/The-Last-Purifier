@@ -18,7 +18,7 @@ PlayerCombat::PlayerCombat(std::string name, std::string tag, Player* player) : 
 
 	revenantWeapon = new RevenantSword(this->player->controller);
 
-	player->controller->stateMachine.states[(uint)PlayerState::ATTACK].totalTime = revenantWeapon->attackSpeedCD + (int)(revenantWeapon->attackSpeedCD/4);
+	player->controller->stateMachine.states[(uint)PlayerState::ATTACK].totalTime = revenantWeapon->attackSpeedCD;
 
 }
 
@@ -56,10 +56,17 @@ void PlayerCombat::Update()
 
 void PlayerCombat::CombatUpdate()
 {
-	// Check for attack and Spell input
-	if (app->input->GetMouseButton(1) == KEY_DOWN || app->input->GetControllerButton(BUTTON_X) == KEY_DOWN)
+	combatTimer.Update();
+
+	if (app->input->GetMouseButton(1) == KEY_UP || app->input->GetControllerButton(BUTTON_X) == KEY_UP)
 	{
-		Attack();
+		Attack(chargedAttackTime);
+		chargedAttackTime = 0;
+	}
+	// Check for attack and Spell input
+	if (app->input->GetMouseButton(1) == KEY_REPEAT || app->input->GetControllerButton(BUTTON_X) == KEY_REPEAT)
+	{
+		chargedAttackTime += combatTimer.getDeltaTime() * 1000;
 	}
 	else if (app->input->GetMouseButton(3) == KEY_DOWN || app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)
 	{
@@ -76,9 +83,11 @@ void PlayerCombat::CombatUpdate()
 	{
 		ChangeSelectedSpellSlot(1);
 	}
+
+	combatTimer.Reset();
 }
 
-void PlayerCombat::Attack()
+void PlayerCombat::Attack(int chargedTime)
 {
 	switch (player->playerClass)
 	{
@@ -87,7 +96,7 @@ void PlayerCombat::Attack()
 		if (revenantWeapon->canAttack && player->controller->stateMachine.GetCurrentState() != (uint)PlayerState::ATTACK 
 			&& player->controller->stateMachine.ChangeState((uint)PlayerState::ATTACK))
 		{
-			revenantWeapon->Attack(); // Attack and trigger attack event.
+			revenantWeapon->Attack(chargedTime); // Attack and trigger attack event.
 			if (player->controller->tryingToMove && revenantWeapon->addImpulse)
 			{
 				player->controller->AttackImpulse(); // Move when attacking if player is trying to move

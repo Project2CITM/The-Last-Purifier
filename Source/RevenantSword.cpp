@@ -40,7 +40,7 @@ RevenantSword::RevenantSword(PlayerController* playerController) : RevenantWeapo
 	weaponTimer = new Timer();
 }
 
-bool RevenantSword::Attack()
+bool RevenantSword::Attack(int chargedTime)
 {
 	if (!canAttack) return false;
 

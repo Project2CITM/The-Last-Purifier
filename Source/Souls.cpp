@@ -11,6 +11,11 @@
 
 Souls::Souls(iPoint position, int soulsAmount):GameObject("Souls", "Souls")
 {
+	// Event Listener
+	this->listenTo[0] = GameEvent::PLAYER_DIE;
+	app->events->AddListener(this);
+
+
 	this->position = position;
 	this->soulsAmount = soulsAmount;
 	trigger = new Trigger({ position.x+4,position.y+10 }, 10, this, "SoulsTrigger", true);
@@ -85,15 +90,12 @@ void Souls::PostUpdate()
 
 	renderObjects[0].section = idleAnim.GetCurrentFrame();
 
-	if (player->hpPlayer <= 0) {
-		player = nullptr;//Peta aquí al modificar la vida ns el motivo!
-	}
-
 	GameObject::PostUpdate();
 }
 
 void Souls::CleanUp()
 {
+	app->events->RemoveListener(this);
 }
 
 
@@ -113,5 +115,10 @@ void Souls::OnTriggerEnter(std::string trigger, PhysBody* col)
 		//isDie = true;
 	}
 
+}
+
+void Souls::GameEventTriggered(GameEvent id)
+{
+	this->player = nullptr;
 }
 

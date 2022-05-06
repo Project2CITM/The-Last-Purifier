@@ -10,7 +10,7 @@ class RevenantWeapon
 public:
 	RevenantWeapon(PlayerController* playerController);
 
-	virtual bool Attack();
+	virtual bool Attack(int chargedTime = 0);
 
 	virtual void PreUpdate();
 
