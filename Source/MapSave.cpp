@@ -3,7 +3,7 @@
 void MapSave::Init()
 {
 	//Pick xml
-	pugi::xml_parse_result result = mapDoc.load_file("");
+	pugi::xml_parse_result result = mapDoc.load_file("SaveMap.xml");
 	if (result == NULL)
 		LOG("Could not load (SaveMap) xml file. Pugi error: %s", result.description())
 	else
@@ -20,6 +20,7 @@ int MapSave::GenerateSeed()
 	int seed = time(NULL);
 	srand(seed);
 	mapNode.attribute("seed").set_value(seed);
+	mapDoc.save_file(MAPSAVE_NAME);
 	return seed;
 }
 
@@ -36,6 +37,7 @@ void MapSave::UseSeed(int seed)
 void MapSave::ClearSeed()
 {
 	mapNode.attribute("seed").set_value(0);
+	mapDoc.save_file(MAPSAVE_NAME);
 }
 
 void MapSave::SaveRoomStates()
