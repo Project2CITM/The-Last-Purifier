@@ -399,6 +399,12 @@
     <ClInclude Include="MapSave.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="SageWeapon.h">
+      <Filter>Archivos de encabezado\Player\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="SageStaff.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\PugiXml\src\pugixml.cpp">
@@ -642,6 +648,12 @@
       <Filter>Archivos de origen\Player\Weapons</Filter>
     </ClCompile>
     <ClCompile Include="MapSave.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="SageWeapon.cpp">
+      <Filter>Archivos de origen\Player\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="SageStaff.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,14 +1,14 @@
 #pragma once
-#include "DamageArea.h"
-#include "Timer.h"
+
+#include "Projectile.h"
 
 class PlayerController;
 class Application;
 
-class RevenantWeapon
+class SageWeapon
 {
 public:
-	RevenantWeapon(PlayerController* playerController);
+	SageWeapon(PlayerController* playerController);
 
 	virtual bool Attack(int chargedTime = 0);
 
@@ -25,27 +25,25 @@ public:
 	int attackSpeedCD = 0;
 	int currentAttackCounter = 0; // It tells which attack you are currently on
 	bool addImpulse = false;
+
 protected:
 
-	DamageArea* damageArea = nullptr;
+	Projectile* projectile = nullptr;
 	PlayerController* playerController = nullptr;
 
 	int damage = 0;
+	float projectileSpeed = 0;
+
 	int nextAttackTime = 0;
 	int nextAttackCounter = 0;
-	
-	int maximumAttacks = 3;
-	
-	int currentAttackCD = 0;
-
-	int attackAreaCD = 0;
-	int currentAttackAreaCD = 0;
 
 	int chargedAttackTime = 0;
 
-	Timer* weaponTimer;
+	int maximumAttacks = 3;
 
-	bool attackAreaActive = false;
+	int currentAttackCD = 0;
+
+	Timer* weaponTimer;
 
 	Application* app = nullptr;
 };

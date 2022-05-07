@@ -163,6 +163,8 @@
     <ClInclude Include="RevenantWeapon.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="RoomManager.h" />
+    <ClInclude Include="SageStaff.h" />
+    <ClInclude Include="SageWeapon.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneGame.h" />
     <ClInclude Include="SceneSwitch.h" />
@@ -247,6 +249,8 @@
     <ClCompile Include="RevenantWeapon.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="RoomManager.cpp" />
+    <ClCompile Include="SageStaff.cpp" />
+    <ClCompile Include="SageWeapon.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneGame.cpp" />
     <ClCompile Include="SceneSwitch.cpp" />

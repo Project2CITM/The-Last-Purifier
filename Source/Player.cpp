@@ -3,6 +3,7 @@
 #include "Application.h"
 #include "PlayerStats.h"
 #include "ModuleTextures.h"
+#include "PlayerCombat.h"
 
 Player::Player()
 {
@@ -40,6 +41,8 @@ void Player::ChangeClass(PlayerClass c)
 
 	playerClass = c;
 	InitClassSprites(c);
+	controller->combat->SetClassWeaponCD();
+	stats->SavePlayerProgress();
 }
 
 void Player::InitClassSprites(PlayerClass c)
