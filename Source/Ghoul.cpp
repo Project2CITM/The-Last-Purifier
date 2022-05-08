@@ -121,7 +121,7 @@ void Ghoul::OnTriggerExit(std::string trigger, PhysBody* col)
 	}
 }
 
-void Ghoul::Die(bool spawnPower)
+void Ghoul::Die(bool spawnPower, bool spawnSouls)
 {
 	stateMachine.ChangeState((int)GhoulState::DIE);
 }

@@ -58,7 +58,7 @@ void Room::ClearEnemies()
 {
 	for (int i = 0; i < enemies.count(); i++)
 	{
-		enemies[i]->Enemy::Die();
+		enemies[i]->Enemy::Die(false, false);
 	}
 
 	enemies.clear();

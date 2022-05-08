@@ -37,7 +37,7 @@ public:
 
 	void OnTriggerExit(std::string trigger, PhysBody* col) override;
 
-	void Die(bool spawnPower) override;
+	void Die(bool spawnPower, bool spawnSouls) override;
 
 	void UpdateStates();
 
