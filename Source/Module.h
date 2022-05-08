@@ -4,6 +4,8 @@
 #include "Globals.h"
 #include "Application.h"
 
+#include "External/PugiXml/src/pugixml.hpp"
+
 //class Application;
 class PhysBody;
 

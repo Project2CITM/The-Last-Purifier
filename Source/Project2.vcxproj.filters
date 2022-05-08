@@ -426,6 +426,9 @@
     <ClInclude Include="WeaponObject.h">
       <Filter>Archivos de encabezado\Player\Weapons</Filter>
     </ClInclude>
+    <ClInclude Include="AssetsManager.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\PugiXml\src\pugixml.cpp">
@@ -685,6 +688,9 @@
     </ClCompile>
     <ClCompile Include="WeaponObject.cpp">
       <Filter>Archivos de origen\Player\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetsManager.cpp">
+      <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

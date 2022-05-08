@@ -6,6 +6,8 @@
 #include "GUI.h"
 #include "Text.h"
 
+#include "External/PugiXml/src/pugixml.hpp"
+
 class Scene
 {
 protected:
