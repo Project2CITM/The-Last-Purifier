@@ -1,4 +1,5 @@
 #include "MapSave.h"
+#include "Room.h"
 
 void MapSave::Init()
 {
@@ -32,6 +33,8 @@ void MapSave::UseCurrentSeed()
 void MapSave::UseSeed(int seed)
 {
 	srand(seed);
+	mapNode.attribute("seed").set_value(seed);
+	mapDoc.save_file(MAPSAVE_NAME);
 }
 
 void MapSave::ClearSeed()
@@ -40,10 +43,28 @@ void MapSave::ClearSeed()
 	mapDoc.save_file(MAPSAVE_NAME);
 }
 
-void MapSave::SaveRoomStates()
+void MapSave::SaveRoomStates(List<Room*>* rooms)
 {
+	ClearRoomStates();
+	for (int i = 0; i < rooms->count(); i++) {
+		mapNode.append_child("room").append_attribute("done").set_value(rooms->At(i)->data->done);
+	}
+	mapDoc.save_file(MAPSAVE_NAME);
 }
 
 void MapSave::ClearRoomStates()
 {
+	while (!mapNode.first_child().empty()) {
+		mapNode.remove_child(mapNode.first_child().name());
+	}
+	mapDoc.save_file(MAPSAVE_NAME);
+}
+
+void MapSave::UseRoomStates(List<Room*>* rooms)
+{
+	pugi::xml_node roomNode = mapNode.first_child();
+	for (int i = 0; i < rooms->count(); i++) {
+		rooms->At(i)->data->done = roomNode.first_attribute().as_bool();
+		roomNode = roomNode.next_sibling();
+	}
 }
