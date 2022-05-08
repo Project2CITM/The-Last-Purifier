@@ -17,6 +17,7 @@
 #include "ParticleAttackRevenant.h"
 #include "PlayerStats.h"
 #include "Souls.h"
+#include "Bar.h"
 
 TestScene::TestScene() : SceneGame("testScene")
 {

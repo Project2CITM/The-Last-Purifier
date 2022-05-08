@@ -100,7 +100,6 @@ private:
 	RevenantWeapon* revenantWeapon = nullptr;
 	SageWeapon* sageWeapon = nullptr;
 
-
 	friend class PlayerController;
 };
 

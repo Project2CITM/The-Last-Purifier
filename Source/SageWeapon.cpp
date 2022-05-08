@@ -15,6 +15,10 @@ void SageWeapon::PreUpdate()
 {
 }
 
+void SageWeapon::UpdateAttackBar(bool holding, int deltaTimeMS)
+{
+}
+
 void SageWeapon::Update()
 {
 }

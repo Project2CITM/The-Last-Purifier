@@ -3,6 +3,7 @@
 #include "PlayerController.h"
 #include "PlayerCombat.h"
 #include "Player.h"
+#include "SageChargeBar.h"
 
 SageStaff::SageStaff(PlayerController* playerController) : SageWeapon(playerController)
 {
@@ -26,6 +27,11 @@ SageStaff::SageStaff(PlayerController* playerController) : SageWeapon(playerCont
 	projectileHeights[1] = 4;
 	projectileHeights[2] = 8;
 
+	SDL_Color chargeBarColors[3] = { {100, 100, 100, 255}, {255, 255, 0, 255}, {255, 0, 0, 255} };
+
+	sageBar = new SageChargeBar(playerController->GetPosition(), 40, 5, chargedAttacksTimes, { 255, 255, 255, 255 }, chargeBarColors);
+	sageBar->currentValue = 0;
+	sageBar->enable = false;
 }
 
 bool SageStaff::Attack(int chargedTime)
@@ -73,6 +79,24 @@ bool SageStaff::Attack(int chargedTime)
 
 void SageStaff::PreUpdate()
 {
+	sageBar->SetBarPosition(playerController->GetPosition() + iPoint(10, 5));
+	sageBar->PreUpdate();
+}
+
+void SageStaff::UpdateAttackBar(bool holding, int deltaTimeMS)
+{
+	printf("%d\n", deltaTimeMS);
+	if (holding) 
+	{
+		sageBar->enable = true;
+		//sageBar->SetValue(100);
+		sageBar->SetValue(sageBar->currentValue + deltaTimeMS);
+	}
+	else
+	{
+		sageBar->ResetValues();
+		sageBar->enable = false;
+	}
 }
 
 void SageStaff::CleanUp()

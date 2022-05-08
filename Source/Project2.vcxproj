@@ -92,6 +92,7 @@
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Application.h" />
+    <ClInclude Include="Bar.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ClassTree.h" />
     <ClInclude Include="ClassTreeHud.h" />
@@ -163,6 +164,7 @@
     <ClInclude Include="RevenantWeapon.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="RoomManager.h" />
+    <ClInclude Include="SageChargeBar.h" />
     <ClInclude Include="SageStaff.h" />
     <ClInclude Include="SageWeapon.h" />
     <ClInclude Include="Scene.h" />
@@ -185,6 +187,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Bar.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ClassTree.cpp" />
     <ClCompile Include="ClassTreeHud.cpp" />
@@ -249,6 +252,7 @@
     <ClCompile Include="RevenantWeapon.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="RoomManager.cpp" />
+    <ClCompile Include="SageChargeBar.cpp" />
     <ClCompile Include="SageStaff.cpp" />
     <ClCompile Include="SageWeapon.cpp" />
     <ClCompile Include="Scene.cpp" />

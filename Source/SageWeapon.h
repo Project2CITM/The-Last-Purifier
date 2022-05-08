@@ -14,6 +14,8 @@ public:
 
 	virtual void PreUpdate();
 
+	virtual void UpdateAttackBar(bool holding, int deltaTimeMS = 0);
+
 	virtual void Update();
 
 	virtual void PostUpdate();

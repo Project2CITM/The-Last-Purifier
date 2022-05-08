@@ -50,6 +50,7 @@ void PlayerCombat::PreUpdate()
 	}
 	// Clas weapon preupdate
 	if (player->playerClass == PlayerClass::REVENANT) revenantWeapon->PreUpdate();
+	else sageWeapon->PreUpdate();
 }
 
 void PlayerCombat::Update()
@@ -65,11 +66,18 @@ void PlayerCombat::CombatUpdate()
 	{
 		Attack(chargedAttackTime);
 		chargedAttackTime = 0;
+
+		// Update charging bar
+		if (player->playerClass == PlayerClass::SAGE) sageWeapon->UpdateAttackBar(false);
 	}
+ 
 	// Check for attack and Spell input
 	if (app->input->GetMouseButton(1) == KEY_REPEAT || app->input->GetControllerButton(BUTTON_X) == KEY_REPEAT)
 	{
 		chargedAttackTime += combatTimer.getDeltaTime() * 1000;
+
+		// Update charging bar
+		if (player->playerClass == PlayerClass::SAGE) sageWeapon->UpdateAttackBar(true, combatTimer.getDeltaTime() * 1000);
 	}
 	else if (app->input->GetMouseButton(3) == KEY_DOWN || app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)
 	{
