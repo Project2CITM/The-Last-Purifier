@@ -127,10 +127,10 @@ bool HubScene::Start()
 	if (app->input->usingGameController) sentenceInput = "<Press A>";
 	else sentenceInput = "<Press Enter>";
 
-	revenantInstructor = new Instructor("What do you need ?" + sentenceInput, "RevenantInstructor", { 1016, 855 }, PlayerClass::REVENANT);
+	revenantInstructor = new Instructor(sentenceInput, "RevenantInstructor", { 1016, 855 }, PlayerClass::REVENANT);
 	revenantInstructor->setIndoors();
 
-	sageInstructor = new Instructor("What do you need ?" + sentenceInput, "SageInstructor", { 550, 1395 }, PlayerClass::SAGE);
+	sageInstructor = new Instructor(sentenceInput, "SageInstructor", { 550, 1395 }, PlayerClass::SAGE);
 
 	//Labels
 	IntLabel* int_lbl_Revenant = new IntLabel("REVENANT INSTRUCTOR", "Lbl_Revenant", { 1014, 939 }, { 255 , 20 },  150);

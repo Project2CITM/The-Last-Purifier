@@ -209,8 +209,8 @@ void ClassTree::GameEventTriggered(GameEvent id)
 
 SkillTreeElement* ClassTree::getSkillTree(int value)
 {
-	value--; //Equals the value of the enum id to the array position (Enum starts at 1 because 0 = NONE)
-	if (value >= TREE_SIZE) return skillTree[TREE_SIZE - 1];
+	//value--; //Equals the value of the enum id to the array position (Enum starts at 1 because 0 = NONE)
+	//if (value >= TREE_SIZE) return skillTree[TREE_SIZE - 1];
 	return skillTree[value];
 }
 

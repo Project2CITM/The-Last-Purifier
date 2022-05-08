@@ -53,7 +53,7 @@ bool ClassTreeHud::Start()
 	unlockBtn = new List<GUIButton*>;
 
 	iPoint aux = { 0, 0 };
-	for (int i = startId; i < (startId+10); i++)
+	for (int i = startId; i < (startId+MAX_SPELLL_BY_CLASS); i++)
 	{
 		aux = tree->getSkillTree(i)->position;
 

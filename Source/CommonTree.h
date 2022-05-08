@@ -84,6 +84,10 @@ private:
 
     //Increases the value of an attribute
     void IncreaseValue(CommonUpgrades id);
+
+    //Relates a string to a CommonUpgrade
+    CommonUpgrades ResolveType(std::string input);
+
 public:
     //Unlocks an Upgrade from the Loaded tree.
     //True if the upgrade has been unlocked without successfuly
