@@ -34,7 +34,7 @@ public:
 
 	virtual void Hit(int damage);
 
-	virtual void Die(bool spawnPower = false);
+	virtual void Die(bool spawnPower = false, bool spawnSoul = true);
 
 	int GetDamage()
 	{

@@ -64,10 +64,10 @@ bool TestScene::Start()
 
     app->renderer->camera->SetTarget(player->controller);
 
-    spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-40, 0));
-    spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-80, 0));
-    spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-60, 0));
-    spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-20, 0));
+    //spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-40, 0));
+    //spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-80, 0));
+    //spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-60, 0));
+    //spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-20, 0));
 
     app->audio->PlayMusic("Assets/Audio/Ambience/amb_dungeon1_2.ogg");
 
