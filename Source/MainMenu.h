@@ -80,6 +80,17 @@ private:
 
 	uint Hover = NULL;
 	uint Press = NULL;
+
+	//load the texture
+	void LoadTexFile(const pugi::xml_document& dataFile);
+
+	//load the fx
+	void LoadFxFile(const pugi::xml_document& dataFile);
+
+	//load and play the music
+	void LoadMusFile(const pugi::xml_document& dataFile);
+
+	SDL_Texture* texture1 = nullptr;
 };
 
 #endif //__MAIN_MENU_H__

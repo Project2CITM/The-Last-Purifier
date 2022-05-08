@@ -8,6 +8,7 @@
 #include "ModuleScene.h"
 #include "ModuleMap.h"
 #include "ModuleEvents.h"
+#include "AssetsManager.h"
 #include <iostream>
 
 Application* Application::app = nullptr;
@@ -23,6 +24,7 @@ Application::~Application()
 
 bool Application::Init()
 {
+	assetManager = new ModuleAssetsManager();
 	renderer = new ModuleRender();
 	window = new ModuleWindow();
 	textures = new ModuleTextures();
@@ -38,6 +40,7 @@ bool Application::Init()
 	// They will CleanUp() in reverse order
 
 	// Main Modules
+	AddModule(assetManager);
 	AddModule(window);
 	AddModule(input);
 	AddModule(physics);

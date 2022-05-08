@@ -12,6 +12,7 @@
 #define FPS 60
 #define FRAME_TIME (1.0/FPS)
 
+class ModuleAssetsManager;
 class ModuleRender;
 class ModuleWindow;
 class ModuleTextures;
@@ -27,6 +28,7 @@ class Module;
 class Application
 {
 public:
+	ModuleAssetsManager* assetManager = nullptr;
 	ModuleRender* renderer = nullptr;
 	ModuleWindow* window = nullptr;
 	ModuleTextures* textures = nullptr;
