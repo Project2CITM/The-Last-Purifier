@@ -8,6 +8,7 @@
 #include "ModuleInput.h"
 #include "ModuleWindow.h"
 #include "ModuleAudio.h"
+#include "AssetsManager.h"
 
 #include <shellapi.h>
 
@@ -39,6 +40,22 @@ bool MainMenu::InitScene()
 
 bool MainMenu::Start()
 {
+	/*char* buffer;
+	pugi::xml_document dataFile;
+
+	int bytesFile = app->assetManager->LoadData("data.xml", &buffer);
+
+	pugi::xml_parse_result result = dataFile.load_buffer(buffer, bytesFile);
+
+	RELEASE_ARRAY(buffer);
+
+	LoadTexFile(dataFile);
+	LoadFxFile(dataFile);
+	LoadMusFile(dataFile);*/
+
+
+
+
 	fondo.InitAsTexture(app->textures->Load("Assets/Sprites/UI/background.png"), { 0,0 }, { 0,0,0,0 }, 0.5f, 0, 0, 0, SDL_FLIP_NONE, 0);
 	options.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Options.png"), { 0,0 }, {0,0,0,0}, 0.5f);
 	credtis1.InitAsTexture(app->textures->Load("Assets/Sprites/UI/CredtisCre.png"), { 0,0 }, {0,0,0,0}, 0.5f);
@@ -390,4 +407,23 @@ bool MainMenu::CleanUp()
 	Scene::CleanUp();
 
 	return true;
+}
+
+void MainMenu::LoadTexFile(const pugi::xml_document& dataFile)
+{
+	pugi::xml_node tex_node = dataFile.child("data").child("texture");
+	texture1 = app->textures->Load(tex_node.attribute("file").as_string());
+	//texture2 = app->tex->Load(tex_node.attribute("file2").as_string());
+}
+
+void MainMenu::LoadFxFile(const pugi::xml_document& dataFile)
+{
+	pugi::xml_node fx_node = dataFile.child("data").child("fx");
+	app->audio->LoadFx(fx_node.attribute("file").as_string());
+}
+
+void MainMenu::LoadMusFile(const pugi::xml_document& dataFile)
+{
+	pugi::xml_node mus_node = dataFile.child("data").child("mus");
+	app->audio->PlayMusic(mus_node.attribute("file").as_string());
 }

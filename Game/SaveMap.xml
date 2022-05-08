@@ -1,6 +1,13 @@
 <?xml version="1.0"?>
-<map seed="0">
-	<rooms>
-		<room done="true" />
-	</rooms>
+<map seed="1652026405">
+	<room done="true" />
+	<room done="true" />
+	<room done="false" />
+	<room done="false" />
+	<room done="false" />
+	<room done="false" />
+	<room done="false" />
+	<room done="false" />
+	<room done="false" />
+	<room done="false" />
 </map>

@@ -8,15 +8,15 @@
 #include "ParticleHitSage.h"
 #include "PaticleHitFotieros.h"
 
-Projectile::Projectile(std::string name, iPoint position, fPoint duration, int damage,int rotation, bool fire, bool stun, bool isEnemy) : GameObject(name, name)
+Projectile::Projectile(std::string name, iPoint position, fPoint duration, int damage,int rotation, int width, int height, bool fire, bool stun, bool isEnemy) : GameObject(name, name)
 {
 	this->damage = damage;
 	this->isEnemy = isEnemy;
 	this->stun = stun;
 	this->rotation = rotation;
 
-	damageArea = new DamageArea(position, 4, 4, this->damage);
-	pBody = app->physics->CreateRectangle(position, 4, 4, this);
+	damageArea = new DamageArea(position, width, height, this->damage);
+	pBody = app->physics->CreateRectangle(position, width, height, this);
 	b2Filter filter;
 	filter.categoryBits = app->physics->PROJECTILE_LAYER;
 
@@ -36,7 +36,10 @@ Projectile::Projectile(std::string name, iPoint position, fPoint duration, int d
 	{
 		renderObjects[0].flip = SDL_FLIP_NONE;
 	}
-	renderObjects[0].InitAsTexture(app->textures->Load("Assets/Sprites/Player/Sage/basicAttackSageDuring.png"), position, { 0,0,0,0 },1.0f,1,1.0f,this->rotation);
+
+	float projectileScale = (float)(width + height) / 8.0f;
+
+	renderObjects[0].InitAsTexture(app->textures->Load("Assets/Sprites/Player/Sage/basicAttackSageDuring.png"), position, { 0,0,0,0 }, projectileScale,1,1.0f,this->rotation);
 
 	
 	// Particle Effect
@@ -49,7 +52,7 @@ Projectile::Projectile(std::string name, iPoint position, fPoint duration, int d
 	this->anim.hasIdle = false;
 	this->anim.duration = 0.032f;
 
-	//new ParticleAttackSage({ position.x - 20,position.y - 15 },this->rotation, 0.1f, 0.01f, { 1,0 });
+	spriteOffset[0] = { (int)(-20 * projectileScale),(int)(-15 * projectileScale) };
 	
 }
 
@@ -67,7 +70,7 @@ Projectile::Projectile(iPoint position, int damage, int rotation, fPoint duratio
 	this->isFoteiros = true;
 
 	damageArea = new DamageArea(position, 6, 6, this->damage);
-	pBody = app->physics->CreateRectangle(position, 4, 4, this);
+	pBody = app->physics->CreateRectangle(position, 6, 6, this);
 	b2Filter filter;
 	filter.categoryBits = app->physics->PROJECTILE_LAYER;
 
@@ -79,7 +82,6 @@ Projectile::Projectile(iPoint position, int damage, int rotation, fPoint duratio
 
 	FireProjectile(duration);
 
-	
 	renderObjects[0].InitAsTexture(app->textures->Load("Assets/Sprites/Player/Sage/foteiros46x32.png"), position, { 0,0,0,0 }, 1.0f, 1, 1.0f, this->rotation);
 
 	if (rotation == 0)
@@ -110,6 +112,7 @@ Projectile::Projectile(iPoint position, int damage, int rotation, fPoint duratio
 	this->anim.hasIdle = false;
 	this->anim.duration = 0.064f;
 
+	spriteOffset[1] = { -40,-20 };
 }
 
 void Projectile::FireProjectile(fPoint duration)
@@ -137,8 +140,8 @@ void Projectile::PostUpdate()
 
 	renderObjects[0].section = anim.GetCurrentFrame();
 
-	renderObjects[0].destRect.x = GetDrawPosition().x - 20;
-	renderObjects[0].destRect.y = GetDrawPosition().y - 15;
+	renderObjects[0].destRect.x = isFoteiros ? GetDrawPosition().x + spriteOffset[1].x : GetDrawPosition().x + spriteOffset[0].x;
+	renderObjects[0].destRect.y = isFoteiros ? GetDrawPosition().y + spriteOffset[1].y : GetDrawPosition().y + spriteOffset[0].y;
 
 	
 	app->renderer->AddRenderObjectRenderQueue(renderObjects[0]);

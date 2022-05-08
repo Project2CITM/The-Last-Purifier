@@ -14,8 +14,10 @@ RevenantSword::RevenantSword(PlayerController* playerController) : RevenantWeapo
 	// Initialize stats (damage and attackSpeed)
 
 	this->damage = 20;
-	this->attackSpeedCD = 960;
+	this->attackSpeedCD = 240;
 	this->attackAreaCD = 80;
+	this->nextAttackTime = 200;
+	this->maximumAttacks = 3;
 
 	// Create DamageArea with correct filter
 	b2Filter filter;
@@ -38,7 +40,7 @@ RevenantSword::RevenantSword(PlayerController* playerController) : RevenantWeapo
 	weaponTimer = new Timer();
 }
 
-bool RevenantSword::Attack()
+bool RevenantSword::Attack(int chargedTime)
 {
 	if (!canAttack) return false;
 
@@ -62,8 +64,22 @@ bool RevenantSword::Attack()
 	// Place on correct position
 	damageArea->pBody->body->SetTransform(playerController->pBody->body->GetPosition() + attackOffset, attackRotation);
 
+	attackAreaActive = true;
+
+	canAttack = false;
+
+	if (currentAttackCounter < maximumAttacks) currentAttackCounter++;
+	else currentAttackCounter = 1;
+
+	printf("current attack %d\n", currentAttackCounter);
+
+	nextAttackCounter = nextAttackTime;
+
+	addImpulse = currentAttackCounter > 1;
+
 	iPoint particleOffset;
 	int particleRotation = 0;
+	SDL_RendererFlip flip = SDL_FLIP_NONE;
 	switch (playerController->lookingDir)
 	{
 	case LookingDirection::DOWN:
@@ -76,7 +92,7 @@ bool RevenantSword::Attack()
 		break;
 	case LookingDirection::LEFT:
 		particleOffset = { -20, -25 };
-		particleRotation = 180;
+		flip = SDL_FLIP_HORIZONTAL;
 		break;
 	case LookingDirection::RIGHT:
 		particleOffset = { -30, -25 };
@@ -85,18 +101,21 @@ bool RevenantSword::Attack()
 
 	}
 
-	new ParticleAttackRevenant(damageArea->GetPosition() + particleOffset, particleRotation, 0.15f, 0, playerController->player->purifiedSwordOn);
+	if (currentAttackCounter == 2) flip = (SDL_RendererFlip)(flip | SDL_FLIP_VERTICAL);
 
-	attackAreaActive = true;
-
-	canAttack = false;
-
+	new ParticleAttackRevenant(damageArea->GetPosition() + particleOffset, particleRotation, 0.15f, 0, playerController->player->purifiedSwordOn, flip);
+	if (currentAttackCounter == 3)
+	{
+		flip = (SDL_RendererFlip)(SDL_FLIP_VERTICAL | SDL_FLIP_HORIZONTAL);
+		new ParticleAttackRevenant(damageArea->GetPosition() + particleOffset, particleRotation, 0.15f, 0, playerController->player->purifiedSwordOn, flip);
+	}
 	return true;
 
 }
 
 void RevenantSword::PreUpdate()
 {
+	addImpulse = false;
 	weaponTimer->Update();
 	if (!canAttack)
 	{
@@ -105,6 +124,14 @@ void RevenantSword::PreUpdate()
 		{
 			canAttack = true;
 			currentAttackCD = 0;
+		}
+	}
+	else if (nextAttackCounter > 0)
+	{
+		nextAttackCounter -= weaponTimer->getDeltaTime() * 1000;
+		if (nextAttackCounter <= 0)
+		{
+			currentAttackCounter = 0;
 		}
 	}
 

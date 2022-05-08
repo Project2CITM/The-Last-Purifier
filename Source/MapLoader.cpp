@@ -142,7 +142,7 @@ void MapLoader::CreateEnemies(Room* r)
 				
 			}
 			else if (gid == 2561) {
-				//spawn boss
+				//TODO: spawn boss
 			}
 
 			tile = tile.next_sibling();

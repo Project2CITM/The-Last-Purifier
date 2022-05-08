@@ -127,6 +127,18 @@
     <Filter Include="Archivos de encabezado\Player\Weapons">
       <UniqueIdentifier>{dc4f452a-18ca-43ef-ac1a-c2aa007ae5ce}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\Player\Weapons\Sage">
+      <UniqueIdentifier>{2433a576-f1c0-4bec-8ec6-211deb337c20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Player\Weapons\Revenant">
+      <UniqueIdentifier>{d213a079-7b18-4324-9e30-811deb6a45c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Player\Weapons\Sage">
+      <UniqueIdentifier>{11b5ed50-b9ad-4cd5-a32e-53c7656ea1a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Player\Weapons\Revenant">
+      <UniqueIdentifier>{6c6a41ea-9b5a-4b7c-9515-7172335107eb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="External\PugiXml\src\pugixml.hpp">
@@ -390,11 +402,32 @@
     <ClInclude Include="PlayerConverter.h">
       <Filter>Archivos de encabezado\Scenes\Hub</Filter>
     </ClInclude>
-    <ClInclude Include="RevenantWeapon.h">
-      <Filter>Archivos de encabezado\Player\Weapons</Filter>
+    <ClInclude Include="MapSave.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Bar.h">
+      <Filter>Archivos de encabezado\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="SageChargeBar.h">
+      <Filter>Archivos de encabezado\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="SageStaff.h">
+      <Filter>Archivos de encabezado\Player\Weapons\Sage</Filter>
+    </ClInclude>
+    <ClInclude Include="SageWeapon.h">
+      <Filter>Archivos de encabezado\Player\Weapons\Sage</Filter>
     </ClInclude>
     <ClInclude Include="RevenantSword.h">
+      <Filter>Archivos de encabezado\Player\Weapons\Revenant</Filter>
+    </ClInclude>
+    <ClInclude Include="RevenantWeapon.h">
+      <Filter>Archivos de encabezado\Player\Weapons\Revenant</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponObject.h">
       <Filter>Archivos de encabezado\Player\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetsManager.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -632,11 +665,32 @@
     <ClCompile Include="PlayerConverter.cpp">
       <Filter>Archivos de origen\Scenes\Hub</Filter>
     </ClCompile>
-    <ClCompile Include="RevenantWeapon.cpp">
-      <Filter>Archivos de origen\Player\Weapons</Filter>
+    <ClCompile Include="MapSave.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Bar.cpp">
+      <Filter>Archivos de origen\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="SageChargeBar.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="SageWeapon.cpp">
+      <Filter>Archivos de origen\Player\Weapons\Sage</Filter>
+    </ClCompile>
+    <ClCompile Include="SageStaff.cpp">
+      <Filter>Archivos de origen\Player\Weapons\Sage</Filter>
     </ClCompile>
     <ClCompile Include="RevenantSword.cpp">
+      <Filter>Archivos de origen\Player\Weapons\Revenant</Filter>
+    </ClCompile>
+    <ClCompile Include="RevenantWeapon.cpp">
+      <Filter>Archivos de origen\Player\Weapons\Revenant</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponObject.cpp">
       <Filter>Archivos de origen\Player\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetsManager.cpp">
+      <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -6,6 +6,7 @@
 #include "Timer.h"
 #include "ModuleTextures.h"
 #include "MapLoader.h"
+#include "MapSave.h"
 
 #define MAX_ROOMS_COLUMNS 8
 #define MAX_ROOMS_ROWS 8
@@ -24,7 +25,7 @@ public:
 	void Start();
 	void PreUpdate(iPoint playerPos);
 	void Update(iPoint playerPos);
-	void PostUpdate();
+	void PostUpdate(iPoint playerPos);
 	void CleanUp();
 
 	void GenerateMap(short RoomNumber);
@@ -50,6 +51,7 @@ private:
 	Trigger* exitTrigger = nullptr;
 
 	MapLoader* mapLoader = nullptr;
+	MapSave* mapSave = nullptr;
 	MiniMap* miniMap = nullptr;
 };
 

@@ -11,7 +11,7 @@ class ParticleAttackSage;
 class Projectile : public GameObject
 {
 public:
-	Projectile(std::string name, iPoint position, fPoint duration, int damage, int rotation = 0, bool fire = true, bool stun = false, bool isEnemy = false);
+	Projectile(std::string name, iPoint position, fPoint duration, int damage, int rotation = 0, int width = 4, int height = 4, bool fire = true, bool stun = false, bool isEnemy = false);
 
 	Projectile(iPoint position, int damage, int rotation, fPoint duration);
 
@@ -32,5 +32,7 @@ public:
 
 private:
 	bool isFoteiros = false;
+
+	iPoint spriteOffset[2];
 };
 #endif

@@ -31,21 +31,21 @@ PlayerController::PlayerController(std::string name, std::string tag, Player* pl
 
 void PlayerController::Start() 
 {
-	combat = new PlayerCombat("playerAttack", "AttackArea", this->player);
-
-	player->stats->Start();
-
-	// Initialize movement variables
-	duration = player->movementSpeed;
-
-	currentAnim = PlayerAnim::IDLE;
-
 	// Initialize States 
 	// WARNING: They must be added following the order specified on the PlayerState Enum!!!
 	stateMachine.AddState("idle", 0);			//IDLE = 0
 	stateMachine.AddState("run", 0);			//RUN = 1
 	stateMachine.AddState("attack", 1, 80);		//ATTACK = 2
 	stateMachine.AddState("dash", 2, 400);		//DASH = 3
+
+	combat = new PlayerCombat("playerAttack", "AttackArea", this->player);
+
+	player->stats->Start();
+
+	// Initialize movement variables
+	speed = player->movementSpeed;
+
+	currentAnim = PlayerAnim::IDLE;
 
 	// Initialize physic body
 	CreatePhysBody();
@@ -56,10 +56,15 @@ void PlayerController::PreUpdate()
 	if (pendingToDelete) return;
 
 	playerTimer.Update();
+
+	// Check invulnerability counter
+	if (invulnerabilityCounter > 0) invulnerabilityCounter -= playerTimer.getDeltaTime() * 1000;
+	if (invulnerabilityCounter <= 0) isInvulnerable = false;
+
 	// Check dash cooldown
 	if (isDashing)
 	{
-		dashCounter-= playerTimer.getDeltaTime() * 1000;
+		dashCounter -= playerTimer.getDeltaTime() * 1000;
 		// If Cooldown is done, you stop dashing
 		if (dashCounter <= 0)
 		{
@@ -68,9 +73,15 @@ void PlayerController::PreUpdate()
 		}
 	}
 
-	// Check invulnerability counter
-	if (invulnerabilityCounter > 0) invulnerabilityCounter -= playerTimer.getDeltaTime() * 1000;
-	if (invulnerabilityCounter <= 0) isInvulnerable = false;
+	if (isAttackImpulse)
+	{
+		attackImpulseCounter -= playerTimer.getDeltaTime() * 1000;
+		// If Cooldown is done, you stop dashing
+		if (attackImpulseCounter <= 0)
+		{
+			isAttackImpulse = false;
+		}
+	}
 
 	playerTimer.Reset();
 
@@ -88,7 +99,7 @@ void PlayerController::PreUpdate()
 		else MovementUpdateKeyboard();
 
 		// Get Combat Input
-		CombatUpdate();
+		combat->CombatUpdate();
 
 	}
 	
@@ -133,7 +144,9 @@ void PlayerController::PostUpdate()
 	// Update current Animation state 
 	// For now it is the same as Player State, if this changes overtime, there has to be a switch here to translate between current player State
 	// and current Animation State
-	currentAnim = (PlayerAnim)currentState;
+	currentAnim = (PlayerAnim)currentState == PlayerAnim::ATTACK ? PlayerAnim::IDLE : (PlayerAnim)currentState;
+	// Code to make sure we have the correct animation (there is no attack animation in this sprite)
+	
 
 	if (godMode) renderObjects[0].SetColor({ 0, 255, 17 ,255 });
 	else  renderObjects[0].SetColor({ 255, 255, 255 ,255 });
@@ -214,6 +227,7 @@ void PlayerController::CreatePhysBody()
 
 void PlayerController::MovementUpdateKeyboard()
 {
+	tryingToMove = false;
 	// By default, the player is always IDLE
 	stateMachine.ChangeState((uint)PlayerState::IDLE);
 
@@ -223,12 +237,13 @@ void PlayerController::MovementUpdateKeyboard()
 	// Vertical 
 	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 	{
-		pBody->body->SetLinearVelocity({ pBody->body->GetLinearVelocity().x, -duration });
+		pBody->body->SetLinearVelocity({ pBody->body->GetLinearVelocity().x, -speed });
 
 		//Change Player State
 		stateMachine.ChangeState((uint)PlayerState::RUN);
 
 		lookingDir = LookingDirection::UP;
+		tryingToMove = true;
 	}
 	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_UP)
 	{
@@ -236,12 +251,13 @@ void PlayerController::MovementUpdateKeyboard()
 	}
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
 	{
-		pBody->body->SetLinearVelocity({ pBody->body->GetLinearVelocity().x, duration });
+		pBody->body->SetLinearVelocity({ pBody->body->GetLinearVelocity().x, speed });
 
 		//Change Player State
 		stateMachine.ChangeState((uint)PlayerState::RUN);
 
 		lookingDir = LookingDirection::DOWN;
+		tryingToMove = true;
 	}
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_UP)
 	{
@@ -251,12 +267,13 @@ void PlayerController::MovementUpdateKeyboard()
 	// Horizontal
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
-		pBody->body->SetLinearVelocity({ duration,pBody->body->GetLinearVelocity().y });
+		pBody->body->SetLinearVelocity({ speed,pBody->body->GetLinearVelocity().y });
 
 		//Change Player State
 		stateMachine.ChangeState((uint)PlayerState::RUN);
 
 		lookingDir = LookingDirection::RIGHT;
+		tryingToMove = true;
 	}
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_UP)
 	{
@@ -264,17 +281,30 @@ void PlayerController::MovementUpdateKeyboard()
 	}
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
-		pBody->body->SetLinearVelocity({ -duration,pBody->body->GetLinearVelocity().y });
+		pBody->body->SetLinearVelocity({ -speed,pBody->body->GetLinearVelocity().y });
 
 		//Change Player State
 		stateMachine.ChangeState((uint)PlayerState::RUN);
 
 		lookingDir = LookingDirection::LEFT;
+		tryingToMove = true;
 	}
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_UP)
 	{
 		pBody->body->SetLinearVelocity({ 0,pBody->body->GetLinearVelocity().y });
 	}
+
+	// If we are moving dyagonally, we lower our velocity
+	if (abs(pBody->body->GetLinearVelocity().x) > 0 && abs(pBody->body->GetLinearVelocity().y) > 0)
+	{
+		b2Vec2 reducedVelocity = pBody->body->GetLinearVelocity();
+		reducedVelocity.x *= 0.8f;
+		reducedVelocity.y *= 0.8f;
+		pBody->body->SetLinearVelocity(reducedVelocity);
+	}
+
+	// If we are not in running state, we undo any velocity changes into our physic body.
+	if (stateMachine.GetCurrentState() != (uint)PlayerState::RUN && !isAttackImpulse) pBody->body->SetLinearVelocity({0,0});
 
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
@@ -292,18 +322,12 @@ void PlayerController::MovementUpdateKeyboard()
 		}
 	}
 
-	// If we are moving dyagonally, we lower our velocity
-	if (abs(pBody->body->GetLinearVelocity().x) > 0 && abs(pBody->body->GetLinearVelocity().y) > 0)
-	{
-		b2Vec2 reducedVelocity = pBody->body->GetLinearVelocity();
-		reducedVelocity.x *= 0.8f;
-		reducedVelocity.y *= 0.8f;
-		pBody->body->SetLinearVelocity(reducedVelocity);
-	}
+	
 }
 
 void PlayerController::MovementUpdateController()
 {
+	tryingToMove = false;
 	// By default, the player is always IDLE
 	stateMachine.ChangeState((uint)PlayerState::IDLE);
 
@@ -333,13 +357,13 @@ void PlayerController::MovementUpdateController()
 		if (direction.x > 0)
 		{
 			stateMachine.ChangeState((uint)PlayerState::RUN);
-
+			tryingToMove = true;
 			lookingDir = LookingDirection::RIGHT;
 		}
 		else if (direction.x < 0)
 		{
 			stateMachine.ChangeState((uint)PlayerState::RUN);
-
+			tryingToMove = true;
 			lookingDir = LookingDirection::LEFT;
 		}
 	}
@@ -348,24 +372,26 @@ void PlayerController::MovementUpdateController()
 		if (direction.y < 0)
 		{
 			stateMachine.ChangeState((uint)PlayerState::RUN);
-
+			tryingToMove = true;
 			lookingDir = LookingDirection::UP;
 		}
 		else if (direction.y > 0)
 		{
 			//Change Player State
 			stateMachine.ChangeState((uint)PlayerState::RUN);
-
+			tryingToMove = true;
 			lookingDir = LookingDirection::DOWN;
 		}
 	}
 
 	// Add speed to direction vector
-	direction.x *= duration;
-	direction.y *= duration;
-	// Apply speed
-	pBody->body->SetLinearVelocity(direction);
+	direction.x *= speed;
+	direction.y *= speed;
+	
+	// Apply speed if we are currently running (so it doesnt apply when attacking)
+	if (stateMachine.GetCurrentState() == (uint)PlayerState::RUN) pBody->body->SetLinearVelocity(direction);
 
+	
 	if (app->input->GetControllerButton(BUTTON_B) == KEY_DOWN)
 	{
 		if (!isDashing)
@@ -378,39 +404,16 @@ void PlayerController::MovementUpdateController()
 
 			// do the dash
 			DashOn();
+
+			// Disable Attack Impulse
+			attackImpulseCounter = 0;
 		}
-	}
-}
-
-void PlayerController::CombatUpdate()
-{
-	// Check for attack and Spell input
-	if (app->input->GetMouseButton(1) == KEY_DOWN || app->input->GetControllerButton(BUTTON_X) == KEY_DOWN)
-	{
-		combat->Attack();
-	}
-	else if (app->input->GetMouseButton(3) == KEY_DOWN || app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)
-	{
-		combat->CastSpell();
-	}
-
-	// Check for spell changing input
-
-	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN || app->input->GetControllerButton(BUTTON_LEFT_SHOULDER) == KEY_DOWN)
-	{
-		combat->ChangeSelectedSpellSlot(-1);
-	}
-	else if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || app->input->GetControllerButton(BUTTON_RIGHT_SHOULDER) == KEY_DOWN)
-	{
-		combat->ChangeSelectedSpellSlot(1);
 	}
 }
 
 void PlayerController::DashOn()
 {
-
 	Invulnerability(dashInvulnerability);
-
 	isDashing = true;
 	dashCounter = dashTime;
 
@@ -513,6 +516,7 @@ void PlayerController::Hit(int damage)
 		{
 			app->scene->ChangeCurrentSceneRequest(SCENES::HUB, 60);
 
+			app->events->TriggerEvent(GameEvent::PLAYER_DIE);
 			app->events->TriggerEvent(GameEvent::SAVE_GAME);
 
 			canControl = false;
@@ -544,3 +548,30 @@ void PlayerController::GameEventTriggered(GameEvent id)
 {
 	combat->CheckDeck();
 }
+
+void PlayerController::AttackImpulse()
+{
+	isAttackImpulse = true;
+	attackImpulseCounter = attackImpulseTime;
+
+	b2Vec2 dir;
+	//We dash on the current direction we are facing
+	switch (lookingDir)
+	{
+	case LookingDirection::UP:
+		dir = { 0, (float)-1 * attackImpulseDistance };
+		break;
+	case LookingDirection::DOWN:
+		dir = { 0, (float)1 * attackImpulseDistance };
+		break;
+	case LookingDirection::LEFT:
+		dir = { (float)-1 * attackImpulseDistance, 0 };
+		break;
+	case LookingDirection::RIGHT:
+		dir = { (float)1 * attackImpulseDistance, 0 };
+		break;
+	}
+
+	pBody->body->SetLinearVelocity(dir);
+}
+

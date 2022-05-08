@@ -6,6 +6,7 @@
 #include "Trigger.h"
 #include "Enemy.h"
 #include "Minimap.h"
+#include "ModuleInput.h"
 
 void RoomManager::Start()
 {
@@ -19,6 +20,8 @@ void RoomManager::Start()
 	wallTexture[2] = app->textures->Load("Assets/Maps/TestDoor_bottom.png");
 
 	mapLoader = new MapLoader();
+	mapSave = new MapSave();
+	mapSave->Init();
 
 	GenerateMap(10);
 
@@ -29,9 +32,12 @@ void RoomManager::Start()
 		rooms[i]->DeactivateColliders();
 	}
 
+	//Use saved room states
+	mapSave->UseRoomStates(&rooms);
+
+	//MiniMap
 	miniMap = new MiniMap();
 	miniMap->Init(false, &rooms);
-
 }
 
 void RoomManager::PreUpdate(iPoint playerPos)
@@ -50,6 +56,20 @@ void RoomManager::PreUpdate(iPoint playerPos)
 
 void RoomManager::Update(iPoint playerPos)
 {
+#pragma region //ERASE THIS
+	if (app->input->GetKey(SDL_SCANCODE_U) == KEY_DOWN) {
+		mapSave->ClearSeed();
+		mapSave->ClearRoomStates();
+	}
+	if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN) {
+		mapSave->SaveRoomStates(&rooms);
+	}
+#pragma endregion
+	
+	
+	//MiniMap resize
+	miniMap->SetScale((app->input->GetKey(SDL_SCANCODE_TAB) == KEY_REPEAT) ? 2 : 1);
+	
 	//Check current room
 	Room* r = roomPositions[playerPos.x / (TILE_SIZE * MAX_ROOM_TILES_COLUMNS)][playerPos.y / (TILE_SIZE * MAX_ROOM_TILES_ROWS)];
 
@@ -60,6 +80,10 @@ void RoomManager::Update(iPoint playerPos)
 	if (exitTrigger->onTriggerEnter && r->done)
 	{
 		app->events->TriggerEvent(GameEvent::SAVE_GAME);
+
+		mapSave->ClearSeed();
+		mapSave->ClearRoomStates();
+
 		app->scene->ChangeCurrentSceneRequest(SCENES::HUB);
 	}
 
@@ -112,17 +136,16 @@ void RoomManager::Update(iPoint playerPos)
 		}
 }
 
-void RoomManager::PostUpdate()
+void RoomManager::PostUpdate(iPoint playerPos)
 {
 	DrawRooms();
 	DrawDoors();
-	miniMap->MiniMapPrint(iPoint(485, 255));
+	miniMap->MiniMapPrint(iPoint(485, 255), 
+		iPoint(playerPos.x / (TILE_SIZE * MAX_ROOM_TILES_COLUMNS),playerPos.y / (TILE_SIZE * MAX_ROOM_TILES_ROWS)));
 }
 
 void RoomManager::CleanUp()
 {
-	//TODO: save room states only when not finished the floor
-	
 	for (int i = 0; i < MAX_ROOMS_COLUMNS; ++i) {
 		for (int j = 0; j < MAX_ROOMS_ROWS; j++) {
 			roomPositions[i][j] = nullptr;
@@ -136,7 +159,8 @@ void RoomManager::CleanUp()
 	rooms.clearPtr();
 
 	RELEASE(mapLoader);
-	//RELEASE(miniMap);
+	RELEASE(miniMap);
+	RELEASE(mapSave);
 
 	doorTopTexture = nullptr;
 	doorBotTexture = nullptr;
@@ -154,7 +178,13 @@ void RoomManager::GenerateMap(short RoomNumber)
 	if (RoomNumber < 1 || RoomNumber > MAX_ROOMS_ROWS * MAX_ROOMS_COLUMNS)
 		return;
 
-	//TODO: implement seed
+	//Seed
+	if (mapSave->CurrentSeed() == 0) {
+		mapSave->GenerateSeed();
+	}
+	else {
+		mapSave->UseCurrentSeed();
+	}
 
 	iPoint p;	//create centered room
 	p.x = MAX_ROOMS_COLUMNS / 2;
@@ -374,7 +404,6 @@ Room* RoomManager::CreateRoom(iPoint mapPosition, short mapId)
 	r->roomPosition = mapPosition;
 	r->id = mapId;
 
-	//srand(time(NULL));
 	std::string folder = "Assets/Maps/map";
 	std::string file = ".png";
 

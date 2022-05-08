@@ -7,7 +7,7 @@ RevenantWeapon::RevenantWeapon(PlayerController* playerController)
 	app = Application::GetInstance();
 }
 
-bool RevenantWeapon::Attack()
+bool RevenantWeapon::Attack(int chargedTime)
 {
 	return true;
 }

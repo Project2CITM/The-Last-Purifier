@@ -8,6 +8,9 @@
 #include "ModuleAudio.h"
 #include "RevenantSword.h"
 #include "ModuleRender.h"
+#include "ModuleInput.h"
+#include "SageWeapon.h"
+#include "SageStaff.h"
 
 PlayerCombat::PlayerCombat(std::string name, std::string tag, Player* player) : GameObject(name, tag)
 {
@@ -16,6 +19,9 @@ PlayerCombat::PlayerCombat(std::string name, std::string tag, Player* player) : 
 	app->events->AddListener(this);
 
 	revenantWeapon = new RevenantSword(this->player->controller);
+	sageWeapon = new  SageStaff(this->player->controller);
+
+	SetClassWeaponCD();
 
 }
 
@@ -44,6 +50,7 @@ void PlayerCombat::PreUpdate()
 	}
 	// Clas weapon preupdate
 	if (player->playerClass == PlayerClass::REVENANT) revenantWeapon->PreUpdate();
+	else sageWeapon->PreUpdate();
 }
 
 void PlayerCombat::Update()
@@ -51,22 +58,74 @@ void PlayerCombat::Update()
 	executeSpellCommand->Update();
 }
 
-void PlayerCombat::Attack()
+void PlayerCombat::CombatUpdate()
+{
+	combatTimer.Update();
+
+	if (app->input->GetMouseButton(1) == KEY_UP || app->input->GetControllerButton(BUTTON_X) == KEY_UP)
+	{
+		Attack(chargedAttackTime);
+		chargedAttackTime = 0;
+
+		// Update charging bar
+		if (player->playerClass == PlayerClass::SAGE) sageWeapon->UpdateAttackBar(false);
+	}
+ 
+	// Check for attack and Spell input
+	if (app->input->GetMouseButton(1) == KEY_REPEAT || app->input->GetControllerButton(BUTTON_X) == KEY_REPEAT)
+	{
+		chargedAttackTime += combatTimer.getDeltaTime() * 1000;
+
+		// Update charging bar
+		if (player->playerClass == PlayerClass::SAGE) sageWeapon->UpdateAttackBar(true, combatTimer.getDeltaTime() * 1000);
+	}
+	else if (app->input->GetMouseButton(3) == KEY_DOWN || app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)
+	{
+		CastSpell();
+	}
+
+	// Check for spell changing input
+
+	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN || app->input->GetControllerButton(BUTTON_LEFT_SHOULDER) == KEY_DOWN)
+	{
+		ChangeSelectedSpellSlot(-1);
+	}
+	else if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || app->input->GetControllerButton(BUTTON_RIGHT_SHOULDER) == KEY_DOWN)
+	{
+		ChangeSelectedSpellSlot(1);
+	}
+
+	combatTimer.Reset();
+}
+
+void PlayerCombat::Attack(int chargedTime)
 {
 	switch (player->playerClass)
 	{
 	case PlayerClass::REVENANT:
-
-		if(revenantWeapon->Attack()) app->events->TriggerEvent(GameEvent::PLAYER_ATTACK);
-
-		app->renderer->camera->Shake(5, 10, 2);
+		// If the weapon is ready, the player can attack and the player isn't already attacking
+		if (revenantWeapon->canAttack && player->controller->stateMachine.GetCurrentState() != (uint)PlayerState::ATTACK 
+			&& player->controller->stateMachine.ChangeState((uint)PlayerState::ATTACK))
+		{
+			revenantWeapon->Attack(chargedTime); // Attack and trigger attack event.
+			if (player->controller->tryingToMove && revenantWeapon->addImpulse)
+			{
+				player->controller->AttackImpulse(); // Move when attacking if player is trying to move
+			}
+			app->events->TriggerEvent(GameEvent::PLAYER_ATTACK);
+			app->renderer->camera->Shake(5, 10, 2);
+		}
+		
 
 		break;
 	case PlayerClass::SAGE:
 
-		app->renderer->camera->Shake(5, 10, 2);
-		
-		SageAttack();
+		if (sageWeapon->Attack(chargedTime))
+		{
+			app->events->TriggerEvent(GameEvent::PLAYER_ATTACK);
+			app->renderer->camera->Shake(5, 10, 2);
+			player->controller->stateMachine.ChangeState((uint)PlayerState::ATTACK);
+		};
 		break;
 	}
 
@@ -129,6 +188,26 @@ bool PlayerCombat::AddSpell(SpellInfo spell)
 
 	// If neither the spell slots nor the deck slots have an empty slot, return false
 	return false;
+}
+
+bool PlayerCombat::ChangeRevenantWeapon(RevenantWeaponIDs id)
+{
+	// After changing the current weapon you must change the player Attack State time.
+	SetClassWeaponCD();
+	return true;
+}
+
+bool PlayerCombat::ChangeSageWeapon(SageWeaponIDs id)
+{	
+	// After changing the current weapon you must change the player Attack State time.
+	SetClassWeaponCD();
+	return true;
+}
+
+void PlayerCombat::SetClassWeaponCD()
+{
+	if (this->player->playerClass == PlayerClass::REVENANT) player->controller->stateMachine.states[(uint)PlayerState::ATTACK].totalTime = revenantWeapon->attackSpeedCD;
+	else player->controller->stateMachine.states[(uint)PlayerState::ATTACK].totalTime = sageWeapon->attackSpeedCD;
 }
 
 void PlayerCombat::CheckDeck()
@@ -205,6 +284,11 @@ void PlayerCombat::CleanUp()
 		revenantWeapon->CleanUp();
 		RELEASE(revenantWeapon);
 	}
+	if (sageWeapon != nullptr)
+	{
+		sageWeapon->CleanUp();
+		RELEASE(sageWeapon);
+	}
 
 	app->events->RemoveListener(this);
 	executeSpellCommand->CleanUp();
@@ -265,32 +349,3 @@ b2Vec2 PlayerCombat::GetAttackOffset()
 	return attackOffset;
 }
 
-void PlayerCombat::SageAttack()
-{
-	iPoint attackOffset = { METERS_TO_PIXELS(GetAttackOffset().x), METERS_TO_PIXELS(GetAttackOffset().y) };
-
-	// Get projectile speed
-	fPoint duration = { 0,0 };
-	int particleRotation = 0;
-	switch (player->controller->lookingDir)
-	{
-	case LookingDirection::UP:
-		duration.y = -1;
-		particleRotation = 270;
-		break;
-	case LookingDirection::DOWN:
-		duration.y = 1;
-		particleRotation = 90;
-		break;
-	case LookingDirection::LEFT:
-		duration.x = -1;
-		particleRotation = -180;
-		break;
-	case LookingDirection::RIGHT:
-		duration.x = 1;
-		particleRotation = 0;
-		break;
-	}
-
-	new Projectile("Projectile", player->controller->GetPosition() + attackOffset, duration * projectileSpeed,player->damage,particleRotation);
-}

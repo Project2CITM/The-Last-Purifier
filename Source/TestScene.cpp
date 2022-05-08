@@ -17,6 +17,7 @@
 #include "ParticleAttackRevenant.h"
 #include "PlayerStats.h"
 #include "Souls.h"
+#include "Bar.h"
 
 TestScene::TestScene() : SceneGame("testScene")
 {
@@ -69,14 +70,6 @@ bool TestScene::Start()
     spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-20, 0));
 
     app->audio->PlayMusic("Assets/Audio/Ambience/amb_dungeon1_2.ogg");
-
-    //new Kaboom(player->controller->GetPosition() + iPoint(-100, 0));
-
-    //new Ghoul(player->controller->GetPosition() + iPoint(-100, 0));
-
-    //new Worm(player->controller->GetPosition() + iPoint(-100, 0));
-
-    //new Text(player->controller->GetPosition() + iPoint(-100, 0), "H");
 
     return true;
 }
@@ -136,7 +129,7 @@ bool TestScene::Update()
 
 bool TestScene::PostUpdate()
 {
-    roomManager.PostUpdate();
+    roomManager.PostUpdate(player->controller->GetPosition());
 
     hudInGame->PostUpdate();
 

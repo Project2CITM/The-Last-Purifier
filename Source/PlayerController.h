@@ -70,6 +70,8 @@ public:
 
 	bool IsDashing() { return isDashing; }
 
+	void AttackImpulse();
+
 public:
 
 	Player* player = nullptr;
@@ -88,6 +90,8 @@ public:
 
 	LookingDirection lookingDir = LookingDirection::RIGHT;
 
+	bool tryingToMove = false;
+
 
 private:
 	void CreatePhysBody();
@@ -95,17 +99,20 @@ private:
 	void MovementUpdateKeyboard();
 	void MovementUpdateController();
 
-	void CombatUpdate();
-
 	void DashOn();
 
 	fPoint GetPlayerToMouseVector();
 
-	float duration = 12.0f;	//5
+	float speed = 12.0f;	//5
 	bool isDashing = false;
 	int dashCounter = 0;
 	int dashTime = 400;
 	int dashDistance = 14;	//6
+
+	bool isAttackImpulse = false;
+	int attackImpulseCounter = 0;
+	int attackImpulseTime = 120;
+	int attackImpulseDistance = 10;
 
 	int invulnerabilityTimeHit = 1920;
 	bool beenHit = false;

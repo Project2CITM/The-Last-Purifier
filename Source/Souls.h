@@ -2,11 +2,12 @@
 #include "GameObject.h"
 #include "Animation.h"
 #include "Player.h"
+#include "ModuleEvents.h"
 
 class Trigger;
 
 
-class Souls : public GameObject
+class Souls : public GameObject, EventListener
 {
 public:
 
@@ -25,6 +26,8 @@ public:
 	void CleanUp() override;
 
 	void OnTriggerEnter(std::string trigger, PhysBody* col) override;
+
+	void GameEventTriggered(GameEvent id) override;
 
 private:
 	Trigger* trigger = nullptr;

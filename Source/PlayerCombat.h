@@ -15,6 +15,10 @@ class PlayerController;
 struct b2Vec2;
 class DamageArea;
 class RevenantWeapon;
+class SageWeapon;
+
+enum class RevenantWeaponIDs;
+enum class SageWeaponIDs;
 
 class PlayerCombat : GameObject, EventListener
 {
@@ -27,7 +31,9 @@ public:
 
 	void Update() override;
 
-	void Attack();
+	void CombatUpdate();
+
+	void Attack(int chargedTime = 0);
 
 	void CastSpell();
 
@@ -40,6 +46,23 @@ public:
 	/// </summary>
 	/// <param name="spell"></param>
 	bool AddSpell(SpellInfo spell);
+
+	/// <summary>
+	/// Changes the current revenant weapon
+	/// </summary>
+	/// <returns></returns>
+	bool ChangeRevenantWeapon(RevenantWeaponIDs id);
+
+	/// <summary>
+	/// Changes the current sage weapon
+	/// </summary>
+	/// <returns></returns>
+	bool ChangeSageWeapon(SageWeaponIDs id);
+
+	/// <summary>
+	/// Changes the class weapon. If you change from revenant to Sage, you must now use the Sage Weapon.
+	/// </summary>
+	void SetClassWeaponCD();
 
 	/// <summary>
 	/// Checks for empty spell Slots and fills them with any spells in the deck.
@@ -66,8 +89,6 @@ private:
 
 	void GameEventTriggered(GameEvent id);
 
-	void SageAttack();
-
 public:
 
 	Player* player = nullptr;
@@ -81,7 +102,12 @@ private:
 
 	float projectileSpeed = 20; //Velocidad de ba
 
+	int chargedAttackTime = 0;
+
+	Timer combatTimer;
+
 	RevenantWeapon* revenantWeapon = nullptr;
+	SageWeapon* sageWeapon = nullptr;
 
 	friend class PlayerController;
 };
