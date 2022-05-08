@@ -190,8 +190,15 @@ bool PlayerCombat::AddSpell(SpellInfo spell)
 	return false;
 }
 
-bool PlayerCombat::ChangeWeapon()
+bool PlayerCombat::ChangeRevenantWeapon(RevenantWeaponIDs id)
 {
+	// After changing the current weapon you must change the player Attack State time.
+	SetClassWeaponCD();
+	return true;
+}
+
+bool PlayerCombat::ChangeSageWeapon(SageWeaponIDs id)
+{	
 	// After changing the current weapon you must change the player Attack State time.
 	SetClassWeaponCD();
 	return true;

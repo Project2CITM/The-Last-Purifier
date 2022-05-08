@@ -4,6 +4,10 @@
 
 class PlayerController;
 class Application;
+enum class RevenantWeaponIDs
+{
+	SWORD,
+};
 
 class RevenantWeapon
 {

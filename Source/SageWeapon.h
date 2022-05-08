@@ -5,6 +5,11 @@
 class PlayerController;
 class Application;
 
+enum class SageWeaponIDs
+{
+	STAFF,
+};
+
 class SageWeapon
 {
 public:

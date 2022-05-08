@@ -17,6 +17,9 @@ class DamageArea;
 class RevenantWeapon;
 class SageWeapon;
 
+enum class RevenantWeaponIDs;
+enum class SageWeaponIDs;
+
 class PlayerCombat : GameObject, EventListener
 {
 public:
@@ -45,10 +48,16 @@ public:
 	bool AddSpell(SpellInfo spell);
 
 	/// <summary>
-	/// Changes the current weapon
+	/// Changes the current revenant weapon
 	/// </summary>
 	/// <returns></returns>
-	bool ChangeWeapon();
+	bool ChangeRevenantWeapon(RevenantWeaponIDs id);
+
+	/// <summary>
+	/// Changes the current sage weapon
+	/// </summary>
+	/// <returns></returns>
+	bool ChangeSageWeapon(SageWeaponIDs id);
 
 	/// <summary>
 	/// Changes the class weapon. If you change from revenant to Sage, you must now use the Sage Weapon.
