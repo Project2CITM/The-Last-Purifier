@@ -2,9 +2,12 @@
 #define __MAPSAVE_H__
 
 #include "GameObject.h"
+#include "List.h"
 #include <time.h>
 
 #define MAPSAVE_NAME "SaveMap.xml"
+
+class Room;
 
 class MapSave
 {
@@ -33,11 +36,14 @@ public:
 	//Erase seed
 	void ClearSeed();
 
-	//TODO: Save done and undone rooms
-	void SaveRoomStates();
+	//Save done and undone rooms
+	void SaveRoomStates(List<Room*>* rooms);
 	
-	//TODO: Erase room states
+	//Erase room states
 	void ClearRoomStates();
+
+	//Use the saved room states
+	void UseRoomStates(List<Room*>* rooms);
 
 
 private:

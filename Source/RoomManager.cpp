@@ -32,6 +32,9 @@ void RoomManager::Start()
 		rooms[i]->DeactivateColliders();
 	}
 
+	//Use saved room states
+	mapSave->UseRoomStates(&rooms);
+
 	//MiniMap
 	miniMap = new MiniMap();
 	miniMap->Init(false, &rooms);
@@ -56,6 +59,10 @@ void RoomManager::Update(iPoint playerPos)
 #pragma region //ERASE THIS
 	if (app->input->GetKey(SDL_SCANCODE_U) == KEY_DOWN) {
 		mapSave->ClearSeed();
+		mapSave->ClearRoomStates();
+	}
+	if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN) {
+		mapSave->SaveRoomStates(&rooms);
 	}
 #pragma endregion
 	
