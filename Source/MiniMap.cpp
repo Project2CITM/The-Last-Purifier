@@ -89,15 +89,8 @@ void MiniMap::MiniMapPrint(iPoint pos, iPoint playerPos)
 		
 		SDL_Rect rect{ position.x, position.y, RECT_WIDTH, RECT_HEIGHT };
 		
-		if (SDL_HasIntersection(&outRect, &rect)) {
-			/*
-			SDL_Rect resRect;
-			SDL_UnionRect(&outRect, &rect, &resRect);
-			if (!SDL_RectEquals(&resRect, &outRect)) {
-				rect.w /= 2;
-				rect.h /= 2;
-			}
-			*/
+		if (SDL_HasIntersection(&outRect, &rect)) 
+		{
 			rect.x += 1;
 			rect.y += 1;
 			rect.w -= 2;
