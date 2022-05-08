@@ -423,6 +423,9 @@
     <ClInclude Include="RevenantWeapon.h">
       <Filter>Archivos de encabezado\Player\Weapons\Revenant</Filter>
     </ClInclude>
+    <ClInclude Include="WeaponObject.h">
+      <Filter>Archivos de encabezado\Player\Weapons</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\PugiXml\src\pugixml.cpp">
@@ -679,6 +682,9 @@
     </ClCompile>
     <ClCompile Include="RevenantWeapon.cpp">
       <Filter>Archivos de origen\Player\Weapons\Revenant</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponObject.cpp">
+      <Filter>Archivos de origen\Player\Weapons</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
