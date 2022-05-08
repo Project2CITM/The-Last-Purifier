@@ -71,6 +71,7 @@ public:
 	void DrawRoom();
 
 	void CleanUp();
+	void ClearEnemies();
 
 	void EnableEnemics();
 
