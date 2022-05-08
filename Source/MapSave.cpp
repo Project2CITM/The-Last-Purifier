@@ -65,6 +65,9 @@ void MapSave::UseRoomStates(List<Room*>* rooms)
 	pugi::xml_node roomNode = mapNode.first_child();
 	for (int i = 0; i < rooms->count(); i++) {
 		rooms->At(i)->data->done = roomNode.first_attribute().as_bool();
+		if (rooms->At(i)->data->done) {
+			rooms->At(i)->data->ClearEnemies();
+		}
 		roomNode = roomNode.next_sibling();
 	}
 }
