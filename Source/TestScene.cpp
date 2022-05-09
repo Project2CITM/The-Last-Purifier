@@ -19,6 +19,8 @@
 #include "Souls.h"
 #include "Bar.h"
 
+#include "External/Optick/include/optick.h"
+
 TestScene::TestScene() : SceneGame("testScene")
 {
 
@@ -76,6 +78,7 @@ bool TestScene::Start()
 
 bool TestScene::PreUpdate()
 {
+    OPTICK_EVENT();
    /* if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
     {
         roomManager.CleanUp();
@@ -100,11 +103,18 @@ bool TestScene::PreUpdate()
     hudInGame->PreUpdate();
 
     Scene::PreUpdate();
+
     return true;
+}
+
+void TestScene::OptickUpdate()
+{
+    OPTICK_EVENT();
 }
 
 bool TestScene::Update()
 {
+    OPTICK_EVENT();
     //if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
     //    roomManager.mapMovement.x -= 10;
 

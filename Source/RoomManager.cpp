@@ -8,9 +8,10 @@
 #include "Minimap.h"
 #include "ModuleInput.h"
 
+#include "External/Optick/include/optick.h"
+
 void RoomManager::Start()
 {
-
 	doorTopTexture = app->textures->Load("Assets/Maps/TestDoor_top.png");
 	doorBotTexture = app->textures->Load("Assets/Maps/TestDoor_bottom.png");
 	doorSpikeTexture = app->textures->Load("Assets/Maps/wallDoorClosed.png");
@@ -23,7 +24,7 @@ void RoomManager::Start()
 	mapSave = new MapSave();
 	mapSave->Init();
 
-	GenerateMap(10);
+	GenerateMap(20);
 
 	CreateDoors();
 
@@ -42,6 +43,7 @@ void RoomManager::Start()
 
 void RoomManager::PreUpdate(iPoint playerPos)
 {
+	OPTICK_EVENT();
 	//Check current room
 	Room* r = roomPositions[playerPos.x / (TILE_SIZE * MAX_ROOM_TILES_COLUMNS)][playerPos.y / (TILE_SIZE * MAX_ROOM_TILES_ROWS)];
 

@@ -41,9 +41,10 @@ bool Scene::PreUpdate()
 		if (gameObjects[i]->pendingToDelete)
 		{
 			DestroyGameObject(gameObjects[i]);
+			continue;
 		}
 
-		else if (gameObjects[i]->enable)gameObjects[i]->PreUpdate();
+		if (gameObjects[i]->enable) gameObjects[i]->PreUpdate();
 	}
 
 	for (int i = 0; i < texts.count(); i++)
