@@ -90,7 +90,7 @@ private:
 	//load and play the music
 	void LoadMusFile(const pugi::xml_document& dataFile);
 
-	SDL_Texture* texture1 = nullptr;
+	SDL_Texture* backGround = nullptr;
 };
 
 #endif //__MAIN_MENU_H__

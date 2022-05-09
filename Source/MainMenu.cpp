@@ -18,9 +18,6 @@ RenderObject options;
 RenderObject credtis1;
 RenderObject credtis2;
 
-RenderObject physF1;
-
-
 MainMenu::MainMenu():Scene("MainMenu")
 {
 
@@ -56,13 +53,10 @@ bool MainMenu::Start()
 	LoadMusFile(dataFile);
 
 
-
-
-	fondo.InitAsTexture(app->textures->Load("Assets/Sprites/UI/background.png"), { 0,0 }, { 0,0,0,0 }, 0.5f, 0, 0, 0, SDL_FLIP_NONE, 0);
+	fondo.InitAsTexture(backGround, { 0,0 }, { 0,0,0,0 }, 0.5f, 0, 0, 0, SDL_FLIP_NONE, 0);
 	options.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Options.png"), { 0,0 }, {0,0,0,0}, 0.5f);
 	credtis1.InitAsTexture(app->textures->Load("Assets/Sprites/UI/CredtisCre.png"), { 0,0 }, {0,0,0,0}, 0.5f);
 	credtis2.InitAsTexture(app->textures->Load("Assets/Sprites/UI/CreditsProba.png"), { 0,0 }, {0,0,0,0}, 0.5f);
-	physF1.InitAsTexture(texture1, { 0,0 }, {0,0,0,0}, 0.5f, 4, 0, 0, SDL_FLIP_NONE, 0);
 
 	Hover = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiHover.wav");
 	Press = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiSelect.wav");
@@ -364,9 +358,6 @@ bool MainMenu::PostUpdate()
 {
 	//app->textures->TestEffect();
 
-	//app->renderer->AddTextureRenderQueue(texture1, { 0,0 });
-	app->renderer->AddRenderObjectRenderQueue(physF1);
-
 	if (currentMenu == CurrentMenu::Options)
 	{
 		for (int i = 0; i < guisOptions.count(); i++)
@@ -417,8 +408,8 @@ bool MainMenu::CleanUp()
 
 void MainMenu::LoadTexFile(const pugi::xml_document& dataFile)
 {
-	pugi::xml_node tex_node = dataFile.child("data").child("texture");
-	texture1 = app->textures->Load(tex_node.attribute("file2").as_string());
+	pugi::xml_node tex_node = dataFile.child("data").child("Sprites").child("UI");
+	backGround = app->textures->Load(tex_node.attribute("backGround").as_string());
 	//texture2 = app->tex->Load(tex_node.attribute("file2").as_string());
 }
 
