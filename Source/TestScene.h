@@ -31,6 +31,8 @@ public:
 
 	void AddGUISettingsP(GUI* gui) override;
 
+	void OptickUpdate();
+
 private:
 
 	RoomManager roomManager;
