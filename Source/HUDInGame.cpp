@@ -14,6 +14,7 @@
 #include "PlayerController.h"
 #include "ModuleEvents.h"
 #include "SpellInfo.h"
+#include "AssetsManager.h"
 
 RenderObject Controls1;
 RenderObject Controls2;
@@ -45,12 +46,26 @@ bool HUDInGame::InitScene()
 
 bool HUDInGame::Start()
 {
-	PauseBG.InitAsTexture(app->textures->Load("Assets/Sprites/UI/PauseBG.png"), { 10, -10 }, { 0,0,0,0 }, 0.35f, 4, 0, 0 , SDL_FLIP_NONE, 0);
-	SettingsBG.InitAsTexture(app->textures->Load("Assets/Sprites/UI/FondoSettings.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 0, 0, SDL_FLIP_NONE, 0);
-	Controls1.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Controls1_2.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 1, 0, SDL_FLIP_NONE, 0);
-	Controls2.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Controls2_2.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 1, 0, SDL_FLIP_NONE, 0);
+	char* buffer = 0;
+	pugi::xml_document dataFile;
 
-	iconSouls.InitAsTexture(app->textures->Load("Assets/Sprites/Soul/soul.png"), { app->renderer->camera->x + 15, app->renderer->camera->y + 21 }, { 0,0,50,89 }, 0.25f, 4, 0, 0, SDL_FLIP_NONE, 0);
+	int bytesFile = app->assetManager->LoadData("data.xml", &buffer);
+
+	pugi::xml_parse_result result = dataFile.load_buffer(buffer, bytesFile);
+
+	RELEASE_ARRAY(buffer);
+
+	LoadTexFile(dataFile);
+	LoadFxFile(dataFile);
+	LoadMusFile(dataFile);
+
+
+	PauseBG.InitAsTexture(pauseBGTex, { 10, -10 }, { 0,0,0,0 }, 0.35f, 4, 0, 0 , SDL_FLIP_NONE, 0);
+	SettingsBG.InitAsTexture(fondoSettTex, { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 0, 0, SDL_FLIP_NONE, 0);
+	Controls1.InitAsTexture(controls1Tex, { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 1, 0, SDL_FLIP_NONE, 0);
+	Controls2.InitAsTexture(controls2Tex, { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 1, 0, SDL_FLIP_NONE, 0);
+
+	iconSouls.InitAsTexture(iconSoulsTex, { app->renderer->camera->x + 15, app->renderer->camera->y + 21 }, { 0,0,50,89 }, 0.25f, 4, 0, 0, SDL_FLIP_NONE, 0);
 
 	Hover = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiHover.wav");
 	Press = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiSelect.wav");
@@ -68,28 +83,28 @@ bool HUDInGame::Start()
 	giveUpBUT = { app->renderer->camera->x + 355, app->renderer->camera->y +190};
 	quitBUT = { app->renderer->camera->x + 355, app->renderer->camera->y +250};
 
-	ResumeBUT = new GUIButton(resumeBUT, 117, 47, MenuButton::INGAMEPUASE, "Assets/Sprites/UI/Resume.png");
-	SettingsBUT = new GUIButton(settingsBUT, 117, 47, MenuButton::INGAMEPUASE, "Assets/Sprites/UI/Settings.png");
-	ControlsBUT = new GUIButton(controlsBUT, 117, 47, MenuButton::INGAMEPUASE, "Assets/Sprites/UI/Controls.png");
-	SaveBUT = new GUIButton(saveBUT, 117, 47, MenuButton::INGAMEPUASE, "Assets/Sprites/UI/Save.png");
-	LoadBUT = new GUIButton(loadBUT, 117, 47, MenuButton::INGAMEPUASE, "Assets/Sprites/UI/Load.png");
-	GiveUpBUT = new GUIButton(giveUpBUT, 117, 47, MenuButton::INGAMEPUASE, "Assets/Sprites/UI/giveUp.png");
-	QuitBUT = new GUIButton(quitBUT, 117, 47, MenuButton::INGAMEPUASE, "Assets/Sprites/UI/Quit.png");
+	ResumeBUT = new GUIButton(resumeBUT, 117, 47, MenuButton::INGAMEPUASE, resumeBUTTex);
+	SettingsBUT = new GUIButton(settingsBUT, 117, 47, MenuButton::INGAMEPUASE, settingsBUTTex);
+	ControlsBUT = new GUIButton(controlsBUT, 117, 47, MenuButton::INGAMEPUASE, controlsBUTTex);
+	SaveBUT = new GUIButton(saveBUT, 117, 47, MenuButton::INGAMEPUASE, saveBUTTex);
+	LoadBUT = new GUIButton(loadBUT, 117, 47, MenuButton::INGAMEPUASE, loadBUTTex);
+	GiveUpBUT = new GUIButton(giveUpBUT, 117, 47, MenuButton::INGAMEPUASE, giveUpBUTTex);
+	QuitBUT = new GUIButton(quitBUT, 117, 47, MenuButton::INGAMEPUASE, quitBUTTex);
 
-	CloseControlsBUT = new GUIButton({ app->renderer->camera->x + 297, app->renderer->camera->y + 315 }, 46, 46, MenuButton::CONTROLSPAUSE, "Assets/Sprites/UI/Back.png");
-	CloseSettingsBUT = new GUIButton({ app->renderer->camera->x + 297, app->renderer->camera->y + 315 }, 46, 46, MenuButton::SETTINGSPAUSE, "Assets/Sprites/UI/Back.png");
+	CloseControlsBUT = new GUIButton({ app->renderer->camera->x + 297, app->renderer->camera->y + 315 }, 46, 46, MenuButton::CONTROLSPAUSE, closeControlsBUTTex);
+	CloseSettingsBUT = new GUIButton({ app->renderer->camera->x + 297, app->renderer->camera->y + 315 }, 46, 46, MenuButton::SETTINGSPAUSE, closeSettingsBUTTex);
 
-	MusicBUT = new GUIButton({ app->renderer->camera->x + 200, app->renderer->camera->y + 125 }, 27, 46, MenuButton::SETTINGSPAUSE, "Assets/Sprites/UI/fireSlider.png");
-	MusicSlider = new GUISlider({ app->renderer->camera->x + 200, app->renderer->camera->y + 125 }, 300, 14, MenuButton::SETTINGSPAUSE, "Assets/Sprites/UI/Slider1.png");
+	MusicBUT = new GUIButton({ app->renderer->camera->x + 200, app->renderer->camera->y + 125 }, 27, 46, MenuButton::SETTINGSPAUSE, musicBUTTex);
+	MusicSlider = new GUISlider({ app->renderer->camera->x + 200, app->renderer->camera->y + 125 }, 300, 14, MenuButton::SETTINGSPAUSE, musicSliderTex);
 	MusicSlider->CreateGUIBtn(MusicBUT);
 	MusicSlider->SetValue(app->audio->musicVol/255);
 
-	fxBUT = new GUIButton({ app->renderer->camera->x + 200, app->renderer->camera->y + 200 }, 27, 46, MenuButton::SETTINGSPAUSE, "Assets/Sprites/UI/fireSlider.png");
-	fxSlider = new GUISlider({ app->renderer->camera->x + 200, app->renderer->camera->y + 200 }, 300, 14, MenuButton::SETTINGSPAUSE, "Assets/Sprites/UI/Slider1.png");
+	fxBUT = new GUIButton({ app->renderer->camera->x + 200, app->renderer->camera->y + 200 }, 27, 46, MenuButton::SETTINGSPAUSE, fxBUTTex);
+	fxSlider = new GUISlider({ app->renderer->camera->x + 200, app->renderer->camera->y + 200 }, 300, 14, MenuButton::SETTINGSPAUSE, fxSliderTex);
 	fxSlider->CreateGUIBtn(fxBUT);
 	fxSlider->SetValue(app->audio->fxVol / 255);
 
-	FullScreenCHK = new GUICheckbox({ app->renderer->camera->x + 350, app->renderer->camera->y + 215 }, 60, 60, MenuButton::SETTINGSPAUSE, "Assets/Sprites/UI/CheckBox.png");
+	FullScreenCHK = new GUICheckbox({ app->renderer->camera->x + 350, app->renderer->camera->y + 215 }, 60, 60, MenuButton::SETTINGSPAUSE, fullScreenCHKTex);
 	FullScreenCHK->ChangeState(app->FullScreenDesktop);
 
 
@@ -510,7 +525,7 @@ void HUDInGame::InitializeSlots()
 	{
 		RenderObject rO;
 		iPoint pos = { spellSlotsPositions[player->player->spellSlots - 1][i].x, spellSlotsPositions[player->player->spellSlots - 1][i].y };
-		rO.InitAsTexture(app->textures->Load("Assets/Sprites/UI/icons.png"), pos, { 0,0,0,0 }, 1, 3, 0, 0, SDL_FLIP_NONE, 0);
+		rO.InitAsTexture(iconsSpellTex, pos, { 0,0,0,0 }, 1, 3, 0, 0, SDL_FLIP_NONE, 0);
 		spellSlots.add(rO);
 	}
 
@@ -524,7 +539,7 @@ void HUDInGame::InitializeSlots()
 		iPoint position = spellPos + iPoint(40, 0);
 		position.x += 20 * i;
 		position.y = 340;
-		rO.InitAsTexture(app->textures->Load("Assets/Sprites/UI/icons.png"), position, { 0,0,0,0 }, 0.5f, 3, 0, 0, SDL_FLIP_NONE, 0);
+		rO.InitAsTexture(iconsDeckTex, position, { 0,0,0,0 }, 0.5f, 3, 0, 0, SDL_FLIP_NONE, 0);
 		deckSlots.add(rO);
 	}
 }
@@ -623,4 +638,43 @@ void HUDInGame::UpdateSpellText()
 		currentSpellText->SetText("");
 		currentSpellLevelText->SetText("");
 	} 
+}
+
+void HUDInGame::LoadTexFile(const pugi::xml_document& dataFile)
+{
+	pugi::xml_node tex_node = dataFile.child("data").child("Sprites").child("HUD");
+	pauseBGTex = app->textures->Load(tex_node.attribute("pauseBG").as_string());
+	fondoSettTex = app->textures->Load(tex_node.attribute("fondoSett").as_string());
+	controls1Tex = app->textures->Load(tex_node.attribute("controls1").as_string());
+	controls2Tex = app->textures->Load(tex_node.attribute("controls2").as_string());
+	iconSoulsTex = app->textures->Load(tex_node.attribute("iconSouls").as_string());
+	resumeBUTTex = app->textures->Load(tex_node.attribute("resumeBUT").as_string());
+	settingsBUTTex = app->textures->Load(tex_node.attribute("settingsBUT").as_string());
+	controlsBUTTex = app->textures->Load(tex_node.attribute("controlsBUT").as_string());
+	saveBUTTex = app->textures->Load(tex_node.attribute("saveBUT").as_string());
+	loadBUTTex = app->textures->Load(tex_node.attribute("loadBUT").as_string());
+	giveUpBUTTex = app->textures->Load(tex_node.attribute("giveUpBUT").as_string());
+	quitBUTTex = app->textures->Load(tex_node.attribute("quitBUT").as_string());
+	closeControlsBUTTex = app->textures->Load(tex_node.attribute("closeControlsBUT").as_string());
+	closeSettingsBUTTex = app->textures->Load(tex_node.attribute("closeSettingsBUT").as_string());
+	musicBUTTex = app->textures->Load(tex_node.attribute("musicBUT").as_string());
+	musicSliderTex = app->textures->Load(tex_node.attribute("musicSlider").as_string());
+	fxBUTTex = app->textures->Load(tex_node.attribute("fxBUT").as_string());
+	fxSliderTex = app->textures->Load(tex_node.attribute("fxSlider").as_string());
+	fullScreenCHKTex = app->textures->Load(tex_node.attribute("fullScreenCHK").as_string());
+	iconsSpellTex = app->textures->Load(tex_node.attribute("iconsSpell").as_string());
+	iconsDeckTex = app->textures->Load(tex_node.attribute("iconsDeck").as_string());
+	
+}
+
+void HUDInGame::LoadFxFile(const pugi::xml_document& dataFile)
+{
+	pugi::xml_node fx_node = dataFile.child("data").child("fx");
+	app->audio->LoadFx(fx_node.attribute("file").as_string());
+}
+
+void HUDInGame::LoadMusFile(const pugi::xml_document& dataFile)
+{
+	pugi::xml_node mus_node = dataFile.child("data").child("mus");
+	app->audio->PlayMusic(mus_node.attribute("file").as_string());
 }

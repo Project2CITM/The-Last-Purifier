@@ -25,7 +25,7 @@ private:
 	int btnMouse_offset_x = 0;
 
 public:
-	GUISlider(iPoint pos, int width, int height, MenuButton currentMenu, std::string path);
+	GUISlider(iPoint pos, int width, int height, MenuButton currentMenu, SDL_Texture* texture);
 
 	GUISlider(iPoint pos, int width, int height, MenuButton currentMenu);
 

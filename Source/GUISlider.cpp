@@ -4,13 +4,13 @@
 #include "ModuleWindow.h"
 #include "ModuleTextures.h"
 
-GUISlider::GUISlider(iPoint pos, int width, int height, MenuButton currentMenu, std::string path) : GUI()
+GUISlider::GUISlider(iPoint pos, int width, int height, MenuButton currentMenu, SDL_Texture* texture) : GUI()
 {
 	// Init Slider
 	InitAsBox(pos.x, pos.y, width, height, currentMenu);
 
 	renderObject = new RenderObject();
-	renderObject->texture = app->textures->Load(path);
+	renderObject->texture = texture;
 	renderObject->destRect = { pos.x, pos.y, width, height };
 	renderObject->layer = 4;
 	renderObject->orderInLayer = 15;

@@ -28,7 +28,7 @@ private:
 	int orderInlayer = 10;
 
 public:
-	GUIButton(iPoint pos, int width, int height, MenuButton currentmenu, std::string path);
+	GUIButton(iPoint pos, int width, int height, MenuButton currentmenu, SDL_Texture* texture);
 
 	GUIButton(iPoint pos, int width, int height, MenuButton currentMenu);
 

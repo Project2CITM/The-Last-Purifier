@@ -70,6 +70,15 @@ private:
 	std::string GetSpellName(SpellID id);
 	void UpdateSpellText();
 
+	//load the texture
+	void LoadTexFile(const pugi::xml_document& dataFile);
+
+	//load the fx
+	void LoadFxFile(const pugi::xml_document& dataFile);
+
+	//load and play the music
+	void LoadMusFile(const pugi::xml_document& dataFile);
+
 private:
 
 	//Player player;
@@ -130,6 +139,28 @@ private:
 	int* currentSpell = nullptr;
 
 	int score = 0;
+
+	SDL_Texture* pauseBGTex = nullptr;
+	SDL_Texture* fondoSettTex = nullptr;
+	SDL_Texture* controls1Tex = nullptr;
+	SDL_Texture* controls2Tex = nullptr;
+	SDL_Texture* iconSoulsTex = nullptr;
+	SDL_Texture* resumeBUTTex = nullptr;
+	SDL_Texture* settingsBUTTex = nullptr;
+	SDL_Texture* controlsBUTTex = nullptr;
+	SDL_Texture* saveBUTTex = nullptr;
+	SDL_Texture* loadBUTTex = nullptr;
+	SDL_Texture* giveUpBUTTex = nullptr;
+	SDL_Texture* quitBUTTex = nullptr;
+	SDL_Texture* closeControlsBUTTex = nullptr;
+	SDL_Texture* closeSettingsBUTTex = nullptr;
+	SDL_Texture* musicBUTTex = nullptr;
+	SDL_Texture* musicSliderTex = nullptr;
+	SDL_Texture* fxBUTTex = nullptr;
+	SDL_Texture* fxSliderTex = nullptr;
+	SDL_Texture* fullScreenCHKTex = nullptr;
+	SDL_Texture* iconsSpellTex = nullptr;
+	SDL_Texture* iconsDeckTex = nullptr;
 };
 
 #endif //__HUD_IN_GAME_H__

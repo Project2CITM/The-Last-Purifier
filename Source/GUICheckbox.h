@@ -14,7 +14,7 @@ enum class CheckboxState
 class GUICheckbox : public GUI
 {
 public:
-	GUICheckbox(iPoint pos, int width, int height, MenuButton currentMenu, std::string path);
+	GUICheckbox(iPoint pos, int width, int height, MenuButton currentMenu, SDL_Texture* texture);
 
 	GUICheckbox(iPoint pos, int width, int height, MenuButton currentMenu);
 

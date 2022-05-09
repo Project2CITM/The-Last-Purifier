@@ -53,10 +53,10 @@ bool MainMenu::Start()
 	LoadMusFile(dataFile);
 
 
-	fondo.InitAsTexture(backGround, { 0,0 }, { 0,0,0,0 }, 0.5f, 0, 0, 0, SDL_FLIP_NONE, 0);
-	options.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Options.png"), { 0,0 }, {0,0,0,0}, 0.5f);
-	credtis1.InitAsTexture(app->textures->Load("Assets/Sprites/UI/CredtisCre.png"), { 0,0 }, {0,0,0,0}, 0.5f);
-	credtis2.InitAsTexture(app->textures->Load("Assets/Sprites/UI/CreditsProba.png"), { 0,0 }, {0,0,0,0}, 0.5f);
+	fondo.InitAsTexture(backGroundTex, { 0,0 }, { 0,0,0,0 }, 0.5f, 0, 0, 0, SDL_FLIP_NONE, 0);
+	options.InitAsTexture(optionsTex, { 0,0 }, {0,0,0,0}, 0.5f);
+	credtis1.InitAsTexture(credtis1Tex, { 0,0 }, {0,0,0,0}, 0.5f);
+	credtis2.InitAsTexture(credtis2Tex, { 0,0 }, {0,0,0,0}, 0.5f);
 
 	Hover = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiHover.wav");
 	Press = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiSelect.wav");
@@ -70,33 +70,33 @@ bool MainMenu::Start()
 	app->audio->PlayFx(Appear_FX);
 
 
-	PlayBUT = new GUIButton({ 125, 180 }, 75, 28, MenuButton::MAIN, "Assets/Sprites/UI/PlayBUT.png");
-	OptionsBUT = new GUIButton({ 132, 215 }, 60, 16, MenuButton::MAIN, "Assets/Sprites/UI/OptionBUT.png");
-	CreditBUT = new GUIButton({ 132, 240 }, 60, 16, MenuButton::MAIN, "Assets/Sprites/UI/CredtisBUT.png");
-	ExitBUT = new GUIButton({ 132, 285 }, 50, 15, MenuButton::MAIN, "Assets/Sprites/UI/QuitBUT.png");
-	LinkBUT = new GUIButton({ 20, 330 }, 59, 16, MenuButton::MAIN, "Assets/Sprites/UI/linkBUT.png"); 
+	PlayBUT = new GUIButton({ 125, 180 }, 75, 28, MenuButton::MAIN, playBUTTex);
+	OptionsBUT = new GUIButton({ 132, 215 }, 60, 16, MenuButton::MAIN, optionsBUTTex);
+	CreditBUT = new GUIButton({ 132, 240 }, 60, 16, MenuButton::MAIN, credtisBUTTex);
+	ExitBUT = new GUIButton({ 132, 285 }, 50, 15, MenuButton::MAIN, exitBUTTex);
+	LinkBUT = new GUIButton({ 20, 330 }, 59, 16, MenuButton::MAIN, linkBUTTex);
 
-	CloseOptBUT = new GUIButton({ 297, 300 }, 46, 46, MenuButton::OPTIONS, "Assets/Sprites/UI/Back.png");
+	CloseOptBUT = new GUIButton({ 297, 300 }, 46, 46, MenuButton::OPTIONS, closeOptBUTTex);
 
-	MusicSlider = new GUISlider({ 200, 125 }, 300, 14, MenuButton::OPTIONS, "Assets/Sprites/UI/Slider1.png");
-	MusicBUT = new GUIButton({ 200, 125 }, 27, 46, MenuButton::OPTIONS, "Assets/Sprites/UI/fireSlider.png");
+	MusicSlider = new GUISlider({ 200, 125 }, 300, 14, MenuButton::OPTIONS, musicSliderTex);
+	MusicBUT = new GUIButton({ 200, 125 }, 27, 46, MenuButton::OPTIONS, musicBUTTex);
 	MusicSlider->CreateGUIBtn(MusicBUT);
 	MusicSlider->SetValue(app->audio->musicVol / 255);
 
-	fxSlider = new GUISlider({ 200, 200 }, 300, 14, MenuButton::OPTIONS, "Assets/Sprites/UI/Slider1.png");
-	fxBUT = new GUIButton({ 200, 200 }, 27, 46, MenuButton::OPTIONS, "Assets/Sprites/UI/fireSlider.png");
+	fxSlider = new GUISlider({ 200, 200 }, 300, 14, MenuButton::OPTIONS, fxSliderTex);
+	fxBUT = new GUIButton({ 200, 200 }, 27, 46, MenuButton::OPTIONS, fxBUTTex);
 	fxSlider->CreateGUIBtn(fxBUT);
 	fxSlider->SetValue(app->audio->fxVol / 255);
 
-	CredtisCre = new GUIButton({ 125, 70 }, 117, 47, MenuButton::CREDITS, "Assets/Sprites/UI/Credtis1.png");
-	CredtisAud = new GUIButton({ 125, 130 }, 117, 47, MenuButton::CREDITS, "Assets/Sprites/UI/Credtis2.png");
-	CredtisArt = new GUIButton({ 125, 190 }, 117, 47, MenuButton::CREDITS, "Assets/Sprites/UI/Credtis3.png");
-	CredtisOtr = new GUIButton({ 125, 250 }, 117, 47, MenuButton::CREDITS, "Assets/Sprites/UI/Credtis4.png");
+	CredtisCre = new GUIButton({ 125, 70 }, 117, 47, MenuButton::CREDITS, credtisCreTex);
+	CredtisAud = new GUIButton({ 125, 130 }, 117, 47, MenuButton::CREDITS, credtisAudTex);
+	CredtisArt = new GUIButton({ 125, 190 }, 117, 47, MenuButton::CREDITS, credtisArtTex);
+	CredtisOtr = new GUIButton({ 125, 250 }, 117, 47, MenuButton::CREDITS, credtisOtrTex);
 
-	FullScreenCHK = new GUICheckbox({ 350, 215 }, 60, 60, MenuButton::OPTIONS, "Assets/Sprites/UI/CheckBox.png");
+	FullScreenCHK = new GUICheckbox({ 350, 215 }, 60, 60, MenuButton::OPTIONS, fullScreenCHKTex);
 	FullScreenCHK->ChangeState(app->FullScreenDesktop);
 
-	CloseCrdBUT = new GUIButton({ 297, 300 }, 46, 46, MenuButton::CREDITS, "Assets/Sprites/UI/Back.png");
+	CloseCrdBUT = new GUIButton({ 297, 300 }, 46, 46, MenuButton::CREDITS, closeCrdBUTTex);
 
 	//testTrans = app->window->width * app->window->height;
 
@@ -409,8 +409,26 @@ bool MainMenu::CleanUp()
 void MainMenu::LoadTexFile(const pugi::xml_document& dataFile)
 {
 	pugi::xml_node tex_node = dataFile.child("data").child("Sprites").child("UI");
-	backGround = app->textures->Load(tex_node.attribute("backGround").as_string());
-	//texture2 = app->tex->Load(tex_node.attribute("file2").as_string());
+	backGroundTex = app->textures->Load(tex_node.attribute("backGround").as_string());
+	optionsTex = app->textures->Load(tex_node.attribute("options").as_string());
+	credtis1Tex = app->textures->Load(tex_node.attribute("credtis1").as_string());
+	credtis2Tex = app->textures->Load(tex_node.attribute("credtis2").as_string());
+	playBUTTex = app->textures->Load(tex_node.attribute("playBUT").as_string());
+	optionsBUTTex = app->textures->Load(tex_node.attribute("optionsBUT").as_string());
+	credtisBUTTex = app->textures->Load(tex_node.attribute("credtisBUT").as_string());
+	exitBUTTex = app->textures->Load(tex_node.attribute("exitBUT").as_string());
+	linkBUTTex = app->textures->Load(tex_node.attribute("linkBUT").as_string());
+	closeOptBUTTex = app->textures->Load(tex_node.attribute("closeOptBUT").as_string());
+	musicSliderTex = app->textures->Load(tex_node.attribute("musicSlider").as_string());
+	musicBUTTex = app->textures->Load(tex_node.attribute("musicBUT").as_string());
+	fxSliderTex = app->textures->Load(tex_node.attribute("fxSlider").as_string());
+	fxBUTTex = app->textures->Load(tex_node.attribute("fxBUT").as_string());
+	credtisCreTex = app->textures->Load(tex_node.attribute("credtisCre").as_string());
+	credtisAudTex = app->textures->Load(tex_node.attribute("credtisAud").as_string());
+	credtisArtTex = app->textures->Load(tex_node.attribute("credtisArt").as_string());
+	credtisOtrTex = app->textures->Load(tex_node.attribute("credtisOtr").as_string());
+	fullScreenCHKTex = app->textures->Load(tex_node.attribute("fullScreenCHK").as_string());
+	closeCrdBUTTex = app->textures->Load(tex_node.attribute("closeCrdBUT").as_string());
 }
 
 void MainMenu::LoadFxFile(const pugi::xml_document& dataFile)
