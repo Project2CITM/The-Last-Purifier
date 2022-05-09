@@ -24,7 +24,7 @@ ModuleAssetsManager::~ModuleAssetsManager()
 	PHYSFS_deinit();
 }
 
-bool ModuleAssetsManager::Awake(pugi::xml_node& config)
+bool ModuleAssetsManager::Init(pugi::xml_node& config)
 {
 	/*TODO 2: add the search path*/
 	PHYSFS_addToSearchPath("Assets.zip", 1);

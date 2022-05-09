@@ -1,6 +1,7 @@
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "ModuleWindow.h"
+#include "AssetsManager.h"
 #include "External/SDL_image/include/SDL_image.h"
 
 ModuleTextures::ModuleTextures(bool start_enabled) : Module(start_enabled)
@@ -109,7 +110,8 @@ SDL_Texture* ModuleTextures::Load(std::string path, bool isName)
 	}
 
 	SDL_Texture* texture = nullptr;
-	SDL_Surface* surface = IMG_Load(path.c_str());
+	//SDL_Surface* surface = IMG_Load(path.c_str());
+	SDL_Surface* surface = IMG_Load_RW(app->assetManager->Load(path.c_str()),1);
 
 	if(surface == NULL)
 	{
@@ -177,7 +179,7 @@ void ModuleTextures::SetGauss(SDL_Texture* texture, float sigma, int size)
 
 	int halfSize = (int)(size / 2);
 
-	SDL_Surface* surface = IMG_Load(path.c_str());
+	SDL_Surface* surface = IMG_Load_RW(app->assetManager->Load(path.c_str()), 1);
 
 	vector<vector<float>> gauss(size, vector<float>(size));
 
