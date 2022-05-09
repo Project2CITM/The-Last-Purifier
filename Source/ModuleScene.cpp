@@ -7,6 +7,7 @@
 #include "HubScene.h"
 #include "MainMenu.h"
 #include "LogoScene.h"
+#include "GameOverScene.h"
 
 ModuleScene::ModuleScene(bool start_enabled) : Module(start_enabled)
 {
@@ -16,6 +17,7 @@ ModuleScene::ModuleScene(bool start_enabled) : Module(start_enabled)
 	scenes[MAIN_MENU] = new MainMenu();
 	scenes[HUB] = new HubScene();
 	scenes[LEVEL_1] = new TestScene();
+	scenes[GAME_OVER] = new GameOverScene();
 
 	currentScene = LEVEL_1;
 }

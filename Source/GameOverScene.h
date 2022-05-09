@@ -5,10 +5,17 @@
 class GameOverScene :
     public Scene,public EventListener
 {
+public:
+
+    GameOverScene();
+
+    ~GameOverScene();
 
     bool InitScene() override;
 
     bool Start() override;
+
+    bool PreUpdate() override;
 
     bool Update() override;
 
@@ -25,6 +32,8 @@ private:
     SDL_Texture* gameOverBG = nullptr;
 
     SDL_Texture* gameOverTitle = nullptr;
+
+    Application* app;
 
 };
 

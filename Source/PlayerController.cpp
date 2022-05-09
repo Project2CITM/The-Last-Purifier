@@ -514,7 +514,8 @@ void PlayerController::Hit(int damage)
 
 		if (player->hpPlayer <= 0)
 		{
-			app->scene->ChangeCurrentSceneRequest(SCENES::HUB, 60);
+			enemyTrigger->pendingToDelete = true;
+			app->scene->ChangeCurrentSceneRequest(SCENES::GAME_OVER, 60);
 
 			app->events->TriggerEvent(GameEvent::PLAYER_DIE);
 			app->events->TriggerEvent(GameEvent::SAVE_GAME);
