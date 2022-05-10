@@ -2,12 +2,12 @@
 #include "ModuleTextures.h"
 #include "ModuleInput.h"
 
-GUICheckbox::GUICheckbox(iPoint pos, int width, int height, MenuButton currentMenu, std::string path) : GUI()
+GUICheckbox::GUICheckbox(iPoint pos, int width, int height, MenuButton currentMenu, SDL_Texture* texture) : GUI()
 {
 	InitAsBox(pos.x, pos.y, width, height, currentMenu);
 
 	renderObject = new RenderObject();
-	renderObject->texture = app->textures->Load(path);
+	renderObject->texture = texture;
 	renderObject->destRect = { pos.x, pos.y, width, height };
 	renderObject->layer = 4;
 	renderObject->orderInLayer = 15;

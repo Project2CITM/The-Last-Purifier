@@ -126,7 +126,7 @@ void Kaboom::OnTriggerExit(std::string trigger, PhysBody* col)
 	}
 }
 
-void Kaboom::Die(bool spawnPower)
+void Kaboom::Die(bool spawnPower, bool spawnSouls)
 {
 	stateMachine.ChangeState((int)KaboomState::DIE);
 	app->audio->PlayFx(deadFX);

@@ -70,7 +70,7 @@ void Enemy::Hit(int damage)
 	if (health <= 0) Die();
 }
 
-void Enemy::Die(bool spawnPower)
+void Enemy::Die(bool spawnPower, bool spawnSoul)
 {
 	isDie = true;
 
@@ -89,7 +89,7 @@ void Enemy::Die(bool spawnPower)
 		}
 	}
 
-	if (player != nullptr) Souls* soul1 = new Souls(GetPosition(), 3);
+	if (player != nullptr && spawnSoul) Souls* soul1 = new Souls(GetPosition(), 3);
 }
 
 void Enemy::GameEventTriggered(GameEvent id)

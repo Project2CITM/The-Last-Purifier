@@ -6,6 +6,7 @@
 #include "Scene.h"
 #include <iostream>
 #include "SceneGame.h"
+#include "AssetsManager.h"
 
 ClassTreeHud::ClassTreeHud(PlayerClass pClass) : Scene("ClassTreeHud")
 {
@@ -27,6 +28,19 @@ bool ClassTreeHud::InitScene()
 
 bool ClassTreeHud::Start()
 {
+	char* buffer = 0;
+	pugi::xml_document dataFile;
+
+	int bytesFile = app->assetManager->LoadData("data.xml", &buffer);
+
+	pugi::xml_parse_result result = dataFile.load_buffer(buffer, bytesFile);
+
+	RELEASE_ARRAY(buffer);
+
+	LoadTexFile(dataFile);
+
+
+
 	bPoint = { 10, 30 };
 
 	bRect = { 10, 30, 215, 300 };
@@ -57,7 +71,7 @@ bool ClassTreeHud::Start()
 	{
 		aux = tree->getSkillTree(i)->position;
 
-		GUIButton* bttn = new GUIButton(aux, btnSize, btnSize, MenuButton::NONE, "Assets/Sprites/UI/Trees/Tree_Debug_Btn.png");
+		GUIButton* bttn = new GUIButton(aux, btnSize, btnSize, MenuButton::NONE, tree_Debug);
 		bttn->setRenderColour({ 155, 0, 0, 155 });
 		bttn->setRenderLayer(4, 1);
 
@@ -134,4 +148,10 @@ bool ClassTreeHud::PostUpdate()
 	}
 
 	return true;
+}
+
+void ClassTreeHud::LoadTexFile(const pugi::xml_document& dataFile)
+{
+	pugi::xml_node tex_node = dataFile.child("data").child("Sprites").child("TreeDebug");
+	tree_Debug = app->textures->Load(tex_node.attribute("pauseBG").as_string());
 }

@@ -90,7 +90,26 @@ private:
 	//load and play the music
 	void LoadMusFile(const pugi::xml_document& dataFile);
 
-	SDL_Texture* texture1 = nullptr;
+	SDL_Texture* backGroundTex = nullptr;
+	SDL_Texture* optionsTex = nullptr;
+	SDL_Texture* credtis1Tex = nullptr;
+	SDL_Texture* credtis2Tex = nullptr;
+	SDL_Texture* playBUTTex = nullptr;
+	SDL_Texture* optionsBUTTex = nullptr;
+	SDL_Texture* credtisBUTTex = nullptr;
+	SDL_Texture* exitBUTTex = nullptr;
+	SDL_Texture* linkBUTTex = nullptr;
+	SDL_Texture* closeOptBUTTex = nullptr;
+	SDL_Texture* musicSliderTex = nullptr;
+	SDL_Texture* musicBUTTex = nullptr;
+	SDL_Texture* fxSliderTex = nullptr;
+	SDL_Texture* fxBUTTex = nullptr;
+	SDL_Texture* credtisCreTex = nullptr;
+	SDL_Texture* credtisArtTex = nullptr;
+	SDL_Texture* credtisAudTex = nullptr;
+	SDL_Texture* credtisOtrTex = nullptr;
+	SDL_Texture* fullScreenCHKTex = nullptr;
+	SDL_Texture* closeCrdBUTTex = nullptr;
 };
 
 #endif //__MAIN_MENU_H__

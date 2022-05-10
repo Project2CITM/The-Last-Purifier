@@ -19,7 +19,7 @@ public:
 	~ModuleAssetsManager();
 
 	// Called before render is available
-	bool Awake(pugi::xml_node&);
+	bool Init(pugi::xml_node&) override;
 
 	// Called before quitting
 	bool CleanUp();

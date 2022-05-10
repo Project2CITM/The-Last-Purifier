@@ -2,6 +2,8 @@
 #include "Application.h"
 #include "MemLeaks.h"
 
+#include "External/Optick/include/optick.h"
+
 enum main_states
 {
 	MAIN_CREATION,
@@ -51,6 +53,8 @@ int main(int argc, char ** argv)
 
 		case MAIN_UPDATE:
 		{
+			OPTICK_FRAME("MyThread");
+
 			int update_return = app->Update();
 
 			if (update_return == UPDATE_ERROR)
