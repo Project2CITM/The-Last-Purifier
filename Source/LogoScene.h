@@ -28,6 +28,15 @@ public:
 private:
 	void GaussEffect();
 
+	//load the texture
+	void LoadTexFile(const pugi::xml_document& dataFile);
+
+	//load the fx
+	void LoadFxFile(const pugi::xml_document& dataFile);
+
+	//load and play the music
+	void LoadMusFile(const pugi::xml_document& dataFile);
+
 private:
 	int count = 0;
 
@@ -38,6 +47,10 @@ private:
 	int gaussCount = 1;
 
 	float gaussPower = 3.0f;
+
+	SDL_Texture* Team_Logo = nullptr;
+	SDL_Texture* Game_Logo = nullptr;
+
 };
 
 #endif //__LOGO_SCENE_H__

@@ -409,7 +409,7 @@ bool MainMenu::CleanUp()
 void MainMenu::LoadTexFile(const pugi::xml_document& dataFile)
 {
 	pugi::xml_node tex_node = dataFile.child("data").child("Sprites").child("UI");
-	backGroundTex = app->textures->Load(tex_node.attribute("backGround").as_string());
+	/*backGroundTex = app->textures->Load(tex_node.attribute("backGround").as_string());
 	optionsTex = app->textures->Load(tex_node.attribute("options").as_string());
 	credtis1Tex = app->textures->Load(tex_node.attribute("credtis1").as_string());
 	credtis2Tex = app->textures->Load(tex_node.attribute("credtis2").as_string());
@@ -428,7 +428,7 @@ void MainMenu::LoadTexFile(const pugi::xml_document& dataFile)
 	credtisArtTex = app->textures->Load(tex_node.attribute("credtisArt").as_string());
 	credtisOtrTex = app->textures->Load(tex_node.attribute("credtisOtr").as_string());
 	fullScreenCHKTex = app->textures->Load(tex_node.attribute("fullScreenCHK").as_string());
-	closeCrdBUTTex = app->textures->Load(tex_node.attribute("closeCrdBUT").as_string());
+	closeCrdBUTTex = app->textures->Load(tex_node.attribute("closeCrdBUT").as_string());*/
 }
 
 void MainMenu::LoadFxFile(const pugi::xml_document& dataFile)

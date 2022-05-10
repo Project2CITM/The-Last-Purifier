@@ -49,6 +49,7 @@ SDL_RWops* ModuleAssetsManager::Load(const char* path) const
 	{
 		SDL_RWops* r = SDL_RWFromConstMem(buffer, bytes);
 
+		//MEMORY LEAK !!!!
 		return r;
 	}
 	else
