@@ -121,7 +121,7 @@ bool ModuleAudio::PlayMusic(const char* path, float fade_time)
 	}
 
 	//music = Mix_LoadMUS(path);
-	music = app->assetManager->Load_physfs_music(path);
+	music = app->assetManager->LoadPhysfsMusic(path);
 
 	if(music == NULL)
 	{
@@ -166,7 +166,7 @@ unsigned int ModuleAudio::LoadFx(const char* path)
 
 	uint ret = 0;
 	//Mix_Chunk* chunk = Mix_LoadWAV(path);
-	Mix_Chunk* chunk = app->assetManager->Load_physfs_fx(path);
+	Mix_Chunk* chunk = app->assetManager->LoadPhysfsFx(path);
 	
 	if(chunk == NULL)
 	{

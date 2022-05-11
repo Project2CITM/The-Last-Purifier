@@ -7,6 +7,7 @@
 #include "External/SDL_mixer/include/SDL_mixer.h"
 #include "External/PhysFS/include/physfs.h"
 #include "External/SDL/include/SDL.h"
+#include "External/PugiXml/src/pugixml.hpp"
 
 #pragma comment( lib, "External/PhysFS/libx86/physfs.lib" )
 
@@ -30,9 +31,10 @@ public:
 	uint LoadData(const char* path, char** buffer) const;
 
 	// Allows you to use pointers to memory instead of files or things such as images or samples
-	SDL_Surface* Load_physfs_texture(const char* path) const;
-	Mix_Chunk* Load_physfs_fx(const char* path) const;
-	Mix_Music* Load_physfs_music(const char* path) const;
+	SDL_Surface* LoadPhysfsTexture(const char* path) const;
+	Mix_Chunk* LoadPhysfsFx(const char* path) const;
+	Mix_Music* LoadPhysfsMusic(const char* path) const;
+	pugi::xml_document* LoadPhysfsXML(const char* path) const;
 
 };
 

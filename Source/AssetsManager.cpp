@@ -38,7 +38,7 @@ bool ModuleAssetsManager::CleanUp()
 	return false;
 }
 
-SDL_Surface* ModuleAssetsManager::Load_physfs_texture(const char* path) const
+SDL_Surface* ModuleAssetsManager::LoadPhysfsTexture(const char* path) const
 {
 	char* buffer;
 	uint bytes = LoadData(path, &buffer); //get the size of the data from the function Load Data
@@ -57,7 +57,7 @@ SDL_Surface* ModuleAssetsManager::Load_physfs_texture(const char* path) const
 
 }
 
-Mix_Chunk* ModuleAssetsManager::Load_physfs_fx(const char* path) const
+Mix_Chunk* ModuleAssetsManager::LoadPhysfsFx(const char* path) const
 {
 	char* buffer;
 	uint bytes = LoadData(path, &buffer); //get the size of the data from the function Load Data
@@ -75,7 +75,7 @@ Mix_Chunk* ModuleAssetsManager::Load_physfs_fx(const char* path) const
 		return nullptr;
 }
 
-Mix_Music* ModuleAssetsManager::Load_physfs_music(const char* path) const
+Mix_Music* ModuleAssetsManager::LoadPhysfsMusic(const char* path) const
 {
 	char* buffer;
 	uint bytes = LoadData(path, &buffer); //get the size of the data from the function Load Data
@@ -88,6 +88,30 @@ Mix_Music* ModuleAssetsManager::Load_physfs_music(const char* path) const
 		RELEASE(buffer);
 
 		return m;
+	}
+	else
+		return nullptr;
+}
+
+pugi::xml_document* ModuleAssetsManager::LoadPhysfsXML(const char* path) const
+{
+	char* buffer;
+	uint bytes = LoadData(path, &buffer); //get the size of the data from the function Load Data
+	pugi::xml_document* d = nullptr;
+	
+	if (bytes > 0)
+	{
+		SDL_RWops* r = SDL_RWFromConstMem(buffer, bytes);
+
+		pugi::xml_parse_result result = d->load_buffer(buffer, bytes);
+		
+		RELEASE(buffer);
+
+		if (result == NULL) {
+			LOG("Could not load xml file: %s. pugi error: %s", path, result.description());
+			return nullptr;
+		}
+		return d;
 	}
 	else
 		return nullptr;
