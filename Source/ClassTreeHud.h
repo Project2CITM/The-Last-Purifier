@@ -20,9 +20,6 @@ public:
 	bool Update() override;
 	bool PostUpdate() override;
 
-	//load the texture
-	void LoadTexFile(const pugi::xml_document& dataFile);
-
 private:
 
 	int startId = 0;
@@ -43,8 +40,6 @@ private:
 
     //GUIButton* testBtn = nullptr;
 	List<GUIButton*>* unlockBtn = nullptr;
-
-	SDL_Texture* tree_Debug = nullptr;
 };
 
 #endif // !__CLASDD_TREE_HUD_H__
