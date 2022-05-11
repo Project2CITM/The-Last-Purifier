@@ -225,21 +225,28 @@ void RoomManager::GenerateMap(short RoomNumber)
 	int adjacentSpaces = 3;	//Blank spaces that the Boss room should have
 
 	do {	//check all rooms that have 3 spaces left
-		for (int i = 0; i < MAX_ROOMS_COLUMNS; ++i) {
-			for (int j = 0; j < MAX_ROOMS_ROWS; ++j) {
+		for (int i = 0; i < MAX_ROOMS_COLUMNS; ++i) 
+		{
+			for (int j = 0; j < MAX_ROOMS_ROWS; ++j) 
+			{
 				//if the boss room is not initialized, do it
-				if (bossRoomPos != iPoint(-1, -1)) {
+				if (bossRoomPos != iPoint(-1, -1)) 
+				{
 					//if the room is nearer to the start than the last one, don't check
 					if (((bossRoomPos.x - startRoomPos.x) * (bossRoomPos.x - startRoomPos.x) + (bossRoomPos.y - startRoomPos.y) * (bossRoomPos.y - startRoomPos.y))
-						< ((i - startRoomPos.x) * (i - startRoomPos.x) + (j - startRoomPos.y) * (j - startRoomPos.y))) {
+						< ((i - startRoomPos.x) * (i - startRoomPos.x) + (j - startRoomPos.y) * (j - startRoomPos.y))) 
+					{
 						//check the space is not ocupied, and the number of spaces adjacent to it is correct
-						if (CheckAdjacentSpace(iPoint(i, j)) == adjacentSpaces && roomPositions[i][j] == nullptr) {
+						if (CheckAdjacentSpace(iPoint(i, j)) == adjacentSpaces && roomPositions[i][j] == nullptr)
+						{
 							bossRoomPos = iPoint(i, j);
 						}
 					}
 				}
-				else {
-					if (CheckAdjacentSpace(iPoint(i, j)) == adjacentSpaces && roomPositions[i][j] == nullptr) {
+				else 
+				{
+					if (CheckAdjacentSpace(iPoint(i, j)) == adjacentSpaces && roomPositions[i][j] == nullptr) 
+					{
 						bossRoomPos = iPoint(i, j);
 					}
 				}
