@@ -108,7 +108,7 @@ SDL_Texture* ModuleTextures::Load(std::string path, bool isName)
 
 	SDL_Texture* texture = nullptr;
 
-	SDL_Surface* surface = app->assetManager->Load(path.c_str());
+	SDL_Surface* surface = app->assetManager->Load_physfs_texture(path.c_str());
 
 	if(surface == nullptr)
 	{
@@ -176,7 +176,7 @@ void ModuleTextures::SetGauss(SDL_Texture* texture, float sigma, int size)
 
 	int halfSize = (int)(size / 2);
 
-	SDL_Surface* surface = app->assetManager->Load(path.c_str());
+	SDL_Surface* surface = app->assetManager->Load_physfs_texture(path.c_str());
 	//SDL_Surface* surface = IMG_Load(path.c_str());
 
 	vector<vector<float>> gauss(size, vector<float>(size));
