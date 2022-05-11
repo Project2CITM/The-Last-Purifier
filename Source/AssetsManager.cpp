@@ -1,5 +1,6 @@
 #include "Application.h"
 #include "AssetsManager.h"
+#include "External/SDL_image/include/SDL_image.h"
 
 
 ModuleAssetsManager::ModuleAssetsManager() : Module()
@@ -38,19 +39,19 @@ bool ModuleAssetsManager::CleanUp()
 	return false;
 }
 
-SDL_RWops* ModuleAssetsManager::Load(const char* path) const
+SDL_Surface* ModuleAssetsManager::Load(const char* path) const
 {
 	char* buffer;
 	uint bytes = LoadData(path, &buffer); //get the size of the data from the function Load Data
 
-	//https://wiki.libsdl.org/SDL_RWops
-
 	if (bytes > 0)
 	{
 		SDL_RWops* r = SDL_RWFromConstMem(buffer, bytes);
-
-		//MEMORY LEAK !!!!
-		return r;
+		
+		SDL_Surface* surface = IMG_Load_RW(r, 1);
+		RELEASE(buffer);
+		
+		return surface;
 	}
 	else
 		return nullptr;
