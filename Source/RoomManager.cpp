@@ -12,13 +12,13 @@
 
 void RoomManager::Start()
 {
-	doorTopTexture = app->textures->Load("Assets/Maps/TestDoor_top.png");
-	doorBotTexture = app->textures->Load("Assets/Maps/TestDoor_bottom.png");
-	doorSpikeTexture = app->textures->Load("Assets/Maps/wallDoorClosed.png");
+	doorTopTexture = app->textures->Load("Maps/TestDoor_top.png");
+	doorBotTexture = app->textures->Load("Maps/TestDoor_bottom.png");
+	doorSpikeTexture = app->textures->Load("Maps/wallDoorClosed.png");
 
-	wallTexture[0] = app->textures->Load("Assets/Maps/wallDoorLeft.png");
-	wallTexture[1] = app->textures->Load("Assets/Maps/wallDoorTop.png");
-	wallTexture[2] = app->textures->Load("Assets/Maps/TestDoor_bottom.png");
+	wallTexture[0] = app->textures->Load("Maps/wallDoorLeft.png");
+	wallTexture[1] = app->textures->Load("Maps/wallDoorTop.png");
+	wallTexture[2] = app->textures->Load("Maps/TestDoor_bottom.png");
 
 	mapLoader = new MapLoader();
 	mapSave = new MapSave();

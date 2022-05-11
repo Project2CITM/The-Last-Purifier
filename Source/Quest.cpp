@@ -21,10 +21,10 @@ Quest::Quest(iPoint position, std::string questNum, std::string name):GameObject
 	idleAnim.hasIdle = false;
 
 
-	dialogNPCFX[0] = app->audio->LoadFx("Assets/Audio/SFX/NPCs/sfx_npcPhrase1.wav");
-	dialogNPCFX[1] = app->audio->LoadFx("Assets/Audio/SFX/NPCs/sfx_npcPhrase2.wav");
-	dialogNPCFX[2] = app->audio->LoadFx("Assets/Audio/SFX/NPCs/sfx_npcPhrase3.wav");
-	dialogNPCFX[3] = app->audio->LoadFx("Assets/Audio/SFX/NPCs/sfx_npcPhrase4.wav");
+	dialogNPCFX[0] = app->audio->LoadFx("Audio/SFX/NPCs/sfx_npcPhrase1.wav");
+	dialogNPCFX[1] = app->audio->LoadFx("Audio/SFX/NPCs/sfx_npcPhrase2.wav");
+	dialogNPCFX[2] = app->audio->LoadFx("Audio/SFX/NPCs/sfx_npcPhrase3.wav");
+	dialogNPCFX[3] = app->audio->LoadFx("Audio/SFX/NPCs/sfx_npcPhrase4.wav");
 
 
 }
