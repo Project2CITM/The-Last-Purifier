@@ -37,9 +37,9 @@ Worm::Worm(iPoint pos) : Enemy("worm")
 	// Init physBody 
 	InitPhysics();
 
-	HitFX = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Ghoul/sfx_enemyHit2.wav");
+	HitFX = app->audio->LoadFx("Audio/SFX/Enemies/Ghoul/sfx_enemyHit2.wav");
 	//idleFX = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Ghoul/sfx_enemyIdle2.wav");
-	digFX = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Worm/earthwormdig.wav");
+	digFX = app->audio->LoadFx("Audio/SFX/Enemies/Worm/earthwormdig.wav");
 }
 
 Worm::~Worm()

@@ -48,11 +48,11 @@ bool ClassTreeHud::Start()
 	switch (pClass)
 	{
 	case PlayerClass::REVENANT:
-		treeTexture = app->textures->Load("Assets/Sprites/UI/Trees/Revenant_Tree.png");
+		treeTexture = app->textures->Load("Sprites/UI/Trees/Revenant_Tree.png");
 		startId = REVENANT_FIRST_ID;
 		break;
 	case PlayerClass::SAGE:
-		treeTexture = app->textures->Load("Assets/Sprites/UI/Trees/Sage_Tree.png");
+		treeTexture = app->textures->Load("Sprites/UI/Trees/Sage_Tree.png");
 		startId = SAGE_FIRST_ID;
 		break;
 	}

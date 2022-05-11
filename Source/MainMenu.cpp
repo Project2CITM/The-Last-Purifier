@@ -53,15 +53,15 @@ bool MainMenu::Start()
 	credtis1.InitAsTexture(app->textures->Load("Sprites/UI/CredtisCre.png"), { 0,0 }, {0,0,0,0}, 0.5f);
 	credtis2.InitAsTexture(app->textures->Load("Sprites/UI/CreditsProba.png"), { 0,0 }, {0,0,0,0}, 0.5f);
 
-	Hover = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiHover.wav");
-	Press = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiSelect.wav");
+	Hover = app->audio->LoadFx("Audio/SFX/UI/sfx_uiHover.wav");
+	Press = app->audio->LoadFx("Audio/SFX/UI/sfx_uiSelect.wav");
 
 	//background del menu
-	app->audio->PlayMusic("Assets/Audio/Ambience/amb_dungeon1_1.ogg");	//Poner la musica que toca
+	app->audio->PlayMusic("Audio/Ambience/amb_dungeon1_1.ogg");	//Poner la musica que toca
 
 		/*TODO*/
 	//menu appearing
-	Appear_FX = app->audio->LoadFx("Assets/Audio/SFX/UI/menuFX.wav");	//Buscar audio apriopiado
+	Appear_FX = app->audio->LoadFx("Audio/SFX/UI/menuFX.wav");	//Buscar audio apriopiado
 	app->audio->PlayFx(Appear_FX);
 
 

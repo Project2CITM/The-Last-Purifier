@@ -62,8 +62,8 @@ bool HUDInGame::Start()
 
 	iconSouls.InitAsTexture(app->textures->Load("Sprites/Soul/soul.png"), { app->renderer->camera->x + 15, app->renderer->camera->y + 21 }, { 0,0,50,89 }, 0.25f, 4, 0, 0, SDL_FLIP_NONE, 0);
 
-	Hover = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiHover.wav");
-	Press = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_uiSelect.wav");
+	Hover = app->audio->LoadFx("Audio/SFX/UI/sfx_uiHover.wav");
+	Press = app->audio->LoadFx("Audio/SFX/UI/sfx_uiSelect.wav");
 
 	text = new Text({app->renderer->camera->x + 30, app->renderer->camera->y + 28 }, std::to_string(score));
 

@@ -42,9 +42,9 @@ Kaboom::Kaboom(iPoint pos) :Enemy("kaboom")
 	InitPhysics();
 
 	
-	HitFX = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Ghoul/sfx_enemyHit3.wav");
-	idleFX = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Ghoul/sfx_enemyIdle3.wav");
-	deadFX = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Kaboom/sfx_kaboomDeath.wav");
+	HitFX = app->audio->LoadFx("Audio/SFX/Enemies/Ghoul/sfx_enemyHit3.wav");
+	idleFX = app->audio->LoadFx("Audio/SFX/Enemies/Ghoul/sfx_enemyIdle3.wav");
+	deadFX = app->audio->LoadFx("Audio/SFX/Enemies/Kaboom/sfx_kaboomDeath.wav");
 }
 
 Kaboom::~Kaboom()

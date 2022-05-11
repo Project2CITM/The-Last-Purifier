@@ -11,7 +11,7 @@ ParticleExplodeEkriksi::ParticleExplodeEkriksi(iPoint position, float life, floa
 	this->anim.hasIdle = false;
 	this->anim.duration = 0.0320f;
 
-	renderObjects[0].InitAsTexture(app->textures->Load("Assets/Sprites/Player/Sage/ekriskis2.png"), position, { 0,0,0,0 });
+	renderObjects[0].InitAsTexture(app->textures->Load("Sprites/Player/Sage/ekriskis2.png"), position, { 0,0,0,0 });
 }
 
 ParticleExplodeEkriksi::~ParticleExplodeEkriksi()
