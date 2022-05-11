@@ -1,6 +1,5 @@
 #include "Application.h"
 #include "AssetsManager.h"
-#include "External/SDL_image/include/SDL_image.h"
 
 
 ModuleAssetsManager::ModuleAssetsManager() : Module()
@@ -39,7 +38,7 @@ bool ModuleAssetsManager::CleanUp()
 	return false;
 }
 
-SDL_Surface* ModuleAssetsManager::Load(const char* path) const
+SDL_Surface* ModuleAssetsManager::Load_physfs_texture(const char* path) const
 {
 	char* buffer;
 	uint bytes = LoadData(path, &buffer); //get the size of the data from the function Load Data
@@ -56,6 +55,42 @@ SDL_Surface* ModuleAssetsManager::Load(const char* path) const
 	else
 		return nullptr;
 
+}
+
+Mix_Chunk* ModuleAssetsManager::Load_physfs_fx(const char* path) const
+{
+	char* buffer;
+	uint bytes = LoadData(path, &buffer); //get the size of the data from the function Load Data
+
+	if (bytes > 0)
+	{
+		SDL_RWops* r = SDL_RWFromConstMem(buffer, bytes);
+
+		Mix_Chunk* c = Mix_LoadWAV_RW(r, 1);
+		RELEASE(buffer);
+
+		return c;
+	}
+	else
+		return nullptr;
+}
+
+Mix_Music* ModuleAssetsManager::Load_physfs_music(const char* path) const
+{
+	char* buffer;
+	uint bytes = LoadData(path, &buffer); //get the size of the data from the function Load Data
+
+	if (bytes > 0)
+	{
+		SDL_RWops* r = SDL_RWFromConstMem(buffer, bytes);
+
+		Mix_Music* m = Mix_LoadMUS_RW(r, 1);
+		RELEASE(buffer);
+
+		return m;
+	}
+	else
+		return nullptr;
 }
 
 

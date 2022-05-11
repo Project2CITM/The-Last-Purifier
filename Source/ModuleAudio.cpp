@@ -1,4 +1,5 @@
 #include "ModuleAudio.h"
+#include "AssetsManager.h"
 #include <string.h>
 
 ModuleAudio::ModuleAudio(bool start_enabled) : Module(start_enabled), music(NULL)
@@ -119,7 +120,8 @@ bool ModuleAudio::PlayMusic(const char* path, float fade_time)
 		Mix_FreeMusic(music);
 	}
 
-	music = Mix_LoadMUS(path);
+	//music = Mix_LoadMUS(path);
+	music = app->assetManager->Load_physfs_music(path);
 
 	if(music == NULL)
 	{
@@ -163,8 +165,9 @@ unsigned int ModuleAudio::LoadFx(const char* path)
 	}
 
 	uint ret = 0;
-	Mix_Chunk* chunk = Mix_LoadWAV(path);
-
+	//Mix_Chunk* chunk = Mix_LoadWAV(path);
+	Mix_Chunk* chunk = app->assetManager->Load_physfs_fx(path);
+	
 	if(chunk == NULL)
 	{
 		LOG("Cannot load wav %s. Mix_GetError(): %s", path, Mix_GetError());

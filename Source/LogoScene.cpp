@@ -118,12 +118,12 @@ void LogoScene::LoadTexFile(const pugi::xml_document& dataFile)
 
 void LogoScene::LoadFxFile(const pugi::xml_document& dataFile)
 {
-	pugi::xml_node fx_node = dataFile.child("data").child("fx");
-	app->audio->LoadFx(fx_node.attribute("file").as_string());
+	//pugi::xml_node fx_node = dataFile.child("data").child("fx");
+	//app->audio->LoadFx(fx_node.attribute("file").as_string());
 }
 
 void LogoScene::LoadMusFile(const pugi::xml_document& dataFile)
 {
-	pugi::xml_node mus_node = dataFile.child("data").child("mus");
-	app->audio->PlayMusic(mus_node.attribute("file").as_string());
+	//pugi::xml_node mus_node = dataFile.child("data").child("mus");
+	//app->audio->PlayMusic(mus_node.attribute("file").as_string());
 }
