@@ -98,9 +98,6 @@ SDL_Texture* ModuleTextures::Load(std::string path, bool isName)
 		path = config.child(path.c_str()).attribute("path").as_string();
 	}
 
-	/*std::map<std::string, int>::iterator it;
-	it = texturePath.find(path);*/
-
 	for (int i = 0, count = texturePath.count(); i < count; i++)
 	{
 		if (texturePath[i].path == path)
@@ -110,13 +107,10 @@ SDL_Texture* ModuleTextures::Load(std::string path, bool isName)
 	}
 
 	SDL_Texture* texture = nullptr;
-	//SDL_Surface* surface = IMG_Load(path.c_str());
-	char* g = 0;
-	SDL_RWops* f = app->assetManager->Load(path.c_str());
 
-	SDL_Surface* surface = IMG_Load_RW(f,1);
+	SDL_Surface* surface = app->assetManager->Load(path.c_str());
 
-	if(surface == NULL)
+	if(surface == nullptr)
 	{
 		LOG("Could not load surface with path: %s. IMG_Load: %s", path, IMG_GetError());
 	}
@@ -138,10 +132,6 @@ SDL_Texture* ModuleTextures::Load(std::string path, bool isName)
 		}
 
 		SDL_FreeSurface(surface);
-		//SDL_FreeRW(f);
-		RELEASE(g);
-
-		f = nullptr;
 	}
 	return texture;
 }
@@ -186,7 +176,7 @@ void ModuleTextures::SetGauss(SDL_Texture* texture, float sigma, int size)
 
 	int halfSize = (int)(size / 2);
 
-	SDL_Surface* surface = IMG_Load_RW(app->assetManager->Load(path.c_str()), 1);
+	SDL_Surface* surface = app->assetManager->Load(path.c_str());
 	//SDL_Surface* surface = IMG_Load(path.c_str());
 
 	vector<vector<float>> gauss(size, vector<float>(size));

@@ -24,7 +24,7 @@ void RoomManager::Start()
 	mapSave = new MapSave();
 	mapSave->Init();
 
-	GenerateMap(20);
+	GenerateMap(10);
 
 	CreateDoors();
 

@@ -28,7 +28,7 @@ public:
 	uint LoadData(const char* path, char** buffer) const;
 
 	// Allows you to use pointers to memory instead of files or things such as images or samples
-	SDL_RWops* Load(const char* path) const;
+	SDL_Surface* Load(const char* path) const;
 
 };
 
