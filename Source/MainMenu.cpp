@@ -83,8 +83,8 @@ bool MainMenu::Start()
 	MusicSlider->CreateGUIBtn(MusicBUT);
 	MusicSlider->SetValue(app->audio->musicVol / 255);
 
-	fxSlider = new GUISlider({ 200, 200 }, 300, 14, MenuButton::OPTIONS, fxSliderTex);
-	fxBUT = new GUIButton({ 200, 200 }, 27, 46, MenuButton::OPTIONS, fxBUTTex);
+	fxSlider = new GUISlider({ 200, 175 }, 300, 14, MenuButton::OPTIONS, fxSliderTex);
+	fxBUT = new GUIButton({ 200, 175 }, 27, 46, MenuButton::OPTIONS, fxBUTTex);
 	fxSlider->CreateGUIBtn(fxBUT);
 	fxSlider->SetValue(app->audio->fxVol / 255);
 
@@ -93,8 +93,11 @@ bool MainMenu::Start()
 	CredtisArt = new GUIButton({ 125, 190 }, 117, 47, MenuButton::CREDITS, credtisArtTex);
 	CredtisOtr = new GUIButton({ 125, 250 }, 117, 47, MenuButton::CREDITS, credtisOtrTex);
 
-	FullScreenCHK = new GUICheckbox({ 350, 215 }, 60, 60, MenuButton::OPTIONS, fullScreenCHKTex);
+	FullScreenCHK = new GUICheckbox({ 350, 200 }, 40, 46, MenuButton::OPTIONS, fullScreenCHKTex);
 	FullScreenCHK->ChangeState(app->FullScreenDesktop);
+
+	VSyncCHK = new GUICheckbox({ 350, 240 }, 40, 46, MenuButton::OPTIONS, fullScreenCHKTex);
+	VSyncCHK->ChangeState(app->vsync);
 
 	CloseCrdBUT = new GUIButton({ 297, 300 }, 46, 46, MenuButton::CREDITS, closeCrdBUTTex);
 
@@ -289,6 +292,19 @@ bool MainMenu::Update()
 			app->window->ToggleFullScreen(false);
 			FullScreenCHK->ChangeState(false);
 		}
+
+		if ((VSyncCHK->isActive || (ControllerPosOpY == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)) && !app->vsync)
+		{
+			//Falta activar VSync aqui
+			//app->window->ToggleFullScreen(true);
+			VSyncCHK->ChangeState(true);
+		}
+		else if ((!VSyncCHK->isActive || (ControllerPosOpY == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)) && app->vsync)
+		{
+			//Falta desactivar VSync aqui
+			 //app->window->ToggleFullScreen(false);
+			VSyncCHK->ChangeState(false);
+		}
 		app->audio->SetMusicVolume(MusicSlider->GetValue() * 255);
 		app->audio->SetSFXVolume(fxSlider->GetValue() * 255);
 	}
@@ -409,7 +425,7 @@ bool MainMenu::CleanUp()
 void MainMenu::LoadTexFile(const pugi::xml_document& dataFile)
 {
 	pugi::xml_node tex_node = dataFile.child("data").child("Sprites").child("UI");
-	/*backGroundTex = app->textures->Load(tex_node.attribute("backGround").as_string());
+	backGroundTex = app->textures->Load(tex_node.attribute("backGround").as_string());
 	optionsTex = app->textures->Load(tex_node.attribute("options").as_string());
 	credtis1Tex = app->textures->Load(tex_node.attribute("credtis1").as_string());
 	credtis2Tex = app->textures->Load(tex_node.attribute("credtis2").as_string());
@@ -428,7 +444,7 @@ void MainMenu::LoadTexFile(const pugi::xml_document& dataFile)
 	credtisArtTex = app->textures->Load(tex_node.attribute("credtisArt").as_string());
 	credtisOtrTex = app->textures->Load(tex_node.attribute("credtisOtr").as_string());
 	fullScreenCHKTex = app->textures->Load(tex_node.attribute("fullScreenCHK").as_string());
-	closeCrdBUTTex = app->textures->Load(tex_node.attribute("closeCrdBUT").as_string());*/
+	closeCrdBUTTex = app->textures->Load(tex_node.attribute("closeCrdBUT").as_string());
 }
 
 void MainMenu::LoadFxFile(const pugi::xml_document& dataFile)

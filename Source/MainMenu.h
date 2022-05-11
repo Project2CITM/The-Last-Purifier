@@ -65,7 +65,8 @@ private:
 	GUISlider* MusicSlider = nullptr;
 	GUISlider* fxSlider = nullptr;
 
-	GUICheckbox* FullScreenCHK;
+	GUICheckbox* FullScreenCHK = nullptr;
+	GUICheckbox* VSyncCHK = nullptr;
 
 	CurrentMenu currentMenu;
 	CurrentCredtis currentCredtis;
