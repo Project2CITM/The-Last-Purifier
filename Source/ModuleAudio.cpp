@@ -100,6 +100,7 @@ bool ModuleAudio::CleanUp()
 // Play a music file
 bool ModuleAudio::PlayMusic(const char* path, float fade_time)
 {
+	/*
 	if(IsEnabled() == false)
 		return false;
 
@@ -150,6 +151,8 @@ bool ModuleAudio::PlayMusic(const char* path, float fade_time)
 
 	LOG("Successfully playing %s", path);
 	return ret;
+	*/
+	return false;
 }
 
 // Load WAV

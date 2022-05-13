@@ -44,8 +44,6 @@ bool ModuleScene::Start()
 
 	scenes[currentScene]->Start();
 
-	//app->audio->PlayMusic("Assets/audio/music/pixelMusic.mp3", 2);
-
 	//Mix_VolumeMusic(app->saveF.child("game_state").child("settings").attribute("music").as_float() * 60);
 
 	//fadePanel = app->textures->Load("Assets/textures/Menu/fadePanel.png");

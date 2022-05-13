@@ -219,6 +219,34 @@ void RoomManager::GenerateMap(short RoomNumber)
 		}
 	}
 
+	//Generate MiniBoss and PuzzleRooms
+	int id = -2;
+	bool f = true;
+	while (f) 
+	{
+		//Choose random room to start
+		iPoint p(rand() % MAX_ROOMS_COLUMNS, rand() % MAX_ROOMS_ROWS);
+		if (CheckAdjacentSpace(p) == 3) 
+		{
+			CreateRoom(p, id);
+			
+			switch (id) 
+			{
+			case -2:	//MiniBoss room
+				id = -3;	//TODO: First Puzzle
+				break;
+
+			case -3:	//TODO: Last Puzzle
+				f = false;
+				break;
+
+			default:
+				id--;
+				break;
+			}
+		}
+	}
+	
 	//BOSS ROOM
 	iPoint bossRoomPos = iPoint(-1, -1);	//initialize the Boss room position
 	iPoint startRoomPos = rooms[0]->roomPosition;
@@ -427,6 +455,15 @@ Room* RoomManager::CreateRoom(iPoint mapPosition, short mapId)
 		break;
 	case -3:
 		s = "Start";
+		break;
+	case -4:
+		s = "Puzzle1";
+		break;
+	case -5:
+		s = "Puzzle2";
+		break;
+	case -6:
+		s = "Puzzle3";
 		break;
 	default:
 		int ran = rand() % 14 + 1;
