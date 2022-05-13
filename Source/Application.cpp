@@ -297,7 +297,7 @@ bool Application::LoadGame()
 	return ret;
 }
 
-// L02: TODO 7: Implement the xml save method for current state
+//Implement the xml save method for current state
 bool Application::SaveGame()
 {
 	bool ret = true;

@@ -14,7 +14,7 @@ ModuleMap::~ModuleMap()
 	//RELEASE(pathFinding);
 }
 
-// L06: TODO 7: Ask for the value of a custom property
+//Ask for the value of a custom property
 int Properties::GetProperty(const char* value, int defaultValue) const
 {
 	ListItem<Property*>* item = list.start;
@@ -46,11 +46,11 @@ UpdateStatus ModuleMap::PostUpdate()
 {
 	if (mapLoaded == false || app->scene->currentScene != SCENES::HUB) return UpdateStatus::UPDATE_CONTINUE;
 
-	// L04: DONE 5: Prepare the loop to draw all tilesets + DrawTexture()
+	//Prepare the loop to draw all tilesets + DrawTexture()
 	ListItem<MapLayer*>* mapLayerItem = nullptr;
 	mapLayerItem = mapData.layers.start;
 
-	// L06: TODO 4: Make sure we draw all the layers and not just the first one
+	//Make sure we draw all the layers and not just the first one
 	while (mapLayerItem != NULL) {
 
 		if (mapLayerItem->data->properties.GetProperty("Draw") == 1)
@@ -231,7 +231,7 @@ void ModuleMap::LoadLayerMeta()
 	ListItem<MapLayer*>* mapLayerItem;
 	mapLayerItem = mapData.layers.start;
 
-	// L06: TODO 4: Make sure we draw all the layers and not just the first one
+	//Make sure we draw all the layers and not just the first one
 	while (mapLayerItem != NULL) 
 	{
 		if (mapLayerItem->data->properties.GetProperty("Logic") == 1)
@@ -283,7 +283,7 @@ void ModuleMap::LoadLayerMeta()
 	}
 }
 
-// L06: TODO 3: Pick the right Tileset based on a tile id
+//Pick the right Tileset based on a tile id
 TileSet* ModuleMap::GetTilesetFromTileId(int id) const
 {
 	ListItem<TileSet*>* item = mapData.tilesets.start;
@@ -440,7 +440,7 @@ bool ModuleMap::Load(std::string filename)
     return ret;
 }
 
-// L03: TODO: Load map general properties
+// Load map general properties
 bool ModuleMap::LoadMap(pugi::xml_node mapFile)
 {
 	bool ret = true;
@@ -542,7 +542,7 @@ bool ModuleMap::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	layer->width = node.attribute("width").as_int();
 	layer->height = node.attribute("height").as_int();
 
-	//L06: TODO 6 Call Load Propoerties
+	//Call Load Propoerties
 	LoadProperties(node, layer->properties);
 
 	//Reserve the memory for the tile array
@@ -577,7 +577,7 @@ bool ModuleMap::LoadAllLayers(pugi::xml_node mapNode) {
 	return ret;
 }
 
-// L06: TODO 6: Load a group of properties from a node and fill a list with it
+//Load a group of properties from a node and fill a list with it
 bool ModuleMap::LoadProperties(pugi::xml_node& node, Properties& properties)
 {
 	bool ret = false;

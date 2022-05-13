@@ -9,7 +9,7 @@ ModuleAssetsManager::ModuleAssetsManager() : Module()
 	//https://icculus.org/physfs/
 	//https://icculus.org/physfs/docs/html/physfs_8h.html
 
-	/*TODO 1: initialize physFS*/
+	//Initialize physFS
 	PHYSFS_init(nullptr);
 
 	//After initializing physFS, you can uncomment this function (only required in Debug)
@@ -20,13 +20,13 @@ ModuleAssetsManager::ModuleAssetsManager() : Module()
 
 ModuleAssetsManager::~ModuleAssetsManager()
 {
-	/*TODO 1: close any file open for physFS*/
+	//close any file open for physFS
 	PHYSFS_deinit();
 }
 
 bool ModuleAssetsManager::Init(pugi::xml_node& config)
 {
-	/*TODO 2: add the search path*/
+	//Add the search path
 	PHYSFS_addToSearchPath("Assets.zip", 1);
 
 	return true;
@@ -122,7 +122,7 @@ uint ModuleAssetsManager::LoadData(const char* path, char** buffer) const
 {
 	uint ret = 0;
 	
-	/*TODO 3: Open and read the file*/
+	//Open and read the file
 	PHYSFS_file* data_file = PHYSFS_openRead(path);
 
 	if (data_file != nullptr)//look if the file is not null
@@ -131,7 +131,7 @@ uint ModuleAssetsManager::LoadData(const char* path, char** buffer) const
 
 		*buffer = new char[(uint)file_lenght]; //allocate memory in a buffer of the size of the file
 
-		/*TODO 4: read the data formm physFS*/
+		//Read the data formm physFS
 		uint readed = PHYSFS_read(data_file, *buffer, 1, (uint)file_lenght); //read data from a physFS filehandle
 
 		if (readed != file_lenght) //if file lenght is not the same that one was readed, thats an error

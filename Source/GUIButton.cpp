@@ -24,7 +24,6 @@ GUIButton::GUIButton(iPoint pos, int width, int height, MenuButton currentMenu, 
 		renderSections[i].h = height;
 	}
 
-		/*TODO Audio*/
 	Hover = app->audio->LoadFx("Audio/SFX/UI/sfx_uiHover.wav");
 	Press = app->audio->LoadFx("Audio/SFX/UI/sfx_uiSelect.wav");
 }

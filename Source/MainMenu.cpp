@@ -59,7 +59,6 @@ bool MainMenu::Start()
 	//background del menu
 	app->audio->PlayMusic("Audio/Ambience/amb_dungeon1_1.ogg");	//Poner la musica que toca
 
-		/*TODO*/
 	//menu appearing
 	Appear_FX = app->audio->LoadFx("Audio/SFX/UI/menuFX.wav");	//Buscar audio apriopiado
 	app->audio->PlayFx(Appear_FX);
