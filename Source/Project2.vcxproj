@@ -162,6 +162,7 @@
     <ClInclude Include="Quest.h" />
     <ClInclude Include="RenderObject.hpp" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="RevenantSpear.h" />
     <ClInclude Include="RevenantSword.h" />
     <ClInclude Include="RevenantWeapon.h" />
     <ClInclude Include="Room.h" />
@@ -253,6 +254,7 @@
     <ClCompile Include="PurificationSlashS.cpp" />
     <ClCompile Include="PurifiedSwordS.cpp" />
     <ClCompile Include="Quest.cpp" />
+    <ClCompile Include="RevenantSpear.cpp" />
     <ClCompile Include="RevenantSword.cpp" />
     <ClCompile Include="RevenantWeapon.cpp" />
     <ClCompile Include="Room.cpp" />

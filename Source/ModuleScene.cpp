@@ -19,7 +19,7 @@ ModuleScene::ModuleScene(bool start_enabled) : Module(start_enabled)
 	scenes[LEVEL_1] = new TestScene();
 	scenes[GAME_OVER] = new GameOverScene();
 
-	currentScene = GAME_OVER;
+	currentScene = LEVEL_1;
 }
 
 ModuleScene::~ModuleScene()

@@ -11,6 +11,7 @@
 #include "ModuleInput.h"
 #include "SageWeapon.h"
 #include "SageStaff.h"
+#include "RevenantSpear.h"
 
 PlayerCombat::PlayerCombat(std::string name, std::string tag, Player* player) : GameObject(name, tag)
 {
@@ -18,7 +19,7 @@ PlayerCombat::PlayerCombat(std::string name, std::string tag, Player* player) : 
 	this->listenTo[0] = GameEvent::UPDATE_PLAYER_STATS;
 	app->events->AddListener(this);
 
-	revenantWeapon = new RevenantSword(this->player->controller);
+	revenantWeapon = new RevenantSpear(this->player->controller);
 	sageWeapon = new  SageStaff(this->player->controller);
 
 	SetClassWeaponCD();

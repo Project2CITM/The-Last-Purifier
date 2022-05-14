@@ -432,6 +432,9 @@
     <ClInclude Include="GameOverScene.h">
       <Filter>Archivos de encabezado\Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="RevenantSpear.h">
+      <Filter>Archivos de encabezado\Player\Weapons\Revenant</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\PugiXml\src\pugixml.cpp">
@@ -697,6 +700,9 @@
     </ClCompile>
     <ClCompile Include="GameOverScene.cpp">
       <Filter>Archivos de origen\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="RevenantSpear.cpp">
+      <Filter>Archivos de origen\Player\Weapons\Revenant</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
