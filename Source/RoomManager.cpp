@@ -194,9 +194,11 @@ void RoomManager::GenerateMap(short RoomNumber)
 	Room* r = CreateRoom(p, -3);
 
 	//Create all rooms except the first and Boss room
-	while (RoomNumber > 2) {
+	while (RoomNumber > 2) 
+	{
 		iPoint pos = r->roomPosition;
-		if (CheckAdjacentSpace(r) > 0) {	//there is space next to the current room to spawn another
+		if (CheckAdjacentSpace(r) > 0)
+		{	//there is space next to the current room to spawn another
 			short random = rand() % 4;
 			switch (random) {
 			case 0:
@@ -209,7 +211,8 @@ void RoomManager::GenerateMap(short RoomNumber)
 				pos.y--;	break;
 			}
 			//if the room is not out of boundaries and not occupied, create one
-			if ((pos.x < MAX_ROOMS_COLUMNS && pos.x >= 0 && pos.y < MAX_ROOMS_ROWS && pos.y >= 0) && roomPositions[pos.x][pos.y] == nullptr) {
+			if ((pos.x < MAX_ROOMS_COLUMNS && pos.x >= 0 && pos.y < MAX_ROOMS_ROWS && pos.y >= 0) && roomPositions[pos.x][pos.y] == nullptr) 
+			{
 				r = CreateRoom(iPoint(pos.x, pos.y));
 				--RoomNumber;
 			}

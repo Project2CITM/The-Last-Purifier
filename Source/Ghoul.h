@@ -7,6 +7,7 @@
 
 class Trigger;
 class DamageArea;
+class Room;
 
 enum class GhoulState
 {
@@ -21,7 +22,7 @@ enum class GhoulState
 class Ghoul : public Enemy
 {
 public:
-	Ghoul(iPoint pos);
+	Ghoul(iPoint pos, Room* room);
 
 	~Ghoul();
 
@@ -40,6 +41,8 @@ public:
 	void Die(bool spawnPower, bool spawnSouls) override;
 
 	void UpdateStates();
+
+	void CleanUp() override;
 
 private:
 
@@ -78,6 +81,8 @@ private:
 	int attackCoolDown = 160;
 
 	int attackFXCoolDown = 0;
+
+	Room* currentRoom = nullptr;
 
 	Timer ghoulTimer;
 
