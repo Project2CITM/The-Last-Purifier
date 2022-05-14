@@ -139,6 +139,12 @@
     <Filter Include="Archivos de origen\Player\Weapons\Revenant">
       <UniqueIdentifier>{6c6a41ea-9b5a-4b7c-9515-7172335107eb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de origen\GameObjects\Puzzles">
+      <UniqueIdentifier>{3da95c20-bde6-4c5d-b048-95dade56d972}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\GameObject\Puzzles">
+      <UniqueIdentifier>{29443254-263f-481d-808c-5f691031ebdc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="External\PugiXml\src\pugixml.hpp">
@@ -441,6 +447,12 @@
     <ClInclude Include="SageBook.h">
       <Filter>Archivos de encabezado\Player\Weapons\Sage</Filter>
     </ClInclude>
+    <ClInclude Include="ButtonPuzzle.h">
+      <Filter>Archivos de encabezado\GameObject\Puzzles</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonObject.h">
+      <Filter>Archivos de encabezado\GameObject\Puzzles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\PugiXml\src\pugixml.cpp">
@@ -715,6 +727,12 @@
     </ClCompile>
     <ClCompile Include="SageChargeBar.cpp">
       <Filter>Archivos de origen\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonPuzzle.cpp">
+      <Filter>Archivos de origen\GameObjects\Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonObject.cpp">
+      <Filter>Archivos de origen\GameObjects\Puzzles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

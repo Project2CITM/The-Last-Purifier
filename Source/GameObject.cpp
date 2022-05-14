@@ -117,8 +117,8 @@ iPoint GameObject::GetDrawPosition(int index)
 
 		pos = pBody->body->GetPosition();
 
-		pos.x = METERS_TO_PIXELS(pos.x) - renderObjects[index].textureCenterX;
-		pos.y = METERS_TO_PIXELS(pos.y) - renderObjects[index].textureCenterY;	
+		pos.x = METERS_TO_PIXELS(pos.x) - (int)((float)renderObjects[index].textureCenterX * renderObjects[index].scale);
+		pos.y = METERS_TO_PIXELS(pos.y) - (int)((float)renderObjects[index].textureCenterY * renderObjects[index].scale);
 
 		return { (int)pos.x, (int)pos.y };
 	}

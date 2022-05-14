@@ -17,8 +17,7 @@
 #include "ParticleAttackRevenant.h"
 #include "PlayerStats.h"
 #include "Souls.h"
-#include "Bar.h"
-#include "WeaponObject.h"
+#include "ButtonObject.h"
 
 #include "External/Optick/include/optick.h"
 
@@ -72,6 +71,8 @@ bool TestScene::Start()
     //spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-80, 0));
     //spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-60, 0));
     //spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-20, 0));
+
+    new ButtonObject(player->controller->GetPosition() + iPoint(0, 60), 2);
 
     app->audio->PlayMusic("Audio/Ambience/amb_dungeon1_2.ogg");
 
