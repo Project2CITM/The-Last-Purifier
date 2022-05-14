@@ -18,6 +18,7 @@
 #include "PlayerStats.h"
 #include "Souls.h"
 #include "Bar.h"
+#include "WeaponObject.h"
 
 #include "External/Optick/include/optick.h"
 
