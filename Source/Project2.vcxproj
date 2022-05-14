@@ -94,6 +94,8 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="AssetsManager.h" />
     <ClInclude Include="Bar.h" />
+    <ClInclude Include="ButtonObject.h" />
+    <ClInclude Include="ButtonPuzzle.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ClassTree.h" />
     <ClInclude Include="ClassTreeHud.h" />
@@ -195,6 +197,8 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="AssetsManager.cpp" />
     <ClCompile Include="Bar.cpp" />
+    <ClCompile Include="ButtonObject.cpp" />
+    <ClCompile Include="ButtonPuzzle.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ClassTree.cpp" />
     <ClCompile Include="ClassTreeHud.cpp" />

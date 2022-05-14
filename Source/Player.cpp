@@ -72,7 +72,7 @@ void Player::InitRevenantSprites()
 	controller->renderObjects[0].textureCenterX = 32;
 	controller->renderObjects[0].textureCenterY = 15;
 
-	controller->textureOffset = { 0,-13 };
+	controller->textureOffset = { 8,-13 };
 
 	// Create animations
 	for (int i = 0; i < 15; i++)
@@ -115,7 +115,7 @@ void Player::InitSageSprites()
 	controller->renderObjects[0].textureCenterX = 40;
 	controller->renderObjects[0].textureCenterY = 29;
 
-	controller->textureOffset = { 20,0 };
+	controller->textureOffset = { 10,-15 };
 
 	// Create animations
 	for (int i = 0; i < 6; i++)
