@@ -4,6 +4,7 @@
 #include "ModuleScene.h"
 #include "ModuleAudio.h"
 #include "ModuleInput.h"
+#include "AssetsManager.h"
 
 RenderObject Logos[2];
 
@@ -24,10 +25,19 @@ bool LogoScene::InitScene()
 
 bool LogoScene::Start()
 {
-	Logos[0].InitAsTexture(app->textures->Load("Assets/Sprites/UI/Team_Logo.png"), { 170,40 }, { 0,0,0,0 }, 1);
-	Logos[1].InitAsTexture(app->textures->Load("Assets/Sprites/UI/logoGame.png"), { 170,40 }, { 0,0,0,0 }, 1);
+	char* buffer = 0;
+	pugi::xml_document dataFile;
+
+	int bytesFile = app->assetManager->LoadData("data.xml", &buffer);
+
+	pugi::xml_parse_result result = dataFile.load_buffer(buffer, bytesFile);
+
+	RELEASE_ARRAY(buffer);
+
+	Logos[0].InitAsTexture(app->textures->Load("Sprites/UI/Team_Logo.png"), { 170,40 }, { 0,0,0,0 }, 1);
+	Logos[1].InitAsTexture(app->textures->Load("Sprites/UI/logoGame.png"), { 170,40 }, { 0,0,0,0 }, 1);
 	
-	LogoAppear_FX = app->audio->LoadFx("Assets/Audio/SFX/UI/logoFX.wav");
+	LogoAppear_FX = app->audio->LoadFx("Audio/SFX/UI/logoFX.wav");
 	app->audio->PlayFx(LogoAppear_FX);
 
 	Scene::Start();

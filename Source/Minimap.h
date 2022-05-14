@@ -28,8 +28,6 @@ public:
 	void MiniMapPrint(iPoint pos, iPoint playerPos);
 
 private:
-	
-	
 
 	Application* app = nullptr;
 	bool isHub = true;

@@ -33,7 +33,7 @@ RevenantSword::RevenantSword(PlayerController* playerController) : RevenantWeapo
 	// Initialize SFXs
 	for (int i = 0; i < 5; i++)
 	{
-		std::string attack = "Assets/Audio/SFX/Player/Melee/sfx_playerMeleeAttack" + std::to_string(i + 1) + ".wav";
+		std::string attack = "Audio/SFX/Player/Melee/sfx_playerMeleeAttack" + std::to_string(i + 1) + ".wav";
 		playerAttackFX[i] = app->audio->LoadFx(attack.c_str());
 	}
 

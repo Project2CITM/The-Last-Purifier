@@ -13,7 +13,7 @@ ParticleAttackSage::ParticleAttackSage(iPoint position,int rot, float life, floa
 	this->anim.duration = 0.0320f;
 	this->rotation = rot;
 
-	renderObjects[0].InitAsTexture(app->textures->Load("Assets/Sprites/Player/Sage/basicAttackSageInitial.png"), position, { 0,0,0,0 });
+	renderObjects[0].InitAsTexture(app->textures->Load("Sprites/Player/Sage/basicAttackSageInitial.png"), position, { 0,0,0,0 });
 	
 }
 

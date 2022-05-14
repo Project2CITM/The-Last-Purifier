@@ -66,7 +66,7 @@ void Player::InitRevenantSprites()
 	}
 
 	// Charge texture
-	controller->renderObjects[0].InitAsTexture(Application::GetInstance()->textures->Load("Assets/Sprites/Player/Knight/KnightAnims.png"), { 0,0 }, { 0,0,0,0 }, 1.2f, 1, 1,
+	controller->renderObjects[0].InitAsTexture(Application::GetInstance()->textures->Load("Sprites/Player/Knight/KnightAnims.png"), { 0,0 }, { 0,0,0,0 }, 1.2f, 1, 1,
 		0, SDL_RendererFlip::SDL_FLIP_NONE, 1.0f);
 
 	controller->renderObjects[0].textureCenterX = 32;
@@ -109,7 +109,7 @@ void Player::InitSageSprites()
 	}
 
 	// Charge texture
-	controller->renderObjects[0].InitAsTexture(Application::GetInstance()->textures->Load("Assets/Sprites/Player/Sage/sageAnimations80x58.png"), { 0,0 }, { 0,0,0,0 }, 0.7f, 1, 1,
+	controller->renderObjects[0].InitAsTexture(Application::GetInstance()->textures->Load("Sprites/Player/Sage/sageAnimations80x58.png"), { 0,0 }, { 0,0,0,0 }, 0.7f, 1, 1,
 		0, SDL_RendererFlip::SDL_FLIP_NONE, 1.0f);
 
 	controller->renderObjects[0].textureCenterX = 40;

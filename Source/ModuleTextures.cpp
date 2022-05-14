@@ -31,7 +31,7 @@ bool ModuleTextures::Init(pugi::xml_node& config)
 		ret = false;
 	}
 
-	SDL_Surface* iconSurface = IMG_Load("Assets/textures/MainCharacters/VirtualGuy/Fall(32x32).png");
+	SDL_Surface* iconSurface = IMG_Load("textures/MainCharacters/VirtualGuy/Fall(32x32).png");
 
 	app->window->SetWindowIcon(iconSurface);
 
@@ -98,9 +98,6 @@ SDL_Texture* ModuleTextures::Load(std::string path, bool isName)
 		path = config.child(path.c_str()).attribute("path").as_string();
 	}
 
-	/*std::map<std::string, int>::iterator it;
-	it = texturePath.find(path);*/
-
 	for (int i = 0, count = texturePath.count(); i < count; i++)
 	{
 		if (texturePath[i].path == path)
@@ -110,10 +107,10 @@ SDL_Texture* ModuleTextures::Load(std::string path, bool isName)
 	}
 
 	SDL_Texture* texture = nullptr;
-	//SDL_Surface* surface = IMG_Load(path.c_str());
-	SDL_Surface* surface = IMG_Load_RW(app->assetManager->Load(path.c_str()),1);
 
-	if(surface == NULL)
+	SDL_Surface* surface = app->assetManager->LoadPhysfsTexture(path.c_str());
+
+	if(surface == nullptr)
 	{
 		LOG("Could not load surface with path: %s. IMG_Load: %s", path, IMG_GetError());
 	}
@@ -179,7 +176,8 @@ void ModuleTextures::SetGauss(SDL_Texture* texture, float sigma, int size)
 
 	int halfSize = (int)(size / 2);
 
-	SDL_Surface* surface = IMG_Load_RW(app->assetManager->Load(path.c_str()), 1);
+	SDL_Surface* surface = app->assetManager->LoadPhysfsTexture(path.c_str());
+	//SDL_Surface* surface = IMG_Load(path.c_str());
 
 	vector<vector<float>> gauss(size, vector<float>(size));
 

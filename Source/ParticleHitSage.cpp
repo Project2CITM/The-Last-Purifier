@@ -11,7 +11,7 @@ ParticleHitSage::ParticleHitSage(iPoint position, float life, float delay, iPoin
 	this->anim.hasIdle = false;
 	this->anim.duration = 0.0320f;
 
-	renderObjects[0].InitAsTexture(app->textures->Load("Assets/Sprites/Player/Sage/basicAttackSageImpact.png"), position, { 0,0,0,0 });
+	renderObjects[0].InitAsTexture(app->textures->Load("Sprites/Player/Sage/basicAttackSageImpact.png"), position, { 0,0,0,0 });
 }
 
 ParticleHitSage::~ParticleHitSage()

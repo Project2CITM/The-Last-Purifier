@@ -4,7 +4,7 @@
 
 ParticleSoulShield::ParticleSoulShield(iPoint position, GameObject* player, float life, float delay, iPoint velocity, std::string name) :Particle(position, life, delay, velocity, name)
 {
-	renderObjects[0].InitAsTexture(app->textures->Load("Assets/Sprites/Player/Revenant/soulShield.png"), position, { 0,0,0,0 });
+	renderObjects[0].InitAsTexture(app->textures->Load("Sprites/Player/Revenant/soulShield.png"), position, { 0,0,0,0 });
 	renderObjects[0].layer = 2.0f;
 	renderObjects[0].orderInLayer = 4.0f;
 	this->player = player;

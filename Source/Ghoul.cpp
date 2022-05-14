@@ -40,9 +40,9 @@ Ghoul::Ghoul(iPoint pos) : Enemy("ghoul")
 
 	//Init Sounds
 
-	attackFX = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Ghoul/sfx_enemyAttack1.wav");
-	HitFX = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Ghoul/sfx_enemyHit2.wav");
-	idleFX = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Ghoul/sfx_enemyIdle1.wav");
+	attackFX = app->audio->LoadFx("Audio/SFX/Enemies/Ghoul/sfx_enemyAttack1.wav");
+	HitFX = app->audio->LoadFx("Audio/SFX/Enemies/Ghoul/sfx_enemyHit2.wav");
+	idleFX = app->audio->LoadFx("Audio/SFX/Enemies/Ghoul/sfx_enemyIdle1.wav");
 }
 
 Ghoul::~Ghoul()

@@ -10,8 +10,8 @@
 
 PlayerConverter::PlayerConverter(iPoint pos,std::string name):GameObject(name,"PlayerConverter")
 {
-	renderObjects[0].InitAsTexture(app->textures->Load("Assets/Sprites/Player/Icons/RevenantSpriteInHub.png"),pos, { 0,0,0,0 },1.5f,2,0.8f);
-	renderObjects[1].InitAsTexture(app->textures->Load("Assets/Sprites/Player/Icons/SageSpriteInHub.png"), pos, { 0,0,0,0 }, 0.85f, 2, 0.8f);//870,1970
+	renderObjects[0].InitAsTexture(app->textures->Load("Sprites/Player/Icons/RevenantSpriteInHub.png"),pos, { 0,0,0,0 },1.5f,2,0.8f);
+	renderObjects[1].InitAsTexture(app->textures->Load("Sprites/Player/Icons/SageSpriteInHub.png"), pos, { 0,0,0,0 }, 0.85f, 2, 0.8f);//870,1970
 
 	trigger = new Trigger({ renderObjects[0].destRect.x + 23,renderObjects[0].destRect.y + 24}, 25, 25, this, "ConvertClassTrigger", false);
 

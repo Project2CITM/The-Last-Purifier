@@ -56,19 +56,28 @@ void MiniMap::MiniMapPrint(iPoint pos, iPoint playerPos)
 		
 		SDL_Color color{ 100, 100, 100 , alpha};
 		
-		switch (rooms->At(i)->data->id) {
+		switch (rooms->At(i)->data->id) 
+		{
 		case -1:
 			color.r += 100;
 			color.b -= 100;
 			color.g -= 100;
 			break;
+
 		case -2:
 			color.r += 55;
 			color.g -= 100;
 			break;
+
 		case -3:	
 			color.b -= 100;
 			color.r -= 100;
+			break;
+
+		case -4:
+		case -5:
+		case -6:
+			color.b += 155;
 			break;
 		}
 		

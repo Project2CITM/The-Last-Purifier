@@ -39,7 +39,7 @@ Projectile::Projectile(std::string name, iPoint position, fPoint duration, int d
 
 	float projectileScale = (float)(width + height) / 8.0f;
 
-	renderObjects[0].InitAsTexture(app->textures->Load("Assets/Sprites/Player/Sage/basicAttackSageDuring.png"), position, { 0,0,0,0 }, projectileScale,1,1.0f,this->rotation);
+	renderObjects[0].InitAsTexture(app->textures->Load("Sprites/Player/Sage/basicAttackSageDuring.png"), position, { 0,0,0,0 }, projectileScale,1,1.0f,this->rotation);
 
 	
 	// Particle Effect
@@ -82,7 +82,7 @@ Projectile::Projectile(iPoint position, int damage, int rotation, fPoint duratio
 
 	FireProjectile(duration);
 
-	renderObjects[0].InitAsTexture(app->textures->Load("Assets/Sprites/Player/Sage/foteiros46x32.png"), position, { 0,0,0,0 }, 1.0f, 1, 1.0f, this->rotation);
+	renderObjects[0].InitAsTexture(app->textures->Load("Sprites/Player/Sage/foteiros46x32.png"), position, { 0,0,0,0 }, 1.0f, 1, 1.0f, this->rotation);
 
 	if (rotation == 0)
 	{

@@ -65,7 +65,7 @@ bool ModuleWindow::Init(pugi::xml_node& config)
 		}
 	}
 
-	SDL_Surface* iconSurface = IMG_Load("Assets/Sprites/UI/logoGame.png");
+	SDL_Surface* iconSurface = IMG_Load("Sprites/UI/logoGame.png");
 	
 	SetWindowIcon(iconSurface);
 

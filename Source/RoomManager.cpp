@@ -12,19 +12,19 @@
 
 void RoomManager::Start()
 {
-	doorTopTexture = app->textures->Load("Assets/Maps/TestDoor_top.png");
-	doorBotTexture = app->textures->Load("Assets/Maps/TestDoor_bottom.png");
-	doorSpikeTexture = app->textures->Load("Assets/Maps/wallDoorClosed.png");
+	doorTopTexture = app->textures->Load("Maps/TestDoor_top.png");
+	doorBotTexture = app->textures->Load("Maps/TestDoor_bottom.png");
+	doorSpikeTexture = app->textures->Load("Maps/wallDoorClosed.png");
 
-	wallTexture[0] = app->textures->Load("Assets/Maps/wallDoorLeft.png");
-	wallTexture[1] = app->textures->Load("Assets/Maps/wallDoorTop.png");
-	wallTexture[2] = app->textures->Load("Assets/Maps/TestDoor_bottom.png");
+	wallTexture[0] = app->textures->Load("Maps/wallDoorLeft.png");
+	wallTexture[1] = app->textures->Load("Maps/wallDoorTop.png");
+	wallTexture[2] = app->textures->Load("Maps/TestDoor_bottom.png");
 
 	mapLoader = new MapLoader();
 	mapSave = new MapSave();
 	mapSave->Init();
 
-	GenerateMap(20);
+	GenerateMap(10);
 
 	CreateDoors();
 
@@ -219,27 +219,62 @@ void RoomManager::GenerateMap(short RoomNumber)
 		}
 	}
 
+	//Generate MiniBoss and PuzzleRooms
+	int id = -2;
+	bool f = true;
+	while (f) 
+	{
+		//Choose random room to start
+		iPoint p(rand() % MAX_ROOMS_COLUMNS, rand() % MAX_ROOMS_ROWS);
+		if (roomPositions[p.x][p.y] == nullptr && CheckAdjacentSpace(p) == 3)
+		{
+			CreateRoom(p, id);
+			
+			switch (id) 
+			{
+			case -2:	//MiniBoss room
+				id = -3;	//TODO: First Puzzle
+				break;
+
+			case -3:	//TODO: Last Puzzle
+				f = false;
+				break;
+
+			default:
+				id--;
+				break;
+			}
+		}
+	}
+	
 	//BOSS ROOM
 	iPoint bossRoomPos = iPoint(-1, -1);	//initialize the Boss room position
 	iPoint startRoomPos = rooms[0]->roomPosition;
 	int adjacentSpaces = 3;	//Blank spaces that the Boss room should have
 
 	do {	//check all rooms that have 3 spaces left
-		for (int i = 0; i < MAX_ROOMS_COLUMNS; ++i) {
-			for (int j = 0; j < MAX_ROOMS_ROWS; ++j) {
+		for (int i = 0; i < MAX_ROOMS_COLUMNS; ++i) 
+		{
+			for (int j = 0; j < MAX_ROOMS_ROWS; ++j) 
+			{
 				//if the boss room is not initialized, do it
-				if (bossRoomPos != iPoint(-1, -1)) {
+				if (bossRoomPos != iPoint(-1, -1)) 
+				{
 					//if the room is nearer to the start than the last one, don't check
 					if (((bossRoomPos.x - startRoomPos.x) * (bossRoomPos.x - startRoomPos.x) + (bossRoomPos.y - startRoomPos.y) * (bossRoomPos.y - startRoomPos.y))
-						< ((i - startRoomPos.x) * (i - startRoomPos.x) + (j - startRoomPos.y) * (j - startRoomPos.y))) {
+						< ((i - startRoomPos.x) * (i - startRoomPos.x) + (j - startRoomPos.y) * (j - startRoomPos.y))) 
+					{
 						//check the space is not ocupied, and the number of spaces adjacent to it is correct
-						if (CheckAdjacentSpace(iPoint(i, j)) == adjacentSpaces && roomPositions[i][j] == nullptr) {
+						if (CheckAdjacentSpace(iPoint(i, j)) == adjacentSpaces && roomPositions[i][j] == nullptr)
+						{
 							bossRoomPos = iPoint(i, j);
 						}
 					}
 				}
-				else {
-					if (CheckAdjacentSpace(iPoint(i, j)) == adjacentSpaces && roomPositions[i][j] == nullptr) {
+				else 
+				{
+					if (CheckAdjacentSpace(iPoint(i, j)) == adjacentSpaces && roomPositions[i][j] == nullptr) 
+					{
 						bossRoomPos = iPoint(i, j);
 					}
 				}
@@ -420,6 +455,15 @@ Room* RoomManager::CreateRoom(iPoint mapPosition, short mapId)
 		break;
 	case -3:
 		s = "Start";
+		break;
+	case -4:
+		s = "Puzzle1";
+		break;
+	case -5:
+		s = "Puzzle2";
+		break;
+	case -6:
+		s = "Puzzle3";
 		break;
 	default:
 		int ran = rand() % 14 + 1;
