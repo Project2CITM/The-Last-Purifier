@@ -15,6 +15,7 @@ RevenantSword::RevenantSword(PlayerController* playerController) : RevenantWeapo
 
 	this->damage = 20;
 	this->attackSpeedCD = 240;
+	this->playerAttackCD = 240;
 	this->attackAreaCD = 80;
 	this->nextAttackTime = 200;
 	this->maximumAttacks = 3;

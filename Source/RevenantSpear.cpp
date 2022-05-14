@@ -11,6 +11,7 @@ RevenantSpear::RevenantSpear(PlayerController* playerController) : RevenantWeapo
 
 	this->damage = 20;
 	this->attackSpeedCD = 240;
+	this->playerAttackCD = 300;
 	this->attackAreaCD = 80;
 	this->nextAttackTime = 200;
 	this->maximumAttacks = 3;
