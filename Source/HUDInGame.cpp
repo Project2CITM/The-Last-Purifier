@@ -94,13 +94,16 @@ bool HUDInGame::Start()
 	MusicSlider->CreateGUIBtn(MusicBUT);
 	MusicSlider->SetValue(app->audio->musicVol/255);
 
-	fxBUT = new GUIButton({ app->renderer->camera->x + 200, app->renderer->camera->y + 200 }, 27, 46, MenuButton::SETTINGSPAUSE, app->textures->Load("Sprites/UI/fireSlider.png"));
-	fxSlider = new GUISlider({ app->renderer->camera->x + 200, app->renderer->camera->y + 200 }, 300, 14, MenuButton::SETTINGSPAUSE, app->textures->Load("Sprites/UI/Slider1.png"));
+	fxBUT = new GUIButton({ app->renderer->camera->x + 200, app->renderer->camera->y + 175 }, 27, 46, MenuButton::SETTINGSPAUSE, app->textures->Load("Sprites/UI/fireSlider.png"));
+	fxSlider = new GUISlider({ app->renderer->camera->x + 200, app->renderer->camera->y + 175 }, 300, 14, MenuButton::SETTINGSPAUSE, app->textures->Load("Sprites/UI/Slider1.png"));
 	fxSlider->CreateGUIBtn(fxBUT);
 	fxSlider->SetValue(app->audio->fxVol / 255);
 
-	FullScreenCHK = new GUICheckbox({ app->renderer->camera->x + 350, app->renderer->camera->y + 215 }, 60, 60, MenuButton::SETTINGSPAUSE, app->textures->Load("Sprites/UI/CheckBoxs.png"));
+	FullScreenCHK = new GUICheckbox({ app->renderer->camera->x + 350, app->renderer->camera->y + 200 }, 40, 46, MenuButton::SETTINGSPAUSE, app->textures->Load("Sprites/UI/CheckBox.png"));
 	FullScreenCHK->ChangeState(app->FullScreenDesktop);
+
+	VSyncCHK = new GUICheckbox({ app->renderer->camera->x + 350, app->renderer->camera->y + 240 }, 40, 46, MenuButton::SETTINGSPAUSE, app->textures->Load("Sprites/UI/CheckBox.png"));
+	VSyncCHK->ChangeState(app->vsync);
 
 
 	InitializeSpellSlotsPositions();
