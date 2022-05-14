@@ -7,6 +7,7 @@ class Application;
 enum class RevenantWeaponIDs
 {
 	SWORD,
+	SPEAR,
 };
 
 class RevenantWeapon

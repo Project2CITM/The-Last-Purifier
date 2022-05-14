@@ -8,6 +8,7 @@ class Application;
 enum class SageWeaponIDs
 {
 	STAFF,
+	BOOK,
 };
 
 class SageWeapon
