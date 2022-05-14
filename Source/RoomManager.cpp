@@ -226,7 +226,7 @@ void RoomManager::GenerateMap(short RoomNumber)
 	{
 		//Choose random room to start
 		iPoint p(rand() % MAX_ROOMS_COLUMNS, rand() % MAX_ROOMS_ROWS);
-		if (CheckAdjacentSpace(p) == 3) 
+		if (roomPositions[p.x][p.y] == nullptr && CheckAdjacentSpace(p) == 3)
 		{
 			CreateRoom(p, id);
 			
