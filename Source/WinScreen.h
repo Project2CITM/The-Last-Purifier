@@ -1,16 +1,13 @@
 #pragma once
 #include "Scene.h"
-
-
-
-class GameOverScene :
+class WinScene :
     public Scene
 {
 public:
 
-    GameOverScene();
+    WinScene();
 
-    ~GameOverScene();
+    ~WinScene();
 
     bool InitScene() override;
 
@@ -23,7 +20,7 @@ public:
     bool PostUpdate() override;
 
     bool CleanUp() override;
-    
+
 private:
 
     Text* text = nullptr;
@@ -32,15 +29,16 @@ private:
 
     Text* text5 = nullptr;
 
-    RenderObject* gameOverBG = nullptr;
+    RenderObject* winBG = nullptr;
 
-    RenderObject* souls = nullptr;
+    RenderObject* soul = nullptr;
 
-    RenderObject* pressKeyToTryAgain[2] = {nullptr};
+    RenderObject* pressKeyToReturnToHub[2] = { nullptr };
 
     Application* app = nullptr;
 
     int score;
 
 };
+
 

@@ -7,6 +7,7 @@
 #include "Enemy.h"
 #include "Minimap.h"
 #include "ModuleInput.h"
+#include "GameOverScene.h"
 
 #include "External/Optick/include/optick.h"
 
@@ -39,6 +40,7 @@ void RoomManager::Start()
 	//MiniMap
 	miniMap = new MiniMap();
 	miniMap->Init(false, &rooms);
+	
 }
 
 void RoomManager::PreUpdate(iPoint playerPos)
@@ -85,8 +87,8 @@ void RoomManager::Update(iPoint playerPos)
 
 		mapSave->ClearSeed();
 		mapSave->ClearRoomStates();
-
-		app->scene->ChangeCurrentSceneRequest(SCENES::HUB);
+		
+		app->scene->ChangeCurrentSceneRequest(SCENES::WIN);
 	}
 
 	//No enemies -> Completed room
