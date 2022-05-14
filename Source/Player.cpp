@@ -143,5 +143,3 @@ void Player::InitSageSprites()
 
 	controller->animations[(int)PlayerAnim::DASH].duration = 0.0640f;
 }
-
-

@@ -8,7 +8,7 @@
 #include "ParticleAttackKaboom.h"
 #include "ModuleAudio.h"
 
-Kaboom::Kaboom(iPoint pos) :Enemy("kaboom")
+Kaboom::Kaboom(iPoint pos, Room* room) :Enemy("kaboom")
 {
 	// Get player pointer
 	SceneGame* sceneGame = (SceneGame*)app->scene->scenes[app->scene->currentScene];
@@ -16,6 +16,8 @@ Kaboom::Kaboom(iPoint pos) :Enemy("kaboom")
 
 	// Init general value
 	this->position = pos;
+
+	this->currentRoom = room;
 
 	health = 40;
 
@@ -206,6 +208,11 @@ void Kaboom::UpdateStates()
 	}
 	break;
 	}
+}
+
+void Kaboom::CleanUp()
+{
+	currentRoom = nullptr;
 }
 
 void Kaboom::InitAnimation()

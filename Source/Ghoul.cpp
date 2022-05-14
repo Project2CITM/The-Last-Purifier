@@ -6,8 +6,10 @@
 #include "ModuleRender.h"
 #include "DamageArea.h"
 #include "ModuleAudio.h"
+#include "ModuleInput.h"
+#include "Room.h"
 
-Ghoul::Ghoul(iPoint pos) : Enemy("ghoul")
+Ghoul::Ghoul(iPoint pos, Room* room) : Enemy("ghoul")
 {
 	// Get player pointer
 	SceneGame* sceneGame = (SceneGame*)app->scene->scenes[app->scene->currentScene];
@@ -15,6 +17,8 @@ Ghoul::Ghoul(iPoint pos) : Enemy("ghoul")
 
 	// Init general value
 	this->position = pos;
+
+	this->currentRoom = room;
 
 	health = 20;
 
@@ -201,6 +205,11 @@ void Ghoul::UpdateStates()
 	}
 }
 
+void Ghoul::CleanUp()
+{
+	currentRoom = nullptr;
+}
+
 void Ghoul::InitAnimation()
 {
 	// Create animations
@@ -308,11 +317,21 @@ void Ghoul::DoAttack()
 
 void Ghoul::DoRun()
 {
-	fPoint dir = { (float)(playerController->GetPosition().x - position.x), (float)(playerController->GetPosition().y - position.y) };
+	//fPoint dir = { (float)(playerController->GetPosition().x - position.x), (float)(playerController->GetPosition().y - position.y) };
 
-	dir = dir.Normalize();
+	//dir = dir.Normalize();
 
-	SetLinearVelocity(b2Vec2{ (float)(dir.x * moveSpeed),(float)(dir.y * moveSpeed) });
+	//SetLinearVelocity(b2Vec2{ (float)(dir.x * moveSpeed),(float)(dir.y * moveSpeed) });
+
+	if(app->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN)
+	{
+		if (currentRoom != nullptr && enable)
+		{
+			iPoint ttk = currentRoom->PathFindingAStar(position, playerController->GetPosition());
+
+			SetLinearVelocity(b2Vec2{ (float)(ttk.x * moveSpeed),(float)(ttk.y * moveSpeed) });
+		}
+	}
 }
 
 void Ghoul::ResetAttackCoolDown()
