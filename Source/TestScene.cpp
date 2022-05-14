@@ -18,6 +18,7 @@
 #include "PlayerStats.h"
 #include "Souls.h"
 #include "Bar.h"
+#include "WeaponObject.h"
 
 #include "External/Optick/include/optick.h"
 
@@ -60,11 +61,12 @@ bool TestScene::Start()
     roomManager.Start();
 
     Scene::Start();
-
-    
+ 
     app->renderer->camera->SetPosition(player->controller->GetPosition());
 
     app->renderer->camera->SetTarget(player->controller);
+
+    new Ghoul((player->controller->GetPosition() + iPoint{ 20, 20 }), roomManager.rooms[0]);
 
     //spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-40, 0));
     //spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-80, 0));

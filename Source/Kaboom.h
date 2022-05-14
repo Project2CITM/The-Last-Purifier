@@ -7,6 +7,7 @@
 
 class Trigger;
 class DamageArea;
+class Room;
 
 enum class KaboomState
 {
@@ -21,7 +22,7 @@ enum class KaboomState
 class Kaboom : public Enemy
 {
 public:
-	Kaboom(iPoint pos);
+	Kaboom(iPoint pos, Room* room);
 
 	~Kaboom();
 
@@ -40,6 +41,8 @@ public:
 	void Die(bool spawnPower, bool spawnSouls) override;
 
 	void UpdateStates();
+
+	void CleanUp() override;
 
 private:
 
@@ -86,6 +89,8 @@ private:
 	bool isFirstColor = true;
 
 	SDL_Color kaboomColors[2];
+
+	Room* currentRoom = nullptr;
 
 	Timer kaboomTimer;
 

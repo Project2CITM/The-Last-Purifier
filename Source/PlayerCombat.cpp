@@ -12,6 +12,7 @@
 #include "SageWeapon.h"
 #include "SageStaff.h"
 #include "RevenantSpear.h"
+#include "SageBook.h"
 
 PlayerCombat::PlayerCombat(std::string name, std::string tag, Player* player) : GameObject(name, tag)
 {
@@ -20,7 +21,7 @@ PlayerCombat::PlayerCombat(std::string name, std::string tag, Player* player) : 
 	app->events->AddListener(this);
 
 	revenantWeapon = new RevenantSpear(this->player->controller);
-	sageWeapon = new  SageStaff(this->player->controller);
+	sageWeapon = new  SageBook(this->player->controller);
 
 	SetClassWeaponCD();
 
@@ -193,6 +194,19 @@ bool PlayerCombat::AddSpell(SpellInfo spell)
 
 bool PlayerCombat::ChangeRevenantWeapon(RevenantWeaponIDs id)
 {
+	revenantWeapon->CleanUp();
+	RELEASE(revenantWeapon);
+
+	switch (id)
+	{
+	case RevenantWeaponIDs::SWORD:
+		revenantWeapon = new RevenantSword(this->player->controller);
+		break;
+	case RevenantWeaponIDs::SPEAR:
+		revenantWeapon = new RevenantSpear(this->player->controller);
+		break;
+	}
+
 	// After changing the current weapon you must change the player Attack State time.
 	SetClassWeaponCD();
 	return true;
@@ -200,6 +214,18 @@ bool PlayerCombat::ChangeRevenantWeapon(RevenantWeaponIDs id)
 
 bool PlayerCombat::ChangeSageWeapon(SageWeaponIDs id)
 {	
+	sageWeapon->CleanUp();
+	RELEASE(sageWeapon);
+
+	switch (id)
+	{
+	case SageWeaponIDs::BOOK:
+		sageWeapon = new SageBook(this->player->controller);
+		break;
+	case SageWeaponIDs::STAFF:
+		sageWeapon = new SageStaff(this->player->controller);
+		break;
+	}
 	// After changing the current weapon you must change the player Attack State time.
 	SetClassWeaponCD();
 	return true;
@@ -207,8 +233,8 @@ bool PlayerCombat::ChangeSageWeapon(SageWeaponIDs id)
 
 void PlayerCombat::SetClassWeaponCD()
 {
-	if (this->player->playerClass == PlayerClass::REVENANT) player->controller->stateMachine.states[(uint)PlayerState::ATTACK].totalTime = revenantWeapon->attackSpeedCD;
-	else player->controller->stateMachine.states[(uint)PlayerState::ATTACK].totalTime = sageWeapon->attackSpeedCD;
+	if (this->player->playerClass == PlayerClass::REVENANT) player->controller->stateMachine.states[(uint)PlayerState::ATTACK].totalTime = revenantWeapon->playerAttackCD;
+	else player->controller->stateMachine.states[(uint)PlayerState::ATTACK].totalTime = sageWeapon->playerAttackCD;
 }
 
 void PlayerCombat::CheckDeck()
