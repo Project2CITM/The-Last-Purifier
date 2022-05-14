@@ -236,10 +236,10 @@ void RoomManager::GenerateMap(short RoomNumber)
 			switch (id) 
 			{
 			case -2:	//MiniBoss room
-				id = -3;	//TODO: First Puzzle
+				id = -4;	//First Puzzle
 				break;
 
-			case -3:	//TODO: Last Puzzle
+			case -6:	//Last Puzzle
 				f = false;
 				break;
 
