@@ -11,6 +11,8 @@
 #include "ModuleInput.h"
 #include "SageWeapon.h"
 #include "SageStaff.h"
+#include "RevenantSpear.h"
+#include "SageBook.h"
 
 PlayerCombat::PlayerCombat(std::string name, std::string tag, Player* player) : GameObject(name, tag)
 {
@@ -18,8 +20,8 @@ PlayerCombat::PlayerCombat(std::string name, std::string tag, Player* player) : 
 	this->listenTo[0] = GameEvent::UPDATE_PLAYER_STATS;
 	app->events->AddListener(this);
 
-	revenantWeapon = new RevenantSword(this->player->controller);
-	sageWeapon = new  SageStaff(this->player->controller);
+	revenantWeapon = new RevenantSpear(this->player->controller);
+	sageWeapon = new  SageBook(this->player->controller);
 
 	SetClassWeaponCD();
 
@@ -206,8 +208,8 @@ bool PlayerCombat::ChangeSageWeapon(SageWeaponIDs id)
 
 void PlayerCombat::SetClassWeaponCD()
 {
-	if (this->player->playerClass == PlayerClass::REVENANT) player->controller->stateMachine.states[(uint)PlayerState::ATTACK].totalTime = revenantWeapon->attackSpeedCD;
-	else player->controller->stateMachine.states[(uint)PlayerState::ATTACK].totalTime = sageWeapon->attackSpeedCD;
+	if (this->player->playerClass == PlayerClass::REVENANT) player->controller->stateMachine.states[(uint)PlayerState::ATTACK].totalTime = revenantWeapon->playerAttackCD;
+	else player->controller->stateMachine.states[(uint)PlayerState::ATTACK].totalTime = sageWeapon->playerAttackCD;
 }
 
 void PlayerCombat::CheckDeck()

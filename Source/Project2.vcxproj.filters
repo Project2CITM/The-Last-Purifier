@@ -432,6 +432,12 @@
     <ClInclude Include="GameOverScene.h">
       <Filter>Archivos de encabezado\Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="RevenantSpear.h">
+      <Filter>Archivos de encabezado\Player\Weapons\Revenant</Filter>
+    </ClInclude>
+    <ClInclude Include="SageBook.h">
+      <Filter>Archivos de encabezado\Player\Weapons\Sage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\PugiXml\src\pugixml.cpp">
@@ -697,6 +703,12 @@
     </ClCompile>
     <ClCompile Include="GameOverScene.cpp">
       <Filter>Archivos de origen\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="RevenantSpear.cpp">
+      <Filter>Archivos de origen\Player\Weapons\Revenant</Filter>
+    </ClCompile>
+    <ClCompile Include="SageBook.cpp">
+      <Filter>Archivos de origen\Player\Weapons\Sage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

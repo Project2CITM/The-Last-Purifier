@@ -27,6 +27,9 @@ public:
 public:
 	bool canAttack = true;
 	int attackSpeedCD = 0;
+
+	int playerAttackCD = 0;
+
 	int currentAttackCounter = 0; // It tells which attack you are currently on
 	bool addImpulse = false;
 protected:

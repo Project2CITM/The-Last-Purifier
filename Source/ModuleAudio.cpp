@@ -100,58 +100,58 @@ bool ModuleAudio::CleanUp()
 // Play a music file
 bool ModuleAudio::PlayMusic(const char* path, float fade_time)
 {
-	/*
-	if(IsEnabled() == false)
-		return false;
+	//
+	//if(IsEnabled() == false)
+	//	return false;
 
-	bool ret = true;
-	
-	if(music != NULL)
-	{
-		if(fade_time > 0.0f)
-		{
-			Mix_FadeOutMusic((int) (fade_time * 1000.0f));
-		}
-		else
-		{
-			Mix_HaltMusic();
-		}
+	//bool ret = true;
+	//
+	//if(music != NULL)
+	//{
+	//	if(fade_time > 0.0f)
+	//	{
+	//		Mix_FadeOutMusic((int) (fade_time * 1000.0f));
+	//	}
+	//	else
+	//	{
+	//		Mix_HaltMusic();
+	//	}
 
-		// this call blocks until fade out is done
-		Mix_FreeMusic(music);
-	}
+	//	// this call blocks until fade out is done
+	//	Mix_FreeMusic(music);
+	//}
 
-	//music = Mix_LoadMUS(path);
-	music = app->assetManager->LoadPhysfsMusic(path);
+	////music = Mix_LoadMUS(path);
+	//music = app->assetManager->LoadPhysfsMusic(path);
 
-	if(music == NULL)
-	{
-		LOG("Cannot load music %s. Mix_GetError(): %s\n", path, Mix_GetError());
-		ret = false;
-	}
-	else
-	{
-		if(fade_time > 0.0f)
-		{
-			if(Mix_FadeInMusic(music, -1, (int) (fade_time * 1000.0f)) < 0)
-			{
-				LOG("Cannot fade in music %s. Mix_GetError(): %s", path, Mix_GetError());
-				ret = false;
-			}
-		}
-		else
-		{
-			if(Mix_PlayMusic(music, -1) < 0)
-			{
-				LOG("Cannot play in music %s. Mix_GetError(): %s", path, Mix_GetError());
-				ret = false;
-			}
-		}
-	}
+	//if(music == NULL)
+	//{
+	//	LOG("Cannot load music %s. Mix_GetError(): %s\n", path, Mix_GetError());
+	//	ret = false;
+	//}
+	//else
+	//{
+	//	if(fade_time > 0.0f)
+	//	{
+	//		if(Mix_FadeInMusic(music, -1, (int) (fade_time * 1000.0f)) < 0)
+	//		{
+	//			LOG("Cannot fade in music %s. Mix_GetError(): %s", path, Mix_GetError());
+	//			ret = false;
+	//		}
+	//	}
+	//	else
+	//	{
+	//		if(Mix_PlayMusic(music, -1) < 0)
+	//		{
+	//			LOG("Cannot play in music %s. Mix_GetError(): %s", path, Mix_GetError());
+	//			ret = false;
+	//		}
+	//	}
+	//}
 
-	LOG("Successfully playing %s", path);
-	return ret;
-	*/
+	//LOG("Successfully playing %s", path);
+	//return ret;
+	//
 	return false;
 }
 

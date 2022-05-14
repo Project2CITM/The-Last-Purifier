@@ -1,21 +1,17 @@
-#include "RevenantSword.h"
-#include "PlayerController.h"
-#include "Application.h"
+#include "RevenantSpear.h"
 #include "ModulePhysics.h"
-#include "Player.h"
+#include "PlayerController.h"
 #include "PlayerCombat.h"
+#include "Player.h"
 #include "ParticleAttackRevenant.h"
-#include "ModuleAudio.h"
-#include "Scene.h"
-#include "ModuleScene.h"
 
-RevenantSword::RevenantSword(PlayerController* playerController) : RevenantWeapon(playerController)
+RevenantSpear::RevenantSpear(PlayerController* playerController) : RevenantWeapon(playerController)
 {
 	// Initialize stats (damage and attackSpeed)
 
 	this->damage = 20;
 	this->attackSpeedCD = 240;
-	this->playerAttackCD = 240;
+	this->playerAttackCD = 300;
 	this->attackAreaCD = 80;
 	this->nextAttackTime = 200;
 	this->maximumAttacks = 3;
@@ -25,37 +21,27 @@ RevenantSword::RevenantSword(PlayerController* playerController) : RevenantWeapo
 
 	filter.categoryBits = app->physics->PLAYER_LAYER;
 
-	damageArea = new DamageArea(this->playerController->GetPosition(), 15, 20, damage);
+	damageArea = new DamageArea(this->playerController->GetPosition(), 35, 10, damage);
 
 	damageArea->pBody->body->GetFixtureList()->SetFilterData(filter);
 
 	damageArea->pBody->body->SetActive(false);
 
-	// Initialize SFXs
-	for (int i = 0; i < 5; i++)
-	{
-		std::string attack = "Audio/SFX/Player/Melee/sfx_playerMeleeAttack" + std::to_string(i + 1) + ".wav";
-		playerAttackFX[i] = app->audio->LoadFx(attack.c_str());
-	}
-
 	weaponTimer = new Timer();
 }
 
-bool RevenantSword::Attack(int chargedTime)
+bool RevenantSpear::Attack(int chargedTime)
 {
 	if (!canAttack) return false;
 
 	// Play SFX
-	int randomNum = rand() % 5;
-	app->audio->PlayFx(playerAttackFX[randomNum]);
 
 	// Set area as active
 	damageArea->pBody->body->SetActive(true);
 
 	// Calculate attack offset and rotation based on looking direction
-	b2Vec2 attackOffset = playerController->combat->GetAttackOffset();
 	float attackRotation = 0;
-	if (attackOffset.x == 0.25f) attackRotation = 90 * DEGTORAD;
+	b2Vec2 attackOffset = this->GetAttackOffset(&attackRotation);
 
 	// Update revenantAttack
 	damageArea->damage = this->damage + playerController->player->extraDamage;
@@ -66,17 +52,15 @@ bool RevenantSword::Attack(int chargedTime)
 	damageArea->pBody->body->SetTransform(playerController->pBody->body->GetPosition() + attackOffset, attackRotation);
 
 	attackAreaActive = true;
-
 	canAttack = false;
 
 	if (currentAttackCounter < maximumAttacks) currentAttackCounter++;
 	else currentAttackCounter = 1;
 
-	printf("current attack %d\n", currentAttackCounter);
-
+	// Set timer for next attack counter
 	nextAttackCounter = nextAttackTime;
 
-	addImpulse = currentAttackCounter > 1;
+	addImpulse = currentAttackCounter == 3;
 
 	iPoint particleOffset;
 	int particleRotation = 0;
@@ -111,10 +95,9 @@ bool RevenantSword::Attack(int chargedTime)
 		new ParticleAttackRevenant(damageArea->GetPosition() + particleOffset, particleRotation, 0.15f, 0, playerController->player->purifiedSwordOn, flip);
 	}
 	return true;
-
 }
 
-void RevenantSword::PreUpdate()
+void RevenantSpear::PreUpdate()
 {
 	addImpulse = false;
 	weaponTimer->Update();
@@ -150,8 +133,32 @@ void RevenantSword::PreUpdate()
 	weaponTimer->Reset();
 }
 
-void RevenantSword::CleanUp()
+void RevenantSpear::CleanUp()
 {
 	damageArea->pendingToDelete = true;
 	RELEASE(weaponTimer);
+}
+
+b2Vec2 RevenantSpear::GetAttackOffset(float* rotation)
+{
+	b2Vec2 attackOffset = { 0,0 };
+	switch (playerController->lookingDir)
+	{
+	case LookingDirection::DOWN:
+		attackOffset = { 0.5f, 2.25f };
+		*rotation = 90 * DEGTORAD;
+		break;
+	case LookingDirection::UP:
+		attackOffset = { 0.5f, -3.0f };
+		*rotation = 90 * DEGTORAD;
+		break;
+	case LookingDirection::LEFT:
+		attackOffset = { -2.0f, -0.55f };
+		break;
+	case LookingDirection::RIGHT:
+		attackOffset = { 2.5f, -0.55f };
+		break;
+	}
+
+	return attackOffset;
 }
