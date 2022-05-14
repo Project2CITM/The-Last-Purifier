@@ -1,9 +1,8 @@
 #pragma once
 #include "Scene.h"
-#include "ModuleEvents.h"
 
 class GameOverScene :
-    public Scene,public EventListener
+    public Scene
 {
 public:
 
@@ -23,17 +22,20 @@ public:
 
     bool CleanUp() override;
 
-    void GameEventTriggered(GameEvent id) override;
-
 private:
 
     Text* text = nullptr;
 
-    SDL_Texture* gameOverBG = nullptr;
+    Text* text2 = nullptr;
 
-    SDL_Texture* gameOverTitle = nullptr;
+    Text* text5 = nullptr;
 
-    Application* app;
+    RenderObject* gameOverBG = nullptr;
 
+    RenderObject* pressKeyToTryAgain[2] = {nullptr};
+
+    Application* app = nullptr;
+
+    int score;
 };
 
