@@ -91,6 +91,10 @@ void RoomManager::Update(iPoint playerPos)
 		app->scene->ChangeCurrentSceneRequest(SCENES::WIN);
 	}
 
+	//Puzzle 2 completion (pot puzzle)
+	if (r->id == -5 && r->enemies.count() == 1)
+		r->ClearEnemies();
+
 	//No enemies -> Completed room
 	if (r->enemies.count() == 0 && !r->done)
 		r->done = true;

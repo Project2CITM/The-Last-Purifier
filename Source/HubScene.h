@@ -36,7 +36,7 @@ private:
 	HUDInGame* hudInGame = nullptr;
 	MiniMap* miniMap = nullptr;
 
-	iPoint startPosition = { 970, 1485 };
+	iPoint startPosition = { 1039, 866 }; //{ 970, 1485 };
 
 	Instructor* revenantInstructor = nullptr;
 	Instructor* sageInstructor = nullptr;

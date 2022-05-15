@@ -8,8 +8,10 @@
 #include "Player.h"
 #include "External/PugiXml/src/pugixml.hpp"
 #include "ModuleEvents.h"
+#include <map>
 
 #define TREE_SIZE 20
+#define MAX_SPELLL_BY_CLASS 10
 #define SAGE_TREE_XML "BaseClassTree.xml"
 #define REVENANT_TREE_XML "BaseClassTree.xml"
 #define SAVE_CLASS_TREE_XML "SaveClassTree.xml"
@@ -90,20 +92,20 @@ public:
 	int getCurrentLevel(int id);
 
 private:
-
-	static ClassTree* instance;
-
 	ClassTree(PlayerClass pClass);
 	~ClassTree();
 
-	SkillTreeElement* skillTree[TREE_SIZE];
+	//SkillLevel ResolveLevel(std::string input);
+
+private:
+
+	static ClassTree* instance;
+
+	//std::map<PlayerClass, SkillTreeElement* [TREE_SIZE]> skillTree {};
+	SkillTreeElement* skillTree[TREE_SIZE] = {};
 
 	pugi::xml_document classFile;
 	pugi::xml_document saveFile;
-
-	//SDL_Rect rect = { 0, 0, 0, 0 };
-	//iPoint drawP = { 0 , 0 };
-	//SDL_Texture* treeTexture = nullptr;
 
 public:
 	PlayerClass playerClass = PlayerClass::REVENANT;
