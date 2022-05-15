@@ -19,7 +19,7 @@ struct WeaponInfo
 class WeaponObject :public GameObject
 {
 public:
-	WeaponObject(iPoint pos);
+	WeaponObject(iPoint pos, WeaponInfo info);
 
 	void PreUpdate() override;
 
@@ -27,6 +27,9 @@ public:
 	void OnCollisionExit(PhysBody* col) override;
 
 	WeaponInfo weaponInfo;
+
+private:
+	void SetRenderObjectFromWeaponInfo();
 
 private:
 	bool isPlayerIn = false;
