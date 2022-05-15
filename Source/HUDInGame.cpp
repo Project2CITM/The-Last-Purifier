@@ -255,6 +255,8 @@ bool HUDInGame::Update()
 				app->isPause = false;
 				ResumeBUT->PressButton();
 				GiveUpBUT->doAction = false;
+
+				app->events->TriggerEvent(GameEvent::GO_TO_HUB);
 				return true;
 			}
 

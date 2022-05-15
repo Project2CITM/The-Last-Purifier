@@ -1,6 +1,5 @@
 #include "RoomManager.h"
 #include "ModuleRender.h"
-#include "ModuleEvents.h"
 #include "ModuleScene.h"
 #include "Scene.h"
 #include "Trigger.h"
@@ -13,6 +12,10 @@
 
 void RoomManager::Start()
 {
+	this->listenTo[0] = GameEvent::SAVE_GAME;
+	this->listenTo[1] = GameEvent::GO_TO_HUB;
+	app->events->AddListener(this);
+
 	doorTopTexture = app->textures->Load("Maps/TestDoor_top.png");
 	doorBotTexture = app->textures->Load("Maps/TestDoor_bottom.png");
 	doorSpikeTexture = app->textures->Load("Maps/wallDoorClosed.png");
@@ -60,6 +63,7 @@ void RoomManager::PreUpdate(iPoint playerPos)
 
 void RoomManager::Update(iPoint playerPos)
 {
+	
 	//MiniMap resize
 	miniMap->SetScale((app->input->GetKey(SDL_SCANCODE_TAB) == KEY_REPEAT) ? 2 : 1);
 	
@@ -175,6 +179,8 @@ void RoomManager::CleanUp()
 	doorTopTexture = nullptr;
 	doorBotTexture = nullptr;
 	doorSpikeTexture = nullptr;
+
+	app->events->RemoveListener(this);
 
 	if (app->Exiting()) return;
 
@@ -561,5 +567,15 @@ void RoomManager::DrawDoors()
 			app->renderer->AddTextureRenderQueue(wallTexture[1],
 				r->GetDoorPos(DoorOrientations::TOP) - r->GetDoorSize(DoorOrientations::TOP) - iPoint(TILE_SIZE * 4, 0),
 				{ 0,0,0,0 }, TILE_SIZE / 16.0f, 1, 1.0f);
+	}
+}
+
+void RoomManager::GameEventTriggered(GameEvent id)
+{
+	if (id == GameEvent::SAVE_GAME) mapSave->SaveRoomStates(&rooms);
+	else if (id == GameEvent::GO_TO_HUB)
+	{
+		mapSave->ClearSeed();
+		mapSave->ClearRoomStates();
 	}
 }

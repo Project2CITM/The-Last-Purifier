@@ -7,6 +7,7 @@
 #include "ModuleTextures.h"
 #include "MapLoader.h"
 #include "MapSave.h"
+#include "ModuleEvents.h"
 
 
 #define MAX_ROOMS_COLUMNS 8
@@ -16,7 +17,7 @@ class Trigger;
 class MiniMap;
 
 
-class RoomManager{
+class RoomManager : public EventListener{
 	
 public:
 	RoomManager()
@@ -38,6 +39,8 @@ public:
 
 	void DrawRooms();
 	void DrawDoors();
+
+	void GameEventTriggered(GameEvent id);
 
 public:
 	Application* app = nullptr;

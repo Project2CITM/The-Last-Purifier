@@ -23,6 +23,13 @@ WeaponObject::WeaponObject(iPoint pos, WeaponInfo info) : GameObject("WeaponObje
 	filter.maskBits = app->physics->EVERY_LAYER & ~app->physics->ENEMY_LAYER;
 	pBody->body->GetFixtureList()->SetFilterData(filter);
 
+	weaponText = new Text(this->position, "Press F to collect weapon.");
+
+}
+
+WeaponObject::~WeaponObject()
+{
+	RELEASE(weaponText);
 }
 
 void WeaponObject::PreUpdate()
@@ -35,6 +42,7 @@ void WeaponObject::PreUpdate()
 		else playerCombat->ChangeSageWeapon(weaponInfo.sageWeaponID);
 
 		this->pendingToDelete = true;
+		this->weaponText->pendingToDelate = true;
 	}
 }
 
