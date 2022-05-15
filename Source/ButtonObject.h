@@ -17,9 +17,11 @@ public:
 
 	void ResetButton();
 
-private:
 	bool isPressed = false;
 
+
+private:
+	
 	int buttonColor = 0;
 
 	SDL_Rect buttonSectionsUp[3] = { {0,0,152,120},{152,0,152,120},{304,0,152,120} };
