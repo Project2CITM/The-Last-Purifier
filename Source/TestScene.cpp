@@ -14,6 +14,7 @@
 #include "Ghoul.h"
 #include "Kaboom.h"
 #include "Worm.h"
+#include "Slime.h"
 #include "ParticleAttackRevenant.h"
 #include "PlayerStats.h"
 #include "Souls.h"
@@ -67,7 +68,7 @@ bool TestScene::Start()
 
     app->renderer->camera->SetTarget(player->controller);
 
-    //new Ghoul((player->controller->GetPosition() + iPoint{ 20, 20 }), roomManager.rooms[0]);
+    //new Slime((player->controller->GetPosition() + iPoint{ 40, 40 }));
 
     //spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-40, 0));
     //spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-80, 0));

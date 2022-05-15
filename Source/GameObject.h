@@ -97,7 +97,7 @@ public:
 	/// Si exixte pBody, cambia el amgulo de pBody, si no el de GameObject
 	/// </summary>
 	/// <param name="angle">= angle in deg</param>
-	void SetRotation(float angle);
+	void SetRotation(float angle, bool externPivot = false, b2Vec2 pivot = { 0,0 });
 
 	/// <summary>
 	/// Si exixte pBody, cambia la velocidad de pBody, si no saldra un aviso en Console

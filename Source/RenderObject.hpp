@@ -32,14 +32,14 @@ public:
 
 			if (section.w == 0 || section.h == 0)
 			{
-				if (SDL_RenderCopyEx(renderer, texture, nullptr, &destRect, rotation, NULL, flip) != 0)
+				if (SDL_RenderCopyEx(renderer, texture, nullptr, &destRect, rotation, &center, flip) != 0)
 				{
 					printf_s("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
 				}
 			}
 			else
 			{
-				if (SDL_RenderCopyEx(renderer, texture, &section, &destRect, rotation, NULL, flip) != 0)
+				if (SDL_RenderCopyEx(renderer, texture, &section, &destRect, rotation, &center, flip) != 0)
 				{
 					printf_s("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
 				}
@@ -149,12 +149,14 @@ public:
 	std::string name = "null";
 	SDL_Color color = { 255,255,255,255 };
 	bool orderOnHeight = true;
+	bool screenDetect = true;
 	#pragma endregion
 
 	#pragma region Texture parameter
 	SDL_Texture* texture = nullptr;
 	SDL_Rect section = { 0,0,0,0 };
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
+	SDL_Point center = {0,0};
 	float rotation = 0.0f;
 	int textureCenterX = 0;
 	int textureCenterY = 0;

@@ -81,7 +81,7 @@ void GameObject::PostUpdate()
 				UpdateOrderInLayer(i);
 				renderObjects[i].destRect.x = GetDrawPosition(i).x;
 				renderObjects[i].destRect.y = GetDrawPosition(i).y;
-				renderObjects[i].rotation = GetDegreeAngle();
+				//renderObjects[i].rotation = GetDegreeAngle();
 
 				app->renderer->AddRenderObjectRenderQueue(renderObjects[i]);
 			}
@@ -199,11 +199,12 @@ void GameObject::SetPosition(iPoint pos)
 	}
 }
 
-void GameObject::SetRotation(float angle)
+void GameObject::SetRotation(float angle,bool externPivot, b2Vec2 pivot)
 {
 	if (pBody != nullptr)
 	{
-		pBody->body->SetTransform(pBody->body->GetPosition(), DEGTORAD * angle);
+		if(!externPivot) pBody->body->SetTransform(pBody->body->GetPosition(), DEGTORAD * angle);
+		else pBody->body->SetTransform(pivot, DEGTORAD * angle);
 	}
 	else
 	{

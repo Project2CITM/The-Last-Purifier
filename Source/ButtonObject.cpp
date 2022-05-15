@@ -66,12 +66,19 @@ void ButtonObject::OnCollisionEnter(PhysBody* col)
 
 void ButtonObject::PressButton()
 {
+	if (isPressed) return;
+
+	renderObjects[0].color = { 100,100,100,255 };
+
+	//app->audio->PlayFx(buttonpressSFX);
 
 	isPressed = true;
 }
 
 void ButtonObject::ResetButton()
 {
+	renderObjects[0].color = { 255,255,255,255 };
+
 	isResetting = true;
 
 	currentResetMS = resetingMS;

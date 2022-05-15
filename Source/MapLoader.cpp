@@ -2,6 +2,7 @@
 #include "Ghoul.h"
 #include "Kaboom.h"
 #include "Worm.h"
+#include "Slime.h"
 #include "Column.h"
 
 void MapLoader::ExtractMapInfo(Room* r)
@@ -126,7 +127,7 @@ void MapLoader::CreateEnemies(Room* r)
 			
 			if(gid == 2562)
 			{
-				/*int rand = std::rand() % 8;
+				int rand = std::rand() % 8;
 				Enemy* g1 = nullptr;
 
 				switch (rand)
@@ -159,7 +160,7 @@ void MapLoader::CreateEnemies(Room* r)
 				case 7:
 					
 					break;
-				}*/
+				}
 				
 			}
 			else if (gid == 2561) 
@@ -169,9 +170,15 @@ void MapLoader::CreateEnemies(Room* r)
 			else if (gid == 2563) 
 			{
 				//TODO: spawn laser enemy
+				Enemy* g1 = new Slime(iPoint(
+					r->roomPosition.x * MAX_ROOM_TILES_COLUMNS * TILE_SIZE + j * TILE_SIZE + TILE_SIZE / 2,
+					r->roomPosition.y * MAX_ROOM_TILES_ROWS * TILE_SIZE + i * TILE_SIZE + TILE_SIZE / 2));
+				r->enemies.add(g1);
+				g1->enable = false;			
 			}
 			else if (gid == 2564) 
 			{
+				//TODO: spawn column
 				Enemy* e = new Column(iPoint(r->roomPosition.x * MAX_ROOM_TILES_COLUMNS * TILE_SIZE + j * TILE_SIZE + TILE_SIZE / 2,
 					r->roomPosition.y * MAX_ROOM_TILES_ROWS * TILE_SIZE + i * TILE_SIZE + TILE_SIZE / 2));
 				r->enemies.add(e);
@@ -181,7 +188,7 @@ void MapLoader::CreateEnemies(Room* r)
 			{
 				//TODO: spawn mini boss
 			}
-			else if (gid == 2566)
+			else if (gid == 2565)
 			{
 				//TODO: spawn button
 			}

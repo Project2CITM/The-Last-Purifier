@@ -459,6 +459,9 @@
     <ClInclude Include="Column.h">
       <Filter>Archivos de encabezado\GameObject\Puzzles</Filter>
     </ClInclude>
+    <ClInclude Include="Slime.h">
+        <Filter>Archivos de encabezado\GameObject\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\PugiXml\src\pugixml.cpp">
@@ -745,6 +748,9 @@
     </ClCompile>
     <ClCompile Include="Column.cpp">
       <Filter>Archivos de origen\GameObjects\Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Slime.cpp">
+      <Filter>Archivos de origen\GameObjects\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -275,7 +275,8 @@ void ModuleRender::AddRenderObjectRenderQueue(RenderObject renderObject)
 			SDL_QueryTexture(renderObject.texture, nullptr, nullptr, &renderObject.destRect.w, &renderObject.destRect.h);
 		}
 
-		if (!InScreen(renderObject.destRect, renderObject.speedRegardCamera)) return;
+
+		if (renderObject.screenDetect && !InScreen(renderObject.destRect, renderObject.speedRegardCamera)) return;
 
 		// Adjust destination position using camera and screen size
 		renderObject.destRect.x = (int)(-camera->x * renderObject.speedRegardCamera) + renderObject.destRect.x * app->window->scale;
