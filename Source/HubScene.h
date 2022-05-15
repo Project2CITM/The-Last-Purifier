@@ -6,6 +6,7 @@
 
 #define HUB_MAP "Main_Hub.tmx"
 class Player;
+class MiniMap;
 
 class HubScene : public SceneGame
 {
@@ -31,6 +32,7 @@ private:
 	iPoint playerPos = { 0,0 }; // Use only for ChangePlayer function, NOT THE ACTUAL PLAYER POSITION!!!
 
 	HUDInGame* hudInGame = nullptr;
+	MiniMap* miniMap = nullptr;
 
 	iPoint startPosition = { 970, 1485 };
 
