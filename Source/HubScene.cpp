@@ -125,7 +125,7 @@ bool HubScene::Start()
 
 	std::string sentenceInput;
 	if (app->input->usingGameController) sentenceInput = "<Press A>";
-	else sentenceInput = "<Press Enter>";
+	else sentenceInput = "<Press F>";
 
 	revenantInstructor = new Instructor(sentenceInput, "RevenantInstructor", { 1016, 855 }, PlayerClass::REVENANT);
 	revenantInstructor->setIndoors();

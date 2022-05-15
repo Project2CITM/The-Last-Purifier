@@ -111,7 +111,21 @@ bool ClassTree::unlockSkill(int* classPoints, int skillId)
 	if (theSkill == nullptr) return false;
 
 	SkillTreeElement* theRequiredSkill = getSkillTree(theSkill->requiresID);
-	if (theRequiredSkill == nullptr) return false;
+	if (theRequiredSkill == nullptr && (skillId == 1 || skillId == 11))
+	{
+		//Checks if the skill with the given id is already maxed(level)
+		if (theSkill->currentLevel < theSkill->maxLevel)
+		{
+			//Checks if there are enough points to unlock
+			if (*classPoints >= theSkill->cost)
+			{   //Unlocks
+				theSkill->currentLevel = (SkillLevel)((int)theSkill->currentLevel + 1);
+				*classPoints -= theSkill->cost;
+
+				return true;
+			}
+		}
+	}else if (theRequiredSkill == nullptr) return false;
 	
 	//Checks if the skill with the given id is already maxed(level)
 	if (theSkill->currentLevel < theSkill->maxLevel)
@@ -211,7 +225,7 @@ SkillTreeElement* ClassTree::getSkillTree(int value)
 {
 	//value--; //Equals the value of the enum id to the array position (Enum starts at 1 because 0 = NONE)
 	//if (value >= TREE_SIZE) return skillTree[TREE_SIZE - 1];
-	return skillTree[value];
+	return skillTree[value-1];
 }
 
 /// <summary>

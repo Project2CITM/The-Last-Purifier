@@ -83,7 +83,7 @@ bool CommonTree::LoadDictionary()
 	while (bNode != NULL)
 	{
 		upgradesDic.insert({ ResolveType(bNode.name()), (float) bNode.attribute("value").as_int() });
-		unlockedDic.insert({ (CommonUpgrades)bNode.attribute("id").as_int(), 0 });
+		unlockedDic.insert({ ResolveType(bNode.name()), 0});
 		bNode = bNode.next_sibling();
 	}
 
@@ -101,6 +101,7 @@ bool CommonTree::LoadBaseTree()
 			ResolveType(bNode.attribute("type").as_string()),
 			bNode.child("requires").attribute("id1").as_int(),
 			bNode.child("requires").attribute("id2").as_int(),
+			{ bNode.child("position").attribute("x").as_int(), bNode.child("position").attribute("y").as_int()},
 			bNode.child("unlocked").attribute("value").as_float()
 		));
 
@@ -148,7 +149,7 @@ void CommonTree::GameEventTriggered(GameEvent id)
 	SaveLoadTree();
 }
 
-bool CommonTree::Upgrade(int id)
+bool CommonTree::Upgrade(int* points, int id)
 {
 	TreeElement* element = getElement(id);
 	int req1 = element->requiresID1;
@@ -172,7 +173,16 @@ bool CommonTree::Upgrade(int id)
 		}
 	}
 
+	if (*points < element->cost)
+	{
+		toReturn = false;
+	}
+	
 	element->unlocked = toReturn;
+	if (toReturn)
+	{ //Money out
+		*points -= element->cost;
+	}
 
 	//Increases the bonus attribute of an upgrade
 	IncreaseValue((CommonUpgrades) element->type);
