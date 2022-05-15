@@ -82,12 +82,21 @@ private:
 
 	int attackFXCoolDown = 0;
 
-	Room* currentRoom = nullptr;
-
 	Timer ghoulTimer;
 
+	// PathFinding variable
+
+	int pathFindongCoolDown = 200;
+
+	fPoint lastDir = { 0,0 };
+
+	Room* currentRoom = nullptr;
+
+	// SFX 
 	uint attackFX = NULL;
+
 	uint HitFX = NULL;
+
 	uint idleFX = NULL;
 };
 
