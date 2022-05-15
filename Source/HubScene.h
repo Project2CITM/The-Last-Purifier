@@ -3,9 +3,12 @@
 #include "HUDInGame.h"
 #include "Instructor.h"
 #include "PlayerConverter.h"
+#include "Quest.h"
+#include "NPC.h"
 
 #define HUB_MAP "Main_Hub.tmx"
 class Player;
+class MiniMap;
 
 class HubScene : public SceneGame
 {
@@ -31,6 +34,7 @@ private:
 	iPoint playerPos = { 0,0 }; // Use only for ChangePlayer function, NOT THE ACTUAL PLAYER POSITION!!!
 
 	HUDInGame* hudInGame = nullptr;
+	MiniMap* miniMap = nullptr;
 
 	iPoint startPosition = { 1039, 866 }; //{ 970, 1485 };
 
@@ -41,4 +45,20 @@ private:
 
 	PlayerConverter* PlayerChangeClass = nullptr;
 	PlayerConverter* PlayerChangeClassBeforeRun = nullptr;
+
+	
+public:
+	Quest* quest2 = nullptr;
+	Quest* quest3 = nullptr;
+	Quest* quest4 = nullptr;
+	Quest* quest5 = nullptr;
+	NPC* npc1 = nullptr;
+	NPC* npc2 = nullptr;
+	NPC* npc3 = nullptr;
+	NPC* npc4 = nullptr;
+
+	bool done1 = false;
+	bool done2 = false;
+	bool done3 = false;
+	bool done4 = false;
 };

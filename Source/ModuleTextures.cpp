@@ -91,7 +91,7 @@ bool ModuleTextures::CleanUp()
 //}
 
 //Load new texture from file path
-SDL_Texture* ModuleTextures::Load(std::string path, bool isName)
+SDL_Texture* ModuleTextures::Load(std::string path, bool isName, bool fromPhysFs)
 {
 	if(isName)
 	{
@@ -107,8 +107,12 @@ SDL_Texture* ModuleTextures::Load(std::string path, bool isName)
 	}
 
 	SDL_Texture* texture = nullptr;
-
-	SDL_Surface* surface = app->assetManager->LoadPhysfsTexture(path.c_str());
+	SDL_Surface* surface = nullptr;
+	
+	if (fromPhysFs)
+		surface = app->assetManager->LoadPhysfsTexture(path.c_str());
+	else
+		surface = IMG_Load(("Assets/" + path).c_str());
 
 	if(surface == nullptr)
 	{

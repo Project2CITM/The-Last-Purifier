@@ -1,6 +1,6 @@
 #include "Quest.h"
 
-Quest::Quest(iPoint position, std::string questNum, std::string name):GameObject("Quest", "Quest")
+Quest::Quest(std::string name, iPoint position):GameObject(name, "Quest")
 {
 	this->position = position;
 	textPosition = { position.x - npcData.w, position.y - npcData.h };
@@ -26,7 +26,12 @@ Quest::Quest(iPoint position, std::string questNum, std::string name):GameObject
 	dialogNPCFX[2] = app->audio->LoadFx("Audio/SFX/NPCs/sfx_npcPhrase3.wav");
 	dialogNPCFX[3] = app->audio->LoadFx("Audio/SFX/NPCs/sfx_npcPhrase4.wav");
 
-
+	configDialog = app->config.child("quest");
+	 npcNode = configDialog.child("english").child(name.c_str());
+	sentenceNum = npcNode.attribute("Num").as_int();
+	active = npcNode.attribute("active").as_bool();
+	 defaultNode = npcNode.child("default");
+	 doneNode = npcNode.child("done");
 }
 
 Quest::~Quest()
@@ -38,12 +43,8 @@ void Quest::Start()
 
 	text = new Text(textPosition, " ");
 	text->ChangeDrawMode();
-	configDialog = app->config.child("quest");
 	
-	pugi::xml_node npcNode = configDialog.child("english").child(name.c_str());
-	int sentenceNum = npcNode.attribute("Num").as_int(0);
-	pugi::xml_node defaultNode = npcNode.child("default");
-	pugi::xml_node doneNode = npcNode.child("done");
+	
 
 	if (active) {
 		for (int i = 1; i <= sentenceNum; i++)
@@ -53,7 +54,7 @@ void Quest::Start()
 			sentences.add(defaultNode.child(temporalSentence.c_str()).child_value());
 		}
 	}
-	else {
+	else if(!active) {
 		for (int i = 1; i <= sentenceNum; i++)
 		{
 			std::string temporalSentence = "Sentence" + std::to_string(i);
@@ -73,6 +74,7 @@ void Quest::Update()
 	if (nearNpc) {
 		if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN || app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)
 		{
+			speak = true;
 			int num = rand() % (4);
 
 			if (!speaking) {
@@ -140,5 +142,9 @@ void Quest::OnTriggerExit(std::string trigger, PhysBody* col)
 		speaking = false;
 		text->SetText(" ");
 		sentenceOrder = 0;
+
+		if (!active) {
+			pendingToDelete = true;
+		}
 	}
 }

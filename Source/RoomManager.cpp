@@ -7,6 +7,7 @@
 #include "Enemy.h"
 #include "Minimap.h"
 #include "ModuleInput.h"
+#include "GameOverScene.h"
 
 #include "External/Optick/include/optick.h"
 
@@ -39,6 +40,7 @@ void RoomManager::Start()
 	//MiniMap
 	miniMap = new MiniMap();
 	miniMap->Init(false, &rooms);
+	
 }
 
 void RoomManager::PreUpdate(iPoint playerPos)
@@ -85,8 +87,8 @@ void RoomManager::Update(iPoint playerPos)
 
 		mapSave->ClearSeed();
 		mapSave->ClearRoomStates();
-
-		app->scene->ChangeCurrentSceneRequest(SCENES::HUB);
+		
+		app->scene->ChangeCurrentSceneRequest(SCENES::WIN);
 	}
 
 	//No enemies -> Completed room
@@ -142,7 +144,7 @@ void RoomManager::PostUpdate(iPoint playerPos)
 {
 	DrawRooms();
 	DrawDoors();
-	miniMap->MiniMapPrint(iPoint(485, 255), 
+	miniMap->MiniMapPrint(iPoint(485, -95), 
 		iPoint(playerPos.x / (TILE_SIZE * MAX_ROOM_TILES_COLUMNS),playerPos.y / (TILE_SIZE * MAX_ROOM_TILES_ROWS)));
 }
 
@@ -194,9 +196,11 @@ void RoomManager::GenerateMap(short RoomNumber)
 	Room* r = CreateRoom(p, -3);
 
 	//Create all rooms except the first and Boss room
-	while (RoomNumber > 2) {
+	while (RoomNumber > 2) 
+	{
 		iPoint pos = r->roomPosition;
-		if (CheckAdjacentSpace(r) > 0) {	//there is space next to the current room to spawn another
+		if (CheckAdjacentSpace(r) > 0)
+		{	//there is space next to the current room to spawn another
 			short random = rand() % 4;
 			switch (random) {
 			case 0:
@@ -209,7 +213,8 @@ void RoomManager::GenerateMap(short RoomNumber)
 				pos.y--;	break;
 			}
 			//if the room is not out of boundaries and not occupied, create one
-			if ((pos.x < MAX_ROOMS_COLUMNS && pos.x >= 0 && pos.y < MAX_ROOMS_ROWS && pos.y >= 0) && roomPositions[pos.x][pos.y] == nullptr) {
+			if ((pos.x < MAX_ROOMS_COLUMNS && pos.x >= 0 && pos.y < MAX_ROOMS_ROWS && pos.y >= 0) && roomPositions[pos.x][pos.y] == nullptr) 
+			{
 				r = CreateRoom(iPoint(pos.x, pos.y));
 				--RoomNumber;
 			}
@@ -233,10 +238,10 @@ void RoomManager::GenerateMap(short RoomNumber)
 			switch (id) 
 			{
 			case -2:	//MiniBoss room
-				id = -3;	//TODO: First Puzzle
+				id = -4;	//First Puzzle
 				break;
 
-			case -3:	//TODO: Last Puzzle
+			case -6:	//Last Puzzle
 				f = false;
 				break;
 

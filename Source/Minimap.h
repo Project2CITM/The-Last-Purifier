@@ -22,7 +22,7 @@ public:
 
 	~MiniMap();
 
-	void Init(bool isHub, List<Room*>* room);
+	void Init(bool isHub, List<Room*>* room = nullptr);
 	void SetScale(int scale);
 	void SetAlpha(int alpha);
 	void MiniMapPrint(iPoint pos, iPoint playerPos);
@@ -32,6 +32,7 @@ private:
 	Application* app = nullptr;
 	bool isHub = true;
 	SDL_Texture* textureHub = nullptr;
+	SDL_Texture* icon = nullptr;
 	int scale = 1;
 	int alpha = 100;
 	List<Room*>* rooms;

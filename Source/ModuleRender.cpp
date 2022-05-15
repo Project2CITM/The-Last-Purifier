@@ -17,6 +17,7 @@ ModuleRender::ModuleRender(bool start_enabled) : Module(start_enabled)
 	// Init renderLayers
 	renderLayers.resize(MAX_RENDERLAYERS);
 	renderLayers[1].sort = true;
+	renderLayers[3].sort = true;
 	renderLayers[4].sort = true;
 }
 

@@ -14,7 +14,8 @@ class Trigger;
 
 class Quest : public GameObject
 {
-	Quest(iPoint position, std::string questNum, std::string name);
+public:
+	Quest(std::string name, iPoint position);
 
 	~Quest();
 
@@ -33,7 +34,6 @@ class Quest : public GameObject
 	void OnTriggerExit(std::string trigger, PhysBody* col) override;
 
 private:
-	bool active = true;
 
 	NPC* npc = nullptr;
 
@@ -67,6 +67,15 @@ private:
 
 	bool exterior = true;
 
+	int sentenceNum = 0;
+
+	pugi::xml_node npcNode;
+	pugi::xml_node defaultNode;
+	pugi::xml_node doneNode;
+public:
+
+	bool speak = false;
+	bool active = true;
 
 
 };

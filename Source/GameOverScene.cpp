@@ -38,12 +38,14 @@ bool GameOverScene::Start()
     gameOverBG = new RenderObject();
     pressKeyToTryAgain[0] = new RenderObject();
     pressKeyToTryAgain[1] = new RenderObject();
-    gameOverBG->InitAsTexture(app->textures->Load("Assets/Sprites/UI/GameOver/GameOverScreen.png"), { 0,0 }, { 0,0,0,0 }, 0.5f,1,0.9f);
+    souls = new RenderObject();
+    souls->InitAsTexture(app->textures->Load("Sprites/Soul/soul.png"), { 295, 210 }, { 0,0,50,89 }, 0.25f, 4, 0, 0, SDL_FLIP_NONE, 0);
+    gameOverBG->InitAsTexture(app->textures->Load("Assets/Sprites/UI/GameOver/GameOverScreen.png"), { 0,0 }, { 0,0,0,0 }, 0.5f, 1, 0.9f);
     pressKeyToTryAgain[0]->InitAsTexture(app->textures->Load("Assets/Sprites/UI/GameOver/PressKeyToTryAgain.png"), { 190,270 }, { 0,0,538,64 }, 0.5f);
-    pressKeyToTryAgain[1]->InitAsTexture(app->textures->Load("Assets/Sprites/UI/GameOver/PressKeyToTryAgain.png"), { 190,270 }, { 0,72,538,64 },0.5f);
+    pressKeyToTryAgain[1]->InitAsTexture(app->textures->Load("Assets/Sprites/UI/GameOver/PressKeyToTryAgain.png"), { 190,270 }, { 0,72,538,64 }, 0.5f);
     
     text = new Text({ 260,220 }, "");
-    text2 = new Text({ 290,220 }, "");
+    text2 = new Text({ 310,220 }, "");
     text5 = new Text({ 200,220 }, "");
     
 
@@ -55,9 +57,9 @@ bool GameOverScene::PreUpdate()
 
     if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN || app->input->GetControllerButton(JoystickButtons::BUTTON_A) == KEY_DOWN)
     {
-        app->scene->ChangeCurrentSceneRequest(SCENES::HUB, 60);
+        app->scene->ChangeCurrentSceneRequest(SCENES::HUB, 30);
     }
-
+    
     return true;
 }
 
@@ -72,9 +74,10 @@ bool GameOverScene::Update()
 
 bool GameOverScene::PostUpdate()
 {
-
+   
     app->renderer->AddRenderObjectRenderQueue(*gameOverBG);
-    if (app->input->usingGameController)
+    app->renderer->AddRenderObjectRenderQueue(*souls);
+    if (app->input->usingGameController == true)
     {
         app->renderer->AddRenderObjectRenderQueue(*pressKeyToTryAgain[0]);
     }
@@ -82,19 +85,20 @@ bool GameOverScene::PostUpdate()
     {
         app->renderer->AddRenderObjectRenderQueue(*pressKeyToTryAgain[1]);
     }
-    
+   
     Scene::PostUpdate();
     return true;
 }
 
 bool GameOverScene::CleanUp()
 {
-
-    RELEASE(gameOverBG)
-    RELEASE(pressKeyToTryAgain[0])
-    RELEASE(pressKeyToTryAgain[1])
+    RELEASE(gameOverBG);
+    RELEASE(pressKeyToTryAgain[0]);
+    RELEASE(pressKeyToTryAgain[1]);
+    RELEASE(souls);
     Scene::CleanUp();
     return true;
 }
+
 
 

@@ -28,6 +28,15 @@ void MapLoader ::LoadMap(short id)
 		case -3:
 			filePath += "Start";
 			break;
+		case -4:
+			filePath += "Puzzle1";
+			break;
+		case -5:
+			filePath += "Puzzle2";
+			break;
+		case -6:
+			filePath += "Puzzle3";
+			break;
 		}
 	}
 	filePath += ".tmx";
@@ -42,6 +51,10 @@ void MapLoader ::LoadMap(short id)
 
 void MapLoader::CreateColliders(Room* r)
 {
+	r->mapInfo.resize(MAX_ROOM_TILES_ROWS);
+
+	for (int i = 0; i < MAX_ROOM_TILES_ROWS; i++) r->mapInfo[i].resize(MAX_ROOM_TILES_COLUMNS);
+
 	//Find collision layer
 	pugi::xml_node colliderLayer = mapNode.child("layer");
 	for (colliderLayer; colliderLayer != NULL; colliderLayer = colliderLayer.next_sibling()) {
@@ -51,18 +64,24 @@ void MapLoader::CreateColliders(Room* r)
 
 	//Get node tiles (with gid attributes)
 	pugi::xml_node tile = colliderLayer.first_child().first_child();
-	for (int i = 0; i < MAX_ROOM_TILES_ROWS; ++i) {
-		for (int j = 0; j < MAX_ROOM_TILES_COLUMNS; ++j) {
+
+	for (int i = 0; i < MAX_ROOM_TILES_ROWS; ++i) 
+	{
+		for (int j = 0; j < MAX_ROOM_TILES_COLUMNS; ++j, tile = tile.next_sibling())
+		{
+			if(tile.first_attribute().as_int() < 2561) continue;
+
 			//Normal Colision
-			if (tile.first_attribute().as_int() == 2561) {
+			if (tile.first_attribute().as_int() == 2561)
+			{
 				r->colliders.add(app->physics->CreateRectangle(iPoint(
 					r->roomPosition.x * MAX_ROOM_TILES_COLUMNS * TILE_SIZE + j * TILE_SIZE + TILE_SIZE / 2,
 					r->roomPosition.y * MAX_ROOM_TILES_ROWS * TILE_SIZE + i * TILE_SIZE + TILE_SIZE / 2),
-					TILE_SIZE / 2, TILE_SIZE / 2, nullptr, b2_staticBody));
-				
+					TILE_SIZE / 2, TILE_SIZE / 2, nullptr, b2_staticBody));				
 			}
 			//Void Collision
-			else if (tile.first_attribute().as_int() == 2562) {
+			else if (tile.first_attribute().as_int() == 2562) 
+			{
 				PhysBody* holeCollision = app->physics->CreateRectangle(iPoint(
 					r->roomPosition.x * MAX_ROOM_TILES_COLUMNS * TILE_SIZE + j * TILE_SIZE + TILE_SIZE / 2,
 					r->roomPosition.y * MAX_ROOM_TILES_ROWS * TILE_SIZE + i * TILE_SIZE + TILE_SIZE / 2),
@@ -72,7 +91,8 @@ void MapLoader::CreateColliders(Room* r)
 				holeCollision->body->GetFixtureList()[0].SetFilterData(filter);
 				r->colliders.add(holeCollision);
 			}
-			tile = tile.next_sibling();
+
+			r->mapInfo[i][j] = 1;
 		}
 	}
 }
@@ -105,7 +125,7 @@ void MapLoader::CreateEnemies(Room* r)
 			
 			if(gid == 2562)
 			{
-				int rand = std::rand() % 8;
+				/*int rand = std::rand() % 8;
 				Enemy* g1 = nullptr;
 
 				switch (rand)
@@ -116,7 +136,7 @@ void MapLoader::CreateEnemies(Room* r)
 				case 3:
 					g1 = new Ghoul(iPoint(
 						r->roomPosition.x * MAX_ROOM_TILES_COLUMNS * TILE_SIZE + j * TILE_SIZE + TILE_SIZE / 2,
-						r->roomPosition.y * MAX_ROOM_TILES_ROWS * TILE_SIZE + i * TILE_SIZE + TILE_SIZE / 2));
+						r->roomPosition.y * MAX_ROOM_TILES_ROWS * TILE_SIZE + i * TILE_SIZE + TILE_SIZE / 2),r);
 					r->enemies.add(g1);
 					g1->enable = false;
 					break;
@@ -124,7 +144,7 @@ void MapLoader::CreateEnemies(Room* r)
 				case 5:
 					g1 = new Kaboom(iPoint(
 						r->roomPosition.x * MAX_ROOM_TILES_COLUMNS * TILE_SIZE + j * TILE_SIZE + TILE_SIZE / 2,
-						r->roomPosition.y * MAX_ROOM_TILES_ROWS * TILE_SIZE + i * TILE_SIZE + TILE_SIZE / 2));
+						r->roomPosition.y * MAX_ROOM_TILES_ROWS * TILE_SIZE + i * TILE_SIZE + TILE_SIZE / 2),r);
 					r->enemies.add(g1);
 					g1->enable = false;
 					break;
@@ -138,11 +158,28 @@ void MapLoader::CreateEnemies(Room* r)
 				case 7:
 					
 					break;
-				}
+				}*/
 				
 			}
-			else if (gid == 2561) {
+			else if (gid == 2561) 
+			{
 				//TODO: spawn boss
+			}
+			else if (gid == 2563) 
+			{
+				//TODO: spawn laser enemy
+			}
+			else if (gid == 2564) 
+			{
+				//TODO: spawn column
+			}
+			else if (gid == 2565)
+			{
+				//TODO: spawn mini boss
+			}
+			else if (gid == 2566)
+			{
+				//TODO: spawn button
 			}
 
 			tile = tile.next_sibling();

@@ -1,6 +1,8 @@
 #pragma once
 #include "Scene.h"
 
+
+
 class GameOverScene :
     public Scene
 {
@@ -21,7 +23,7 @@ public:
     bool PostUpdate() override;
 
     bool CleanUp() override;
-
+    
 private:
 
     Text* text = nullptr;
@@ -32,10 +34,13 @@ private:
 
     RenderObject* gameOverBG = nullptr;
 
+    RenderObject* souls = nullptr;
+
     RenderObject* pressKeyToTryAgain[2] = {nullptr};
 
     Application* app = nullptr;
 
     int score;
+
 };
 

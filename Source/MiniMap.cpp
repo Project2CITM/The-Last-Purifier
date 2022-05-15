@@ -11,9 +11,11 @@ MiniMap::~MiniMap()
 
 void MiniMap::Init(bool isHub, List<Room*>* room)
 {
+	this->icon = app->textures->Load("Sprites/Minimap/miniMapIcon.png", false, false);
+	
 	if (isHub) {
 		this->isHub = true;
-		//TODO: change minimap hub png or smth
+		this->textureHub = app->textures->Load("Sprites/Minimap/Hub.png", false, false);
 	}
 	else {
 		this->isHub = false;
@@ -39,15 +41,51 @@ void MiniMap::MiniMapPrint(iPoint pos, iPoint playerPos)
 	pos.x += DEFAULT_WIDTH;
 	pos.y += DEFAULT_HEIGHT;
 	pos.x -= DEFAULT_WIDTH * scale;
-	pos.y -= DEFAULT_HEIGHT * scale;
+	//pos.y -= DEFAULT_HEIGHT * scale;
 	SDL_Rect outRect = { pos.x, pos.y, DEFAULT_WIDTH * scale, DEFAULT_HEIGHT * scale };
+	
+	//Icon position
+	iPoint iconPos = pos;
+	iconPos.x += (DEFAULT_WIDTH * scale) / 2 - (8 * scale);
+	iconPos.y += (DEFAULT_HEIGHT * scale) / 2 - (8 * scale);
+	
+	//Hardcoding, im sorry
+	if (scale == 2) {
+		if (!isHub) {
+			iconPos.x -= 7;
+			iconPos.y -= 2;
+		}
+		else {
+			iconPos.x += 7;
+			iconPos.y += 5;
+		}
+	}
+
+	//print icon
+	app->renderer->AddTextureRenderQueue(icon, iconPos, { 0,0,0,0 }, 1.0f, 3, 3.0f, 0.0f, SDL_FLIP_NONE, 0.0f);
+	
+	//print rect
+	app->renderer->AddRectRenderQueue(outRect, { 200, 200, 200, 255 }, false, 3, 3.0f, 0.0f);
 
 	//Print Hub
-	if (isHub) {
+	if (isHub) 
+	{
 		//TODO: print for hub
+		playerPos.x /= 10;
+		playerPos.y /= 10;
+		playerPos += {128, 128};
+		SDL_Rect hubRect = { 
+			playerPos.x - (DEFAULT_WIDTH * scale / 2), 
+			playerPos.y - (DEFAULT_HEIGHT * scale / 2), 
+			DEFAULT_WIDTH * scale, 
+			DEFAULT_HEIGHT * scale };
+		/*
+		if (hubRect.x + 256 < outRect.x + (DEFAULT_WIDTH * scale)) {
+			hubRect.w += (hubRect.x + 256 - (DEFAULT_WIDTH * scale));
+		}
+		*/
+		app->renderer->AddTextureRenderQueue(textureHub, pos, hubRect, 1.0f, 3, 2.0f, 0.0f, SDL_FLIP_NONE, 0.0f);
 
-		//Print minimap frame
-		app->renderer->AddRectRenderQueue(outRect, { 200, 200, 200, 255 }, false, 3, 2.0f, 0.0f);
 		return;
 	}
 
@@ -89,13 +127,13 @@ void MiniMap::MiniMapPrint(iPoint pos, iPoint playerPos)
 		
 		iPoint position = rooms->At(i)->data->roomPosition;
 
-		position += {2*scale, 2*scale};
+		position += {2 * scale, 2 * scale};
 		position -= playerPos;
 
 		position.x *= RECT_WIDTH;
 		position.y *= RECT_HEIGHT;
 		position += pos;
-		
+	
 		SDL_Rect rect{ position.x, position.y, RECT_WIDTH, RECT_HEIGHT };
 		
 		if (SDL_HasIntersection(&outRect, &rect)) 
@@ -107,6 +145,4 @@ void MiniMap::MiniMapPrint(iPoint pos, iPoint playerPos)
 			app->renderer->AddRectRenderQueue(rect, color, true, 3, 2.0f, 0.0f);
 		}
 	}
-	//Print minimap frame
-	app->renderer->AddRectRenderQueue(outRect, { 200, 200, 200, 255 }, false, 3, 2.0f, 0.0f);
 }

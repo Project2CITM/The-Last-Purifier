@@ -79,6 +79,14 @@ public:
 
 	iPoint GetDoorSize(DoorOrientations orient);
 
+	iPoint PathFindingAStar(iPoint src, iPoint des);
+
+private:
+
+	iPoint GetTilePos(iPoint worldPos);
+
+	bool IsWalkable(iPoint checkPos);
+
 private:
 	iPoint doorPos[4] = { {80,17},{39,34},{0,17},{39,0} };
 	iPoint doorSize[4] = { {1,3},{3,1},{1,3},{3,6} };
@@ -100,6 +108,10 @@ public:
 	iPoint roomPosition; 	//in map, not pixels
 	
 	SDL_Texture* roomTexture = nullptr;
+
+	// pathFinding variable
+
+	vector<vector<int>> mapInfo;
 };
 
 #endif //_ROOM_H_

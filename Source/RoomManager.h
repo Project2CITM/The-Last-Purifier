@@ -8,11 +8,13 @@
 #include "MapLoader.h"
 #include "MapSave.h"
 
+
 #define MAX_ROOMS_COLUMNS 8
 #define MAX_ROOMS_ROWS 8
 
 class Trigger;
 class MiniMap;
+
 
 class RoomManager{
 	
@@ -53,6 +55,7 @@ private:
 	MapLoader* mapLoader = nullptr;
 	MapSave* mapSave = nullptr;
 	MiniMap* miniMap = nullptr;
+	
 };
 
 #endif //__ROOMMANAGER_H_

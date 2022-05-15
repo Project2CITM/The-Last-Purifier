@@ -98,9 +98,9 @@ bool ModuleAudio::CleanUp()
 }
 
 // Play a music file
-bool ModuleAudio::PlayMusic(const char* path, float fade_time)
+bool ModuleAudio::PlayMusic(const char* path, float fade_time, bool fromPhysFs)
 {
-	/*
+	
 	if(IsEnabled() == false)
 		return false;
 
@@ -121,8 +121,15 @@ bool ModuleAudio::PlayMusic(const char* path, float fade_time)
 		Mix_FreeMusic(music);
 	}
 
-	//music = Mix_LoadMUS(path);
-	music = app->assetManager->LoadPhysfsMusic(path);
+	
+	if(fromPhysFs)
+		music = app->assetManager->LoadPhysfsMusic(path);
+	else {
+		std::string s = path;
+		std::string c = "Assets/" + s;
+		music = Mix_LoadMUS(c.c_str());
+	}
+		
 
 	if(music == NULL)
 	{
@@ -151,8 +158,6 @@ bool ModuleAudio::PlayMusic(const char* path, float fade_time)
 
 	LOG("Successfully playing %s", path);
 	return ret;
-	*/
-	return false;
 }
 
 // Load WAV

@@ -6,8 +6,11 @@
 #include "ModuleRender.h"
 #include "DamageArea.h"
 #include "ModuleAudio.h"
+#include "ModuleInput.h"
+#include "Room.h"
+#include "External/Optick/include/optick.h"
 
-Ghoul::Ghoul(iPoint pos) : Enemy("ghoul")
+Ghoul::Ghoul(iPoint pos, Room* room) : Enemy("ghoul")
 {
 	// Get player pointer
 	SceneGame* sceneGame = (SceneGame*)app->scene->scenes[app->scene->currentScene];
@@ -15,6 +18,8 @@ Ghoul::Ghoul(iPoint pos) : Enemy("ghoul")
 
 	// Init general value
 	this->position = pos;
+
+	this->currentRoom = room;
 
 	health = 20;
 
@@ -57,8 +62,11 @@ Ghoul::~Ghoul()
 void Ghoul::PreUpdate()
 {
 	ghoulTimer.Update();
+
 	UpdateStates();
+
 	ghoulTimer.Reset();
+
 	Enemy::PreUpdate();
 }
 
@@ -151,12 +159,16 @@ void Ghoul::UpdateStates()
 
 			return;
 		}
-		attackCoolDown-= ghoulTimer.getDeltaTime() * 1000;
+		attackCoolDown -= ghoulTimer.getDeltaTime() * 1000;
 	}
 	break;
 	case (int)GhoulState::RUN:
 	{
+		pathFindongCoolDown -= ghoulTimer.getDeltaTime() * 1000;
+
 		DoRun();
+
+		if (pathFindongCoolDown <= 0) pathFindongCoolDown = 200;
 
 		// Test codes
 		//app->renderer->AddLineRenderQueue(position, player->GetPosition(), false, { 255,255,255,255 }, 2);
@@ -199,6 +211,11 @@ void Ghoul::UpdateStates()
 	}	
 		break;
 	}
+}
+
+void Ghoul::CleanUp()
+{
+	currentRoom = nullptr;
 }
 
 void Ghoul::InitAnimation()
@@ -308,11 +325,53 @@ void Ghoul::DoAttack()
 
 void Ghoul::DoRun()
 {
-	fPoint dir = { (float)(playerController->GetPosition().x - position.x), (float)(playerController->GetPosition().y - position.y) };
+	OPTICK_EVENT();
 
-	dir = dir.Normalize();
+	fPoint fDir = { (float)(playerController->GetPosition().x - position.x), (float)(playerController->GetPosition().y - position.y) };
 
-	SetLinearVelocity(b2Vec2{ (float)(dir.x * moveSpeed),(float)(dir.y * moveSpeed) });
+	fDir = fDir.Normalize();
+
+	lastDir = fDir;
+
+	SetLinearVelocity(b2Vec2{ (float)(fDir.x * moveSpeed),(float)(fDir.y * moveSpeed) });
+
+	return;
+
+	if (currentRoom != nullptr && enable)
+	{
+		if (pathFindongCoolDown > 0)
+		{
+			SetLinearVelocity(b2Vec2{ (float)(lastDir.x * moveSpeed),(float)(lastDir.y * moveSpeed) });
+
+			return;
+		}
+
+		int distance = position.DistanceTo(playerController->GetPosition());
+
+		if (distance < 50)
+		{
+			fPoint fDir = { (float)(playerController->GetPosition().x - position.x), (float)(playerController->GetPosition().y - position.y) };
+
+			fDir = fDir.Normalize();
+
+			lastDir = fDir;
+
+			SetLinearVelocity(b2Vec2{ (float)(fDir.x * moveSpeed),(float)(fDir.y * moveSpeed) });
+
+			return;
+		}
+
+		iPoint dir = currentRoom->PathFindingAStar(position, playerController->GetPosition());
+
+		if (dir != iPoint{0, 0})
+		{
+			lastDir.x = dir.x;
+
+			lastDir.y = dir.y;
+
+			SetLinearVelocity(b2Vec2{ (float)(dir.x * moveSpeed),(float)(dir.y * moveSpeed) });
+		}
+	}
 }
 
 void Ghoul::ResetAttackCoolDown()

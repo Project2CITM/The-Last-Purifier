@@ -40,9 +40,7 @@ void ModuleEvents::TriggerEvent(GameEvent id)
 			{
 				listeners[i]->GameEventTriggered(id);
 			}
-		}
-
-		
+		}	
 	}
 }
 

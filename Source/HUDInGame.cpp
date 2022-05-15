@@ -68,7 +68,7 @@ bool HUDInGame::Start()
 	text = new Text({app->renderer->camera->x + 30, app->renderer->camera->y + 28 }, std::to_string(score));
 
 	playerHp.bg = playerHp.delayHp = playerHp.currentHp = { app->renderer->camera->x + 15, app->renderer->camera->y + 10, 200, 10 };
-	miniMap = { app->renderer->camera->x + 535, app->renderer->camera->y + 5, 100, 100 };
+	//miniMap = { app->renderer->camera->x + 535, app->renderer->camera->y + 5, 100, 100 };
 
 	resumeBUT = { app->renderer->camera->x + 155, app->renderer->camera->y + 70};//640 pixeles with pantalla
 	settingsBUT = { app->renderer->camera->x + 155, app->renderer->camera->y + 160};
@@ -94,13 +94,16 @@ bool HUDInGame::Start()
 	MusicSlider->CreateGUIBtn(MusicBUT);
 	MusicSlider->SetValue(app->audio->musicVol/255);
 
-	fxBUT = new GUIButton({ app->renderer->camera->x + 200, app->renderer->camera->y + 200 }, 27, 46, MenuButton::SETTINGSPAUSE, app->textures->Load("Sprites/UI/fireSlider.png"));
-	fxSlider = new GUISlider({ app->renderer->camera->x + 200, app->renderer->camera->y + 200 }, 300, 14, MenuButton::SETTINGSPAUSE, app->textures->Load("Sprites/UI/Slider1.png"));
+	fxBUT = new GUIButton({ app->renderer->camera->x + 200, app->renderer->camera->y + 175 }, 27, 46, MenuButton::SETTINGSPAUSE, app->textures->Load("Sprites/UI/fireSlider.png"));
+	fxSlider = new GUISlider({ app->renderer->camera->x + 200, app->renderer->camera->y + 175 }, 300, 14, MenuButton::SETTINGSPAUSE, app->textures->Load("Sprites/UI/Slider1.png"));
 	fxSlider->CreateGUIBtn(fxBUT);
 	fxSlider->SetValue(app->audio->fxVol / 255);
 
-	FullScreenCHK = new GUICheckbox({ app->renderer->camera->x + 350, app->renderer->camera->y + 215 }, 60, 60, MenuButton::SETTINGSPAUSE, app->textures->Load("Sprites/UI/CheckBoxs.png"));
+	FullScreenCHK = new GUICheckbox({ app->renderer->camera->x + 350, app->renderer->camera->y + 200 }, 40, 46, MenuButton::SETTINGSPAUSE, app->textures->Load("Sprites/UI/CheckBox.png"));
 	FullScreenCHK->ChangeState(app->FullScreenDesktop);
+
+	VSyncCHK = new GUICheckbox({ app->renderer->camera->x + 350, app->renderer->camera->y + 240 }, 40, 46, MenuButton::SETTINGSPAUSE, app->textures->Load("Sprites/UI/CheckBox.png"));
+	VSyncCHK->ChangeState(app->vsync);
 
 
 	InitializeSpellSlotsPositions();
@@ -344,6 +347,17 @@ bool HUDInGame::Update()
 				FullScreenCHK->ChangeState(false);
 			}
 
+			if ((VSyncCHK->isActive || (ControllerPosOpY == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)) && !app->vsync)
+			{
+				app->vsync = true;
+				VSyncCHK->ChangeState(true);
+			}
+			else if ((!VSyncCHK->isActive || (ControllerPosOpY == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)) && app->vsync)
+			{
+				app->vsync = false;
+				VSyncCHK->ChangeState(false);
+			}
+
 			app->audio->SetMusicVolume(MusicSlider->GetValue() * 255);
 			app->audio->SetSFXVolume(fxSlider->GetValue() * 255);
 		}
@@ -371,7 +385,7 @@ bool HUDInGame::PostUpdate()
 	app->renderer->AddRectRenderQueue(playerHp.delayHp, playerHp.hpDelayColor, true, 4, 2.5f, 0.0f);
 	app->renderer->AddRectRenderQueue(playerHp.currentHp, playerHp.hpColor, true, 4, 3.0f, 0.0f);
 
-	app->renderer->AddRectRenderQueue(miniMap, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
+	//app->renderer->AddRectRenderQueue(miniMap, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
 
 	// Draw an empty rectangle for every abailable spell slot space
 	for (int i = 0; i < player->player->spellSlots; i++)

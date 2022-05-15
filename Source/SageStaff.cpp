@@ -8,6 +8,7 @@
 SageStaff::SageStaff(PlayerController* playerController) : SageWeapon(playerController)
 {
 	attackSpeedCD = 200;
+	playerAttackCD = 200;
 
 	projectileSpeed = 20;
 
@@ -36,7 +37,6 @@ SageStaff::SageStaff(PlayerController* playerController) : SageWeapon(playerCont
 
 bool SageStaff::Attack(int chargedTime)
 {
-
 	int currentAttack = -1;
 	for (int i = 0; i < STAFF_ATTACKS; ++i)
 	{

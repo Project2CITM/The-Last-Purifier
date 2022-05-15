@@ -35,7 +35,7 @@ bool ModuleAssetsManager::Init(pugi::xml_node& config)
 
 bool ModuleAssetsManager::CleanUp()
 {
-	return false;
+	return true;
 }
 
 SDL_Surface* ModuleAssetsManager::LoadPhysfsTexture(const char* path) const

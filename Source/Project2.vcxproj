@@ -94,6 +94,8 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="AssetsManager.h" />
     <ClInclude Include="Bar.h" />
+    <ClInclude Include="ButtonObject.h" />
+    <ClInclude Include="ButtonPuzzle.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ClassTree.h" />
     <ClInclude Include="ClassTreeHud.h" />
@@ -144,6 +146,7 @@
     <ClInclude Include="ParticleAttackSage.h" />
     <ClInclude Include="ParticleExplodeEkriksi.h" />
     <ClInclude Include="ParticleHitSage.h" />
+    <ClInclude Include="ParticleLanceAttackRevenant.h" />
     <ClInclude Include="ParticlePurificationSlash.h" />
     <ClInclude Include="ParticleSoulShield.h" />
     <ClInclude Include="PaticleHitFotieros.h" />
@@ -162,10 +165,12 @@
     <ClInclude Include="Quest.h" />
     <ClInclude Include="RenderObject.hpp" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="RevenantSpear.h" />
     <ClInclude Include="RevenantSword.h" />
     <ClInclude Include="RevenantWeapon.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="RoomManager.h" />
+    <ClInclude Include="SageBook.h" />
     <ClInclude Include="SageChargeBar.h" />
     <ClInclude Include="SageStaff.h" />
     <ClInclude Include="SageWeapon.h" />
@@ -186,12 +191,15 @@
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Trigger.h" />
     <ClInclude Include="WeaponObject.h" />
+    <ClInclude Include="WinScreen.h" />
     <ClInclude Include="Worm.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="AssetsManager.cpp" />
     <ClCompile Include="Bar.cpp" />
+    <ClCompile Include="ButtonObject.cpp" />
+    <ClCompile Include="ButtonPuzzle.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ClassTree.cpp" />
     <ClCompile Include="ClassTreeHud.cpp" />
@@ -238,6 +246,7 @@
     <ClCompile Include="ParticleAttackSage.cpp" />
     <ClCompile Include="ParticleExplodeEkriksi.cpp" />
     <ClCompile Include="ParticleHitSage.cpp" />
+    <ClCompile Include="ParticleLanceAttackRevenant.cpp" />
     <ClCompile Include="ParticlePurificationSlash.cpp" />
     <ClCompile Include="ParticleSoulShield.cpp" />
     <ClCompile Include="PaticleHitFotieros.cpp" />
@@ -253,10 +262,12 @@
     <ClCompile Include="PurificationSlashS.cpp" />
     <ClCompile Include="PurifiedSwordS.cpp" />
     <ClCompile Include="Quest.cpp" />
+    <ClCompile Include="RevenantSpear.cpp" />
     <ClCompile Include="RevenantSword.cpp" />
     <ClCompile Include="RevenantWeapon.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="RoomManager.cpp" />
+    <ClCompile Include="SageBook.cpp" />
     <ClCompile Include="SageChargeBar.cpp" />
     <ClCompile Include="SageStaff.cpp" />
     <ClCompile Include="SageWeapon.cpp" />
@@ -276,6 +287,7 @@
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Trigger.cpp" />
     <ClCompile Include="WeaponObject.cpp" />
+    <ClCompile Include="WinScreen.cpp" />
     <ClCompile Include="Worm.cpp" />
   </ItemGroup>
   <ItemGroup>

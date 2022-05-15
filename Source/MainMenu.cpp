@@ -57,7 +57,7 @@ bool MainMenu::Start()
 	Press = app->audio->LoadFx("Audio/SFX/UI/sfx_uiSelect.wav");
 
 	//background del menu
-	app->audio->PlayMusic("Audio/Ambience/amb_dungeon1_1.ogg");	//Poner la musica que toca
+	app->audio->PlayMusic("Audio/Ambience/amb_dungeon1_1.ogg", 2.0f, false);	//Poner la musica que toca
 
 	//menu appearing
 	Appear_FX = app->audio->LoadFx("Audio/SFX/UI/menuFX.wav");	//Buscar audio apriopiado
@@ -289,14 +289,12 @@ bool MainMenu::Update()
 
 		if ((VSyncCHK->isActive || (ControllerPosOpY == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)) && !app->vsync)
 		{
-			//Falta activar VSync aqui
-			//app->window->ToggleFullScreen(true);
+			app->vsync = true;
 			VSyncCHK->ChangeState(true);
 		}
 		else if ((!VSyncCHK->isActive || (ControllerPosOpY == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)) && app->vsync)
 		{
-			//Falta desactivar VSync aqui
-			 //app->window->ToggleFullScreen(false);
+			app->vsync = false;
 			VSyncCHK->ChangeState(false);
 		}
 		app->audio->SetMusicVolume(MusicSlider->GetValue() * 255);
