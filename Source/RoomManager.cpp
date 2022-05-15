@@ -458,7 +458,7 @@ Room* RoomManager::CreateRoom(iPoint mapPosition, short mapId)
 	r->roomPosition = mapPosition;
 	r->id = mapId;
 
-	std::string folder = "Assets/Maps/map";
+	std::string folder = "Maps/map";
 	std::string file = ".png";
 
 	std::string s;
