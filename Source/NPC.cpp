@@ -73,6 +73,8 @@ void NPC::Update()
 		if (nearNpc) {
 			if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN||app->input->GetControllerButton(BUTTON_A)==KEY_DOWN)
 			{
+				speak = true;
+
 				int num = rand() % (4);
 				
 				if (!speaking) {

@@ -48,6 +48,9 @@ public:
 
 	bool questActive = false;
 
+	bool speak = false;
+
+
 protected:
 	Text* text = nullptr;
 

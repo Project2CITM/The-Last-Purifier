@@ -34,7 +34,7 @@
 	</fonts>
 	<quest>
 		<english>
-			<quest1 Num="3" active="false">
+			<quest1 Num="2" active="true">
 				<default>
 					<Sentence1>
 						Antes de irte, podrías traerme un diente del guardián del sello.
@@ -52,6 +52,54 @@
 					</Sentence2>
 				</done>
 			</quest1>
+		<quest2 Num="1" active="true">
+				<default>
+					<Sentence1>
+						Habla con el purificador de la puerta del castillo.
+					</Sentence1>
+				</default>
+				<done>
+					<Sentence1>
+						Gracias, toma estas almas a cambio.
+					</Sentence1>
+				</done>
+			</quest2>
+		<quest3 Num="1" active="true">
+				<default>
+					<Sentence1>
+						Habla con el purificador del cementerio.
+					</Sentence1>
+				</default>
+				<done>
+					<Sentence1>
+						Gracias, toma estas almas a cambio.
+					</Sentence1>
+				</done>
+			</quest3>
+			<quest4 Num="1" active="true">
+				<default>
+					<Sentence1>
+						Habla con el purificador de la puerta del infierno.
+					</Sentence1>
+				</default>
+				<done>
+					<Sentence1>
+						Gracias, toma estas almas a cambio.
+					</Sentence1>
+				</done>
+			</quest4>
+		<quest5 Num="1" active="true">
+				<default>
+					<Sentence1>
+						Mata 45 enemigos en la misma run
+					</Sentence1>
+				</default>
+				<done>
+					<Sentence1>
+						Gracias, toma estas almas a cambio.
+					</Sentence1>
+				</done>
+			</quest5>
 		</english>
 	</quest>
 	<dialogText>

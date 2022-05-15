@@ -8,7 +8,6 @@
 #include "ModulePhysics.h"
 #include "SceneSwitch.h"
 #include "ModuleScene.h"
-#include "NPC.h"
 #include "IntLabel.h"
 #include "PlayerCombat.h"
 #include "ModuleEvents.h"
@@ -113,18 +112,26 @@ bool HubScene::Start()
 	
 	InitScene();
 	//NPC creators
-	NPC* npc1 = new NPC("purifier10", {1228,1717});//Interior castillo o perdido por ah�
+	npc1 = new NPC("purifier10", {1228,1717});//Interior castillo o perdido por ah�
 	npc1->Start();
 
-	NPC* npc2 = new NPC("purifier9", {478,1470});//Cementerio
+	npc2 = new NPC("purifier9", {478,1470});//Cementerio
 	npc2->Start();
 
-	NPC* npc3 = new NPC("purifier8", {1228,493});//Puerta Start Run
+	npc3 = new NPC("purifier8", {1228,493});//Puerta Start Run
 	npc3->Start();
 
-	NPC* npc4 = new NPC("purifier6", {928,1867});//Puerta Castillo
+	npc4 = new NPC("purifier6", {928,1867});//Puerta Castillo
 	npc4->Start();
 
+	quest2 = new Quest("quest2", { 940,1900 });
+	quest2->Start();
+	quest3 = new Quest("quest3", { 940,1900 });
+	quest3->Start();
+	quest4 = new Quest("quest4", { 940,1900 });
+	quest4->Start();
+	quest5 = new Quest("quest5", { 940,1900 });
+	quest5->Start();
 	std::string sentenceInput;
 	if (app->input->usingGameController) sentenceInput = "<Press A>";
 	else sentenceInput = "<Press Enter>";
@@ -206,7 +213,7 @@ bool HubScene::Update()
 {
 	//Updates
 	hudInGame->Update();
-
+	
 	int x = player->controller->GetPosition().x;
 	int y = player->controller->GetPosition().y;
 	//LOG("x:%d \n y:%d", x, y);
@@ -216,6 +223,22 @@ bool HubScene::Update()
 	//MiniMap resize
 	miniMap->SetScale((app->input->GetKey(SDL_SCANCODE_TAB) == KEY_REPEAT) ? 2 : 1);
 
+	//Quest
+	if (npc4->speak == true && !done1) {
+		quest2->active = false;
+		quest2->Start();
+		done1 = true;
+	}
+	if (npc1->speak == true && !done2) {
+		quest3->active = false;
+		quest3->Start();
+		done2 = true;
+	}
+	if (npc2->speak == true && !done3) {
+		quest4->active = false;
+		quest4->Start();
+		done3 = true;
+	}
 	Scene::Update();
 	return true;
 }
