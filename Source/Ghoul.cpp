@@ -327,6 +327,16 @@ void Ghoul::DoRun()
 {
 	OPTICK_EVENT();
 
+	fPoint fDir = { (float)(playerController->GetPosition().x - position.x), (float)(playerController->GetPosition().y - position.y) };
+
+	fDir = fDir.Normalize();
+
+	lastDir = fDir;
+
+	SetLinearVelocity(b2Vec2{ (float)(fDir.x * moveSpeed),(float)(fDir.y * moveSpeed) });
+
+	return;
+
 	if (currentRoom != nullptr && enable)
 	{
 		if (pathFindongCoolDown > 0)

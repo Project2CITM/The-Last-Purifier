@@ -39,9 +39,9 @@ void Trigger::Update()
 
 	if (app->scene->isChangingScene) return;
 
-	if (parent == nullptr|| !parent->enable) return;
-
 	if (pendingToDelete) return;
+
+	if (parent == nullptr|| !parent->enable) return;
 
 	if (parent->pendingToDelete)
 	{
@@ -103,6 +103,8 @@ void Trigger::OnCollisionExit(PhysBody* col)
 
 void Trigger::Destroy()
 {
+	pendingToDelete = true;
+
 	parent = nullptr;
 
 	pendingToDelete = true;
