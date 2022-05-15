@@ -3,6 +3,7 @@
 #include "ModuleScene.h"
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
+#include "ModuleAudio.h"
 
 WinScene::WinScene() : Scene("WinScene")
 {
@@ -47,6 +48,8 @@ bool WinScene::Start()
     text = new Text({ 355,220 }, "");
     text2 = new Text({ 405,220 }, "");
     text5 = new Text({ 180,220 }, "");
+
+    app->audio->PlayMusic("Audio/Music/Win-Lose/winThemee.ogg", 2.0f, false);
 
 	return true;
 }

@@ -323,8 +323,8 @@
 		</english>
 	</dialogText>
 	<audios>
-		<music volume="0" />
-		<sfx volume="0" />
+		<music volume="198" />
+		<sfx volume="209" />
 	</audios>
 	<scenes>
 		<level1>

@@ -161,7 +161,7 @@ bool ModuleAudio::PlayMusic(const char* path, float fade_time, bool fromPhysFs)
 }
 
 // Load WAV
-unsigned int ModuleAudio::LoadFx(const char* path)
+unsigned int ModuleAudio::LoadFx(const char* path, bool physFx)
 {
 	if(IsEnabled() == false)
 		return 0;
@@ -173,9 +173,18 @@ unsigned int ModuleAudio::LoadFx(const char* path)
 	}
 
 	uint ret = 0;
-	//Mix_Chunk* chunk = Mix_LoadWAV(path);
-	Mix_Chunk* chunk = app->assetManager->LoadPhysfsFx(path);
-	
+
+	Mix_Chunk* chunk;
+
+	if (physFx == false)
+	{
+		chunk = Mix_LoadWAV(path);
+	}
+	else
+	{
+		chunk = app->assetManager->LoadPhysfsFx(path);
+	}
+
 	if(chunk == NULL)
 	{
 		LOG("Cannot load wav %s. Mix_GetError(): %s", path, Mix_GetError());
