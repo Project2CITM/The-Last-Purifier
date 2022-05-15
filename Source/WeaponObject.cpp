@@ -61,7 +61,7 @@ void WeaponObject::SetRenderObjectFromWeaponInfo()
 {
 	if (weaponInfo.weaponClass == PlayerClass::REVENANT)
 	{
-		renderObjects[0].InitAsTexture(app->textures->Load("Assets/Sprites/Armas/revenantWeapons76x300.png"), position, { 0,0,0,0 }, 0.25f, 2, 1.0f);
+		renderObjects[0].InitAsTexture(app->textures->Load("Sprites/Armas/revenantWeapons76x300.png", false, false), position, { 0,0,0,0 }, 0.25f, 2, 1.0f);
 		switch (weaponInfo.revenantWeaponID)
 		{
 		case RevenantWeaponIDs::SWORD:
@@ -76,7 +76,7 @@ void WeaponObject::SetRenderObjectFromWeaponInfo()
 	}
 	else
 	{
-		renderObjects[0].InitAsTexture(app->textures->Load("Assets/Sprites/Armas/sageWeapons.png"), position, { 0,0,0,0 }, 0.1f, 2, 1.0f);
+		renderObjects[0].InitAsTexture(app->textures->Load("Sprites/Armas/sageWeapons.png", false, false), position, { 0,0,0,0 }, 0.1f, 2, 1.0f);
 		switch (weaponInfo.sageWeaponID)
 		{
 		case SageWeaponIDs::STAFF:

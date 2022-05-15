@@ -2,6 +2,7 @@
 #include "Ghoul.h"
 #include "Kaboom.h"
 #include "Worm.h"
+#include "Column.h"
 
 void MapLoader::ExtractMapInfo(Room* r)
 {
@@ -171,7 +172,10 @@ void MapLoader::CreateEnemies(Room* r)
 			}
 			else if (gid == 2564) 
 			{
-				//TODO: spawn column
+				Enemy* e = new Column(iPoint(r->roomPosition.x * MAX_ROOM_TILES_COLUMNS * TILE_SIZE + j * TILE_SIZE + TILE_SIZE / 2,
+					r->roomPosition.y * MAX_ROOM_TILES_ROWS * TILE_SIZE + i * TILE_SIZE + TILE_SIZE / 2));
+				r->enemies.add(e);
+				e->enable = false;
 			}
 			else if (gid == 2565)
 			{
