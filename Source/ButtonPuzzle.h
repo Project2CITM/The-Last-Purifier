@@ -17,6 +17,8 @@ public:
 
 	void CleanUp();
 
+	void SpawnWeaponObject();
+
 private:
 
 	bool CheckResult();

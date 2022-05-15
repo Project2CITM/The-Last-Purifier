@@ -29,7 +29,7 @@ WeaponObject::WeaponObject(iPoint pos, WeaponInfo info) : GameObject("WeaponObje
 
 WeaponObject::~WeaponObject()
 {
-	RELEASE(weaponText);
+	//RELEASE(weaponText);
 }
 
 void WeaponObject::PreUpdate()
