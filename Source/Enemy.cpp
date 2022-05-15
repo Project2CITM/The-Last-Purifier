@@ -79,7 +79,6 @@ void Enemy::Die(bool spawnPower, bool spawnSoul)
 	Application::GetInstance()->events->RemoveListener(this);
  	if (sceneGettingDeleted) return;
 
-
 	if (spawnManager != nullptr)
 	{
 		if (!spawnManager->IsDeleted() && spawnPower)

@@ -65,7 +65,7 @@ bool TestScene::Start()
 
     app->renderer->camera->SetTarget(player->controller);
 
-    new Ghoul((player->controller->GetPosition() + iPoint{ 20, 20 }), roomManager.rooms[0]);
+    //new Ghoul((player->controller->GetPosition() + iPoint{ 20, 20 }), roomManager.rooms[0]);
 
     //spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-40, 0));
     //spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-80, 0));
