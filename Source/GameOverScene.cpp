@@ -4,6 +4,7 @@
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "HUDInGame.h"
+#include "ModuleAudio.h"
 
 GameOverScene::GameOverScene() : Scene("GameOverScene")
 {
@@ -48,6 +49,7 @@ bool GameOverScene::Start()
     text2 = new Text({ 310,220 }, "");
     text5 = new Text({ 200,220 }, "");
     
+    app->audio->PlayMusic("Audio/Music/Win-Lose/loseThemee.ogg", 2.0f, false);
 
     return true;
 }

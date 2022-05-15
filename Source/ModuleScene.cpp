@@ -21,7 +21,7 @@ ModuleScene::ModuleScene(bool start_enabled) : Module(start_enabled)
 	scenes[GAME_OVER] = new GameOverScene();
 	scenes[WIN] = new WinScene();
 
-	currentScene = HUB;
+	currentScene = WIN;
 }
 
 ModuleScene::~ModuleScene()
