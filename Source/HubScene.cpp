@@ -190,7 +190,7 @@ bool HubScene::PreUpdate()
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || app->input->GetControllerButton(BUTTON_START) == KEY_DOWN) app->TogglePause(!app->isPause);
 	if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN) app->map->roof = !app->map->roof;
 
-	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+	/*if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
 		iPoint aux = player->controller->GetPosition();
 		std::cout << "{ " << aux.x << ", " << aux.y << " }" << std::endl;
@@ -198,7 +198,7 @@ bool HubScene::PreUpdate()
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 	{
 		player->controller->SetPosition({ 926, 1579 });
-	}
+	}*/
 	//PreUpdates
 	hudInGame->PreUpdate();
 
