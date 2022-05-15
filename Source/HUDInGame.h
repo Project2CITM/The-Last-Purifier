@@ -74,7 +74,7 @@ private:
 
 	//Player player;
 	PlayerHpGUI playerHp;
-	SDL_Rect miniMap = {0,0,0,0};
+	//SDL_Rect miniMap = {0,0,0,0};
 
 	List<RenderObject> spellSlots;
 	List<RenderObject> deckSlots;

@@ -68,7 +68,7 @@ bool HUDInGame::Start()
 	text = new Text({app->renderer->camera->x + 30, app->renderer->camera->y + 28 }, std::to_string(score));
 
 	playerHp.bg = playerHp.delayHp = playerHp.currentHp = { app->renderer->camera->x + 15, app->renderer->camera->y + 10, 200, 10 };
-	miniMap = { app->renderer->camera->x + 535, app->renderer->camera->y + 5, 100, 100 };
+	//miniMap = { app->renderer->camera->x + 535, app->renderer->camera->y + 5, 100, 100 };
 
 	resumeBUT = { app->renderer->camera->x + 155, app->renderer->camera->y + 70};//640 pixeles with pantalla
 	settingsBUT = { app->renderer->camera->x + 155, app->renderer->camera->y + 160};
@@ -374,7 +374,7 @@ bool HUDInGame::PostUpdate()
 	app->renderer->AddRectRenderQueue(playerHp.delayHp, playerHp.hpDelayColor, true, 4, 2.5f, 0.0f);
 	app->renderer->AddRectRenderQueue(playerHp.currentHp, playerHp.hpColor, true, 4, 3.0f, 0.0f);
 
-	app->renderer->AddRectRenderQueue(miniMap, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
+	//app->renderer->AddRectRenderQueue(miniMap, { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
 
 	// Draw an empty rectangle for every abailable spell slot space
 	for (int i = 0; i < player->player->spellSlots; i++)
