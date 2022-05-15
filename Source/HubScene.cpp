@@ -138,7 +138,7 @@ bool HubScene::Start()
 	IntLabel* int_lbl_Gate = new IntLabel("DOOM'S GATE", "Lbl_Doom", { 1271, 211 }, { 295 , 20 }, 200);
 
 	//Music
-	app->audio->PlayMusic("Audio/Music/HubMusic.ogg");
+	app->audio->PlayMusic("Audio/Music/HubMusic.ogg", 2.0f, false);
 
 	//PlayerClassChanger
 	PlayerChangeClass->setOutside();

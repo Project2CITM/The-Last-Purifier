@@ -74,7 +74,7 @@ bool TestScene::Start()
 
     new ButtonObject(player->controller->GetPosition() + iPoint(0, 60), 2);
 
-    app->audio->PlayMusic("Audio/Ambience/amb_dungeon1_2.ogg");
+    app->audio->PlayMusic("Audio/Ambience/amb_dungeon1_2.ogg", 2.0f, false);
 
     return true;
 }

@@ -24,7 +24,7 @@ public:
 
 	//SDL_Texture* Load(std::string path);
 
-	SDL_Texture* Load(std::string path, bool isName = false);
+	SDL_Texture* Load(std::string path, bool isName = false, bool fromPhysFs = true);
 
 	void Unload(SDL_Texture* texture);
 
