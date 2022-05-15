@@ -1,0 +1,61 @@
+
+<data>
+  <Sprites>
+    <UI
+      backGround = "Sprites/UI/background.png"
+      options = "Sprites/UI/Options.png"
+      credtis1 = "Sprites/UI/CredtisCre.png"
+      credtis2 = "Sprites/UI/CreditsProba.png"
+      playBUT = "Sprites/UI/PlayBUT.png"
+      optionsBUT = "Sprites/UI/OptionBUT.png"
+      credtisBUT = "Sprites/UI/CredtisBUT.png"
+      exitBUT = "Sprites/UI/QuitBUT.png"
+      linkBUT = "Sprites/UI/linkBUT.png"
+      closeOptBUT = "Sprites/UI/Back.png"
+      musicSlider = "Sprites/UI/Slider1.png"
+      musicBUT = "Sprites/UI/fireSlider.png"
+      fxSlider = "Sprites/UI/Slider1.png"
+      fxBUT = "Sprites/UI/fireSlider.png"
+      credtisCre = "Sprites/UI/Credtis1.png"
+      credtisAud = "Sprites/UI/Credtis2.png"
+      credtisArt = "Sprites/UI/Credtis3.png"
+      credtisOtr = "Sprites/UI/Credtis4.png"
+      fullScreenCHK = "Sprites/UI/CheckBox.png"
+      closeCrdBUT = "Sprites/UI/Back.png"
+      >
+    </UI>
+    <HUD
+      pauseBG = "Sprites/UI/PauseBG.png"
+      fondoSett = "Sprites/UI/FondoSettings.png"
+      controls1 = "Sprites/UI/Controls1_2.png"
+      controls2 = "Sprites/UI/Controls2_2.png"
+      iconSouls = "Sprites/Soul/soul.png"
+      resumeBUT = "Sprites/UI/Resume.png"
+      settingsBUT = "Sprites/UI/Settings.png"
+      controlsBUT = "Sprites/UI/Controls.png"
+      saveBUT = "Sprites/UI/Save.png"
+      loadBUT = "Sprites/UI/Load.png"
+      giveUpBUT = "Sprites/UI/giveUp.png"
+      quitBUT = "Sprites/UI/Quit.png"
+      closeControlsBUT = "Sprites/UI/Back.png"
+      closeSettingsBUT = "Sprites/UI/Back.png"
+      musicBUT = "Sprites/UI/fireSlider.png"
+      musicSlider = "Sprites/UI/Slider1.png"
+      fxBUT = "Sprites/UI/fireSlider.png"
+      fxSlider = "Sprites/UI/Slider1.png"
+      fullScreenCHK = "Sprites/UI/CheckBoxs.png"
+      iconsSpell = "Sprites/UI/icons.png"
+      iconsDeck = "Sprites/UI/icons.png"
+      >
+    </HUD>
+    <TreeDebug
+      tree_Debug = "Sprites/UI/Trees/Tree_Debug_Btn.png"
+      >
+    </TreeDebug>
+    <Logo
+      Team_Logo = "Sprites/UI/Team_Logo.png"
+      Game_Logo = "Sprites/UI/logoGame.png"
+      >
+    </Logo>
+  </Sprites>
+</data>

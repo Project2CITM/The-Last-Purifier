@@ -37,5 +37,7 @@ private:
 	int currentResetMS = 0;
 
 	bool isResetting;
+
+	uint buttonpressSFX;
 };
 

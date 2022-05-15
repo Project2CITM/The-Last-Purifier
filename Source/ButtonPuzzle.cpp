@@ -62,8 +62,7 @@ void ButtonPuzzle::PreUpdate()
 
 	if (CheckResult())
 	{
-		//Puzzle completed
-		// Notify roomManager this room is completed (kill enemies?)
+		room->ClearEnemies();
 	}
 	else
 	{

@@ -68,7 +68,7 @@ void Instructor::Update()
 {
 	if (canSpeak && nearNpc)
 	{
-		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || 
+		if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN || 
 			app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)
 		{
 			toggle = !toggle;

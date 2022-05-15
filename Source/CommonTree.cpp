@@ -82,8 +82,8 @@ bool CommonTree::LoadDictionary()
 
 	while (bNode != NULL)
 	{
-		upgradesDic.insert({ (CommonUpgrades) bNode.attribute("id").as_int(), (float) bNode.attribute("value").as_int() });
-		unlockedDic.insert({ (CommonUpgrades)bNode.attribute("id").as_int(), 0 });
+		upgradesDic.insert({ ResolveType(bNode.name()), (float) bNode.attribute("value").as_int() });
+		unlockedDic.insert({ ResolveType(bNode.name()), 0});
 		bNode = bNode.next_sibling();
 	}
 
@@ -98,9 +98,10 @@ bool CommonTree::LoadBaseTree()
 	{
 		treeList->add(new TreeElement(
 			bNode.attribute("id").as_int(),
-			(CommonUpgrades)bNode.attribute("type").as_int(),
+			ResolveType(bNode.attribute("type").as_string()),
 			bNode.child("requires").attribute("id1").as_int(),
 			bNode.child("requires").attribute("id2").as_int(),
+			{ bNode.child("position").attribute("x").as_int(), bNode.child("position").attribute("y").as_int()},
 			bNode.child("unlocked").attribute("value").as_float()
 		));
 
@@ -148,7 +149,7 @@ void CommonTree::GameEventTriggered(GameEvent id)
 	SaveLoadTree();
 }
 
-bool CommonTree::Upgrade(int id)
+bool CommonTree::Upgrade(int* points, int id)
 {
 	TreeElement* element = getElement(id);
 	int req1 = element->requiresID1;
@@ -172,7 +173,16 @@ bool CommonTree::Upgrade(int id)
 		}
 	}
 
+	if (*points < element->cost)
+	{
+		toReturn = false;
+	}
+	
 	element->unlocked = toReturn;
+	if (toReturn)
+	{ //Money out
+		*points -= element->cost;
+	}
 
 	//Increases the bonus attribute of an upgrade
 	IncreaseValue((CommonUpgrades) element->type);
@@ -231,4 +241,27 @@ bool CommonTree::CheckUpgrades()
 void CommonTree::IncreaseValue(CommonUpgrades id)
 {
 	unlockedDic.at(id) += upgradesDic.at(id);
+}
+
+CommonUpgrades CommonTree::ResolveType(std::string input)
+{
+	std::map<std::string, CommonUpgrades> eleStrings{
+		{"none", CommonUpgrades::NONE},
+		{"skill_slot", CommonUpgrades::SKILL_SLOT},
+		{"deck", CommonUpgrades::DECK},
+		{"soul_gain", CommonUpgrades::SOUL_GAIN},
+		{"health", CommonUpgrades::HEALTH},
+		{"armour", CommonUpgrades::ARMOUR},
+		{"luck", CommonUpgrades::LUCK},
+		{"damage", CommonUpgrades::DAMAGE},
+		{"attack_speed", CommonUpgrades::ATTACK_SPEED}
+	};
+
+	auto itr = eleStrings.find(input);
+	if (itr != eleStrings.end())
+	{
+		return itr->second;
+	}
+
+	return CommonUpgrades::NONE;
 }
