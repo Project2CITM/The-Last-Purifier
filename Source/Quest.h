@@ -8,6 +8,9 @@
 #include "Text.h"
 #include "ModuleAudio.h"
 #include "ModuleMap.h"
+#include "ModuleScene.h"
+#include "SceneGame.h"
+#include "Player.h"
 
 class Text;
 class Trigger;
@@ -72,6 +75,7 @@ private:
 	pugi::xml_node npcNode;
 	pugi::xml_node defaultNode;
 	pugi::xml_node doneNode;
+	SceneGame* scene = nullptr;
 public:
 
 	bool speak = false;
