@@ -11,11 +11,11 @@ MiniMap::~MiniMap()
 
 void MiniMap::Init(bool isHub, List<Room*>* room)
 {
-	this->icon = app->textures->Load("Sprites/Minimap/miniMapIcon.png", false, false);
+	this->icon = app->textures->Load("Sprites/Minimap/miniMapIcon.png");
 	
 	if (isHub) {
 		this->isHub = true;
-		this->textureHub = app->textures->Load("Sprites/Minimap/Hub.png", false, false);
+		this->textureHub = app->textures->Load("Sprites/Minimap/Hub.png");
 	}
 	else {
 		this->isHub = false;
