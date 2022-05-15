@@ -13,6 +13,7 @@
 #include "PlayerCombat.h"
 #include "ModuleEvents.h"
 #include "ModuleAudio.h"
+#include "Minimap.h"
 
 HubScene::HubScene() : SceneGame("HubScene")
 {
@@ -66,6 +67,7 @@ bool HubScene::InitScene()
 		}
 		g->adjustToGrid = true;
 	}
+
 	return true;
 }
 
@@ -138,13 +140,16 @@ bool HubScene::Start()
 	IntLabel* int_lbl_Gate = new IntLabel("DOOM'S GATE", "Lbl_Doom", { 1271, 211 }, { 295 , 20 }, 200);
 
 	//Music
-	app->audio->PlayMusic("Audio/Music/HubMusic.ogg");
+	app->audio->PlayMusic("Audio/Music/HubMusic.ogg", 2.0f, false);
 
 	//PlayerClassChanger
 	PlayerChangeClass->setOutside();
 
 	PlayerChangeClassBeforeRun->setInside();
 
+	//MiniMap
+	miniMap = new MiniMap();
+	miniMap->Init(true);
 
 	return true;
 }
@@ -163,6 +168,8 @@ bool HubScene::CleanUp()
 		RELEASE(hudInGame);
 	}
 	
+	RELEASE(miniMap);
+
 	revenantTree->ReleaseInstance();
 	
 	Scene::CleanUp();
@@ -206,6 +213,9 @@ bool HubScene::Update()
 
 	revenantTree->Update();
 
+	//MiniMap resize
+	miniMap->SetScale((app->input->GetKey(SDL_SCANCODE_TAB) == KEY_REPEAT) ? 2 : 1);
+
 	Scene::Update();
 	return true;
 }
@@ -216,6 +226,8 @@ bool HubScene::PostUpdate()
 	hudInGame->PostUpdate();
 
 	revenantTree->PostUpdate();
+
+	miniMap->MiniMapPrint(iPoint(485, -95), player->controller->GetPosition());
 
 	Scene::PostUpdate();
 	return true;

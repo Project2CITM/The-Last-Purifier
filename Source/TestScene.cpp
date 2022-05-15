@@ -17,7 +17,8 @@
 #include "ParticleAttackRevenant.h"
 #include "PlayerStats.h"
 #include "Souls.h"
-#include "ButtonObject.h"
+#include "ButtonPuzzle.h"
+#include "WeaponObject.h"
 
 #include "External/Optick/include/optick.h"
 
@@ -65,16 +66,27 @@ bool TestScene::Start()
 
     app->renderer->camera->SetTarget(player->controller);
 
-    new Ghoul((player->controller->GetPosition() + iPoint{ 20, 20 }), roomManager.rooms[0]);
+    WeaponInfo info;
+    info.weaponClass = PlayerClass::SAGE;
+    info.sageWeaponID = SageWeaponIDs::BOOK;
+
+    new WeaponObject(player->controller->GetPosition() + iPoint(40, 0), info);
+
+    //new Ghoul((player->controller->GetPosition() + iPoint{ 20, 20 }), roomManager.rooms[0]);
 
     //spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-40, 0));
     //spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-80, 0));
     //spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-60, 0));
     //spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-20, 0));
 
-    new ButtonObject(player->controller->GetPosition() + iPoint(0, 60), 2);
-
-    app->audio->PlayMusic("Audio/Ambience/amb_dungeon1_2.ogg");
+    for (int i = 0; i < roomManager.rooms.count(); i++)
+    {
+        if (roomManager.rooms[i]->id == -6)
+        {
+            new ButtonPuzzle(roomManager.rooms[i]);
+        }
+    }
+    app->audio->PlayMusic("Audio/Ambience/amb_dungeon1_2.ogg", 2.0f, false);
 
     return true;
 }

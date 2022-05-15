@@ -26,6 +26,8 @@
 		<basicwithpurifiedsword width="64" height="64" layer="1" orderInLayer="3.0" scale="0.8" path="Assets/Sprites/Player/Revenant/basicWithPurifiedSword.png" />
 		<purificationslashrevenant width="64" height="128" layer="1" orderInLayer="3.0" scale="1" path="Assets/Sprites/Player/Revenant/purificationSlashRevenant.png" />
 		<purificationslashwithpurifiedsword width="64" height="128" layer="1" orderInLayer="3.0" scale="1" path="Assets/Sprites/Player/Revenant/purificationSlashWithPurifiedSword.png" />
+		<lanceattackrevenant width="256" height="60" layer="1" orderInLayer="3.0" scale="0.4" path="Assets/Sprites/Player/Revenant/lanceAttackRevenant.png" />
+		<lanceattackrevenantwithpurifiedsword width="256" height="60" layer="1" orderInLayer="3.0" scale="0.4" path="Assets/Sprites/Player/Revenant/lanceAttackRevenantWithPurifiedSword.png" />
 	</textures>
 	<fonts>
 		<defaultFont width="48" height="48" letter="67" r="255" g="255" b="255" a="255" spaceInLetter="-13" layer="3" orderInLayer="3.0" scale="0.2" path="Assets/Fonts/defaultFont.png" />

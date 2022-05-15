@@ -111,6 +111,7 @@ void PlayerController::PreUpdate()
 
 void PlayerController::Update()
 {
+	printf("x: %d y: %d\n", GetPosition().x, GetPosition().y);
 	if (pendingToDelete) return;
 	// Update State Machine
 	stateMachine.Update();
