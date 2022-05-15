@@ -8,6 +8,18 @@ ButtonPuzzle::ButtonPuzzle(Room* room) : GameObject("ButtonPuzzle", "ButtonPuzzl
 
 	for (int i = 0; i < 3; i++)
 	{
+		buttonPositions[i] = { (MAX_ROOM_TILES_COLUMNS * TILE_SIZE) * room->roomPosition.x,
+							  (MAX_ROOM_TILES_ROWS * TILE_SIZE) * room->roomPosition.y };
+	}
+
+	buttonPositions[0] += iPoint(400, 200);
+
+	buttonPositions[1] += iPoint(1200, 400);
+
+	buttonPositions[2] += iPoint(800, 300);
+
+	for (int i = 0; i < 3; i++)
+	{
 		// Create button
 		buttons[i] = new ButtonObject(buttonPositions[i], i);
 		
@@ -30,7 +42,7 @@ void ButtonPuzzle::PreUpdate()
 	int counter = 0;
 	for (int i = 0; i < 3; i++)
 	{
-		if (buttons[i]->isPressed) 
+		if (buttons[i]->isPressed && !buttons[i]->revised) 
 		{ 
 			for (int j = 0; j < 3; j++)
 			{
@@ -41,6 +53,7 @@ void ButtonPuzzle::PreUpdate()
 				}
 			}
 			counter++;
+			buttons[i]->revised = true;
 		}
 	}
 
@@ -50,7 +63,7 @@ void ButtonPuzzle::PreUpdate()
 	if (CheckResult())
 	{
 		//Puzzle completed
-		// Notify roomManager this room is completed
+		// Notify roomManager this room is completed (kill enemies?)
 	}
 	else
 	{

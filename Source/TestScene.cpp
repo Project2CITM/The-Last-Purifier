@@ -17,7 +17,7 @@
 #include "ParticleAttackRevenant.h"
 #include "PlayerStats.h"
 #include "Souls.h"
-#include "ButtonObject.h"
+#include "ButtonPuzzle.h"
 
 #include "External/Optick/include/optick.h"
 
@@ -72,8 +72,13 @@ bool TestScene::Start()
     //spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-60, 0));
     //spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-20, 0));
 
-    new ButtonObject(player->controller->GetPosition() + iPoint(0, 60), 2);
-
+    for (int i = 0; i < roomManager.rooms.count(); i++)
+    {
+        if (roomManager.rooms[i]->id == -6)
+        {
+            new ButtonPuzzle(roomManager.rooms[i]);
+        }
+    }
     app->audio->PlayMusic("Audio/Ambience/amb_dungeon1_2.ogg", 2.0f, false);
 
     return true;

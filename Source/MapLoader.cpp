@@ -125,7 +125,7 @@ void MapLoader::CreateEnemies(Room* r)
 			
 			if(gid == 2562)
 			{
-				int rand = std::rand() % 8;
+				/*int rand = std::rand() % 8;
 				Enemy* g1 = nullptr;
 
 				switch (rand)
@@ -158,7 +158,7 @@ void MapLoader::CreateEnemies(Room* r)
 				case 7:
 					
 					break;
-				}
+				}*/
 				
 			}
 			else if (gid == 2561) 
@@ -177,7 +177,7 @@ void MapLoader::CreateEnemies(Room* r)
 			{
 				//TODO: spawn mini boss
 			}
-			else if (gid == 2565)
+			else if (gid == 2566)
 			{
 				//TODO: spawn button
 			}

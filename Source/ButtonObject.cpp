@@ -1,6 +1,7 @@
 #include "ButtonObject.h"
 #include "ModulePhysics.h"
 #include "ModuleTextures.h"
+#include "Timer.h"
 
 ButtonObject::ButtonObject(iPoint position, int color) : GameObject("ButtonObject", "ButtonObject")
 {
@@ -20,10 +21,22 @@ ButtonObject::ButtonObject(iPoint position, int color) : GameObject("ButtonObjec
 	filter.categoryBits = app->physics->TRIGGER_LAYER;
 	filter.maskBits = app->physics->EVERY_LAYER & ~app->physics->ENEMY_LAYER & ~app->physics->TRIGGER_LAYER;
 	pBody->body->GetFixtureList()->SetFilterData(filter);
+
+	buttonTimer = new Timer();
 }
 
 void ButtonObject::PreUpdate()
 {
+	buttonTimer->Update();
+
+	if (isResetting)
+	{
+		currentResetMS -= buttonTimer->getDeltaTime() * 1000;
+
+		if (currentResetMS <= 0) isResetting = false;
+	}
+
+	buttonTimer->Reset();
 }
 
 void ButtonObject::PostUpdate()
@@ -35,13 +48,14 @@ void ButtonObject::PostUpdate()
 
 void ButtonObject::CleanUp()
 {
+	RELEASE(buttonTimer);
 }
 
 void ButtonObject::OnCollisionEnter(PhysBody* col)
 {
 	if (col->gameObject == nullptr) return;
 
-	if (col->gameObject->name == "Player")
+	if (col->gameObject->name == "Player" && !isResetting)
 	{
 		PressButton();
 	}
@@ -54,5 +68,11 @@ void ButtonObject::PressButton()
 
 void ButtonObject::ResetButton()
 {
+	isResetting = true;
+
+	currentResetMS = resetingMS;
+
 	isPressed = false;
+
+	revised = false;
 }

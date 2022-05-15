@@ -1,5 +1,8 @@
 #pragma once
 #include "GameObject.h"
+
+class Timer;
+
 class ButtonObject : public GameObject
 {
 public:
@@ -19,6 +22,7 @@ public:
 
 	bool isPressed = false;
 
+	bool revised = false;
 
 private:
 	
@@ -26,5 +30,12 @@ private:
 
 	SDL_Rect buttonSectionsUp[3] = { {0,0,152,120},{152,0,152,120},{304,0,152,120} };
 	SDL_Rect buttonSectionsDown[3] = { {0,120,152,120},{152,120,152,120}, {304,120,152,120} };
+
+	Timer* buttonTimer = nullptr;
+
+	int resetingMS = 200;
+	int currentResetMS = 0;
+
+	bool isResetting;
 };
 
