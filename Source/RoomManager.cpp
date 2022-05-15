@@ -60,23 +60,25 @@ void RoomManager::PreUpdate(iPoint playerPos)
 
 void RoomManager::Update(iPoint playerPos)
 {
-#pragma region //ERASE THIS
-	if (app->input->GetKey(SDL_SCANCODE_U) == KEY_DOWN) {
-		mapSave->ClearSeed();
-		mapSave->ClearRoomStates();
-	}
-	if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN) {
-		mapSave->SaveRoomStates(&rooms);
-	}
-#pragma endregion
-	
-	
 	//MiniMap resize
 	miniMap->SetScale((app->input->GetKey(SDL_SCANCODE_TAB) == KEY_REPEAT) ? 2 : 1);
 	
 	//Check current room
 	Room* r = roomPositions[playerPos.x / (TILE_SIZE * MAX_ROOM_TILES_COLUMNS)][playerPos.y / (TILE_SIZE * MAX_ROOM_TILES_ROWS)];
 
+#pragma region //Debug Keys
+	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
+		mapSave->ClearSeed();
+		mapSave->ClearRoomStates();
+	}
+	if (app->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN) {
+		mapSave->SaveRoomStates(&rooms);
+	}
+	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
+		r->ClearEnemies();
+	}
+#pragma endregion
+	
 	//Player is not in any room
 	if (r == nullptr) return;
 

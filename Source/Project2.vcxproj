@@ -99,6 +99,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ClassTree.h" />
     <ClInclude Include="ClassTreeHud.h" />
+    <ClInclude Include="Column.h" />
     <ClInclude Include="CommonTree.h" />
     <ClInclude Include="DamageArea.h" />
     <ClInclude Include="EkriskiDamageArea.h" />
@@ -203,6 +204,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ClassTree.cpp" />
     <ClCompile Include="ClassTreeHud.cpp" />
+    <ClCompile Include="Column.cpp" />
     <ClCompile Include="CommonTree.cpp" />
     <ClCompile Include="DamageArea.cpp" />
     <ClCompile Include="EkriskiDamageArea.cpp" />
