@@ -1,6 +1,7 @@
 #include "ButtonObject.h"
 #include "ModulePhysics.h"
 #include "ModuleTextures.h"
+#include "ModuleAudio.h"
 #include "Timer.h"
 
 ButtonObject::ButtonObject(iPoint position, int color) : GameObject("ButtonObject", "ButtonObject")
@@ -23,6 +24,8 @@ ButtonObject::ButtonObject(iPoint position, int color) : GameObject("ButtonObjec
 	pBody->body->GetFixtureList()->SetFilterData(filter);
 
 	buttonTimer = new Timer();
+
+	buttonpressSFX = app->audio->LoadFx("Audio/SFX/Puzzle/buttonPressed.wav");
 }
 
 void ButtonObject::PreUpdate()
@@ -63,6 +66,8 @@ void ButtonObject::OnCollisionEnter(PhysBody* col)
 
 void ButtonObject::PressButton()
 {
+	app->audio->PlayFx(buttonpressSFX);
+
 	isPressed = true;
 }
 

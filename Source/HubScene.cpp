@@ -124,14 +124,14 @@ bool HubScene::Start()
 	npc4 = new NPC("purifier6", {928,1867});//Puerta Castillo
 	npc4->Start();
 
-	quest2 = new Quest("quest2", { 940,1900 });
+	quest2 = new Quest("quest2", { 1181,1314 });
 	quest2->Start();
-	quest3 = new Quest("quest3", { 940,1900 });
+	quest3 = new Quest("quest3", { 1205,2014 });
 	quest3->Start();
-	quest4 = new Quest("quest4", { 940,1900 });
+	quest4 = new Quest("quest4", { 191,1823 });
 	quest4->Start();
-	quest5 = new Quest("quest5", { 940,1900 });
-	quest5->Start();
+/*	quest5 = new Quest("quest5", {940,1900});
+	quest5->Start();*/
 	std::string sentenceInput;
 	if (app->input->usingGameController) sentenceInput = "<Press A>";
 	else sentenceInput = "<Press F>";
@@ -229,12 +229,12 @@ bool HubScene::Update()
 		quest2->Start();
 		done1 = true;
 	}
-	if (npc1->speak == true && !done2) {
+	if (npc2->speak == true && !done2) {
 		quest3->active = false;
 		quest3->Start();
 		done2 = true;
 	}
-	if (npc2->speak == true && !done3) {
+	if (npc3->speak == true && !done3) {
 		quest4->active = false;
 		quest4->Start();
 		done3 = true;

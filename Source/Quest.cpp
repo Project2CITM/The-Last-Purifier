@@ -1,5 +1,8 @@
 #include "Quest.h"
 
+
+
+
 Quest::Quest(std::string name, iPoint position):GameObject(name, "Quest")
 {
 	this->position = position;
@@ -17,7 +20,7 @@ Quest::Quest(std::string name, iPoint position):GameObject(name, "Quest")
 		idleAnim.PushBack({ 70 * i,0,70,95 });
 	}
 	idleAnim.loop = true;
-	idleAnim.duration = 0.0320;
+	idleAnim.duration = 0.320;
 	idleAnim.hasIdle = false;
 
 
@@ -43,6 +46,7 @@ void Quest::Start()
 
 	text = new Text(textPosition, " ");
 	text->ChangeDrawMode();
+	scene = (SceneGame*)Application::GetInstance()->scene->scenes[Application::GetInstance()->scene->currentScene];
 	
 	
 
@@ -50,7 +54,7 @@ void Quest::Start()
 		for (int i = 1; i <= sentenceNum; i++)
 		{
 			std::string temporalSentence = "Sentence" + std::to_string(i);
-
+			sentences.clear();
 			sentences.add(defaultNode.child(temporalSentence.c_str()).child_value());
 		}
 	}
@@ -58,6 +62,7 @@ void Quest::Start()
 		for (int i = 1; i <= sentenceNum; i++)
 		{
 			std::string temporalSentence = "Sentence" + std::to_string(i);
+			sentences.clear();
 
 			sentences.add(doneNode.child(temporalSentence.c_str()).child_value());
 		}
@@ -145,6 +150,7 @@ void Quest::OnTriggerExit(std::string trigger, PhysBody* col)
 
 		if (!active) {
 			pendingToDelete = true;
+			scene->player->AddSouls(150);
 		}
 	}
 }

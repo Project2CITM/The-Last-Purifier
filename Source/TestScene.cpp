@@ -19,6 +19,7 @@
 #include "Souls.h"
 #include "ButtonPuzzle.h"
 #include "WeaponObject.h"
+#include "Column.h"
 
 #include "External/Optick/include/optick.h"
 
@@ -65,12 +66,6 @@ bool TestScene::Start()
     app->renderer->camera->SetPosition(player->controller->GetPosition());
 
     app->renderer->camera->SetTarget(player->controller);
-
-    WeaponInfo info;
-    info.weaponClass = PlayerClass::SAGE;
-    info.sageWeaponID = SageWeaponIDs::BOOK;
-
-    new WeaponObject(player->controller->GetPosition() + iPoint(40, 0), info);
 
     //new Ghoul((player->controller->GetPosition() + iPoint{ 20, 20 }), roomManager.rooms[0]);
 

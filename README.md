@@ -27,4 +27,6 @@ Others:
 Debug Keys:
 - 	Show Hitbox		→	F1
 - 	God Mode		→	F10
-- 	Change Player (In HUB)	→	N
+- 	Clear Room Enemies	→	F4
+- 	Clear Current Dungeon (for next game)	→	F6
+- 	Save Current Dungeon	→	F7

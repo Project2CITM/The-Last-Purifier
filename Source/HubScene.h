@@ -52,6 +52,7 @@ public:
 	Quest* quest3 = nullptr;
 	Quest* quest4 = nullptr;
 	Quest* quest5 = nullptr;
+
 	NPC* npc1 = nullptr;
 	NPC* npc2 = nullptr;
 	NPC* npc3 = nullptr;
