@@ -5,6 +5,7 @@
 #include "Player.h"
 
 class PlayerCombat;
+class Text;
 
 struct WeaponInfo
 {
@@ -20,7 +21,7 @@ class WeaponObject :public GameObject
 {
 public:
 	WeaponObject(iPoint pos, WeaponInfo info);
-
+	~WeaponObject();
 	void PreUpdate() override;
 
 	void OnCollisionEnter(PhysBody* col) override;
@@ -34,5 +35,6 @@ private:
 private:
 	bool isPlayerIn = false;
 	PlayerCombat* playerCombat = nullptr;
+	Text* weaponText = nullptr;
 };
 
