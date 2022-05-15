@@ -347,6 +347,17 @@ bool HUDInGame::Update()
 				FullScreenCHK->ChangeState(false);
 			}
 
+			if ((VSyncCHK->isActive || (ControllerPosOpY == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)) && !app->vsync)
+			{
+				app->vsync = true;
+				VSyncCHK->ChangeState(true);
+			}
+			else if ((!VSyncCHK->isActive || (ControllerPosOpY == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)) && app->vsync)
+			{
+				app->vsync = false;
+				VSyncCHK->ChangeState(false);
+			}
+
 			app->audio->SetMusicVolume(MusicSlider->GetValue() * 255);
 			app->audio->SetSFXVolume(fxSlider->GetValue() * 255);
 		}

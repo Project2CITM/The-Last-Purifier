@@ -289,14 +289,11 @@ bool MainMenu::Update()
 
 		if ((VSyncCHK->isActive || (ControllerPosOpY == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)) && !app->vsync)
 		{
-			//Falta activar VSync aqui
 			app->vsync = true;
-
 			VSyncCHK->ChangeState(true);
 		}
 		else if ((!VSyncCHK->isActive || (ControllerPosOpY == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)) && app->vsync)
 		{
-			//Falta desactivar VSync aqui
 			app->vsync = false;
 			VSyncCHK->ChangeState(false);
 		}
