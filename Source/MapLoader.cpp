@@ -28,6 +28,15 @@ void MapLoader ::LoadMap(short id)
 		case -3:
 			filePath += "Start";
 			break;
+		case -4:
+			filePath += "Puzzle1";
+			break;
+		case -5:
+			filePath += "Puzzle2";
+			break;
+		case -6:
+			filePath += "Puzzle3";
+			break;
 		}
 	}
 	filePath += ".tmx";
@@ -162,11 +171,15 @@ void MapLoader::CreateEnemies(Room* r)
 			}
 			else if (gid == 2564) 
 			{
-				//TODO: spawn col
+				//TODO: spawn column
 			}
 			else if (gid == 2565)
 			{
 				//TODO: spawn mini boss
+			}
+			else if (gid == 2565)
+			{
+				//TODO: spawn button
 			}
 
 			tile = tile.next_sibling();

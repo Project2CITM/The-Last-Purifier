@@ -110,6 +110,7 @@ private:
 	GUISlider* fxSlider = nullptr;
 
 	GUICheckbox* FullScreenCHK = nullptr;
+	GUICheckbox* VSyncCHK = nullptr;
 
 	CurrentPauseMenu currentPauseMenu;
 
