@@ -3,7 +3,7 @@
 #include "PlayerController.h"
 #include "PlayerCombat.h"
 #include "Player.h"
-#include "ParticleAttackRevenant.h"
+#include "ParticleLanceAttackRevenant.h"
 
 RevenantSpear::RevenantSpear(PlayerController* playerController) : RevenantWeapon(playerController)
 {
@@ -21,7 +21,7 @@ RevenantSpear::RevenantSpear(PlayerController* playerController) : RevenantWeapo
 
 	filter.categoryBits = app->physics->PLAYER_LAYER;
 
-	damageArea = new DamageArea(this->playerController->GetPosition(), 35, 10, damage);
+	damageArea = new DamageArea(this->playerController->GetPosition(), 40, 10, damage);
 
 	damageArea->pBody->body->GetFixtureList()->SetFilterData(filter);
 
@@ -68,19 +68,19 @@ bool RevenantSpear::Attack(int chargedTime)
 	switch (playerController->lookingDir)
 	{
 	case LookingDirection::DOWN:
-		particleOffset = { -25, -30 };
+		particleOffset = { -52, -25 };
 		particleRotation = 90;
 		break;
 	case LookingDirection::UP:
-		particleOffset = { -25, -20 };
+		particleOffset = { -52, -12 };
 		particleRotation = 270;
 		break;
 	case LookingDirection::LEFT:
-		particleOffset = { -20, -25 };
+		particleOffset = { -40, -15 };
 		flip = SDL_FLIP_HORIZONTAL;
 		break;
 	case LookingDirection::RIGHT:
-		particleOffset = { -30, -25 };
+		particleOffset = { -47, -15 };
 		particleRotation = 0;
 		break;
 
@@ -88,11 +88,11 @@ bool RevenantSpear::Attack(int chargedTime)
 
 	if (currentAttackCounter == 2) flip = (SDL_RendererFlip)(flip | SDL_FLIP_VERTICAL);
 
-	new ParticleAttackRevenant(damageArea->GetPosition() + particleOffset, particleRotation, 0.15f, 0, playerController->player->purifiedSwordOn, flip);
+	new ParticleLanceAttackRevenant(damageArea->GetPosition() + particleOffset, particleRotation, 0.15f, 0, playerController->player->purifiedSwordOn, flip);
 	if (currentAttackCounter == 3)
 	{
 		flip = (SDL_RendererFlip)(SDL_FLIP_VERTICAL | SDL_FLIP_HORIZONTAL);
-		new ParticleAttackRevenant(damageArea->GetPosition() + particleOffset, particleRotation, 0.15f, 0, playerController->player->purifiedSwordOn, flip);
+		new ParticleLanceAttackRevenant(damageArea->GetPosition() + particleOffset, particleRotation, 0.15f, 0, playerController->player->purifiedSwordOn, flip);
 	}
 	return true;
 }
@@ -145,11 +145,11 @@ b2Vec2 RevenantSpear::GetAttackOffset(float* rotation)
 	switch (playerController->lookingDir)
 	{
 	case LookingDirection::DOWN:
-		attackOffset = { 0.5f, 2.25f };
+		attackOffset = { 0.40f, 2.25f };
 		*rotation = 90 * DEGTORAD;
 		break;
 	case LookingDirection::UP:
-		attackOffset = { 0.5f, -3.0f };
+		attackOffset = { 0.40f, -3.0f };
 		*rotation = 90 * DEGTORAD;
 		break;
 	case LookingDirection::LEFT:

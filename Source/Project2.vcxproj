@@ -146,6 +146,7 @@
     <ClInclude Include="ParticleAttackSage.h" />
     <ClInclude Include="ParticleExplodeEkriksi.h" />
     <ClInclude Include="ParticleHitSage.h" />
+    <ClInclude Include="ParticleLanceAttackRevenant.h" />
     <ClInclude Include="ParticlePurificationSlash.h" />
     <ClInclude Include="ParticleSoulShield.h" />
     <ClInclude Include="PaticleHitFotieros.h" />
@@ -245,6 +246,7 @@
     <ClCompile Include="ParticleAttackSage.cpp" />
     <ClCompile Include="ParticleExplodeEkriksi.cpp" />
     <ClCompile Include="ParticleHitSage.cpp" />
+    <ClCompile Include="ParticleLanceAttackRevenant.cpp" />
     <ClCompile Include="ParticlePurificationSlash.cpp" />
     <ClCompile Include="ParticleSoulShield.cpp" />
     <ClCompile Include="PaticleHitFotieros.cpp" />

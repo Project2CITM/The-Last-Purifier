@@ -453,6 +453,9 @@
     <ClInclude Include="ButtonObject.h">
       <Filter>Archivos de encabezado\GameObject\Puzzles</Filter>
     </ClInclude>
+    <ClInclude Include="ParticleLanceAttackRevenant.h">
+      <Filter>Archivos de encabezado\Tools\Particles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\PugiXml\src\pugixml.cpp">
@@ -733,6 +736,9 @@
     </ClCompile>
     <ClCompile Include="ButtonObject.cpp">
       <Filter>Archivos de origen\GameObjects\Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleLanceAttackRevenant.cpp">
+      <Filter>Archivos de origen\Tools\Particles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
