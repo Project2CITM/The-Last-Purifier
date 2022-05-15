@@ -17,11 +17,11 @@ public:
 	void OnCollisionEnter(PhysBody* col) override;
 private:
 	SDL_Rect sections[2];
+
 	bool destroyed = false;
 
 	int destroyedMS = 500;
 
 	Timer* columnTimer = nullptr;
-
 };
 

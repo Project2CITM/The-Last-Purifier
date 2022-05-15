@@ -70,7 +70,7 @@ void ButtonObject::PressButton()
 
 	renderObjects[0].color = { 100,100,100,255 };
 
-	app->audio->PlayFx(buttonpressSFX);
+	//app->audio->PlayFx(buttonpressSFX);
 
 	isPressed = true;
 }
