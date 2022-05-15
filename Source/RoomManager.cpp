@@ -144,7 +144,7 @@ void RoomManager::PostUpdate(iPoint playerPos)
 {
 	DrawRooms();
 	DrawDoors();
-	miniMap->MiniMapPrint(iPoint(485, 255), 
+	miniMap->MiniMapPrint(iPoint(485, -95), 
 		iPoint(playerPos.x / (TILE_SIZE * MAX_ROOM_TILES_COLUMNS),playerPos.y / (TILE_SIZE * MAX_ROOM_TILES_ROWS)));
 }
 

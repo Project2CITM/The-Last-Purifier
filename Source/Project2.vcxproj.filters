@@ -145,6 +145,12 @@
     <Filter Include="Archivos de encabezado\GameObject\Puzzles">
       <UniqueIdentifier>{29443254-263f-481d-808c-5f691031ebdc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\Map">
+      <UniqueIdentifier>{2e2bcd00-dd4b-4876-be6b-b6927a8c1e9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Map">
+      <UniqueIdentifier>{053df864-bc87-42ea-b9f9-3877092ec820}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="External\PugiXml\src\pugixml.hpp">
@@ -152,12 +158,6 @@
     </ClInclude>
     <ClInclude Include="External\PugiXml\src\pugiconfig.hpp">
       <Filter>Archivos de origen\PugiXml</Filter>
-    </ClInclude>
-    <ClInclude Include="Room.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="RoomManager.h">
-      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="Module.h">
       <Filter>Archivos de encabezado\Modules</Filter>
@@ -251,9 +251,6 @@
     </ClInclude>
     <ClInclude Include="Trigger.h">
       <Filter>Archivos de encabezado\Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="MapLoader.h">
-      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="ExecuteSpell.h">
       <Filter>Archivos de encabezado\Player\Spells\SpellScripts</Filter>
@@ -399,17 +396,11 @@
     <ClInclude Include="Quest.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Minimap.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="HubScene.h">
       <Filter>Archivos de encabezado\Scenes\Hub</Filter>
     </ClInclude>
     <ClInclude Include="PlayerConverter.h">
       <Filter>Archivos de encabezado\Scenes\Hub</Filter>
-    </ClInclude>
-    <ClInclude Include="MapSave.h">
-      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="Bar.h">
       <Filter>Archivos de encabezado\GameObject</Filter>
@@ -432,9 +423,6 @@
     <ClInclude Include="WeaponObject.h">
       <Filter>Archivos de encabezado\Player\Weapons</Filter>
     </ClInclude>
-    <ClInclude Include="AssetsManager.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="GameOverScene.h">
       <Filter>Archivos de encabezado\Scenes</Filter>
     </ClInclude>
@@ -456,16 +444,28 @@
     <ClInclude Include="ParticleLanceAttackRevenant.h">
       <Filter>Archivos de encabezado\Tools\Particles</Filter>
     </ClInclude>
+    <ClInclude Include="AssetsManager.h">
+      <Filter>Archivos de encabezado\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="MapLoader.h">
+      <Filter>Archivos de encabezado\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="MapSave.h">
+      <Filter>Archivos de encabezado\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Minimap.h">
+      <Filter>Archivos de encabezado\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Room.h">
+      <Filter>Archivos de encabezado\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="RoomManager.h">
+      <Filter>Archivos de encabezado\Map</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\PugiXml\src\pugixml.cpp">
       <Filter>Archivos de origen\PugiXml</Filter>
-    </ClCompile>
-    <ClCompile Include="Room.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="RoomManager.cpp">
-      <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="ModuleAudio.cpp">
       <Filter>Archivos de origen\Modules</Filter>
@@ -544,9 +544,6 @@
     </ClCompile>
     <ClCompile Include="Trigger.cpp">
       <Filter>Archivos de origen\Tools</Filter>
-    </ClCompile>
-    <ClCompile Include="MapLoader.cpp">
-      <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="ExecuteSpell.cpp">
       <Filter>Archivos de origen\Player\Spells\SpellScripts</Filter>
@@ -683,17 +680,11 @@
     <ClCompile Include="Quest.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="MiniMap.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="HubScene.cpp">
       <Filter>Archivos de origen\Scenes\Hub</Filter>
     </ClCompile>
     <ClCompile Include="PlayerConverter.cpp">
       <Filter>Archivos de origen\Scenes\Hub</Filter>
-    </ClCompile>
-    <ClCompile Include="MapSave.cpp">
-      <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="Bar.cpp">
       <Filter>Archivos de origen\GameObjects</Filter>
@@ -712,9 +703,6 @@
     </ClCompile>
     <ClCompile Include="WeaponObject.cpp">
       <Filter>Archivos de origen\Player\Weapons</Filter>
-    </ClCompile>
-    <ClCompile Include="AssetsManager.cpp">
-      <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="GameOverScene.cpp">
       <Filter>Archivos de origen\Scenes</Filter>
@@ -739,6 +727,24 @@
     </ClCompile>
     <ClCompile Include="ParticleLanceAttackRevenant.cpp">
       <Filter>Archivos de origen\Tools\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetsManager.cpp">
+      <Filter>Archivos de origen\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="MapLoader.cpp">
+      <Filter>Archivos de origen\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="MapSave.cpp">
+      <Filter>Archivos de origen\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniMap.cpp">
+      <Filter>Archivos de origen\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="RoomManager.cpp">
+      <Filter>Archivos de origen\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Room.cpp">
+      <Filter>Archivos de origen\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
