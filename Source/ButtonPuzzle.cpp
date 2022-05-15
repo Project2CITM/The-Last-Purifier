@@ -1,6 +1,9 @@
 #include "ButtonPuzzle.h"
 #include "ButtonObject.h"
 #include "Room.h"
+#include "WeaponObject.h"
+#include "ModuleScene.h"
+#include "SceneGame.h"
 
 ButtonPuzzle::ButtonPuzzle(Room* room) : GameObject("ButtonPuzzle", "ButtonPuzzle")
 {
@@ -42,19 +45,20 @@ void ButtonPuzzle::PreUpdate()
 	int counter = 0;
 	for (int i = 0; i < 3; i++)
 	{
-		if (buttons[i]->isPressed && !buttons[i]->revised) 
-		{ 
+		if (buttons[i]->isPressed && !buttons[i]->revised)
+		{
 			for (int j = 0; j < 3; j++)
 			{
-				if (buttonPressed[j] == -1) 
+				if (buttonPressed[j] == -1)
 				{
-					buttonPressed[j] = i; 
+					buttonPressed[j] = i;
 					break;
 				}
 			}
 			counter++;
 			buttons[i]->revised = true;
 		}
+		else if (buttons[i]->revised) counter++;
 	}
 
 	// If every button is pressed
@@ -63,6 +67,8 @@ void ButtonPuzzle::PreUpdate()
 	if (CheckResult())
 	{
 		room->ClearEnemies();
+		SpawnWeaponObject();
+		buttonPressed[0] = -1;
 	}
 	else
 	{
@@ -77,6 +83,31 @@ void ButtonPuzzle::Update()
 
 void ButtonPuzzle::CleanUp()
 {
+}
+
+void ButtonPuzzle::SpawnWeaponObject()
+{
+	SceneGame* scene = (SceneGame*)app->scene->scenes[app->scene->currentScene];
+
+	Player* p = scene->player;
+
+	PlayerClass pC = p->playerClass;
+
+	WeaponInfo info;
+	info.weaponClass = pC;
+
+	int randomNum = rand() % 2;
+
+	if (pC == PlayerClass::REVENANT)
+	{
+		info.revenantWeaponID = (RevenantWeaponIDs)randomNum;
+	}
+	else
+	{
+		info.sageWeaponID = (SageWeaponIDs)randomNum;
+	}
+
+	new WeaponObject(buttonPositions[1], info);
 }
 
 bool ButtonPuzzle::CheckResult()
