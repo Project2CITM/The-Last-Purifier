@@ -124,6 +124,10 @@ bool CommonTree::SaveLoadTree(bool load)
 		if (load) //Loads
 		{
 			element->data->unlocked = bNode.attribute("unlocked").as_bool();
+			if (element->data->unlocked)
+			{
+				IncreaseValue(element->data->type);
+			}
 		}
 		else //Saves
 		{

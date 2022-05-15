@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <common_tree>
-	<element id="0" unlocked="true" />
+	<element id="0" unlocked="false" />
 	<element id="1" unlocked="false" />
 	<element id="2" unlocked="false" />
 	<element id="3" unlocked="false" />
@@ -24,4 +24,14 @@
 	<element id="21" unlocked="false" />
 	<element id="22" unlocked="false" />
 	<element id="23" unlocked="false" />
+	<element id="24" unlocked="false" />
+	<element id="25" unlocked="false" />
+	<element id="26" unlocked="false" />
+	<element id="27" unlocked="false" />
+	<element id="28" unlocked="false" />
+	<element id="29" unlocked="false" />
+	<element id="30" unlocked="false" />
+	<element id="31" unlocked="false" />
+	<element id="32" unlocked="false" />
+	<element id="33" unlocked="false" />
 </common_tree>

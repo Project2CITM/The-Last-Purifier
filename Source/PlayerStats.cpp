@@ -36,10 +36,11 @@ void PlayerStats::Start()
 	UpdatePlayerStats();
 }
 
-void PlayerStats::UpdatePlayerStats()
+void PlayerStats::UpdatePlayerStats(bool souls_update)
 {
 	// Common tree variables
-	player->souls = defaultValues.child("souls").attribute("quantity").as_int();
+	if(souls_update) player->souls = defaultValues.child("souls").attribute("quantity").as_int();
+
 	player->hpPlayer = defaultValues.child("hp").attribute("quantity").as_int() + commonTree->getValue(CommonUpgrades::HEALTH);
 	player->dashSpeed = defaultValues.child("speed").attribute("dash").as_float();
 	player->movementSpeed = defaultValues.child("speed").attribute("movement").as_float();
@@ -48,7 +49,6 @@ void PlayerStats::UpdatePlayerStats()
 	player->shield = defaultValues.child("shield").attribute("quantity").as_int();
 	player->luck = defaultValues.child("luck").attribute("quantity").as_int() + commonTree->getValue(CommonUpgrades::LUCK);
 	player->soulGain = defaultValues.child("souls").attribute("gain").as_int() + commonTree->getValue(CommonUpgrades::SOUL_GAIN);
-
 	player->armour = classValues.child("armour").attribute("quantity").as_int() + commonTree->getValue(CommonUpgrades::ARMOUR);
 	player->attackSpeed = classValues.child("attack_speed").attribute("quantity").as_int() - commonTree->getValue(CommonUpgrades::ATTACK_SPEED);
 	player->damage = classValues.child("damage").attribute("quantity").as_int() + commonTree->getValue(CommonUpgrades::DAMAGE);
@@ -75,7 +75,7 @@ void PlayerStats::GameEventTriggered(GameEvent id)
 		SavePlayerProgress();
 		break;
 	case GameEvent::UPDATE_COMMON_TREE:
-		UpdatePlayerStats();
+		UpdatePlayerStats(false);
 		Application::GetInstance()->events->TriggerEvent(GameEvent::UPDATE_PLAYER_STATS);
 		break;
 	}

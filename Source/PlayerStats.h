@@ -15,7 +15,7 @@ public:
 
 	void Start();
 
-	void UpdatePlayerStats();
+	void UpdatePlayerStats(bool souls_update = true);
 
 	void SavePlayerProgress();
 

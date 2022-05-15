@@ -52,7 +52,7 @@
 					</Sentence2>
 				</done>
 			</quest1>
-		<quest2 Num="1" active="true">
+			<quest2 Num="1" active="true">
 				<default>
 					<Sentence1>
 						Habla con el purificador de la puerta del castillo.
@@ -64,7 +64,7 @@
 					</Sentence1>
 				</done>
 			</quest2>
-		<quest3 Num="1" active="true">
+			<quest3 Num="1" active="true">
 				<default>
 					<Sentence1>
 						Habla con el purificador del cementerio.
@@ -88,7 +88,7 @@
 					</Sentence1>
 				</done>
 			</quest4>
-		<quest5 Num="1" active="true">
+			<quest5 Num="1" active="true">
 				<default>
 					<Sentence1>
 						Mata 45 enemigos en la misma run
