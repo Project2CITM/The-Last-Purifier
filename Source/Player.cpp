@@ -10,8 +10,6 @@ Player::Player()
 	controller = new PlayerController("Player", "Player", this);
 }
 
-
-
 void Player::CleanUp()
 {
 	// THE CONTROLLER IS CLEANED UP BY THE SCENE, AS IT IS A GAMEOBJECT AND, THEREFOR, MANAGED BY THE SCENE
