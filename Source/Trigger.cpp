@@ -35,19 +35,7 @@ Trigger::Trigger(iPoint pos, int radius, GameObject* parent, std::string name, b
 
 void Trigger::Update()
 {
-	if (app->Exiting()) return;
-
-	if (app->scene->isChangingScene) return;
-
-	if (pendingToDelete) return;
-
-	if (parent == nullptr|| !parent->enable) return;
-
-	if (parent->pendingToDelete)
-	{
-		pendingToDelete = true;
-		return;
-	}
+	if (!AcceptAction()) return;
 
 	if (!followFather) return;
 	
@@ -69,13 +57,7 @@ void Trigger::OnCollisionEnter(PhysBody* col)
 
 	onTriggerStay = true;
 
-	if (pendingToDelete) return;
-
-	if (app->Exiting()) return;
-
-	if (app->scene->isChangingScene) return;
-
-	if (parent == nullptr || !parent->enable) return;
+	if (!AcceptAction()) return;
 
 	trig = col;
 
@@ -90,13 +72,7 @@ void Trigger::OnCollisionExit(PhysBody* col)
 
 	onTriggerStay = false;
 
-	if (pendingToDelete || parent->pendingToDelete) return;
-
-	if (app->Exiting()) return;
-
-	if (app->scene->isChangingScene) return;
-
-	if (parent == nullptr || !parent->enable) return;
+	if (!AcceptAction()) return;
 	
    parent->OnTriggerExit(this->name, col);
 }
@@ -108,4 +84,23 @@ void Trigger::Destroy()
 	parent = nullptr;
 
 	pendingToDelete = true;
+}
+
+bool Trigger::AcceptAction()
+{
+	if (app->Exiting()) return false;
+
+	if (app->scene->isChangingScene) return false;
+
+	if (pendingToDelete) return false;
+
+	if (parent == nullptr || !parent->enable) return;
+
+	if (parent->pendingToDelete)
+	{
+		pendingToDelete = true;
+		return false;
+	}
+
+	return true;
 }
