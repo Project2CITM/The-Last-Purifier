@@ -94,7 +94,7 @@ bool Trigger::AcceptAction()
 
 	if (pendingToDelete) return false;
 
-	if (parent == nullptr || !parent->enable) return;
+	if (parent == nullptr || !parent->enable) return false;
 
 	if (parent->pendingToDelete)
 	{

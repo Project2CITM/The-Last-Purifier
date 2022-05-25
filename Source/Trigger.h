@@ -21,6 +21,12 @@ public:
 
 	GameObject* GetParent() { return parent; }
 
+private:
+
+	bool AcceptAction();
+
+public:
+
 	iPoint positionOffset = { 0,0 };
 
 	bool onTriggerEnter = false;
