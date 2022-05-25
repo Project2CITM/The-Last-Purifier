@@ -22,6 +22,7 @@ PlayerController::PlayerController(std::string name, std::string tag, Player* pl
 {
 	this->listenTo[0] = GameEvent::COMPLETE_ROOM;
 	this->listenTo[1] = GameEvent::PLAYER_DIE;
+
 	app->events->AddListener(this);
 	this->player = player;
 
@@ -520,7 +521,7 @@ void PlayerController::Hit(int damage)
 			/*app->scene->ChangeCurrentSceneRequest(SCENES::GAME_OVER, 60);*/
 
 			app->events->TriggerEvent(GameEvent::PLAYER_DIE);
-			app->events->TriggerEvent(GameEvent::SAVE_GAME);
+			app->events->TriggerEvent(GameEvent::SAVE_GAME_LOSE);
 
 			canControl = false;
 

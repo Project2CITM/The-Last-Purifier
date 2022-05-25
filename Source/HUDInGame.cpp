@@ -235,6 +235,7 @@ bool HUDInGame::Update()
 
 			if (SaveBUT->doAction || (ControllerPos == 3 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
 			{
+				app->events->TriggerEvent(GameEvent::SAVE_GAME_WIN);
 				app->events->TriggerEvent(GameEvent::SAVE_GAME);
 				ResumeBUT->PressButton();
 				SaveBUT->doAction = false;

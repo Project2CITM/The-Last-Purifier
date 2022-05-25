@@ -12,8 +12,8 @@
 
 void RoomManager::Start()
 {
-	this->listenTo[0] = GameEvent::SAVE_GAME;
-	this->listenTo[1] = GameEvent::GO_TO_HUB;
+	this->listenTo[0] = GameEvent::SAVE_GAME_WIN;
+	this->listenTo[1] = GameEvent::SAVE_GAME_LOSE;
 	app->events->AddListener(this);
 
 	doorTopTexture = app->textures->Load("Maps/TestDoor_top.png");
@@ -89,6 +89,7 @@ void RoomManager::Update(iPoint playerPos)
 	//Trigger collider (boss room)
 	if (exitTrigger->onTriggerEnter && r->done)
 	{
+		app->events->TriggerEvent(GameEvent::SAVE_GAME_WIN);
 		app->events->TriggerEvent(GameEvent::SAVE_GAME);
 
 		mapSave->ClearSeed();
@@ -572,8 +573,8 @@ void RoomManager::DrawDoors()
 
 void RoomManager::GameEventTriggered(GameEvent id)
 {
-	if (id == GameEvent::SAVE_GAME) mapSave->SaveRoomStates(&rooms);
-	else if (id == GameEvent::GO_TO_HUB)
+	if (id == GameEvent::SAVE_GAME_WIN) mapSave->SaveRoomStates(&rooms);
+	else if (id == GameEvent::SAVE_GAME_LOSE)
 	{
 		mapSave->ClearSeed();
 		mapSave->ClearRoomStates();
