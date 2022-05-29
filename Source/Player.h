@@ -42,7 +42,7 @@ public:
 	int souls = 0;
 	int hpPlayer = 100;
 	int hpMax = 100;
-	int spellSlots = 1;
+	int spellSlots = 2;
 	int deckSlots = 2;
 	int shield = 0;
 	int armour = 20;

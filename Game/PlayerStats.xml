@@ -6,7 +6,7 @@
 		<luck quantity="1.0f" />
 		<speed movement="9.0f" dash="5.0f" />
 		<shield quantity="0" />
-		<slots spell="1" deck="2" />
+		<slots spell="2" deck="2" />
 		<hp quantity="100" />
 	</common>
 	<revenant>
