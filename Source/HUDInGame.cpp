@@ -61,7 +61,7 @@ bool HUDInGame::Start()
 
 	RELEASE_ARRAY(buffer);
 
-	PauseBG.InitAsTexture(app->textures->Load("Sprites/UI/PauseBG.png"), { 10, -10 }, { 0,0,0,0 }, 0.35f, 4, 0, 0 , SDL_FLIP_NONE, 0);
+	PauseBG.InitAsTexture(app->textures->Load("Assets/Sprites/UI/PauseBG.png"), { 0, -10 }, { 0,0,0,0 }, 0.35f, 4, 0, 0 , SDL_FLIP_NONE, 0);
 	SettingsBG.InitAsTexture(app->textures->Load("Sprites/UI/FondoSettings.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 0, 0, SDL_FLIP_NONE, 0);
 	Controls1.InitAsTexture(app->textures->Load("Sprites/UI/Controls1_2.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 1, 0, SDL_FLIP_NONE, 0);
 	Controls2.InitAsTexture(app->textures->Load("Sprites/UI/Controls2_2.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 1, 0, SDL_FLIP_NONE, 0);
@@ -70,8 +70,8 @@ bool HUDInGame::Start()
 
 	SpellSelectAnim.InitAsTexture(app->textures->Load("Assets/Sprites/UI/marcoAnim.png"), { 0,0 }, { 0,0,0,0 }, 0.30f, 3, 4, 0, SDL_FLIP_NONE, 0);
 	SpellNoSelectAnim.InitAsTexture(app->textures->Load("Assets/Sprites/UI/marcoAnimcopia.png"), { 0,0 }, { 0,0,0,0 }, 0.30f, 3, 2, 0, SDL_FLIP_NONE, 0);
-	Torch1.InitAsTexture(app->textures->Load("Assets/Sprites/UI/antorchas.png"), { 70,210 }, { 0,0,0,0 }, 1, 5, 2, 0, SDL_FLIP_NONE, 0);
-	Torch2.InitAsTexture(app->textures->Load("Assets/Sprites/UI/antorchas.png"), { 500,210 }, { 0,0,0,0 }, 1, 5, 2, 0, SDL_FLIP_NONE, 0);
+	Torch1.InitAsTexture(app->textures->Load("Assets/Sprites/UI/antorchas.png"), { 80,210 }, { 0,0,0,0 }, 1, 5, 2, 0, SDL_FLIP_NONE, 0);
+	Torch2.InitAsTexture(app->textures->Load("Assets/Sprites/UI/antorchas.png"), { 510,210 }, { 0,0,0,0 }, 1, 5, 2, 0, SDL_FLIP_NONE, 0);
 	HPFlame.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Flame_HP.png"), { 5,5 }, { 0,0,0,0 }, 0.5, 3, 2, 0, SDL_FLIP_NONE, 0);
 
 	for (int i = 0; i < 12; i++)
