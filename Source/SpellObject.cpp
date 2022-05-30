@@ -47,6 +47,7 @@ SpellObject::SpellObject(iPoint pos, SpellID id, int level) : GameObject("SpellO
 
 	pickupspellFX = app->audio->LoadFx("Audio/SFX/Player/sfx_playerPickUpSpell.wav");
 
+	SetColorFromLevel();
 }
 
 void SpellObject::OnCollisionEnter(PhysBody* col)
@@ -66,6 +67,19 @@ void SpellObject::OnCollisionEnter(PhysBody* col)
 		}
 	}
 	
+}
+
+void SpellObject::SetColorFromLevel()
+{
+	switch (this->info.spellLevel)
+	{
+	case 2:
+		renderObjects[0].SetColor({ 0,155,0,255 });
+		break;
+	case 3:
+		renderObjects[0].SetColor({ 75,75,0,255 });
+		break;
+	}
 }
 
 void SpellObject::PostUpdate()

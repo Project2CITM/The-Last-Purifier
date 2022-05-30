@@ -31,6 +31,7 @@ Projectile::Projectile(std::string name, iPoint position, fPoint duration, int d
 	if (rotation == 180)
 	{
 		renderObjects[0].flip = SDL_FLIP_HORIZONTAL;
+		rotation = 0;
 	}
 	else
 	{
@@ -41,7 +42,8 @@ Projectile::Projectile(std::string name, iPoint position, fPoint duration, int d
 
 	renderObjects[0].InitAsTexture(app->textures->Load("Sprites/Player/Sage/basicAttackSageDuring.png"), position, { 0,0,0,0 }, projectileScale,1,1.0f,this->rotation);
 
-	
+	renderObjects[0].center = { 16,16 };
+
 	// Particle Effect
 
 	for (int i = 0; i < 8; i++)
@@ -52,7 +54,7 @@ Projectile::Projectile(std::string name, iPoint position, fPoint duration, int d
 	this->anim.hasIdle = false;
 	this->anim.duration = 0.032f;
 
-	spriteOffset[0] = { (int)(-20 * projectileScale),(int)(-15 * projectileScale) };
+	//spriteOffset[0] = { (int)(-20 * projectileScale),(int)(-15 * projectileScale) };
 	
 }
 
