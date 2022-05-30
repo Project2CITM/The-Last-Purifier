@@ -27,8 +27,10 @@ public:
 
 	PlayerClass pClass = PlayerClass::REVENANT;
 
-private:
 	std::string sentence;
+
+private:
+	
 
 	bool toggle = false;
 

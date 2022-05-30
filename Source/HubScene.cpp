@@ -190,7 +190,16 @@ bool HubScene::PreUpdate()
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || app->input->GetControllerButton(BUTTON_START) == KEY_DOWN) app->TogglePause(!app->isPause);
 	if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN) app->map->roof = !app->map->roof;
 
-	if (app->input->GetControllerButton(JoystickButtons::BUTTON_A) == KEY_DOWN)printf("Button A!!!\n");
+	if (app->input->usingGameController)
+	{
+		revenantInstructor->sentence = "<Press A>";
+		sageInstructor->sentence = "<Press A>";
+	}
+	else 
+	{
+		revenantInstructor->sentence = "<Press F>";
+		sageInstructor->sentence = "<Press F>";
+	}
 
 	/*if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
