@@ -117,6 +117,11 @@ bool ClassTreeHud::Start()
 		feed->add(new treeFeedback(i, tree->getCurrentLevel(i), aux));
 	}
 
+	// Gamepad implementation
+	switchButtonText = new Text({ 180,50 }, "Press Y \nto change the current tree.", "defaultFont", false);
+	switchButtonText->SetColor({ 0,0,0,255 });
+	switchButtonText->textRO.layer = 4;
+
 	Scene::Start();
 
 	return true;
@@ -165,10 +170,11 @@ bool ClassTreeHud::Update()
 {
 	//Tree Switch
 	treeSwitch->Update();
-	if (treeSwitch->doAction)
+	if (treeSwitch->doAction || app->input->GetControllerButton(JoystickButtons::BUTTON_Y) == KEY_DOWN)
 	{
 		switcher = !switcher;
 		treeSwitch->doAction = false;
+		currentSelectedOption = 0;
 	}
 
 	//if (!active) return true;
@@ -176,7 +182,8 @@ bool ClassTreeHud::Update()
 	ListItem<treeFeedback*>* element2 = nullptr;
 
 	if (switcher)
-	{ //Class tree logic
+	{	
+		//Class tree logic
 		element = unlockBtn->start;
 		int aux = startId;
 		while (element != NULL)
@@ -202,9 +209,15 @@ bool ClassTreeHud::Update()
 			aux++;
 			element2 = element2->next;
 		}
+
+		if (app->input->usingGameController && !isFirstFrame)
+		{
+			GamepadInputController(true);
+		}
 	}
 	else
-	{ //Common tree logic
+	{ 
+		//Common tree logic
 		element = cmmUnlockBtn->start;
 		int aux = -1;
 		int upInt = -1;
@@ -236,9 +249,13 @@ bool ClassTreeHud::Update()
 			element2 = element2->next;
 		}
 
+		if (app->input->usingGameController && !isFirstFrame)
+		{
+			GamepadInputController(false);
+		}
 	}
 
-
+	if (isFirstFrame) isFirstFrame = false;
 	return true;
 }
 
@@ -271,8 +288,6 @@ bool ClassTreeHud::PostUpdate()
 		element = element->next;
 	}
 
-
-
 	while (element2 != NULL)
 	{
 		if (switcher)
@@ -283,7 +298,44 @@ bool ClassTreeHud::PostUpdate()
 		element2 = element2->next;
 	}
 
-
+	if (app->input->usingGameController)
+	{
+		switchButtonText->PostUpdate();
+	}
 
 	return true;
+}
+
+void ClassTreeHud::GamepadInputController(bool isSkillTree)
+{
+	// GamePad input control
+	if (app->input->GetControllerButton(JoystickButtons::BUTTON_RIGHT) == KEY_DOWN)
+		currentSelectedOption++;
+	else if (app->input->GetControllerButton(JoystickButtons::BUTTON_LEFT) == KEY_DOWN)
+		currentSelectedOption--;
+
+	if (isSkillTree)
+	{
+		if (currentSelectedOption < 0) currentSelectedOption = unlockBtn->count() - 1;
+		else if (currentSelectedOption > unlockBtn->count() - 1) currentSelectedOption = 0;
+
+		unlockBtn->At(currentSelectedOption)->data->HoverButton();
+
+		if (app->input->GetControllerButton(JoystickButtons::BUTTON_A) == KEY_DOWN)
+		{
+			unlockBtn->At(currentSelectedOption)->data->PressButton(true);
+		}
+	}
+	else
+	{
+		if (currentSelectedOption < 0) currentSelectedOption = cmmUnlockBtn->count() - 1;
+		else if (currentSelectedOption > cmmUnlockBtn->count() - 1) currentSelectedOption = 0;
+
+		cmmUnlockBtn->At(currentSelectedOption)->data->HoverButton();
+
+		if (app->input->GetControllerButton(JoystickButtons::BUTTON_A) == KEY_DOWN)
+		{
+			cmmUnlockBtn->At(currentSelectedOption)->data->PressButton(true);
+		}
+	}
 }

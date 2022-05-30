@@ -190,6 +190,8 @@ bool HubScene::PreUpdate()
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || app->input->GetControllerButton(BUTTON_START) == KEY_DOWN) app->TogglePause(!app->isPause);
 	if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN) app->map->roof = !app->map->roof;
 
+	if (app->input->GetControllerButton(JoystickButtons::BUTTON_A) == KEY_DOWN)printf("Button A!!!\n");
+
 	/*if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
 		iPoint aux = player->controller->GetPosition();
@@ -216,7 +218,7 @@ bool HubScene::Update()
 	
 	int x = player->controller->GetPosition().x;
 	int y = player->controller->GetPosition().y;
-	//LOG("x:%d \n y:%d", x, y);
+	
 
 	revenantTree->Update();
 

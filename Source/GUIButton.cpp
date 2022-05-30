@@ -66,11 +66,13 @@ void GUIButton::PostUpdate()
 	}
 }
 
-void GUIButton::PressButton()
+void GUIButton::PressButton(bool doAction)
 {
 	lastState = buttonState;
 	buttonState = ButtonState::PRESS_DOWN;
 	isPressed = true;
+
+	this->doAction = doAction;
 
 	if (app->input->GetMouseButton(1) == KEY_UP) return;
 

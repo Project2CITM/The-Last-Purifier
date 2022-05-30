@@ -68,10 +68,22 @@ void Instructor::Update()
 {
 	if (canSpeak && nearNpc)
 	{
-		if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN || 
-			app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)
+		if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
 		{
 			toggle = !toggle;
+		}
+		if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+		{
+			toggle = false;
+		}
+		if (app->input->GetControllerButton(BUTTON_A) == KEY_DOWN && !toggle)
+		{
+			toggle = true;
+			classTreeHud->isFirstFrame = true;
+		}
+		if (app->input->GetControllerButton(BUTTON_B) == KEY_DOWN && toggle)
+		{
+			toggle = false;
 		}
 	}
 

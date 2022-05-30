@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <common_tree>
-	<element id="0" unlocked="false" />
-	<element id="1" unlocked="false" />
-	<element id="2" unlocked="false" />
+	<element id="0" unlocked="true" />
+	<element id="1" unlocked="true" />
+	<element id="2" unlocked="true" />
 	<element id="3" unlocked="false" />
 	<element id="4" unlocked="false" />
 	<element id="5" unlocked="false" />

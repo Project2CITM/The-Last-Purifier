@@ -85,7 +85,7 @@ bool Scene::PostUpdate()
 
 	for (int i = 0; i < texts.count(); i++)
 	{
-		if (texts[i]) texts[i]->PostUpdate();
+		if (texts[i] && texts[i]->printOnScene) texts[i]->PostUpdate();
 	}
 
 	return true;

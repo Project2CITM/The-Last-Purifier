@@ -6,6 +6,7 @@
 #include "ClassTree.h"
 #include "CommonTree.h"
 #include "Animation.h"
+#include "Text.h"
 
 
 struct treeFeedback
@@ -60,6 +61,8 @@ public:
 	bool Update() override;
 	bool PostUpdate() override;
 
+	void GamepadInputController(bool isSkillTree);
+
 private:
 
 	int startId = 0;
@@ -92,6 +95,14 @@ private:
 	List<treeFeedback*>* cmmFeed = nullptr;
 
 	bool switcher = true;
+
+	// Gamepad implementation
+
+	int currentSelectedOption = 0;
+
+	Text* switchButtonText;
+public:
+	bool isFirstFrame = false;
 };
 
 #endif // !__CLASDD_TREE_HUD_H__

@@ -38,7 +38,7 @@ public:
 
 	void PostUpdate() override;
 
-	void PressButton();
+	void PressButton(bool doAction = false);
 
 	void HoverButton();
 

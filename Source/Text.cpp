@@ -3,7 +3,7 @@
 #include "ModuleTextures.h"
 #include "Scene.h"
 
-Text::Text(iPoint position, std::string text, std::string font) : position(position), text(text)
+Text::Text(iPoint position, std::string text, std::string font, bool printOnScene) : position(position), text(text)
 {
 	app = Application::GetInstance();
 
@@ -34,6 +34,9 @@ Text::Text(iPoint position, std::string text, std::string font) : position(posit
 	SetColor(color);
 
 	#pragma endregion
+
+	// Init variables
+	this->printOnScene = printOnScene;
 
 	//Init text
 	SaveTextInAscii();

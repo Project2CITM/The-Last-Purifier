@@ -10,7 +10,7 @@ class Text
 {
 public:
 
-	Text(iPoint position, std::string text = "hello" , std::string font = "defaultFont");
+	Text(iPoint position, std::string text = "hello" , std::string font = "defaultFont", bool printOnScene = true);
 
 	~Text();
 
@@ -37,6 +37,10 @@ public:
 
 	bool pendingToDelate = false;
 
+	bool printOnScene = true;
+
+	RenderObject textRO;
+
 private:
 
 	std::string text = "hello";
@@ -51,8 +55,6 @@ private:
 	int spaceInLetter = 0;
 
 	Application* app = nullptr;
-
-	RenderObject textRO;
 
 	float currentTextCountTime;
 
