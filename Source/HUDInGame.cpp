@@ -99,10 +99,10 @@ bool HUDInGame::Start()
 	fxSlider->CreateGUIBtn(fxBUT);
 	fxSlider->SetValue(app->audio->fxVol / 255);
 
-	FullScreenCHK = new GUICheckbox({ app->renderer->camera->x + 350, app->renderer->camera->y + 200 }, 40, 46, MenuButton::SETTINGSPAUSE, app->textures->Load("Sprites/UI/CheckBox.png"));
+	FullScreenCHK = new GUICheckbox({ app->renderer->camera->x + 350, app->renderer->camera->y + 200 }, 40, 40, MenuButton::SETTINGSPAUSE, app->textures->Load("Sprites/UI/CheckBox.png"));
 	FullScreenCHK->ChangeState(app->FullScreenDesktop);
 
-	VSyncCHK = new GUICheckbox({ app->renderer->camera->x + 350, app->renderer->camera->y + 240 }, 40, 46, MenuButton::SETTINGSPAUSE, app->textures->Load("Sprites/UI/CheckBox.png"));
+	VSyncCHK = new GUICheckbox({ app->renderer->camera->x + 350, app->renderer->camera->y + 240 }, 40, 40, MenuButton::SETTINGSPAUSE, app->textures->Load("Sprites/UI/CheckBox.png"));
 	VSyncCHK->ChangeState(app->vsync);
 
 

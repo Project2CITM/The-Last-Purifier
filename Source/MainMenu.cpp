@@ -87,13 +87,13 @@ bool MainMenu::Start()
 	CredtisArt = new GUIButton({ 125, 190 }, 117, 47, MenuButton::CREDITS, app->textures->Load("Sprites/UI/Credtis3.png"));
 	CredtisOtr = new GUIButton({ 125, 250 }, 117, 47, MenuButton::CREDITS, app->textures->Load("Sprites/UI/Credtis4.png"));
 
-	FullScreenCHK = new GUICheckbox({ 350, 200 }, 40, 46, MenuButton::OPTIONS, app->textures->Load("Sprites/UI/CheckBox.png"));
+	FullScreenCHK = new GUICheckbox({ 350, 200 }, 40, 40, MenuButton::OPTIONS, app->textures->Load("Sprites/UI/CheckBox.png"));
 	FullScreenCHK->ChangeState(app->FullScreenDesktop);
 
-	VSyncCHK = new GUICheckbox({ 350, 240 }, 40, 46, MenuButton::OPTIONS, app->textures->Load("Sprites/UI/CheckBox.png"));
+	VSyncCHK = new GUICheckbox({ 350, 240 }, 40, 40, MenuButton::OPTIONS, app->textures->Load("Sprites/UI/CheckBox.png"));
 	VSyncCHK->ChangeState(app->vsync);
 
-	CloseCrdBUT = new GUIButton({ 297, 300 }, 46, 46, MenuButton::CREDITS, app->textures->Load("Sprites/UI/Back.png"));
+	CloseCrdBUT = new GUIButton({ 297, 300 }, 40, 40, MenuButton::CREDITS, app->textures->Load("Sprites/UI/Back.png"));
 
 	//testTrans = app->window->width * app->window->height;
 
