@@ -126,6 +126,7 @@ private:
 	Animation SpellAnimNoSelect;
 	Animation Torch1Anim;
 	Animation Torch2Anim;
+	Animation FlameHpAnim;
 
 	int ControllerPos = 0;
 	int ControllerPosOpY = 0;

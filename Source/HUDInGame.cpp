@@ -27,6 +27,7 @@ RenderObject SpellSelectAnim;
 RenderObject SpellNoSelectAnim;
 RenderObject Torch1;
 RenderObject Torch2;
+RenderObject HPFlame;
 
 HUDInGame::HUDInGame() :Scene("HUDInGame")
 {
@@ -71,6 +72,7 @@ bool HUDInGame::Start()
 	SpellNoSelectAnim.InitAsTexture(app->textures->Load("Assets/Sprites/UI/marcoAnimcopia.png"), { 0,0 }, { 0,0,0,0 }, 0.30f, 3, 2, 0, SDL_FLIP_NONE, 0);
 	Torch1.InitAsTexture(app->textures->Load("Assets/Sprites/UI/antorchas.png"), { 70,210 }, { 0,0,0,0 }, 1, 5, 2, 0, SDL_FLIP_NONE, 0);
 	Torch2.InitAsTexture(app->textures->Load("Assets/Sprites/UI/antorchas.png"), { 500,210 }, { 0,0,0,0 }, 1, 5, 2, 0, SDL_FLIP_NONE, 0);
+	HPFlame.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Flame_HP.png"), { 5,5 }, { 0,0,0,0 }, 0.5, 3, 2, 0, SDL_FLIP_NONE, 0);
 
 	for (int i = 0; i < 12; i++)
 	{ 
@@ -99,6 +101,13 @@ bool HUDInGame::Start()
 	Torch2Anim.duration = 0.15;
 	Torch2Anim.hasIdle = false;
 
+	for (int i = 0; i < 8; i++)
+	{
+		FlameHpAnim.PushBack({ 48 * i,2,48,149 });
+	}
+	FlameHpAnim.loop = true;
+	FlameHpAnim.duration = 0.15;
+	FlameHpAnim.hasIdle = false;
 
 	Hover = app->audio->LoadFx("Audio/SFX/UI/sfx_uiHover.wav");
 	Press = app->audio->LoadFx("Audio/SFX/UI/sfx_uiSelect.wav");
@@ -425,6 +434,10 @@ bool HUDInGame::PostUpdate()
 	app->renderer->AddRectRenderQueue(playerHp.bg, playerHp.bgColor, false, 4, 3.5f, 0.0f);
 	app->renderer->AddRectRenderQueue(playerHp.delayHp, playerHp.hpDelayColor, true, 4, 2.5f, 0.0f);
 	app->renderer->AddRectRenderQueue(playerHp.currentHp, playerHp.hpColor, true, 4, 3.0f, 0.0f);
+
+	FlameHpAnim.Update();
+	HPFlame.section = FlameHpAnim.GetCurrentFrame();
+	app->renderer->AddRenderObjectRenderQueue(HPFlame);
 
 	// Draw an empty rectangle for every abailable spell slot space
 	for (int i = 0; i < player->player->spellSlots; i++)
