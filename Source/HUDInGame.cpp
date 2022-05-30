@@ -69,8 +69,8 @@ bool HUDInGame::Start()
 
 	SpellSelectAnim.InitAsTexture(app->textures->Load("Assets/Sprites/UI/marcoAnim.png"), { 0,0 }, { 0,0,0,0 }, 0.30f, 3, 4, 0, SDL_FLIP_NONE, 0);
 	SpellNoSelectAnim.InitAsTexture(app->textures->Load("Assets/Sprites/UI/marcoAnimcopia.png"), { 0,0 }, { 0,0,0,0 }, 0.30f, 3, 2, 0, SDL_FLIP_NONE, 0);
-	Torch1.InitAsTexture(app->textures->Load("Assets/Sprites/UI/antorchas.png"), { 40,185 }, { 0,0,0,0 }, 1, 3, 2, 0, SDL_FLIP_NONE, 0);
-	Torch2.InitAsTexture(app->textures->Load("Assets/Sprites/UI/antorchas.png"), { 527,185 }, { 0,0,0,0 }, 1, 3, 2, 0, SDL_FLIP_NONE, 0);
+	Torch1.InitAsTexture(app->textures->Load("Assets/Sprites/UI/antorchas.png"), { 70,210 }, { 0,0,0,0 }, 1, 5, 2, 0, SDL_FLIP_NONE, 0);
+	Torch2.InitAsTexture(app->textures->Load("Assets/Sprites/UI/antorchas.png"), { 500,210 }, { 0,0,0,0 }, 1, 5, 2, 0, SDL_FLIP_NONE, 0);
 
 	for (int i = 0; i < 12; i++)
 	{ 
