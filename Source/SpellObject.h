@@ -11,6 +11,8 @@ public:
 
 	void OnCollisionEnter(PhysBody* col) override;
 
+	void SetColorFromLevel();
+
 	void PostUpdate() override;
 private:
 	SpellInfo info;
