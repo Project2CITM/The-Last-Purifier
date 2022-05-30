@@ -10,7 +10,6 @@ GameObject::GameObject()
 {
 }
 
-//TODO: Poner Applicationi* en constructor
 GameObject::GameObject(std::string name, std::string tag)
 {
 	this->name = name;

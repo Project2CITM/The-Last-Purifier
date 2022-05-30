@@ -55,8 +55,6 @@ void Souls::Update()
 {
 	if (!player || !detectPlayer) return;
 
-	// TODO
-
 	int targetPosY = player->controller->GetPosition().y;
 
 	int targetPosX = player->controller->GetPosition().x;

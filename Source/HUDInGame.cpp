@@ -312,21 +312,21 @@ bool HUDInGame::Update()
 			if (app->input->usingGameController)
 			{
 				// Music controller with Gamepad
-				if (ControllerPosOpY == 0 && leftXOptions > 10000)
+				if (ControllerPosOpY == 0 && (leftXOptions > 10000 || app->input->GetControllerButton(JoystickButtons::BUTTON_RIGHT)))
 				{
 					MusicSlider->SetValue(MusicSlider->GetValue() + 0.01f);
 				}
-				if (ControllerPosOpY == 0 && leftXOptions < -10000)
+				if (ControllerPosOpY == 0 && (leftXOptions < -10000 || app->input->GetControllerButton(JoystickButtons::BUTTON_LEFT)))
 				{
 					MusicSlider->SetValue(MusicSlider->GetValue() - 0.01f);
 				}
 
 				// SFX controller with Gamepad
-				if (ControllerPosOpY == 1 && leftXOptions > 10000)
+				if (ControllerPosOpY == 1 && (leftXOptions > 10000 || app->input->GetControllerButton(JoystickButtons::BUTTON_RIGHT)))
 				{
 					fxSlider->SetValue(fxSlider->GetValue() + 0.01f);
 				}
-				if (ControllerPosOpY == 1 && leftXOptions < -10000)
+				if (ControllerPosOpY == 1 && (leftXOptions < -10000 || app->input->GetControllerButton(JoystickButtons::BUTTON_LEFT)))
 				{
 					fxSlider->SetValue(fxSlider->GetValue() - 0.01f);
 				}

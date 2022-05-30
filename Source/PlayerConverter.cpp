@@ -40,7 +40,7 @@ void PlayerConverter::Update()
 {
 	if (ReadyToChangeClass)
 	{
-		if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
+		if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN || app->input->GetControllerButton(JoystickButtons::BUTTON_A) == KEY_DOWN)
 		{
 			PlayerClass newClass = player->playerClass == PlayerClass::REVENANT ? PlayerClass::SAGE : PlayerClass::REVENANT;
 			player->ChangeClass(newClass);

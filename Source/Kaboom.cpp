@@ -162,7 +162,6 @@ void Kaboom::UpdateStates()
 	break;
 	case (int)KaboomState::ATTACK:
 	{
-		// TODO: No debería reiniciarse esta variable en algún lugar? (attackCoolDown)
 		attackCoolDown -= kaboomTimer.getDeltaTime() * 1000;
 
 		// Just can hit a player when animation is attackingsa
