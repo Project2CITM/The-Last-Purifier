@@ -23,6 +23,9 @@ RenderObject SettingsBG;
 
 RenderObject iconSouls;
 
+RenderObject SpellSelectAnim;
+RenderObject SpellNoSelectAnim;
+
 HUDInGame::HUDInGame() :Scene("HUDInGame")
 {
 	// Init event sysem
@@ -61,6 +64,23 @@ bool HUDInGame::Start()
 	Controls2.InitAsTexture(app->textures->Load("Sprites/UI/Controls2_2.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 1, 0, SDL_FLIP_NONE, 0);
 
 	iconSouls.InitAsTexture(app->textures->Load("Sprites/Soul/soul.png"), { app->renderer->camera->x + 15, app->renderer->camera->y + 21 }, { 0,0,50,89 }, 0.25f, 4, 0, 0, SDL_FLIP_NONE, 0);
+
+	SpellSelectAnim.InitAsTexture(app->textures->Load("Assets/Sprites/UI/marcoAnim.png"), { 0,0 }, { 0,0,0,0 }, 0.30f, 3, 4, 0, SDL_FLIP_NONE, 0);
+	SpellNoSelectAnim.InitAsTexture(app->textures->Load("Assets/Sprites/UI/marcoAnimcopia.png"), { 0,0 }, { 0,0,0,0 }, 0.30f, 3, 2, 0, SDL_FLIP_NONE, 0);
+
+	for (int i = 0; i < 12; i++)
+	{ 
+		SpellAnimSelect.PushBack({ 120 * i,0,121,200 });
+		SpellAnimNoSelect.PushBack({ 120 * i,0,121,200 });
+	}
+	SpellAnimSelect.loop = true;
+	SpellAnimSelect.duration = 0.275;
+	SpellAnimSelect.hasIdle = false;
+
+	SpellAnimNoSelect.loop = true;
+	SpellAnimNoSelect.duration = 0.275;
+	SpellAnimNoSelect.hasIdle = false;
+
 
 	Hover = app->audio->LoadFx("Audio/SFX/UI/sfx_uiHover.wav");
 	Press = app->audio->LoadFx("Audio/SFX/UI/sfx_uiSelect.wav");
@@ -394,7 +414,12 @@ bool HUDInGame::PostUpdate()
 	for (int i = 0; i < player->player->spellSlots; i++)
 	{
 		// Get position from spellSlotsPosition[numberOfSlots][currentSlot] (Initialized at InitializeSpellSlotsPositions())
-		app->renderer->AddRectRenderQueue(spellSlotsPositions[player->player->spellSlots -1][i], { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
+		//app->renderer->AddRectRenderQueue(spellSlotsPositions[player->player->spellSlots -1][i], { 155, 155, 155, 255 }, false, 3, 2.0f, 0.0f);
+		SpellAnimNoSelect.Update();
+		SpellNoSelectAnim.section = SpellAnimSelect.GetCurrentFrame();
+		SpellNoSelectAnim.destRect = spellSlotsPositions[player->player->spellSlots - 1][i];
+		app->renderer->AddRenderObjectRenderQueue(SpellNoSelectAnim);
+		
 		// Get current Spell section from GetSpellSection()
 		spellSlots[i].section = GetSpellSection(i, false);
 		// Draw Spell icon
@@ -411,7 +436,11 @@ bool HUDInGame::PostUpdate()
 	}
 
 	// Draw red rectangle on spellSlotsPosition[numberOfSlots][player->selectedSpell] position
-	app->renderer->AddRectRenderQueue(spellSlotsPositions[player->player->spellSlots - 1][player->selectedSpell], { 255, 0, 0, 255 }, false, 3, 3.0f, 0.0f);
+	SpellAnimSelect.Update();
+	SpellSelectAnim.section = SpellAnimSelect.GetCurrentFrame();
+	SpellSelectAnim.destRect = spellSlotsPositions[player->player->spellSlots - 1][player->selectedSpell];
+	app->renderer->AddRenderObjectRenderQueue(SpellSelectAnim);
+	//app->renderer->AddRectRenderQueue(spellSlotsPositions[player->player->spellSlots - 1][player->selectedSpell], { 255, 0, 0, 255 }, false, 3, 3.0f, 0.0f);
 
 	// Update Text with spell information
 	UpdateSpellText();
@@ -458,6 +487,8 @@ bool HUDInGame::PostUpdate()
 	}
 
 	app->renderer->AddRenderObjectRenderQueue(iconSouls);
+
+	app->renderer->AddRenderObjectRenderQueue(SpellSelectAnim);
 
 	/*app->renderer->AddRenderObjectRenderQueue(iconSpells);
 	app->renderer->AddRenderObjectRenderQueue(deckSpells1);

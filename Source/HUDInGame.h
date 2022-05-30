@@ -6,6 +6,7 @@
 #include "ModuleEvents.h"
 #include "RenderObject.hpp"
 #include "Spell.h"
+#include "Animation.h"
 
 class GUIButton;
 class GUISlider;
@@ -120,6 +121,9 @@ private:
 	uint Press = NULL;
 	
 	Text* text = nullptr;
+
+	Animation SpellAnimSelect;
+	Animation SpellAnimNoSelect;
 
 	int ControllerPos = 0;
 	int ControllerPosOpY = 0;
