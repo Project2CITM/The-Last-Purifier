@@ -225,7 +225,7 @@ bool HUDInGame::Update()
 		if (MenuPauseY <= -11)
 		{
 			ComeIn = ComeIn * 0.9f;
-			MenuPauseY += 15 * ComeIn;
+			MenuPauseY += 20 * ComeIn;
 			PauseBG.destRect = {0,MenuPauseY ,0,0};
 		}
 
