@@ -67,7 +67,7 @@ public:
 private:
 	void InitializeSlots();
 	void InitializeSpellSlotsPositions();
-	SDL_Rect GetSpellSection(int slot, bool isDeck);
+	void SetSpellDrawInfo(int slot, bool isDeck);
 	std::string GetSpellName(SpellID id);
 	void UpdateSpellText();
 

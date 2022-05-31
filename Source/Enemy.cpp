@@ -84,7 +84,7 @@ void Enemy::Die(bool spawnPower, bool spawnSoul)
 		if (!spawnManager->IsDeleted() && spawnPower)
 		{
 			int randNum = rand() % 10;
-			if (randNum == 1) spawnManager->SpawnSpell(GetPosition());
+			spawnManager->SpawnSpell(GetPosition());
 		}
 	}
 

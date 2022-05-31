@@ -3,11 +3,11 @@
 	<element id="0" unlocked="true" />
 	<element id="1" unlocked="true" />
 	<element id="2" unlocked="true" />
-	<element id="3" unlocked="false" />
-	<element id="4" unlocked="false" />
-	<element id="5" unlocked="false" />
-	<element id="6" unlocked="false" />
-	<element id="7" unlocked="false" />
+	<element id="3" unlocked="true" />
+	<element id="4" unlocked="true" />
+	<element id="5" unlocked="true" />
+	<element id="6" unlocked="true" />
+	<element id="7" unlocked="true" />
 	<element id="8" unlocked="false" />
 	<element id="9" unlocked="false" />
 	<element id="10" unlocked="false" />

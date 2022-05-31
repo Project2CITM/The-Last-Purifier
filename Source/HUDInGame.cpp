@@ -449,8 +449,8 @@ bool HUDInGame::PostUpdate()
 		SpellNoSelectAnim.destRect = spellSlotsPositions[player->player->spellSlots - 1][i];
 		app->renderer->AddRenderObjectRenderQueue(SpellNoSelectAnim);
 		
-		// Get current Spell section from GetSpellSection()
-		spellSlots[i].section = GetSpellSection(i, false);
+		// Get current Spell section from SetSpellDrawInfo()
+		SetSpellDrawInfo(i, false);
 		// Draw Spell icon
 		app->renderer->AddRenderObjectRenderQueue(spellSlots[i]);
 	}
@@ -458,8 +458,8 @@ bool HUDInGame::PostUpdate()
 	// Draw a spell for every available deck slots
 	for (int i = 0; i < player->player->deckSlots; i++)
 	{
-		// Get spell section from GetSpellSection()
-		deckSlots[i].section = GetSpellSection(i, true);
+		// Set spell section and color from SetSpellDrawInfo()
+		SetSpellDrawInfo(i, true);
 		// Draw spell slot
 		app->renderer->AddRenderObjectRenderQueue(deckSlots[i]);
 	}
@@ -646,36 +646,57 @@ void HUDInGame::InitializeSpellSlotsPositions()
 	spellSlotsPositions[3].add({ 370, 292 , 30, 40 });// 4 Available: Refering to slot 4
 }
 
-SDL_Rect HUDInGame::GetSpellSection(int slot, bool isDeck)
+void HUDInGame::SetSpellDrawInfo(int slot, bool isDeck)
 {
 	SDL_Rect sect;
 
-	int spellSlot;
+	SpellInfo* spellSlot = nullptr;
 
-	if (isDeck) spellSlot = (int)player->deckSlots[slot]->id;
-	else spellSlot = (int)player->spellSlots[slot]->id;
+	if (isDeck) spellSlot = player->deckSlots[slot];
+	else spellSlot = player->spellSlots[slot];
 
-	switch (spellSlot)
+	switch (spellSlot->id)
 	{
-	case (int)SpellID::PURIFIED_SWORD:
-		sect = { 31,0,31,31 };
+	case SpellID::PURIFIED_SWORD:
+		if(isDeck) deckSlots[slot].section = { 31,0,31,31 };
+		else spellSlots[slot].section = { 31,0,31,31 };
 		break;
-	case (int)SpellID::SOUL_SHIELD:
-		sect = { 31,31,31,31 };
+	case SpellID::SOUL_SHIELD:
+		if(isDeck) deckSlots[slot].section = { 31,31,31,31 };
+		else spellSlots[slot].section = { 31,31,31,31 };
 		break;
-	case (int)SpellID::PURIFICATION_SLASH:
-		sect = { 0,31,31,31 };
+	case SpellID::PURIFICATION_SLASH:
+		if(isDeck) deckSlots[slot].section = { 0,31,31,31 };
+		else spellSlots[slot].section = { 0,31,31,31 };
 		break;
-	case (int)SpellID::EKRISKI:
-		sect = { 61,0,31,31 };
+	case SpellID::EKRISKI:
+		if(isDeck) deckSlots[slot].section = { 61,0,31,31 };
+		else spellSlots[slot].section = { 61,0,31,31 };
 		break;
-	case (int)SpellID::FOTEIROS:
-		sect = { 0,0,31,31 };
+	case SpellID::FOTEIROS:
+		if(isDeck) deckSlots[slot].section = { 0,0,31,31 };
+		else spellSlots[slot].section = { 0,0,31,31 };
 		break;
 	default:
-		sect = { 300,300,3,3 };
+		if(isDeck) deckSlots[slot].section = { 300,300,3,3 };
+		else spellSlots[slot].section = { 300,300,3,3 };
 	}
-	return sect;
+	switch (spellSlot->spellLevel)
+	{
+	case 1:
+		if (isDeck)deckSlots[slot].SetColor({ 255,255,255,255 });
+		else spellSlots[slot].SetColor({ 255,255,255,255 });
+		break;
+	case 2:
+		if (isDeck)deckSlots[slot].SetColor({ 0,155,0,255 });
+		else spellSlots[slot].SetColor({ 0,155,0,255 });
+		break;
+	case 3:
+		if(isDeck) deckSlots[slot].SetColor({ 75,75,0,255 });
+		else spellSlots[slot].SetColor({ 75,75,0,255 });
+		break;
+	}
+	
 }
 
 std::string HUDInGame::GetSpellName(SpellID id)
