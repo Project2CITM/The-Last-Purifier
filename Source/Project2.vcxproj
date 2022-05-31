@@ -192,6 +192,7 @@
     <ClInclude Include="Text.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Trigger.h" />
+    <ClInclude Include="WeaponChoosingHUD.h" />
     <ClInclude Include="WeaponObject.h" />
     <ClInclude Include="WinScreen.h" />
     <ClInclude Include="Worm.h" />
@@ -290,6 +291,7 @@
     <ClCompile Include="TestSpell.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Trigger.cpp" />
+    <ClCompile Include="WeaponChoosingHUD.cpp" />
     <ClCompile Include="WeaponObject.cpp" />
     <ClCompile Include="WinScreen.cpp" />
     <ClCompile Include="Worm.cpp" />

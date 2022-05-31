@@ -32,6 +32,8 @@ public:
 
 	GUIButton(iPoint pos, int width, int height, MenuButton currentMenu);
 
+	GUIButton(iPoint pos, int width, int height, SDL_Texture* texture);
+
 	~GUIButton();
 
 	void Update() override;

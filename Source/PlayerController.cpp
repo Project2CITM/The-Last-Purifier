@@ -22,6 +22,8 @@ PlayerController::PlayerController(std::string name, std::string tag, Player* pl
 {
 	this->listenTo[0] = GameEvent::COMPLETE_ROOM;
 	this->listenTo[1] = GameEvent::PLAYER_DIE;
+	this->listenTo[2] = GameEvent::RESUME_PLAYER_MOVEMENT;
+	this->listenTo[3] = GameEvent::STOP_PLAYER_MOVEMENT;
 
 	app->events->AddListener(this);
 	this->player = player;
@@ -549,13 +551,20 @@ void PlayerController::Invulnerability(int frames)
 
 void PlayerController::GameEventTriggered(GameEvent id)
 {
-	if (id == GameEvent::PLAYER_DIE)
+	switch (id)
 	{
+	case GameEvent::PLAYER_DIE:
 		app->scene->ChangeCurrentSceneRequest(SCENES::GAME_OVER, 20);
-	}
-	else
-	{
+		break;
+	case GameEvent::COMPLETE_ROOM:
 		combat->CheckDeck();
+		break;
+	case GameEvent::STOP_PLAYER_MOVEMENT:
+		canControl = false;
+		break;
+	case GameEvent::RESUME_PLAYER_MOVEMENT:
+		canControl = true;
+		break;
 	}
 }
 

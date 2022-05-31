@@ -41,6 +41,15 @@ void GUI::InitAsBox(int x, int y, int w, int h, MenuButton currentMenu)
         app->scene->scenes[app->scene->currentScene]->AddGUIControls(this);
 }
 
+void GUI::InitAsBox(int x, int y, int w, int h)
+{
+    currentShape = UIShape::BOX;
+    boxShape.h = h;
+    boxShape.w = w;
+    position.x = x;
+    position.y = y;
+}
+
 void GUI::InitAsCircle(int x, int y, int radius)
 {
     currentShape = UIShape::CIRCLE;

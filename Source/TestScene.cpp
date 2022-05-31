@@ -21,6 +21,7 @@
 #include "ButtonPuzzle.h"
 #include "WeaponObject.h"
 #include "Column.h"
+#include "WeaponChoosingHUD.h"
 
 #include "External/Optick/include/optick.h"
 
@@ -64,6 +65,9 @@ bool TestScene::Start()
 
     Scene::Start();
  
+    weaponChoosingHUD = new WeaponChoosingHUD(playerClass);
+    weaponChoosingHUD->Start();
+
     app->renderer->camera->SetPosition(player->controller->GetPosition());
 
     app->renderer->camera->SetTarget(player->controller);
@@ -113,6 +117,8 @@ bool TestScene::PreUpdate()
 
     hudInGame->PreUpdate();
 
+    weaponChoosingHUD->PreUpdate();
+
     Scene::PreUpdate();
 
     return true;
@@ -154,6 +160,8 @@ bool TestScene::PostUpdate()
 
     hudInGame->PostUpdate();
 
+    weaponChoosingHUD->PostUpdate();
+
     Scene::PostUpdate();
 
     return true;
@@ -175,6 +183,9 @@ bool TestScene::CleanUp()
         RELEASE(hudInGame);
     }
     roomManager.CleanUp();
+
+    weaponChoosingHUD->CleanUp();
+    RELEASE(weaponChoosingHUD);
 
     spawnManager->ReleaseInstance();
 

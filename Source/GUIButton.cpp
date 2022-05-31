@@ -33,6 +33,31 @@ GUIButton::GUIButton(iPoint pos, int width, int height, MenuButton currentMenu) 
 	InitAsBox(pos.x, pos.y, width, height, currentMenu);
 }
 
+GUIButton::GUIButton(iPoint pos, int width, int height, SDL_Texture* texture) : GUI()
+{
+	InitAsBox(pos.x, pos.y, width, height);
+
+	renderObject = new RenderObject();
+	renderObject->texture = texture;
+	renderObject->destRect = { pos.x, pos.y, width, height };
+	renderObject->layer = 4;
+	renderObject->orderInLayer = 15;
+	renderObject->scale = 1;
+
+	// The Button texture must be three images of the different states of the button, organized from top to bottom in order of:
+	// IDLE, FOCUS, PRESSED
+	for (int i = 0; i < 3; i++)
+	{
+		renderSections[i].x = 0;
+		renderSections[i].y = i * height;
+		renderSections[i].w = width;
+		renderSections[i].h = height;
+	}
+
+	Hover = app->audio->LoadFx("Audio/SFX/UI/sfx_uiHover.wav");
+	Press = app->audio->LoadFx("Audio/SFX/UI/sfx_uiSelect.wav");
+}
+
 GUIButton::~GUIButton()
 {
 	RELEASE(renderObject);

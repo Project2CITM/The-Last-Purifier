@@ -6,6 +6,7 @@
 #include "ClassTreeHud.h"
 
 class SpellSpawnManager;
+class WeaponChoosingHUD;
 
 class TestScene :  public SceneGame
 {
@@ -40,4 +41,6 @@ private:
 	HUDInGame* hudInGame = nullptr;
 
 	SpellSpawnManager* spawnManager = nullptr;
+
+	WeaponChoosingHUD* weaponChoosingHUD = nullptr;
 };

@@ -43,6 +43,8 @@ public:
 
 	void InitAsBox(int x, int y, int w, int h, MenuButton currentMenu);
 
+	void InitAsBox(int x, int y, int w, int h);
+
 	void InitAsCircle(int x, int y, int radius);
 
 	virtual void Update();
