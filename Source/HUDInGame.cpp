@@ -186,6 +186,8 @@ bool HUDInGame::PreUpdate()
 			//currentPauseMenu = CurrentPauseMenu::Pause;
 			ControllerPos = 0;
 			startPause = false;
+			MenuPauseY = -200;
+			ComeIn = 1;
 		}
 	}
 
@@ -222,7 +224,8 @@ bool HUDInGame::Update()
 
 		if (MenuPauseY <= -11)
 		{
-			MenuPauseY++;
+			ComeIn = ComeIn * 0.9f;
+			MenuPauseY += 15 * ComeIn;
 			PauseBG.destRect = {0,MenuPauseY ,0,0};
 		}
 

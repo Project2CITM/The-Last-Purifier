@@ -139,6 +139,7 @@ private:
 	int* currentSpell = nullptr;
 
 	int MenuPauseY = -200;
+	float ComeIn = 1;
 
 	int score = 0;
 };
