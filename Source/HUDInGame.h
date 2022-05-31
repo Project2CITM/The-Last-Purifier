@@ -127,6 +127,7 @@ private:
 	Animation Torch1Anim;
 	Animation Torch2Anim;
 	Animation FlameHpAnim;
+	Animation FlameSliderAnim;
 
 	int ControllerPos = 0;
 	int ControllerPosOpY = 0;
@@ -136,6 +137,8 @@ private:
 	bool startPause = false;
 
 	int* currentSpell = nullptr;
+
+	int MenuPauseY = -200;
 
 	int score = 0;
 };
