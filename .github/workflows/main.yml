@@ -30,7 +30,7 @@ jobs:
       - name: Zip Release
         uses: TheDoctor0/zip-release@0.6.1
         with:
-          filename: 'TheLastPurifier.zip'
+          filename: 'release.zip'
           exclusions: '*.gitignore*'
 
       # Runs a set of commands using the runners shell
@@ -40,4 +40,3 @@ jobs:
           tag: $
           artifacts: "release.zip"
           token: $
-
