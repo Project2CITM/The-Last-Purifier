@@ -188,6 +188,7 @@ bool HUDInGame::PreUpdate()
 			startPause = false;
 			MenuPauseY = -200;
 			ComeIn = 1;
+			TorchAlfa = 0;
 		}
 	}
 
@@ -226,7 +227,13 @@ bool HUDInGame::Update()
 		{
 			ComeIn = ComeIn * 0.9f;
 			MenuPauseY += 20 * ComeIn;
+			
+			if(TorchAlfa <= 250)
+			TorchAlfa += 9;
+
 			PauseBG.destRect = {0,MenuPauseY ,0,0};
+			Torch1.color = { 255,255,255,TorchAlfa };
+			Torch2.color = { 255,255,255,TorchAlfa };
 		}
 
 		if (currentPauseMenu == CurrentPauseMenu::Pause && (MenuPauseY >= -11))
