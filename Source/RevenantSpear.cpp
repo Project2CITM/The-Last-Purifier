@@ -68,11 +68,11 @@ bool RevenantSpear::Attack(int chargedTime)
 	switch (playerController->lookingDir)
 	{
 	case LookingDirection::DOWN:
-		particleOffset = { -52, -25 };
+		particleOffset = { 12, -46 };
 		particleRotation = 90;
 		break;
 	case LookingDirection::UP:
-		particleOffset = { -52, -12 };
+		particleOffset = { -12, 46 };
 		particleRotation = 270;
 		break;
 	case LookingDirection::LEFT:
