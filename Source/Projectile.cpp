@@ -28,19 +28,59 @@ Projectile::Projectile(std::string name, iPoint position, fPoint duration, int d
 
 	if (fire) FireProjectile(duration);
 
-	if (rotation == 180)
-	{
-		renderObjects[0].flip = SDL_FLIP_HORIZONTAL;
-		rotation = 0;
-	}
-	else
-	{
-		renderObjects[0].flip = SDL_FLIP_NONE;
-	}
-
+	iPoint particleOffset = {0,0};
 	float projectileScale = (float)(width + height) / 8.0f;
 
-	renderObjects[0].InitAsTexture(app->textures->Load("Sprites/Player/Sage/basicAttackSageDuring.png"), position, { 0,0,0,0 }, projectileScale,1,1.0f,this->rotation);
+	if (rotation == -180)//LEFT
+	{
+		//renderObjects[0].flip = SDL_FLIP_HORIZONTAL;
+		particleOffset = { 15,5 };
+		if (projectileScale == 2.0f)
+		{
+			particleOffset = { 22,10 };
+		}
+		else if (projectileScale == 0.5f)
+		{
+			particleOffset = { -10,-10 };
+		}
+		spriteOffset[0] = { (int)(particleOffset.x * projectileScale),(int)(particleOffset.y * projectileScale) };
+	}
+	else if (rotation == 270)//UP
+	{
+		particleOffset = { -18,10 };
+		if (projectileScale == 2.0f)
+		{
+			particleOffset = { -16,10 };
+		}
+		else if (projectileScale == 0.5f)
+		{
+			particleOffset = { -10,-10 };
+		}
+		spriteOffset[0] = { (int)(particleOffset.x * projectileScale),(int)(particleOffset.y * projectileScale) };
+	}
+	else if (rotation == 0)//RIGHT
+	{
+		particleOffset = { -28,-15 };
+		spriteOffset[0] = { (int)(particleOffset.x * projectileScale),(int)(particleOffset.y * projectileScale) };
+	}
+	else if (rotation == 90)//DOWN
+	{
+		renderObjects[0].flip = SDL_FLIP_NONE;
+		particleOffset = { 0,-14 };
+		if (projectileScale == 2.0f)
+		{
+			particleOffset = { 8,-18 };
+		}
+		else if (projectileScale == 0.5f)
+		{
+			particleOffset = { -14,-10 };
+		}
+		spriteOffset[0] = { (int)(particleOffset.x * projectileScale),(int)(particleOffset.y * projectileScale) };
+	}
+
+	
+
+	renderObjects[0].InitAsTexture(app->textures->Load("Sprites/Player/Sage/basicAttackSageDuring.png"), position , { 0,0,0,0 }, projectileScale,1,1.0f,this->rotation);
 
 	renderObjects[0].center = { 16,16 };
 
@@ -86,7 +126,37 @@ Projectile::Projectile(iPoint position, int damage, int rotation, fPoint duratio
 
 	renderObjects[0].InitAsTexture(app->textures->Load("Sprites/Player/Sage/foteiros46x32.png"), position, { 0,0,0,0 }, 1.0f, 1, 1.0f, this->rotation);
 
-	if (rotation == 0)
+	iPoint particleOffset = { 0,0 };
+
+	if (rotation == 180)//LEFT
+	{
+		renderObjects[0].flip = SDL_FLIP_NONE;
+		renderObjects[0].rotation = 0;
+		particleOffset = { 0,-12 };
+
+		spriteOffset[1] = { (int)(particleOffset.x),(int)(particleOffset.y) };
+	}
+	else if (rotation == 270)//UP
+	{
+		renderObjects[0].rotation = 90;
+		particleOffset = { 15,12 };
+
+		spriteOffset[1] = { (int)(particleOffset.x),(int)(particleOffset.y) };
+	}
+	else if (rotation == 0)//RIGHT
+	{
+		renderObjects[0].flip = SDL_FLIP_HORIZONTAL;
+		particleOffset = { -28,-15 };
+		spriteOffset[1] = { (int)(particleOffset.x),(int)(particleOffset.y) };
+	}
+	else if (rotation == 90)//DOWN
+	{
+		renderObjects[0].rotation = 270;
+		particleOffset = { -15,-5 };
+		spriteOffset[1] = { (int)(particleOffset.x),(int)(particleOffset.y) };
+	}
+
+	/*if (rotation == 0)
 	{
 		renderObjects[0].flip = SDL_FLIP_HORIZONTAL;
 	}
@@ -102,7 +172,7 @@ Projectile::Projectile(iPoint position, int damage, int rotation, fPoint duratio
 	else 
 	{
 		renderObjects[0].rotation = 270;
-	}
+	}*/
 
 	// Particle Effect
 
@@ -114,7 +184,7 @@ Projectile::Projectile(iPoint position, int damage, int rotation, fPoint duratio
 	this->anim.hasIdle = false;
 	this->anim.duration = 0.064f;
 
-	spriteOffset[1] = { -40,-20 };
+	
 }
 
 void Projectile::FireProjectile(fPoint duration)
