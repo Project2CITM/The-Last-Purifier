@@ -73,6 +73,7 @@ bool HUDInGame::Start()
 
 	SpellSelectAnim.InitAsTexture(app->textures->Load("Assets/Sprites/UI/marcoAnim.png"), { 0,0 }, { 0,0,0,0 }, 0.30f, 3, 4, 0, SDL_FLIP_NONE, 0);
 	SpellNoSelectAnim.InitAsTexture(app->textures->Load("Assets/Sprites/UI/marcoAnimcopia.png"), { 0,0 }, { 0,0,0,0 }, 0.30f, 3, 2, 0, SDL_FLIP_NONE, 0);
+	SpellNoSelectAnim.color = { 255,255,255,100 };
 	Torch1.InitAsTexture(app->textures->Load("Assets/Sprites/UI/antorchas.png"), { 80,210 }, { 0,0,0,0 }, 1, 5, 2, 0, SDL_FLIP_NONE, 0);
 	Torch2.InitAsTexture(app->textures->Load("Assets/Sprites/UI/antorchas.png"), { 510,210 }, { 0,0,0,0 }, 1, 5, 2, 0, SDL_FLIP_NONE, 0);
 	HPFlame.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Flame_HP.png"), { -5,-5}, { 0,0,0,0 }, 0.5, 3, 4, 0, SDL_FLIP_NONE, 0);
@@ -84,11 +85,11 @@ bool HUDInGame::Start()
 		SpellAnimNoSelect.PushBack({ 120 * i,0,121,200 });
 	}
 	SpellAnimSelect.loop = true;
-	SpellAnimSelect.duration = 0.088;
+	SpellAnimSelect.duration = 0.1;
 	SpellAnimSelect.hasIdle = false;
 
 	SpellAnimNoSelect.loop = true;
-	SpellAnimNoSelect.duration = 0.088;
+	SpellAnimNoSelect.duration = 0.1;
 	SpellAnimNoSelect.hasIdle = false;
 
 	for (int i = 0; i < 8; i++)
@@ -110,7 +111,7 @@ bool HUDInGame::Start()
 		FlameHpAnim.PushBack({ 45 * i,8,47,124 });
 	}
 	FlameHpAnim.loop = true;
-	FlameHpAnim.duration = 0.15;
+	FlameHpAnim.duration = 0.2;
 	FlameHpAnim.hasIdle = false;
 
 	for (int i = 0; i < 8; i++)
@@ -183,7 +184,7 @@ bool HUDInGame::PreUpdate()
 		{
 			app->audio->SetMusicVolume(app->audio->musicVol*2);
 			app->audio->SetSFXVolume(app->audio->fxVol * 2);
-			//currentPauseMenu = CurrentPauseMenu::Pause;
+			currentPauseMenu = CurrentPauseMenu::Pause;
 			ControllerPos = 0;
 			startPause = false;
 			MenuPauseY = -200;
@@ -467,6 +468,7 @@ bool HUDInGame::PostUpdate()
 	FlameHpAnim.Update();
 	HPFlame.section = FlameHpAnim.GetCurrentFrame();
 	app->renderer->AddRenderObjectRenderQueue(HPFlame);
+
 
 	// Draw an empty rectangle for every abailable spell slot space
 	for (int i = 0; i < player->player->spellSlots; i++)
