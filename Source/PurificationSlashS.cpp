@@ -48,11 +48,11 @@ void PurificationSlashS::Execute(int level)
 	switch (player->controller->lookingDir)
 	{
 	case LookingDirection::DOWN:
-		particleOffset = { -32, -64 };
+		particleOffset = { 53, -36 };
 		particleRotation = 90;
 		break;
 	case LookingDirection::UP:
-		particleOffset = { -32, -64 };
+		particleOffset = { -58, 45 };
 		particleRotation = 270;
 		break;
 	case LookingDirection::LEFT:

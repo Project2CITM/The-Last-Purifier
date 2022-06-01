@@ -80,7 +80,9 @@ void GameObject::PostUpdate()
 				UpdateOrderInLayer(i);
 				renderObjects[i].destRect.x = GetDrawPosition(i).x;
 				renderObjects[i].destRect.y = GetDrawPosition(i).y;
+				//Slime Laser sprite
 				//renderObjects[i].rotation = GetDegreeAngle();
+
 
 				app->renderer->AddRenderObjectRenderQueue(renderObjects[i]);
 			}
@@ -142,11 +144,11 @@ float GameObject::GetDegreeAngle()
 {
 	if (pBody != nullptr)
 	{
-		float agle = 0;
+		float angle = 0;
 
-		agle = (pBody->body->GetAngle() * 180) / b2_pi;
+		angle = (pBody->body->GetAngle() * 180) / b2_pi;
 
-		return agle;
+		return angle;
 	}
 	
 	return this->rotation;

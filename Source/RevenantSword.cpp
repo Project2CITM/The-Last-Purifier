@@ -84,11 +84,11 @@ bool RevenantSword::Attack(int chargedTime)
 	switch (playerController->lookingDir)
 	{
 	case LookingDirection::DOWN:
-		particleOffset = { -25, -30 };
+		particleOffset = { 25, -30 };
 		particleRotation = 90;
 		break;
 	case LookingDirection::UP:
-		particleOffset = { -25, -20 };
+		particleOffset = { -23, 30 };
 		particleRotation = 270;
 		break;
 	case LookingDirection::LEFT:

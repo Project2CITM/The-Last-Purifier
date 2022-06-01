@@ -19,7 +19,10 @@ ParticlePurificationSlash::ParticlePurificationSlash(iPoint position, int rot, f
 	else
 	{
 		this->rotation = rot;
+		renderObjects[0].rotation = rot;
 	}
+
+	
 }
 
 

@@ -16,6 +16,7 @@ ParticleAttackRevenant::ParticleAttackRevenant(iPoint position, int rot, float l
 	this->rotation = rot;
 
 	renderObjects[0].flip = flip;
+	renderObjects[0].rotation = rot;
 
 	if (flip != SDL_FLIP_NONE) renderObjects[0].flip = flip;
 	
