@@ -132,7 +132,7 @@ Projectile::Projectile(iPoint position, int damage, int rotation, fPoint duratio
 	{
 		renderObjects[0].flip = SDL_FLIP_NONE;
 		renderObjects[0].rotation = 0;
-		particleOffset = { 15,5 };
+		particleOffset = { 0,-12 };
 
 		spriteOffset[1] = { (int)(particleOffset.x),(int)(particleOffset.y) };
 	}
