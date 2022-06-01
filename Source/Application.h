@@ -97,9 +97,13 @@ public:
 
 	void TogglePause(bool pause);
 
+	void ToggleMenu(bool menu);
+
 	bool FullScreenDesktop = false;
 
 	bool isPause = false;
+
+	bool isMenu = false;
 
 	// Load / Save
 	bool LoadGame();

@@ -186,20 +186,26 @@ bool HubScene::CleanUp()
 bool HubScene::PreUpdate()
 {
 	//Inputs
-		//Menu button
-
-	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || app->input->GetControllerButton(BUTTON_START) == KEY_DOWN) app->TogglePause(!app->isPause);
-	if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN) app->map->roof = !app->map->roof;
-
-	if (app->input->usingGameController)
+	if (!app->isMenu)
 	{
-		revenantInstructor->sentence = "<Press A>";
-		sageInstructor->sentence = "<Press A>";
-	}
-	else 
-	{
-		revenantInstructor->sentence = "<Press F>";
-		sageInstructor->sentence = "<Press F>";
+		//Pause Menu
+		if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || app->input->GetControllerButton(BUTTON_START) == KEY_DOWN) app->TogglePause(!app->isPause);
+		//Roof switch
+		if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN) app->map->roof = !app->map->roof;
+
+		if (app->input->usingGameController)
+		{
+			revenantInstructor->sentence = "<Press A>";
+			sageInstructor->sentence = "<Press A>";
+		}
+		else
+		{
+			revenantInstructor->sentence = "<Press F>";
+			sageInstructor->sentence = "<Press F>";
+		}
+
+		//MiniMap resize
+		miniMap->SetScale((app->input->GetKey(SDL_SCANCODE_TAB) == KEY_REPEAT) ? 2 : 1);
 	}
 
 	/*if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
@@ -230,10 +236,7 @@ bool HubScene::Update()
 	int y = player->controller->GetPosition().y;
 	
 
-	revenantTree->Update();
-
-	//MiniMap resize
-	miniMap->SetScale((app->input->GetKey(SDL_SCANCODE_TAB) == KEY_REPEAT) ? 2 : 1);
+	revenantTree->Update();	
 
 	//Quest
 	if (npc4->speak == true && !done1) {

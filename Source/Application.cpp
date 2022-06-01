@@ -248,6 +248,11 @@ void Application::TogglePause(bool pause)
 	isPause = pause;
 }
 
+void Application::ToggleMenu(bool menu)
+{
+	isMenu = menu;
+}
+
 void Application::AddModule(Module* mod)
 {
 	list_modules.add(mod);

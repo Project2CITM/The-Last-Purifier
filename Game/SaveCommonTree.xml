@@ -11,13 +11,13 @@
 	<element id="8" unlocked="false" />
 	<element id="9" unlocked="false" />
 	<element id="10" unlocked="false" />
-	<element id="11" unlocked="false" />
-	<element id="12" unlocked="false" />
+	<element id="11" unlocked="true" />
+	<element id="12" unlocked="true" />
 	<element id="13" unlocked="false" />
 	<element id="14" unlocked="false" />
 	<element id="15" unlocked="false" />
 	<element id="16" unlocked="false" />
-	<element id="17" unlocked="false" />
+	<element id="17" unlocked="true" />
 	<element id="18" unlocked="false" />
 	<element id="19" unlocked="false" />
 	<element id="20" unlocked="false" />

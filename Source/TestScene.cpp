@@ -183,8 +183,11 @@ bool TestScene::CleanUp()
     }
     roomManager.CleanUp();
 
-    weaponChoosingHUD->CleanUp();
-    RELEASE(weaponChoosingHUD);
+    if (weaponChoosingHUD != nullptr)
+    {
+        weaponChoosingHUD->CleanUp();
+        RELEASE(weaponChoosingHUD);
+    }
 
     spawnManager->ReleaseInstance();
 

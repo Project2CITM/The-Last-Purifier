@@ -125,7 +125,9 @@ bool ClassTree::unlockSkill(int* classPoints, int skillId)
 				return true;
 			}
 		}
-	}else if (theRequiredSkill == nullptr) return false;
+		return false;
+	}
+	else if (theRequiredSkill == nullptr) return false;
 	
 	//Checks if the skill with the given id is already maxed(level)
 	if (theSkill->currentLevel < theSkill->maxLevel)
@@ -142,6 +144,7 @@ bool ClassTree::unlockSkill(int* classPoints, int skillId)
 				return true;
 			}
 		}
+		return false;
 	}
 
 	//Return false means that there is nothing to unlock.

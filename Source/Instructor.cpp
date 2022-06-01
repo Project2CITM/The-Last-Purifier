@@ -71,19 +71,23 @@ void Instructor::Update()
 		if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
 		{
 			toggle = !toggle;
+			app->ToggleMenu(!app->isMenu);
 		}
 		if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		{
 			toggle = false;
+			app->ToggleMenu(false);
 		}
 		if (app->input->GetControllerButton(BUTTON_A) == KEY_DOWN && !toggle)
 		{
 			toggle = true;
+			app->ToggleMenu(true);
 			classTreeHud->isFirstFrame = true;
 		}
 		if (app->input->GetControllerButton(BUTTON_B) == KEY_DOWN && toggle)
 		{
 			toggle = false;
+			app->ToggleMenu(false);
 		}
 	}
 
