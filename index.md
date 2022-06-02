@@ -3,6 +3,7 @@ Welcome to our project. This is a student project made by seven members of the U
 We have made a roguelite game with all the necessarily features like, procedural map, player upgrade system,etc.
 In order to get to know more features make sure to check out the trailer!
 We've made everything using open source software, and we haven't used any engine. Instead, we made the game using Visual Studio 2019 and the SDL2 library.
+
 This is our first roguelite type of game so we expect you to enjoy it and give us some feedback.
 
 Thank you in advance for any help you can provide.
