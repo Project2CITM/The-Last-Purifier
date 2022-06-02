@@ -8,6 +8,40 @@ This is our first roguelite type of game so we expect you to enjoy it and give u
 
 Thank you in advance for any help you can provide.
 
+***
+
+### Our Team:
+
+**Biel Rabasa**
+
+* Github: [bielrabasa](https://github.com/bielrabasa)
+
+**Zhida Chen**
+
+* Github: [Xidashuaige](https://github.com/Xidashuaige)
+
+**Robert Recordà**
+
+* Github: [MrIllas](https://github.com/MrIllas) 
+
+**Pol Rius**
+
+* Github: [Loproxi](https://github.com/Loproxi)  
+
+**Adrià Sellarés**
+
+* Github: [AdriaSeSa](https://github.com/AdriaSeSa)  
+
+**Roger Salas**
+
+* Github: [Draquian](https://github.com/Draquian) 
+
+**Gerard Josep Ramón**
+
+* Github: [kramtron](https://github.com/kramtron) 
+
+***
+
 ```markdown
 Syntax highlighted code block
 
