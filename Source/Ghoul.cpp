@@ -10,7 +10,7 @@
 #include "Room.h"
 #include "External/Optick/include/optick.h"
 
-Ghoul::Ghoul(iPoint pos, Room* room) : Enemy("ghoul")
+Ghoul::Ghoul(iPoint pos, Room* room, bool mut) : Enemy("ghoul"), mutante(mut)
 {
 	// Get player pointer
 	SceneGame* sceneGame = (SceneGame*)app->scene->scenes[app->scene->currentScene];
@@ -21,11 +21,22 @@ Ghoul::Ghoul(iPoint pos, Room* room) : Enemy("ghoul")
 
 	this->currentRoom = room;
 
-	health = 20;
+	if(!mut)
+	{
+		health = 20;
 
-	moveSpeed = 2;
+		moveSpeed = 2;
 
-	damage = 5;
+		damage = 5;
+	}
+	else
+	{
+		health = 40;
+
+		moveSpeed = 3;
+
+		damage = 10;
+	}
 	
 	soulsAmount = 10;
 
@@ -33,6 +44,12 @@ Ghoul::Ghoul(iPoint pos, Room* room) : Enemy("ghoul")
 
 	// Init texture
 	InitRenderObjectWithXml("ghoul");
+
+	if (mut)
+	{
+		renderObjects[0].scale = 2.0f;
+		renderObjects[0].screenDetect = false;
+	}
 
 	// Init StateMachine
 	InitStateMachine();
@@ -270,7 +287,7 @@ void Ghoul::InitPhysics()
 
 	filter.maskBits = app->physics->EVERY_LAYER & ~app->physics->ENEMY_LAYER;
 	
-	detectTrigger = new Trigger(position, 16, 12, this, "EnemyDetectPlayer");
+	detectTrigger = new Trigger(position, 16*2, 12*2, this, "EnemyDetectPlayer");
 
 	detectTrigger->pBody->body->GetFixtureList()->SetFilterData(filter);
 
@@ -281,14 +298,14 @@ void Ghoul::InitPhysics()
 
 	filterB.maskBits = app->physics->EVERY_LAYER & ~app->physics->ENEMY_LAYER; // Who will coll with me
 
-	damageTrigger = new Trigger(position, 12, this, "ghoul");
+	damageTrigger = new Trigger(position, 12*2, this, "ghoul");
 
 	damageTrigger->tag = "Enemy";
 
 	damageTrigger->pBody->body->GetFixtureList()->SetFilterData(filterB);
 
 	// Attack Trigger
-	attack = new DamageArea(position, 10, 18, damage);
+	attack = new DamageArea(position, 10*2, 18*2, damage);
 
 	attack->pBody->body->SetActive(false);
 
@@ -301,7 +318,7 @@ void Ghoul::InitPhysics()
 
 	filterC.maskBits = app->physics->EVERY_LAYER & ~app->physics->PLAYER_LAYER;
 
-	pBody = app->physics->CreateCircle(position.x, position.y, 12, this, false, b2_dynamicBody, app->physics->ENEMY_LAYER);
+	pBody = app->physics->CreateCircle(position.x, position.y, 12*2, this, false, b2_dynamicBody, app->physics->ENEMY_LAYER);
 
 	pBody->body->GetFixtureList()->SetFilterData(filterC);
 }
@@ -327,15 +344,18 @@ void Ghoul::DoRun()
 {
 	OPTICK_EVENT();
 
-	fPoint fDir = { (float)(playerController->GetPosition().x - position.x), (float)(playerController->GetPosition().y - position.y) };
+	if (!mutante)
+	{
+		fPoint fDir = { (float)(playerController->GetPosition().x - position.x), (float)(playerController->GetPosition().y - position.y) };
 
-	fDir = fDir.Normalize();
+		fDir = fDir.Normalize();
 
-	lastDir = fDir;
+		lastDir = fDir;
 
-	SetLinearVelocity(b2Vec2{ (float)(fDir.x * moveSpeed),(float)(fDir.y * moveSpeed) });
+		SetLinearVelocity(b2Vec2{ (float)(fDir.x * moveSpeed),(float)(fDir.y * moveSpeed) });
 
-	return;
+		return;
+	}
 
 	if (currentRoom != nullptr && enable)
 	{

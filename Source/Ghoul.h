@@ -22,7 +22,7 @@ enum class GhoulState
 class Ghoul : public Enemy
 {
 public:
-	Ghoul(iPoint pos, Room* room);
+	Ghoul(iPoint pos, Room* room, bool mut = false);
 
 	~Ghoul();
 
@@ -81,6 +81,8 @@ private:
 	int attackCoolDown = 160;
 
 	int attackFXCoolDown = 0;
+
+	bool mutante = false;
 
 	Timer ghoulTimer;
 
