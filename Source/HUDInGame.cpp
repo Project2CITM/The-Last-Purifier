@@ -66,8 +66,8 @@ bool HUDInGame::Start()
 	PauseBG.InitAsTexture(app->textures->Load("Assets/Sprites/UI/PauseBG.png"), { 0, MenuPauseY }, { 0,0,0,0 }, 0.35f, 4, 0, 0 , SDL_FLIP_NONE, 0);
 	PauseBGDark.InitAsTexture(app->textures->Load("Assets/Sprites/UI/PauseBGDark.png"), { 0, -10 }, { 0,0,0,0 }, 0.35f, 3, 10, 0 , SDL_FLIP_NONE, 0);
 	SettingsBG.InitAsTexture(app->textures->Load("Sprites/UI/FondoSettings.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 0, 0, SDL_FLIP_NONE, 0);
-	Controls1.InitAsTexture(app->textures->Load("Sprites/UI/Controls1_2.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 1, 0, SDL_FLIP_NONE, 0);
-	Controls2.InitAsTexture(app->textures->Load("Sprites/UI/Controls2_2.png"), { app->renderer->camera->x, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 1, 0, SDL_FLIP_NONE, 0);
+	Controls1.InitAsTexture(app->textures->Load("Sprites/UI/Controls1_2.png"), { app->renderer->camera->x - 12, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 1, 0, SDL_FLIP_NONE, 0);
+	Controls2.InitAsTexture(app->textures->Load("Sprites/UI/Controls2_2.png"), { app->renderer->camera->x - 12, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 1, 0, SDL_FLIP_NONE, 0);
 
 	iconSouls.InitAsTexture(app->textures->Load("Sprites/Soul/soul.png"), { app->renderer->camera->x + 20, app->renderer->camera->y + 15 }, { 0,0,50,89 }, 0.25f, 4, 0, 0, SDL_FLIP_NONE, 0);
 
@@ -551,6 +551,14 @@ bool HUDInGame::PostUpdate()
 				app->renderer->AddRenderObjectRenderQueue(Controls2);
 			else
 				app->renderer->AddRenderObjectRenderQueue(Controls1);
+
+			Torch1Anim.Update();
+			Torch1.section = Torch1Anim.GetCurrentFrame();
+			app->renderer->AddRenderObjectRenderQueue(Torch1);
+
+			Torch2Anim.Update();
+			Torch2.section = Torch2Anim.GetCurrentFrame();
+			app->renderer->AddRenderObjectRenderQueue(Torch2);
 		}
 
 		if (currentPauseMenu == CurrentPauseMenu::Settings)
@@ -558,6 +566,14 @@ bool HUDInGame::PostUpdate()
 			FlameSliderAnim.Update();
 			FlameSliderAnim.GetCurrentFrame();
 			app->renderer->AddRenderObjectRenderQueue(SettingsBG);
+
+			Torch1Anim.Update();
+			Torch1.section = Torch1Anim.GetCurrentFrame();
+			app->renderer->AddRenderObjectRenderQueue(Torch1);
+
+			Torch2Anim.Update();
+			Torch2.section = Torch2Anim.GetCurrentFrame();
+			app->renderer->AddRenderObjectRenderQueue(Torch2);
 		}
 	}
 
