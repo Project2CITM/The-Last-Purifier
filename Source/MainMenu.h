@@ -58,9 +58,6 @@ private:
 	GUIButton* CloseCrdBUT = nullptr;
 
 	GUIButton* CredtisCre = nullptr;
-	GUIButton* CredtisAud = nullptr;
-	GUIButton* CredtisArt = nullptr;
-	GUIButton* CredtisOtr = nullptr;
 
 	GUISlider* MusicSlider = nullptr;
 	GUISlider* fxSlider = nullptr;
@@ -76,6 +73,8 @@ private:
 	int ControllerPosOpX = 0;
 	int ControllerPosCr = 0;
 	bool AxisPress = false;
+
+	Uint8 Alfa = 0;
 
 	uint Appear_FX = NULL;
 

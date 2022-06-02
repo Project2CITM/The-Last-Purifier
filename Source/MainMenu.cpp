@@ -16,7 +16,6 @@
 RenderObject fondo;
 RenderObject options;
 RenderObject credtis1;
-RenderObject credtis2;
 
 MainMenu::MainMenu():Scene("MainMenu")
 {
@@ -50,8 +49,9 @@ bool MainMenu::Start()
 
 	fondo.InitAsTexture(app->textures->Load("Sprites/UI/background.png"), { 0,0 }, { 0,0,0,0 }, 0.5f, 0, 0, 0, SDL_FLIP_NONE, 0);
 	options.InitAsTexture(app->textures->Load("Sprites/UI/Options.png"), { 0,0 }, {0,0,0,0}, 0.5f);
+	options.color.a = Alfa;
 	credtis1.InitAsTexture(app->textures->Load("Sprites/UI/CredtisCre.png"), { 0,0 }, {0,0,0,0}, 0.5f);
-	credtis2.InitAsTexture(app->textures->Load("Sprites/UI/CreditsProba.png"), { 0,0 }, {0,0,0,0}, 0.5f);
+	credtis1.color.a = Alfa;
 
 	Hover = app->audio->LoadFx("Audio/SFX/UI/sfx_uiHover.wav");
 	Press = app->audio->LoadFx("Audio/SFX/UI/sfx_uiSelect.wav");
@@ -82,10 +82,10 @@ bool MainMenu::Start()
 	fxSlider->CreateGUIBtn(fxBUT);
 	fxSlider->SetValue(app->audio->fxVol / 255);
 
-	CredtisCre = new GUIButton({ 125, 70 }, 117, 47, MenuButton::CREDITS, app->textures->Load("Sprites/UI/Credtis1.png"));
-	CredtisAud = new GUIButton({ 125, 130 }, 117, 47, MenuButton::CREDITS, app->textures->Load("Sprites/UI/Credtis2.png"));
-	CredtisArt = new GUIButton({ 125, 190 }, 117, 47, MenuButton::CREDITS, app->textures->Load("Sprites/UI/Credtis3.png"));
-	CredtisOtr = new GUIButton({ 125, 250 }, 117, 47, MenuButton::CREDITS, app->textures->Load("Sprites/UI/Credtis4.png"));
+	CredtisCre = new GUIButton({ 125, 160 }, 117, 47, MenuButton::CREDITS, app->textures->Load("Sprites/UI/Credtis1.png"));
+	//CredtisAud = new GUIButton({ 125, 130 }, 117, 47, MenuButton::CREDITS, app->textures->Load("Sprites/UI/Credtis2.png"));
+	//CredtisArt = new GUIButton({ 125, 190 }, 117, 47, MenuButton::CREDITS, app->textures->Load("Sprites/UI/Credtis3.png"));
+	//CredtisOtr = new GUIButton({ 125, 250 }, 117, 47, MenuButton::CREDITS, app->textures->Load("Sprites/UI/Credtis4.png"));
 
 	FullScreenCHK = new GUICheckbox({ 350, 200 }, 40, 40, MenuButton::OPTIONS, app->textures->Load("Sprites/UI/CheckBox.png"));
 	FullScreenCHK->ChangeState(app->FullScreenDesktop);
@@ -93,7 +93,7 @@ bool MainMenu::Start()
 	VSyncCHK = new GUICheckbox({ 350, 240 }, 40, 40, MenuButton::OPTIONS, app->textures->Load("Sprites/UI/CheckBox.png"));
 	VSyncCHK->ChangeState(app->vsync);
 
-	CloseCrdBUT = new GUIButton({ 297, 300 }, 40, 40, MenuButton::CREDITS, app->textures->Load("Sprites/UI/Back.png"));
+	CloseCrdBUT = new GUIButton({ 297, 300 }, 46, 46, MenuButton::CREDITS, app->textures->Load("Sprites/UI/Back.png"));
 
 	//testTrans = app->window->width * app->window->height;
 
@@ -273,6 +273,7 @@ bool MainMenu::Update()
 		{
 			currentMenu = CurrentMenu::Main;
 			ControllerPosOpY = 0;
+			options.color.a = 0;
 			CloseOptBUT->doAction = false;
 		}
 
@@ -308,13 +309,13 @@ bool MainMenu::Update()
 			if ((leftYOptions > 10000 || app->input->GetControllerButton(BUTTON_DOWN) == KEY_DOWN) && !AxisPress)
 			{
 				ControllerPosCr += 1;
-				if (ControllerPosCr > 4) ControllerPosCr = 0;
+				if (ControllerPosCr > 1) ControllerPosCr = 0;
 				AxisPress = true;
 			}
 			else if ((leftYOptions < -10000 || app->input->GetControllerButton(BUTTON_UP) == KEY_DOWN) && !AxisPress)
 			{
 				ControllerPosCr -= 1;
-				if (ControllerPosCr < 0) ControllerPosCr = 4;
+				if (ControllerPosCr < 0) ControllerPosCr = 1;
 				AxisPress = true;
 			}
 			else if (abs(leftYOptions) < 1000)
@@ -326,9 +327,10 @@ bool MainMenu::Update()
 			selectedButton->HoverButton();
 		}
 
-		if (CloseCrdBUT->doAction || (ControllerPosCr == 4 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN) || app->input->GetControllerButton(BUTTON_B) == KEY_DOWN)
+		if (CloseCrdBUT->doAction || (ControllerPosCr == 1 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN) || app->input->GetControllerButton(BUTTON_B) == KEY_DOWN)
 		{
 			currentMenu = CurrentMenu::Main;
+			credtis1.color.a = 0;
 			CloseCrdBUT->doAction = false;
 		}
 
@@ -336,24 +338,6 @@ bool MainMenu::Update()
 		{
 			currentCredtis = CurrentCredtis::Creadors;
 			CredtisCre->doAction = false;
-		}
-
-		if (CredtisAud->doAction || (ControllerPosCr == 1 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
-		{
-			currentCredtis = CurrentCredtis::Audio;
-			CredtisAud->doAction = false;
-		}
-
-		if (CredtisArt->doAction || (ControllerPosCr == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
-		{
-			currentCredtis = CurrentCredtis::Art;
-			CredtisArt->doAction = false;
-		}
-
-		if (CredtisOtr->doAction || (ControllerPosCr == 3 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
-		{
-			currentCredtis = CurrentCredtis::Otros;
-			CredtisOtr->doAction = false;
 		}
 	}
 
@@ -368,9 +352,12 @@ bool MainMenu::PostUpdate()
 
 	if (currentMenu == CurrentMenu::Options)
 	{
-		for (int i = 0; i < guisOptions.count(); i++)
+		if (Alfa >= 250)
 		{
-			if (guisOptions[i]) guisOptions[i]->PostUpdate();
+			for (int i = 0; i < guisOptions.count(); i++)
+			{
+				if (guisOptions[i]) guisOptions[i]->PostUpdate();
+			}
 		}
 
 		app->renderer->AddRenderObjectRenderQueue(options);
@@ -379,18 +366,15 @@ bool MainMenu::PostUpdate()
 
 	if (currentMenu == CurrentMenu::Credtis)
 	{
-		for (int i = 0; i < guisCredtis.count(); i++)
-		{
-			if (guisCredtis[i]) guisCredtis[i]->PostUpdate();
+		if(Alfa >= 250)
+		{ 
+			for (int i = 0; i < guisCredtis.count(); i++)
+			{
+				if (guisCredtis[i]) guisCredtis[i]->PostUpdate();
+			}
 		}
 
 		if(currentCredtis == CurrentCredtis::Creadors)		app->renderer->AddRenderObjectRenderQueue(credtis1);
-
-		if(currentCredtis == CurrentCredtis::Audio)		app->renderer->AddRenderObjectRenderQueue(credtis2);
-
-		if(currentCredtis == CurrentCredtis::Art)		app->renderer->AddRenderObjectRenderQueue(credtis2);
-
-		if(currentCredtis == CurrentCredtis::Otros)		app->renderer->AddRenderObjectRenderQueue(credtis2);
 	}
 
 	if (currentMenu == CurrentMenu::Main)
@@ -400,6 +384,41 @@ bool MainMenu::PostUpdate()
 			if (guisMainMenu[i]) guisMainMenu[i]->PostUpdate();
 		}
 		app->renderer->AddRenderObjectRenderQueue(fondo);
+
+		if (Alfa != 0)
+		{
+			Alfa = 0;
+		}
+
+	}
+
+	if (Alfa <= 250)
+	{
+		/*for (int i = 0; i < guisMainMenu.count(); i++)
+		{
+			if (guisMainMenu[i]) guisMainMenu[i]->PostUpdate();
+		}*/
+		app->renderer->AddRenderObjectRenderQueue(fondo);
+	}
+
+	if (currentMenu == CurrentMenu::Credtis)
+	{
+		if (Alfa <= 250)
+		{
+			Alfa += 4;
+		}
+
+		credtis1.color = { 255,255,255,Alfa };
+	}
+
+	if (currentMenu == CurrentMenu::Options)
+	{
+		if (Alfa <= 250)
+		{
+			Alfa += 4;
+		}
+
+		options.color = { 255,255,255,Alfa };
 	}
 
 	Scene::PostUpdate();
