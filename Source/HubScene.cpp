@@ -205,7 +205,7 @@ bool HubScene::PreUpdate()
 		}
 
 		//MiniMap resize
-		miniMap->SetScale((app->input->GetKey(SDL_SCANCODE_TAB) == KEY_REPEAT) ? 2 : 1);
+		miniMap->SetScale((app->input->GetKey(SDL_SCANCODE_TAB) == KEY_REPEAT || app->input->GetControllerButton(BUTTON_BACK) == KEY_REPEAT) ? 2 : 1);
 	}
 
 	/*if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
