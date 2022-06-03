@@ -6,6 +6,7 @@
 #include "SageWeapon.h"
 #include "Player.h"
 #include "Text.h"
+#include "Animation.h"
 
 #define REVENANT_WEAPONS 2
 #define SAGE_WEAPONS 3
@@ -53,5 +54,14 @@ private:
 	// Gamepad implementation
 
 	int currentOption = 0;
+
+	RenderObject fondoArmas;
+
+	RenderObject Torch1;
+	RenderObject Torch2;
+
+	Animation Torch1Anim;
+	Animation Torch2Anim;
+
 };
 
