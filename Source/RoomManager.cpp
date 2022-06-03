@@ -65,7 +65,7 @@ void RoomManager::Update(iPoint playerPos)
 {
 	
 	//MiniMap resize
-	miniMap->SetScale((app->input->GetKey(SDL_SCANCODE_TAB) == KEY_REPEAT) ? 2 : 1);
+	miniMap->SetScale((app->input->GetKey(SDL_SCANCODE_TAB) == KEY_REPEAT || app->input->GetControllerButton(BUTTON_BACK) == KEY_REPEAT) ? 2 : 1);
 	
 	//Check current room
 	Room* r = roomPositions[playerPos.x / (TILE_SIZE * MAX_ROOM_TILES_COLUMNS)][playerPos.y / (TILE_SIZE * MAX_ROOM_TILES_ROWS)];
