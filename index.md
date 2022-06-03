@@ -9,8 +9,9 @@ This is our first roguelite type of game so we expect you to enjoy it and give u
 Thank you in advance for any help you can provide.
 
 ***
-
-### Our Team:
+TRAILER
+***
+## Our Team:
 
 **Biel Rabasa**
 
@@ -42,7 +43,7 @@ Thank you in advance for any help you can provide.
 
 ***
 
-### Controls:
+## Controls:
 
 Move:
 - 	Walk			→	Left Joystick
@@ -70,7 +71,39 @@ Debug Keys:
 - 	Save Current Dungeon	→	F7
 
 ***
+## The Last Purifier - Concept Discovery
+<details>
+<summary>Features</summary>
 
+* Well, you asked for it!
+
+</details>
+
+## The Last Purifier - Vertical Slice
+<details>
+<summary>Features</summary>
+
+* Well, you asked for it!
+
+</details>
+
+## The Last Purifier - Alpha
+<details>
+<summary>Features</summary>
+
+* Well, you asked for it!
+
+</details>
+
+## The Last Purifier - Gold
+<details>
+<summary>Features</summary>
+
+* Well, you asked for it!
+
+</details>
+
+***
 ```markdown
 Syntax highlighted code block
 
