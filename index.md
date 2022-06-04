@@ -75,9 +75,11 @@ Debug Keys:
 ## The Last Purifier - Concept Discovery
 <details>
 <summary>▶ Features</summary>
-
+<p>
+  
 * Well, you asked for it!
 
+</p>
 </details>
 
 ## The Last Purifier - Vertical Slice
