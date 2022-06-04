@@ -75,16 +75,14 @@ Debug Keys:
 ## The Last Purifier - Concept Discovery
 <details>
 <summary>▶ Features</summary>
-  
-hello
-  
+<pre>
+> These are concept discovery features
+</pre>
 </details>
 
 ## The Last Purifier - Vertical Slice
 <details>
-  
 <summary>▶ Features </summary>
-
 <pre>
 > Fullscreen & Windowed mode
 
@@ -145,15 +143,13 @@ hello
 > > Health bar & damage effects
 > > Spell cards + deck
 > > Pause menu
-
 </pre>
-
 </details>
 
 ## The Last Purifier - Alpha
 <details>
 <summary>▶ Features</summary>
-
+<pre>
 > Map
 > >Minimap (dungeon & hub)
 > >3 new puzzles (3 new rooms)
@@ -188,15 +184,13 @@ hello
 > > >Buy ability improvements
 
 > Quests
-
+</pre>
 </details>
 
 ## The Last Purifier - Gold
 <details>
 <summary>▶ Features</summary>
-
-* Well, you asked for it!
-
+<pre>
+> > These are the gold features
+</pre>
 </details>
-
-***
