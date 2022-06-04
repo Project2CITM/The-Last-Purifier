@@ -124,6 +124,8 @@ bool ModuleScene::ChangeCurrentSceneRequest(uint index, int frames)
 
 	isChangingScene = true;
 
+	sceneGettingDeleted = true;
+
 	changeState = SCENECHANGESTATES::fade_in;
 
 	fadeSpeed = 10.0f;
@@ -181,6 +183,7 @@ void ModuleScene::ChangeSceneSteptoStep()
 		if (fade <= 0)
 		{
 			isChangingScene = false;
+			sceneGettingDeleted = false;
 			changeState = SCENECHANGESTATES::idle;
 		}
 		break;

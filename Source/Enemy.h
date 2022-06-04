@@ -8,7 +8,7 @@
 class SpellSpawnManager;
 class Player;
 
-class Enemy :  public GameObject, EventListener
+class Enemy :  public GameObject
 {
 public: 
 	
@@ -40,8 +40,6 @@ public:
 	{
 		return damage;
 	}
-
-	void GameEventTriggered(GameEvent id);
 
 protected:
 	SpellSpawnManager* spawnManager = nullptr;
