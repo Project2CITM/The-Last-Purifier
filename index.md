@@ -73,7 +73,7 @@ Debug Keys:
 ***
 ## The Last Purifier - Concept Discovery
 <details>
-<summary>▶Features</summary>
+<summary>▶ Features</summary>
 
 * Well, you asked for it!
 
@@ -81,53 +81,119 @@ Debug Keys:
 
 ## The Last Purifier - Vertical Slice
 <details>
-<summary>▶Features</summary>
+<summary>▶ Features</summary>
 
-* Well, you asked for it!
+> Fullscreen & Windowed mode
+
+>God Mode (F10)
+> > Instakills
+> > No damage
+
+> Keyboard & Gamepad control
+
+> 2 playable characters
+> >Sage (range battle system)
+> >Revenant (melee battle system)
+
+> 3 types of enemies
+> >Ghoul
+> >Kaboom
+> >Worm
+
+> 6 NPCs with custom dialog
+
+> 5 Spells
+> >Purifed Sword
+> >Soul Shield
+> >Purification Slash
+> >Foteiros
+> >Ekriski
+
+> Spell deck
+
+> 2 Skill Trees, one per class.
+
+> Random generated map.
+
+> Hub Map with different zones 
+
+> Custom team logo (with fx)
+
+> Custom game logo (with fx)
+
+> Menu & Pause menu (keyboard & controller)
+> >Play
+> >Options
+> >Credits
+> >Load
+> >Save
+> >Exit
+> >GitHub link
+
+> Audio
+> >Background music
+> >Audio effects
+> > >Enemies
+> > >Players
+> > >Attacks
+> > >Menu
+
+> HUD
+> > Health bar & damage effects
+> >Spell cards + deck
+> >Pause menu
+
 
 </details>
 
 ## The Last Purifier - Alpha
 <details>
-<summary>▶Features</summary>
+<summary>▶ Features</summary>
 
-* Well, you asked for it!
+> Map
+> >Minimap (dungeon & hub)
+> >3 new puzzles (3 new rooms)
+> >Save & Continue from last dungeon
+> >Player converter
+
+> Entities
+> >New slime enemy
+> >New breakable pot
+> >Buttons (random pressing order)
+> >Pathfinding
+
+> Weapons
+> >New combat system
+> >Spear
+> >Staff
+> >Book
+
+> Audio
+> >New fx
+> >New music for every scene
+> >Change Volume
+
+> UI
+> >Win screen
+> >Game over screen
+> >Vsync activation
+> >Volume changing
+> >Ability trees
+> > >Buy better stats
+> > >Buy deck spaces
+> > >Buy ability improvements
+
+> Quests
+
 
 </details>
 
 ## The Last Purifier - Gold
 <details>
-<summary>▶Features</summary>
+<summary>▶ Features</summary>
 
 * Well, you asked for it!
 
 </details>
 
 ***
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Project2CITM/The-last-purifier/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
