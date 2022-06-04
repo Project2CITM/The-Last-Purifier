@@ -44,7 +44,6 @@ Worm::Worm(iPoint pos) : Enemy("worm")
 
 Worm::~Worm()
 {
-	damageTrigger->Destroy();
 }
 
 void Worm::PreUpdate()
@@ -173,7 +172,13 @@ void Worm::UpdateStates()
 	break;
 	case (int)WormState::DIE:
 	{
-		SetTriggeeActive(false);
+		//SetTriggeeActive(false);
+
+		if (damageTrigger != nullptr)
+		{
+			damageTrigger->Destroy();
+			damageTrigger = nullptr;
+		}
 
 		if (!animations[stateMachine.GetCurrentState()].HasFinished()) return;
 		

@@ -67,7 +67,7 @@ void ButtonPuzzle::PreUpdate()
 	if (CheckResult())
 	{
 		room->ClearEnemies();
-		SpawnWeaponObject();
+		//SpawnWeaponObject();
 		buttonPressed[0] = -1;
 	}
 	else

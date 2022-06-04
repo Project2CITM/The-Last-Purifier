@@ -60,6 +60,8 @@ private:
 
 	void SetTriggeeActive(bool active);
 
+	void DestroyTriggers();
+
 private:
 
 	Animation animations[(int)GhoulState::MAX];

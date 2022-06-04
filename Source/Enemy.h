@@ -52,8 +52,6 @@ protected:
 
 	int soulsAmount = 0;
 
-	bool sceneGettingDeleted = false;
-
 private:
 	Player* player = nullptr;
 

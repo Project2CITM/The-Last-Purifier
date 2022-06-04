@@ -47,8 +47,6 @@ Slime::Slime(iPoint pos) : Enemy("slime")
 
 Slime::~Slime()
 {
-	damageTrigger->Destroy();
-
 	attack->pendingToDelete = true;
 }
 
@@ -180,8 +178,6 @@ void Slime::UpdateStates()
 	break;
 	case (int)SlimeState::HIT:
 	{
-		//printf("Hit\n");
-
 		hitTime -= slimeTimer.getDeltaTime() * 1000;
 
 		if (hitTime > 0) return;
@@ -193,9 +189,13 @@ void Slime::UpdateStates()
 	break;
 	case (int)SlimeState::DIE:
 	{
-		//printf("Die\n");
+		//SetTriggeeActive(false);
 
-		SetTriggeeActive(false);
+		if (damageTrigger != nullptr)
+		{
+			damageTrigger->Destroy();
+			damageTrigger = nullptr;
+		}
 
 		if (!animations[stateMachine.GetCurrentState()].HasFinished()) return;
 

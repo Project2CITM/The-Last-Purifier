@@ -51,10 +51,6 @@ Kaboom::Kaboom(iPoint pos, Room* room) :Enemy("kaboom")
 
 Kaboom::~Kaboom()
 {
-	detectTrigger->Destroy();
-
-	damageTrigger->Destroy();
-
 	attack->pendingToDelete = true;
 }
 
@@ -199,7 +195,9 @@ void Kaboom::UpdateStates()
 	break;
 	case (int)KaboomState::DIE:
 	{
-		SetTriggeeActive(false);
+		//SetTriggeeActive(false);
+
+		DestroyTriggers();
 
 		if (pBody->body->IsActive()) pBody->body->SetActive(false);
 
@@ -351,4 +349,18 @@ void Kaboom::SetTriggeeActive(bool active)
 	damageTrigger->pBody->body->SetActive(active);
 
 	attack->pBody->body->SetActive(active);
+}
+
+void Kaboom::DestroyTriggers()
+{
+	if (detectTrigger != nullptr)
+	{
+		detectTrigger->Destroy();
+		detectTrigger = nullptr;
+	}
+	if (damageTrigger != nullptr)
+	{
+		damageTrigger->Destroy();
+		damageTrigger = nullptr;
+	}
 }
