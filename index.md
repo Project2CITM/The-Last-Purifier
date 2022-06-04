@@ -76,10 +76,8 @@ Debug Keys:
 <details>
 <summary>▶ Features</summary>
   
-```
+hello
   
-  
-```
 </details>
 
 ## The Last Purifier - Vertical Slice
@@ -147,7 +145,8 @@ Debug Keys:
 > > Health bar & damage effects
 > > Spell cards + deck
 > > Pause menu
-  ```
+
+</pre>
 
 </details>
 
