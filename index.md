@@ -78,7 +78,6 @@ Debug Keys:
   
 ```
   
-* Well, you asked for it!
   
 ```
 </details>
@@ -89,12 +88,10 @@ Debug Keys:
 <summary>▶ Features </summary>
 
   ```
-  
 > Fullscreen & Windowed mode
 
 > God Mode (F10) 
-  
-> >  Instakills  
+> > Instakills  
 > > No damage 
 
 > Keyboard & Gamepad control
@@ -130,27 +127,26 @@ Debug Keys:
 > Custom game logo (with fx)
 
 > Menu & Pause menu (keyboard & controller)
-> >Play
-> >Options
-> >Credits
-> >Load
-> >Save
-> >Exit
-> >GitHub link
+> > Play
+> > Options
+> > Credits
+> > Load
+> > Save
+> > Exit
+> > GitHub link
 
 > Audio
-> >Background music
-> >Audio effects
-> > >Enemies
-> > >Players
-> > >Attacks
-> > >Menu
+> > Background music
+> > Audio effects
+> > > Enemies
+> > > Players
+> > > Attacks
+> > > Menu
 
 > HUD
 > > Health bar & damage effects
-> >Spell cards + deck
-> >Pause menu
-
+> > Spell cards + deck
+> > Pause menu
   ```
 
 </details>
