@@ -8,8 +8,6 @@
 
 Enemy::Enemy(std::string name) :GameObject(name, "Enemy")
 {
-	this->listenTo[0] = GameEvent::DELETING_SCENE;
-	app->events->AddListener(this);
 	spawnManager = SpellSpawnManager::GetInstance();
 	SceneGame* scene = (SceneGame*)app->scene->scenes[app->scene->currentScene];
 	player = scene->player;
@@ -76,22 +74,16 @@ void Enemy::Die(bool spawnPower, bool spawnSoul)
 
 	pendingToDelete = true;
 
-	Application::GetInstance()->events->RemoveListener(this);
- 	if (sceneGettingDeleted) return;
+ 	if (app->scene->sceneGettingDeleted) return;
 
 	if (spawnManager != nullptr)
 	{
 		if (!spawnManager->IsDeleted() && spawnPower)
 		{
 			int randNum = rand() % 10;
-			spawnManager->SpawnSpell(GetPosition());
+			if (randNum == 1) spawnManager->SpawnSpell(GetPosition());
 		}
 	}
 
 	if (player != nullptr && spawnSoul) Souls* soul1 = new Souls(GetPosition(), 3);
-}
-
-void Enemy::GameEventTriggered(GameEvent id)
-{
-	sceneGettingDeleted = true;
 }

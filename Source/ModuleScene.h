@@ -3,6 +3,7 @@
 
 #include "Module.h"
 #include "External/SDL/include/SDL.h"
+#include "ModuleEvents.h"
 
 #define SCENES_NUM 9
 
@@ -91,6 +92,8 @@ public:
 	int changeSceneWaitFrames = 0;
 
 	int changeTo = -1;
+
+	bool sceneGettingDeleted = false;
 
 	//int playerX = 0, playerY = 0;
 
