@@ -27,6 +27,7 @@ WeaponChoosingHUD::WeaponChoosingHUD(PlayerClass playerClass)
 
 	iPoint pos1 = { 0,0 };
 	iPoint pos2 = { 0,0 };
+	iPoint posfondo = { 40,10 };
 
 	if (playerClass == PlayerClass::REVENANT)
 	{
@@ -36,7 +37,6 @@ WeaponChoosingHUD::WeaponChoosingHUD(PlayerClass playerClass)
 
 		weapon1AssetPath = "Assets/Sprites/UI/WeaponUI/revenantSword76x303.png";
 		weapon2AssetPath = "Assets/Sprites/UI/WeaponUI/revenantSpear99x303.png";
-
 		width1 = 76;
 		height1 = 303;
 		width2 = 99;
@@ -54,8 +54,8 @@ WeaponChoosingHUD::WeaponChoosingHUD(PlayerClass playerClass)
 		weapon1AssetPath = "Assets/Sprites/UI/WeaponUI/libro282x216.png";
 		weapon2AssetPath = "Assets/Sprites/UI/WeaponUI/libro2_282x216.png";
 
-		width1 = 282;
-		height1 = 216;
+		width1 = 242;
+		height1 = 185;
 		width2 = 282;
 		height2 = 216;
 
@@ -69,8 +69,32 @@ WeaponChoosingHUD::WeaponChoosingHUD(PlayerClass playerClass)
 	buttons.add(weapon1Btn);
 	buttons.add(weapon2Btn);
 
-	text = new Text({ 270, 10 }, "Choose a weapon.", "defaultFont", false);
+	//text = new Text({ 270, 10 }, "Choose a weapon.", "defaultFont", false);
+	Torch1.InitAsTexture(app->textures->Load("Assets/Sprites/UI/antorchas.png"), { 230,205 }, { 0,0,0,0 }, 1, 5, 2, 0, SDL_FLIP_NONE, 0);
+	Torch2.InitAsTexture(app->textures->Load("Assets/Sprites/UI/antorchas.png"), { 380,205 }, { 0,0,0,0 }, 1, 5, 2, 0, SDL_FLIP_NONE, 0);
+
+	fondoArmas.InitAsTexture(app->textures->Load("Assets/Sprites/UI/WeaponUI/fondoArmas.png"), posfondo, { 0,0,0,0 }, 0.95, 4, 0, 0, SDL_FLIP_NONE, 0);
+
+	for (int i = 0; i < 8; i++)
+	{
+		Torch1Anim.PushBack({ 48 * i,2,44,146 });
+		Torch2Anim.PushBack({ 48 * i,2,44,146 });
+	}
+
+	Torch1Anim.loop = true;
+	Torch1Anim.duration = 0.15;
+	Torch1Anim.hasIdle = false;
+
+	Torch2Anim.loop = true;
+	Torch2Anim.duration = 0.15;
+	Torch2Anim.hasIdle = false;
 }
+
+
+
+	
+
+
 
 void WeaponChoosingHUD::Start()
 {
@@ -112,8 +136,18 @@ void WeaponChoosingHUD::PostUpdate()
 	{
 		buttons[i]->PostUpdate();
 	}
+	
+	app->renderer->AddRenderObjectRenderQueue(fondoArmas);
 
-	text->PostUpdate();
+	Torch1Anim.Update();
+	Torch1.section = Torch1Anim.GetCurrentFrame();
+	app->renderer->AddRenderObjectRenderQueue(Torch1); 
+
+	Torch2Anim.Update();
+	Torch2.section = Torch2Anim.GetCurrentFrame();
+	app->renderer->AddRenderObjectRenderQueue(Torch2);
+
+	//text->PostUpdate();
 }
 
 void WeaponChoosingHUD::CleanUp()
