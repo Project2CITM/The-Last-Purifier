@@ -73,7 +73,7 @@ bool HubScene::InitScene()
 bool HubScene::Start()
 {
 	app->map->Load(HUB_MAP);
-
+	app->map->roof = false;
 	//Map
 
 	/*Player related*/
