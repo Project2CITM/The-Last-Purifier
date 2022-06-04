@@ -141,6 +141,10 @@ void Instructor::OnTriggerExit(std::string trigger, PhysBody* col) {
 		text->SetText(" ");
 		sentenceOrder = 0;
 		toggle = false;
+
+		//PREVENTS A WEIRD BUG
+		app->events->TriggerEvent(GameEvent::RESUME_PLAYER_MOVEMENT);
+		classTreeHud->TextCleaning();
 	}
 
 }

@@ -66,15 +66,17 @@ GUIButton::~GUIButton()
 void GUIButton::Update()
 {
 	if (!app->input->usingGameController) UpdateMouse();
-	else
+	else if (!isHoverBox)
 	{
 		lastState = buttonState;
 		buttonState = ButtonState::IDLE;
 	}
 
-	if (buttonState == ButtonState::FOCUS && isHoverBox)
+	if ((buttonState == ButtonState::FOCUS) && isHoverBox)
 	{
 		HoverBox.Update();
+		lastState = buttonState;
+		return;
 	}
 	else if (buttonState != ButtonState::FOCUS && isHoverBox)
 	{

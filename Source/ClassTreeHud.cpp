@@ -173,6 +173,12 @@ bool ClassTreeHud::Update()
 	treeSwitch->Update();
 	if (treeSwitch->doAction || app->input->GetControllerButton(JoystickButtons::BUTTON_Y) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN)
 	{
+		//HoverBox cleaning
+		if (switcher) //Class tree
+			unlockBtn->At(currentSelectedOption)->data->buttonState = ButtonState::IDLE;
+		else //Common tree
+			cmmUnlockBtn->At(currentSelectedOption)->data->buttonState = ButtonState::IDLE;
+
 		switcher = !switcher;
 		treeSwitch->doAction = false;
 		currentSelectedOption = 0;
@@ -201,7 +207,14 @@ bool ClassTreeHud::Update()
 
 			if (element->data->buttonState == ButtonState::FOCUS)
 			{
-				element->data->getHoverBox()->SetData(tree->getDescription(aux));
+				if (app->input->usingGameController)
+				{
+					element->data->getHoverBox()->SetData(tree->getDescription(aux), 0, true, tree->getSkillTree(aux)->position);
+				}
+				else
+				{
+					element->data->getHoverBox()->SetData(tree->getDescription(aux));
+				}
 			}
 
 			aux++;
@@ -242,12 +255,19 @@ bool ClassTreeHud::Update()
 
 			if(element->data->buttonState == ButtonState::FOCUS)
 			{
-				//element->data->getHoverBox()->SetData("");
 				std::string theText = "Increases ";
 				theText += cTree->getText(cTree->getElement(aux)->type);
 				theText += " by ";
 				theText += std::to_string((int)cTree->getSingleValue(cTree->getElement(aux)->type));
-				element->data->getHoverBox()->SetData(theText, 100);
+
+				if (app->input->usingGameController)
+				{
+					element->data->getHoverBox()->SetData(theText, 0, true, cTree->getElement(aux)->position);
+				}
+				else
+				{
+					element->data->getHoverBox()->SetData(theText);
+				}
 			}
 			
 			element = element->next;
@@ -328,9 +348,25 @@ void ClassTreeHud::GamepadInputController(bool isSkillTree)
 {
 	// GamePad input control
 	if (app->input->GetControllerButton(JoystickButtons::BUTTON_RIGHT) == KEY_DOWN)
+	{
+		if (isSkillTree)
+			unlockBtn->At(currentSelectedOption)->data->buttonState = ButtonState::IDLE;
+		else
+			cmmUnlockBtn->At(currentSelectedOption)->data->buttonState = ButtonState::IDLE;
 		currentSelectedOption++;
+	}
+		
+
+		
 	else if (app->input->GetControllerButton(JoystickButtons::BUTTON_LEFT) == KEY_DOWN)
+	{
+		if (isSkillTree)
+			unlockBtn->At(currentSelectedOption)->data->buttonState = ButtonState::IDLE;
+		else
+			cmmUnlockBtn->At(currentSelectedOption)->data->buttonState = ButtonState::IDLE;
 		currentSelectedOption--;
+	}
+		
 
 	if (isSkillTree)
 	{

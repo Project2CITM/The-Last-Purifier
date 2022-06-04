@@ -16,6 +16,8 @@ private:
 	Text* text = nullptr; 
 	Text* costText = nullptr;
 
+	bool controller = false;
+
 public:
 	GUIHoverBox();
 
@@ -24,6 +26,6 @@ public:
 	void Update() override;
 	void PostUpdate() override;
 
-	void SetData(std::string txt, int cost = 0);
+	void SetData(std::string txt, int cost = 0, bool controller = false, iPoint position = { 0, 0 });
 };
 

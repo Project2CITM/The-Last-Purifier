@@ -28,17 +28,19 @@ GUIHoverBox::~GUIHoverBox()
 void GUIHoverBox::Update()
 {
 	//if (!bttn->buttonState == ButtonState::FOCUS) return;
-	
-	iPoint mousePos = { app->input->GetMouseX() / (int) app->window->scale, app->input->GetMouseY() / (int) app->window->scale};
+	if (!controller)
+	{
+		iPoint mousePos = { app->input->GetMouseX() / (int)app->window->scale, app->input->GetMouseY() / (int)app->window->scale };
 
-	this->position = mousePos;
-	
-	//Visual Enhancment on top of the mouse
-	position.x = position.x + 2;
-	position.y = position.y - boxShape.h;
+		this->position = mousePos;
 
-	text->SetText("Increases health by 0.2");
-	text->position = position;
+		//Visual Enhancment on top of the mouse
+		position.x = position.x + 2;
+		position.y = position.y - boxShape.h;
+		text->position = position;
+	}
+	//text->SetText("");
+	//text->position = position;
 
 	//costText->position = { position.x, position.y + 11 };
 
@@ -52,7 +54,7 @@ void GUIHoverBox::PostUpdate()
 	boxShape.h = 11;
 }
 
-void GUIHoverBox::SetData(std::string txt, int cost)
+void GUIHoverBox::SetData(std::string txt, int cost, bool controller, iPoint position)
 {
 	//Basic text
 	text->SetText(txt);
@@ -74,4 +76,12 @@ void GUIHoverBox::SetData(std::string txt, int cost)
 	boxShape.w = (txt.length() * 7) + 4;
 	//Arranges text (depending of the size of the string) to the right
 	//costText->position.x = (costText->position.x + boxShape.w) - (txtCost.length() * 7) - 4;
+
+	if (controller)
+	{
+		this->position = position;
+		text->position = position;
+	}
+	this->controller = controller;
+
 }
