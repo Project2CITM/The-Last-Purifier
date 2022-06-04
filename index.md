@@ -76,12 +76,10 @@ Debug Keys:
 <details>
 <summary>▶ Features</summary>
   
-<code><pre>
-  hey
-  this is just code
-  :>
-</code>
+```
   
+  
+```
 </details>
 
 ## The Last Purifier - Vertical Slice
@@ -89,7 +87,7 @@ Debug Keys:
   
 <summary>▶ Features </summary>
 
-  ```
+<pre>
 > Fullscreen & Windowed mode
 
 > God Mode (F10) 
