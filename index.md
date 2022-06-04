@@ -82,7 +82,12 @@ Debug Keys:
 
 ## The Last Purifier - Vertical Slice
 <details>
-<summary>▶ Features</summary>
+  
+<summary>
+  
+  ▶ Features
+  
+ </summary>
 
 > Fullscreen & Windowed mode
 
@@ -90,26 +95,16 @@ Debug Keys:
   
 > >  Instakills  
 > > No damage 
-  
 
-  
 > Keyboard & Gamepad control
-  
 
-  
 > 2 playable characters
-  
-> > Sage (range battle system)
-  
+> > Sage (range battle system)  
 > > Revenant (melee battle system)
-  
 
-> 3 types of enemies
-  
-> > Ghoul
-  
-> > Kaboom
-  
+> 3 types of enemies 
+> > Ghoul 
+> > Kaboom  
 > > Worm
 
 > 6 NPCs with custom dialog
@@ -196,7 +191,6 @@ Debug Keys:
 > > >Buy ability improvements
 
 > Quests
-
 
 </details>
 
