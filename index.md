@@ -87,18 +87,29 @@ Debug Keys:
 > Fullscreen & Windowed mode
 
 > God Mode (F10) 
+  
 > >  Instakills  
 > > No damage 
+  
 
+  
 > Keyboard & Gamepad control
+  
 
+  
 > 2 playable characters
+  
 > > Sage (range battle system)
+  
 > > Revenant (melee battle system)
+  
 
 > 3 types of enemies
+  
 > > Ghoul
+  
 > > Kaboom
+  
 > > Worm
 
 > 6 NPCs with custom dialog
