@@ -32,6 +32,19 @@ private:
 	void SaveTextInAscii();
 
 public:
+	void setOrderInLayer(float value)
+	{
+		orderInLayer = value;
+		textRO.orderInLayer = value;
+	}
+
+	void setLayer(float value)
+	{
+		layer = value;
+		textRO.layer = value;
+	}
+
+public:
 
 	iPoint position = { 0,0 };
 
@@ -59,6 +72,10 @@ private:
 	float currentTextCountTime;
 
 	float textCountTime = 0.0f;
+
+	int layer = 1;
+
+	float orderInLayer = 1.0;
 };
 
 #endif // !__TEXT_H__

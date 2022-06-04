@@ -63,6 +63,8 @@ public:
 
 	void GamepadInputController(bool isSkillTree);
 
+	void TextCleaning();
+
 private:
 
 	int startId = 0;

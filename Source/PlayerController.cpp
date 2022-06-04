@@ -231,8 +231,6 @@ void PlayerController::CreatePhysBody()
 
 void PlayerController::MovementUpdateKeyboard()
 {
-	if (app->isMenu) return;
-
 	tryingToMove = false;
 	// By default, the player is always IDLE
 	stateMachine.ChangeState((uint)PlayerState::IDLE);

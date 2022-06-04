@@ -465,6 +465,9 @@
     <ClInclude Include="WeaponChoosingHUD.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="GUIHoverBox.h">
+      <Filter>Archivos de encabezado\GUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\PugiXml\src\pugixml.cpp">
@@ -757,6 +760,9 @@
     </ClCompile>
     <ClCompile Include="WeaponChoosingHUD.cpp">
       <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIHoverBox.cpp">
+      <Filter>Archivos de origen\GUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <classes>
 	<class_tree id="0" name="Revenant">
-		<tree_element id="1" level="1" />
+		<tree_element id="1" level="2" />
 		<tree_element id="2" level="0" />
 		<tree_element id="3" level="0" />
 		<tree_element id="4" level="0" />

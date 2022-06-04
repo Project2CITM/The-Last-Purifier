@@ -249,3 +249,9 @@ int ClassTree::getCurrentLevel(int id)
 
 	return toReturn;
 }
+
+
+std::string ClassTree::getDescription(int id)
+{
+	return getSkillTree(id)->description;
+}

@@ -62,7 +62,6 @@ void PlayerCombat::Update()
 
 void PlayerCombat::CombatUpdate()
 {
-	if (app->isMenu) return;
 	combatTimer.Update();
 
 	if (app->input->GetMouseButton(1) == KEY_UP || app->input->GetControllerButton(BUTTON_X) == KEY_UP)

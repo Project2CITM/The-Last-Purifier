@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <common_tree>
 	<dictionary>
-		<skill_slot value="1" />
-		<deck value="1.0f" />
-		<soul_gain value="1.0f" />
-		<health value="5.0f" />
-		<armour value="4.0f" />
-		<luck value="1.0f" />
-		<damage value="4.0f" />
-		<attack_speed value="5.0f" />
+		<skill_slot value="1.0f" text="skill slots"/>
+		<deck value="1.0f" text="deck slots" />
+		<soul_gain value="1.0f" text="the amount of droped souls" />
+		<health value="5.0f" text="health" />
+		<armour value="4.0f" text="armour" />
+		<luck value="1.0f" text="luck" />
+		<damage value="4.0f" text="basic attack damage" />
+		<attack_speed value="5.0f" text="attack speed" />
 	</dictionary>
 	<elements>
 			<element id="0" type="skill_slot">
@@ -185,6 +185,157 @@
 				<requires id1="31" id2="-1" />
 				<unlocked value="false" />
 				<position x="487" y="143" />
+			</element>
+			
+			
+			<element id="34" type="armour">
+				<requires id1="5" id2="-1" />
+				<unlocked value="false" />
+				<position x="170" y="186" />
+			</element>
+			<element id="35" type="health">
+				<requires id1="34" id2="-1" />
+				<unlocked value="false" />
+				<position x="205" y="186" />
+			</element>
+			
+			<element id="36" type="armour">
+				<requires id1="35" id2="-1" />
+				<unlocked value="false" />
+				<position x="240" y="186" />
+			</element>
+			<element id="37" type="damage">
+				<requires id1="36" id2="-1" />
+				<unlocked value="false" />
+				<position x="275" y="186" />
+			</element>
+			<element id="38" type="attack_speed">
+				<requires id1="37" id2="-1" />
+				<unlocked value="false" />
+				<position x="310" y="186" />
+			</element>
+			
+			<element id="39" type="skill_slot">
+				<requires id1="35" id2="-1" />
+				<unlocked value="false" />
+				<position x="205" y="204" />
+			</element>
+			
+			<element id="40" type="deck">
+				<requires id1="39" id2="-1" />
+				<unlocked value="false" />
+				<position x="240" y="204" />
+			</element>
+			<element id="41" type="health">
+				<requires id1="40" id2="-1" />
+				<unlocked value="false" />
+				<position x="275" y="213" />
+			</element>
+			<element id="42" type="attack_speed">
+				<requires id1="41" id2="-1" />
+				<unlocked value="false" />
+				<position x="310" y="213" />
+			</element>
+			<element id="43" type="armour">
+				<requires id1="42" id2="-1" />
+				<unlocked value="false" />
+				<position x="346" y="213" />
+			</element>
+			
+			<element id="44" type="deck">
+				<requires id1="39" id2="-1" />
+				<unlocked value="false" />
+				<position x="205" y="239" />
+			</element>
+			<element id="45" type="health">
+				<requires id1="44" id2="-1" />
+				<unlocked value="false" />
+				<position x="240" y="248" />
+			</element>
+			<element id="46" type="damage">
+				<requires id1="45" id2="-1" />
+				<unlocked value="false" />
+				<position x="275" y="248" />
+			</element>
+			<element id="47" type="armour">
+				<requires id1="46" id2="-1" />
+				<unlocked value="false" />
+				<position x="275" y="266" />
+			</element>
+			
+			<element id="48" type="luck">
+				<requires id1="46" id2="42" />
+				<unlocked value="false" />
+				<position x="311" y="230" />
+			</element>
+			
+			<element id="49" type="health">
+				<requires id1="48" id2="-1" />
+				<unlocked value="false" />
+				<position x="346" y="230" />
+			</element>
+			<element id="50" type="health">
+				<requires id1="49" id2="-1" />
+				<unlocked value="false" />
+				<position x="381" y="230" />
+			</element>
+			<element id="51" type="attack_speed">
+				<requires id1="50" id2="-1" />
+				<unlocked value="false" />
+				<position x="416" y="230" />
+			</element>
+			<element id="52" type="damage">
+				<requires id1="51" id2="-1" />
+				<unlocked value="false" />
+				<position x="452" y="230" />
+			</element>
+			
+			<element id="53" type="soul_gain">
+				<requires id1="48" id2="42" />
+				<unlocked value="false" />
+				<position x="311" y="266" />
+			</element>
+			<element id="54" type="soul_gain">
+				<requires id1="43" id2="42" />
+				<unlocked value="false" />
+				<position x="311" y="283" />
+			</element>
+			
+			<element id="55" type="armour">
+				<requires id1="48" id2="-1" />
+				<unlocked value="false" />
+				<position x="346" y="248" />
+			</element>
+			<element id="56" type="armour">
+				<requires id1="55" id2="-1" />
+				<unlocked value="false" />
+				<position x="381" y="248" />
+			</element>
+			<element id="57" type="damage">
+				<requires id1="56" id2="-1" />
+				<unlocked value="false" />
+				<position x="416" y="248" />
+			</element>
+			<element id="58" type="attack_speed">
+				<requires id1="57" id2="-1" />
+				<unlocked value="false" />
+				<position x="452" y="248" />
+			</element>
+			
+			<element id="59" type="luck">
+				<requires id1="51" id2="57" />
+				<unlocked value="false" />
+				<position x="487" y="230" />
+			</element>
+			<element id="60" type="health">
+				<requires id1="59" id2="-1" />
+				<unlocked value="false" />
+				<position x="487" y="213" />
+			</element>
+			<element id="61" type="armour">
+				<requires id1="59" id2="-1" />
+				<unlocked value="false" />
+				<position x="487" y="266" />
 			</element>
 	</elements>
 </common_tree>

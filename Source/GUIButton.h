@@ -3,6 +3,7 @@
 
 #include "GUI.h"
 #include "ModuleRender.h"
+#include "GUIHoverBox.h"
 
 enum class ButtonState
 {
@@ -26,6 +27,9 @@ private:
 	SDL_Color renderColour = { defaultColor.r, defaultColor.g, defaultColor.b, defaultColor.a };
 	int layer = 3;
 	int orderInlayer = 10;
+
+	GUIHoverBox HoverBox;
+	bool isHoverBox = false;
 
 public:
 	GUIButton(iPoint pos, int width, int height, MenuButton currentmenu, SDL_Texture* texture);
@@ -67,6 +71,21 @@ public:
 		this->layer = layer;
 		this->orderInlayer = orderInlayer;
 	};
+
+	GUIHoverBox* getHoverBox()
+	{
+		if (isHoverBox)
+		{
+			return &HoverBox;
+		}
+		return nullptr;
+	}
+
+	void setHoverBox()
+	{
+		HoverBox = GUIHoverBox();
+		isHoverBox = true;
+	}
 private:
 	void UpdateMouse();
 };

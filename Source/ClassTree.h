@@ -91,6 +91,8 @@ public:
 
 	int getCurrentLevel(int id);
 
+	std::string getDescription(int id);
+
 private:
 	ClassTree(PlayerClass pClass);
 	~ClassTree();

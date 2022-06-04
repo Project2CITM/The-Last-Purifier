@@ -117,6 +117,7 @@
     <ClInclude Include="GUI.h" />
     <ClInclude Include="GUIButton.h" />
     <ClInclude Include="GUICheckbox.h" />
+    <ClInclude Include="GUIHoverBox.h" />
     <ClInclude Include="GUISlider.h" />
     <ClInclude Include="HubScene.h" />
     <ClInclude Include="HUDInGame.h" />
@@ -221,6 +222,7 @@
     <ClCompile Include="GUI.cpp" />
     <ClCompile Include="GUIButton.cpp" />
     <ClCompile Include="GUICheckbox.cpp" />
+    <ClCompile Include="GUIHoverBox.cpp" />
     <ClCompile Include="GUISlider.cpp" />
     <ClCompile Include="HubScene.cpp" />
     <ClCompile Include="HUDInGame.cpp" />

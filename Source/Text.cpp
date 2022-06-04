@@ -15,9 +15,9 @@ Text::Text(iPoint position, std::string text, std::string font, bool printOnScen
 
 	int height = app->config.child("fonts").child(font.c_str()).attribute("height").as_int(1);
 
-	int layer = app->config.child("fonts").child(font.c_str()).attribute("layer").as_int(1);
+	layer = app->config.child("fonts").child(font.c_str()).attribute("layer").as_int(1);
 
-	float orderInLayer = app->config.child("fonts").child(font.c_str()).attribute("orderInLayer").as_float(1);
+	orderInLayer = app->config.child("fonts").child(font.c_str()).attribute("orderInLayer").as_float(1);
 
 	float scale = app->config.child("fonts").child(font.c_str()).attribute("scale").as_float(1);
 
@@ -81,7 +81,8 @@ void Text::PostUpdate()
 		// Offset to the right
 		int tempPosX = textRO.destRect.x;
 
-		textRO.destRect.x = tempPosX + (i * textRO.section.w * textRO.scale) + space;
+		textRO.destRect.x = position.x + (i * textRO.section.w * textRO.scale) + space;
+		textRO.destRect.y = position.y + (textRO.scale);
 
 		app->renderer->AddRenderObjectRenderQueue(textRO);
 

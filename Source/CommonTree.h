@@ -72,6 +72,9 @@ private:
     //Stores the global value of all unlocked upgrades
     std::map<CommonUpgrades, float> unlockedDic;
 
+    //Stores the string name used in UI (Hoverbox)
+    std::map<CommonUpgrades, std::string> textDic;
+
     //Loads the value of each individual upgrade
     bool LoadDictionary();
 
@@ -101,6 +104,10 @@ public:
 
     //Returns the value of the given CommonUpgrade
     float getValue(CommonUpgrades id);
+
+    float getSingleValue(CommonUpgrades id);
+
+    std::string getText(CommonUpgrades id);
 
     //Stores the Loaded Tree
     List<TreeElement*>* treeList = new List<TreeElement*>();

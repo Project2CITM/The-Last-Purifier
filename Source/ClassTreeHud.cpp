@@ -93,6 +93,7 @@ bool ClassTreeHud::Start()
 		}
 		bttn->setRenderColour({ 155, 0, 0, 155 });
 		bttn->setRenderLayer(4, 1);
+		bttn->setHoverBox();
 
 		cmmUnlockBtn->add(bttn);
 
@@ -110,6 +111,7 @@ bool ClassTreeHud::Start()
 		GUIButton* bttn = new GUIButton(aux, btnSize, btnSize, MenuButton::NONE, app->textures->Load("Sprites/UI/Trees/Tree_Debug_Btn.png"));
 		bttn->setRenderColour({ 155, 0, 0, 155 });
 		bttn->setRenderLayer(4, 1);
+		bttn->setHoverBox();
 
 		unlockBtn->add(bttn);
 
@@ -160,7 +162,6 @@ bool ClassTreeHud::CleanUp()
 
 bool ClassTreeHud::PreUpdate()
 {
-
 	Scene::PreUpdate();
 
 	return true;
@@ -170,11 +171,13 @@ bool ClassTreeHud::Update()
 {
 	//Tree Switch
 	treeSwitch->Update();
-	if (treeSwitch->doAction || app->input->GetControllerButton(JoystickButtons::BUTTON_Y) == KEY_DOWN)
+	if (treeSwitch->doAction || app->input->GetControllerButton(JoystickButtons::BUTTON_Y) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN)
 	{
 		switcher = !switcher;
 		treeSwitch->doAction = false;
 		currentSelectedOption = 0;
+
+		TextCleaning();
 	}
 
 	//if (!active) return true;
@@ -194,6 +197,11 @@ bool ClassTreeHud::Update()
 			{
 				tree->unlockSkill(&player->souls, aux);
 				element->data->doAction = false;
+			}
+
+			if (element->data->buttonState == ButtonState::FOCUS)
+			{
+				element->data->getHoverBox()->SetData(tree->getDescription(aux));
 			}
 
 			aux++;
@@ -230,6 +238,16 @@ bool ClassTreeHud::Update()
 			{
 				upInt = aux;
 				element->data->doAction = false;
+			}
+
+			if(element->data->buttonState == ButtonState::FOCUS)
+			{
+				//element->data->getHoverBox()->SetData("");
+				std::string theText = "Increases ";
+				theText += cTree->getText(cTree->getElement(aux)->type);
+				theText += " by ";
+				theText += std::to_string((int)cTree->getSingleValue(cTree->getElement(aux)->type));
+				element->data->getHoverBox()->SetData(theText, 100);
 			}
 			
 			element = element->next;
@@ -337,5 +355,29 @@ void ClassTreeHud::GamepadInputController(bool isSkillTree)
 		{
 			cmmUnlockBtn->At(currentSelectedOption)->data->PressButton(true);
 		}
+	}
+}
+
+
+void ClassTreeHud::TextCleaning()
+{
+	//Class tree logic text cleaning
+	ListItem<GUIButton*>* element = nullptr;
+	element = unlockBtn->start;
+
+	while (element != NULL)
+	{
+		element->data->getHoverBox()->SetData("");
+
+		element = element->next;
+	}
+
+	//Common tree logic text cleaning
+	element = cmmUnlockBtn->start;
+	while (element != NULL)
+	{
+		element->data->getHoverBox()->SetData("");
+
+		element = element->next;
 	}
 }

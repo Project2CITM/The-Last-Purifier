@@ -82,8 +82,9 @@ bool CommonTree::LoadDictionary()
 
 	while (bNode != NULL)
 	{
-		upgradesDic.insert({ ResolveType(bNode.name()), (float) bNode.attribute("value").as_int() });
+		upgradesDic.insert({ ResolveType(bNode.name()), bNode.attribute("value").as_float() });
 		unlockedDic.insert({ ResolveType(bNode.name()), 0});
+		textDic.insert({ ResolveType(bNode.name()), bNode.attribute("text").as_string() });
 		bNode = bNode.next_sibling();
 	}
 
@@ -222,6 +223,16 @@ float CommonTree::getValue(CommonUpgrades id)
 	}
 	// Return -1 if not found
 	return 0;
+}
+
+float CommonTree::getSingleValue(CommonUpgrades id)
+{
+	return upgradesDic.at(id);
+}
+
+std::string CommonTree::getText(CommonUpgrades id)
+{
+	return textDic.at(id);
 }
 
 bool CommonTree::CheckUpgrades()

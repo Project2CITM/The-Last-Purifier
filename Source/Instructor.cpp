@@ -72,22 +72,36 @@ void Instructor::Update()
 		{
 			toggle = !toggle;
 			app->ToggleMenu(!app->isMenu);
+
+			if (toggle) app->events->TriggerEvent(GameEvent::STOP_PLAYER_MOVEMENT);
+			else app->events->TriggerEvent(GameEvent::RESUME_PLAYER_MOVEMENT);
+
+			classTreeHud->TextCleaning();
 		}
 		if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		{
 			toggle = false;
 			app->ToggleMenu(false);
+			app->events->TriggerEvent(GameEvent::RESUME_PLAYER_MOVEMENT);
+
+			classTreeHud->TextCleaning();
 		}
 		if (app->input->GetControllerButton(BUTTON_A) == KEY_DOWN && !toggle)
 		{
 			toggle = true;
 			app->ToggleMenu(true);
+			app->events->TriggerEvent(GameEvent::STOP_PLAYER_MOVEMENT);
 			classTreeHud->isFirstFrame = true;
+
+			classTreeHud->TextCleaning();
 		}
 		if (app->input->GetControllerButton(BUTTON_B) == KEY_DOWN && toggle)
 		{
 			toggle = false;
 			app->ToggleMenu(false);
+			app->events->TriggerEvent(GameEvent::RESUME_PLAYER_MOVEMENT);
+
+			classTreeHud->TextCleaning();
 		}
 	}
 

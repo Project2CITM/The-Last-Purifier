@@ -3,7 +3,7 @@
 	<class_tree id="0" name="Revenant">
 		<tree_element id="1">
 			<name>Purified Sword</name>
-			<description>It's a sword</description>
+			<description>Next 5 attacks or skills have extra damage.</description>
 			<cost>100</cost>
 			<requiresID>-1</requiresID>
 			<maxLevel>3</maxLevel>
@@ -11,7 +11,7 @@
 		</tree_element>
 		<tree_element id="2">
 			<name>Soul Shield</name>
-			<description>It's a sword</description>
+			<description>Inmune for a few seconds</description>
 			<cost>100</cost>
 			<requiresID>1</requiresID>
 			<maxLevel>3</maxLevel>
@@ -19,7 +19,7 @@
 		</tree_element>
 		<tree_element id="3">
 			<name>Flame Cape</name>
-			<description>It's a sword</description>
+			<description>Not implemented</description>
 			<cost>100</cost>
 			<requiresID>2</requiresID>
 			<maxLevel>3</maxLevel>
@@ -27,7 +27,7 @@
 		</tree_element>
 		<tree_element id="4">
 			<name>Sacred Shield</name>
-			<description>It's a sword</description>
+			<description>Not implemented</description>
 			<cost>100</cost>
 			<requiresID>3</requiresID>
 			<maxLevel>3</maxLevel>
@@ -35,7 +35,7 @@
 		</tree_element>
 		<tree_element id="5">
 			<name>Cover</name>
-			<description>It's a sword</description>
+			<description>Not implemented</description>
 			<cost>100</cost>
 			<requiresID>2</requiresID>
 			<maxLevel>3</maxLevel>
@@ -43,7 +43,7 @@
 		</tree_element>
 		<tree_element id="6">
 			<name>Purification Slash</name>
-			<description>It's a sword</description>
+			<description>Slashes on front of you</description>
 			<cost>100</cost>
 			<requiresID>1</requiresID>
 			<maxLevel>3</maxLevel>
@@ -51,7 +51,7 @@
 		</tree_element>
 		<tree_element id="7">
 			<name>Purification Thrust</name>
-			<description>It's a sword</description>
+			<description>Not implemented</description>
 			<cost>100</cost>
 			<requiresID>6</requiresID>
 			<maxLevel>3</maxLevel>
@@ -59,7 +59,7 @@
 		</tree_element>
 		<tree_element id="8">
 			<name>Dash Slash</name>
-			<description>It's a sword</description>
+			<description>Not implemented</description>
 			<cost>100</cost>
 			<requiresID>7</requiresID>
 			<maxLevel>3</maxLevel>
@@ -67,7 +67,7 @@
 		</tree_element>
 		<tree_element id="9">
 			<name>Torment</name>
-			<description>It's a sword</description>
+			<description>Not implemented</description>
 			<cost>100</cost>
 			<requiresID>8</requiresID>
 			<maxLevel>3</maxLevel>
@@ -75,7 +75,7 @@
 		</tree_element>
 		<tree_element id="10">
 			<name>Crematorium</name>
-			<description>It's a sword</description>
+			<description>Not implemented</description>
 			<cost>100</cost>
 			<requiresID>9</requiresID>
 			<maxLevel>3</maxLevel>
@@ -83,7 +83,7 @@
 		</tree_element>
 		<tree_element id="11">
 			<name>Fotieros</name>
-			<description>It's a sword</description>
+			<description>A fire ball that deals hight damage.</description>
 			<cost>100</cost>
 			<requiresID>-1</requiresID>
 			<maxLevel>3</maxLevel>
@@ -91,7 +91,7 @@
 		</tree_element>
 		<tree_element id="12">
 			<name>Tychaia</name>
-			<description>It's a sword</description>
+			<description>Not implemented</description>
 			<cost>100</cost>
 			<requiresID>11</requiresID>
 			<maxLevel>3</maxLevel>
@@ -99,7 +99,7 @@
 		</tree_element>
 		<tree_element id="13">
 			<name>Pneuma</name>
-			<description>It's a sword</description>
+			<description>Not implemented</description>
 			<cost>100</cost>
 			<requiresID>12</requiresID>
 			<maxLevel>3</maxLevel>
@@ -107,7 +107,7 @@
 		</tree_element>
 		<tree_element id="14">
 			<name>Ekriski</name>
-			<description>It's a sword</description>
+			<description>Deals damage to all enemies on front of you.</description>
 			<cost>100</cost>
 			<requiresID>13</requiresID>
 			<maxLevel>3</maxLevel>
@@ -115,7 +115,7 @@
 		</tree_element>
 		<tree_element id="15">
 			<name>Egeiro</name>
-			<description>It's a sword</description>
+			<description>Not implemented</description>
 			<cost>100</cost>
 			<requiresID>11</requiresID>
 			<maxLevel>3</maxLevel>
@@ -123,7 +123,7 @@
 		</tree_element>
 		<tree_element id="16">
 			<name>Timoria</name>
-			<description>It's a sword</description>
+			<description>Not implemented</description>
 			<cost>100</cost>
 			<requiresID>12</requiresID>
 			<maxLevel>3</maxLevel>
@@ -131,7 +131,7 @@
 		</tree_element>
 		<tree_element id="17">
 			<name>Astrapi</name>
-			<description>It's a sword</description>
+			<description>Not implemented</description>
 			<cost>100</cost>
 			<requiresID>16</requiresID>
 			<maxLevel>3</maxLevel>
@@ -139,7 +139,7 @@
 		</tree_element>
 		<tree_element id="18">
 			<name>Soteria</name>
-			<description>It's a sword</description>
+			<description>Not implemented</description>
 			<cost>100</cost>
 			<requiresID>17</requiresID>
 			<maxLevel>3</maxLevel>
@@ -147,7 +147,7 @@
 		</tree_element>
 		<tree_element id="19">
 			<name>Psyche</name>
-			<description>It's a sword</description>
+			<description>Not implemented</description>
 			<cost>100</cost>
 			<requiresID>15</requiresID>
 			<maxLevel>3</maxLevel>
@@ -155,7 +155,7 @@
 		</tree_element>
 		<tree_element id="20">
 			<name>Etereo</name>
-			<description>It's a sword</description>
+			<description>Not implemented</description>
 			<cost>100</cost>
 			<requiresID>18</requiresID>
 			<maxLevel>3</maxLevel>

@@ -71,6 +71,15 @@ void GUIButton::Update()
 		lastState = buttonState;
 		buttonState = ButtonState::IDLE;
 	}
+
+	if (buttonState == ButtonState::FOCUS && isHoverBox)
+	{
+		HoverBox.Update();
+	}
+	else if (buttonState != ButtonState::FOCUS && isHoverBox)
+	{
+		HoverBox.SetData("");
+	}
 }
 
 void GUIButton::PostUpdate()
@@ -88,6 +97,11 @@ void GUIButton::PostUpdate()
 	else
 	{
 		app->renderer->AddRectRenderQueue(SDL_Rect{ position.x,position.y,boxShape.w,boxShape.h }, renderColour, true, layer, orderInlayer, 0);
+	}
+
+	if (buttonState == ButtonState::FOCUS && isHoverBox)
+	{
+		HoverBox.PostUpdate();
 	}
 }
 

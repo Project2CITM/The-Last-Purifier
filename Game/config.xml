@@ -324,7 +324,7 @@
 	</dialogText>
 	<audios>
 		<music volume="0" />
-		<sfx volume="1" />
+		<sfx volume="0" />
 	</audios>
 	<scenes>
 		<level1>
