@@ -10,6 +10,7 @@ Thank you in advance for any help you can provide.
 
 ***
 TRAILER
+
 ***
 ## Our Team:
 
@@ -83,35 +84,31 @@ Debug Keys:
 <details>
 <summary>▶ Features</summary>
 
-》 Fullscreen & Windowed mode
+> Fullscreen & Windowed mode
 
-》God Mode (F10) 
-  
-  》》a
-  
-》》 Instakills 
-  
-》》 No damage 
+> God Mode (F10) 
+> >  Instakills  
+> > No damage 
 
 > Keyboard & Gamepad control
 
 > 2 playable characters
-> >Sage (range battle system)
-> >Revenant (melee battle system)
+> > Sage (range battle system)
+> > Revenant (melee battle system)
 
 > 3 types of enemies
-> >Ghoul
-> >Kaboom
-> >Worm
+> > Ghoul
+> > Kaboom
+> > Worm
 
 > 6 NPCs with custom dialog
 
 > 5 Spells
-> >Purifed Sword
-> >Soul Shield
-> >Purification Slash
-> >Foteiros
-> >Ekriski
+> > Purifed Sword
+> > Soul Shield
+> > Purification Slash
+> > Foteiros
+> > Ekriski
 
 > Spell deck
 
