@@ -73,7 +73,7 @@ Debug Keys:
 ***
 ## The Last Purifier - Concept Discovery
 <details>
-<summary>Features</summary>
+<summary>▶Features</summary>
 
 * Well, you asked for it!
 
@@ -81,7 +81,7 @@ Debug Keys:
 
 ## The Last Purifier - Vertical Slice
 <details>
-<summary>Features</summary>
+<summary>▶Features</summary>
 
 * Well, you asked for it!
 
@@ -89,7 +89,7 @@ Debug Keys:
 
 ## The Last Purifier - Alpha
 <details>
-<summary>Features</summary>
+<summary>▶Features</summary>
 
 * Well, you asked for it!
 
@@ -97,7 +97,7 @@ Debug Keys:
 
 ## The Last Purifier - Gold
 <details>
-<summary>Features</summary>
+<summary>▶Features</summary>
 
 * Well, you asked for it!
 
