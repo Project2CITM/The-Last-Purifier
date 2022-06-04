@@ -75,27 +75,26 @@ Debug Keys:
 ## The Last Purifier - Concept Discovery
 <details>
 <summary>▶ Features</summary>
-<p>
+  
+```
   
 * Well, you asked for it!
-
-</p>
+  
+```
 </details>
 
 ## The Last Purifier - Vertical Slice
 <details>
   
-<summary>
-  
-  ▶ FeatUREEEES
-  
- </summary>
+<summary>▶ Features </summary>
 
-* Fullscreen & Windowed mode
-
-* God Mode (F10) 
+  ```
   
-  *  Instakills  
+> Fullscreen & Windowed mode
+
+> God Mode (F10) 
+  
+> >  Instakills  
 > > No damage 
 
 > Keyboard & Gamepad control
@@ -152,6 +151,7 @@ Debug Keys:
 > >Spell cards + deck
 > >Pause menu
 
+  ```
 
 </details>
 
