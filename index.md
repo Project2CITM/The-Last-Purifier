@@ -89,11 +89,11 @@ Debug Keys:
   
  </summary>
 
-> Fullscreen & Windowed mode
+* Fullscreen & Windowed mode
 
-> God Mode (F10) 
+* God Mode (F10) 
   
-> >  Instakills  
+  *  Instakills  
 > > No damage 
 
 > Keyboard & Gamepad control
