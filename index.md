@@ -101,48 +101,48 @@ Debug Keys:
   ● Kaboom  
   ● Worm
 
-> 6 NPCs with custom dialog
+● 6 NPCs with custom dialog
 
-> 5 Spells
-> > Purifed Sword
-> > Soul Shield
-> > Purification Slash
-> > Foteiros
-> > Ekriski
+● 5 Spells
+  ● Purifed Sword
+  ● Soul Shield
+  ● Purification Slash
+  ● Foteiros
+  ● Ekriski
 
-> Spell deck
+● Spell deck
 
-> 2 Skill Trees, one per class.
+● 2 Skill Trees, one per class.
 
-> Random generated map.
+● Random generated map.
 
-> Hub Map with different zones 
+● Hub Map with different zones 
 
-> Custom team logo (with fx)
+● Custom team logo (with fx)
 
-> Custom game logo (with fx)
+● Custom game logo (with fx)
 
-> Menu & Pause menu (keyboard & controller)
-> > Play
-> > Options
-> > Credits
-> > Load
-> > Save
-> > Exit
-> > GitHub link
+● Menu & Pause menu (keyboard & controller)
+  ● Play
+  ● Options
+  ● Credits
+  ● Load
+  ● Save
+  ● Exit
+  ● GitHub link
 
-> Audio
-> > Background music
-> > Audio effects
-> > > Enemies
-> > > Players
-> > > Attacks
-> > > Menu
+● Audio
+  ● Background music
+  ● Audio effects
+    ● Enemies
+    ● Players
+    ● Attacks
+    ● Menu
 
-> HUD
-> > Health bar & damage effects
-> > Spell cards + deck
-> > Pause menu
+● HUD
+  ● Health bar & damage effects
+  ● Spell cards + deck
+  ● Pause menu
 </pre>
 </details>
 
@@ -150,40 +150,40 @@ Debug Keys:
 <details>
 <summary>▶ Features</summary>
 <pre>
-> Map
-> >Minimap (dungeon & hub)
-> >3 new puzzles (3 new rooms)
-> >Save & Continue from last dungeon
-> >Player converter
+● Map
+  ● Minimap (dungeon & hub)
+  ● 3 new puzzles (3 new rooms)
+  ● Save & Continue from last dungeon
+  ● Player converter
 
-> Entities
-> >New slime enemy
-> >New breakable pot
-> >Buttons (random pressing order)
-> >Pathfinding
+● Entities
+  ● New slime enemy
+  ● New breakable pot
+  ● Buttons (random pressing order)
+  ● Pathfinding
 
-> Weapons
-> >New combat system
-> >Spear
-> >Staff
-> >Book
+● Weapons
+  ● New combat system
+  ● Spear
+  ● Staff
+  ● Book
 
-> Audio
-> >New fx
-> >New music for every scene
-> >Change Volume
+● Audio
+  ● New fx
+  ● New music for every scene
+  ● Change Volume
 
-> UI
-> >Win screen
-> >Game over screen
-> >Vsync activation
-> >Volume changing
-> >Ability trees
-> > >Buy better stats
-> > >Buy deck spaces
-> > >Buy ability improvements
+● UI
+  ● Win screen
+  ● Game over screen
+  ● Vsync activation
+  ● Volume changing
+  ● Ability trees
+    ● Buy better stats
+    ● Buy deck spaces
+    ● Buy ability improvements
 
-> Quests
+● Quests
 </pre>
 </details>
 
