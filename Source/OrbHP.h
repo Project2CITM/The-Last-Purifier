@@ -23,7 +23,7 @@ public:
 
 	void PlusHP();
 
-	Player* player = nullptr;
+	//Player* player = nullptr;
 
 
 private:

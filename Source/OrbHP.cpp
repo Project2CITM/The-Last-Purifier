@@ -33,16 +33,16 @@ void OrbHP::PostUpdate()
 
 void OrbHP::CleanUp()
 {
-	app->events->RemoveListener(this);
+	//app->events->RemoveListener(this);
 }
 
 void OrbHP::OnTriggerEnter(std::string trigger, PhysBody* col)
 {
-	PlusHP();
-	pendingToDelete = true;
+	//PlusHP();
+	//pendingToDelete = true;
 }
 
 void OrbHP::PlusHP()
 {
-	player->hpPlayer += 20;
+	//player->hpPlayer += 20;
 }
