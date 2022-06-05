@@ -279,14 +279,6 @@ void Slime::InitPhysics()
 	pBody->body->GetFixtureList()->SetFilterData(filterC);
 }
 
-void Slime::DoAttack()
-{
-}
-
-void Slime::ResetAttackCoolDown()
-{
-}
-
 void Slime::SetTriggeeActive(bool active)
 {
 	attack->pBody->body->SetActive(false);

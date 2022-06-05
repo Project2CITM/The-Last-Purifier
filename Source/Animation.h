@@ -61,7 +61,6 @@ public:
 		}
 		else {
 			durationCounter += animationTimer.getDeltaTime();
-			if (duration == 0.81f) printf("%f\n", durationCounter);
 			if (durationCounter >= duration) 
 			{ 
 				current_frame++;

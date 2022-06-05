@@ -61,7 +61,6 @@ Ghoul::Ghoul(iPoint pos, Room* room, bool mut) : Enemy("ghoul"), mutante(mut)
 	InitPhysics();
 
 	//Init Sounds
-
 	attackFX = app->audio->LoadFx("Audio/SFX/Enemies/Ghoul/sfx_enemyAttack1.wav");
 	HitFX = app->audio->LoadFx("Audio/SFX/Enemies/Ghoul/sfx_enemyHit2.wav");
 	idleFX = app->audio->LoadFx("Audio/SFX/Enemies/Ghoul/sfx_enemyIdle1.wav");

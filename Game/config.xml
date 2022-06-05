@@ -15,6 +15,8 @@
 		<fullscreen_window value="false" />
 	</window>
 	<textures>
+		<bossProjectile width="35" height="35" layer="1" orderInLayer="3.0" scale="1" path="Assets/Sprites/Enemies/Golem/GolemProjectile.png" />
+		<boss width="100" height="100" layer="1" orderInLayer="3.0" scale="1" path="Assets/Sprites/Enemies/Golem/Golem.png" />
 		<ghoul width="32" height="32" layer="1" orderInLayer="3.0" scale="1" path="Assets/Sprites/Enemies/Ghoul/Ghoul.png" />
 		<slime width="16" height="16" layer="1" orderInLayer="3.0" scale="2" path="Assets/Sprites/Enemies/Slime/SlimeSpriteSheet.png" />
 		<worm width="32" height="32" layer="1" orderInLayer="3.0" scale="1.2" path="Assets/Sprites/Enemies/Worm/Worm.png" />
@@ -323,8 +325,8 @@
 		</english>
 	</dialogText>
 	<audios>
-		<music volume="56" />
-		<sfx volume="116" />
+		<music volume="0" />
+		<sfx volume="2" />
 	</audios>
 	<scenes>
 		<level1>

@@ -145,6 +145,12 @@
     <Filter Include="Archivos de encabezado\GameObject\Puzzles">
       <UniqueIdentifier>{29443254-263f-481d-808c-5f691031ebdc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de origen\GameObjects\Enemy\Boss">
+      <UniqueIdentifier>{2d664503-8386-4d3a-9c95-86e86582fe1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\GameObject\Enemy\Boss">
+      <UniqueIdentifier>{a6311c03-8f77-49c1-a80a-2d74b566f3f9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="External\PugiXml\src\pugixml.hpp">
@@ -468,6 +474,12 @@
     <ClInclude Include="GUIHoverBox.h">
       <Filter>Archivos de encabezado\GUI</Filter>
     </ClInclude>
+    <ClInclude Include="Boss.h">
+      <Filter>Archivos de encabezado\GameObject\Enemy\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="BossProjectile.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\PugiXml\src\pugixml.cpp">
@@ -763,6 +775,12 @@
     </ClCompile>
     <ClCompile Include="GUIHoverBox.cpp">
       <Filter>Archivos de origen\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>Archivos de origen\GameObjects\Enemy\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="BossProjectile.cpp">
+      <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

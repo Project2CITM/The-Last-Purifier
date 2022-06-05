@@ -21,6 +21,7 @@
 #include "WeaponObject.h"
 #include "Column.h"
 #include "WeaponChoosingHUD.h"
+#include "Boss.h"
 
 #include "External/Optick/include/optick.h"
 
@@ -72,6 +73,8 @@ bool TestScene::Start()
     app->renderer->camera->SetTarget(player->controller);
 
     //new Slime((player->controller->GetPosition() + iPoint{ 40, 40 }));
+
+    new Boss((player->controller->GetPosition() + iPoint{ 40, 40 }));
 
     //spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-40, 0));
     //spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-80, 0));
