@@ -69,6 +69,8 @@ Ghoul::Ghoul(iPoint pos, Room* room, bool mut) : Enemy("ghoul"), mutante(mut)
 
 Ghoul::~Ghoul()
 {
+	DestroyTriggers();
+
 	attack->pendingToDelete = true;
 }
 
@@ -216,7 +218,7 @@ void Ghoul::UpdateStates()
 	case (int)GhoulState::DIE:
 	{
 		// Disable Triggers
-		//SetTriggeeActive(false);
+		// cvSetTriggeeActive(false);
 
 		// Destroy Triggers already!
 		DestroyTriggers();

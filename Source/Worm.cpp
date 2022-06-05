@@ -44,6 +44,11 @@ Worm::Worm(iPoint pos) : Enemy("worm")
 
 Worm::~Worm()
 {
+	if (damageTrigger != nullptr)
+	{
+		damageTrigger->Destroy();
+		damageTrigger = nullptr;
+	}
 }
 
 void Worm::PreUpdate()

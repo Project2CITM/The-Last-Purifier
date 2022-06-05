@@ -47,6 +47,11 @@ Slime::Slime(iPoint pos) : Enemy("slime")
 
 Slime::~Slime()
 {
+	if (damageTrigger != nullptr)
+	{
+		damageTrigger->Destroy();
+		damageTrigger = nullptr;
+	}
 	attack->pendingToDelete = true;
 }
 

@@ -51,6 +51,7 @@ Kaboom::Kaboom(iPoint pos, Room* room) :Enemy("kaboom")
 
 Kaboom::~Kaboom()
 {
+	DestroyTriggers();
 	attack->pendingToDelete = true;
 }
 
