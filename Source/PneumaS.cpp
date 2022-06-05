@@ -1,12 +1,12 @@
-#include "EkriskiS.h"
-#include "EkriskiDamageArea.h"
+#include "PneumaS.h"
 #include "Player.h"
 #include "PlayerController.h"
 #include "PlayerCombat.h"
+#include "PneumaDamageArea.h"
 
-EkriskiS::EkriskiS()
+PneumaS::PneumaS()
 {
-	spellStats = spellStats.child("ekriski");
+	spellStats = spellStats.child("pneuma");
 
 	for (int i = 0; i < 3; i++)
 	{
@@ -16,9 +16,10 @@ EkriskiS::EkriskiS()
 	}
 
 	uses = spellStats.child("uses").attribute("quantity").as_int();
+
 }
 
-void EkriskiS::Execute(int level)
+void PneumaS::Execute(int level)
 {
 	iPoint pos = player->controller->GetPosition();
 
@@ -41,5 +42,5 @@ void EkriskiS::Execute(int level)
 	default:
 		break;
 	}
-	new EkriskiDamageArea(pos, 40, 40, damage[level-1]);
+	new PneumaDamageArea(pos, damage[level - 1]);
 }

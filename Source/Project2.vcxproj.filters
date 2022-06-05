@@ -468,6 +468,12 @@
     <ClInclude Include="GUIHoverBox.h">
       <Filter>Archivos de encabezado\GUI</Filter>
     </ClInclude>
+    <ClInclude Include="PneumaS.h">
+      <Filter>Archivos de encabezado\Player\Spells\SageSpells</Filter>
+    </ClInclude>
+    <ClInclude Include="PneumaDamageArea.h">
+      <Filter>Archivos de encabezado\GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\PugiXml\src\pugixml.cpp">
@@ -763,6 +769,12 @@
     </ClCompile>
     <ClCompile Include="GUIHoverBox.cpp">
       <Filter>Archivos de origen\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="PneumaS.cpp">
+      <Filter>Archivos de origen\Player\Spells\SageSpells</Filter>
+    </ClCompile>
+    <ClCompile Include="PneumaDamageArea.cpp">
+      <Filter>Archivos de origen\GameObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
