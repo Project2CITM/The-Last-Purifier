@@ -1,15 +1,15 @@
 #pragma once
 #include "Spell.h"
-class EkriskiS : public Spell
+class PneumaS : public Spell
 {
 public:
-	EkriskiS();
+	PneumaS();
 
 	void Execute(int level) override;
-
 
 private:
 
 	int damage[3];
+
 };
 

@@ -20,6 +20,8 @@ PurificationSlashS::PurificationSlashS()
 
 	uses = spellStats.child("uses").attribute("quantity").as_int();
 
+	spellName = spellStats.child("name").attribute("name").as_string();
+
 	damageArea = new DamageArea({ 0,0 }, 25, 60, 0);
 	damageArea->pBody->body->SetActive(false);
 

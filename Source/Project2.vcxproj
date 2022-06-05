@@ -162,6 +162,8 @@
     <ClInclude Include="PlayerSage.h" />
     <ClInclude Include="PlayerShadow.h" />
     <ClInclude Include="PlayerStats.h" />
+    <ClInclude Include="PneumaDamageArea.h" />
+    <ClInclude Include="PneumaS.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="PurificationSlashS.h" />
@@ -268,6 +270,8 @@
     <ClCompile Include="PlayerSage.cpp" />
     <ClCompile Include="PlayerShadow.cpp" />
     <ClCompile Include="PlayerStats.cpp" />
+    <ClCompile Include="PneumaDamageArea.cpp" />
+    <ClCompile Include="PneumaS.cpp" />
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="PurificationSlashS.cpp" />
     <ClCompile Include="PurifiedSwordS.cpp" />

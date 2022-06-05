@@ -16,6 +16,7 @@ FoteirosS::FoteirosS()
 	}
 
 	uses = spellStats.child("uses").attribute("quantity").as_int();
+	spellName = spellStats.child("name").attribute("name").as_string();
 }
 
 void FoteirosS::Execute(int level)

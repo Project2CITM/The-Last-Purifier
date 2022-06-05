@@ -16,6 +16,9 @@ SoulShieldS::SoulShieldS()
 	}
 
 	uses = spellStats.child("uses").attribute("quantity").as_int();
+
+
+	spellName = spellStats.child("name").attribute("name").as_string();
 }
 
 void SoulShieldS::Execute(int level)

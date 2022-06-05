@@ -19,7 +19,7 @@ enum class SpellID
 	CREMATORIUM,
 	FOTEIROS,//11
 	TYCHAIA,
-	PNEUMA,
+	PNEUMA,//13
 	EKRISKI,//14
 	EGEIRO,
 	TIMORIA,
@@ -45,11 +45,18 @@ public:
 
 	int GetUses();
 
+	std::string GetName()
+	{
+		return spellName;
+	};
+
 protected:
 	int uses = 1;
 
 	Player* player = nullptr;
 	
+	std::string spellName = "";
+
 	pugi::xml_node spellStats;
 	pugi::xml_document doc;
 };

@@ -23,27 +23,8 @@ SpellObject::SpellObject(iPoint pos, SpellID id, int level) : GameObject("SpellO
 	filter.maskBits = app->physics->EVERY_LAYER & ~app->physics->ENEMY_LAYER;
 	pBody->body->GetFixtureList()->SetFilterData(filter);
 	// Add Texture
-	renderObjects[0].InitAsTexture(app->textures->Load("Sprites/UI/icons.png"), pos, { 0,0,0,0 },0.5f);
-	switch (id)
-	{
-	case SpellID::PURIFIED_SWORD:
-		renderObjects[0].section = { 31,0,31,31 };
-		break;
-	case SpellID::SOUL_SHIELD:
-		renderObjects[0].section = { 31,31,31,31 };
-		break;
-	case SpellID::PURIFICATION_SLASH:
-		renderObjects[0].section = { 0,31,31,31 };
-		break;
-	case SpellID::EKRISKI:
-		renderObjects[0].section = { 61,0,31,31 };
-		break;
-	case SpellID::FOTEIROS:
-		renderObjects[0].section = { 0,0,31,31 };
-		break;
-	default:
-		renderObjects[0].section = {300,300,3,3};
-	}
+	renderObjects[0].InitAsTexture(app->textures->Load("Assets/Sprites/UI/iconsSpells.png"), pos, { 0,0,0,0 },0.5f);
+	renderObjects[0].section = { 0,31 * (int)id, 31,31 };
 
 	pickupspellFX = app->audio->LoadFx("Audio/SFX/Player/sfx_playerPickUpSpell.wav");
 
