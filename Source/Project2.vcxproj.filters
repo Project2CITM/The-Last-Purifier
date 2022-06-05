@@ -474,11 +474,17 @@
     <ClInclude Include="GUIHoverBox.h">
       <Filter>Archivos de encabezado\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="Boss.h">
-      <Filter>Archivos de encabezado\GameObject\Enemy\Boss</Filter>
+  <ClInclude Include="Boss.h">
+    <Filter>Archivos de encabezado\GameObject\Enemy\Boss</Filter>
+  </ClInclude>
+  <ClInclude Include="BossProjectile.h">
+    <Filter>Archivos de encabezado</Filter>
+  </ClInclude>
+    <ClInclude Include="PneumaS.h">
+      <Filter>Archivos de encabezado\Player\Spells\SageSpells</Filter>
     </ClInclude>
-    <ClInclude Include="BossProjectile.h">
-      <Filter>Archivos de encabezado</Filter>
+    <ClInclude Include="PneumaDamageArea.h">
+      <Filter>Archivos de encabezado\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="PneumaS.h">
       <Filter>Archivos de encabezado\Player\Spells\SageSpells</Filter>
