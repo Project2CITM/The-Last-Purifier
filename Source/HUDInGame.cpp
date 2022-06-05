@@ -15,6 +15,7 @@
 #include "ModuleEvents.h"
 #include "SpellInfo.h"
 #include "AssetsManager.h"
+#include "SpellList.h"
 
 RenderObject Controls1;
 RenderObject Controls2;
@@ -168,8 +169,8 @@ bool HUDInGame::Start()
 
 
 	InitializeSpellSlotsPositions();
-	currentSpellText = new Text({ 280, 280 }, "");
-	currentSpellLevelText = new Text({ 280, 300 }, "");
+	currentSpellText = new Text({ 280, 260 }, "");
+	currentSpellLevelText = new Text({ 280, 280 }, "");
 
 	Scene::Start();
 
@@ -659,7 +660,7 @@ void HUDInGame::InitializeSlots()
 	{
 		RenderObject rO;
 		iPoint pos = { spellSlotsPositions[player->player->spellSlots - 1][i].x, spellSlotsPositions[player->player->spellSlots - 1][i].y };
-		rO.InitAsTexture(app->textures->Load("Sprites/UI/icons.png"), pos, { 0,0,0,0 }, 1, 3, 0, 0, SDL_FLIP_NONE, 0);
+		rO.InitAsTexture(app->textures->Load("Assets/Sprites/UI/iconsSpells.png"), pos, { 0,0,0,0 }, 1, 3, 0, 0, SDL_FLIP_NONE, 0);
 		spellSlots.add(rO);
 	}
 
@@ -673,7 +674,7 @@ void HUDInGame::InitializeSlots()
 		iPoint position = spellPos + iPoint(40, 0);
 		position.x += 20 * i;
 		position.y = 340;
-		rO.InitAsTexture(app->textures->Load("Sprites/UI/icons.png"), position, { 0,0,0,0 }, 0.5f, 3, 0, 0, SDL_FLIP_NONE, 0);
+		rO.InitAsTexture(app->textures->Load("Assets/Sprites/UI/iconsSpells.png"), position, { 0,0,0,0 }, 0.5f, 3, 0, 0, SDL_FLIP_NONE, 0);
 		deckSlots.add(rO);
 	}
 }
@@ -690,8 +691,8 @@ void HUDInGame::InitializeSpellSlotsPositions()
 	spellSlotsPositions[1].add({290, 292, 30, 40 });// 2 Available: Refering to slot 1
 	spellSlotsPositions[1].add({ 330, 292 , 30, 40 });// 2 Available: Refering to slot 2
 
-	spellSlotsPositions[2].add({ 304, 292 , 30, 40 });// 3 Available: Refering to slot 1
-	spellSlotsPositions[2].add({ 270, 292, 30, 40 });// 3 Available: Refering to slot 2
+	spellSlotsPositions[2].add({ 270, 292 , 30, 40 });// 3 Available: Refering to slot 1
+	spellSlotsPositions[2].add({ 304, 292, 30, 40 });// 3 Available: Refering to slot 2
 	spellSlotsPositions[2].add({ 338, 292 , 30, 40 });// 3 Available: Refering to slot 3
 
 	spellSlotsPositions[3].add({ 250, 292 , 30, 40 });// 4 Available: Refering to slot 1
@@ -702,40 +703,19 @@ void HUDInGame::InitializeSpellSlotsPositions()
 
 void HUDInGame::SetSpellDrawInfo(int slot, bool isDeck)
 {
-	SDL_Rect sect;
-
-	SpellInfo* spellSlot = nullptr;
-
-	if (isDeck) spellSlot = player->deckSlots[slot];
-	else spellSlot = player->spellSlots[slot];
-
-	switch (spellSlot->id)
+	SpellInfo* playerSlot = nullptr;
+	if (isDeck)
 	{
-	case SpellID::PURIFIED_SWORD:
-		if(isDeck) deckSlots[slot].section = { 31,0,31,31 };
-		else spellSlots[slot].section = { 31,0,31,31 };
-		break;
-	case SpellID::SOUL_SHIELD:
-		if(isDeck) deckSlots[slot].section = { 31,31,31,31 };
-		else spellSlots[slot].section = { 31,31,31,31 };
-		break;
-	case SpellID::PURIFICATION_SLASH:
-		if(isDeck) deckSlots[slot].section = { 0,31,31,31 };
-		else spellSlots[slot].section = { 0,31,31,31 };
-		break;
-	case SpellID::EKRISKI:
-		if(isDeck) deckSlots[slot].section = { 61,0,31,31 };
-		else spellSlots[slot].section = { 61,0,31,31 };
-		break;
-	case SpellID::FOTEIROS:
-		if(isDeck) deckSlots[slot].section = { 0,0,31,31 };
-		else spellSlots[slot].section = { 0,0,31,31 };
-		break;
-	default:
-		if(isDeck) deckSlots[slot].section = { 300,300,3,3 };
-		else spellSlots[slot].section = { 300,300,3,3 };
+		playerSlot = player->deckSlots[slot];
+		deckSlots[slot].section = { 0,31 * (int)playerSlot->id, 31, 31 };
 	}
-	switch (spellSlot->spellLevel)
+	else
+	{
+		playerSlot = player->spellSlots[slot];
+		spellSlots[slot].section = { 0,31 * (int)playerSlot->id, 31, 31 };
+	}
+
+	switch (playerSlot->spellLevel)
 	{
 	case 1:
 		if (isDeck)deckSlots[slot].SetColor({ 255,255,255,255 });
@@ -750,30 +730,16 @@ void HUDInGame::SetSpellDrawInfo(int slot, bool isDeck)
 		else spellSlots[slot].SetColor({ 75,75,0,255 });
 		break;
 	}
-	
 }
 
 std::string HUDInGame::GetSpellName(SpellID id)
 {
 	std::string text = "";
-	switch (id)
-	{
-	case SpellID::PURIFIED_SWORD:
-		text = "Purified Sword";
-		break;
-	case SpellID::SOUL_SHIELD:
-		text = "Soul Shield";
-		break;
-	case SpellID::PURIFICATION_SLASH:
-		text = "Purification Slash";
-		break;
-	case SpellID::EKRISKI:
-		text = "Ekriski";
-		break;
-	case SpellID::FOTEIROS:
-		text = "Foteiros";
-		break;
-	}
+
+	SpellList* list = SpellList::GetInstance();
+
+	text = list->spells[(int)id]->GetName();
+
 	return text;
 }
 

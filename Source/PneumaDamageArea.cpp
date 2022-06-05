@@ -1,7 +1,7 @@
 #include "PneumaDamageArea.h"
 #include "ModulePhysics.h"
 
-PneumaDamageArea::PneumaDamageArea(iPoint position, int damage) : DamageArea(position, 60, 20)
+PneumaDamageArea::PneumaDamageArea(iPoint position, int width, int height, int damage) : DamageArea(position, width, height, damage)
 {
 	// Create Particle Effect
 
