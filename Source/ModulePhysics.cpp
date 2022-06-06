@@ -323,17 +323,17 @@ void ModulePhysics::BeginContact(b2Contact* contact)
 
 	PhysBody* b = (PhysBody*)contact->GetFixtureB()->GetBody()->GetUserData();
 
-	if (a && a->gameObject)
+	if (!a || !b) return;
+
+	if (a && a->gameObject && a->gameObject->enable)
 	{
 		a->gameObject->OnCollisionEnter(b);
 	}	
 
-	if (b && b->gameObject)
+	if (b && b->gameObject && b->gameObject->enable)
 	{
 		b->gameObject->OnCollisionEnter(a);
 	}	
-	
-	//LOG("collision!!");
 }
 
 void ModulePhysics::EndContact(b2Contact* contact)

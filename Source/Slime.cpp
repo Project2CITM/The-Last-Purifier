@@ -57,6 +57,8 @@ Slime::~Slime()
 
 void Slime::PreUpdate()
 {
+	if (isDie) return;
+
 	slimeTimer.Update();
 
 	UpdateStates();
@@ -68,6 +70,8 @@ void Slime::PreUpdate()
 
 void Slime::Update()
 {
+	if (isDie) return;
+
 	stateMachine.Update();
 
 	Enemy::Update();
@@ -75,6 +79,8 @@ void Slime::Update()
 
 void Slime::PostUpdate()
 {
+	if (isDie) return;
+
 	animations[stateMachine.GetCurrentState()].Update();
 
 	renderObjects[0].section = animations[stateMachine.GetCurrentState()].GetCurrentFrame();
