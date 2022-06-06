@@ -67,7 +67,7 @@ void OrbHP::OnTriggerEnter(std::string trigger, PhysBody* col)
 {
 	if (trigger == "OrbHPTrigger" && col->gameObject->name == "Player")
 	{
-		LOG("+ HP");
+		//LOG("+ HP");
 		PlusHP();
 		pendingToDelete = true;
 	}
@@ -81,10 +81,10 @@ void OrbHP::GameEventTriggered(GameEvent id)
 
 void OrbHP::PlusHP()
 {
-	if(player->hpPlayer > player->hpMax)
+	if(player->hpPlayer < player->hpMax)
 		player->hpPlayer += 20;
 
-	if(player->hpPlayer < player->hpMax)
+	if(player->hpPlayer > player->hpMax)
 		player->hpPlayer = player->hpMax;
 
 }
