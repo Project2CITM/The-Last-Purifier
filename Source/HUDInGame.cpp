@@ -31,6 +31,7 @@ RenderObject Torch1;
 RenderObject Torch2;
 RenderObject HPFlame;
 RenderObject FlameSlider1;
+RenderObject HP_Bar;
 
 HUDInGame::HUDInGame() :Scene("HUDInGame")
 {
@@ -71,15 +72,16 @@ bool HUDInGame::Start()
 	Controls1.InitAsTexture(app->textures->Load("Sprites/UI/Controls1_2.png"), { app->renderer->camera->x - 12, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 1, 0, SDL_FLIP_NONE, 0);
 	Controls2.InitAsTexture(app->textures->Load("Sprites/UI/Controls2_2.png"), { app->renderer->camera->x - 12, app->renderer->camera->y }, { 0,0,0,0 }, 0.5f, 4, 1, 0, SDL_FLIP_NONE, 0);
 
-	iconSouls.InitAsTexture(app->textures->Load("Sprites/Soul/soul.png"), { app->renderer->camera->x + 20, app->renderer->camera->y + 15 }, { 0,0,50,89 }, 0.25f, 4, 0, 0, SDL_FLIP_NONE, 0);
+	iconSouls.InitAsTexture(app->textures->Load("Sprites/Soul/soul.png"), { app->renderer->camera->x + 77, app->renderer->camera->y + 5 }, { 0,0,50,89 }, 0.25f, 4, 0, 0, SDL_FLIP_NONE, 0);
 
 	SpellSelectAnim.InitAsTexture(app->textures->Load("Assets/Sprites/UI/marcoAnim.png"), { 0,0 }, { 0,0,0,0 }, 0.30f, 3, 4, 0, SDL_FLIP_NONE, 0);
 	SpellNoSelectAnim.InitAsTexture(app->textures->Load("Assets/Sprites/UI/marcoAnimcopia.png"), { 0,0 }, { 0,0,0,0 }, 0.30f, 3, 2, 0, SDL_FLIP_NONE, 0);
 	SpellNoSelectAnim.color = { 255,255,255,100 };
 	Torch1.InitAsTexture(app->textures->Load("Assets/Sprites/UI/antorchas.png"), { 80,210 }, { 0,0,0,0 }, 1, 5, 2, 0, SDL_FLIP_NONE, 0);
 	Torch2.InitAsTexture(app->textures->Load("Assets/Sprites/UI/antorchas.png"), { 510,210 }, { 0,0,0,0 }, 1, 5, 2, 0, SDL_FLIP_NONE, 0);
-	HPFlame.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Flame_HP.png"), { -5,-5}, { 0,0,0,0 }, 0.5, 3, 4, 0, SDL_FLIP_NONE, 0);
+	//HPFlame.InitAsTexture(app->textures->Load("Assets/Sprites/UI/Flame_HP.png"), { -5,-5}, { 0,0,0,0 }, 0.5, 3, 4, 0, SDL_FLIP_NONE, 0);
 	FlameSlider1.InitAsTexture(app->textures->Load("Assets/Sprites/UI/bueFlame.png"), { 0,0 }, { 0,0,0,0 }, 0.5, 3, 2, 0, SDL_FLIP_NONE, 0);
+	HP_Bar.InitAsTexture(app->textures->Load("Assets/Sprites/UI/HP_Bar.png"), { 3,18 }, { 0,0,0,0 }, 1, 3, 2, 0, SDL_FLIP_NONE, 0);
 
 	for (int i = 0; i < 12; i++)
 	{ 
@@ -128,9 +130,9 @@ bool HUDInGame::Start()
 	Hover = app->audio->LoadFx("Audio/SFX/UI/sfx_uiHover.wav");
 	Press = app->audio->LoadFx("Audio/SFX/UI/sfx_uiSelect.wav");
 
-	text = new Text({app->renderer->camera->x + 30, app->renderer->camera->y + 25 }, std::to_string(score));
+	text = new Text({app->renderer->camera->x + 90, app->renderer->camera->y + 15 }, std::to_string(score));
 
-	playerHp.bg = playerHp.delayHp = playerHp.currentHp = { app->renderer->camera->x + 10, app->renderer->camera->y + 42, 200, 10 };
+	playerHp.bg = playerHp.delayHp = playerHp.currentHp = { app->renderer->camera->x + 10, app->renderer->camera->y + 32, 200, 10 };
 	//miniMap = { app->renderer->camera->x + 535, app->renderer->camera->y + 5, 100, 100 };
 
 	resumeBUT = { app->renderer->camera->x + 155, app->renderer->camera->y + 70};//640 pixeles with pantalla
@@ -463,9 +465,10 @@ bool HUDInGame::Update()
 bool HUDInGame::PostUpdate()
 {
 	// Player Hp
-	app->renderer->AddRectRenderQueue(playerHp.bg, playerHp.bgColor, false, 3, 3.5f, 0.0f);
+	//app->renderer->AddRectRenderQueue(playerHp.bg, playerHp.bgColor, false, 3, 3.5f, 0.0f);
 	app->renderer->AddRectRenderQueue(playerHp.delayHp, playerHp.hpDelayColor, true, 3, 2.5f, 0.0f);
 	app->renderer->AddRectRenderQueue(playerHp.currentHp, playerHp.hpColor, true, 3, 3.0f, 0.0f);
+	app->renderer->AddRenderObjectRenderQueue(HP_Bar);
 
 	FlameHpAnim.Update();
 	HPFlame.section = FlameHpAnim.GetCurrentFrame();
