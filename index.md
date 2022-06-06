@@ -75,6 +75,7 @@ Debug Keys:
 ## The Last Purifier - Concept Discovery
 <details>
 <summary>▶ Features</summary>
+  <br>
 <pre>
 > These are concept discovery features
 </pre>
@@ -84,6 +85,7 @@ Debug Keys:
 ## The Last Purifier - Vertical Slice
 <details>
 <summary>▶ Features </summary>
+  <br>
 <pre>
 ● Fullscreen & Windowed mode
 
@@ -151,6 +153,7 @@ Debug Keys:
 ## The Last Purifier - Alpha
 <details>
 <summary>▶ Features</summary>
+  <br>
 <pre>
 ● Map
   ● Minimap (dungeon & hub)
@@ -193,6 +196,7 @@ Debug Keys:
 ## The Last Purifier - Gold
 <details>
 <summary>▶ Features</summary>
+  <br>
 <pre>
 > > These are the gold features
 </pre>
