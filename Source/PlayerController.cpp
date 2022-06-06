@@ -63,8 +63,18 @@ void PlayerController::PreUpdate()
 	playerTimer.Update();
 
 	// Check invulnerability counter
-	if (invulnerabilityCounter > 0) invulnerabilityCounter -= playerTimer.getDeltaTime() * 1000;
-	if (invulnerabilityCounter <= 0) isInvulnerable = false;
+	if (invulnerabilityCounter > 0)
+	{
+		if (enemyTrigger) enemyTrigger->pBody->body->SetActive(false);
+
+		invulnerabilityCounter -= playerTimer.getDeltaTime() * 1000;
+	}
+	if (invulnerabilityCounter <= 0)
+	{
+		if(enemyTrigger) enemyTrigger->pBody->body->SetActive(true);
+
+		isInvulnerable = false;
+	}
 
 	// Check dash cooldown
 	if (isDashing)
@@ -326,8 +336,6 @@ void PlayerController::MovementUpdateKeyboard()
 			app->audio->PlayFx(playerdodgeFX);
 		}
 	}
-
-	
 }
 
 void PlayerController::MovementUpdateController()
@@ -520,6 +528,8 @@ void PlayerController::Hit(int damage)
 		if (player->hpPlayer <= 0)
 		{
 			enemyTrigger->pendingToDelete = true;
+
+			enemyTrigger = nullptr;
 			/*app->scene->ChangeCurrentSceneRequest(SCENES::GAME_OVER, 60);*/
 
 			app->events->TriggerEvent(GameEvent::PLAYER_DIE);

@@ -5,6 +5,7 @@
 #include "ModulePhysics.h"
 #include "DamageArea.h"
 #include "BossProjectile.h"
+#include "ModuleRender.h"
 
 Boss::Boss(iPoint pos) : Enemy("boss")
 {
@@ -15,11 +16,11 @@ Boss::Boss(iPoint pos) : Enemy("boss")
 	// Init general value
 	this->position = pos;
 
-	health = 20;
+	maxHealh = health = 2000;
 
 	moveSpeed = 2;
 
-	damage = 5;
+	damage = 25;
 
 	soulsAmount = 0;
 
@@ -38,6 +39,12 @@ Boss::Boss(iPoint pos) : Enemy("boss")
 	// Create his proyectiles
 	projectile = new  BossProjectile(iPoint(this->position.x - 80, this->position.y - 100));
 	projectile2 = new  BossProjectile(iPoint(this->position.x + 50, this->position.y + 60));
+
+	projectile->SetActive(false);
+	projectile2->SetActive(false);
+
+	// Init HpUI
+	bossHp.bg = bossHp.delayHp = bossHp.currentHp = { 50, 320, 500, 15 };
 }
 
 Boss::~Boss()
@@ -59,11 +66,28 @@ void Boss::Update()
 {
 	stateMachine.Update();
 
+	UpdateHpUI();
+
 	Enemy::Update();
 }
 
 void Boss::PostUpdate()
 {
+	if (hitEffectCount > 0)
+	{
+		hitEffectCount -= bossTimer.getDeltaTime() * 1000;
+	}
+	else
+	{
+		renderObjects[0].SetColor({ 255,255,255,255 });
+	}
+
+	app->renderer->AddRectRenderQueue(bossHp.bg, bossHp.bgColor, false, 3, 3.5f, 0.0f);
+
+	app->renderer->AddRectRenderQueue(bossHp.delayHp, bossHp.hpDelayColor, true, 3, 2.5f, 0.0f);
+
+	app->renderer->AddRectRenderQueue(bossHp.currentHp, bossHp.hpColor, true, 3, 3.0f, 0.0f);
+
 	renderObjects[0].flip = flip ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
 
 	animations[stateMachine.GetCurrentState()].Update();
@@ -75,22 +99,52 @@ void Boss::PostUpdate()
 
 void Boss::Hit(int damage)
 {
-}
+	renderObjects[0].SetColor({ 255,164,164,100 });
 
-void Boss::OnTriggerEnter(std::string trigger, PhysBody* col)
-{
-}
+	hitEffectCount = 120;
 
-void Boss::OnTriggerExit(std::string trigger, PhysBody* col)
-{
+	Enemy::Hit(damage);
+
+	float percent = (float)health / (float)maxHealh;
+
+	float hp = (bossHp.bg.w * percent);
+
+	bossHp.currentHp.w = (int)hp;
 }
 
 void Boss::Die(bool spawnPower, bool spawnSouls)
 {
+	SetLinearVelocity(b2Vec2{ 0,0 });
+
+	stateMachine.ChangeState((int)BossState::DIE);
 }
 
 void Boss::UpdateStates()
 {
+	switch (stateMachine.GetCurrentState())
+	{
+	case (int)BossState::IDLE:
+		stateMachine.ChangeState((int)BossState::RUN);
+		break;
+	case (int)BossState::ATTACK:
+		break;
+	case (int)BossState::ATTACK2:
+		break;
+	case (int)BossState::ATTACK3:
+		break;
+	case (int)BossState::RUN: 	DoRun();
+		break;
+	case (int)BossState::DIE:
+
+		attack->pBody->body->SetActive(false);
+
+		pBody->body->SetActive(false);
+
+		if (animations[stateMachine.GetCurrentState()].HasFinished()) Enemy::Die(true);
+
+		break;
+	}
+
 	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
 	{
 		LaserAttack(true);
@@ -101,9 +155,15 @@ void Boss::UpdateStates()
 	}
 	if (app->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN)
 	{
+		projectile->SetActive(true);
+
 		projectile->GoTo(playerController->GetPosition());
 
 		projectile2->GoTo(playerController->GetPosition());
+	}
+	if (app->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN)
+	{
+		projectile->SetActive(false);
 	}
 }
 
@@ -210,4 +270,52 @@ void Boss::SetTriggeeActive(bool active)
 void Boss::LaserAttack(bool active)
 {
 	attack->pBody->body->SetActive(active);
+}
+
+void Boss::DoRun()
+{
+	//if (hitEffectCount > 0)
+	//{
+	//	SetLinearVelocity(fPoint{0,0});
+
+	//	return;
+	//}
+
+	iPoint target = playerController->GetPosition();
+
+	fPoint dir = { (float)(target.x - position.x),(float)(target.y - position.y) };
+
+	dir = dir.Normalize();
+
+	SetLinearVelocity(dir * moveSpeed);
+
+	flip = dir.x > 0 ? false : true;
+}
+
+void Boss::UpdateHpUI()
+{
+	do
+	{
+		if (bossHp.delayHp.w < bossHp.currentHp.w) break;
+
+		bossHp.startDelay--;
+
+		if (bossHp.startDelay > 0) break;
+
+		if (bossHp.countDelay <= 0)
+		{
+			bossHp.delayHp.w--;
+
+			bossHp.countDelay = bossHp.maxCountDelay;
+		}
+		else
+		{
+			bossHp.countDelay -= bossHp.delaySpeed;
+
+			if (bossHp.delayHp.w > bossHp.currentHp.w) break;
+
+			bossHp.startDelay = bossHp.MaxStartDelay;
+		}
+
+	} while (false);
 }

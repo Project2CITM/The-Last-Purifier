@@ -170,8 +170,8 @@ bool HUDInGame::Start()
 
 
 	InitializeSpellSlotsPositions();
-	currentSpellText = new Text({ 280, 260 }, "");
-	currentSpellLevelText = new Text({ 280, 280 }, "");
+	currentSpellText = new Text({ 140, 70 }, "");
+	currentSpellLevelText = new Text({ 140, 90 }, "");
 
 	Scene::Start();
 
@@ -471,7 +471,6 @@ bool HUDInGame::PostUpdate()
 	HPFlame.section = FlameHpAnim.GetCurrentFrame();
 	app->renderer->AddRenderObjectRenderQueue(HPFlame);
 
-
 	// Draw an empty rectangle for every abailable spell slot space
 	for (int i = 0; i < player->player->spellSlots; i++)
 	{
@@ -614,10 +613,8 @@ void HUDInGame::GameEventTriggered(GameEvent id)
 		break;
 	case GameEvent::UPDATE_COMMON_TREE:
 		InitializeSlots();
-		break;
-	
+		break;	
 	}
-
 }
 
 void HUDInGame::SetPlayerCombat(PlayerCombat* playerC)
@@ -688,19 +685,19 @@ void HUDInGame::InitializeSpellSlotsPositions()
 	// spellSlotsPositions[numberOfSlots][slot]
 	// Example: spellSlotsPositions[2Slots][slot1] = There are 2 available slots, and we are refering to the first one
 	
-	spellSlotsPositions[0].add({ 304, 292, 30, 40 }); // 1 Available: Refering to slot 1
+	spellSlotsPositions[0].add({ 54, 60, 30, 40 }); // 1 Available: Refering to slot 1
 
-	spellSlotsPositions[1].add({290, 292, 30, 40 });// 2 Available: Refering to slot 1
-	spellSlotsPositions[1].add({ 330, 292 , 30, 40 });// 2 Available: Refering to slot 2
+	spellSlotsPositions[1].add({ 40, 60, 30, 40 });// 2 Available: Refering to slot 1
+	spellSlotsPositions[1].add({ 80, 60 , 30, 40 });// 2 Available: Refering to slot 2
 
-	spellSlotsPositions[2].add({ 270, 292 , 30, 40 });// 3 Available: Refering to slot 1
-	spellSlotsPositions[2].add({ 304, 292, 30, 40 });// 3 Available: Refering to slot 2
-	spellSlotsPositions[2].add({ 338, 292 , 30, 40 });// 3 Available: Refering to slot 3
+	spellSlotsPositions[2].add({ 20, 60 , 30, 40 });// 3 Available: Refering to slot 1
+	spellSlotsPositions[2].add({ 54, 60, 30, 40 });// 3 Available: Refering to slot 2
+	spellSlotsPositions[2].add({ 88, 60 , 30, 40 });// 3 Available: Refering to slot 3
 
-	spellSlotsPositions[3].add({ 250, 292 , 30, 40 });// 4 Available: Refering to slot 1
-	spellSlotsPositions[3].add({ 290, 292 , 30, 40 });// 4 Available: Refering to slot 2
-	spellSlotsPositions[3].add({ 330, 292 , 30, 40 });// 4 Available: Refering to slot 3
-	spellSlotsPositions[3].add({ 370, 292 , 30, 40 });// 4 Available: Refering to slot 4
+	spellSlotsPositions[3].add({ 0, 60 , 30, 40 });// 4 Available: Refering to slot 1
+	spellSlotsPositions[3].add({ 40, 60 , 30, 40 });// 4 Available: Refering to slot 2
+	spellSlotsPositions[3].add({ 80, 60 , 30, 40 });// 4 Available: Refering to slot 3
+	spellSlotsPositions[3].add({ 120, 60 , 30, 40 });// 4 Available: Refering to slot 4
 }
 
 void HUDInGame::SetSpellDrawInfo(int slot, bool isDeck)

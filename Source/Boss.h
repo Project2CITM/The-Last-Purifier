@@ -20,6 +20,21 @@ enum class BossState
 	MAX
 };
 
+struct BossHpGUI
+{
+	SDL_Rect currentHp = { 0,0,0,0 };
+	SDL_Rect delayHp = { 0,0,0,0 };
+	SDL_Rect bg = { 0,0,0,0 };
+	SDL_Color hpColor = { 255,0,0,255 };
+	SDL_Color hpDelayColor = { 168, 162, 50,255 };
+	SDL_Color bgColor = { 155,155,155,255 };
+	int startDelay = 15;
+	int MaxStartDelay = 15;
+	int countDelay = 5; //frame
+	int maxCountDelay = 5;
+	int delaySpeed = 3;
+};
+
 class Boss : public Enemy
 {
 public:
@@ -35,10 +50,6 @@ public:
 	void PostUpdate() override;
 
 	void Hit(int damage) override;
-
-	void OnTriggerEnter(std::string trigger, PhysBody* col) override;
-
-	void OnTriggerExit(std::string trigger, PhysBody* col) override;
 
 	void Die(bool spawnPower, bool spawnSouls) override;
 
@@ -58,6 +69,10 @@ private:
 
 	void LaserAttack(bool active = false);
 
+	void DoRun();
+
+	void UpdateHpUI();
+
 private:
 
 	Animation animations[(int)BossState::MAX];
@@ -74,19 +89,25 @@ private:
 
 	DamageArea* attack = nullptr; // ataque al jugador
 
+	int hitEffectCount = 120; // ms
+
 	bool detectPlayer = false;
 
 	bool flip = false;
 
-	int attackCoolDown = 160;
-
-	int attackFXCoolDown = 0;
+	int attackCoolDown = 160; // ms
 
 	Timer bossTimer;
+
+	float moveSpeed = 2.0f;
 
 	BossProjectile* projectile = nullptr;
 
 	BossProjectile* projectile2 = nullptr;
+
+	BossHpGUI bossHp;
+
+	int maxHealh = 0;
 };
 
 #endif // !__BOSS_H__

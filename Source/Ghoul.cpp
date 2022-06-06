@@ -31,11 +31,11 @@ Ghoul::Ghoul(iPoint pos, Room* room, bool mut) : Enemy("ghoul"), mutante(mut)
 	}
 	else
 	{
-		health = 40;
+		health = 200;
 
-		moveSpeed = 3;
+		moveSpeed = 4;
 
-		damage = 10;
+		damage = 15;
 	}
 	
 	soulsAmount = 10;
@@ -287,7 +287,9 @@ void Ghoul::InitPhysics()
 
 	filter.maskBits = app->physics->EVERY_LAYER & ~app->physics->ENEMY_LAYER;
 	
-	detectTrigger = new Trigger(position, 16*2, 12*2, this, "EnemyDetectPlayer");
+	if (mutante) detectTrigger = new Trigger(position, 32, 24, this, "EnemyDetectPlayer");
+
+	else detectTrigger = new Trigger(position, 16, 12, this, "EnemyDetectPlayer");
 
 	detectTrigger->pBody->body->GetFixtureList()->SetFilterData(filter);
 
@@ -298,14 +300,15 @@ void Ghoul::InitPhysics()
 
 	filterB.maskBits = app->physics->EVERY_LAYER & ~app->physics->ENEMY_LAYER; // Who will coll with me
 
-	damageTrigger = new Trigger(position, 12*2, this, "ghoul");
+	damageTrigger = new Trigger(position, 12, this, "ghoul");
 
 	damageTrigger->tag = "Enemy";
 
 	damageTrigger->pBody->body->GetFixtureList()->SetFilterData(filterB);
 
 	// Attack Trigger
-	attack = new DamageArea(position, 10*2, 18*2, damage);
+	if (mutante) attack = new DamageArea(position, 26, 36, damage);
+	else attack = new DamageArea(position, 10, 18, damage);
 
 	attack->pBody->body->SetActive(false);
 
@@ -318,7 +321,7 @@ void Ghoul::InitPhysics()
 
 	filterC.maskBits = app->physics->EVERY_LAYER & ~app->physics->PLAYER_LAYER;
 
-	pBody = app->physics->CreateCircle(position.x, position.y, 12*2, this, false, b2_dynamicBody, app->physics->ENEMY_LAYER);
+	pBody = app->physics->CreateCircle(position.x, position.y, 12, this, false, b2_dynamicBody, app->physics->ENEMY_LAYER);
 
 	pBody->body->GetFixtureList()->SetFilterData(filterC);
 }
