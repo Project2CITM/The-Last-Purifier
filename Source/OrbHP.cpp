@@ -7,7 +7,6 @@
 #include "ModuleTextures.h"
 #include "ModulePhysics.h"
 
-RenderObject HPOrb;
 
 OrbHP::OrbHP(iPoint position):GameObject("OrbHP","OrbHP")
 {
@@ -23,7 +22,9 @@ OrbHP::OrbHP(iPoint position):GameObject("OrbHP","OrbHP")
 	/*triggerDetectPlayer = new Trigger({ position.x + 4,position.y + 10 }, 50, this, "SoulsDetectPlayer", true);
 	triggerDetectPlayer->pBody->body->GetFixtureList()->SetFilterData(filter);*/
 
-	HPOrb.InitAsTexture(app->textures->Load("Assets/Sprites/UI/HP.png"), {position.x,position.y}, {0,0,0,0}, 0.25f, 2);
+	//HPOrb.InitAsTexture(app->textures->Load("Assets/Sprites/UI/HP.png"), {position.x,position.y}, {0,0,0,0}, 0.25f, 2);
+
+	InitRenderObjectWithXml("orbHP");
 
 	SceneGame* scene = (SceneGame*)app->scene->scenes[app->scene->currentScene];
 	player = scene->player;
@@ -52,7 +53,7 @@ void OrbHP::Update()
 void OrbHP::PostUpdate()
 {
 	//app->renderer->AddRectRenderQueue({0,0,50,50}, {255,0,0,255}, true, 2);
-	app->renderer->AddRenderObjectRenderQueue(HPOrb);
+	//app->renderer->AddRenderObjectRenderQueue(HPOrb);
 
 	GameObject::PostUpdate();
 }
@@ -80,5 +81,10 @@ void OrbHP::GameEventTriggered(GameEvent id)
 
 void OrbHP::PlusHP()
 {
-	player->hpPlayer += 20;
+	if(player->hpPlayer > player->hpMax)
+		player->hpPlayer += 20;
+
+	if(player->hpPlayer < player->hpMax)
+		player->hpPlayer = player->hpMax;
+
 }
