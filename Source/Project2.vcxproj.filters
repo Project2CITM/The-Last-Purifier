@@ -492,11 +492,11 @@
     <ClInclude Include="PneumaDamageArea.h">
       <Filter>Archivos de encabezado\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="ParticlePneuma.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="OrbHP.h">
       <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticlePneuma.h">
+      <Filter>Archivos de encabezado\Tools\Particles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -806,11 +806,11 @@
     <ClCompile Include="PneumaDamageArea.cpp">
       <Filter>Archivos de origen\GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="ParticlePneuma.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="OrbHP.cpp">
       <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticlePneuma.cpp">
+      <Filter>Archivos de origen\Tools\Particles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
