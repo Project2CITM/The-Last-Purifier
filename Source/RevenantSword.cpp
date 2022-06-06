@@ -15,7 +15,7 @@ RevenantSword::RevenantSword(PlayerController* playerController) : RevenantWeapo
 
 	this->damage = 20;
 	this->attackSpeedCD = 240;
-	this->playerAttackCD = 240;
+	this->playerAttackCD = 150;
 	this->attackAreaCD = 80;
 	this->nextAttackTime = 200;
 	this->maximumAttacks = 3;
@@ -25,7 +25,7 @@ RevenantSword::RevenantSword(PlayerController* playerController) : RevenantWeapo
 
 	filter.categoryBits = app->physics->PLAYER_LAYER;
 
-	damageArea = new DamageArea(this->playerController->GetPosition(), 15, 20, damage);
+	damageArea = new DamageArea(this->playerController->GetPosition(), 20, 20, damage);
 
 	damageArea->pBody->body->GetFixtureList()->SetFilterData(filter);
 

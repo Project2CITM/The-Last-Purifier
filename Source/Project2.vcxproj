@@ -144,6 +144,7 @@
     <ClInclude Include="ModuleTextures.h" />
     <ClInclude Include="ModuleWindow.h" />
     <ClInclude Include="NPC.h" />
+    <ClInclude Include="OrbHP.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="ParticleAttackKaboom.h" />
     <ClInclude Include="ParticleAttackRevenant.h" />
@@ -253,6 +254,7 @@
     <ClCompile Include="ModuleTextures.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
     <ClCompile Include="NPC.cpp" />
+    <ClCompile Include="OrbHP.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="ParticleAttackKaboom.cpp" />
     <ClCompile Include="ParticleAttackRevenant.cpp" />
