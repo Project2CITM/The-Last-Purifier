@@ -79,6 +79,7 @@ Debug Keys:
 > These are concept discovery features
 </pre>
 </details>
+<br>
 
 ## The Last Purifier - Vertical Slice
 <details>
@@ -145,6 +146,7 @@ Debug Keys:
   ● Pause menu
 </pre>
 </details>
+<br>
 
 ## The Last Purifier - Alpha
 <details>
@@ -186,6 +188,7 @@ Debug Keys:
 ● Quests
 </pre>
 </details>
+<br>
 
 ## The Last Purifier - Gold
 <details>
@@ -194,3 +197,4 @@ Debug Keys:
 > > These are the gold features
 </pre>
 </details>
+<br>
