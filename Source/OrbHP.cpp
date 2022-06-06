@@ -14,7 +14,7 @@ OrbHP::OrbHP(iPoint position):GameObject("OrbHP","OrbHP")
 	app->events->AddListener(this);
 
 	this->position = position;
-	trigger = new Trigger({position.x, position.y}, 10, this, "OrbHPTrigger", false);
+	trigger = new Trigger({position.x + 15, position.y + 15}, 10, this, "OrbHPTrigger", false);
 	b2Filter filter;
 	filter.categoryBits = app->physics->TRIGGER_LAYER;
 	filter.maskBits = app->physics->EVERY_LAYER & ~app->physics->ENEMY_LAYER;
@@ -28,6 +28,7 @@ OrbHP::OrbHP(iPoint position):GameObject("OrbHP","OrbHP")
 
 	SceneGame* scene = (SceneGame*)app->scene->scenes[app->scene->currentScene];
 	player = scene->player;
+	//hudInGame = new HUDInGame();
 }
 
 OrbHP::~OrbHP()
@@ -87,4 +88,5 @@ void OrbHP::PlusHP()
 	if(player->hpPlayer > player->hpMax)
 		player->hpPlayer = player->hpMax;
 
+	//hudInGame->UpdatePlayerHp();
 }

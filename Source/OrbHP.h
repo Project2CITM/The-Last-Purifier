@@ -1,6 +1,7 @@
 #include "GameObject.h"
 #include "ModuleEvents.h"
 #include "Player.h"
+#include "HUDInGame.h"
 
 class Trigger;
 
@@ -32,7 +33,7 @@ private:
 	Player* player = nullptr;
 
 	Trigger* trigger = nullptr;
-	Trigger* triggerDetectPlayer = nullptr;
 
+	HUDInGame* hudInGame = nullptr;
 };
 
