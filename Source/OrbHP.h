@@ -34,6 +34,5 @@ private:
 
 	Trigger* trigger = nullptr;
 
-	HUDInGame* hudInGame = nullptr;
 };
 

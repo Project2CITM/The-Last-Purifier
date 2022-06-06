@@ -92,8 +92,8 @@ void Enemy::Die(bool spawnPower, bool spawnSoul)
 	if (player != nullptr && spawnSoul) Souls* soul1 = new Souls(GetPosition(), 3);
 
 
-	int randHP = rand() % 10;
-	LOG("rand: %d", randHP);
+	//int randHP = rand() % 10;
+	int randHP = 1;
 	if (player != nullptr && randHP == 1) OrbHP* orb = new OrbHP(GetPosition());
 
 }

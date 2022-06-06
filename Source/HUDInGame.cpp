@@ -16,6 +16,7 @@
 #include "SpellInfo.h"
 #include "AssetsManager.h"
 #include "SpellList.h"
+#include "OrbHP.h"
 
 RenderObject Controls1;
 RenderObject Controls2;

@@ -28,7 +28,6 @@ OrbHP::OrbHP(iPoint position):GameObject("OrbHP","OrbHP")
 
 	SceneGame* scene = (SceneGame*)app->scene->scenes[app->scene->currentScene];
 	player = scene->player;
-	//hudInGame = new HUDInGame();
 }
 
 OrbHP::~OrbHP()
@@ -68,7 +67,6 @@ void OrbHP::OnTriggerEnter(std::string trigger, PhysBody* col)
 {
 	if (trigger == "OrbHPTrigger" && col->gameObject->name == "Player")
 	{
-		//LOG("+ HP");
 		PlusHP();
 		pendingToDelete = true;
 	}
@@ -88,5 +86,7 @@ void OrbHP::PlusHP()
 	if(player->hpPlayer > player->hpMax)
 		player->hpPlayer = player->hpMax;
 
-	//hudInGame->UpdatePlayerHp();
+	LOG("HOLA");
+
+	app->events->TriggerEvent(GameEvent::UPDATE_PLAYER_HP);
 }
