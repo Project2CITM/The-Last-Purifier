@@ -1,11 +1,14 @@
 #include "GameObject.h"
 #include "ModuleEvents.h"
+#include "Player.h"
+
+class Trigger;
 
 class OrbHP : public GameObject, EventListener
 {
 public:
 
-	OrbHP();
+	OrbHP(iPoint position);
 
 	~OrbHP();
 
@@ -21,12 +24,15 @@ public:
 
 	void OnTriggerEnter(std::string trigger, PhysBody* col) override;
 
+	void GameEventTriggered(GameEvent id) override;
+
 	void PlusHP();
 
-	//Player* player = nullptr;
-
-
 private:
+	Player* player = nullptr;
+
+	Trigger* trigger = nullptr;
+	Trigger* triggerDetectPlayer = nullptr;
 
 };
 

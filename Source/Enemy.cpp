@@ -5,6 +5,7 @@
 #include "SceneGame.h"
 #include "ModuleScene.h"
 #include "Souls.h"
+#include "OrbHP.h"
 
 Enemy::Enemy(std::string name) :GameObject(name, "Enemy")
 {
@@ -88,4 +89,6 @@ void Enemy::Die(bool spawnPower, bool spawnSoul)
 	}
 
 	if (player != nullptr && spawnSoul) Souls* soul1 = new Souls(GetPosition(), 3);
+
+	if (player != nullptr) OrbHP* orb = new OrbHP(GetPosition());
 }
