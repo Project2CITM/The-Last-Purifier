@@ -73,9 +73,13 @@ void Enemy::Hit(int damage)
 
 void Enemy::Die(bool spawnPower, bool spawnSoul)
 {
+	if (isDie) return;
+
 	isDie = true;
 
-	pendingToDelete = true;
+	//pendingToDelete = true;
+
+	this->enable = false;
 
  	if (app->scene->sceneGettingDeleted) return;
 
