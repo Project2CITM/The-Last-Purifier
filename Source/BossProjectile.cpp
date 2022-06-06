@@ -78,7 +78,7 @@ void BossProjectile::Update()
 	{
 		if (speed > 0)
 		{
-			speed -= 0.1f;
+			speed -= 0.6f;
 
 			SetLinearVelocity(targetDir * speed);
 		}
@@ -105,9 +105,9 @@ void BossProjectile::CleanUp()
 	//attack->pendingToDelete = true;
 }
 
-void BossProjectile::GoTo(iPoint target)
+bool BossProjectile::GoTo(iPoint target)
 {
-	if (attacking) return;
+	if (attacking) return false;
 
 	attacking = true;
 
@@ -117,7 +117,22 @@ void BossProjectile::GoTo(iPoint target)
 
 	targetDir = dir.Normalize();
 
-	speed = 14;
+	speed = 30;
+
+	return true;
+}
+
+void BossProjectile::SetActive(bool active)
+{
+	SetLinearVelocity(fPoint{ 0,0 });
+
+	enable = active;
+
+	pBody->body->SetActive(active);
+
+	attack->enable = active;
+
+	attack->pBody->body->SetActive(active);
 }
 
 float BossProjectile::GetAttackAngle(iPoint target)

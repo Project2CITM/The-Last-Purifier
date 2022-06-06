@@ -21,7 +21,9 @@ public:
 
 	void CleanUp() override;
 
-	void GoTo(iPoint target);
+	bool GoTo(iPoint target);
+
+	void SetActive(bool active);
 
 private:
 	float GetAttackAngle(iPoint target);
