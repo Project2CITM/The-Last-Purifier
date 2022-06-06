@@ -3,6 +3,7 @@
 #include "PlayerController.h"
 #include "PlayerCombat.h"
 #include "PneumaDamageArea.h"
+#include "ParticlePneuma.h"
 
 PneumaS::PneumaS()
 {
@@ -21,37 +22,59 @@ PneumaS::PneumaS()
 
 void PneumaS::Execute(int level)
 {
-	iPoint pos = player->controller->GetPosition();
-
-	int width = 60;
+	iPoint damageAreaPos = player->controller->GetPosition();
+	iPoint particlePos = player->controller->GetPosition();
+	int width = 30;
 	int height = 15;
 	int temp = 0;
+
+	int rotation = 0;
 	switch (player->controller->lookingDir)
 	{
 	case LookingDirection::RIGHT:
-		pos.x += 60;
-		pos.y -= 10;
+		damageAreaPos.x += 60;
+		damageAreaPos.y -= 10;
+
+		particlePos.x += 105;
+		particlePos.y -= 60;
+
+		rotation = 90;
 		break;
 	case LookingDirection::LEFT:
-		pos.x -= 40;
-		pos.y -= 10;
+		damageAreaPos.x -= 40;
+		damageAreaPos.y -= 10;
+
+		particlePos.x -= 80;
+		particlePos.y += 45;
+
+		rotation = 270;
 		break;
 	case LookingDirection::UP:
-		pos.x += 10;
-		pos.y -= 70;
+		damageAreaPos.x += 10;
+		damageAreaPos.y -= 70;
+
+		particlePos.x -= 45;
+		particlePos.y -= 120;
+
 		temp = width;
 		width = height;
 		height = temp;
 		break;
 	case LookingDirection::DOWN:
-		pos.x += 10;
-		pos.y += 50;
+		damageAreaPos.x += 10;
+		damageAreaPos.y += 50;
+
+		particlePos.x += 60;
+		particlePos.y += 90;
+
 		temp = width;
 		width = height;
 		height = temp;
+		rotation = 180;
 		break;
 	default:
 		break;
 	}
-	new PneumaDamageArea(pos, width, height, damage[level - 1]);
+	new PneumaDamageArea(damageAreaPos, width, height, damage[level - 1]);
+	new ParticlePneuma(particlePos, rotation, 240);
 }

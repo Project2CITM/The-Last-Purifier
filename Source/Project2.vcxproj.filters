@@ -474,23 +474,26 @@
     <ClInclude Include="GUIHoverBox.h">
       <Filter>Archivos de encabezado\GUI</Filter>
     </ClInclude>
-  <ClInclude Include="Boss.h">
-    <Filter>Archivos de encabezado\GameObject\Enemy\Boss</Filter>
-  </ClInclude>
-  <ClInclude Include="BossProjectile.h">
-    <Filter>Archivos de encabezado</Filter>
-  </ClInclude>
-    <ClInclude Include="PneumaS.h">
-      <Filter>Archivos de encabezado\Player\Spells\SageSpells</Filter>
+    <ClInclude Include="Boss.h">
+      <Filter>Archivos de encabezado\GameObject\Enemy\Boss</Filter>
     </ClInclude>
-    <ClInclude Include="PneumaDamageArea.h">
-      <Filter>Archivos de encabezado\GameObject</Filter>
+    <ClInclude Include="BossProjectile.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="PneumaS.h">
       <Filter>Archivos de encabezado\Player\Spells\SageSpells</Filter>
     </ClInclude>
     <ClInclude Include="PneumaDamageArea.h">
       <Filter>Archivos de encabezado\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="PneumaS.h">
+      <Filter>Archivos de encabezado\Player\Spells\SageSpells</Filter>
+    </ClInclude>
+    <ClInclude Include="PneumaDamageArea.h">
+      <Filter>Archivos de encabezado\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticlePneuma.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -799,6 +802,9 @@
     </ClCompile>
     <ClCompile Include="PneumaDamageArea.cpp">
       <Filter>Archivos de origen\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticlePneuma.cpp">
+      <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

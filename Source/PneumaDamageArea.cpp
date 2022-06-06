@@ -1,10 +1,11 @@
 #include "PneumaDamageArea.h"
 #include "ModulePhysics.h"
+#include "ParticlePneuma.h"
 
 PneumaDamageArea::PneumaDamageArea(iPoint position, int width, int height, int damage) : DamageArea(position, width, height, damage)
 {
 	// Create Particle Effect
-
+	//new ParticlePneuma(this->GetPosition(), 0, 240);
 	currentFrame = totalFrames;
 
 	b2Filter filter;

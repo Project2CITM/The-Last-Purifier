@@ -5,7 +5,7 @@
 #include "External/SDL/include/SDL_rect.h"
 #include "Timer.h"
 
-#define MAX_FRAMES 30
+#define MAX_FRAMES 120
 
 class Animation
 {
