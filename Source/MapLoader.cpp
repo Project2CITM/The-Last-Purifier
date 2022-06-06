@@ -187,10 +187,11 @@ void MapLoader::CreateEnemies(Room* r)
 			else if (gid == 2565)
 			{
 				//TODO: spawn mini boss
-			}
-			else if (gid == 2565)
-			{
-				//TODO: spawn button
+				Enemy* mb = new Ghoul(iPoint(
+					r->roomPosition.x * MAX_ROOM_TILES_COLUMNS * TILE_SIZE + j * TILE_SIZE + TILE_SIZE / 2,
+					r->roomPosition.y * MAX_ROOM_TILES_ROWS * TILE_SIZE + i * TILE_SIZE + TILE_SIZE / 2), r, true);
+				r->enemies.add(mb);
+				mb->enable = false;
 			}
 
 			tile = tile.next_sibling();
