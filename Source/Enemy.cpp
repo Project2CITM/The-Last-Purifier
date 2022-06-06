@@ -5,12 +5,14 @@
 #include "SceneGame.h"
 #include "ModuleScene.h"
 #include "Souls.h"
+#include "OrbHP.h"
 
 Enemy::Enemy(std::string name) :GameObject(name, "Enemy")
 {
 	spawnManager = SpellSpawnManager::GetInstance();
 	SceneGame* scene = (SceneGame*)app->scene->scenes[app->scene->currentScene];
 	player = scene->player;
+
 }
 
 Enemy::~Enemy()
@@ -73,9 +75,13 @@ void Enemy::Hit(int damage)
 
 void Enemy::Die(bool spawnPower, bool spawnSoul)
 {
+	if (isDie) return;
+
 	isDie = true;
 
-	pendingToDelete = true;
+	//pendingToDelete = true;
+
+	this->enable = false;
 
  	if (app->scene->sceneGettingDeleted) return;
 
@@ -90,4 +96,10 @@ void Enemy::Die(bool spawnPower, bool spawnSoul)
 	}
 
 	if (player != nullptr && spawnSoul) Souls* soul1 = new Souls(GetPosition(), 3);
+
+
+	//int randHP = rand() % 10;
+	int randHP = 1;
+	if (player != nullptr && randHP == 1) OrbHP* orb = new OrbHP(GetPosition());
+
 }

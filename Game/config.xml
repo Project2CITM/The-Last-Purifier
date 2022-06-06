@@ -23,6 +23,7 @@
 		<kaboomExplotion width="32" height="32" layer="1" orderInLayer="3.0" scale="1.6" path="Assets/Sprites/Enemies/Ghoul/KaboomExplotion.png" />
 		<npc width="32" height="32" layer="1" orderInLayer="3.0" scale="0.3" path="Assets/Sprites/NPC/npcIdleAnim.png" />
 		<soul width="50" height="105" layer="1" orderInLayer="3.0" scale="0.2" path="Assets/Sprites/Soul/soulAnim2.png" />
+		<orbHP width="50" height="50" layer="1" orderInLayer="3.0" scale="0.2" path="Assets/Sprites/UI/HP.png" />
 		<revenantInstructor width="70" height="95" layer="1" orderInLayer="3.0" scale="0.3" path="Assets/Sprites/NPC/revenantInstructor.png" />
 		<sageInstructor width="70" height="95" layer="1" orderInLayer="3.0" scale="0.3" path="Assets/Sprites/NPC/sagetInstructor.png" />
 		<basicattackrevenant width="64" height="64" layer="1" orderInLayer="3.0" scale="0.8" path="Assets/Sprites/Player/Revenant/basicAttackRevenant.png" />
@@ -326,7 +327,7 @@
 	</dialogText>
 	<audios>
 		<music volume="0" />
-		<sfx volume="2" />
+		<sfx volume="0" />
 	</audios>
 	<scenes>
 		<level1>

@@ -75,6 +75,8 @@ Ghoul::~Ghoul()
 
 void Ghoul::PreUpdate()
 {
+	if (isDie) return;
+
 	ghoulTimer.Update();
 
 	UpdateStates();
@@ -86,6 +88,7 @@ void Ghoul::PreUpdate()
 
 void Ghoul::Update()
 {
+	if (isDie) return;
 	stateMachine.Update();
 
 	Enemy::Update();
@@ -93,6 +96,7 @@ void Ghoul::Update()
 
 void Ghoul::PostUpdate()
 {
+	if (isDie) return;
 	renderObjects[0].flip = GetLinearVelocity().x > 0 ? SDL_FLIP_NONE : GetLinearVelocity().x < 0 ? SDL_FLIP_HORIZONTAL : renderObjects[0].flip;
 
 	animations[stateMachine.GetCurrentState()].Update();

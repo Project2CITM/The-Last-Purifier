@@ -127,7 +127,7 @@ void MapLoader::CreateEnemies(Room* r)
 			
 			if(gid == 2562)
 			{
-				int rand = std::rand() % 8;
+				int rand = std::rand() % 15;
 				Enemy* g1 = nullptr;
 
 				switch (rand)
@@ -143,6 +143,12 @@ void MapLoader::CreateEnemies(Room* r)
 					g1->enable = false;
 					break;
 				case 4:
+					g1 = new Ghoul(iPoint(
+					r->roomPosition.x * MAX_ROOM_TILES_COLUMNS * TILE_SIZE + j * TILE_SIZE + TILE_SIZE / 2,
+					r->roomPosition.y * MAX_ROOM_TILES_ROWS * TILE_SIZE + i * TILE_SIZE + TILE_SIZE / 2), r);
+					r->enemies.add(g1);
+					g1->enable = false;
+					break;
 				case 5:
 					g1 = new Kaboom(iPoint(
 						r->roomPosition.x * MAX_ROOM_TILES_COLUMNS * TILE_SIZE + j * TILE_SIZE + TILE_SIZE / 2,
@@ -158,9 +164,23 @@ void MapLoader::CreateEnemies(Room* r)
 					g1->enable = false;
 					break;
 				case 7:
-					
+					g1 = new Ghoul(iPoint(
+						r->roomPosition.x * MAX_ROOM_TILES_COLUMNS * TILE_SIZE + j * TILE_SIZE + TILE_SIZE / 2,
+						r->roomPosition.y * MAX_ROOM_TILES_ROWS * TILE_SIZE + i * TILE_SIZE + TILE_SIZE / 2), r);
+					r->enemies.add(g1);
+					g1->enable = false;
+					break;
+				case 8:
+				case 9:
+				case 10:
+				case 11:
+				case 12:
+				case 13:
+				case 14:
 					break;
 				}
+				
+
 				
 			}
 			else if (gid == 2561) 

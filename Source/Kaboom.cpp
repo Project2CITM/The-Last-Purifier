@@ -57,6 +57,8 @@ Kaboom::~Kaboom()
 
 void Kaboom::PreUpdate()
 {
+	if (isDie) return;
+
 	kaboomTimer.Update();
 	UpdateStates();
 
@@ -65,6 +67,8 @@ void Kaboom::PreUpdate()
 
 void Kaboom::Update()
 {
+	if (isDie) return;
+
 	stateMachine.Update();
 
 	Enemy::Update();
@@ -72,6 +76,8 @@ void Kaboom::Update()
 
 void Kaboom::PostUpdate()
 {
+	if (isDie) return;
+
 	ChangeColor();
 
 	renderObjects[0].flip = GetLinearVelocity().x > 0 ? SDL_FLIP_NONE : GetLinearVelocity().x < 0 ? SDL_FLIP_HORIZONTAL : renderObjects[0].flip;

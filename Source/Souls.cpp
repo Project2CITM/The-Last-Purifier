@@ -23,7 +23,7 @@ Souls::Souls(iPoint position, int soulsAmount):GameObject("Souls", "Souls")
 	filter.categoryBits = app->physics->TRIGGER_LAYER;
 	filter.maskBits = app->physics->EVERY_LAYER & ~app->physics->ENEMY_LAYER;
 	trigger->pBody->body->GetFixtureList()->SetFilterData(filter);
-	triggerDetectPlayer = new Trigger({ position.x + 4,position.y + 10 }, 50, this, "SoulsDetectPlayer", true);
+	triggerDetectPlayer = new Trigger({ position.x,position.y}, 50, this, "SoulsDetectPlayer", true);
 	triggerDetectPlayer->pBody->body->GetFixtureList()->SetFilterData(filter);
 	InitRenderObjectWithXml("soul");
 

@@ -53,6 +53,8 @@ Worm::~Worm()
 
 void Worm::PreUpdate()
 {
+	if (isDie) return;
+
 	wormTimer.Update();
 	UpdateStates();
 	wormTimer.Reset();
@@ -61,6 +63,8 @@ void Worm::PreUpdate()
 
 void Worm::Update()
 {
+	if (isDie) return;
+
 	stateMachine.Update();
 
 	Enemy::Update();
@@ -68,6 +72,8 @@ void Worm::Update()
 
 void Worm::PostUpdate()
 {
+	if (isDie) return;
+
 	SDL_RendererFlip flip = GetLinearVelocity().x > 0 ? SDL_FLIP_NONE : GetLinearVelocity().x < 0 ? SDL_FLIP_HORIZONTAL : renderObjects[0].flip;
 
 	if (!animPause)	animations[stateMachine.GetCurrentState()].Update();
@@ -184,6 +190,8 @@ void Worm::UpdateStates()
 			damageTrigger->Destroy();
 			damageTrigger = nullptr;
 		}
+
+		if (pBody->body->IsActive()) pBody->body->SetActive(false);
 
 		if (!animations[stateMachine.GetCurrentState()].HasFinished()) return;
 		

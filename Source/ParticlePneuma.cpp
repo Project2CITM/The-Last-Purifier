@@ -13,4 +13,5 @@ ParticlePneuma::ParticlePneuma(iPoint position, int rot, float life, float delay
 
 	renderObjects[0].InitAsTexture(app->textures->Load("Assets/Sprites/Player/Sage/pneuma_96x96.png"), position, { 0,0,0,0 }, 1, 2, 10);
 	renderObjects[0].rotation = rot;
+	renderObjects[0].SetColor({ 0,255,255,255 });
 }
