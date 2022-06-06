@@ -37,6 +37,7 @@ HUDInGame::HUDInGame() :Scene("HUDInGame")
 	// Init event sysem
 	this->listenTo[0] = GameEvent::PLAYER_HIT;
 	this->listenTo[1] = GameEvent::UPDATE_COMMON_TREE;
+	this->listenTo[2] = GameEvent::UPDATE_PLAYER_HP;
 
 	app->events->AddListener(this);
 }
@@ -608,12 +609,13 @@ void HUDInGame::GameEventTriggered(GameEvent id)
 	// Call when player Hit
 	switch (id)
 	{
-	case GameEvent::PLAYER_HIT:
+	case GameEvent::PLAYER_HIT:case GameEvent::UPDATE_PLAYER_HP:
 		playerHp.currentHp.w = (int)hp;
 		break;
 	case GameEvent::UPDATE_COMMON_TREE:
 		InitializeSlots();
 		break;
+	
 	}
 
 }

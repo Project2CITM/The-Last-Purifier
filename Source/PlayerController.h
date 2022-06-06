@@ -72,6 +72,8 @@ public:
 
 	void AttackImpulse();
 
+	void purifiedSwordHeals();
+
 public:
 
 	Player* player = nullptr;

@@ -64,6 +64,7 @@ void Enemy::OnTriggerEnter(std::string trigger, PhysBody* col)
 
 void Enemy::Hit(int damage)
 {
+	app->events->TriggerEvent(GameEvent::ENEMY_HIT);
 	health -= damage;
 	if (health <= 0) Die();
 }

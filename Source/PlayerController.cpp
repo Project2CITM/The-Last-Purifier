@@ -24,6 +24,7 @@ PlayerController::PlayerController(std::string name, std::string tag, Player* pl
 	this->listenTo[1] = GameEvent::PLAYER_DIE;
 	this->listenTo[2] = GameEvent::RESUME_PLAYER_MOVEMENT;
 	this->listenTo[3] = GameEvent::STOP_PLAYER_MOVEMENT;
+	this->listenTo[4] = GameEvent::ENEMY_HIT;
 
 	app->events->AddListener(this);
 	this->player = player;
@@ -565,6 +566,9 @@ void PlayerController::GameEventTriggered(GameEvent id)
 	case GameEvent::RESUME_PLAYER_MOVEMENT:
 		canControl = true;
 		break;
+	case GameEvent::ENEMY_HIT:
+		purifiedSwordHeals();
+		break;
 	}
 }
 
@@ -592,5 +596,28 @@ void PlayerController::AttackImpulse()
 	}
 
 	pBody->body->SetLinearVelocity(dir);
+}
+
+void PlayerController::purifiedSwordHeals()
+{
+	int heal = 5;
+	int playerLife = player->hpPlayer;
+	if (player->purifiedSwordOn)
+	{
+		/*if (playerLife >= player->hpMax)
+		{
+			
+			return;
+		}*/
+		if ((playerLife + heal) > player->hpMax)
+		{
+			player->hpPlayer = player->hpMax;
+		}
+		else
+		{
+			player->hpPlayer += heal;
+		}
+	}
+	app->events->TriggerEvent(GameEvent::UPDATE_PLAYER_HP);
 }
 
