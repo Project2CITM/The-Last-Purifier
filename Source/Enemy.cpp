@@ -12,6 +12,7 @@ Enemy::Enemy(std::string name) :GameObject(name, "Enemy")
 	spawnManager = SpellSpawnManager::GetInstance();
 	SceneGame* scene = (SceneGame*)app->scene->scenes[app->scene->currentScene];
 	player = scene->player;
+
 }
 
 Enemy::~Enemy()
@@ -91,4 +92,5 @@ void Enemy::Die(bool spawnPower, bool spawnSoul)
 	if (player != nullptr && spawnSoul) Souls* soul1 = new Souls(GetPosition(), 3);
 
 	if (player != nullptr) OrbHP* orb = new OrbHP(GetPosition());
+
 }

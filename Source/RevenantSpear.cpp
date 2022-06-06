@@ -8,10 +8,10 @@
 RevenantSpear::RevenantSpear(PlayerController* playerController) : RevenantWeapon(playerController)
 {
 	// Initialize stats (damage and attackSpeed)
-
+	
 	this->damage = 20;
 	this->attackSpeedCD = 340;
-	this->playerAttackCD = 400;
+	this->playerAttackCD = 200;
 	this->attackAreaCD = 80;
 	this->nextAttackTime = 200;
 	this->maximumAttacks = 3;
