@@ -79,14 +79,14 @@ void OrbHP::OnCollisionEnter(PhysBody* col)
 	}
 }
 
-void OrbHP::OnTriggerEnter(std::string trigger, PhysBody* col)
+/*void OrbHP::OnTriggerEnter(std::string trigger, PhysBody* col)
 {
 	if (trigger == "OrbHPTrigger" && col->gameObject->name == "Player")
 	{
 		PlusHP();
 		pendingToDelete = true;
 	}
-}
+}*/
 
 void OrbHP::GameEventTriggered(GameEvent id)
 {
