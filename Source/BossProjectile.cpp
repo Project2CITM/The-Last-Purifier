@@ -37,7 +37,7 @@ BossProjectile::BossProjectile(iPoint position, PlayerController* target) :Enemy
 
 	filterB.categoryBits = app->physics->ENEMY_LAYER; // Who am I
 
-	filterB.maskBits = app->physics->EVERY_LAYER & ~app->physics->ENEMY_LAYER; // Who will coll with me
+	filterB.maskBits = app->physics->EVERY_LAYER; // Who will coll with me
 
 	attack = new Trigger(position, 8, this, "bossProjectile");
 

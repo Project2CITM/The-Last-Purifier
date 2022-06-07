@@ -62,6 +62,7 @@ void Enemy::OnTriggerEnter(std::string trigger, PhysBody* col)
 
 		Hit(takenDamage->GetDamage());
 	}
+	else if(name == "boss" && col->gameObject->name == "bossProjectile") Hit(100);
 }
 
 void Enemy::Hit(int damage)
