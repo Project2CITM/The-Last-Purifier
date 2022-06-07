@@ -7,6 +7,7 @@
 
 class SpellSpawnManager;
 class WeaponChoosingHUD;
+class MenuManager;
 
 class TestScene :  public SceneGame
 {
@@ -43,4 +44,6 @@ private:
 	SpellSpawnManager* spawnManager = nullptr;
 
 	WeaponChoosingHUD* weaponChoosingHUD = nullptr;
+
+	MenuManager* menuManager = nullptr;
 };

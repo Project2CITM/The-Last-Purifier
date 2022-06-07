@@ -132,6 +132,7 @@
     <ClInclude Include="MapLoader.h" />
     <ClInclude Include="MapSave.h" />
     <ClInclude Include="MemLeaks.h" />
+    <ClInclude Include="MenuManager.h" />
     <ClInclude Include="Minimap.h" />
     <ClInclude Include="Module.h" />
     <ClInclude Include="ModuleAudio.h" />
@@ -243,6 +244,7 @@
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="MapLoader.cpp" />
     <ClCompile Include="MapSave.cpp" />
+    <ClCompile Include="MenuManager.cpp" />
     <ClCompile Include="MiniMap.cpp" />
     <ClCompile Include="ModuleAudio.cpp" />
     <ClCompile Include="ModuleEvents.cpp" />

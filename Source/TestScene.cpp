@@ -22,6 +22,7 @@
 #include "Column.h"
 #include "WeaponChoosingHUD.h"
 #include "Boss.h"
+#include "MenuManager.h"
 
 #include "External/Optick/include/optick.h"
 
@@ -64,7 +65,9 @@ bool TestScene::Start()
     roomManager.Start();
 
     Scene::Start();
- 
+
+    menuManager = MenuManager::GetInstance();
+
     weaponChoosingHUD = new WeaponChoosingHUD(playerClass);
     weaponChoosingHUD->Start();
 
@@ -112,14 +115,14 @@ bool TestScene::PreUpdate()
             printf("No more empty spell nor deck Slots!!\n");
         }
     }
-
-    if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || app->input->GetControllerButton(BUTTON_START) == KEY_DOWN) app->TogglePause(!app->isPause);
     
     roomManager.PreUpdate(player->controller->GetPosition());
 
     hudInGame->PreUpdate();
 
     weaponChoosingHUD->PreUpdate();
+
+    menuManager->PreUpdate();
 
     Scene::PreUpdate();
 
@@ -193,7 +196,7 @@ bool TestScene::CleanUp()
     }
 
     spawnManager->ReleaseInstance();
-
+    menuManager->ReleaseInstance();
     Scene::CleanUp();
     return false;
 }

@@ -7,6 +7,7 @@
 #include "PlayerController.h"
 #include "ModuleScene.h"
 #include "ModuleInput.h"
+#include "MenuManager.h"
 
 WeaponChoosingHUD::WeaponChoosingHUD(PlayerClass playerClass)
 {
@@ -102,6 +103,8 @@ void WeaponChoosingHUD::Start()
 
 	app->events->TriggerEvent(GameEvent::STOP_PLAYER_MOVEMENT);
 
+	MenuManager::GetInstance()->canPause = false;
+
 	displayHUD = true;
 }
 
@@ -123,6 +126,7 @@ void WeaponChoosingHUD::PreUpdate()
 		displayHUD = false;
 
 		app->events->TriggerEvent(GameEvent::RESUME_PLAYER_MOVEMENT);
+		MenuManager::GetInstance()->canPause = true;
 	}
 
 	if (app->input->usingGameController) GamepadControl();
