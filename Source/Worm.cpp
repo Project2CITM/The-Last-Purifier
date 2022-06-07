@@ -112,6 +112,17 @@ void Worm::Die(bool spawnPower, bool spawnSouls)
 	stateMachine.ChangeState((int)WormState::DIE);
 }
 
+void Worm::DisableCollisions()
+{
+	if (damageTrigger != nullptr)
+	{
+		damageTrigger->Destroy();
+		damageTrigger = nullptr;
+	}
+
+	if (pBody->body->IsActive()) pBody->body->SetActive(false);
+}
+
 void Worm::UpdateStates()
 {
 	SetLinearVelocity(b2Vec2{ 0,0 });
@@ -185,13 +196,7 @@ void Worm::UpdateStates()
 	{
 		//SetTriggeeActive(false);
 
-		if (damageTrigger != nullptr)
-		{
-			damageTrigger->Destroy();
-			damageTrigger = nullptr;
-		}
-
-		if (pBody->body->IsActive()) pBody->body->SetActive(false);
+		DisableCollisions();
 
 		if (!animations[stateMachine.GetCurrentState()].HasFinished()) return;
 		

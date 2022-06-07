@@ -42,6 +42,9 @@ public:
 
 	void UpdateStates();
 
+	void DisableCollisions() override;
+
+
 private:
 
 	void InitAnimation();

@@ -204,9 +204,7 @@ void Kaboom::UpdateStates()
 	{
 		//SetTriggeeActive(false);
 
-		DestroyTriggers();
-
-		if (pBody->body->IsActive()) pBody->body->SetActive(false);
+		DisableCollisions();
 
 		if (animations[stateMachine.GetCurrentState()].HasFinished()) Enemy::Die(true);
 	}
@@ -370,4 +368,11 @@ void Kaboom::DestroyTriggers()
 		damageTrigger->Destroy();
 		damageTrigger = nullptr;
 	}
+}
+
+void Kaboom::DisableCollisions()
+{
+	DestroyTriggers();
+
+	if (pBody != nullptr && pBody->body->IsActive()) pBody->body->SetActive(false);
 }

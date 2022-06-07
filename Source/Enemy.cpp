@@ -80,6 +80,8 @@ void Enemy::Die(bool spawnPower, bool spawnSoul)
 
 	isDie = true;
 
+	DisableCollisions();
+
 	//pendingToDelete = true;
 
 	this->enable = false;
@@ -103,4 +105,8 @@ void Enemy::Die(bool spawnPower, bool spawnSoul)
 	int randHP = 1;
 	if (player != nullptr && randHP == 1) OrbHP* orb = new OrbHP(GetPosition());
 
+}
+
+void Enemy::DisableCollisions()
+{
 }

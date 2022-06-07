@@ -44,6 +44,8 @@ public:
 
 	void CleanUp() override;
 
+	void DisableCollisions() override;
+
 private:
 
 	void InitAnimation();

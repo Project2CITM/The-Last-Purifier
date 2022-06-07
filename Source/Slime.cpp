@@ -202,17 +202,23 @@ void Slime::UpdateStates()
 	{
 		//SetTriggeeActive(false);
 
-		if (damageTrigger != nullptr)
-		{
-			damageTrigger->Destroy();
-			damageTrigger = nullptr;
-		}
+		DisableCollisions();
 
 		if (!animations[stateMachine.GetCurrentState()].HasFinished()) return;
 
 		Enemy::Die();
 	}
 	break;
+	}
+}
+
+void Slime::DisableCollisions()
+{
+
+	if (damageTrigger != nullptr)
+	{
+		damageTrigger->Destroy();
+		damageTrigger = nullptr;
 	}
 }
 

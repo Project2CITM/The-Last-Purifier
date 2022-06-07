@@ -8,10 +8,10 @@
 class SpellSpawnManager;
 class Player;
 
-class Enemy :  public GameObject
+class Enemy : public GameObject
 {
-public: 
-	
+public:
+
 	Enemy(std::string name);
 
 	~Enemy();
@@ -40,6 +40,8 @@ public:
 	{
 		return damage;
 	}
+
+	virtual void DisableCollisions();
 
 protected:
 	SpellSpawnManager* spawnManager = nullptr;

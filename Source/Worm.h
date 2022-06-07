@@ -40,6 +40,8 @@ public:
 
 	void Die(bool spawnPower, bool spawnSouls) override;
 
+	void DisableCollisions() override;
+
 private:
 
 	void UpdateStates();

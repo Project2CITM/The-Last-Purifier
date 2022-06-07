@@ -224,9 +224,7 @@ void Ghoul::UpdateStates()
 		// cvSetTriggeeActive(false);
 
 		// Destroy Triggers already!
-		DestroyTriggers();
-
-		if (pBody->body->IsActive()) pBody->body->SetActive(false);
+		DisableCollisions();
 
 		if (animations[stateMachine.GetCurrentState()].HasFinished()) Enemy::Die(true);
 	}	
@@ -237,6 +235,13 @@ void Ghoul::UpdateStates()
 void Ghoul::CleanUp()
 {
 	currentRoom = nullptr;
+}
+
+void Ghoul::DisableCollisions()
+{
+	DestroyTriggers();
+
+	if (pBody != nullptr && pBody->body->IsActive()) pBody->body->SetActive(false);
 }
 
 void Ghoul::InitAnimation()
