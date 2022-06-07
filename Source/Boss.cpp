@@ -150,6 +150,8 @@ void Boss::UpdateStates()
 
 		pBody->body->SetActive(false);
 
+		damageTrigger->pBody->body->SetActive(false);
+
 		if (animations[stateMachine.GetCurrentState()].HasFinished()) Enemy::Die(true);
 
 		break;
