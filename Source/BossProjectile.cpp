@@ -2,10 +2,13 @@
 #include "Trigger.h"
 #include "ModulePhysics.h"
 #include "ModuleInput.h"
+#include "PlayerController.h"
 
-BossProjectile::BossProjectile(iPoint position) :Enemy("bossProjectile")
+BossProjectile::BossProjectile(iPoint position, PlayerController* target) :Enemy("bossProjectile")
 {
 	this->position = position;
+
+	playerController = target;
 
 	// Init renderObject
 	InitRenderObjectWithXml("bossProjectile");
@@ -47,7 +50,7 @@ BossProjectile::BossProjectile(iPoint position) :Enemy("bossProjectile")
 
 	filterC.categoryBits = app->physics->ENEMY_LAYER;
 
-	filterC.maskBits = app->physics->EVERY_LAYER & app->physics->PLAYER_LAYER;
+	filterC.maskBits = app->physics->EVERY_LAYER & ~app->physics->PLAYER_LAYER;
 
 	pBody = app->physics->CreateCircle(position.x, position.y, 8, this, true, b2_dynamicBody, app->physics->ENEMY_LAYER);
 
@@ -78,7 +81,9 @@ void BossProjectile::Update()
 	{
 		if (speed > 0)
 		{
-			speed -= 0.6f;
+			if (attackDistance < attackStartPos.DistanceTo(GetPosition())) speed -= 1.0f;
+			
+			else speed -= 0.5f;
 
 			SetLinearVelocity(targetDir * speed);
 		}
@@ -86,7 +91,12 @@ void BossProjectile::Update()
 		{
 			SetLinearVelocity(fPoint{ 0,0 });
 
-			attacking = false;
+			if (attackTimes-- <= 0)
+			{
+				attacking = false;
+				SetActive(false);
+			}
+			else GoToTarget();
 		}
 	}
 }
@@ -102,22 +112,22 @@ void BossProjectile::PostUpdate()
 
 void BossProjectile::CleanUp()
 {
-	//attack->pendingToDelete = true;
+	attack->pendingToDelete = true;
+
+	pendingToDelete = true;
+
+	playerController = nullptr;
 }
 
-bool BossProjectile::GoTo(iPoint target)
+bool BossProjectile::Attack(int attackTimes)
 {
 	if (attacking) return false;
 
+	this->attackTimes = attackTimes;
+
 	attacking = true;
 
-	renderObjects[0].rotation = GetAttackAngle(target);
-
-	fPoint dir = { (float)(target.x - GetPosition().x),(float)(target.y - GetPosition().y) };
-
-	targetDir = dir.Normalize();
-
-	speed = 30;
+	GoToTarget();
 
 	return true;
 }
@@ -142,6 +152,25 @@ float BossProjectile::GetAttackAngle(iPoint target)
 	angle = angle * RADTODEG;
 
 	return angle;
+}
+
+void BossProjectile::GoToTarget()
+{
+	iPoint target = playerController->GetPosition();
+
+	attackDistance = target.DistanceTo(GetPosition());
+
+	renderObjects[0].rotation = GetAttackAngle(target);
+
+	attackStartPos = GetPosition();
+
+	fPoint dir = { (float)(target.x - attackStartPos.x),(float)(target.y - attackStartPos.y) };
+
+	targetDir = dir.Normalize();
+	
+	speed = attackDistance;
+
+	speed = speed > 40 ? 40 : speed;
 }
 
 void BossProjectile::AttackFinished()

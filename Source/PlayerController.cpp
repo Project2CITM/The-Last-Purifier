@@ -506,6 +506,7 @@ void PlayerController::OnTriggerEnter(std::string trigger, PhysBody* col)
 		Enemy* enemy = (Enemy*)enemyTrigger->GetParent();
 
 		if (enemy == nullptr) return;
+
 		Hit(enemy->GetDamage());
 	}
 }

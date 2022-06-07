@@ -37,8 +37,8 @@ Boss::Boss(iPoint pos) : Enemy("boss")
 	InitPhysics();
 
 	// Create his proyectiles
-	projectile = new  BossProjectile(iPoint(this->position.x - 80, this->position.y - 100));
-	projectile2 = new  BossProjectile(iPoint(this->position.x + 50, this->position.y + 60));
+	projectile = new  BossProjectile(iPoint(this->position.x - 80, this->position.y - 100), playerController);
+	projectile2 = new  BossProjectile(iPoint(this->position.x + 50, this->position.y + 60), playerController);
 
 	projectile->SetActive(false);
 	projectile2->SetActive(false);
@@ -53,6 +53,8 @@ Boss::~Boss()
 
 void Boss::PreUpdate()
 {
+	if (isDie) return;
+
 	bossTimer.Update();
 
 	UpdateStates();
@@ -64,6 +66,8 @@ void Boss::PreUpdate()
 
 void Boss::Update()
 {
+	if (isDie) return;
+
 	stateMachine.Update();
 
 	UpdateHpUI();
@@ -73,6 +77,8 @@ void Boss::Update()
 
 void Boss::PostUpdate()
 {
+	if (isDie) return;
+
 	if (hitEffectCount > 0)
 	{
 		hitEffectCount -= bossTimer.getDeltaTime() * 1000;
@@ -101,7 +107,7 @@ void Boss::Hit(int damage)
 {
 	renderObjects[0].SetColor({ 255,164,164,100 });
 
-	hitEffectCount = 120;
+	hitEffectCount = 120; //ms
 
 	Enemy::Hit(damage);
 
@@ -114,6 +120,10 @@ void Boss::Hit(int damage)
 
 void Boss::Die(bool spawnPower, bool spawnSouls)
 {
+	projectile->CleanUp();
+
+	projectile2->CleanUp();
+
 	SetLinearVelocity(b2Vec2{ 0,0 });
 
 	stateMachine.ChangeState((int)BossState::DIE);
@@ -157,9 +167,7 @@ void Boss::UpdateStates()
 	{
 		projectile->SetActive(true);
 
-		projectile->GoTo(playerController->GetPosition());
-
-		projectile2->GoTo(playerController->GetPosition());
+		projectile->Attack(450);
 	}
 	if (app->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN)
 	{
@@ -281,15 +289,15 @@ void Boss::DoRun()
 	//	return;
 	//}
 
-	iPoint target = playerController->GetPosition();
+	//iPoint target = playerController->GetPosition();
 
-	fPoint dir = { (float)(target.x - position.x),(float)(target.y - position.y) };
+	//fPoint dir = { (float)(target.x - position.x),(float)(target.y - position.y) };
 
-	dir = dir.Normalize();
+	//dir = dir.Normalize();
 
-	SetLinearVelocity(dir * moveSpeed);
+	//SetLinearVelocity(dir * moveSpeed);
 
-	flip = dir.x > 0 ? false : true;
+	//flip = dir.x > 0 ? false : true;
 }
 
 void Boss::UpdateHpUI()
