@@ -14,17 +14,24 @@ OrbHP::OrbHP(iPoint position):GameObject("OrbHP","OrbHP")
 	app->events->AddListener(this);
 
 	this->position = position;
-	trigger = new Trigger({position.x + 15, position.y + 15}, 10, this, "OrbHPTrigger", false);
+
+	this->pBody = app->physics->CreateCircle(position.x, position.y, 10, this, true);
+
+	//trigger = new Trigger({position.x + 15, position.y + 15}, 10, this, "OrbHPTrigger", false);
 	b2Filter filter;
 	filter.categoryBits = app->physics->TRIGGER_LAYER;
 	filter.maskBits = app->physics->EVERY_LAYER & ~app->physics->ENEMY_LAYER;
-	trigger->pBody->body->GetFixtureList()->SetFilterData(filter);
+	//trigger->pBody->body->GetFixtureList()->SetFilterData(filter);
+	pBody->body->GetFixtureList()->SetFilterData(filter);
 	/*triggerDetectPlayer = new Trigger({ position.x + 4,position.y + 10 }, 50, this, "SoulsDetectPlayer", true);
 	triggerDetectPlayer->pBody->body->GetFixtureList()->SetFilterData(filter);*/
 
 	//HPOrb.InitAsTexture(app->textures->Load("Assets/Sprites/UI/HP.png"), {position.x,position.y}, {0,0,0,0}, 0.25f, 2);
 
 	InitRenderObjectWithXml("orbHP");
+
+	renderObjects[0].textureCenterX = 25;
+	renderObjects[0].textureCenterY = 25;
 
 	SceneGame* scene = (SceneGame*)app->scene->scenes[app->scene->currentScene];
 	player = scene->player;
@@ -63,6 +70,15 @@ void OrbHP::CleanUp()
 	app->events->RemoveListener(this);
 }
 
+void OrbHP::OnCollisionEnter(PhysBody* col)
+{
+	if (col->gameObject->name == "Player")
+	{
+		PlusHP();
+		pendingToDelete = true;
+	}
+}
+
 void OrbHP::OnTriggerEnter(std::string trigger, PhysBody* col)
 {
 	if (trigger == "OrbHPTrigger" && col->gameObject->name == "Player")
@@ -85,8 +101,6 @@ void OrbHP::PlusHP()
 
 	if(player->hpPlayer > player->hpMax)
 		player->hpPlayer = player->hpMax;
-
-	LOG("HOLA");
 
 	app->events->TriggerEvent(GameEvent::UPDATE_PLAYER_HP);
 }

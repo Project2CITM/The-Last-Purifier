@@ -23,7 +23,7 @@ public:
 
 	void CleanUp() override;
 
-	void OnTriggerEnter(std::string trigger, PhysBody* col) override;
+	void OnCollisionEnter(PhysBody* col);
 
 	void GameEventTriggered(GameEvent id) override;
 
@@ -31,8 +31,5 @@ public:
 
 private:
 	Player* player = nullptr;
-
-	Trigger* trigger = nullptr;
-
 };
 
