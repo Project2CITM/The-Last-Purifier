@@ -189,7 +189,7 @@ void MapLoader::CreateEnemies(Room* r)
 			}
 			else if (gid == 2563) 
 			{
-				//TODO: spawn laser enemy
+				//Spawn laser enemy
 				Enemy* g1 = new Slime(iPoint(
 					r->roomPosition.x * MAX_ROOM_TILES_COLUMNS * TILE_SIZE + j * TILE_SIZE + TILE_SIZE / 2,
 					r->roomPosition.y * MAX_ROOM_TILES_ROWS * TILE_SIZE + i * TILE_SIZE + TILE_SIZE / 2));
@@ -198,7 +198,7 @@ void MapLoader::CreateEnemies(Room* r)
 			}
 			else if (gid == 2564) 
 			{
-				//TODO: spawn column
+				//Spawn column
 				Enemy* e = new Column(iPoint(r->roomPosition.x * MAX_ROOM_TILES_COLUMNS * TILE_SIZE + j * TILE_SIZE + TILE_SIZE / 2,
 					r->roomPosition.y * MAX_ROOM_TILES_ROWS * TILE_SIZE + i * TILE_SIZE + TILE_SIZE / 2));
 				r->enemies.add(e);
@@ -206,7 +206,7 @@ void MapLoader::CreateEnemies(Room* r)
 			}
 			else if (gid == 2565)
 			{
-				//TODO: spawn mini boss
+				//Spawn mini boss
 				Enemy* mb = new Ghoul(iPoint(
 					r->roomPosition.x * MAX_ROOM_TILES_COLUMNS * TILE_SIZE + j * TILE_SIZE + TILE_SIZE / 2,
 					r->roomPosition.y * MAX_ROOM_TILES_ROWS * TILE_SIZE + i * TILE_SIZE + TILE_SIZE / 2), r, true);
