@@ -32,14 +32,14 @@ public:
 
 			if (section.w == 0 || section.h == 0)
 			{
-				if (SDL_RenderCopyEx(renderer, texture, nullptr, &destRect, rotation, &center, flip) != 0)
+				if (SDL_RenderCopyEx(renderer, texture, nullptr, &destRect, rotation, &rotCenter, flip) != 0)
 				{
 					printf_s("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
 				}
 			}
 			else
 			{
-				if (SDL_RenderCopyEx(renderer, texture, &section, &destRect, rotation, &center, flip) != 0)
+				if (SDL_RenderCopyEx(renderer, texture, &section, &destRect, rotation, &rotCenter, flip) != 0)
 				{
 					printf_s("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
 				}
@@ -156,7 +156,7 @@ public:
 	SDL_Texture* texture = nullptr;
 	SDL_Rect section = { 0,0,0,0 };
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
-	SDL_Point center = {0,0};
+	SDL_Point rotCenter = {0,0};
 	float rotation = 0.0f;
 	int textureCenterX = 0;
 	int textureCenterY = 0;

@@ -477,9 +477,6 @@
     <ClInclude Include="Boss.h">
       <Filter>Archivos de encabezado\GameObject\Enemy\Boss</Filter>
     </ClInclude>
-    <ClInclude Include="BossProjectile.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="PneumaS.h">
       <Filter>Archivos de encabezado\Player\Spells\SageSpells</Filter>
     </ClInclude>
@@ -500,6 +497,12 @@
     </ClInclude>
     <ClInclude Include="MenuManager.h">
       <Filter>Archivos de encabezado\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="BossProjectile.h">
+      <Filter>Archivos de encabezado\GameObject\Enemy\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="BossMissile.h">
+      <Filter>Archivos de encabezado\GameObject\Enemy\Boss</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -817,6 +820,9 @@
     </ClCompile>
     <ClCompile Include="MenuManager.cpp">
       <Filter>Archivos de origen\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="BossMissile.cpp">
+      <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

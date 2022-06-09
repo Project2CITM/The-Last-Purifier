@@ -1,8 +1,8 @@
 #include "BossProjectile.h"
 #include "Trigger.h"
 #include "ModulePhysics.h"
-#include "ModuleInput.h"
 #include "PlayerController.h"
+#include "ModuleInput.h" // Test
 
 BossProjectile::BossProjectile(iPoint position, PlayerController* target) :Enemy("bossProjectile")
 {
@@ -10,51 +10,18 @@ BossProjectile::BossProjectile(iPoint position, PlayerController* target) :Enemy
 
 	playerController = target;
 
+	damage = 20;
+
 	// Init renderObject
 	InitRenderObjectWithXml("bossProjectile");
 
-	renderObjects[0].center = SDL_Point{ 35, 35 };
+	renderObjects[0].rotCenter = SDL_Point{ 35, 35 };
 
-	//Init anim
-	for (int i = 0; i < 2; i++)
-	{
-		for (int j = 0; j < 3; j++)
-		{
-			anim.PushBack({ j * 35,i * 35,35,35 });
-		}
-	}
-
-	anim.loop = true;
-
-	anim.hasIdle = false;
-
-	anim.duration = 0.2f;
-
-	damage = 20;
+	// Init animation
+	InitAnimation();
 
 	//// Init physic
-	b2Filter filterB;
-
-	filterB.categoryBits = app->physics->ENEMY_LAYER; // Who am I
-
-	filterB.maskBits = app->physics->EVERY_LAYER; // Who will coll with me
-
-	attack = new Trigger(position, 8, this, "bossProjectile");
-
-	attack->tag = "Enemy";
-
-	attack->pBody->body->GetFixtureList()->SetFilterData(filterB);
-
-	// Body
-	b2Filter filterC;
-
-	filterC.categoryBits = app->physics->ENEMY_LAYER;
-
-	filterC.maskBits = app->physics->EVERY_LAYER & ~app->physics->PLAYER_LAYER;
-
-	pBody = app->physics->CreateCircle(position.x, position.y, 8, this, true, b2_dynamicBody, app->physics->ENEMY_LAYER);
-
-	pBody->body->GetFixtureList()->SetFilterData(filterC);
+	InitPhysics();
 }
 
 BossProjectile::~BossProjectile()
@@ -64,40 +31,45 @@ BossProjectile::~BossProjectile()
 
 void BossProjectile::Update()
 {
-	if (app->input->GetKey(SDL_SCANCODE_L) == KEY_REPEAT)
-	{
-		rotation+=2;
-	}
-	if (app->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT)
-	{
-		rotation-=2;
-	}
-	if (app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
-	{
-		AttackFinished();
-	}
+	//if (app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
+	//{
+	//	AttackFinished();
+	//}
 
 	if(attacking)
 	{
-		if (speed > 0)
+		// Rotate firsly
+		if (rotation.first > 0)
 		{
-			if (attackDistance < attackStartPos.DistanceTo(GetPosition())) speed -= 1.0f;
+			int rotateSpeed = (rotation.first /= 2);
 			
-			else speed -= 0.5f;
-
-			SetLinearVelocity(targetDir * speed);
+			if (rotation.second > 0) renderObjects[0].rotation += rotateSpeed;
+			else if (rotation.second < 0) renderObjects[0].rotation -= rotateSpeed;
+			else rotation.first = 0;
 		}
+		// Then move to the target
 		else
 		{
-			SetLinearVelocity(fPoint{ 0,0 });
-
-			if (attackTimes-- <= 0)
+			if (speed > 0)
 			{
-				attacking = false;
-				SetActive(false);
+				if (attackDistance < attackStartPos.DistanceTo(GetPosition())) speed -= 1.0f;
+
+				else speed -= 0.5f;
+
+				SetLinearVelocity(targetDir * speed);
 			}
-			else GoToTarget();
-		}
+			else
+			{
+				SetLinearVelocity(fPoint{ 0,0 });
+
+				if (attackTimes-- <= 0)
+				{
+					attacking = false;
+					SetActive(false);
+				}
+				else GoToTarget();
+			}
+		}		
 	}
 }
 
@@ -160,7 +132,11 @@ void BossProjectile::GoToTarget()
 
 	attackDistance = target.DistanceTo(GetPosition());
 
-	renderObjects[0].rotation = GetAttackAngle(target);
+	rotation.first = GetAttackAngle(target) - renderObjects[0].rotation;
+
+	rotation.second = rotation.first > 0 ? 1 : rotation.first < 0 ? -1 : 0;
+
+	rotation.first = abs(rotation.first);
 
 	attackStartPos = GetPosition();
 
@@ -178,4 +154,49 @@ void BossProjectile::AttackFinished()
 	SetLinearVelocity(fPoint{ 0,0 });
 
 	attacking = false;
+}
+
+void BossProjectile::InitPhysics()
+{
+	// Attack Trigger
+	b2Filter filterB;
+
+	filterB.categoryBits = app->physics->ENEMY_LAYER; // Who am I
+
+	filterB.maskBits = app->physics->EVERY_LAYER; // Who will coll with me
+
+	attack = new Trigger(position, 8, this, "bossProjectile");
+
+	attack->tag = "Enemy";
+
+	attack->pBody->body->GetFixtureList()->SetFilterData(filterB);
+
+	// Body
+	b2Filter filterC;
+
+	filterC.categoryBits = app->physics->ENEMY_LAYER;
+
+	filterC.maskBits = app->physics->EVERY_LAYER & ~app->physics->PLAYER_LAYER;
+
+	pBody = app->physics->CreateCircle(position.x, position.y, 8, this, true, b2_dynamicBody, app->physics->ENEMY_LAYER);
+
+	pBody->body->GetFixtureList()->SetFilterData(filterC);
+}
+
+void BossProjectile::InitAnimation()
+{
+	//Init anim
+	for (int i = 0; i < 2; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			anim.PushBack({ j * 35,i * 35,35,35 });
+		}
+	}
+
+	anim.loop = true;
+
+	anim.hasIdle = false;
+
+	anim.duration = 0.2f;
 }

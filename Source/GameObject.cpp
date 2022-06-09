@@ -83,7 +83,6 @@ void GameObject::PostUpdate()
 				//Slime Laser sprite
 				//renderObjects[i].rotation = GetDegreeAngle();
 
-
 				app->renderer->AddRenderObjectRenderQueue(renderObjects[i]);
 			}
 			break;

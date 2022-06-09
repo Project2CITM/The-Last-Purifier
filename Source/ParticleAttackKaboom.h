@@ -9,6 +9,8 @@ public:
 
 	~ParticleAttackKaboom();
 
+	void PreUpdate() override;
+
 	void PostUpdate() override;
 };
 

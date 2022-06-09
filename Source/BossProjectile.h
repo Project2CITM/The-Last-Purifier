@@ -33,6 +33,10 @@ private:
 
 	void AttackFinished();
 
+	void InitPhysics();
+
+	void InitAnimation();
+
 public: 
 
 	bool attacking = false;
@@ -51,7 +55,7 @@ private:
 
 	int attackDistance = 0;
 
-	float rotation = 0;
+	std::pair<int, int> rotation = { 0,0 }; // first = rotation, second = dir
 
 	float speed = 0.0f;
 

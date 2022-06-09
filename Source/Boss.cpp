@@ -18,7 +18,7 @@ Boss::Boss(iPoint pos) : Enemy("boss")
 
 	maxHealh = health = 2000;
 
-	moveSpeed = 2;
+	moveSpeed = 3.5f;
 
 	damage = 25;
 
@@ -38,10 +38,15 @@ Boss::Boss(iPoint pos) : Enemy("boss")
 
 	// Create his proyectiles
 	projectile = new  BossProjectile(iPoint(this->position.x - 80, this->position.y - 100), playerController);
-	projectile2 = new  BossProjectile(iPoint(this->position.x + 50, this->position.y + 60), playerController);
+	//projectile2 = new  BossProjectile(iPoint(this->position.x + 50, this->position.y + 60), playerController);
 
 	projectile->SetActive(false);
-	projectile2->SetActive(false);
+
+	// Init missile
+	for (int i = 0; i < MISSILE_NUM; i++)
+	{
+		missiles[i] = new BossMissile(playerController);
+	}
 
 	// Init HpUI
 	bossHp.bg = bossHp.delayHp = bossHp.currentHp = { 50, 320, 500, 15 };
@@ -105,9 +110,11 @@ void Boss::PostUpdate()
 
 void Boss::Hit(int damage)
 {
+	if (invulnarable) return;
+
 	renderObjects[0].SetColor({ 255,164,164,100 });
 
-	hitEffectCount = 120; //ms
+	hitEffectCount = 20; //ms
 
 	Enemy::Hit(damage);
 
@@ -122,7 +129,10 @@ void Boss::Die(bool spawnPower, bool spawnSouls)
 {
 	projectile->CleanUp();
 
-	projectile2->CleanUp();
+	for (int i = 0; i < MISSILE_NUM; i++)
+	{
+		missiles[i]->CleanUp();
+	}
 
 	SetLinearVelocity(b2Vec2{ 0,0 });
 
@@ -133,17 +143,11 @@ void Boss::UpdateStates()
 {
 	switch (stateMachine.GetCurrentState())
 	{
-	case (int)BossState::IDLE:
-		stateMachine.ChangeState((int)BossState::RUN);
-		break;
-	case (int)BossState::ATTACK:
-		break;
-	case (int)BossState::ATTACK2:
-		break;
-	case (int)BossState::ATTACK3:
-		break;
-	case (int)BossState::RUN: 	DoRun();
-		break;
+	case (int)BossState::IDLE: stateMachine.ChangeState((int)BossState::RUN); break;
+	case (int)BossState::ATTACK: DoAttack(); break;
+	case (int)BossState::ATTACK2: DoAttack2(); break;
+	case (int)BossState::ATTACK3: DoAttack3(); break;
+	case (int)BossState::RUN: 	DoRun(); break;
 	case (int)BossState::DIE:
 
 		attack->pBody->body->SetActive(false);
@@ -157,24 +161,40 @@ void Boss::UpdateStates()
 		break;
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
+	// Debug Keys
+	if (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
-		LaserAttack(true);
-	}
-	if (app->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN)
-	{
-		LaserAttack(false);
-	}
-	if (app->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN)
-	{
-		projectile->SetActive(true);
+		stateMachine.ChangeState((int)BossState::ATTACK);
 
-		projectile->Attack(450);
+		animations[stateMachine.GetCurrentState()].Reset();
+
+		//moveSpeed += 2;
 	}
-	if (app->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
 	{
-		projectile->SetActive(false);
+		stateMachine.ChangeState((int)BossState::ATTACK2);
+
+		invulnarable = true;
+
+		animations[stateMachine.GetCurrentState()].Reset();
+
+		for (int i = 0; i < MISSILE_NUM; i++)
+		{
+			missiles[i]->AttackRequest();
+		}
 	}
+	//if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
+	//{
+	//	LaserAttack(true);
+	//}
+	//if (app->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN)
+	//{
+	//	LaserAttack(false);
+	//}
+	//if (app->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN)
+	//{
+	//	projectile->SetActive(false);
+	//}
 }
 
 void Boss::CleanUp()
@@ -228,11 +248,11 @@ void Boss::InitStateMachine()
 {
 	stateMachine.AddState("Idle", 0);
 	stateMachine.AddState("Run", 0);
-	stateMachine.AddState("Attack", 0, 720);
-	stateMachine.AddState("Attack2", 0, 720);
-	stateMachine.AddState("Attack3", 0, 720);
+	stateMachine.AddState("Attack", 0);
+	stateMachine.AddState("Attack2", 0);
+	stateMachine.AddState("Attack3", 0);
 	//stateMachine.AddState("Hit", 1, 560);
-	stateMachine.AddState("Die", 0);
+	stateMachine.AddState("Die", 1);
 
 	stateMachine.ChangeState((int)BossState::IDLE);
 }
@@ -246,7 +266,7 @@ void Boss::InitPhysics()
 
 	filterB.maskBits = app->physics->EVERY_LAYER; // Who will coll with me
 
-	damageTrigger = new Trigger(position, 16, this, "boss");
+	damageTrigger = new Trigger(position, 18, this, "boss");
 
 	damageTrigger->tag = "Enemy";
 
@@ -284,22 +304,69 @@ void Boss::LaserAttack(bool active)
 
 void Boss::DoRun()
 {
-	//if (hitEffectCount > 0)
-	//{
-	//	SetLinearVelocity(fPoint{0,0});
+	if (hitEffectCount > 0)
+	{
+		SetLinearVelocity(fPoint{0,0});
 
-	//	return;
-	//}
+		return;
+	}
 
-	//iPoint target = playerController->GetPosition();
+	iPoint target = playerController->GetPosition();
 
-	//fPoint dir = { (float)(target.x - position.x),(float)(target.y - position.y) };
+	fPoint dir = { (float)(target.x - position.x),(float)(target.y - position.y) };
 
-	//dir = dir.Normalize();
+	dir = dir.Normalize();
 
-	//SetLinearVelocity(dir * moveSpeed);
+	SetLinearVelocity(dir * moveSpeed);
 
-	//flip = dir.x > 0 ? false : true;
+	flip = dir.x > 0 ? false : true;
+}
+
+void Boss::DoAttack()
+{
+	SetLinearVelocity(fPoint{ 0,0 });
+
+	if (animations[stateMachine.GetCurrentState()].HasFinished())
+	{
+		if (flip) projectile->SetPosition(position + iPoint{ -50, 0});
+		else projectile->SetPosition(position + iPoint{ 50, 0 });
+
+		projectile->SetActive(true);
+
+		projectile->Attack(20);
+
+		stateMachine.ChangeState((int)BossState::RUN);
+	}
+}
+
+void Boss::DoAttack2()
+{
+	SetLinearVelocity(fPoint{ 0,0 });
+
+	bool attackEnd = true;
+
+	for (int i = 0; i < MISSILE_NUM; i++)
+	{
+		if (!missiles[i]->AttackEnd())
+		{
+			attackEnd = false;
+			break;
+		}
+	}
+
+	if (attackEnd)
+	{
+		stateMachine.ChangeState((int)BossState::RUN);
+
+		invulnarable = false;
+
+		animations[stateMachine.GetCurrentState()].Reset();
+	}
+}
+
+void Boss::DoAttack3()
+{
+	SetLinearVelocity(fPoint{ 0,0 });
 }
 
 void Boss::UpdateHpUI()
