@@ -77,7 +77,17 @@ Debug Keys:
 <summary>▶ Features</summary>
   <br>
 <pre>
-> These are concept discovery features
+● Full game Design
+
+● Wiki
+  ● Main Page
+  ● GDD (Game Design Document)
+  ● TDD (Tech Design Document)
+  ● Production Plan
+  ● GUI Design Document
+  ● Art Bible
+  ● Audio Bible
+  ● QA Workflow
 </pre>
 </details>
 <br>
