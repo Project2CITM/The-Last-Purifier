@@ -17,6 +17,7 @@
 
 #include "ModuleMap.h"
 #include "PlayerShadow.h"
+#include "ParticleTeleport.h"
 
 PlayerController::PlayerController(std::string name, std::string tag, Player* player) : GameObject(name, tag)
 {
@@ -86,6 +87,7 @@ void PlayerController::PreUpdate()
 		{
 			isDashing = false;
 			pBody->body->SetLinearVelocity({ 0,0 });
+			new ParticleTeleport(GetPosition());
 		}
 
 		// Alpha animation------------------
@@ -474,6 +476,8 @@ void PlayerController::DashOn()
 		}
 	}
 	pBody->body->SetLinearVelocity(dir);
+
+	new ParticleTeleport(GetPosition());
 }
 
 void PlayerController::DashAnimation(int sum)

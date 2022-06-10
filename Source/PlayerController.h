@@ -129,7 +129,7 @@ private:
 
 	bool isInvulnerable = false;
 	int invulnerabilityCounter = 0;
-	int dashInvulnerability = 240;
+	int dashInvulnerability = 380;
 
 	PlayerAnim currentAnim = PlayerAnim::IDLE;
 

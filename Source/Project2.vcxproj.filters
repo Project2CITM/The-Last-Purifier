@@ -504,6 +504,9 @@
     <ClInclude Include="BossMissile.h">
       <Filter>Archivos de encabezado\GameObject\Enemy\Boss</Filter>
     </ClInclude>
+    <ClInclude Include="ParticleTeleport.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\PugiXml\src\pugixml.cpp">
@@ -822,6 +825,9 @@
       <Filter>Archivos de origen\Tools</Filter>
     </ClCompile>
     <ClCompile Include="BossMissile.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleTeleport.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
