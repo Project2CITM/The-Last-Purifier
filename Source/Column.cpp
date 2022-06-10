@@ -7,6 +7,8 @@ Column::Column(iPoint pos) : Enemy("Column")
 {
 	this->pBody = app->physics->CreateRectangle(pos, 16, 24, this, b2_kinematicBody);
 
+	this->tag = "Column";
+
 	renderObjects[0].InitAsTexture(app->textures->Load("Sprites/Enemies/DestroyPot/pot.png"), pos, { 0,0,0,0 }, 2.0f, 1);
 
 	renderObjects[0].textureCenterX = 8;
@@ -16,6 +18,8 @@ Column::Column(iPoint pos) : Enemy("Column")
 	sections[1] = { 16,0,16,20 };
 
 	columnTimer = new Timer();
+
+	this->damage = 0;
 }
 
 Column::~Column()
