@@ -9,14 +9,18 @@
 #include "Timer.h"
 
 
-#define PLAYER_ANIMATIONS_NUM 4
+#define PLAYER_ANIMATIONS_NUM 8
 
 enum class PlayerAnim
 {
 	IDLE = 0,
-	RUN,
+	RUN_HORIZONTAL,
+	RUN_UP,
+	RUN_DOWN,
 	ATTACK,
-	DASH
+	DASH_HORIZONTAL,
+	DASH_UP,
+	DASH_DOWN,
 };
 
 enum class PlayerState
@@ -37,6 +41,7 @@ enum class LookingDirection
 
 class Player;
 class PlayerCombat;
+class PlayerShadow;
 
 class PlayerController : public GameObject, public EventListener
 {
@@ -102,6 +107,9 @@ private:
 	void MovementUpdateController();
 
 	void DashOn();
+	void DashAnimation(int sum);
+
+	void SetAnimationState();
 
 	fPoint GetPlayerToMouseVector();
 
@@ -135,6 +143,8 @@ private:
 	uint playerhitFX = NULL;
 
 	Timer playerTimer;
+
+	PlayerShadow* playerShadow = nullptr;
 
 	friend class PlayerCombat;
 };

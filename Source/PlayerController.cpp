@@ -31,7 +31,7 @@ PlayerController::PlayerController(std::string name, std::string tag, Player* pl
 
 	playerdodgeFX = app->audio->LoadFx("Audio/SFX/Player/sfx_playerDodge.wav");
 	playerhitFX = app->audio->LoadFx("Audio/SFX/Player/sfx_playerHit2");
-	new PlayerShadow(this);
+	this->playerShadow = new PlayerShadow(this);
 }
 
 void PlayerController::Start() 
@@ -79,12 +79,29 @@ void PlayerController::PreUpdate()
 	// Check dash cooldown
 	if (isDashing)
 	{
+		// Counter------------------------
 		dashCounter -= playerTimer.getDeltaTime() * 1000;
 		// If Cooldown is done, you stop dashing
 		if (dashCounter <= 0)
 		{
 			isDashing = false;
 			pBody->body->SetLinearVelocity({ 0,0 });
+		}
+
+		// Alpha animation------------------
+		if (renderObjects[0].color.a > 0) DashAnimation(-70);
+		else if (playerShadow->enable)
+		{
+			playerShadow->enable = false;
+		}
+	}
+	else
+	{	
+		// Alpha animation------------------
+		if (renderObjects[0].color.a < 255) DashAnimation(70);
+		else if (!playerShadow->enable)
+		{
+			playerShadow->enable = true;
 		}
 	}
 
@@ -157,14 +174,11 @@ void PlayerController::PostUpdate()
 
 	if (invulnerabilityCounter % 10 == 1 && beenHit) return;
 	// Update current Animation state 
-	// For now it is the same as Player State, if this changes overtime, there has to be a switch here to translate between current player State
-	// and current Animation State
-	currentAnim = (PlayerAnim)currentState == PlayerAnim::ATTACK ? PlayerAnim::IDLE : (PlayerAnim)currentState;
-	// Code to make sure we have the correct animation (there is no attack animation in this sprite)
 	
+	SetAnimationState(); // Sets the current animation to be drawed
 
-	if (godMode) renderObjects[0].SetColor({ 0, 255, 17 ,255 });
-	else  renderObjects[0].SetColor({ 255, 255, 255 ,255 });
+	/*if (godMode) renderObjects[0].SetColor({ 0, 255, 17 ,255 });
+	else  renderObjects[0].SetColor({ 255, 255, 255 ,255 });*/
 
 	UpdateOrderInLayer(0);
 	renderObjects[0].section = animations[(int)currentAnim].GetCurrentFrame();
@@ -326,7 +340,9 @@ void PlayerController::MovementUpdateKeyboard()
 		if (!isDashing)
 		{
 			//Reset Dash animation in case it hadn't finished yet
-			animations[(int)PlayerAnim::DASH].Reset();
+			animations[(int)PlayerAnim::DASH_HORIZONTAL].Reset();
+			animations[(int)PlayerAnim::DASH_UP].Reset();
+			animations[(int)PlayerAnim::DASH_DOWN].Reset();
 
 			//Change Player State
 			stateMachine.ChangeState((uint)PlayerState::DASH);
@@ -410,7 +426,9 @@ void PlayerController::MovementUpdateController()
 		if (!isDashing)
 		{
 			//Reset Dash animation in case it hadn't finished yet
-			animations[(int)PlayerAnim::DASH].Reset();
+			animations[(int)PlayerAnim::DASH_HORIZONTAL].Reset();
+			animations[(int)PlayerAnim::DASH_UP].Reset();
+			animations[(int)PlayerAnim::DASH_DOWN].Reset();
 
 			//Change Player State
 			stateMachine.ChangeState((uint)PlayerState::DASH);
@@ -456,6 +474,47 @@ void PlayerController::DashOn()
 		}
 	}
 	pBody->body->SetLinearVelocity(dir);
+}
+
+void PlayerController::DashAnimation(int sum)
+{
+	int currentAlpha = renderObjects[0].color.a + sum;
+
+	if (currentAlpha < 0) currentAlpha = 0;
+	if (currentAlpha > 255) currentAlpha = 255;
+
+	renderObjects[0].color.a = currentAlpha;
+}
+
+void PlayerController::SetAnimationState()
+{
+	switch (currentState)
+	{
+	case PlayerState::IDLE:		// There is no IDLE sprite, so we just change the current animation to the run animation.
+	case PlayerState::RUN:
+		if (lookingDir == LookingDirection::DOWN)
+		{
+			currentAnim = PlayerAnim::RUN_DOWN;
+		}
+		if (lookingDir == LookingDirection::LEFT || lookingDir == LookingDirection::RIGHT)
+		{
+			currentAnim = PlayerAnim::RUN_HORIZONTAL;
+		}
+		if (lookingDir == LookingDirection::UP)
+		{
+			currentAnim = PlayerAnim::RUN_UP;
+		}
+		
+		break;
+	case PlayerState::ATTACK:
+		currentAnim == PlayerAnim::IDLE;
+		break;
+	case PlayerState::DASH:
+		if (lookingDir == LookingDirection::LEFT || lookingDir == LookingDirection::RIGHT) currentAnim = PlayerAnim::DASH_HORIZONTAL;
+		else if (lookingDir == LookingDirection::UP) currentAnim = PlayerAnim::DASH_UP;
+		else currentAnim == PlayerAnim::DASH_DOWN;
+		break;
+	}
 }
 
 fPoint PlayerController::GetPlayerToMouseVector()

@@ -97,7 +97,7 @@ void ClassTree::CleanUp()
 {
 	//RELEASE(classFile);
 	
-	Application::GetInstance()->events->RemoveListener(this);
+	Application::GetInstance()->events->RemoveListener(instance);
 
 	for (int i = 0; i < TREE_SIZE; i++)
 	{

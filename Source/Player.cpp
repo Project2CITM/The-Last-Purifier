@@ -58,56 +58,13 @@ void Player::InitClassSprites(PlayerClass c)
 
 void Player::InitRevenantSprites()
 {
-	for (int i = 0; i < 4; i++)
-	{
-		controller->animations[i].EmptyAnimation();
-	}
-
-	// Charge texture
-	controller->renderObjects[0].InitAsTexture(Application::GetInstance()->textures->Load("Sprites/Player/Knight/KnightAnims.png"), { 0,0 }, { 0,0,0,0 }, 1.2f, 1, 1,
-		0, SDL_RendererFlip::SDL_FLIP_NONE, 1.0f);
-
-	controller->renderObjects[0].textureCenterX = 32;
-	controller->renderObjects[0].textureCenterY = 15;
-
-	controller->textureOffset = { 8,-13 };
-
-	// Create animations
-	for (int i = 0; i < 15; i++)
-	{
-		// Idle anim initialize
-		controller->animations[(int)PlayerAnim::IDLE].PushBack({ 64 * i, 0, 64, 30 });
-		controller->animations[(int)PlayerAnim::IDLE].loop = true;
-
-		// Roll anim initialize
-		controller->animations[(int)PlayerAnim::DASH].PushBack({ 64 * i, 30, 64, 30 });
-		controller->animations[(int)PlayerAnim::DASH].loop = false;
-	}
-
-	for (int i = 0; i < 8; i++)
-	{
-		controller->animations[(int)PlayerAnim::RUN].PushBack({ 64 * i, 60, 64, 30 });
-		controller->animations[(int)PlayerAnim::RUN].loop = true;
-	}
-
 	for (int i = 0; i < PLAYER_ANIMATIONS_NUM; i++)
 	{
-		controller->animations[i].duration = 0.081f;
-		controller->animations[i].hasIdle = false;
-	}
-
-	controller->animations[(int)PlayerAnim::DASH].duration = 0.04f;
-}
-
-void Player::InitSageSprites()
-{
-	for (int i = 0; i < 4; i++)
-	{
 		controller->animations[i].EmptyAnimation();
 	}
 
 	// Charge texture
-	controller->renderObjects[0].InitAsTexture(Application::GetInstance()->textures->Load("Sprites/Player/Sage/sageAnimations80x58.png"), { 0,0 }, { 0,0,0,0 }, 0.7f, 1, 1,
+	controller->renderObjects[0].InitAsTexture(Application::GetInstance()->textures->Load("Assets/Sprites/Player/playerSpritesheet.png"), { 0,0 }, { 0,0,0,0 }, 0.7f, 1, 1,
 		0, SDL_RendererFlip::SDL_FLIP_NONE, 1.0f);
 
 	controller->renderObjects[0].textureCenterX = 40;
@@ -116,21 +73,32 @@ void Player::InitSageSprites()
 	controller->textureOffset = { 10,-15 };
 
 	// Create animations
-	for (int i = 0; i < 6; i++)
+	for (int i = 0; i < 8; i++)
 	{
-		// Roll anim initialize
-		controller->animations[(int)PlayerAnim::DASH].PushBack({ 80 * i, 58, 80, 58 });
-		controller->animations[(int)PlayerAnim::DASH].loop = false;
+		// Run horizontal animation
+		controller->animations[(int)PlayerAnim::RUN_DOWN].PushBack({ 70 * i, 0, 70, 70 });
+		controller->animations[(int)PlayerAnim::RUN_DOWN].loop = true;
+
+		// Run horizontal animation
+		controller->animations[(int)PlayerAnim::DASH_DOWN].PushBack({ 70 * i, 0, 70, 70 });
+		controller->animations[(int)PlayerAnim::DASH_DOWN].loop = true;
 	}
 
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 4; i++)
 	{
-		controller->animations[(int)PlayerAnim::RUN].PushBack({ 80 * i, 0, 80, 58 });
-		controller->animations[(int)PlayerAnim::RUN].loop = true;
+		// Run vertical animation
+		controller->animations[(int)PlayerAnim::RUN_HORIZONTAL].PushBack({ 70 * i, 70, 70, 70 });
+		controller->animations[(int)PlayerAnim::RUN_HORIZONTAL].loop = false;
 
-		// Idle anim initialize
-		controller->animations[(int)PlayerAnim::IDLE].PushBack({ 80 * i, 0, 80, 58 });
-		controller->animations[(int)PlayerAnim::IDLE].loop = true;
+		// Run vertical animation
+		controller->animations[(int)PlayerAnim::DASH_HORIZONTAL].PushBack({ 70 * i, 70, 70, 70 });
+		controller->animations[(int)PlayerAnim::DASH_HORIZONTAL].loop = false;
+
+		controller->animations[(int)PlayerAnim::RUN_UP].PushBack({ 70 * i, 140, 70, 70 });
+		controller->animations[(int)PlayerAnim::RUN_UP].loop = false;
+
+		controller->animations[(int)PlayerAnim::DASH_UP].PushBack({ 70 * i, 140, 70, 70 });
+		controller->animations[(int)PlayerAnim::DASH_UP].loop = false;
 	}
 
 	for (int i = 0; i < PLAYER_ANIMATIONS_NUM; i++)
@@ -139,5 +107,57 @@ void Player::InitSageSprites()
 		controller->animations[i].hasIdle = false;
 	}
 
-	controller->animations[(int)PlayerAnim::DASH].duration = 0.0640f;
+	controller->renderObjects[0].SetColor({ 155, 0, 0, 255 });
+}
+
+void Player::InitSageSprites()
+{
+	for (int i = 0; i < PLAYER_ANIMATIONS_NUM; i++)
+	{
+		controller->animations[i].EmptyAnimation();
+	}
+
+	// Charge texture
+	controller->renderObjects[0].InitAsTexture(Application::GetInstance()->textures->Load("Assets/Sprites/Player/playerSpritesheet.png"), { 0,0 }, { 0,0,0,0 }, 0.7f, 1, 1,
+		0, SDL_RendererFlip::SDL_FLIP_NONE, 1.0f);
+
+	controller->renderObjects[0].textureCenterX = 40;
+	controller->renderObjects[0].textureCenterY = 29;
+
+	controller->textureOffset = { 10,-15 };
+
+	// Create animations
+	for (int i = 0; i < 8; i++)
+	{
+		// Run horizontal animation
+		controller->animations[(int)PlayerAnim::RUN_DOWN].PushBack({ 70 * i, 0, 70, 70 });
+		controller->animations[(int)PlayerAnim::RUN_DOWN].loop = true;
+
+		// Run horizontal animation
+		controller->animations[(int)PlayerAnim::DASH_DOWN].PushBack({ 70 * i, 0, 70, 70 });
+		controller->animations[(int)PlayerAnim::DASH_DOWN].loop = true;
+	}
+
+	for (int i = 0; i < 4; i++)
+	{
+		// Run vertical animation
+		controller->animations[(int)PlayerAnim::RUN_HORIZONTAL].PushBack({ 70 * i, 70, 70, 70 });
+		controller->animations[(int)PlayerAnim::RUN_HORIZONTAL].loop = false;
+
+		// Run vertical animation
+		controller->animations[(int)PlayerAnim::DASH_HORIZONTAL].PushBack({ 70 * i, 70, 70, 70 });
+		controller->animations[(int)PlayerAnim::DASH_HORIZONTAL].loop = false;
+
+		controller->animations[(int)PlayerAnim::RUN_UP].PushBack({ 70 * i, 140, 70, 70 });
+		controller->animations[(int)PlayerAnim::RUN_UP].loop = false;
+
+		controller->animations[(int)PlayerAnim::DASH_UP].PushBack({ 70 * i, 140, 70, 70 });
+		controller->animations[(int)PlayerAnim::DASH_UP].loop = false;
+	}
+	
+	for (int i = 0; i < PLAYER_ANIMATIONS_NUM; i++)
+	{
+		controller->animations[i].duration = 0.16f;
+		controller->animations[i].hasIdle = false;
+	}
 }
