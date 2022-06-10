@@ -2,8 +2,11 @@
 
 #define __BOSS_H__
 
+#define MISSILE_NUM 25
+
 #include "Enemy.h"
 #include "PlayerController.h"
+#include "BossMissile.h"
 
 class BossProjectile;
 class DamageArea;
@@ -71,6 +74,12 @@ private:
 
 	void DoRun();
 
+	void DoAttack();
+
+	void DoAttack2();
+
+	void DoAttack3();
+
 	void UpdateHpUI();
 
 private:
@@ -103,11 +112,15 @@ private:
 
 	BossProjectile* projectile = nullptr;
 
-	BossProjectile* projectile2 = nullptr;
+	bool invulnarable = false;
+
+	//BossProjectile* projectile2 = nullptr;
 
 	BossHpGUI bossHp;
 
 	int maxHealh = 0;
+
+	BossMissile* missiles[MISSILE_NUM] = { nullptr };
 };
 
 #endif // !__BOSS_H__

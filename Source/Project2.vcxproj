@@ -95,6 +95,7 @@
     <ClInclude Include="AssetsManager.h" />
     <ClInclude Include="Bar.h" />
     <ClInclude Include="Boss.h" />
+    <ClInclude Include="BossMissile.h" />
     <ClInclude Include="BossProjectile.h" />
     <ClInclude Include="ButtonObject.h" />
     <ClInclude Include="ButtonPuzzle.h" />
@@ -210,6 +211,7 @@
     <ClCompile Include="AssetsManager.cpp" />
     <ClCompile Include="Bar.cpp" />
     <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="BossMissile.cpp" />
     <ClCompile Include="BossProjectile.cpp" />
     <ClCompile Include="ButtonObject.cpp" />
     <ClCompile Include="ButtonPuzzle.cpp" />

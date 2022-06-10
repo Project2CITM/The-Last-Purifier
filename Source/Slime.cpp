@@ -323,8 +323,8 @@ void Slime::InitAttackRenderObject()
 	renderObjects[1].draw = false;
 	renderObjects[1].textureCenterX = -5;
 	renderObjects[1].textureCenterY = 4;
-	renderObjects[1].center.x = -12;
-	renderObjects[1].center.y = 16;
+	renderObjects[1].rotCenter.x = -12;
+	renderObjects[1].rotCenter.y = 16;
 	renderObjects[1].screenDetect = false;
 }
 

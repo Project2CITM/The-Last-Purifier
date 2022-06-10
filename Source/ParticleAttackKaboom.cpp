@@ -20,9 +20,12 @@ ParticleAttackKaboom::~ParticleAttackKaboom()
 {
 }
 
+void ParticleAttackKaboom::PreUpdate()
+{
+	if (anim.HasFinished()) pendingToDelete = true;
+}
+
 void ParticleAttackKaboom::PostUpdate()
 {
 	Particle::PostUpdate();
-
-	if (anim.HasFinished()) pendingToDelete = true;
 }

@@ -82,7 +82,7 @@ Projectile::Projectile(std::string name, iPoint position, fPoint duration, int d
 
 	renderObjects[0].InitAsTexture(app->textures->Load("Sprites/Player/Sage/basicAttackSageDuring.png"), position , { 0,0,0,0 }, projectileScale,1,1.0f,this->rotation);
 
-	renderObjects[0].center = { 16,16 };
+	renderObjects[0].rotCenter = { 16,16 };
 
 	// Particle Effect
 
