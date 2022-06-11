@@ -139,7 +139,7 @@ void BossMissile::InitPhysics()
 
 	filterB.categoryBits = app->physics->ENEMY_LAYER; // Who am I
 
-	filterB.maskBits = app->physics->EVERY_LAYER; // Who will coll with me
+	filterB.maskBits = app->physics->EVERY_LAYER & ~app->physics->PROJECTILE_LAYER; // Who will coll with me
 
 	attack = new Trigger(position, 20, this, "bossMissile");
 

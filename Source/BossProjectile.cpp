@@ -109,11 +109,14 @@ void BossProjectile::SetActive(bool active)
 
 	if (pendingToDelete) return;
 
-	pBody->body->SetActive(active);
+	if(pBody) pBody->body->SetActive(active);
 
-	attack->enable = active;
+	if(attack)
+	{
+		attack->enable = active;
 
-	attack->pBody->body->SetActive(active);
+		attack->pBody->body->SetActive(active);
+	}
 }
 
 float BossProjectile::GetAttackAngle(iPoint target)
@@ -162,7 +165,7 @@ void BossProjectile::InitPhysics()
 
 	filterB.categoryBits = app->physics->ENEMY_LAYER; // Who am I
 
-	filterB.maskBits = app->physics->EVERY_LAYER; // Who will coll with me
+	filterB.maskBits = app->physics->EVERY_LAYER & ~app->physics->PROJECTILE_LAYER; // Who will coll with me
 
 	attack = new Trigger(position, 8, this, "bossProjectile");
 
@@ -175,7 +178,7 @@ void BossProjectile::InitPhysics()
 
 	filterC.categoryBits = app->physics->ENEMY_LAYER;
 
-	filterC.maskBits = app->physics->EVERY_LAYER & ~app->physics->PLAYER_LAYER;
+	filterC.maskBits = app->physics->EVERY_LAYER & ~app->physics->PLAYER_LAYER & ~app->physics->PROJECTILE_LAYER;
 
 	pBody = app->physics->CreateCircle(position.x, position.y, 8, this, true, b2_dynamicBody, app->physics->ENEMY_LAYER);
 
