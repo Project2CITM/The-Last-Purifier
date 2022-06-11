@@ -90,7 +90,7 @@ void PlayerController::PreUpdate()
 		{
 			isDashing = false;
 			pBody->body->SetLinearVelocity({ 0,0 });
-			new ParticleTeleport(GetPosition());
+			if (player->playerClass == PlayerClass::SAGE) new ParticleTeleport(GetPosition());
 		}
 
 		// Alpha animation------------------
@@ -484,11 +484,12 @@ void PlayerController::DashOn()
 	}
 	pBody->body->SetLinearVelocity(dir);
 
-	new ParticleTeleport(GetPosition());
+	if (player->playerClass == PlayerClass::SAGE) new ParticleTeleport(GetPosition());
 }
 
 void PlayerController::DashAnimation(int sum)
 {
+	if (player->playerClass == PlayerClass::REVENANT) return;
 	int currentAlpha = renderObjects[0].color.a + sum;
 
 	if (currentAlpha < 0) currentAlpha = 0;

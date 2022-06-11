@@ -79,9 +79,6 @@ void Player::InitRevenantSprites()
 		controller->animations[(int)PlayerAnim::RUN_DOWN].PushBack({ 70 * i, 0, 70, 70 });
 		controller->animations[(int)PlayerAnim::RUN_DOWN].loop = true;
 
-		// Run horizontal animation
-		controller->animations[(int)PlayerAnim::DASH_DOWN].PushBack({ 70 * i, 0, 70, 70 });
-		controller->animations[(int)PlayerAnim::DASH_DOWN].loop = true;
 	}
 
 	for (int i = 0; i < 4; i++)
@@ -91,14 +88,18 @@ void Player::InitRevenantSprites()
 		controller->animations[(int)PlayerAnim::RUN_HORIZONTAL].loop = false;
 
 		// Run vertical animation
-		controller->animations[(int)PlayerAnim::DASH_HORIZONTAL].PushBack({ 70 * i, 70, 70, 70 });
+		controller->animations[(int)PlayerAnim::DASH_HORIZONTAL].PushBack({ 70 * i, 280, 70, 70 });
 		controller->animations[(int)PlayerAnim::DASH_HORIZONTAL].loop = false;
 
 		controller->animations[(int)PlayerAnim::RUN_UP].PushBack({ 70 * i, 140, 70, 70 });
 		controller->animations[(int)PlayerAnim::RUN_UP].loop = false;
 
-		controller->animations[(int)PlayerAnim::DASH_UP].PushBack({ 70 * i, 140, 70, 70 });
+		controller->animations[(int)PlayerAnim::DASH_UP].PushBack({ 70 * i, 350, 70, 70 });
 		controller->animations[(int)PlayerAnim::DASH_UP].loop = false;
+
+		// Run horizontal animation
+		controller->animations[(int)PlayerAnim::DASH_DOWN].PushBack({ 70 * i, 210, 70, 70 });
+		controller->animations[(int)PlayerAnim::DASH_DOWN].loop = true;
 	}
 
 	for (int i = 0; i < PLAYER_ANIMATIONS_NUM; i++)
