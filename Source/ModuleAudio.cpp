@@ -51,7 +51,7 @@ bool ModuleAudio::Init(pugi::xml_node& config)
 
 	SetSFXVolume(fxVol);
 
-	Mix_AllocateChannels(24);
+	Mix_AllocateChannels(MIX_CHANNELS_NUMBER);
 
 	return ret;
 }
@@ -240,4 +240,24 @@ void ModuleAudio::SetSFXVolume(int vol)
 	fxVol = vol;
 
 	Mix_Volume(-1, vol);
+}
+
+void ModuleAudio::StopFX(unsigned int id)
+{
+	if (IsEnabled() == false)
+		return;
+
+	if (fx.count() < id - 1) return;
+
+	if (fx.find(fx[id - 1]) != -1)
+	{
+		for (int i = 0; i < MIX_CHANNELS_NUMBER; i++)
+		{
+			if (Mix_GetChunk(i) == fx[id - 1])
+			{
+				Mix_HaltChannel(i);
+				break;
+			}
+		}
+	}
 }

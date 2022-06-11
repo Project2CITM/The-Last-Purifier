@@ -43,6 +43,9 @@ Slime::Slime(iPoint pos) : Enemy("slime")
 
 	// Init physBody 
 	InitPhysics();
+
+	chargeLaserSFX = app->audio->LoadFx("Assets/Audio/SFX/Enemies/sfx_laserCharge.wav", false);
+	shootLaserSFX = app->audio->LoadFx("Assets/Audio/SFX/Enemies/sfx_laserShoot.wav", false);
 }
 
 Slime::~Slime()
@@ -152,7 +155,7 @@ void Slime::UpdateStates()
 	break;
 	case (int)SlimeState::ATTACK:
 	{
-		//printf("Attck\n");
+		if (attackTime == 3000) app->audio->PlayFx(chargeLaserSFX);
 
 		attackTime -= slimeTimer.getDeltaTime() * 1000;
 
@@ -175,6 +178,10 @@ void Slime::UpdateStates()
 				attack->pBody->body->SetActive(true);
 
 				renderObjects[1].draw = true;
+
+				app->audio->StopFX(chargeLaserSFX);
+
+				app->audio->PlayFx(shootLaserSFX);
 			}
 		}
 
