@@ -72,6 +72,7 @@ SDL_Color SingleParticle::RgbInterpolation(SDL_Color startColor, SDL_Color endCo
 	finalColor.r = startColor.r + (endColor.r - startColor.r) * timeStep;
 	finalColor.g = startColor.g + (endColor.g - startColor.g) * timeStep;
 	finalColor.b = startColor.b + (endColor.b - startColor.b) * timeStep;
+	finalColor.a = startColor.a + (endColor.a - startColor.a) * timeStep;
 
 	return finalColor;
 }

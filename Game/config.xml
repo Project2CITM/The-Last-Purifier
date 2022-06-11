@@ -349,12 +349,12 @@
 		<emitters>
 			<particleAtlas name="Assets/Sprites/Particles/particle.png">
 				<emitter type="fire">
-					<angleRange min="-90" max="90" />
+					<angleRange min="80" max="90" />
 					<maxSpeed value="100" />
-					<maxSize value="120" />
-					<emitNumber value="1" />
+					<maxSize value="4" />
+					<emitNumber value="2" />
 					<emitVariance value="0" />
-					<maxParticleLife value="200" />
+					<maxParticleLife value="15" />
 					<textureRect x="0" y="0" w="128" h="128" />
 					<startColor r="255" g="100" b="0" a="255" />
 					<endColor r="210" g="210" b="210" a="255" />
@@ -362,17 +362,17 @@
 					<lifetime value="-1" />
 				</emitter>
 				<emitter type="blood">
-					<angleRange min="-90" max="90" />
-					<maxSpeed value="120" />
-					<maxSize value="120" />
+					<angleRange min="0" max="360" />
+					<maxSpeed value="200" />
+					<maxSize value="1" />
 					<emitNumber value="3" />
-					<emitVariance value="0" />
-					<maxParticleLife value="10" />
+					<emitVariance value="10" />
+					<maxParticleLife value="50" />
 					<textureRect x="129" y="0" w="16" h="16" />
-					<startColor r="158" g="248" b="45" a="255" />
-					<endColor r="192" g="67" b="252" a="255" />
+					<startColor r="255" g="0" b="0" a="255" />
+					<endColor r="200" g="0" b="0" a="0" />
 					<blendMode mode="add" />
-					<lifetime value="50" />
+					<lifetime value="5" />
 				</emitter>
 			</particleAtlas>
 		</emitters>

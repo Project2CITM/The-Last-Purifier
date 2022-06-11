@@ -18,16 +18,17 @@ private:
 		// it's being update (it's still alive).
 		struct ParticleState
 		{
-			fPoint pos;
-			fPoint vel;
-			float radius, start_radius;
-			float ageRatio;
-			float angle;
-			SDL_Rect pRect;
-			SDL_Rect rectSize;
-			SDL_Color startColor;
-			SDL_Color endColor;
-			SDL_BlendMode blendMode;
+			fPoint pos = { 0.0f, 0.0f };
+			fPoint vel = { 0.0f, 0.0f };
+			float radius = 0.0f;
+			float start_radius = 0.0f;
+			float ageRatio = 0.0f;
+			float angle = 0.0f;
+			SDL_Rect pRect = { 0, 0, 0, 0 };
+			SDL_Rect rectSize = { 0, 0, 0, 0 };
+			SDL_Color startColor = { 0, 0, 0, 0 };
+			SDL_Color endColor = { 0, 0, 0, 0 };
+			SDL_BlendMode blendMode = SDL_BLENDMODE_NONE;
 			float t;
 
 			ParticleState() {}

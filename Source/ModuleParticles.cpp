@@ -1,5 +1,7 @@
 #include "ModuleParticles.h"
 #include "ModuleTextures.h"
+#include "ParticleEmissor.h"
+
 
 ModuleParticles::ModuleParticles() : Module()
 {
@@ -48,24 +50,56 @@ UpdateStatus ModuleParticles::PreUpdate()
 
 UpdateStatus ModuleParticles::Update()
 {
-	if (emittersList.size() == 0) return UpdateStatus::UPDATE_CONTINUE;
-	std::list<ParticleEmissor*>::const_iterator it;
+	//if (emittersList.size() == 0) return UpdateStatus::UPDATE_CONTINUE;
+	//std::list<ParticleEmissor*>::const_iterator it;
 
-	for (it = emittersList.begin(); it != emittersList.end(); ++it)
+	ListItem<ParticleEmissor*>* it = emittersList.start;
+
+	while (it != NULL)
+	{
+		if (it->data != nullptr)
+		{
+			it->data->Update(app->dt);
+		}
+
+		it = it->next;
+	}
+
+	/*for (it = emittersList.begin(); it != emittersList.end(); ++it)
 	{
 		if ((*it) != nullptr)
 			(*it)->Update(app->dt);
-	}
+	}*/
 
 	return UpdateStatus::UPDATE_CONTINUE;
 }
 
 UpdateStatus ModuleParticles::PostUpdate()
 {
-	if (emittersList.size() == 0) return UpdateStatus::UPDATE_CONTINUE;
-	std::list<ParticleEmissor*>::const_iterator it;
+	//if (emittersList.size() == 0) return UpdateStatus::UPDATE_CONTINUE;
+	//std::list<ParticleEmissor*>::const_iterator it;
 	
-	for (it = emittersList.begin(); it != emittersList.end(); ++it)
+	//ListItem<ParticleEmissor*>* it = emittersList.start;
+
+	for (int i = 0; i < emittersList.count(); i++)
+	{
+		if (emittersList[i]->toDestroy)
+		{
+			emittersList.delPtr(emittersList.At(i));
+		}
+	}
+
+	//while (it != nullptr)
+	//{
+	//	if (it->data != nullptr && it->data->toDestroy)
+	//	{
+	//		//delete (it);
+	//		emittersList.delPtr(it);
+	//	}
+	//	it = it->next;
+	//}
+
+	/*for (it = emittersList.begin(); it != emittersList.end(); ++it)
 	{
 		if ((*it)->toDestroy)
 		{
@@ -73,24 +107,35 @@ UpdateStatus ModuleParticles::PostUpdate()
 			emittersList.erase(it);
 		}
 		if (emittersList.size() == 0) return UpdateStatus::UPDATE_CONTINUE;
-	}
+	}*/
 
 	return UpdateStatus::UPDATE_CONTINUE;
 }
 
 bool ModuleParticles::CleanUp()
 {
-	LOG("Freeing emitters from the system.");
 
-	std::list<ParticleEmissor*>::const_iterator it;
 
-	for (it = emittersList.begin(); it != emittersList.end(); ++it)
+	//std::list<ParticleEmissor*>::const_iterator it;
+	/*ListItem<ParticleEmissor*>* it = emittersList.start;
+
+	while (it != NULL)
+	{
+		if (it->data != nullptr)
+		{
+			delete it;
+			emittersList.del(it);
+		}
+		it = it->next;
+	}*/
+
+	/*for (it = emittersList.begin(); it != emittersList.end(); ++it)
 	{
 		if ((*it) != nullptr)
 			delete (*it);
-	}
+	}*/
 
-	emittersList.clear();
+	emittersList.clearPtr();
 	app->textures->Unload(particleAtlas);
 
 	return true;
@@ -99,14 +144,28 @@ bool ModuleParticles::CleanUp()
 ParticleEmissor* ModuleParticles::AddEmiter(fPoint pos, EmissorType type)
 {
 	ParticleEmissor* tmp_emitter = new ParticleEmissor(pos, vecEmitterData[type].emitNumber, vecEmitterData[type].emitVariance, vecEmitterData[type].maxParticleLife, vecEmitterData[type].angleRange, vecEmitterData[type].maxSpeed, vecEmitterData[type].maxSize, vecEmitterData[type].textureRect, vecEmitterData[type].startColor, vecEmitterData[type].endColor, vecEmitterData[type].blendMode, vecEmitterData[type].lifetime);
-	emittersList.push_back(tmp_emitter);
+	//emittersList.push_back(tmp_emitter);
+	emittersList.add(tmp_emitter);
 
 	return tmp_emitter;
 }
 
 bool ModuleParticles::RemoveEmitter(ParticleEmissor& emitter)
 {
-	std::list<ParticleEmissor*>::const_iterator it;
+
+	ListItem<ParticleEmissor*>* it = emittersList.start;
+
+	while (it != NULL)
+	{
+		if (it->data != nullptr && it->data == &emitter)
+		{
+			it->data->toDestroy = true;
+			return true;
+		}
+		it = it->next;
+	}
+
+	/*std::list<ParticleEmissor*>::const_iterator it;
 
 	for (it = emittersList.begin(); it != emittersList.end(); ++it)
 	{
@@ -116,7 +175,7 @@ bool ModuleParticles::RemoveEmitter(ParticleEmissor& emitter)
 			(*it)->toDestroy = true;
 			return true;
 		}
-	}
+	}*/
 
 	return false;
 }
@@ -125,13 +184,25 @@ bool ModuleParticles::RemoveAllEmitters()
 {
 	bool ret = false;
 
-	std::list<ParticleEmissor*>::const_iterator it;
+	ListItem<ParticleEmissor*>* it = emittersList.start;
+
+	while (it != NULL)
+	{
+		if (it->data != nullptr)
+		{
+			it->data->toDestroy;
+			ret = true;
+		}
+		it = it->next;
+	}
+
+	/*std::list<ParticleEmissor*>::const_iterator it;
 
 	for (it = emittersList.begin(); it != emittersList.end(); ++it)
 	{
 		if ((*it) != nullptr) (*it)->toDestroy = true;
 		ret = true;
-	}
+	}*/
 
 	return ret;
 }

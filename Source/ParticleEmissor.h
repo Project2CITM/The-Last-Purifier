@@ -3,10 +3,8 @@
 #include "External/SDL/include/SDL.h"
 #include "Point.h"
 #include "PerfTimer.h"
-#include "ParticlePool.h"
 #include "ModuleParticles.h"
 
-struct SDL_Texture;
 class ParticlePool;
 
 enum EmissorType
@@ -56,6 +54,7 @@ private:
 public:
 
 	bool toDestroy = false;
+
 
 	ParticleEmissor(fPoint pos, uint emitNumber, uint emitVariance, uint maxParticleLife, fPoint angleRange, float maxSpeed, float maxSize, SDL_Rect textureRect, SDL_Color startColor = { 0, 0, 0, 0 }, SDL_Color endColor = { 0, 0, 0, 0 }, SDL_BlendMode blendMode = SDL_BlendMode::SDL_BLENDMODE_NONE, double lifetime = -1.0f);
 	virtual ~ParticleEmissor();

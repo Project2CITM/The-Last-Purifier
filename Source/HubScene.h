@@ -6,8 +6,6 @@
 #include "Quest.h"
 #include "NPC.h"
 
-#include "ParticleEmissor.h"
-
 #define HUB_MAP "Main_Hub.tmx"
 class Player;
 class MiniMap;
@@ -46,11 +44,7 @@ private:
 	ClassTree* revenantTree = nullptr;
 
 	PlayerConverter* PlayerChangeClass = nullptr;
-	PlayerConverter* PlayerChangeClassBeforeRun = nullptr;
-
-	ParticleEmissor* testEmitter1 = nullptr;
-
-	
+	PlayerConverter* PlayerChangeClassBeforeRun = nullptr;	
 public:
 	Quest* quest2 = nullptr;
 	Quest* quest3 = nullptr;

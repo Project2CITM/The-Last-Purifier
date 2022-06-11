@@ -1,7 +1,6 @@
 #pragma once
 
 #include "SingleParticle.h"
-#include "ParticleEmissor.h"
 #include "Point.h"
 #include <vector>
 
@@ -12,7 +11,7 @@ class ParticlePool
 private:
 
 	int poolSize = 0;
-	SingleParticle* firstAvailable;
+	SingleParticle* firstAvailable = nullptr;
 	std::vector<SingleParticle*> particlesVec;
 	SingleParticle* particleArray = nullptr;
 

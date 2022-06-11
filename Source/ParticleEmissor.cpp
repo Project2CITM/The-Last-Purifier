@@ -1,4 +1,5 @@
 #include "ParticleEmissor.h"
+#include "ParticlePool.h"
 #include <time.h>
 
 ParticleEmissor::ParticleEmissor(fPoint pos, uint emitNumber, uint emitVariance, uint maxParticleLife, fPoint angleRange, float maxSpeed, float maxSize, SDL_Rect textureRect, SDL_Color startColor, SDL_Color endColor, SDL_BlendMode blendMode, double lifeTime)

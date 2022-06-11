@@ -14,6 +14,7 @@
 #include "ModuleAudio.h"
 #include "ModuleWindow.h"
 #include "Minimap.h"
+#include "ParticleEmissor.h"
 
 HubScene::HubScene() : SceneGame("HubScene")
 {
@@ -159,8 +160,6 @@ bool HubScene::Start()
 	miniMap = new MiniMap();
 	miniMap->Init(true);
 
-	app->psystem->AddEmiter({ 970, 1485 }, EmissorType::EMISSOR_TYPE_BLOOD);
-
 	return true;
 }
 
@@ -224,6 +223,7 @@ bool HubScene::PreUpdate()
 	if (app->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
 	{
 		app->psystem->AddEmiter({ 970, 1485 }, EmissorType::EMISSOR_TYPE_BLOOD);
+
 	}
 
 	//PreUpdates

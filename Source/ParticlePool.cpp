@@ -1,4 +1,5 @@
 #include "ParticlePool.h"
+#include "ParticleEmissor.h"
 #include <assert.h>
 
 // This pool constructor sets our particles to available

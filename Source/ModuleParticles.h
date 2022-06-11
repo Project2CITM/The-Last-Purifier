@@ -1,29 +1,26 @@
 #pragma once
 
 #include "Module.h"
-#include "ParticleEmissor.h"
 #include "External/SDL_image/include/SDL_image.h"
 #include "External/SDL/include/SDL.h"
 #include "Point.h"
-#include <list>
 #include <string>
+#include "List.h"
+
+
+enum EmissorType;
+class ParticleEmissor;
 
 #define MAX_NUM_EMITTERS_TYPE 3
-
-class ParticleEmissor;
-struct SDL_Texture;
-struct SDL_Rect;
-struct SDL_Color;
-enum EmissorType;
 
 class ModuleParticles : public Module
 {
 
 private:
 
-	std::list<ParticleEmissor*> emittersList;
+	List<ParticleEmissor*> emittersList;
 	SDL_Texture* particleAtlas = nullptr;
-	std::string nameParticleAtlas;
+	std::string nameParticleAtlas = "";
 
 	struct EmitterData
 	{
@@ -36,8 +33,8 @@ private:
 		SDL_Rect textureRect = { 0, 0 };
 		double lifetime = -1.0f;
 		EmissorType type;
-		SDL_Color startColor = { 0, 0, 0, 0 };
-		SDL_Color endColor = { 0, 0, 0, 0 };
+		SDL_Color startColor;
+		SDL_Color endColor;
 		SDL_BlendMode blendMode = SDL_BlendMode::SDL_BLENDMODE_NONE;
 	};
 
