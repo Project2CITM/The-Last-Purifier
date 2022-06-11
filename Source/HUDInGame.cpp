@@ -662,8 +662,11 @@ void HUDInGame::InitializeSlots()
 	for (int i = 0; i < player->player->spellSlots; i++)
 	{
 		RenderObject rO;
-		iPoint pos = { spellSlotsPositions[player->player->spellSlots - 1][i].x, spellSlotsPositions[player->player->spellSlots - 1][i].y };
-		rO.InitAsTexture(app->textures->Load("Assets/Sprites/UI/iconsSpells.png"), pos, { 0,0,0,0 }, 1, 3, 0, 0, SDL_FLIP_NONE, 0);
+		iPoint pos = { spellSlotsPositions[player->player->spellSlots - 1][i].x, spellSlotsPositions[player->player->spellSlots - 1][i].y
+	};
+		pos.x += 3;
+		pos.y += 2;
+		rO.InitAsTexture(app->textures->Load("Assets/Sprites/UI/iconsSpells.png"), pos, { 0,0,0,0 }, 0.58, 3, 0, 0, SDL_FLIP_NONE, 0);
 		spellSlots.add(rO);
 	}
 
