@@ -82,8 +82,7 @@ public:
 
 	Timer wormTimer;
 
-	uint HitFX = NULL;
-	uint idleFX = NULL;
+	uint hitFX[2];
 	uint digFX = NULL;
 };
 

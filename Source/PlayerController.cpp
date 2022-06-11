@@ -31,7 +31,7 @@ PlayerController::PlayerController(std::string name, std::string tag, Player* pl
 	app->events->AddListener(this);
 	this->player = player;
 
-	playerdodgeFX = app->audio->LoadFx("Audio/SFX/Player/sfx_playerDodge.wav");
+	playerdodgeFX = app->audio->LoadFx("Assets/Audio/SFX/Player/sfx_playerDodge.wav", false);
 	playerhitFX = app->audio->LoadFx("Audio/SFX/Player/sfx_playerHit2");
 	
 	this->playerShadow = new PlayerShadow(this);

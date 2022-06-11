@@ -37,9 +37,9 @@ Worm::Worm(iPoint pos) : Enemy("worm")
 	// Init physBody 
 	InitPhysics();
 
-	HitFX = app->audio->LoadFx("Audio/SFX/Enemies/Ghoul/sfx_enemyHit2.wav");
-	//idleFX = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Ghoul/sfx_enemyIdle2.wav");
-	digFX = app->audio->LoadFx("Audio/SFX/Enemies/Worm/earthwormdig.wav");
+	hitFX[0] = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Worm/sfx_wormHit1.wav", false);
+	hitFX[1] = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Worm/sfx_wormHit2.wav", false);
+	digFX = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Worm/earthwormdig.wav", false);
 }
 
 Worm::~Worm()
@@ -94,7 +94,7 @@ void Worm::Hit(int damage)
 	renderObjects[0].SetColor({ 255,164,164,100 });
 
 	Enemy::Hit(damage);
-	app->audio->PlayFx(HitFX);
+	app->audio->PlayFx(hitFX[rand() % 2]);
 }
 
 void Worm::OnTriggerEnter(std::string trigger, PhysBody* col)
@@ -131,7 +131,6 @@ void Worm::UpdateStates()
 	{
 	case (int)WormState::IDLE:
 	{
-		app->audio->PlayFx(idleFX);
 		if (groundCoolDown <= 0)
 		{
 			DoInGround();
