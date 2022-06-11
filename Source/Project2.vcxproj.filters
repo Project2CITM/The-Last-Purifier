@@ -505,7 +505,7 @@
       <Filter>Archivos de encabezado\GameObject\Enemy\Boss</Filter>
     </ClInclude>
     <ClInclude Include="ParticleTeleport.h">
-      <Filter>Archivos de encabezado</Filter>
+      <Filter>Archivos de encabezado\Tools\Particles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -828,7 +828,7 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="ParticleTeleport.cpp">
-      <Filter>Archivos de origen</Filter>
+      <Filter>Archivos de origen\Tools\Particles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

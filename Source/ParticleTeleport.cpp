@@ -17,4 +17,5 @@ ParticleTeleport::ParticleTeleport(iPoint position) : Particle(position, 0.8f, 0
 
 	renderObjects[0].InitAsTexture(app->textures->Load("Assets/Sprites/Player/teleportParticle100x100_73frames.png"), position, { 0,0,0,0 }, 0.8f);
 	renderObjects[0].layer = 3;
+	renderObjects[0].color.a = 155;
 }

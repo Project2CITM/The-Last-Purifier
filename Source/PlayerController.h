@@ -59,13 +59,10 @@ public:
 	void CleanUp() override;
 
 	void OnCollisionEnter(PhysBody* col) override;
-	void OnCollisionExit(PhysBody* col) override;
 
 	void OnTriggerEnter(std::string trigger, PhysBody* col) override;
 
 	void Hit(int damage);
-
-	void Stun(int frames);
 
 	void Invulnerability(int frames);
 
@@ -77,7 +74,7 @@ public:
 
 	void AttackImpulse();
 
-	void purifiedSwordHeals();
+	void PurifiedSwordHeals();
 
 public:
 
@@ -110,8 +107,6 @@ private:
 	void DashAnimation(int sum);
 
 	void SetAnimationState();
-
-	fPoint GetPlayerToMouseVector();
 
 	float speed = 12.0f;	//5
 	bool isDashing = false;
