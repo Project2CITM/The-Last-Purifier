@@ -18,6 +18,8 @@
 #include "ModuleMap.h"
 #include "PlayerShadow.h"
 #include "ParticleTeleport.h"
+#include "ModuleParticles.h"
+#include "ParticleEmissor.h"
 
 PlayerController::PlayerController(std::string name, std::string tag, Player* player) : GameObject(name, tag)
 {
@@ -571,6 +573,8 @@ void PlayerController::OnTriggerEnter(std::string trigger, PhysBody* col)
 void PlayerController::Hit(int damage)
 {
 	if (godMode) return;
+	fPoint f = { (float)GetPosition().x, (float)GetPosition().y };
+	app->psystem->AddEmiter(f, EmissorType::EMISSOR_TYPE_BLOOD);
 
 	app->audio->PlayFx(playerhitFX);
 
