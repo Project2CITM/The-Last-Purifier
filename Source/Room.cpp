@@ -332,8 +332,8 @@ iPoint Room::PathFindingAStar(iPoint src, iPoint des)
 
 	for (int i = closeNode.size() - 1; i >= 0; i = closeNode[i].lastIndex)
 	{
-		printf("\n--------------------------------------------------------------\n");
-		printf("N: %d   X: %d\t Y: %d\n", i, closeNode[i].pos.x, closeNode[i].pos.y);
+		//printf("\n--------------------------------------------------------------\n");
+		//printf("N: %d   X: %d\t Y: %d\n", i, closeNode[i].pos.x, closeNode[i].pos.y);
 
 		if (closeNode[i].lastIndex == 0)
 		{

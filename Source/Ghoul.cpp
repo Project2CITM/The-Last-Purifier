@@ -90,6 +90,7 @@ void Ghoul::PreUpdate()
 void Ghoul::Update()
 {
 	if (isDie) return;
+
 	stateMachine.Update();
 
 	Enemy::Update();
@@ -212,7 +213,7 @@ void Ghoul::UpdateStates()
 		break;
 	case (int)GhoulState::HIT:
 	{
-		if (!animations[stateMachine.GetCurrentState()].HasFinished()) return;
+		if (!animations[stateMachine.GetCurrentState()].HasFinished() && !mutante) return;
 		
 		renderObjects[0].SetColor({ 255,255,255,255 });
 		

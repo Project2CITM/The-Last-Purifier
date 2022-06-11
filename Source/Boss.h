@@ -126,8 +126,6 @@ private:
 
 	bool invulnarable = false;
 
-	//BossProjectile* projectile2 = nullptr;
-
 	BossHpGUI bossHp;
 
 	int maxHealh = 0;

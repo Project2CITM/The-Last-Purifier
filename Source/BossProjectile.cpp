@@ -31,10 +31,7 @@ BossProjectile::~BossProjectile()
 
 void BossProjectile::Update()
 {
-	//if (app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
-	//{
-	//	AttackFinished();
-	//}
+	if (pendingToDelete) return;
 
 	if(attacking)
 	{
@@ -75,6 +72,8 @@ void BossProjectile::Update()
 
 void BossProjectile::PostUpdate()
 {
+	if (pendingToDelete) return;
+
 	anim.Update();
 
 	renderObjects[0].section = anim.GetCurrentFrame();
@@ -93,7 +92,7 @@ void BossProjectile::CleanUp()
 
 bool BossProjectile::Attack(int attackTimes)
 {
-	if (attacking) return false;
+	if (attacking || pendingToDelete) return false;
 
 	this->attackTimes = attackTimes;
 
@@ -106,9 +105,9 @@ bool BossProjectile::Attack(int attackTimes)
 
 void BossProjectile::SetActive(bool active)
 {
-	SetLinearVelocity(fPoint{ 0,0 });
-
 	enable = active;
+
+	if (pendingToDelete) return;
 
 	pBody->body->SetActive(active);
 

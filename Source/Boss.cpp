@@ -16,7 +16,7 @@ Boss::Boss(iPoint pos) : Enemy("boss")
 	// Init general value
 	this->position = pos;
 
-	maxHealh = health = 2000;
+	maxHealh = health = 1000;
 
 	moveSpeed = 3.5f;
 
