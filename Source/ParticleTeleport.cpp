@@ -1,5 +1,7 @@
 #include "ParticleTeleport.h"
 #include "ModuleTextures.h"
+#include "Application.h"
+#include "ModuleAudio.h"
 
 ParticleTeleport::ParticleTeleport(iPoint position) : Particle(position, 0.8f, 0, { 0,0 }, "ParticleTeleport")
 {
@@ -17,4 +19,8 @@ ParticleTeleport::ParticleTeleport(iPoint position) : Particle(position, 0.8f, 0
 
 	renderObjects[0].InitAsTexture(app->textures->Load("Assets/Sprites/Player/teleportParticle100x100_73frames.png"), position, { 0,0,0,0 }, 0.8f);
 	renderObjects[0].layer = 3;
+	renderObjects[0].color.a = 155;
+
+	uint explosion = Application::GetInstance()->audio->LoadFx("Assets/Audio/SFX/Player/sfx_teleportExplosion.wav", false);
+	Application::GetInstance()->audio->PlayFx(explosion);
 }

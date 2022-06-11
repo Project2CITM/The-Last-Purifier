@@ -62,8 +62,9 @@ Ghoul::Ghoul(iPoint pos, Room* room, bool mut) : Enemy("ghoul"), mutante(mut)
 
 	//Init Sounds
 	attackFX = app->audio->LoadFx("Audio/SFX/Enemies/Ghoul/sfx_enemyAttack1.wav");
-	HitFX = app->audio->LoadFx("Audio/SFX/Enemies/Ghoul/sfx_enemyHit2.wav");
-	idleFX = app->audio->LoadFx("Audio/SFX/Enemies/Ghoul/sfx_enemyIdle1.wav");
+	hitFX[0] = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Ghoul/sfx_enemyHit1.wav", false);
+	hitFX[1] = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Ghoul/sfx_enemyHit2.wav", false);
+	hitFX[2] = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Ghoul/sfx_enemyHit3.wav", false);
 }
 
 Ghoul::~Ghoul()
@@ -115,7 +116,7 @@ void Ghoul::Hit(int damage)
 	renderObjects[0].SetColor({ 255,164,164,100 });
 
 	Enemy::Hit(damage);
-	app->audio->PlayFx(HitFX);
+	app->audio->PlayFx(hitFX[rand() % 3]);
 }
 
 void Ghoul::OnTriggerEnter(std::string trigger, PhysBody* col)

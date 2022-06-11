@@ -134,7 +134,6 @@ void Kaboom::OnTriggerExit(std::string trigger, PhysBody* col)
 void Kaboom::Die(bool spawnPower, bool spawnSouls)
 {
 	stateMachine.ChangeState((int)KaboomState::DIE);
-	app->audio->PlayFx(deadFX);
 }
 
 void Kaboom::UpdateStates()
@@ -181,6 +180,8 @@ void Kaboom::UpdateStates()
 				iPoint attackOffset = { -27,-25 };
 
 				new ParticleAttackKaboom(position + attackOffset);
+
+				app->audio->PlayFx(deadFX);
 			}
 		}
 			
@@ -315,8 +316,6 @@ void Kaboom::DoAttack()
 	pBody->body->SetActive(false);
 
 	detectTrigger->pBody->body->SetActive(false);
-
-	app->audio->PlayFx(deadFX);
 }
 
 void Kaboom::DoRun()

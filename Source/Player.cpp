@@ -107,7 +107,7 @@ void Player::InitRevenantSprites()
 		controller->animations[i].hasIdle = false;
 	}
 
-	controller->renderObjects[0].SetColor({ 155, 0, 0, 255 });
+	this->classColor = { 255,100,0,255 };
 }
 
 void Player::InitSageSprites()

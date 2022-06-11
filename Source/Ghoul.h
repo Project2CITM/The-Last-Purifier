@@ -101,9 +101,7 @@ private:
 	// SFX 
 	uint attackFX = NULL;
 
-	uint HitFX = NULL;
-
-	uint idleFX = NULL;
+	uint hitFX[3];
 };
 
 #endif // !__GHOUL_H__
