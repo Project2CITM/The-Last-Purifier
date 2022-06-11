@@ -27,6 +27,8 @@ private:
 	int attackUses = 5;
 	int currentAttacks = 0;
 	int currentLevel = 1;
+
+	uint executeSFX;
 };
 #endif
 

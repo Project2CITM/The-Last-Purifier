@@ -14,6 +14,8 @@ public:
 
 private:
 
+	uint playerAttackFX[3];
+
 	b2Vec2 GetAttackOffset(float* rotation);
 };
 

@@ -4,6 +4,7 @@
 #include "PlayerCombat.h"
 #include "Player.h"
 #include "ParticleLanceAttackRevenant.h"
+#include "ModuleAudio.h"
 
 RevenantSpear::RevenantSpear(PlayerController* playerController) : RevenantWeapon(playerController)
 {
@@ -27,6 +28,13 @@ RevenantSpear::RevenantSpear(PlayerController* playerController) : RevenantWeapo
 
 	damageArea->pBody->body->SetActive(false);
 
+	// Initialize SFXs
+	for (int i = 0; i < 3; i++)
+	{
+		std::string attack = "Assets/Audio/SFX/Player/Melee/Spear/sfx_spearAttack" + std::to_string(i + 1) + ".wav";
+		playerAttackFX[i] = app->audio->LoadFx(attack.c_str(), false);
+	}
+
 	weaponTimer = new Timer();
 }
 
@@ -35,6 +43,8 @@ bool RevenantSpear::Attack(int chargedTime)
 	if (!canAttack) return false;
 
 	// Play SFX
+	int randomNum = rand() % 3;
+	app->audio->PlayFx(playerAttackFX[randomNum]);
 
 	// Set area as active
 	damageArea->pBody->body->SetActive(true);
