@@ -130,6 +130,8 @@ bool HUDInGame::Start()
 
 	Hover = app->audio->LoadFx("Audio/SFX/UI/sfx_uiHover.wav");
 	Press = app->audio->LoadFx("Audio/SFX/UI/sfx_uiSelect.wav");
+	pauseOnSFX = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_pauseMenuOn.wav", false);
+	pauseOffSFX = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_pauseMenuOff.wav", false);
 
 	text = new Text({app->renderer->camera->x + 90, app->renderer->camera->y + 15 }, std::to_string(score));
 
@@ -195,6 +197,7 @@ bool HUDInGame::PreUpdate()
 			MenuPauseY = -200;
 			ComeIn = 1;
 			TorchAlfa = 0;
+			app->audio->PlayFx(pauseOffSFX);
 		}
 	}
 
@@ -227,6 +230,8 @@ bool HUDInGame::Update()
 			app->audio->SetMusicVolume(app->audio->musicVol/2);
 			app->audio->SetSFXVolume(app->audio->fxVol/2);
 			startPause = true;
+
+			app->audio->PlayFx(pauseOnSFX);
 		}
 
 		if (MenuPauseY <= -11)
@@ -296,6 +301,8 @@ bool HUDInGame::Update()
 				app->isPause = false;
 				ResumeBUT->PressButton();
 				ResumeBUT->doAction = false;
+
+				app->audio->PlayFx(pauseOffSFX);
 				return true;
 			}
 
