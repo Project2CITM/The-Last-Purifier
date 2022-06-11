@@ -682,11 +682,11 @@ void HUDInGame::InitializeSlots()
 	{
 		RenderObject rO;
 		// Get position from last spell slot position
-		iPoint spellPos = { spellSlotsPositions[player->player->spellSlots - 1].end->data.x, spellSlotsPositions[player->player->spellSlots - 1].end->data.y };
+		iPoint spellPos = { spellSlotsPositions[player->player->spellSlots - 1].start->data.x, spellSlotsPositions[player->player->spellSlots - 1].start->data.y };
 		// Add an offset to that position based on the current iteration
-		iPoint position = spellPos + iPoint(40, 0);
+		iPoint position = spellPos + iPoint(10, 0);
 		position.x += 20 * i;
-		position.y = 340;
+		position.y += 30;
 		rO.InitAsTexture(app->textures->Load("Assets/Sprites/UI/iconsSpells.png"), position, { 0,0,0,0 }, 0.5f, 3, 0, 0, SDL_FLIP_NONE, 0);
 		deckSlots.add(rO);
 	}
