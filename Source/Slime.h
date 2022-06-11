@@ -91,6 +91,9 @@ private:
 
 	Timer slimeTimer;
 
+	uint chargeLaserSFX;
+	uint shootLaserSFX;
+
 	//int attackFXCoolDown = 0;
 
 	//// PathFinding variable

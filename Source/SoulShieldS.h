@@ -1,5 +1,7 @@
 #pragma once
 #include "Spell.h"
+#include "Globals.h"
+
 class SoulShieldS : public Spell
 {
 public:
@@ -19,6 +21,8 @@ private:
 	int currentLevel;
 
 	bool isOn = false;
+
+	uint executeSFX;
 
 };
 

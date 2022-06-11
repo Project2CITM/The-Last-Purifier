@@ -151,6 +151,12 @@
     <Filter Include="Archivos de encabezado\GameObject\Enemy\Boss">
       <UniqueIdentifier>{a6311c03-8f77-49c1-a80a-2d74b566f3f9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\Particles">
+      <UniqueIdentifier>{0dacab08-b5ac-4445-80a2-70eb372c9194}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Particles">
+      <UniqueIdentifier>{5e2c3bfc-234d-435b-bd1c-82efd5806458}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="External\PugiXml\src\pugixml.hpp">
@@ -507,6 +513,21 @@
     <ClInclude Include="ParticleTeleport.h">
       <Filter>Archivos de encabezado\Tools\Particles</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleParticles.h">
+      <Filter>Archivos de encabezado\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="SingleParticle.h">
+      <Filter>Archivos de encabezado\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleEmissor.h">
+      <Filter>Archivos de encabezado\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticlePool.h">
+      <Filter>Archivos de encabezado\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="PerfTimer.h">
+      <Filter>Archivos de encabezado\Tools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\PugiXml\src\pugixml.cpp">
@@ -829,6 +850,21 @@
     </ClCompile>
     <ClCompile Include="ParticleTeleport.cpp">
       <Filter>Archivos de origen\Tools\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleParticles.cpp">
+      <Filter>Archivos de origen\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="SingleParticle.cpp">
+      <Filter>Archivos de origen\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleEmissor.cpp">
+      <Filter>Archivos de origen\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticlePool.cpp">
+      <Filter>Archivos de origen\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="PerfTimer.cpp">
+      <Filter>Archivos de origen\Tools</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -158,6 +158,27 @@ void ModuleRender::AddTextureRenderQueue(SDL_Texture* texture, iPoint pos, SDL_R
 	//LOG("direction in memory : %#x", renderObject.texture);
 	renderLayers[layer].renderObjects.push_back(renderObject);
 }
+
+void ModuleRender::BlitParticle(SDL_Texture* texture, iPoint pos, SDL_Rect section, float scale, int layer, float orderInlayer, SDL_Color color, SDL_BlendMode blendMode, float speed, double angle, float duration)
+{
+	RenderObject renderObject;
+
+	// Limit layer
+	layer = layer > uiLayer ? uiLayer : layer < 0 ? 0 : layer;
+
+	renderObject.InitAsParticle(texture, pos, section, scale, layer, orderInlayer, angle, color, blendMode, speed);
+
+	renderObject.destRect.x = (int)(-camera->x * duration) + pos.x * app->window->scale;
+	renderObject.destRect.y = (int)(-camera->y * duration) + pos.y * app->window->scale;
+
+	renderObject.destRect.w = section.w;
+	renderObject.destRect.h = section.h;
+
+	renderObject.destRect.w *= scale * app->window->scale;
+	renderObject.destRect.h *= scale * app->window->scale;
+
+	renderLayers[layer].renderObjects.push_back(renderObject);
+}
 	
 void ModuleRender::AddRectRenderQueue(const SDL_Rect& rect, SDL_Color color, bool filled, int layer, float orderInlayer, float duration)
 {

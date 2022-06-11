@@ -476,7 +476,7 @@ void Boss::DoAttack()
 
 		projectile->SetActive(true);
 
-		projectile->Attack(15);
+		projectile->Attack(7);
 
 		stateMachine.ChangeState((int)BossState::RUN);
 	}

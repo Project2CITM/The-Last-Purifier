@@ -7,6 +7,7 @@
 #include "Particle.h"
 #include "ParticleHitSage.h"
 #include "PaticleHitFotieros.h"
+#include "ModuleAudio.h"
 
 Projectile::Projectile(std::string name, iPoint position, fPoint duration, int damage,int rotation, int width, int height, bool fire, bool stun, bool isEnemy) : GameObject(name, name)
 {
@@ -25,10 +26,9 @@ Projectile::Projectile(std::string name, iPoint position, fPoint duration, int d
 
 	pBody->body->GetFixtureList()[0].SetFilterData(filter);
 	damageArea->pBody->body->GetFixtureList()[0].SetFilterData(filter);
+	
 
-	if (fire) FireProjectile(duration);
-
-	iPoint particleOffset = {0,0};
+	iPoint particleOffset = { 0,0 };
 	float projectileScale = (float)(width + height) / 8.0f;
 
 	if (rotation == -180)//LEFT
@@ -78,7 +78,23 @@ Projectile::Projectile(std::string name, iPoint position, fPoint duration, int d
 		spriteOffset[0] = { (int)(particleOffset.x * projectileScale),(int)(particleOffset.y * projectileScale) };
 	}
 
-	
+	if (projectileScale == 2.0f)
+	{
+		projectileSFX = app->audio->LoadFx("Assets/Audio/SFX/Player/Ranged/sfx_projectile3.wav", false);
+		explodeSFX = app->audio->LoadFx("Assets/Audio/SFX/Player/Ranged/sfx_projectileExplode3.wav", false);
+	}
+	else if (projectileScale == 0.5f)
+	{
+		projectileSFX = app->audio->LoadFx("Assets/Audio/SFX/Player/Ranged/sfx_projectile1.wav", false);
+		explodeSFX = app->audio->LoadFx("Assets/Audio/SFX/Player/Ranged/sfx_projectileExplode1.wav", false);
+	}
+	else
+	{
+		projectileSFX = app->audio->LoadFx("Assets/Audio/SFX/Player/Ranged/sfx_projectile2.wav", false);
+		explodeSFX = app->audio->LoadFx("Assets/Audio/SFX/Player/Ranged/sfx_projectileExplode2.wav", false);
+	}
+
+	if (fire) FireProjectile(duration);
 
 	renderObjects[0].InitAsTexture(app->textures->Load("Sprites/Player/Sage/basicAttackSageDuring.png"), position , { 0,0,0,0 }, projectileScale,1,1.0f,this->rotation);
 
@@ -93,9 +109,6 @@ Projectile::Projectile(std::string name, iPoint position, fPoint duration, int d
 	this->anim.loop = true;
 	this->anim.hasIdle = false;
 	this->anim.duration = 0.032f;
-
-	//spriteOffset[0] = { (int)(-20 * projectileScale),(int)(-15 * projectileScale) };
-	
 }
 
 /// <summary>
@@ -192,6 +205,8 @@ void Projectile::FireProjectile(fPoint duration)
 	b2Vec2 s = { duration.x, duration.y };
 	damageArea->pBody->body->SetLinearVelocity(s);
 	pBody->body->SetLinearVelocity(s);
+
+	app->audio->PlayFx(projectileSFX);
 }
 
 void Projectile::OnCollisionEnter(PhysBody* col)
@@ -200,9 +215,10 @@ void Projectile::OnCollisionEnter(PhysBody* col)
 	damageArea->pendingToDelete = true;
 
 	// Particle effect
-
 	if (!isFoteiros)new ParticleHitSage({ position.x - 20,position.y - 15 }, 1.5f);
 	else new PaticleHitFotieros({ position.x - 20,position.y - 15 }, 0.1f);
+
+	app->audio->PlayFx(explodeSFX);
 
 }
 

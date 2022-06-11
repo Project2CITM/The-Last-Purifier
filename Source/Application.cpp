@@ -8,6 +8,7 @@
 #include "ModuleScene.h"
 #include "ModuleMap.h"
 #include "ModuleEvents.h"
+#include "ModuleParticles.h"
 #include "AssetsManager.h"
 #include <iostream>
 
@@ -34,6 +35,7 @@ bool Application::Init()
 	scene = new ModuleScene();
 	map = new ModuleMap();
 	events = new ModuleEvents();
+	psystem = new ModuleParticles();
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -54,6 +56,8 @@ bool Application::Init()
 	AddModule(map);
 
 	AddModule(audio);
+
+	AddModule(psystem);
 
 	//Render
 	AddModule(renderer);
@@ -329,11 +333,11 @@ void Application::UpdateTitle()
 
 	string vsyncMessage = vsync ? "true" : "false";
 
-	/*printTitle = title + " | FPS: " + to_string(fps) +
+	printTitle = title + " | FPS: " + to_string(fps) +
 		" | Avg.FPS: " + to_string(averageFps) +
 		" | Last dt: " + to_string(dt * 1000) +
 		"ms | Vsync: " + vsyncMessage;
 
 	// Print new title
-	window->SetTitle(printTitle.c_str());*/
+	window->SetTitle(printTitle.c_str());
 }

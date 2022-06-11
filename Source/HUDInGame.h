@@ -119,6 +119,9 @@ private:
 
 	uint Hover = NULL;
 	uint Press = NULL;
+
+	uint pauseOnSFX;
+	uint pauseOffSFX;
 	
 	Text* text = nullptr;
 

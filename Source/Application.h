@@ -23,6 +23,7 @@ class ModuleScene;
 class ModuleMap;
 class ModuleUI;
 class ModuleEvents;
+class ModuleParticles;
 class Module;
 
 class Application
@@ -39,6 +40,7 @@ public:
 	ModuleMap* map = nullptr;
 	ModuleUI* ui = nullptr;
 	ModuleEvents* events = nullptr;
+	ModuleParticles* psystem = nullptr;
 
 	Timer globalTime;
 

@@ -2,6 +2,8 @@
 #include "Player.h"
 #include "ParticleSoulShield.h"
 #include "PlayerController.h"
+#include "Application.h"
+#include "ModuleAudio.h"
 
 SoulShieldS::SoulShieldS()
 {
@@ -17,6 +19,7 @@ SoulShieldS::SoulShieldS()
 
 	uses = spellStats.child("uses").attribute("quantity").as_int();
 
+	executeSFX = Application::GetInstance()->audio->LoadFx("Assets/Audio/SFX/Spells/sfx_soulShield.wav", false);
 
 	spellName = spellStats.child("name").attribute("name").as_string();
 }
@@ -35,6 +38,8 @@ void SoulShieldS::Execute(int level)
 	isOn = true;
 
 	new ParticleSoulShield(player->controller->GetPosition(), player->controller, particlelifetimeinseconds);
+
+	Application::GetInstance()->audio->PlayFx(executeSFX);
 
 }
 

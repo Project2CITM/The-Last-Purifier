@@ -12,6 +12,7 @@
 #include "PlayerCombat.h"
 #include "ModuleEvents.h"
 #include "ModuleAudio.h"
+#include "ModuleWindow.h"
 #include "Minimap.h"
 
 HubScene::HubScene() : SceneGame("HubScene")
@@ -158,6 +159,8 @@ bool HubScene::Start()
 	miniMap = new MiniMap();
 	miniMap->Init(true);
 
+	app->psystem->AddEmiter({ 970, 1485 }, EmissorType::EMISSOR_TYPE_BLOOD);
+
 	return true;
 }
 
@@ -217,6 +220,12 @@ bool HubScene::PreUpdate()
 	{
 		player->controller->SetPosition({ 926, 1579 });
 	}*/
+
+	if (app->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
+	{
+		app->psystem->AddEmiter({ 970, 1485 }, EmissorType::EMISSOR_TYPE_BLOOD);
+	}
+
 	//PreUpdates
 	hudInGame->PreUpdate();
 
@@ -254,6 +263,21 @@ bool HubScene::Update()
 		quest4->Start();
 		done3 = true;
 	}
+
+	//fPoint mousePos = { (float)(app->input->GetMouseX() / app->window->scale) , (float)(app->input->GetMouseY() / (int)app->window->scale) };
+	//if (testEmitter1 == nullptr)
+	//{
+	//	app->psystem->AddEmiter({ 970, 1485 }, EmitterType::EMITTER_TYPE_FIRE);
+	//}
+
+	////Particles
+	//if (testEmitter1 != nullptr)
+	//{
+	//	
+	//	//testEmitter1->MoveEmitter({ 970, 1485 });
+	//}
+
+
 	Scene::Update();
 	return true;
 }

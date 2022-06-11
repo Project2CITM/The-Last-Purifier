@@ -5,7 +5,7 @@
 #include "PlayerController.h"
 #include "ModulePhysics.h"
 #include "ParticlePurificationSlash.h"
-
+#include "ModuleAudio.h"
 
 PurificationSlashS::PurificationSlashS()
 {
@@ -29,6 +29,8 @@ PurificationSlashS::PurificationSlashS()
 	filter.categoryBits = Application::GetInstance()->physics->PLAYER_LAYER;
 
 	damageArea->pBody->body->GetFixtureList()->SetFilterData(filter);
+
+	slashSFX = Application::GetInstance()->audio->LoadFx("Assets/Audio/SFX/Spells/sfx_purificationSlash.wav");
 }
 
 void PurificationSlashS::Execute(int level)
@@ -69,7 +71,7 @@ void PurificationSlashS::Execute(int level)
 	}
 
 	new ParticlePurificationSlash(damageArea->GetPosition() + particleOffset, particleRotation, 0.15f, 0, player->purifiedSwordOn);
-
+	Application::GetInstance()->audio->PlayFx(slashSFX);
 }
 
 void PurificationSlashS::Update()

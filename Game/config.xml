@@ -329,8 +329,8 @@
 		</english>
 	</dialogText>
 	<audios>
-		<music volume="510" />
-		<sfx volume="510" />
+		<music volume="180" />
+		<sfx volume="76" />
 	</audios>
 	<scenes>
 		<level1>
@@ -345,4 +345,36 @@
 		<folder>Assets/maps/</folder>
 		<hub_folder>Assets/Maps/Hub/</hub_folder>
 	</map>
+	<psystem>
+		<emitters>
+			<particleAtlas name="Assets/Sprites/Particles/particle.png">
+				<emitter type="fire">
+					<angleRange min="-90" max="90" />
+					<maxSpeed value="100" />
+					<maxSize value="120" />
+					<emitNumber value="1" />
+					<emitVariance value="0" />
+					<maxParticleLife value="200" />
+					<textureRect x="0" y="0" w="128" h="128" />
+					<startColor r="255" g="100" b="0" a="255" />
+					<endColor r="210" g="210" b="210" a="255" />
+					<blendMode mode="add" />
+					<lifetime value="-1" />
+				</emitter>
+				<emitter type="blood">
+					<angleRange min="-90" max="90" />
+					<maxSpeed value="120" />
+					<maxSize value="120" />
+					<emitNumber value="3" />
+					<emitVariance value="0" />
+					<maxParticleLife value="10" />
+					<textureRect x="129" y="0" w="16" h="16" />
+					<startColor r="158" g="248" b="45" a="255" />
+					<endColor r="192" g="67" b="252" a="255" />
+					<blendMode mode="add" />
+					<lifetime value="50" />
+				</emitter>
+			</particleAtlas>
+		</emitters>
+	</psystem>
 </config>
