@@ -4,6 +4,7 @@
 #include "Worm.h"
 #include "Slime.h"
 #include "Column.h"
+#include "Boss.h"
 
 void MapLoader::ExtractMapInfo(Room* r)
 {
@@ -186,6 +187,11 @@ void MapLoader::CreateEnemies(Room* r)
 			else if (gid == 2561) 
 			{
 				//TODO: spawn boss
+				Enemy* g1 = new Boss(iPoint(
+					r->roomPosition.x * MAX_ROOM_TILES_COLUMNS * TILE_SIZE + j * TILE_SIZE + TILE_SIZE / 2,
+					r->roomPosition.y * MAX_ROOM_TILES_ROWS * TILE_SIZE + i * TILE_SIZE + TILE_SIZE / 2));
+				r->enemies.add(g1);
+				g1->enable = false;
 			}
 			else if (gid == 2563) 
 			{

@@ -53,9 +53,9 @@ private:
 
 	void InitPhysics();
 
-	void DoAttack();
+	//void DoAttack();
 
-	void ResetAttackCoolDown();
+	//void ResetAttackCoolDown();
 
 	void SetTriggeeActive(bool active);
 

@@ -68,9 +68,13 @@ private:
 
 	void InitPhysics();
 
-	void SetTriggeeActive(bool active);
+	void DisableCollisions() override;
 
-	void LaserAttack(bool active = false);
+	float GetAttackAngle();
+
+	b2Vec2 AttackPivot(float angle);
+
+	int AttackRotation(float newAngle);
 
 	void DoRun();
 
@@ -86,13 +90,17 @@ private:
 
 	Animation animations[(int)BossState::MAX];
 
+	iPoint attackPos = { 0,0 };
+
+	float attackAngle = 0;
+
+	int attack3Count = 0; //ms
+
 	StateMachine stateMachine;
 
 	LookingDirection lookingDir = LookingDirection::RIGHT;
 
 	PlayerController* playerController = nullptr;
-
-	Trigger* detectTrigger = nullptr;  // saber si jugador esta en rango de ataque
 
 	Trigger* damageTrigger = nullptr; // recibe y hace dany
 

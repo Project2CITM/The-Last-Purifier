@@ -77,7 +77,7 @@ bool TestScene::Start()
 
     //new Slime((player->controller->GetPosition() + iPoint{ 40, 40 }));
 
-    new Boss((player->controller->GetPosition() + iPoint{ 40, 40 }));
+    //new Boss((player->controller->GetPosition() + iPoint{ 40, 40 }));
 
     //spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-40, 0));
     //spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-80, 0));

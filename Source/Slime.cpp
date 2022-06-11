@@ -52,7 +52,10 @@ Slime::~Slime()
 		damageTrigger->Destroy();
 		damageTrigger = nullptr;
 	}
-	attack->pendingToDelete = true;
+	if(attack)
+	{
+		attack->pendingToDelete = true;
+	}
 }
 
 void Slime::PreUpdate()
@@ -214,6 +217,14 @@ void Slime::UpdateStates()
 
 void Slime::DisableCollisions()
 {
+	if(attack)
+	{
+		attack->pendingToDelete = true;
+
+		attack->pBody->body->SetActive(false);
+
+		attack = nullptr;
+	}
 
 	if (damageTrigger != nullptr)
 	{
