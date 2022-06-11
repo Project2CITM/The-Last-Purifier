@@ -8,8 +8,6 @@
 #include "ModuleInput.h"
 #include "GameOverScene.h"
 
-#include "External/Optick/include/optick.h"
-
 void RoomManager::Start()
 {
 	this->listenTo[0] = GameEvent::SAVE_GAME_WIN;
@@ -48,7 +46,6 @@ void RoomManager::Start()
 
 void RoomManager::PreUpdate(iPoint playerPos)
 {
-	OPTICK_EVENT();
 	//Check current room
 	Room* r = roomPositions[playerPos.x / (TILE_SIZE * MAX_ROOM_TILES_COLUMNS)][playerPos.y / (TILE_SIZE * MAX_ROOM_TILES_ROWS)];
 

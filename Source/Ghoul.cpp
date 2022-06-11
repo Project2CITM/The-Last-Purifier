@@ -8,7 +8,6 @@
 #include "ModuleAudio.h"
 #include "ModuleInput.h"
 #include "Room.h"
-#include "External/Optick/include/optick.h"
 
 Ghoul::Ghoul(iPoint pos, Room* room, bool mut) : Enemy("ghoul"), mutante(mut)
 {
@@ -356,8 +355,6 @@ void Ghoul::DoAttack()
 
 void Ghoul::DoRun()
 {
-	OPTICK_EVENT();
-
 	if (!mutante)
 	{
 		fPoint fDir = { (float)(playerController->GetPosition().x - position.x), (float)(playerController->GetPosition().y - position.y) };
