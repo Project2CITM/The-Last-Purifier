@@ -27,6 +27,19 @@ Boss::Boss(iPoint pos) : Enemy("boss")
 	// Init texture
 	InitRenderObjectWithXml("boss");
 
+	// Init texture
+	InitRenderObjectWithXml("bossLaser",1);
+
+	renderObjects[1].draw = false;
+
+	renderObjects[1].textureCenterX = 0;
+
+	renderObjects[1].textureCenterY = 10;
+
+	renderObjects[1].rotCenter = { 2, 16 };
+
+	renderObjects[1].rotation = 90;
+
 	// Init StateMachine
 	InitStateMachine();
 
@@ -50,6 +63,14 @@ Boss::Boss(iPoint pos) : Enemy("boss")
 
 	// Init HpUI
 	bossHp.bg = bossHp.delayHp = bossHp.currentHp = { 50, 320, 500, 15 };
+
+	// Init attack time
+
+	attack1CoolDown = (rand() % 10000 + 5000);  // 5-15 s
+
+	attack2CoolDown = (rand() % 10000 + 10000); // 10-20 s
+
+	attack3CoolDown = (rand() % 20000 + 20000); // 20 - 40 s
 }
 
 Boss::~Boss()
@@ -105,6 +126,11 @@ void Boss::PostUpdate()
 
 	renderObjects[0].section = animations[stateMachine.GetCurrentState()].GetCurrentFrame();
 
+	// Update laserAnim
+	//laserAnim[1].Update();
+
+	//renderObjects[1].section = laserAnim[1].GetCurrentFrame();
+
 	Enemy::PostUpdate();
 }
 
@@ -119,6 +145,8 @@ void Boss::Hit(int damage)
 	Enemy::Hit(damage);
 
 	float percent = (float)health / (float)maxHealh;
+
+	if (percent <= 0.5f) moveSpeed = 4.0f;
 
 	float hp = (bossHp.bg.w * percent);
 
@@ -183,18 +211,20 @@ void Boss::UpdateStates()
 			missiles[i]->AttackRequest();
 		}
 	}
-	//if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
-	//{
-	//	LaserAttack(true);
-	//}
-	//if (app->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN)
-	//{
-	//	LaserAttack(false);
-	//}
-	//if (app->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN)
-	//{
-	//	projectile->SetActive(false);
-	//}
+	if (app->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
+	{
+		stateMachine.ChangeState((int)BossState::ATTACK3);
+
+		attack->pBody->body->SetActive(true);
+
+		renderObjects[1].draw = true;
+
+		attack3Count = 10000; // ms
+	}
+	if (app->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN)
+	{
+		stateMachine.ChangeState((int)BossState::RUN);
+	}
 }
 
 void Boss::CleanUp()
@@ -242,6 +272,23 @@ void Boss::InitAnimation()
 		animations[i].hasIdle = false;
 		animations[i].duration = 0.08f;
 	}
+
+	// Laser anim initialize
+	//for (int i = 0; i < 9; i++) laserAnim[0].PushBack({ 0, 100 * i, 300, 100 });
+
+	//laserAnim[0].hasIdle = false;
+
+	//laserAnim[0].loop = false;
+
+	//laserAnim[0].duration = 0.08f;
+
+	//for (int i = 0; i < 6; i++) laserAnim[1].PushBack({ 0, 900 + 100 * i, 600, 100 });
+
+	//laserAnim[1].hasIdle = false;
+
+	//laserAnim[1].loop = true;
+
+	//laserAnim[1].duration = 0.08f;
 }
 
 void Boss::InitStateMachine()
@@ -251,7 +298,6 @@ void Boss::InitStateMachine()
 	stateMachine.AddState("Attack", 0);
 	stateMachine.AddState("Attack2", 0);
 	stateMachine.AddState("Attack3", 0);
-	//stateMachine.AddState("Hit", 1, 560);
 	stateMachine.AddState("Die", 1);
 
 	stateMachine.ChangeState((int)BossState::IDLE);
@@ -272,14 +318,14 @@ void Boss::InitPhysics()
 
 	damageTrigger->pBody->body->GetFixtureList()->SetFilterData(filterB);
 
-	// Attack Trigger
+	// Laser attack Trigger
 	attack = new DamageArea(damageTrigger->GetPosition() + iPoint{50, 50}, 4, 240, damage);
 
 	attack->tag = "BossLaser";
 
 	attack->pBody->body->GetFixtureList()->SetFilterData(filterB);
 
-	LaserAttack(false);
+	attack->pBody->body->SetActive(false);
 
 	// Body
 	b2Filter filterC;
@@ -293,13 +339,69 @@ void Boss::InitPhysics()
 	pBody->body->GetFixtureList()->SetFilterData(filterC);
 }
 
-void Boss::SetTriggeeActive(bool active)
+void Boss::DisableCollisions()
 {
+	pBody->body->SetActive(false);
+
+	if(damage)
+	{
+		damageTrigger->pBody->body->SetActive(false);
+
+		damageTrigger->enable = false;
+	}
+	
+	if(attack)
+	{
+		attack->pBody->body->SetActive(false);
+
+		attack->enable = false;
+	}
+
+	projectile->SetActive(false);
 }
 
-void Boss::LaserAttack(bool active)
+float Boss::GetAttackAngle()
 {
-	attack->pBody->body->SetActive(active);
+	attackPos = playerController->GetPosition();
+
+	float angle = atan2f(attackPos.y - GetPosition().y, attackPos.x - GetPosition().x);
+
+	angle = angle * RADTODEG;
+
+	angle -= 90;
+
+	return angle;
+}
+
+b2Vec2 Boss::AttackPivot(float angle)
+{
+	float offsetDistance = 12;
+
+	b2Vec2 offset = { -offsetDistance * sin(angle * DEGTORAD), offsetDistance * cosf(angle * DEGTORAD) };
+
+	b2Vec2 ret = (pBody->body->GetPosition() + offset);
+
+	return ret;
+}
+
+int Boss::AttackRotation(float newAngle)
+{
+	int ret = 1;
+
+	float currentAngle = renderObjects[1].rotation;
+
+	newAngle -= 90;
+
+	currentAngle -= 180;
+
+	int alpha = newAngle - currentAngle;
+
+	alpha %= 360;
+	
+	// Check the rotation
+	ret = alpha > 0 && alpha < 180 || alpha < -180 ? 1 : -1;
+
+	return ret;
 }
 
 void Boss::DoRun()
@@ -320,8 +422,49 @@ void Boss::DoRun()
 	SetLinearVelocity(dir * moveSpeed);
 
 	flip = dir.x > 0 ? false : true;
+
+	// Update attack time
+
+	attack1CoolDown -= bossTimer.getDeltaTime() * 1000;
+
+	attack2CoolDown -= bossTimer.getDeltaTime() * 1000;
+
+	attack3CoolDown -= bossTimer.getDeltaTime() * 1000;
+
+	if (attack1CoolDown <= 0)
+	{
+		stateMachine.ChangeState((int)BossState::ATTACK);
+
+		animations[stateMachine.GetCurrentState()].Reset();
+
+		attack1CoolDown = (rand() % 5000 + 20000); //20-25s
+	}
+	else if(attack2CoolDown <= 0)
+	{
+		stateMachine.ChangeState((int)BossState::ATTACK2);
+
+		invulnarable = true;
+
+		animations[stateMachine.GetCurrentState()].Reset();
+
+		for (int i = 0; i < MISSILE_NUM; i++)
+		{
+			missiles[i]->AttackRequest();
+		}
+	}
+	else if (attack3CoolDown <= 0)
+	{
+		stateMachine.ChangeState((int)BossState::ATTACK3);
+
+		attack->pBody->body->SetActive(true);
+
+		renderObjects[1].draw = true;
+
+		attack3Count = 10000; // ms
+	}
 }
 
+// Proyectil
 void Boss::DoAttack()
 {
 	SetLinearVelocity(fPoint{ 0,0 });
@@ -333,12 +476,13 @@ void Boss::DoAttack()
 
 		projectile->SetActive(true);
 
-		projectile->Attack(20);
+		projectile->Attack(15);
 
 		stateMachine.ChangeState((int)BossState::RUN);
 	}
 }
 
+// Misil
 void Boss::DoAttack2()
 {
 	SetLinearVelocity(fPoint{ 0,0 });
@@ -361,12 +505,44 @@ void Boss::DoAttack2()
 		invulnarable = false;
 
 		animations[stateMachine.GetCurrentState()].Reset();
+
+		attack2CoolDown = (rand() % 10000 + 10000); //10-20s
 	}
 }
 
+// Laser
 void Boss::DoAttack3()
 {
 	SetLinearVelocity(fPoint{ 0,0 });
+
+	attackAngle = GetAttackAngle();
+
+	int attackRotation = AttackRotation(attackAngle);
+
+	//printf("Angle: %f\n", attackAngle);
+
+	float tempAngle =  attack->GetDegreeAngle();
+
+	tempAngle += attackRotation;
+
+	attack->SetRotation(tempAngle, true, AttackPivot(tempAngle));
+
+	renderObjects[1].rotation += attackRotation;
+
+	attack3Count -= bossTimer.getDeltaTime() * 1000;
+
+	if (attack3Count <= 0)
+	{
+		stateMachine.ChangeState((int)BossState::RUN);
+
+		animations[stateMachine.GetCurrentState()].Reset();
+
+		attack->pBody->body->SetActive(false);
+
+		renderObjects[1].draw = false;
+
+		attack3CoolDown = (rand() % 20000 + 15000); //15-35s
+	}
 }
 
 void Boss::UpdateHpUI()

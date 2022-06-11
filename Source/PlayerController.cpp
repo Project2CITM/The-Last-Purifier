@@ -21,6 +21,7 @@
 
 PlayerController::PlayerController(std::string name, std::string tag, Player* player) : GameObject(name, tag)
 {
+	// Game Events this class listents to
 	this->listenTo[0] = GameEvent::COMPLETE_ROOM;
 	this->listenTo[1] = GameEvent::PLAYER_DIE;
 	this->listenTo[2] = GameEvent::RESUME_PLAYER_MOVEMENT;
@@ -30,8 +31,9 @@ PlayerController::PlayerController(std::string name, std::string tag, Player* pl
 	app->events->AddListener(this);
 	this->player = player;
 
-	playerdodgeFX = app->audio->LoadFx("Audio/SFX/Player/sfx_playerDodge.wav");
+	playerdodgeFX = app->audio->LoadFx("Assets/Audio/SFX/Player/sfx_playerDodge.wav", false);
 	playerhitFX = app->audio->LoadFx("Audio/SFX/Player/sfx_playerHit2");
+	
 	this->playerShadow = new PlayerShadow(this);
 }
 
@@ -53,7 +55,7 @@ void PlayerController::Start()
 
 	currentAnim = PlayerAnim::IDLE;
 
-	// Initialize physic body
+	// Initialize physics body
 	CreatePhysBody();
 }
 
@@ -61,6 +63,7 @@ void PlayerController::PreUpdate()
 {
 	if (pendingToDelete) return;
 
+	// Timers ----------------------------------------------
 	playerTimer.Update();
 
 	// Check invulnerability counter
@@ -87,11 +90,11 @@ void PlayerController::PreUpdate()
 		{
 			isDashing = false;
 			pBody->body->SetLinearVelocity({ 0,0 });
-			new ParticleTeleport(GetPosition());
+			if (player->playerClass == PlayerClass::SAGE) new ParticleTeleport(GetPosition());
 		}
 
 		// Alpha animation------------------
-		if (renderObjects[0].color.a > 0) DashAnimation(-70);
+		if (player->classColor.a > 0) DashAnimation(-70);
 		else if (playerShadow->enable)
 		{
 			playerShadow->enable = false;
@@ -100,7 +103,7 @@ void PlayerController::PreUpdate()
 	else
 	{	
 		// Alpha animation------------------
-		if (renderObjects[0].color.a < 255) DashAnimation(70);
+		if (player->classColor.a < 255) DashAnimation(70);
 		else if (!playerShadow->enable)
 		{
 			playerShadow->enable = true;
@@ -119,7 +122,9 @@ void PlayerController::PreUpdate()
 
 	playerTimer.Reset();
 
-	if (!isInvulnerable && beenHit)beenHit = false;
+	//-----------------------------------------------------------------------------------------------
+
+	if (!isInvulnerable && beenHit) beenHit = false;
 
 	// Every frame set the linear velocity to 0 in case we are not moving and we are not dashing
 	// This is done to prevent drifting when applying forces from other bodies into the player body.
@@ -140,11 +145,25 @@ void PlayerController::PreUpdate()
 	// If our current animation has finished, we reset it manually. This is made for DASH and ATTACK animations.
 	// When these animations end, you must Reset them for the next time you'll use them
 	if (animations[(int)currentAnim].HasFinished()) animations[(int)currentAnim].Reset();
+
+	// Debug key to activate God Mode
+	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+	{
+		godMode = !godMode;
+
+		if (godMode)
+		{
+			normalDamage = player->damage;
+			player->damage = 1000;
+		}
+		else player->damage = normalDamage;
+	}
 }
 
 void PlayerController::Update()
 {
 	if (pendingToDelete) return;
+
 	// Update State Machine
 	stateMachine.Update();
 
@@ -153,34 +172,20 @@ void PlayerController::Update()
 
 	// Update animation
 	animations[(int)currentAnim].Update();	
-
-
-	//GodMode Active
-	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN && !godMode) {
-		godMode = !godMode;
-		normalDamage = player->damage;
-		player->damage = 1000;
-		
-	}
-	else if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN && godMode) {
-		godMode = !godMode;
-		player->damage = normalDamage;
-	}
-
-	//LOG("Damage: %d", player->damage);
 }
 
 void PlayerController::PostUpdate()
 {
 	if (pendingToDelete) return;
 
+	// This creates the visual effect when the player is hit
 	if (invulnerabilityCounter % 10 == 1 && beenHit) return;
-	// Update current Animation state 
-	
+
 	SetAnimationState(); // Sets the current animation to be drawed
 
-	/*if (godMode) renderObjects[0].SetColor({ 0, 255, 17 ,255 });
-	else  renderObjects[0].SetColor({ 255, 255, 255 ,255 });*/
+	// Change color if god mode is active.
+	if (godMode) renderObjects[0].SetColor({ 0, 255, 17 ,255 });
+	else  renderObjects[0].SetColor(player->classColor);
 
 	UpdateOrderInLayer(0);
 	renderObjects[0].section = animations[(int)currentAnim].GetCurrentFrame();
@@ -196,8 +201,7 @@ void PlayerController::PostUpdate()
 void PlayerController::CleanUp()
 {
 	app->events->RemoveListener(this);
-	// PlayerCombat is not deleted here because it gets added automatically to the scene.
-	// Therefor, is deleted by the scene.
+
 	if (combat != nullptr)
 	{
 		combat->pendingToDelete = true;
@@ -216,11 +220,14 @@ void PlayerController::CreatePhysBody()
 		0,8
 	};
 
+	// The macros used here are to determine the position of the player inside the map. 
 	this->pBody = app->physics->CreateChainObj(((MAX_ROOMS_COLUMNS + 1) * MAX_ROOM_TILES_COLUMNS * TILE_SIZE) / 2,
 		((MAX_ROOMS_ROWS + 1) * MAX_ROOM_TILES_ROWS * TILE_SIZE) / 2,
 		playerChain, 8, true, this);
 	this->pBody->body->SetFixedRotation(true);
 
+
+	// Left and Right circles are to make collisions with corners smother.
 	// Left Circle
 	b2FixtureDef circleL;
 	b2CircleShape shape;
@@ -239,6 +246,7 @@ void PlayerController::CreatePhysBody()
 
 	pBody->body->CreateFixture(&circleR);
 
+	// Add physics filter to all bodies attached to the player
 	b2Filter filter;
 	filter.categoryBits = app->physics->PLAYER_LAYER;
 	filter.maskBits = app->physics->EVERY_LAYER & ~app->physics->PLAYER_LAYER;
@@ -265,7 +273,7 @@ void PlayerController::MovementUpdateKeyboard()
 	// If we are dashing, all other movement is disabled
 	if (isDashing) return;
 
-	// Vertical 
+	// Vertical --------------------------------------------------------------------------
 	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 	{
 		pBody->body->SetLinearVelocity({ pBody->body->GetLinearVelocity().x, -speed });
@@ -295,7 +303,7 @@ void PlayerController::MovementUpdateKeyboard()
 		pBody->body->SetLinearVelocity({ pBody->body->GetLinearVelocity().x, 0 });
 	}
 
-	// Horizontal
+	// Horizontal ---------------------------------------------------------------------
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
 		pBody->body->SetLinearVelocity({ speed,pBody->body->GetLinearVelocity().y });
@@ -383,6 +391,7 @@ void PlayerController::MovementUpdateController()
 	int xInput = direction.x;
 	int yInput = direction.y;
 
+	// Based on the current direction, we set different states and looking directions to the player.
 	if (abs(xInput) > abs(yInput))
 	{
 		if (direction.x > 0)
@@ -408,7 +417,6 @@ void PlayerController::MovementUpdateController()
 		}
 		else if (direction.y > 0)
 		{
-			//Change Player State
 			stateMachine.ChangeState((uint)PlayerState::RUN);
 			tryingToMove = true;
 			lookingDir = LookingDirection::DOWN;
@@ -422,7 +430,6 @@ void PlayerController::MovementUpdateController()
 	// Apply speed if we are currently running (so it doesnt apply when attacking)
 	if (stateMachine.GetCurrentState() == (uint)PlayerState::RUN) pBody->body->SetLinearVelocity(direction);
 
-	
 	if (app->input->GetControllerButton(BUTTON_B) == KEY_DOWN)
 	{
 		if (!isDashing)
@@ -477,17 +484,18 @@ void PlayerController::DashOn()
 	}
 	pBody->body->SetLinearVelocity(dir);
 
-	new ParticleTeleport(GetPosition());
+	if (player->playerClass == PlayerClass::SAGE) new ParticleTeleport(GetPosition());
 }
 
 void PlayerController::DashAnimation(int sum)
 {
+	if (player->playerClass == PlayerClass::REVENANT) return;
 	int currentAlpha = renderObjects[0].color.a + sum;
 
 	if (currentAlpha < 0) currentAlpha = 0;
 	if (currentAlpha > 255) currentAlpha = 255;
 
-	renderObjects[0].color.a = currentAlpha;
+	player->classColor.a = currentAlpha;
 }
 
 void PlayerController::SetAnimationState()
@@ -521,14 +529,6 @@ void PlayerController::SetAnimationState()
 	}
 }
 
-fPoint PlayerController::GetPlayerToMouseVector()
-{
-	fPoint vec = { (float)(app->input->GetMouseX() - GetScreenPosition().x), (float)(app->input->GetMouseY() - GetScreenPosition().y ) };
-	vec = vec.Normalize();
-
-	return vec;
-}
-
 void PlayerController::OnCollisionEnter(PhysBody* col)
 {
 	if (col->gameObject == nullptr) return;
@@ -544,11 +544,6 @@ void PlayerController::OnCollisionEnter(PhysBody* col)
 	}
 }
 
-void PlayerController::OnCollisionExit(PhysBody* col)
-{
-
-}
-
 void PlayerController::OnTriggerEnter(std::string trigger, PhysBody* col)
 {
 	if (col->gameObject == nullptr) return;
@@ -559,7 +554,6 @@ void PlayerController::OnTriggerEnter(std::string trigger, PhysBody* col)
 	{
 		DamageArea* dArea = (DamageArea*)col->gameObject;
 		Hit(dArea->GetDamage());
-	    Stun(dArea->stunTime);
 	}
 
 	if (col->gameObject->CompareTag("Enemy"))
@@ -576,46 +570,41 @@ void PlayerController::OnTriggerEnter(std::string trigger, PhysBody* col)
 
 void PlayerController::Hit(int damage)
 {
-	if (!godMode) 
+	if (godMode) return;
+
+	app->audio->PlayFx(playerhitFX);
+
+	// Calculate damage looking at player shield.
+	int totalDamage = damage - player->shield;
+	if (totalDamage < 0) totalDamage = 0;
+
+	player->ChangeShield(-damage);
+
+	// Apply total damage to the player.
+	player->hpPlayer -= totalDamage;
+
+	if (player->hpPlayer <= 0)
 	{
-		app->audio->PlayFx(playerhitFX);
-		int totalDamage = damage - player->shield;
-		if (totalDamage < 0) totalDamage = 0;
-		player->ChangeShield(-damage);
+		enemyTrigger->pendingToDelete = true;
 
-		printf("Player beefore HP:%d\t", player->hpPlayer);
+		enemyTrigger = nullptr;
 
-		player->hpPlayer -= totalDamage;
+		app->events->TriggerEvent(GameEvent::PLAYER_DIE);
+		app->events->TriggerEvent(GameEvent::SAVE_GAME_LOSE);
 
-		printf("Player after HP:%d\n", player->hpPlayer);
+		canControl = false;
 
-		if (player->hpPlayer <= 0)
-		{
-			enemyTrigger->pendingToDelete = true;
-
-			enemyTrigger = nullptr;
-			/*app->scene->ChangeCurrentSceneRequest(SCENES::GAME_OVER, 60);*/
-
-			app->events->TriggerEvent(GameEvent::PLAYER_DIE);
-			app->events->TriggerEvent(GameEvent::SAVE_GAME_LOSE);
-
-			canControl = false;
-
-			return;
-		}
-
-		// Camera Shake effect
-		app->renderer->camera->Shake(30, 10, 2);
-
-		beenHit = true;
-		Invulnerability(invulnerabilityTimeHit);
-
-		app->events->TriggerEvent(GameEvent::PLAYER_HIT);
+		return;
 	}
-}
 
-void PlayerController::Stun(int frames)
-{
+	// Camera Shake effect
+	app->renderer->camera->Shake(30, 10, 2);
+
+	// Activate invulnerability time
+	beenHit = true;
+	Invulnerability(invulnerabilityTimeHit);
+
+	app->events->TriggerEvent(GameEvent::PLAYER_HIT);
 }
 
 void PlayerController::Invulnerability(int frames)
@@ -641,7 +630,7 @@ void PlayerController::GameEventTriggered(GameEvent id)
 		canControl = true;
 		break;
 	case GameEvent::ENEMY_HIT:
-		purifiedSwordHeals();
+		PurifiedSwordHeals();
 		break;
 	}
 }
@@ -672,17 +661,12 @@ void PlayerController::AttackImpulse()
 	pBody->body->SetLinearVelocity(dir);
 }
 
-void PlayerController::purifiedSwordHeals()
+void PlayerController::PurifiedSwordHeals()
 {
 	int heal = 5;
 	int playerLife = player->hpPlayer;
 	if (player->purifiedSwordOn)
 	{
-		/*if (playerLife >= player->hpMax)
-		{
-			
-			return;
-		}*/
 		if ((playerLife + heal) > player->hpMax)
 		{
 			player->hpPlayer = player->hpMax;

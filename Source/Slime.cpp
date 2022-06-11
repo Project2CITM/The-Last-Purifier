@@ -43,6 +43,9 @@ Slime::Slime(iPoint pos) : Enemy("slime")
 
 	// Init physBody 
 	InitPhysics();
+
+	chargeLaserSFX = app->audio->LoadFx("Assets/Audio/SFX/Enemies/sfx_laserCharge.wav", false);
+	shootLaserSFX = app->audio->LoadFx("Assets/Audio/SFX/Enemies/sfx_laserShoot.wav", false);
 }
 
 Slime::~Slime()
@@ -52,7 +55,10 @@ Slime::~Slime()
 		damageTrigger->Destroy();
 		damageTrigger = nullptr;
 	}
-	attack->pendingToDelete = true;
+	if(attack)
+	{
+		attack->pendingToDelete = true;
+	}
 }
 
 void Slime::PreUpdate()
@@ -149,7 +155,7 @@ void Slime::UpdateStates()
 	break;
 	case (int)SlimeState::ATTACK:
 	{
-		//printf("Attck\n");
+		if (attackTime == 3000) app->audio->PlayFx(chargeLaserSFX);
 
 		attackTime -= slimeTimer.getDeltaTime() * 1000;
 
@@ -172,6 +178,10 @@ void Slime::UpdateStates()
 				attack->pBody->body->SetActive(true);
 
 				renderObjects[1].draw = true;
+
+				app->audio->StopFX(chargeLaserSFX);
+
+				app->audio->PlayFx(shootLaserSFX);
 			}
 		}
 
@@ -214,6 +224,14 @@ void Slime::UpdateStates()
 
 void Slime::DisableCollisions()
 {
+	if(attack)
+	{
+		attack->pendingToDelete = true;
+
+		attack->pBody->body->SetActive(false);
+
+		attack = nullptr;
+	}
 
 	if (damageTrigger != nullptr)
 	{
@@ -280,7 +298,7 @@ void Slime::InitPhysics()
 
 	attack->tag = "SlimeLaser";
 
-	attack->pBody->body->SetActive(true);
+	attack->pBody->body->SetActive(false);
 
 	attack->pBody->body->GetFixtureList()->SetFilterData(filterB);
 

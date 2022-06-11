@@ -53,9 +53,9 @@ private:
 
 	void InitPhysics();
 
-	void DoAttack();
+	//void DoAttack();
 
-	void ResetAttackCoolDown();
+	//void ResetAttackCoolDown();
 
 	void SetTriggeeActive(bool active);
 
@@ -90,6 +90,9 @@ private:
 	iPoint attackPos = { 0,0 };
 
 	Timer slimeTimer;
+
+	uint chargeLaserSFX;
+	uint shootLaserSFX;
 
 	//int attackFXCoolDown = 0;
 

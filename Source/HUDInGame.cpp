@@ -75,8 +75,8 @@ bool HUDInGame::Start()
 
 	iconSouls.InitAsTexture(app->textures->Load("Sprites/Soul/soul.png"), { app->renderer->camera->x + 77, app->renderer->camera->y + 5 }, { 0,0,50,89 }, 0.25f, 4, 0, 0, SDL_FLIP_NONE, 0);
 
-	SpellSelectAnim.InitAsTexture(app->textures->Load("Assets/Sprites/UI/marcoAnim.png"), { 0,0 }, { 0,0,0,0 }, 0.30f, 3, 4, 0, SDL_FLIP_NONE, 0);
-	SpellNoSelectAnim.InitAsTexture(app->textures->Load("Assets/Sprites/UI/marcoAnimcopia.png"), { 0,0 }, { 0,0,0,0 }, 0.30f, 3, 2, 0, SDL_FLIP_NONE, 0);
+	SpellSelectAnim.InitAsTexture(app->textures->Load("Assets/Sprites/UI/marcoAnim.png"), { 0,0 }, { 0,0,0,0 }, 0.20f, 3, 4, 0, SDL_FLIP_NONE, 0);
+	SpellNoSelectAnim.InitAsTexture(app->textures->Load("Assets/Sprites/UI/marcoAnimcopia.png"), { 0,0 }, { 0,0,0,0 }, 0.20f, 3, 2, 0, SDL_FLIP_NONE, 0);
 	SpellNoSelectAnim.color = { 255,255,255,100 };
 	Torch1.InitAsTexture(app->textures->Load("Assets/Sprites/UI/antorchas.png"), { 80,210 }, { 0,0,0,0 }, 1, 5, 2, 0, SDL_FLIP_NONE, 0);
 	Torch2.InitAsTexture(app->textures->Load("Assets/Sprites/UI/antorchas.png"), { 510,210 }, { 0,0,0,0 }, 1, 5, 2, 0, SDL_FLIP_NONE, 0);
@@ -130,6 +130,8 @@ bool HUDInGame::Start()
 
 	Hover = app->audio->LoadFx("Audio/SFX/UI/sfx_uiHover.wav");
 	Press = app->audio->LoadFx("Audio/SFX/UI/sfx_uiSelect.wav");
+	pauseOnSFX = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_pauseMenuOn.wav", false);
+	pauseOffSFX = app->audio->LoadFx("Assets/Audio/SFX/UI/sfx_pauseMenuOff.wav", false);
 
 	text = new Text({app->renderer->camera->x + 90, app->renderer->camera->y + 15 }, std::to_string(score));
 
@@ -195,6 +197,7 @@ bool HUDInGame::PreUpdate()
 			MenuPauseY = -200;
 			ComeIn = 1;
 			TorchAlfa = 0;
+			app->audio->PlayFx(pauseOffSFX);
 		}
 	}
 
@@ -227,6 +230,8 @@ bool HUDInGame::Update()
 			app->audio->SetMusicVolume(app->audio->musicVol/2);
 			app->audio->SetSFXVolume(app->audio->fxVol/2);
 			startPause = true;
+
+			app->audio->PlayFx(pauseOnSFX);
 		}
 
 		if (MenuPauseY <= -11)
@@ -296,6 +301,8 @@ bool HUDInGame::Update()
 				app->isPause = false;
 				ResumeBUT->PressButton();
 				ResumeBUT->doAction = false;
+
+				app->audio->PlayFx(pauseOffSFX);
 				return true;
 			}
 
@@ -662,8 +669,11 @@ void HUDInGame::InitializeSlots()
 	for (int i = 0; i < player->player->spellSlots; i++)
 	{
 		RenderObject rO;
-		iPoint pos = { spellSlotsPositions[player->player->spellSlots - 1][i].x, spellSlotsPositions[player->player->spellSlots - 1][i].y };
-		rO.InitAsTexture(app->textures->Load("Assets/Sprites/UI/iconsSpells.png"), pos, { 0,0,0,0 }, 1, 3, 0, 0, SDL_FLIP_NONE, 0);
+		iPoint pos = { spellSlotsPositions[player->player->spellSlots - 1][i].x, spellSlotsPositions[player->player->spellSlots - 1][i].y
+	};
+		pos.x += 3;
+		pos.y += 2;
+		rO.InitAsTexture(app->textures->Load("Assets/Sprites/UI/iconsSpells.png"), pos, { 0,0,0,0 }, 0.58, 3, 0, 0, SDL_FLIP_NONE, 0);
 		spellSlots.add(rO);
 	}
 
@@ -672,11 +682,11 @@ void HUDInGame::InitializeSlots()
 	{
 		RenderObject rO;
 		// Get position from last spell slot position
-		iPoint spellPos = { spellSlotsPositions[player->player->spellSlots - 1].end->data.x, spellSlotsPositions[player->player->spellSlots - 1].end->data.y };
+		iPoint spellPos = { spellSlotsPositions[player->player->spellSlots - 1].start->data.x, spellSlotsPositions[player->player->spellSlots - 1].start->data.y };
 		// Add an offset to that position based on the current iteration
-		iPoint position = spellPos + iPoint(40, 0);
+		iPoint position = spellPos + iPoint(10, 0);
 		position.x += 20 * i;
-		position.y = 340;
+		position.y += 30;
 		rO.InitAsTexture(app->textures->Load("Assets/Sprites/UI/iconsSpells.png"), position, { 0,0,0,0 }, 0.5f, 3, 0, 0, SDL_FLIP_NONE, 0);
 		deckSlots.add(rO);
 	}
@@ -689,14 +699,14 @@ void HUDInGame::InitializeSpellSlotsPositions()
 	// spellSlotsPositions[numberOfSlots][slot]
 	// Example: spellSlotsPositions[2Slots][slot1] = There are 2 available slots, and we are refering to the first one
 	
-	spellSlotsPositions[0].add({ 54, 60, 30, 40 }); // 1 Available: Refering to slot 1
+	spellSlotsPositions[0].add({ 52, 62, 30, 40 }); // 1 Available: Refering to slot 1
 
 	spellSlotsPositions[1].add({ 40, 60, 30, 40 });// 2 Available: Refering to slot 1
 	spellSlotsPositions[1].add({ 80, 60 , 30, 40 });// 2 Available: Refering to slot 2
 
-	spellSlotsPositions[2].add({ 20, 60 , 30, 40 });// 3 Available: Refering to slot 1
-	spellSlotsPositions[2].add({ 54, 60, 30, 40 });// 3 Available: Refering to slot 2
-	spellSlotsPositions[2].add({ 88, 60 , 30, 40 });// 3 Available: Refering to slot 3
+	spellSlotsPositions[2].add({ 25, 60 , 30, 40 });// 3 Available: Refering to slot 1
+	spellSlotsPositions[2].add({ 56, 60, 30, 40 });// 3 Available: Refering to slot 2
+	spellSlotsPositions[2].add({ 90, 60 , 30, 40 });// 3 Available: Refering to slot 3
 
 	spellSlotsPositions[3].add({ 0, 60 , 30, 40 });// 4 Available: Refering to slot 1
 	spellSlotsPositions[3].add({ 40, 60 , 30, 40 });// 4 Available: Refering to slot 2

@@ -6,6 +6,7 @@
 #include <map>
 
 #define DEFAULT_MUSIC_FADE_TIME 2.0f
+#define MIX_CHANNELS_NUMBER 24
 
 enum SFX
 {
@@ -54,6 +55,8 @@ public:
 	void SetMusicVolume(int vol);
 
 	void SetSFXVolume(int vol);
+
+	void StopFX(unsigned int id);
 
 private:
 

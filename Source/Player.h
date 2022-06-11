@@ -2,6 +2,7 @@
 #define _PLAYER_
 
 #include "Globals.h"
+#include "External/SDL/include/SDL.h"
 
 enum class PlayerClass
 {
@@ -57,6 +58,7 @@ public:
 	int extraDamage = 0;
 	int stunTime = 0;
 	int pushDistance = 0;
+	SDL_Color classColor = { 255,255,255,255 };
 
 	// Spell stats
 	bool purifiedSwordOn = false;

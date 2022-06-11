@@ -1,6 +1,8 @@
 #include "PurifiedSwordS.h"
 #include <string>
 #include "Player.h"
+#include "Application.h"
+#include "ModuleAudio.h"
 
 
 PurifiedSwordS::PurifiedSwordS() : Spell()
@@ -23,6 +25,8 @@ PurifiedSwordS::PurifiedSwordS() : Spell()
 	uses = spellStats.child("uses").attribute("quantity").as_int();
 
 	spellName = spellStats.child("name").attribute("name").as_string();
+
+	executeSFX = Application::GetInstance()->audio->LoadFx("Assets/Audio/SFX/Spells/sfx_standardSpell.wav", false);
 }
 
 PurifiedSwordS::~PurifiedSwordS()
@@ -41,6 +45,8 @@ void PurifiedSwordS::Execute(int level)
 	player->extraDamage += damage[currentLevel];
 	currentAttacks = attackUses;
 	player->purifiedSwordOn = true;
+
+	Application::GetInstance()->audio->PlayFx(executeSFX);
 }
 
 void PurifiedSwordS::Update()

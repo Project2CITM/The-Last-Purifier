@@ -34,5 +34,8 @@ private:
 	bool isFoteiros = false;
 
 	iPoint spriteOffset[2];
+
+	uint projectileSFX;
+	uint explodeSFX;
 };
 #endif

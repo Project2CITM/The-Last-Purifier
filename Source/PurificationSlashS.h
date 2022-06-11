@@ -24,5 +24,7 @@ private:
 	int attackFrames = 5;
 	int currentFrame = 0;
 	int damage[3];
+
+	uint slashSFX;
 };
 
