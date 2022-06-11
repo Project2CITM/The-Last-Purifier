@@ -124,7 +124,7 @@ void PlayerController::PreUpdate()
 
 	//-----------------------------------------------------------------------------------------------
 
-	if (!isInvulnerable && beenHit)beenHit = false;
+	if (!isInvulnerable && beenHit) beenHit = false;
 
 	// Every frame set the linear velocity to 0 in case we are not moving and we are not dashing
 	// This is done to prevent drifting when applying forces from other bodies into the player body.
@@ -147,7 +147,7 @@ void PlayerController::PreUpdate()
 	if (animations[(int)currentAnim].HasFinished()) animations[(int)currentAnim].Reset();
 
 	// Debug key to activate God Mode
-	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN && !godMode)
+	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 	{
 		godMode = !godMode;
 
