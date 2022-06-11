@@ -298,7 +298,7 @@ void Slime::InitPhysics()
 
 	attack->tag = "SlimeLaser";
 
-	attack->pBody->body->SetActive(true);
+	attack->pBody->body->SetActive(false);
 
 	attack->pBody->body->GetFixtureList()->SetFilterData(filterB);
 
