@@ -330,7 +330,7 @@
 	</dialogText>
 	<audios>
 		<music volume="0" />
-		<sfx volume="0" />
+		<sfx volume="28" />
 	</audios>
 	<scenes>
 		<level1>
@@ -365,9 +365,9 @@
 					<angleRange min="0" max="360" />
 					<maxSpeed value="200" />
 					<maxSize value="1" />
-					<emitNumber value="3" />
-					<emitVariance value="10" />
-					<maxParticleLife value="50" />
+					<emitNumber value="5" />
+					<emitVariance value="1" />
+					<maxParticleLife value="30" />
 					<textureRect x="129" y="0" w="16" h="16" />
 					<startColor r="255" g="0" b="0" a="255" />
 					<endColor r="200" g="0" b="0" a="0" />

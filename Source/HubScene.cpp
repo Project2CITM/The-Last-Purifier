@@ -220,11 +220,11 @@ bool HubScene::PreUpdate()
 		player->controller->SetPosition({ 926, 1579 });
 	}*/
 
-	if (app->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
+	/*if (app->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
 	{
 		app->psystem->AddEmiter({ 970, 1485 }, EmissorType::EMISSOR_TYPE_BLOOD);
 
-	}
+	}*/
 
 	//PreUpdates
 	hudInGame->PreUpdate();
