@@ -70,7 +70,7 @@ void MiniMap::MiniMapPrint(iPoint pos, iPoint playerPos)
 	//Print Hub
 	if (isHub) 
 	{
-		//TODO: print for hub
+		//Print for hub
 		playerPos.x /= 10;
 		playerPos.y /= 10;
 		playerPos += {128, 128};
