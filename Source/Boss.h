@@ -112,7 +112,11 @@ private:
 
 	bool flip = false;
 
-	int attackCoolDown = 160; // ms
+	int attack1CoolDown = 0; // ms
+
+	int attack2CoolDown = 0; // ms
+
+	int attack3CoolDown = 0; // ms
 
 	Timer bossTimer;
 
