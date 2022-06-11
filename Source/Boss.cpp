@@ -63,6 +63,14 @@ Boss::Boss(iPoint pos) : Enemy("boss")
 
 	// Init HpUI
 	bossHp.bg = bossHp.delayHp = bossHp.currentHp = { 50, 320, 500, 15 };
+
+	// Init attack time
+
+	attack1CoolDown = (rand() % 10000 + 5000);  // 5-15 s
+
+	attack2CoolDown = (rand() % 10000 + 10000); // 10-20 s
+
+	attack3CoolDown = (rand() % 20000 + 20000); // 20 - 40 s
 }
 
 Boss::~Boss()
@@ -137,6 +145,8 @@ void Boss::Hit(int damage)
 	Enemy::Hit(damage);
 
 	float percent = (float)health / (float)maxHealh;
+
+	if (percent <= 0.5f) moveSpeed = 4.0f;
 
 	float hp = (bossHp.bg.w * percent);
 
@@ -412,6 +422,46 @@ void Boss::DoRun()
 	SetLinearVelocity(dir * moveSpeed);
 
 	flip = dir.x > 0 ? false : true;
+
+	// Update attack time
+
+	attack1CoolDown -= bossTimer.getDeltaTime() * 1000;
+
+	attack2CoolDown -= bossTimer.getDeltaTime() * 1000;
+
+	attack3CoolDown -= bossTimer.getDeltaTime() * 1000;
+
+	if (attack1CoolDown <= 0)
+	{
+		stateMachine.ChangeState((int)BossState::ATTACK);
+
+		animations[stateMachine.GetCurrentState()].Reset();
+
+		attack1CoolDown = (rand() % 5000 + 20000); //20-25s
+	}
+	else if(attack2CoolDown <= 0)
+	{
+		stateMachine.ChangeState((int)BossState::ATTACK2);
+
+		invulnarable = true;
+
+		animations[stateMachine.GetCurrentState()].Reset();
+
+		for (int i = 0; i < MISSILE_NUM; i++)
+		{
+			missiles[i]->AttackRequest();
+		}
+	}
+	else if (attack3CoolDown <= 0)
+	{
+		stateMachine.ChangeState((int)BossState::ATTACK3);
+
+		attack->pBody->body->SetActive(true);
+
+		renderObjects[1].draw = true;
+
+		attack3Count = 10000; // ms
+	}
 }
 
 // Proyectil
@@ -426,7 +476,7 @@ void Boss::DoAttack()
 
 		projectile->SetActive(true);
 
-		projectile->Attack(20);
+		projectile->Attack(15);
 
 		stateMachine.ChangeState((int)BossState::RUN);
 	}
@@ -455,6 +505,8 @@ void Boss::DoAttack2()
 		invulnarable = false;
 
 		animations[stateMachine.GetCurrentState()].Reset();
+
+		attack2CoolDown = (rand() % 10000 + 10000); //10-20s
 	}
 }
 
@@ -488,6 +540,8 @@ void Boss::DoAttack3()
 		attack->pBody->body->SetActive(false);
 
 		renderObjects[1].draw = false;
+
+		attack3CoolDown = (rand() % 20000 + 15000); //15-35s
 	}
 }
 
