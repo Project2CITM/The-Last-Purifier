@@ -32,6 +32,8 @@ Boss::Boss(iPoint pos) : Enemy("boss")
 
 	renderObjects[1].draw = false;
 
+	renderObjects->screenDetect = false;
+
 	renderObjects[1].textureCenterX = 0;
 
 	renderObjects[1].textureCenterY = 10;
