@@ -32,6 +32,8 @@ Boss::Boss(iPoint pos) : Enemy("boss")
 
 	renderObjects[1].draw = false;
 
+	renderObjects->screenDetect = false;
+
 	renderObjects[1].textureCenterX = 0;
 
 	renderObjects[1].textureCenterY = 10;
@@ -66,11 +68,11 @@ Boss::Boss(iPoint pos) : Enemy("boss")
 
 	// Init attack time
 
-	attack1CoolDown = (rand() % 10000 + 5000);  // 5-15 s
+	attack1CoolDown = (rand() % 5000 + 5000);  // 5 - 10 s
 
-	attack2CoolDown = (rand() % 10000 + 10000); // 10-20 s
+	attack2CoolDown = (rand() % 10000 + 10000); // 10 - 20 s
 
-	attack3CoolDown = (rand() % 20000 + 20000); // 20 - 40 s
+	attack3CoolDown = (rand() % 20000 + 15000); // 15 - 35 s
 }
 
 Boss::~Boss()
@@ -187,43 +189,6 @@ void Boss::UpdateStates()
 		if (animations[stateMachine.GetCurrentState()].HasFinished()) Enemy::Die(true);
 
 		break;
-	}
-
-	// Debug Keys
-	if (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
-	{
-		stateMachine.ChangeState((int)BossState::ATTACK);
-
-		animations[stateMachine.GetCurrentState()].Reset();
-
-		//moveSpeed += 2;
-	}
-	if (app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
-	{
-		stateMachine.ChangeState((int)BossState::ATTACK2);
-
-		invulnarable = true;
-
-		animations[stateMachine.GetCurrentState()].Reset();
-
-		for (int i = 0; i < MISSILE_NUM; i++)
-		{
-			missiles[i]->AttackRequest();
-		}
-	}
-	if (app->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
-	{
-		stateMachine.ChangeState((int)BossState::ATTACK3);
-
-		attack->pBody->body->SetActive(true);
-
-		renderObjects[1].draw = true;
-
-		attack3Count = 10000; // ms
-	}
-	if (app->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN)
-	{
-		stateMachine.ChangeState((int)BossState::RUN);
 	}
 }
 
@@ -437,7 +402,7 @@ void Boss::DoRun()
 
 		animations[stateMachine.GetCurrentState()].Reset();
 
-		attack1CoolDown = (rand() % 5000 + 20000); //20-25s
+		attack1CoolDown = (rand() % 5000 + 12000); //12-17s
 	}
 	else if(attack2CoolDown <= 0)
 	{
@@ -506,7 +471,7 @@ void Boss::DoAttack2()
 
 		animations[stateMachine.GetCurrentState()].Reset();
 
-		attack2CoolDown = (rand() % 10000 + 10000); //10-20s
+		attack2CoolDown = (rand() % 7000 + 8000); //8-15s
 	}
 }
 
@@ -541,7 +506,7 @@ void Boss::DoAttack3()
 
 		renderObjects[1].draw = false;
 
-		attack3CoolDown = (rand() % 20000 + 15000); //15-35s
+		attack3CoolDown = (rand() % 10000 + 10000); //10-20s
 	}
 }
 
