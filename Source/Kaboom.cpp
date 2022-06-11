@@ -52,7 +52,7 @@ Kaboom::Kaboom(iPoint pos, Room* room) :Enemy("kaboom")
 Kaboom::~Kaboom()
 {
 	DestroyTriggers();
-	attack->pendingToDelete = true;
+	if(attack) attack->pendingToDelete = true;
 }
 
 void Kaboom::PreUpdate()
@@ -148,8 +148,7 @@ void Kaboom::UpdateStates()
 
 		stateMachine.ChangeState((int)KaboomState::RUN);
 
-		DoRun();
-		
+		DoRun();		
 	}
 	break;
 	case (int)KaboomState::RUN:
@@ -216,6 +215,8 @@ void Kaboom::UpdateStates()
 void Kaboom::CleanUp()
 {
 	currentRoom = nullptr;
+
+	DisableCollisions();
 }
 
 void Kaboom::InitAnimation()
@@ -366,6 +367,12 @@ void Kaboom::DestroyTriggers()
 	{
 		damageTrigger->Destroy();
 		damageTrigger = nullptr;
+	}
+	if(attack)
+	{
+		attack->pendingToDelete = true;
+
+		attack = nullptr;
 	}
 }
 
