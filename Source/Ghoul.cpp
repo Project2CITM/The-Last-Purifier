@@ -282,7 +282,9 @@ void Ghoul::InitStateMachine()
 	stateMachine.AddState("Idle", 0);
 	stateMachine.AddState("Run", 0);
 	stateMachine.AddState("Attack", 1, 720);
-	stateMachine.AddState("Hit", 2, 560);
+	int hitTime = 560;
+	if (mutante) hitTime = 0;
+	stateMachine.AddState("Hit", 2, hitTime);
 	stateMachine.AddState("Die", 48);
 
 	stateMachine.ChangeState((int)GhoulState::IDLE);
