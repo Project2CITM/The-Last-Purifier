@@ -10,7 +10,8 @@ enum RenderType
 	RENDER_TEXTURE,
 	RENDER_RECT,
 	RENDER_LINE,
-	RENDER_CIRCLE
+	RENDER_CIRCLE,
+	RENDER_PARTICLE
 };
 
 class RenderObject
@@ -71,6 +72,15 @@ public:
 			SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 			SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
 			SDL_RenderDrawLine(renderer, pos1.x, pos1.y, pos2.x, pos2.y);
+			break;
+		case RenderType::RENDER_PARTICLE:
+
+			SDL_SetTextureColorMod(texture, color.r, color.g, color.b);
+			SDL_SetTextureAlphaMod(texture, color.a);
+			SDL_SetTextureBlendMode(texture, blendMode);
+			SDL_RenderCopyEx(renderer, texture, &section, &destRect, rotation, &rotCenter, flip);
+
+			return true;
 			break;
 		}
 	}
@@ -133,9 +143,33 @@ public:
 		this->speedRegardCamera = speedRegardCamera;
 	}
 
+	void InitAsParticle(SDL_Texture* texture, iPoint pos, SDL_Rect section, float scale = 1, int layer = 1, float orderInLayer = 1,
+		float rotation = 0, SDL_Color color = { 0,0,0,0 }, SDL_BlendMode blendMode = SDL_BLENDMODE_NONE, float speedRegardCamera = 1.0f)
+	{
+		this->name = "particle";
+		this->texture = texture;
+		this->section = section;
+		this->flip = SDL_FLIP_NONE;
+		this->rotation = rotation;
+		this->destRect.x = pos.x;
+		this->destRect.y = pos.y;
+		this->type = RENDER_PARTICLE;
+		this->layer = layer;
+		this->orderInLayer = orderInLayer;
+		this->scale = scale;
+		this->speedRegardCamera = speedRegardCamera;
+		this->color = color;
+		this->blendMode = blendMode;
+	}
+
 	void SetColor(SDL_Color color)
 	{
 		this->color = color;
+	}
+
+	void SetBlendMode(SDL_BlendMode blendMode)
+	{
+		this->blendMode = blendMode;
 	}
 
 	#pragma region Global parameter
@@ -175,6 +209,10 @@ public:
 	bool adjust = true;
 	iPoint pos1 = { 0, 0};
 	iPoint pos2 = { 0, 0};
+	#pragma endregion
+
+	#pragma region Particle parameter
+	SDL_BlendMode blendMode = SDL_BLENDMODE_NONE;
 	#pragma endregion
 };
 

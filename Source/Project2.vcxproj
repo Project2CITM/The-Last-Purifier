@@ -140,6 +140,7 @@
     <ClInclude Include="ModuleEvents.h" />
     <ClInclude Include="ModuleInput.h" />
     <ClInclude Include="ModuleMap.h" />
+    <ClInclude Include="ModuleParticles.h" />
     <ClInclude Include="ModulePhysics.h" />
     <ClInclude Include="ModuleRender.h" />
     <ClInclude Include="ModuleScene.h" />
@@ -151,14 +152,17 @@
     <ClInclude Include="ParticleAttackKaboom.h" />
     <ClInclude Include="ParticleAttackRevenant.h" />
     <ClInclude Include="ParticleAttackSage.h" />
+    <ClInclude Include="ParticleEmissor.h" />
     <ClInclude Include="ParticleExplodeEkriksi.h" />
     <ClInclude Include="ParticleHitSage.h" />
     <ClInclude Include="ParticleLanceAttackRevenant.h" />
     <ClInclude Include="ParticlePneuma.h" />
+    <ClInclude Include="ParticlePool.h" />
     <ClInclude Include="ParticlePurificationSlash.h" />
     <ClInclude Include="ParticleSoulShield.h" />
     <ClInclude Include="ParticleTeleport.h" />
     <ClInclude Include="PaticleHitFotieros.h" />
+    <ClInclude Include="PerfTimer.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerCombat.h" />
     <ClInclude Include="PlayerController.h" />
@@ -188,6 +192,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneGame.h" />
     <ClInclude Include="SceneSwitch.h" />
+    <ClInclude Include="SingleParticle.h" />
     <ClInclude Include="Slime.h" />
     <ClInclude Include="Souls.h" />
     <ClInclude Include="SoulShieldS.h" />
@@ -253,6 +258,7 @@
     <ClCompile Include="ModuleEvents.cpp" />
     <ClCompile Include="ModuleInput.cpp" />
     <ClCompile Include="ModuleMap.cpp" />
+    <ClCompile Include="ModuleParticles.cpp" />
     <ClCompile Include="ModulePhysics.cpp" />
     <ClCompile Include="ModuleRender.cpp" />
     <ClCompile Include="ModuleScene.cpp" />
@@ -264,14 +270,17 @@
     <ClCompile Include="ParticleAttackKaboom.cpp" />
     <ClCompile Include="ParticleAttackRevenant.cpp" />
     <ClCompile Include="ParticleAttackSage.cpp" />
+    <ClCompile Include="ParticleEmissor.cpp" />
     <ClCompile Include="ParticleExplodeEkriksi.cpp" />
     <ClCompile Include="ParticleHitSage.cpp" />
     <ClCompile Include="ParticleLanceAttackRevenant.cpp" />
     <ClCompile Include="ParticlePneuma.cpp" />
+    <ClCompile Include="ParticlePool.cpp" />
     <ClCompile Include="ParticlePurificationSlash.cpp" />
     <ClCompile Include="ParticleSoulShield.cpp" />
     <ClCompile Include="ParticleTeleport.cpp" />
     <ClCompile Include="PaticleHitFotieros.cpp" />
+    <ClCompile Include="PerfTimer.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerCombat.cpp" />
     <ClCompile Include="PlayerController.cpp" />
@@ -298,6 +307,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneGame.cpp" />
     <ClCompile Include="SceneSwitch.cpp" />
+    <ClCompile Include="SingleParticle.cpp" />
     <ClCompile Include="Slime.cpp" />
     <ClCompile Include="Souls.cpp" />
     <ClCompile Include="SoulShieldS.cpp" />

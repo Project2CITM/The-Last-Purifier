@@ -104,6 +104,8 @@ public:
 
 	void ToggleVsync(bool vsync);
 
+	void BlitParticle(SDL_Texture* texture, iPoint pos, SDL_Rect section, float scale = 1.0f, int layer = 1, float orderInlayer = 10.0f, SDL_Color color = { 0, 0, 0, 0 }, SDL_BlendMode blendMode = SDL_BLENDMODE_NONE, float speed = 1.0f, double angle = 0, float duration = 1.0f);
+
 private:
 	std::vector<RenderLayer> renderLayers;
 
