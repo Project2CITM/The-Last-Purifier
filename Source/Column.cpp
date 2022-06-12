@@ -57,3 +57,8 @@ void Column::OnCollisionEnter(PhysBody* col)
 		destroyed = true;
 	}
 }
+
+void Column::DisableCollisions()
+{
+	if (this->pBody != nullptr)	this->pBody->body->SetActive(false);
+}

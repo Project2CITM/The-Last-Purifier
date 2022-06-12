@@ -74,7 +74,7 @@ void Enemy::Hit(int damage)
 	if (health <= 0) Die();
 }
 
-void Enemy::Die(bool spawnPower, bool spawnSoul)
+void Enemy::Die(bool spawnPower, bool spawnSoul, bool spawnOrb)
 {
 	if (isDie) return;
 
@@ -103,7 +103,7 @@ void Enemy::Die(bool spawnPower, bool spawnSoul)
 
 	//int randHP = rand() % 10;
 	int randHP = 1;
-	if (player != nullptr && randHP == 1) OrbHP* orb = new OrbHP(GetPosition());
+	if (player != nullptr && randHP == 1 && spawnOrb) new OrbHP(GetPosition());
 
 }
 

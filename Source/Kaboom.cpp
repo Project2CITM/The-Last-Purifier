@@ -131,7 +131,7 @@ void Kaboom::OnTriggerExit(std::string trigger, PhysBody* col)
 	}
 }
 
-void Kaboom::Die(bool spawnPower, bool spawnSouls)
+void Kaboom::Die(bool spawnPower, bool spawnSouls, bool spawnOrb)
 {
 	stateMachine.ChangeState((int)KaboomState::DIE);
 }

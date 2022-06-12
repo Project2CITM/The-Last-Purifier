@@ -76,6 +76,8 @@ void Instructor::Update()
 			if (toggle) app->events->TriggerEvent(GameEvent::STOP_PLAYER_MOVEMENT);
 			else app->events->TriggerEvent(GameEvent::RESUME_PLAYER_MOVEMENT);
 
+			app->events->TriggerEvent(GameEvent::SAVE_GAME);
+
 			classTreeHud->TextCleaning();
 		}
 		if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
@@ -85,6 +87,8 @@ void Instructor::Update()
 			app->events->TriggerEvent(GameEvent::RESUME_PLAYER_MOVEMENT);
 
 			classTreeHud->TextCleaning();
+
+			app->events->TriggerEvent(GameEvent::SAVE_GAME);
 		}
 		if (app->input->GetControllerButton(BUTTON_A) == KEY_DOWN && !toggle)
 		{
@@ -94,6 +98,8 @@ void Instructor::Update()
 			classTreeHud->isFirstFrame = true;
 
 			classTreeHud->TextCleaning();
+
+			app->events->TriggerEvent(GameEvent::SAVE_GAME);
 		}
 		if (app->input->GetControllerButton(BUTTON_B) == KEY_DOWN && toggle)
 		{
@@ -102,6 +108,8 @@ void Instructor::Update()
 			app->events->TriggerEvent(GameEvent::RESUME_PLAYER_MOVEMENT);
 
 			classTreeHud->TextCleaning();
+
+			app->events->TriggerEvent(GameEvent::SAVE_GAME);
 		}
 	}
 

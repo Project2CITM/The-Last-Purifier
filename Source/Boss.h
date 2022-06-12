@@ -54,7 +54,7 @@ public:
 
 	void Hit(int damage) override;
 
-	void Die(bool spawnPower, bool spawnSouls) override;
+	void Die(bool spawnPower, bool spawnSouls, bool spawnOrb = true) override;
 
 	void UpdateStates();
 

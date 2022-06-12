@@ -155,7 +155,7 @@ void Boss::Hit(int damage)
 	bossHp.currentHp.w = (int)hp;
 }
 
-void Boss::Die(bool spawnPower, bool spawnSouls)
+void Boss::Die(bool spawnPower, bool spawnSoul, bool spawnOrb)
 {
 	projectile->CleanUp();
 

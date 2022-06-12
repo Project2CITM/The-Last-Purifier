@@ -15,6 +15,8 @@ public:
 	void PostUpdate() override;
 
 	void OnCollisionEnter(PhysBody* col) override;
+
+	void DisableCollisions() override;
 private:
 	SDL_Rect sections[2];
 

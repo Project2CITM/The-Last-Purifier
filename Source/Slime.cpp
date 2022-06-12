@@ -129,7 +129,7 @@ void Slime::OnTriggerExit(std::string trigger, PhysBody* col)
 	Enemy::OnTriggerExit(trigger, col);
 }
 
-void Slime::Die(bool spawnPower, bool spawnSouls)
+void Slime::Die(bool spawnPower, bool spawnSouls, bool spawnOrb)
 {
 	stateMachine.ChangeState((int)SlimeState::DIE);
 }
@@ -216,7 +216,7 @@ void Slime::UpdateStates()
 
 		if (!animations[stateMachine.GetCurrentState()].HasFinished()) return;
 
-		Enemy::Die();
+		Enemy::Die(false, false, false);
 	}
 	break;
 	}

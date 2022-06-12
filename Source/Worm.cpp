@@ -107,7 +107,7 @@ void Worm::OnTriggerExit(std::string trigger, PhysBody* col)
 	Enemy::OnTriggerExit(trigger, col);
 }
 
-void Worm::Die(bool spawnPower, bool spawnSouls)
+void Worm::Die(bool spawnPower, bool spawnSouls, bool spawnOrb)
 {
 	stateMachine.ChangeState((int)WormState::DIE);
 }
