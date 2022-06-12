@@ -62,6 +62,9 @@ private:
 	float speed = 0.0f;
 
 	int attackTimes = 0;
+
+	//SFX -----------
+	uint attackSFX;
 };
 
 #endif // !__BossProjectile_H_

@@ -3,6 +3,7 @@
 #include "ModulePhysics.h"
 #include "PlayerController.h"
 #include "ModuleInput.h" // Test
+#include "ModuleAudio.h"
 
 BossProjectile::BossProjectile(iPoint position, PlayerController* target) :Enemy("bossProjectile")
 {
@@ -22,6 +23,8 @@ BossProjectile::BossProjectile(iPoint position, PlayerController* target) :Enemy
 
 	//// Init physic
 	InitPhysics();
+
+	attackSFX = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Boss/sfx_bossHandAttack.wav", false);
 }
 
 BossProjectile::~BossProjectile()
@@ -154,6 +157,8 @@ void BossProjectile::GoToTarget()
 	speed = attackDistance;
 
 	speed = speed > 40 ? 40 : speed;
+
+	app->audio->PlayFx(attackSFX);
 }
 
 void BossProjectile::AttackFinished()

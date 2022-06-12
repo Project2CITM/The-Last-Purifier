@@ -100,7 +100,6 @@ private:
 
 	uint HitFX = NULL;
 	uint idleFX = NULL;
-	uint deadFX = NULL;
 };
 
 #endif // !__KABOOM_H__

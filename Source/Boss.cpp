@@ -6,6 +6,7 @@
 #include "DamageArea.h"
 #include "BossProjectile.h"
 #include "ModuleRender.h"
+#include "ModuleAudio.h"
 
 Boss::Boss(iPoint pos) : Enemy("boss")
 {
@@ -73,6 +74,17 @@ Boss::Boss(iPoint pos) : Enemy("boss")
 	attack2CoolDown = (rand() % 10000 + 10000); // 10 - 20 s
 
 	attack3CoolDown = (rand() % 20000 + 15000); // 15 - 35 s
+
+	// Sfxs------------
+
+	for (int i = 0; i < 4; i++)
+	{
+		std::string attack = "Assets/Audio/SFX/Enemies/Boss/sfx_bossHit" + std::to_string(i + 1) + ".wav";
+		hitSFX[i] = app->audio->LoadFx(attack.c_str(), false);
+	}
+
+	dieSFX = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Boss/sfx_bossDie.wav", false);
+	laserSFX = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Boss/sfx_bossLaserFire.wav", false);
 }
 
 Boss::~Boss()
@@ -140,6 +152,10 @@ void Boss::Hit(int damage)
 {
 	if (invulnarable) return;
 
+	// Play SFX
+	int randomNum = rand() % 4;
+	app->audio->PlayFx(hitSFX[randomNum]);
+
 	renderObjects[0].SetColor({ 255,164,164,100 });
 
 	hitEffectCount = 20; //ms
@@ -167,6 +183,11 @@ void Boss::Die(bool spawnPower, bool spawnSoul, bool spawnOrb)
 	SetLinearVelocity(b2Vec2{ 0,0 });
 
 	stateMachine.ChangeState((int)BossState::DIE);
+
+	// Stop laserSFX in case it is playing on that moment.
+	app->audio->StopFX(laserSFX);
+	app->audio->PlayFx(dieSFX);
+
 }
 
 void Boss::UpdateStates()
@@ -496,6 +517,12 @@ void Boss::DoAttack3()
 
 	attack3Count -= bossTimer.getDeltaTime() * 1000;
 
+	if (!laserSound)
+	{
+		app->audio->PlayFx(laserSFX);
+		laserSound = true;
+	}
+
 	if (attack3Count <= 0)
 	{
 		stateMachine.ChangeState((int)BossState::RUN);
@@ -507,6 +534,10 @@ void Boss::DoAttack3()
 		renderObjects[1].draw = false;
 
 		attack3CoolDown = (rand() % 10000 + 10000); //10-20s
+
+		laserSound = false;
+
+		app->audio->StopFX(laserSFX);
 	}
 }
 

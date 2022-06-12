@@ -46,7 +46,6 @@ Kaboom::Kaboom(iPoint pos, Room* room) :Enemy("kaboom")
 	
 	HitFX = app->audio->LoadFx("Audio/SFX/Enemies/Ghoul/sfx_enemyHit3.wav");
 	idleFX = app->audio->LoadFx("Audio/SFX/Enemies/Ghoul/sfx_enemyIdle3.wav");
-	deadFX = app->audio->LoadFx("Audio/SFX/Enemies/Kaboom/sfx_kaboomDeath.wav");
 }
 
 Kaboom::~Kaboom()
@@ -179,8 +178,6 @@ void Kaboom::UpdateStates()
 				iPoint attackOffset = { -27,-25 };
 
 				new ParticleAttackKaboom(position + attackOffset);
-
-				app->audio->PlayFx(deadFX);
 			}
 		}
 			

@@ -131,6 +131,14 @@ private:
 	int maxHealh = 0;
 
 	BossMissile* missiles[MISSILE_NUM] = { nullptr };
+
+	// SFX------------
+
+	bool laserSound = false;
+
+	uint dieSFX;
+	uint laserSFX;
+	uint hitSFX[4];
 };
 
 #endif // !__BOSS_H__

@@ -5,6 +5,7 @@
 #include "ModuleRender.h"
 #include "ParticleAttackKaboom.h"
 #include "ModuleInput.h" // Test
+#include "ModuleAudio.h"
 
 BossMissile::BossMissile(PlayerController* target) :Enemy("bossMissile")
 {
@@ -30,6 +31,8 @@ BossMissile::BossMissile(PlayerController* target) :Enemy("bossMissile")
 
 	position = target->GetPosition();
 
+	launchSFX = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Boss/sfx_bossFireMissile.wav", false);
+	explodeSFX = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Boss/sfx_bossExplodeMissile.wav", false);
 }
 
 BossMissile::~BossMissile()
@@ -130,6 +133,8 @@ void BossMissile::Attack()
 	renderObjects[1].destRect.x = targetPosition.x;
 
 	renderObjects[1].destRect.y = targetPosition.y;
+
+	app->audio->PlayFx(launchSFX);
 }
 
 void BossMissile::InitPhysics()

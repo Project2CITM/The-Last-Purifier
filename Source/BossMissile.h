@@ -55,6 +55,9 @@ private:
 	int fallSpeed = 3;
 
 	ParticleAttackKaboom* explotion = nullptr;
+
+	uint launchSFX;
+	uint explodeSFX;
 };
 
 #endif // !__BOSS_MISSILE_H__
