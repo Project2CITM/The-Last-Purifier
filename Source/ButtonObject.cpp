@@ -25,7 +25,7 @@ ButtonObject::ButtonObject(iPoint position, int color) : GameObject("ButtonObjec
 
 	buttonTimer = new Timer();
 
-	//buttonpressSFX = app->audio->LoadFx("Audio/SFX/Puzzle/buttonPressed.wav");
+	buttonPressSFX = app->audio->LoadFx("Assets/Audio/SFX/Puzzle/buttonPressed.wav", false);
 }
 
 void ButtonObject::PreUpdate()
@@ -70,7 +70,7 @@ void ButtonObject::PressButton()
 
 	renderObjects[0].color = { 100,100,100,255 };
 
-	//app->audio->PlayFx(buttonpressSFX);
+	app->audio->PlayFx(buttonPressSFX);
 
 	isPressed = true;
 }

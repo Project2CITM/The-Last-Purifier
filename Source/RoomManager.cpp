@@ -41,7 +41,6 @@ void RoomManager::Start()
 	//MiniMap
 	miniMap = new MiniMap();
 	miniMap->Init(false, &rooms);
-	
 }
 
 void RoomManager::PreUpdate(iPoint playerPos)

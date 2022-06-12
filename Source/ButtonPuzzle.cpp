@@ -4,6 +4,7 @@
 #include "WeaponObject.h"
 #include "ModuleScene.h"
 #include "SceneGame.h"
+#include "ModuleAudio.h"
 
 ButtonPuzzle::ButtonPuzzle(Room* room) : GameObject("ButtonPuzzle", "ButtonPuzzle")
 {
@@ -34,6 +35,9 @@ ButtonPuzzle::ButtonPuzzle(Room* room) : GameObject("ButtonPuzzle", "ButtonPuzzl
 		buttonOrder[randIndex1] = buttonOrder[randIndex2];
 		buttonOrder[randIndex2] = tempV;
 	}
+
+	doneSFX = app->audio->LoadFx("Assets/Audio/SFX/Puzzle/puzzleDone.wav", false);
+	failSFX = app->audio->LoadFx("Assets/Audio/SFX/Puzzle/puzzleWrong.wav", false);
 }
 
 void ButtonPuzzle::Start()
@@ -69,10 +73,12 @@ void ButtonPuzzle::PreUpdate()
 		room->ClearEnemies();
 		//SpawnWeaponObject();
 		buttonPressed[0] = -1;
+		app->audio->PlayFx(doneSFX);
 	}
 	else
 	{
 		ResetPuzzle();
+		app->audio->PlayFx(failSFX);
 	}
 
 }

@@ -57,8 +57,7 @@ private:
 
 	MapLoader* mapLoader = nullptr;
 	MapSave* mapSave = nullptr;
-	MiniMap* miniMap = nullptr;
-	
+	MiniMap* miniMap = nullptr;	
 };
 
 #endif //__ROOMMANAGER_H_

@@ -38,6 +38,8 @@ private:
 
 	bool isResetting;
 
+	uint buttonPressSFX;
+
 	//uint buttonpressSFX;
 };
 

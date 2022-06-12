@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "PlayerController.h"
 #include "PlayerCombat.h"
+#include "ModuleAudio.h"
 
 EkriskiS::EkriskiS()
 {
@@ -16,6 +17,8 @@ EkriskiS::EkriskiS()
 	}
 
 	uses = spellStats.child("uses").attribute("quantity").as_int();
+
+	executeSFX = Application::GetInstance()->audio->LoadFx("Assets/Audio/SFX/Spells/sfx_ekriski.wav", false);
 
 	spellName = spellStats.child("name").attribute("name").as_string();
 }
@@ -44,4 +47,5 @@ void EkriskiS::Execute(int level)
 		break;
 	}
 	new EkriskiDamageArea(pos, 40, 40, damage[level-1]);
+	Application::GetInstance()->audio->PlayFx(executeSFX);
 }

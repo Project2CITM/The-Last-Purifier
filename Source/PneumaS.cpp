@@ -4,6 +4,7 @@
 #include "PlayerCombat.h"
 #include "PneumaDamageArea.h"
 #include "ParticlePneuma.h"
+#include "ModuleAudio.h"
 
 PneumaS::PneumaS()
 {
@@ -15,6 +16,8 @@ PneumaS::PneumaS()
 
 		damage[i] = spellStats.child("damage").attribute(lvl.c_str()).as_int();
 	}
+
+	executeSFX = Application::GetInstance()->audio->LoadFx("Assets/Audio/SFX/Spells/sfx_pneuma.wav", false);
 
 	uses = spellStats.child("uses").attribute("quantity").as_int();
 	spellName = spellStats.child("name").attribute("name").as_string();
@@ -77,4 +80,6 @@ void PneumaS::Execute(int level)
 	}
 	new PneumaDamageArea(damageAreaPos, width, height, damage[level - 1]);
 	new ParticlePneuma(particlePos, rotation, 240);
+	Application::GetInstance()->audio->PlayFx(executeSFX);
+
 }

@@ -32,5 +32,8 @@ private:
 	int currentButton = 0;
 
 	Room* room = nullptr;
+
+	uint doneSFX;
+	uint failSFX;
 };
 

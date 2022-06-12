@@ -10,6 +10,8 @@ void Room::CloseDoors()
 	
 	for (int i = 0; i < doors.count(); i++) doors[i]->CreateCollider();
 	closedDoors = true;
+
+	app->audio->PlayFx(closeDoorsSFX);
 }
 
 void Room::OpenDoors()
@@ -18,6 +20,8 @@ void Room::OpenDoors()
 
 	for (int i = 0; i < doors.count(); i++) doors[i]->DestroyCollider();
 	closedDoors = false;
+
+	app->audio->PlayFx(openDoorsSFX);
 }
 
 void Room::ActivateColliders()

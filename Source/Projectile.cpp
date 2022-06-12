@@ -135,6 +135,9 @@ Projectile::Projectile(iPoint position, int damage, int rotation, fPoint duratio
 	pBody->body->GetFixtureList()[0].SetFilterData(filter);
 	damageArea->pBody->body->GetFixtureList()[0].SetFilterData(filter);
 
+	projectileSFX = app->audio->LoadFx("Assets/Audio/SFX/Spells/sfx_foteiros.wav");
+	explodeSFX = app->audio->LoadFx("Assets/Audio/SFX/Spells/sfx_foteirosExplode.wav");
+
 	FireProjectile(duration);
 
 	renderObjects[0].InitAsTexture(app->textures->Load("Sprites/Player/Sage/foteiros46x32.png"), position, { 0,0,0,0 }, 1.0f, 1, 1.0f, this->rotation);
@@ -169,24 +172,6 @@ Projectile::Projectile(iPoint position, int damage, int rotation, fPoint duratio
 		spriteOffset[1] = { (int)(particleOffset.x),(int)(particleOffset.y) };
 	}
 
-	/*if (rotation == 0)
-	{
-		renderObjects[0].flip = SDL_FLIP_HORIZONTAL;
-	}
-	else if (rotation == 180)
-	{
-		renderObjects[0].flip = SDL_FLIP_NONE;
-		renderObjects[0].rotation = 0;
-	}
-	else if (rotation == 270)
-	{
-		renderObjects[0].rotation = 90;
-	}
-	else 
-	{
-		renderObjects[0].rotation = 270;
-	}*/
-
 	// Particle Effect
 
 	for (int i = 0; i < 4; i++)
@@ -196,8 +181,6 @@ Projectile::Projectile(iPoint position, int damage, int rotation, fPoint duratio
 	this->anim.loop = true;
 	this->anim.hasIdle = false;
 	this->anim.duration = 0.064f;
-
-	
 }
 
 void Projectile::FireProjectile(fPoint duration)

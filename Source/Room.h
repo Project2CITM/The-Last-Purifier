@@ -5,6 +5,7 @@
 #include "ModulePhysics.h"
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
+#include "ModuleAudio.h"
 
 class Enemy;
 
@@ -60,6 +61,9 @@ public:
 	Room()
 	{
 		this->app = Application::GetInstance();
+
+		openDoorsSFX = app->audio->LoadFx("Assets/Audio/SFX/Map/sfx_openDoors.wav", false);
+		closeDoorsSFX = app->audio->LoadFx("Assets/Audio/SFX/Map/sfx_closeDoors.wav", false);
 	}
 
 	void CloseDoors();
@@ -112,6 +116,9 @@ public:
 	// pathFinding variable
 
 	vector<vector<int>> mapInfo;
+
+	uint openDoorsSFX;
+	uint closeDoorsSFX;
 };
 
 #endif //_ROOM_H_

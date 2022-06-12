@@ -1,5 +1,7 @@
 #pragma once
 #include "Spell.h"
+#include "Globals.h"
+
 class PneumaS : public Spell
 {
 public:
@@ -10,6 +12,6 @@ public:
 private:
 
 	int damage[3];
-
+	uint executeSFX;
 };
 
