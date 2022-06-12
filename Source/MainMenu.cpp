@@ -14,6 +14,7 @@
 
 // Si no lo pone aqui, sale un menoryleak, nose porque
 RenderObject fondo;
+RenderObject titulo;
 RenderObject options;
 RenderObject credtis1;
 
@@ -48,6 +49,7 @@ bool MainMenu::Start()
 	RELEASE_ARRAY(buffer);
 
 	fondo.InitAsTexture(app->textures->Load("Sprites/UI/background.png"), { 0,0 }, { 0,0,0,0 }, 0.5f, 0, 0, 0, SDL_FLIP_NONE, 0);
+	titulo.InitAsTexture(app->textures->Load("Sprites/UI/TItle.png"), { 0,0 }, { 0,0,0,0 }, 1, 1, 0, 0, SDL_FLIP_NONE, 0);
 	options.InitAsTexture(app->textures->Load("Sprites/UI/Options.png"), { 0,0 }, {0,0,0,0}, 0.5f);
 	options.color.a = Alfa;
 	credtis1.InitAsTexture(app->textures->Load("Sprites/UI/CredtisCre.png"), { 0,0 }, {0,0,0,0}, 0.5f);
@@ -377,27 +379,57 @@ bool MainMenu::PostUpdate()
 		if(currentCredtis == CurrentCredtis::Creadors)		app->renderer->AddRenderObjectRenderQueue(credtis1);
 	}
 
-	if (currentMenu == CurrentMenu::Main)
+	if (currentMenu == CurrentMenu::Main )
 	{
-		for (int i = 0; i < guisMainMenu.count(); i++)
+		if (AnimaTitulo >= 225)
 		{
-			if (guisMainMenu[i]) guisMainMenu[i]->PostUpdate();
-		}
-		app->renderer->AddRenderObjectRenderQueue(fondo);
+			for (int i = 0; i < guisMainMenu.count(); i++)
+			{
+				if (guisMainMenu[i]) guisMainMenu[i]->PostUpdate();
+			}
 
-		if (Alfa != 0)
+			if (Alfa != 0)
+			{
+				Alfa = 0;
+			}
+		}
+		else if (AnimaTitulo <= 250)
 		{
-			Alfa = 0;
-		}
+			app->renderer->AddRenderObjectRenderQueue(titulo);
+			app->renderer->AddRenderObjectRenderQueue(fondo);
+			fondo.color.a = fondoAnimAlpha;
 
+			if (tituloPosX <= 250 && AnimaTitulo <= 32)
+			{
+				titulo.destRect = { tituloPosX,100,0,0 };
+				tituloPosX += 14;
+			}
+
+			if (AnimaTitulo >= 75 && tituloPosY != 26)
+			{
+				titulo.destRect = { tituloPosX,tituloPosY,0,0 };
+				tituloPosX -= 3;
+				tituloPosY -= 2;
+				titulo.scale -= 0.008f;
+
+				if(fondoAnimAlpha < 255)
+					fondoAnimAlpha += 5;
+
+			}
+			AnimaTitulo += 2;
+
+			if (tituloPosX == 52 && tituloPosY == 26)
+			{
+				titulo.destRect = { 65,26,0,0 };
+				titulo.scale = 0.5f;
+			}
+
+		}
 	}
 
-	if (Alfa <= 250)
+	if (Alfa <= 250 && AnimaTitulo >= 225)
 	{
-		/*for (int i = 0; i < guisMainMenu.count(); i++)
-		{
-			if (guisMainMenu[i]) guisMainMenu[i]->PostUpdate();
-		}*/
+		app->renderer->AddRenderObjectRenderQueue(titulo);
 		app->renderer->AddRenderObjectRenderQueue(fondo);
 	}
 

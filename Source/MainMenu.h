@@ -75,6 +75,10 @@ private:
 	bool AxisPress = false;
 
 	Uint8 Alfa = 0;
+	Uint8 AnimaTitulo = 0;
+	Uint8 tituloPosX = 0;
+	Uint8 tituloPosY = 150;
+	Uint8 fondoAnimAlpha = 0;
 
 	uint Appear_FX = NULL;
 
