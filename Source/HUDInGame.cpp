@@ -175,8 +175,8 @@ bool HUDInGame::Start()
 
 
 	InitializeSpellSlotsPositions();
-	currentSpellText = new Text({ 140, 70 }, "");
-	currentSpellLevelText = new Text({ 140, 90 }, "");
+	currentSpellText = new Text({ 140, 90 }, "");
+	currentSpellLevelText = new Text({ 140, 120 }, "");
 
 	Scene::Start();
 
@@ -708,10 +708,16 @@ void HUDInGame::InitializeSpellSlotsPositions()
 	spellSlotsPositions[2].add({ 56, 60, 30, 40 });// 3 Available: Refering to slot 2
 	spellSlotsPositions[2].add({ 90, 60 , 30, 40 });// 3 Available: Refering to slot 3
 
-	spellSlotsPositions[3].add({ 0, 60 , 30, 40 });// 4 Available: Refering to slot 1
-	spellSlotsPositions[3].add({ 40, 60 , 30, 40 });// 4 Available: Refering to slot 2
+	spellSlotsPositions[3].add({ 20, 60 , 30, 40 });// 4 Available: Refering to slot 1
+	spellSlotsPositions[3].add({ 50, 60 , 30, 40 });// 4 Available: Refering to slot 2
 	spellSlotsPositions[3].add({ 80, 60 , 30, 40 });// 4 Available: Refering to slot 3
-	spellSlotsPositions[3].add({ 120, 60 , 30, 40 });// 4 Available: Refering to slot 4
+	spellSlotsPositions[3].add({ 110, 60 , 30, 40 });// 4 Available: Refering to slot 4
+
+	spellSlotsPositions[4].add({ 20, 60 , 30, 40 });// 5 Available: Refering to slot 1
+	spellSlotsPositions[4].add({ 50, 60 , 30, 40 });// 5 Available: Refering to slot 2
+	spellSlotsPositions[4].add({ 80, 60 , 30, 40 });// 5 Available: Refering to slot 3
+	spellSlotsPositions[4].add({ 110, 60 , 30, 40 });// 5 Available: Refering to slot 4
+	spellSlotsPositions[4].add({ 140, 60 , 30, 40 });// 5 Available: Refering to slot 5
 }
 
 void HUDInGame::SetSpellDrawInfo(int slot, bool isDeck)

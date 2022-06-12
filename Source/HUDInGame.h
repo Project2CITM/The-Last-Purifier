@@ -80,7 +80,7 @@ private:
 	List<RenderObject> spellSlots;
 	List<RenderObject> deckSlots;
 
-	List<SDL_Rect> spellSlotsPositions[4];
+	List<SDL_Rect> spellSlotsPositions[5];
 
 	Text* currentSpellText = nullptr;
 	Text* currentSpellLevelText = nullptr;

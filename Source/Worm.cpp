@@ -199,7 +199,7 @@ void Worm::UpdateStates()
 
 		if (!animations[stateMachine.GetCurrentState()].HasFinished()) return;
 		
-		Enemy::Die();
+		Enemy::Die(true);
 	}
 	break;
 	}
