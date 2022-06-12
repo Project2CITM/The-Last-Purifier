@@ -2,7 +2,7 @@
 <stats>
 	<purified_sword id = "1">
 		<uses quantity = "3" />
-		<damage lvl1 = "5" lvl2 = "5" lvl3 = "10" />
+		<damage lvl1 = "5" lvl2 = "10" lvl3 = "15" />
 		<stun lvl1 = "false" lvl2 = "true" lvl3 = "true" />
 		<stun_duration lvl1 = "0" lvl2 = "60" lvl3 = "60" />
 		<name name = "Purified Sword"/>
@@ -20,7 +20,7 @@
 	</purification_slash>
 	<foteiros id = "11">
 		<uses quantity = "3" />
-		<damage lvl1 = "20" lvl2 = "40" lvl3 = "60" />
+		<damage lvl1 = "40" lvl2 = "60" lvl3 = "80" />
 		<name name = "Foteiros"/>
 	</foteiros>
 	<pneuma id = "13">

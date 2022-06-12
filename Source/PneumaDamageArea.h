@@ -8,7 +8,7 @@ public:
 	void PreUpdate() override;
 
 private:
-	int totalFrames = 15;
+	int totalFrames = 80;
 	int currentFrame = 0;
 };
 

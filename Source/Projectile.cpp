@@ -145,14 +145,14 @@ Projectile::Projectile(iPoint position, int damage, int rotation, fPoint duratio
 	{
 		renderObjects[0].flip = SDL_FLIP_NONE;
 		renderObjects[0].rotation = 0;
-		particleOffset = { 0,-12 };
+		particleOffset = { -4,-12 };
 
 		spriteOffset[1] = { (int)(particleOffset.x),(int)(particleOffset.y) };
 	}
 	else if (rotation == 270)//UP
 	{
 		renderObjects[0].rotation = 90;
-		particleOffset = { 15,12 };
+		particleOffset = { 15,0 };
 
 		spriteOffset[1] = { (int)(particleOffset.x),(int)(particleOffset.y) };
 	}
@@ -165,7 +165,7 @@ Projectile::Projectile(iPoint position, int damage, int rotation, fPoint duratio
 	else if (rotation == 90)//DOWN
 	{
 		renderObjects[0].rotation = 270;
-		particleOffset = { -15,-5 };
+		particleOffset = { -15,0 };
 		spriteOffset[1] = { (int)(particleOffset.x),(int)(particleOffset.y) };
 	}
 

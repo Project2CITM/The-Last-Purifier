@@ -193,8 +193,6 @@ void Worm::UpdateStates()
 	break;
 	case (int)WormState::DIE:
 	{
-		//SetTriggeeActive(false);
-
 		DisableCollisions();
 
 		if (!animations[stateMachine.GetCurrentState()].HasFinished()) return;

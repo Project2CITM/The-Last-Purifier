@@ -3,7 +3,7 @@
 #include "PlayerCombat.h"
 #include "PlayerController.h"
 #include "Player.h"
-
+#include "ModulePhysics.h"
 FoteirosS::FoteirosS()
 {
 	spellStats = spellStats.child("foteiros");
@@ -21,11 +21,11 @@ FoteirosS::FoteirosS()
 
 void FoteirosS::Execute(int level)
 {
-	iPoint offset = { (int)player->controller->combat->GetAttackOffset().x, (int)player->controller->combat->GetAttackOffset().y };
-	fPoint duration = player->controller->combat->GetProjectileOffset();
+	iPoint offset = { METERS_TO_PIXELS(player->controller->combat->GetAttackOffset().x), METERS_TO_PIXELS(player->controller->combat->GetAttackOffset().y) };
+	fPoint direction = player->controller->combat->GetProjectileOffset();
 	int rot = player->controller->combat->GetProjectileRotation();
 
-	new Projectile(player->controller->GetPosition() + offset, damage[level - 1], rot, duration * 20);
+	new Projectile(player->controller->GetPosition() + offset, damage[level - 1], rot, direction * 20);
 }
 
 void FoteirosS::Update()
