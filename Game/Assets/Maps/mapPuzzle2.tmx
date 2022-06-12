@@ -14201,7 +14201,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="8" name="Enemics" width="81" height="35" visible="0">
+ <layer id="8" name="Enemics" width="81" height="35">
   <data>
    <tile/>
    <tile/>
@@ -15368,7 +15368,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="2564"/>
    <tile/>
    <tile/>
    <tile/>
@@ -15386,7 +15385,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="2564"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -16016,7 +16016,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="2564"/>
    <tile/>
    <tile/>
    <tile/>
@@ -16034,7 +16033,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="2564"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
