@@ -93,6 +93,7 @@ void PlayerController::PreUpdate()
 			isDashing = false;
 			pBody->body->SetLinearVelocity({ 0,0 });
 			if (player->playerClass == PlayerClass::SAGE) new ParticleTeleport(GetPosition());
+			currentDashCD = dashCD;
 		}
 
 		// Alpha animation------------------
@@ -110,6 +111,11 @@ void PlayerController::PreUpdate()
 		{
 			playerShadow->enable = true;
 		}
+	}
+
+	if (currentDashCD > 0)
+	{
+		currentDashCD -= playerTimer.getDeltaTime() * 1000;
 	}
 
 	if (isAttackImpulse)
@@ -349,7 +355,7 @@ void PlayerController::MovementUpdateKeyboard()
 
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
-		if (!isDashing)
+		if (!isDashing && currentDashCD <= 0)
 		{
 			//Reset Dash animation in case it hadn't finished yet
 			animations[(int)PlayerAnim::DASH_HORIZONTAL].Reset();
@@ -434,7 +440,7 @@ void PlayerController::MovementUpdateController()
 
 	if (app->input->GetControllerButton(BUTTON_B) == KEY_DOWN)
 	{
-		if (!isDashing)
+		if (!isDashing && currentDashCD <= 0)
 		{
 			//Reset Dash animation in case it hadn't finished yet
 			animations[(int)PlayerAnim::DASH_HORIZONTAL].Reset();

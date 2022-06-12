@@ -2,7 +2,7 @@
 <stats>
 	<currentClass class="1" />
 	<common>
-		<souls quantity="109893" gain="1.0f" />
+		<souls quantity="110331" gain="1.0f" />
 		<luck quantity="1.0f" />
 		<speed movement="9.0f" dash="5.0f" />
 		<shield quantity="0" />

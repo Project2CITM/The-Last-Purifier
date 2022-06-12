@@ -50,9 +50,13 @@ void PlayerCombat::PreUpdate()
 	{
 		executeSpellCommand->Start();
 	}
-	// Clas weapon preupdate
+	// Class weapon preupdate
 	if (player->playerClass == PlayerClass::REVENANT) revenantWeapon->PreUpdate();
 	else sageWeapon->PreUpdate();
+	
+	// Update our current deck 
+	CheckDeck();
+
 }
 
 void PlayerCombat::Update()

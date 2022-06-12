@@ -113,6 +113,8 @@ private:
 	int dashCounter = 0;
 	int dashTime = 400;
 	int dashDistance = 14;	//6
+	int dashCD = 150;
+	int currentDashCD = 0;
 
 	bool isAttackImpulse = false;
 	int attackImpulseCounter = 0;
