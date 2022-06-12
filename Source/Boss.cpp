@@ -85,15 +85,24 @@ Boss::Boss(iPoint pos) : Enemy("boss")
 
 	dieSFX = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Boss/sfx_bossDie.wav", false);
 	laserSFX = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Boss/sfx_bossLaserFire.wav", false);
+	bossFinalSFX = app->audio->LoadFx("Assets/Audio/Music/mus_boss1Final.wav", false);
 }
 
 Boss::~Boss()
 {
+	// Stop laserSFX in case it is playing on that moment.
+	app->audio->StopFX(laserSFX);
 }
 
 void Boss::PreUpdate()
 {
 	if (isDie) return;
+
+	if (!musicStarted)
+	{
+		musicStarted = true;
+		app->audio->PlayMusic("Audio/Music/mus_boss1.mp3", 0, false);
+	}
 
 	bossTimer.Update();
 
@@ -187,7 +196,9 @@ void Boss::Die(bool spawnPower, bool spawnSoul, bool spawnOrb)
 	// Stop laserSFX in case it is playing on that moment.
 	app->audio->StopFX(laserSFX);
 	app->audio->PlayFx(dieSFX);
-
+	app->audio->PlayFx(bossFinalSFX);
+	// Fade Out music once the boss is defeated
+	Mix_FadeOutMusic(1.0f);
 }
 
 void Boss::UpdateStates()

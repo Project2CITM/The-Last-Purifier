@@ -9,7 +9,7 @@
 	</renderer>
 	<window>
 		<resolution width="1280" height="720" scale="2" />
-		<fullscreen value="false" />
+		<fullscreen value="true" />
 		<borderless value="false" />
 		<resizable value="false" />
 		<fullscreen_window value="false" />
@@ -329,8 +329,8 @@
 		</english>
 	</dialogText>
 	<audios>
-		<music volume="92" />
-		<sfx volume="64" />
+		<music volume="44" />
+		<sfx volume="24" />
 	</audios>
 	<scenes>
 		<level1>

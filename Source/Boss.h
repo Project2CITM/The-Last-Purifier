@@ -135,10 +135,12 @@ private:
 	// SFX------------
 
 	bool laserSound = false;
+	bool musicStarted = false;
 
 	uint dieSFX;
 	uint laserSFX;
 	uint hitSFX[4];
+	uint bossFinalSFX;
 };
 
 #endif // !__BOSS_H__
