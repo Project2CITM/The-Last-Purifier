@@ -346,7 +346,7 @@ bool HUDInGame::Update()
 				ResumeBUT->PressButton();
 				GiveUpBUT->doAction = false;
 
-				app->events->TriggerEvent(GameEvent::GO_TO_HUB);
+				app->events->TriggerEvent(GameEvent::SAVE_GAME_LOSE);
 				return true;
 			}
 

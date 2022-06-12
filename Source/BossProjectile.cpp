@@ -119,6 +119,11 @@ void BossProjectile::SetActive(bool active)
 	}
 }
 
+void BossProjectile::OnTriggerEnter(std::string trigger, PhysBody* col)
+{
+	// Nothing in here. We do this override to prevent this class from being deleted from a DamageArea like in the Enemy::OnTriggerEnter() method.
+}
+
 float BossProjectile::GetAttackAngle(iPoint target)
 {
 	float angle = atan2f(target.y - GetPosition().y, target.x - GetPosition().x);

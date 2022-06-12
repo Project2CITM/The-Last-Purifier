@@ -26,6 +26,8 @@ public:
 
 	void SetActive(bool active);
 
+	void OnTriggerEnter(std::string trigger, PhysBody* col) override;
+
 private:
 	float GetAttackAngle(iPoint target);
 
