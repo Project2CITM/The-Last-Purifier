@@ -92,8 +92,8 @@ void Enemy::Die(bool spawnPower, bool spawnSoul, bool spawnOrb)
 	{
 		if (!spawnManager->IsDeleted() && spawnPower)
 		{
-			int randNum = 1;
-			//int randNum = rand() % 10;
+			//int randNum = 1;
+			int randNum = rand() % 10;
 			if (randNum == 1) spawnManager->SpawnSpell(GetPosition());
 		}
 	}
@@ -101,8 +101,8 @@ void Enemy::Die(bool spawnPower, bool spawnSoul, bool spawnOrb)
 	if (player != nullptr && spawnSoul) Souls* soul1 = new Souls(GetPosition(), 3);
 
 
-	//int randHP = rand() % 10;
-	int randHP = 1;
+	int randHP = rand() % 10;
+	//int randHP = 1;
 	if (player != nullptr && randHP == 1 && spawnOrb) new OrbHP(GetPosition());
 
 }
