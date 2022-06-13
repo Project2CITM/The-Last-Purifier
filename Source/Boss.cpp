@@ -206,6 +206,8 @@ void Boss::Hit(int damage)
 
 	float hp = (bossHp.bg.w * percent);
 
+	if (percent <= 0) hp = 0;
+
 	bossHp.currentHp.w = (int)hp;
 }
 
