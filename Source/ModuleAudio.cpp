@@ -100,7 +100,6 @@ bool ModuleAudio::CleanUp()
 // Play a music file
 bool ModuleAudio::PlayMusic(const char* path, float fade_time, bool fromPhysFs)
 {
-	
 	if(IsEnabled() == false)
 		return false;
 

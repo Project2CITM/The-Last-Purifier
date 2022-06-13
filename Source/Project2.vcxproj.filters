@@ -528,6 +528,9 @@
     <ClInclude Include="PerfTimer.h">
       <Filter>Archivos de encabezado\Tools</Filter>
     </ClInclude>
+    <ClInclude Include="BossTransition.h">
+      <Filter>Archivos de encabezado\GameObject\Enemy\Boss</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\PugiXml\src\pugixml.cpp">
@@ -827,9 +830,6 @@
     <ClCompile Include="Boss.cpp">
       <Filter>Archivos de origen\GameObjects\Enemy\Boss</Filter>
     </ClCompile>
-    <ClCompile Include="BossProjectile.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="PneumaS.cpp">
       <Filter>Archivos de origen\Player\Spells\SageSpells</Filter>
     </ClCompile>
@@ -844,9 +844,6 @@
     </ClCompile>
     <ClCompile Include="MenuManager.cpp">
       <Filter>Archivos de origen\Tools</Filter>
-    </ClCompile>
-    <ClCompile Include="BossMissile.cpp">
-      <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="ParticleTeleport.cpp">
       <Filter>Archivos de origen\Tools\Particles</Filter>
@@ -865,6 +862,15 @@
     </ClCompile>
     <ClCompile Include="PerfTimer.cpp">
       <Filter>Archivos de origen\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="BossTransition.cpp">
+      <Filter>Archivos de origen\GameObjects\Enemy\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="BossMissile.cpp">
+      <Filter>Archivos de origen\GameObjects\Enemy\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="BossProjectile.cpp">
+      <Filter>Archivos de origen\GameObjects\Enemy\Boss</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

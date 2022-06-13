@@ -11,6 +11,7 @@
 class BossProjectile;
 class DamageArea;
 class Room;
+class BossTransition;
 
 enum class BossState
 {
@@ -131,6 +132,8 @@ private:
 	int maxHealh = 0;
 
 	BossMissile* missiles[MISSILE_NUM] = { nullptr };
+
+	BossTransition* transition = nullptr;
 
 	// SFX------------
 

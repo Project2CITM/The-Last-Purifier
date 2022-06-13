@@ -15,6 +15,7 @@
 		<fullscreen_window value="false" />
 	</window>
 	<textures>
+		<bossTransition width="480" height="16" layer="1" orderInLayer="3.0" scale="4" path="Assets/Sprites/Enemies/Golem/Boss_transition.png" />
 		<bossLaser width="480" height="16" layer="1" orderInLayer="3.0" scale="1" path="Assets/Sprites/Enemies/Golem/Laser_sheet.png" />
 		<missileWarning width="32" height="32" layer="1" orderInLayer="1.0" scale="1" path="Assets/Sprites/Enemies/Golem/missileWarning.png" />
 		<bossMissile width="35" height="35" layer="1" orderInLayer="3.0" scale="1" path="Assets/Sprites/Enemies/Golem/GolemMissile.png" />
@@ -329,8 +330,8 @@
 		</english>
 	</dialogText>
 	<audios>
-		<music volume="5" />
-		<sfx volume="12" />
+		<music volume="26" />
+		<sfx volume="8" />
 	</audios>
 	<scenes>
 		<level1>

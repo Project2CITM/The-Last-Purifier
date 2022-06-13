@@ -97,6 +97,7 @@
     <ClInclude Include="Boss.h" />
     <ClInclude Include="BossMissile.h" />
     <ClInclude Include="BossProjectile.h" />
+    <ClInclude Include="BossTransition.h" />
     <ClInclude Include="ButtonObject.h" />
     <ClInclude Include="ButtonPuzzle.h" />
     <ClInclude Include="Camera.h" />
@@ -219,6 +220,7 @@
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="BossMissile.cpp" />
     <ClCompile Include="BossProjectile.cpp" />
+    <ClCompile Include="BossTransition.cpp" />
     <ClCompile Include="ButtonObject.cpp" />
     <ClCompile Include="ButtonPuzzle.cpp" />
     <ClCompile Include="Camera.cpp" />
