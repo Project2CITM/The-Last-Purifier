@@ -691,7 +691,7 @@ void PlayerController::AttackImpulse()
 
 void PlayerController::PurifiedSwordHeals()
 {
-	int heal = 5;
+	int heal = 2;
 	int playerLife = player->hpPlayer;
 	if (player->purifiedSwordOn)
 	{
