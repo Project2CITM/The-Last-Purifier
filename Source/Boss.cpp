@@ -7,6 +7,7 @@
 #include "ModuleRender.h"
 #include "ModuleAudio.h"
 #include "BossTransition.h"
+#include "MenuManager.h"
 
 Boss::Boss(iPoint pos) : Enemy("boss")
 {
@@ -118,6 +119,8 @@ void Boss::Update()
 
 			// play boss music
 			app->audio->PlayMusic("Audio/Music/mus_boss1.ogg", 0, false);
+
+			MenuManager::GetInstance()->canPause = false;
 		}
 
 		transition->Update();
@@ -137,6 +140,8 @@ void Boss::Update()
 			attack2CoolDown = (rand() % 10000 + 10000); // 10 - 20 s
 
 			attack3CoolDown = (rand() % 20000 + 15000); // 15 - 35 s
+
+			MenuManager::GetInstance()->canPause = true;
 		}
 
 		return;
