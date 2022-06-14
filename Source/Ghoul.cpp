@@ -331,7 +331,7 @@ void Ghoul::InitPhysics()
 
 	filterC.categoryBits = app->physics->ENEMY_LAYER;
 
-	filterC.maskBits = app->physics->EVERY_LAYER & ~app->physics->PLAYER_LAYER;
+	filterC.maskBits = app->physics->EVERY_LAYER & ~app->physics->PLAYER_LAYER & ~app->physics->PROJECTILE_LAYER;
 
 	pBody = app->physics->CreateCircle(position.x, position.y, 12, this, false, b2_dynamicBody, app->physics->ENEMY_LAYER);
 
