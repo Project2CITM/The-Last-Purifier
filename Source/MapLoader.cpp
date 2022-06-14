@@ -90,7 +90,7 @@ void MapLoader::CreateColliders(Room* r)
 					r->roomPosition.y * MAX_ROOM_TILES_ROWS * TILE_SIZE + i * TILE_SIZE + TILE_SIZE / 2),
 					TILE_SIZE / 2, TILE_SIZE / 2, nullptr, b2_staticBody);
 				b2Filter filter;
-				filter.categoryBits = app->physics->PROJECTILE_LAYER;
+				filter.categoryBits = app->physics->HOLLOW_LAYER;
 				holeCollision->body->GetFixtureList()[0].SetFilterData(filter);
 				r->colliders.add(holeCollision);
 			}

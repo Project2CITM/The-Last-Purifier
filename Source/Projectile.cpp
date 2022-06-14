@@ -22,7 +22,7 @@ Projectile::Projectile(std::string name, iPoint position, fPoint duration, int d
 	filter.categoryBits = app->physics->PROJECTILE_LAYER;
 
 	if (isEnemy) filter.maskBits = app->physics->EVERY_LAYER & ~app->physics->ENEMY_LAYER & ~app->physics->PROJECTILE_LAYER & ~app->physics->TRIGGER_LAYER;
-	else filter.maskBits = app->physics->EVERY_LAYER & ~app->physics->PLAYER_LAYER & ~app->physics->PROJECTILE_LAYER & ~app->physics->TRIGGER_LAYER;
+	else filter.maskBits = app->physics->EVERY_LAYER & ~app->physics->PLAYER_LAYER & ~app->physics->PROJECTILE_LAYER & ~app->physics->TRIGGER_LAYER & ~app->physics->HOLLOW_LAYER;
 
 	pBody->body->GetFixtureList()[0].SetFilterData(filter);
 	damageArea->pBody->body->GetFixtureList()[0].SetFilterData(filter);
