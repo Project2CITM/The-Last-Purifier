@@ -252,3 +252,11 @@ Debug Keys:
 * In Dungeon
 
 ![InDungeon](https://raw.githubusercontent.com/Project2CITM/The-Last-Purifier/gh-pages/IN-GAME(5).png)
+
+* Boss Transition
+
+![BossTransition](https://raw.githubusercontent.com/Project2CITM/The-Last-Purifier/gh-pages/BOSSTRANSITIONGIF.gif)
+
+* Boss Fight
+
+![BossFight](https://raw.githubusercontent.com/Project2CITM/The-Last-Purifier/gh-pages/IN-GAME-BOSS-TRANSITION(9).png)
