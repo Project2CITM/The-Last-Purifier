@@ -259,4 +259,4 @@ Debug Keys:
 
 * Boss Fight
 
-![BossFight](https://raw.githubusercontent.com/Project2CITM/The-Last-Purifier/gh-pages/IN-GAME-BOSS-TRANSITION(9).png)
+![BossFight](https://raw.githubusercontent.com/Project2CITM/The-Last-Purifier/gh-pages/BOSSFIGHTGIF.gif)
