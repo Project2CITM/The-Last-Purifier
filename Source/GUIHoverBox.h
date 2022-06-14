@@ -14,7 +14,6 @@ private:
 	int orderInlayer = 15;
 
 	Text* text = nullptr; 
-	Text* costText = nullptr;
 
 	bool controller = false;
 

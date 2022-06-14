@@ -99,6 +99,12 @@ bool MainMenu::Start()
 
 	//testTrans = app->window->width * app->window->height;
 
+	Alfa = 0;
+	AnimaTitulo = 0;
+	tituloPosX = 0;
+	tituloPosY = 150;
+	fondoAnimAlpha = 0;
+
 	Scene::Start();
 
 	return true;

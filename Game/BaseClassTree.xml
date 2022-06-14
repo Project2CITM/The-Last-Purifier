@@ -99,7 +99,7 @@
 		</tree_element>
 		<tree_element id="13">
 			<name>Pneuma</name>
-			<description>Not implemented</description>
+			<description>Small area damage to all enemies on front of you.</description>
 			<cost>100</cost>
 			<requiresID>12</requiresID>
 			<maxLevel>3</maxLevel>
@@ -107,7 +107,7 @@
 		</tree_element>
 		<tree_element id="14">
 			<name>Ekriski</name>
-			<description>Deals damage to all enemies on front of you.</description>
+			<description>Big area damage to all enemies on front of you.</description>
 			<cost>100</cost>
 			<requiresID>13</requiresID>
 			<maxLevel>3</maxLevel>
