@@ -13,7 +13,7 @@
 #include "ModuleAudio.h"
 #include "ModuleWindow.h"
 #include "Minimap.h"
-#include "ParticleEmissor.h"
+
 
 HubScene::HubScene() : SceneGame("HubScene")
 {
@@ -133,8 +133,6 @@ bool HubScene::Start()
 	quest4 = new Quest("quest4", { 191,1823 });
 	quest4->Start();
 
-/*	quest5 = new Quest("quest5", {940,1900});
-	quest5->Start();*/
 	std::string sentenceInput;
 	if (app->input->usingGameController) sentenceInput = "<Press A>";
 	else sentenceInput = "<Press F>";
@@ -194,8 +192,7 @@ bool HubScene::PreUpdate()
 		//Pause Menu
 		if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || app->input->GetControllerButton(BUTTON_START) == KEY_DOWN) app->TogglePause(!app->isPause);
 		//Roof switch
-		// if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN) app->map->roof = !app->map->roof;
-
+	
 		if (app->input->usingGameController)
 		{
 			revenantInstructor->sentence = "<Press A>";
@@ -210,28 +207,6 @@ bool HubScene::PreUpdate()
 		//MiniMap resize
 		miniMap->SetScale((app->input->GetKey(SDL_SCANCODE_TAB) == KEY_REPEAT || app->input->GetControllerButton(BUTTON_BACK) == KEY_REPEAT) ? 2 : 1);
 	}
-
-	/*if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
-	{
-		iPoint aux = player->controller->GetPosition();
-		std::cout << "{ " << aux.x << ", " << aux.y << " }" << std::endl;
-	}
-	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
-	{
-		player->controller->SetPosition({ 926, 1579 });
-	}*/
-	fPoint pp = { (float)player->controller->GetPosition().x +10,(float)player->controller->GetPosition().y+10 };
-	
-	if (app->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
-	{
-		em = app->psystem->AddEmiter({ 970, 1525 }, EmissorType::EMISSOR_TYPE_FIRE);
-	}
-
-	if (em != nullptr)
-	{
-		em->MoveEmitter(pp);
-	}
-	
 
 	//PreUpdates
 	hudInGame->PreUpdate();
@@ -269,19 +244,6 @@ bool HubScene::Update()
 		quest4->Start();
 		done3 = true;
 	}
-
-	//fPoint mousePos = { (float)(app->input->GetMouseX() / app->window->scale) , (float)(app->input->GetMouseY() / (int)app->window->scale) };
-	//if (testEmitter1 == nullptr)
-	//{
-	//	app->psystem->AddEmiter({ 970, 1485 }, EmitterType::EMITTER_TYPE_FIRE);
-	//}
-
-	////Particles
-	//if (testEmitter1 != nullptr)
-	//{
-	//	
-	//	//testEmitter1->MoveEmitter({ 970, 1485 });
-	//}
 
 	Scene::Update();
 	return true;
