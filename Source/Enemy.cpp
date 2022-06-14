@@ -12,7 +12,6 @@ Enemy::Enemy(std::string name) :GameObject(name, "Enemy")
 	spawnManager = SpellSpawnManager::GetInstance();
 	SceneGame* scene = (SceneGame*)app->scene->scenes[app->scene->currentScene];
 	player = scene->player;
-
 }
 
 Enemy::~Enemy()
@@ -41,7 +40,6 @@ void Enemy::PostUpdate()
 
 void Enemy::CleanUp()
 {
-	
 }
 
 void Enemy::OnCollisionEnter(PhysBody* col)
@@ -82,8 +80,6 @@ void Enemy::Die(bool spawnPower, bool spawnSoul, bool spawnOrb)
 
 	DisableCollisions();
 
-	//pendingToDelete = true;
-
 	this->enable = false;
 
  	if (app->scene->sceneGettingDeleted) return;
@@ -92,8 +88,7 @@ void Enemy::Die(bool spawnPower, bool spawnSoul, bool spawnOrb)
 	{
 		if (!spawnManager->IsDeleted() && spawnPower)
 		{
-			//int randNum = 1;
-			int randNum = rand() % 5;
+			int randNum = rand() % 8;
 			if (randNum == 1) spawnManager->SpawnSpell(GetPosition());
 		}
 	}
@@ -102,7 +97,6 @@ void Enemy::Die(bool spawnPower, bool spawnSoul, bool spawnOrb)
 
 
 	int randHP = rand() % 10;
-	//int randHP = 1;
 	if (player != nullptr && randHP == 1 && spawnOrb) new OrbHP(GetPosition());
 
 }

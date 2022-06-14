@@ -8,7 +8,7 @@ SageBook::SageBook(PlayerController* playerController) : SageWeapon(playerContro
     playerAttackCD = 0;
     attackSpeedCD = 1200;
 
-    projectileSpeed = 20;
+    projectileSpeed = 15;
 
 	weaponTimer = new Timer();
 }

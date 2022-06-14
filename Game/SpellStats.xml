@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <stats>
 	<purified_sword id = "1">
-		<uses quantity = "3" />
+		<uses quantity = "1" />
 		<damage lvl1 = "5" lvl2 = "10" lvl3 = "15" />
 		<stun lvl1 = "false" lvl2 = "true" lvl3 = "true" />
 		<stun_duration lvl1 = "0" lvl2 = "60" lvl3 = "60" />
 		<name name = "Purified Sword"/>
 	</purified_sword>
 	<soul_shield id = "2">
-		<uses quantity = "3" />
-		<shield lvl1 = "35" lvl2 = "35" lvl3 = "50" />
+		<uses quantity = "1" />
+		<shield lvl1 = "15" lvl2 = "20" lvl3 = "25" />
 		<duration lvl1 = "120" lvl2 = "180" lvl3 = "240"/>
 		<name name = "Soul Shield"/>
 	</soul_shield>
@@ -24,12 +24,12 @@
 		<name name = "Foteiros"/>
 	</foteiros>
 	<pneuma id = "13">
-		<uses quantity = "3" />
+		<uses quantity = "2" />
 		<damage lvl1 = "30" lvl2 = "50" lvl3 = "80" />
 		<name name = "Pneuma"/>
 	</pneuma>
 	<ekriski id = "14">
-		<uses quantity = "3" />
+		<uses quantity = "2" />
 		<damage lvl1 = "30" lvl2 = "50" lvl3 = "80" />
 		<name name = "Ekriski"/>
 	</ekriski>

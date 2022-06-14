@@ -120,7 +120,7 @@ private:
 	int attackImpulseTime = 120;
 	int attackImpulseDistance = 10;
 
-	int invulnerabilityTimeHit = 1920;
+	int invulnerabilityTimeHit = 1000;
 	bool beenHit = false;
 
 	bool isInvulnerable = false;

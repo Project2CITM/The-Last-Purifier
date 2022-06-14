@@ -22,7 +22,7 @@ Ghoul::Ghoul(iPoint pos, Room* room, bool mut) : Enemy("ghoul"), mutante(mut)
 
 	if(!mut)
 	{
-		health = 20;
+		health = 30;
 
 		moveSpeed = 2;
 

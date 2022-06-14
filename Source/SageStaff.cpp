@@ -13,7 +13,7 @@ SageStaff::SageStaff(PlayerController* playerController) : SageWeapon(playerCont
 	projectileSpeed = 20;
 
 	projectileDamages[0] = 10;
-	projectileDamages[1] = 30;
+	projectileDamages[1] = 25;
 	projectileDamages[2] = 40;
 
 	chargedAttacksTimes[0] = 100;
