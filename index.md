@@ -9,18 +9,19 @@ This is our first roguelite type of game so we expect you to enjoy it and give u
 Thank you in advance for any help you can provide.
 
 ***
-TRAILER
-
-***
 ## The Last Purifier Logo:
 
-![gameLogo](https://www.github.com/Project2CITM/The-Last-Purifier/blob/main/Game/Assets/Sprites/UI/logoGame.png)
+![gameLogo](https://raw.githubusercontent.com/Loproxi/Project2CITM/The-Last-Purifier/main/Game/Assets/Sprites/UI/logoGame.png)
+
+
+***
+TRAILER
 
 ***
 
 ## Black Pearl Games Logo:
 
-![TeamLogo](https://raw.githubusercontent.com/Loproxi/Project2CITM/The-Last-Purifier/blob/main/Game/Assets/Sprites/UI/Team_Logo.png)
+![TeamLogo](https://raw.githubusercontent.com/Loproxi/Project2CITM/The-Last-Purifier/main/Game/Assets/Sprites/UI/Team_Logo.png)
 
 ***
 ## Our Team:
