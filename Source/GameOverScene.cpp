@@ -5,6 +5,7 @@
 #include "ModuleRender.h"
 #include "HUDInGame.h"
 #include "ModuleAudio.h"
+#include "GUIButton.h"
 
 GameOverScene::GameOverScene() : Scene("GameOverScene")
 {
@@ -13,13 +14,6 @@ GameOverScene::GameOverScene() : Scene("GameOverScene")
 
 GameOverScene::~GameOverScene()
 {
-}
-
-bool GameOverScene::InitScene()
-{
-    Scene::InitScene();
-    
-    return true;
 }
 
 bool GameOverScene::Start()
@@ -42,8 +36,8 @@ bool GameOverScene::Start()
     souls = new RenderObject();
     souls->InitAsTexture(app->textures->Load("Sprites/Soul/soul.png"), { 295, 210 }, { 0,0,50,89 }, 0.25f, 4, 0, 0, SDL_FLIP_NONE, 0);
     gameOverBG->InitAsTexture(app->textures->Load("Assets/Sprites/UI/GameOver/GameOverScreen.png"), { 0,0 }, { 0,0,0,0 }, 0.5f, 1, 0.9f);
-    pressKeyToTryAgain[0]->InitAsTexture(app->textures->Load("Assets/Sprites/UI/GameOver/PressKeyToTryAgain.png"), { 190,270 }, { 0,0,538,64 }, 0.5f);
-    pressKeyToTryAgain[1]->InitAsTexture(app->textures->Load("Assets/Sprites/UI/GameOver/PressKeyToTryAgain.png"), { 190,270 }, { 0,72,538,64 }, 0.5f);
+  /*  pressKeyToTryAgain[0]->InitAsTexture(app->textures->Load("Assets/Sprites/UI/GameOver/PressKeyToTryAgain.png"), { 190,270 }, { 0,0,538,64 }, 0.5f);
+    pressKeyToTryAgain[1]->InitAsTexture(app->textures->Load("Assets/Sprites/UI/GameOver/PressKeyToTryAgain.png"), { 190,270 }, { 0,72,538,64 }, 0.5f);*/
     
     text = new Text({ 260,220 }, "");
     text2 = new Text({ 310,220 }, "");
@@ -51,22 +45,64 @@ bool GameOverScene::Start()
     
     app->audio->PlayMusic("Audio/Music/Win-Lose/loseThemee.ogg", 2.0f, false);
 
+    // GUI 
+
+    retryButton = new GUIButton({ 200,300 }, 60, 16, app->textures->Load("Assets/Sprites/UI/Continue.png", false));
+ 
+    mainMenuButton = new GUIButton({ 400,300 }, 60, 16, app->textures->Load("Assets/Sprites/UI/QuitBUT.png", false));
+
     return true;
 }
 
 bool GameOverScene::PreUpdate()
 {
+    retryButton->Update();
+    mainMenuButton->Update();
 
-    if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN || app->input->GetControllerButton(JoystickButtons::BUTTON_A) == KEY_DOWN)
+    if (app->input->usingGameController)
     {
-        app->scene->ChangeCurrentSceneRequest(SCENES::HUB, 30);
+        if (app->input->GetControllerButton(JoystickButtons::BUTTON_RIGHT) == KEY_DOWN) selectedOption++;
+        if (app->input->GetControllerButton(JoystickButtons::BUTTON_LEFT) == KEY_DOWN) selectedOption--;
+         
+        selectedOption = selectedOption < 0 ? selectedOption = 1 : selectedOption > 1 ? selectedOption = 0 : selectedOption = selectedOption;
+        
+        switch (selectedOption)
+        {
+        case 0:
+            retryButton->HoverButton();
+            if (app->input->GetControllerButton(JoystickButtons::BUTTON_A) == KEY_DOWN)
+            {
+                retryButton->PressButton(true);
+            }
+            break;
+        case 1:
+            mainMenuButton->HoverButton();
+            if (app->input->GetControllerButton(JoystickButtons::BUTTON_A) == KEY_DOWN)
+            {
+                mainMenuButton->PressButton(true);
+            }
+            break;
+        }
+
     }
-    
+
     return true;
 }
 
 bool GameOverScene::Update()
 {
+    if (retryButton->doAction)
+    {
+        retryButton->doAction = false;
+        app->scene->ChangeCurrentSceneRequest(SCENES::HUB, 30);
+    }
+
+    if (mainMenuButton->doAction)
+    {
+        mainMenuButton->doAction = false;
+        app->scene->ChangeCurrentSceneRequest(SCENES::MAIN_MENU, 30);
+    }
+    
     text5->SetText("You have ");
     text2->SetText("souls: ");
     text->SetText(std::to_string(score));
@@ -76,7 +112,6 @@ bool GameOverScene::Update()
 
 bool GameOverScene::PostUpdate()
 {
-   
     app->renderer->AddRenderObjectRenderQueue(*gameOverBG);
     app->renderer->AddRenderObjectRenderQueue(*souls);
     if (app->input->usingGameController == true)
@@ -87,6 +122,9 @@ bool GameOverScene::PostUpdate()
     {
         app->renderer->AddRenderObjectRenderQueue(*pressKeyToTryAgain[1]);
     }
+
+    retryButton->PostUpdate();
+    mainMenuButton->PostUpdate();
    
     Scene::PostUpdate();
     return true;

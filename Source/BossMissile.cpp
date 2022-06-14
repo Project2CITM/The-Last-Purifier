@@ -121,6 +121,11 @@ void BossMissile::CleanUp()
 	playerController = nullptr;
 }
 
+void BossMissile::OnTriggerEnter(std::string trigger, PhysBody* col)
+{
+	// Nothing in here. We do this override to prevent this class from being deleted from a DamageArea like in the Enemy::OnTriggerEnter() method.
+}
+
 void BossMissile::Attack()
 {
 	attackRequest = false;

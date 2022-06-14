@@ -34,8 +34,10 @@ PlayerController::PlayerController(std::string name, std::string tag, Player* pl
 	this->player = player;
 
 	playerdodgeFX = app->audio->LoadFx("Assets/Audio/SFX/Player/sfx_playerDodge.wav", false);
-	playerhitFX = app->audio->LoadFx("Audio/SFX/Player/sfx_playerHit2");
-	
+	playerhitFX[0] = app->audio->LoadFx("Assets/Audio/SFX/Player/sfx_playerHit1.wav", false);
+	playerhitFX[1] = app->audio->LoadFx("Assets/Audio/SFX/Player/sfx_playerHit2.wav", false);
+	playerhitFX[2] = app->audio->LoadFx("Assets/Audio/SFX/Player/sfx_playerHit3.wav", false);
+
 	this->playerShadow = new PlayerShadow(this);
 }
 
@@ -597,7 +599,8 @@ void PlayerController::Hit(int damage)
 	fPoint f = { (float)GetPosition().x, (float)GetPosition().y };
 	app->psystem->AddEmiter(f, EmissorType::EMISSOR_TYPE_BLOOD);
 
-	app->audio->PlayFx(playerhitFX);
+	int randNum = rand() % 3;
+	app->audio->PlayFx(playerhitFX[randNum]);
 
 	// Calculate damage looking at player shield.
 	int totalDamage = damage - player->shield;

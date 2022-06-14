@@ -138,7 +138,7 @@ private:
 
 	uint playerdodgeFX = NULL;
 
-	uint playerhitFX = NULL;
+	uint playerhitFX[3];
 
 	Timer playerTimer;
 

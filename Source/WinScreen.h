@@ -1,15 +1,14 @@
 #pragma once
 #include "Scene.h"
+
+class GUIButton;
+
 class WinScene :
     public Scene
 {
 public:
 
     WinScene();
-
-    ~WinScene();
-
-    bool InitScene() override;
 
     bool Start() override;
 
@@ -37,7 +36,11 @@ private:
 
     Application* app = nullptr;
 
-    int score;
+    int score = 0;
+
+    GUIButton* retryButton = nullptr;
+    GUIButton* mainMenuButton = nullptr;
+    int selectedOption = 0;
 
 };
 

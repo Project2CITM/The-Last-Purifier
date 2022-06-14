@@ -305,9 +305,9 @@ void Slime::InitPhysics()
 	// Body
 	b2Filter filterC;
 
-	filterC.categoryBits = app->physics->ENEMY_LAYER;
+	filterC.categoryBits = app->physics->TRIGGER_LAYER;
 
-	filterC.maskBits = app->physics->EVERY_LAYER & ~app->physics->PLAYER_LAYER;
+	filterC.maskBits = app->physics->EVERY_LAYER & ~app->physics->PLAYER_LAYER & ~app->physics->PROJECTILE_LAYER;
 
 	pBody = app->physics->CreateCircle(position.x, position.y, 8, this, false, b2_dynamicBody, app->physics->ENEMY_LAYER);
 

@@ -25,6 +25,8 @@ public:
 
 	bool AttackEnd() { return attackEnd; }
 
+	void OnTriggerEnter(std::string trigger, PhysBody* col) override;
+
 private:
 
 	void Attack();

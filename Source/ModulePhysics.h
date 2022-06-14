@@ -99,6 +99,7 @@ public:
 	short PROJECTILE_LAYER = 0x0004;
 	short ENEMY_LAYER = 0x0008;
 	short TRIGGER_LAYER = 0x0010;
+	short HOLLOW_LAYER = 0x0012;
 
 private:
 	b2Body* mouseBody = nullptr;

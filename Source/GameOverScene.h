@@ -1,7 +1,7 @@
 #pragma once
 #include "Scene.h"
 
-
+class GUIButton;
 
 class GameOverScene :
     public Scene
@@ -11,8 +11,6 @@ public:
     GameOverScene();
 
     ~GameOverScene();
-
-    bool InitScene() override;
 
     bool Start() override;
 
@@ -40,7 +38,11 @@ private:
 
     Application* app = nullptr;
 
-    int score;
+    GUIButton* retryButton = nullptr;
+    GUIButton* mainMenuButton = nullptr;
 
+    int score = 0;
+
+    int selectedOption = 0;
 };
 

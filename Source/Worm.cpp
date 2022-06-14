@@ -271,7 +271,7 @@ void Worm::InitPhysics()
 
 	filterB.categoryBits = app->physics->ENEMY_LAYER;
 
-	filterB.maskBits = app->physics->EVERY_LAYER & ~app->physics->ENEMY_LAYER & ~app->physics->PLAYER_LAYER;
+	filterB.maskBits = app->physics->EVERY_LAYER & ~app->physics->ENEMY_LAYER & ~app->physics->PLAYER_LAYER & ~app->physics->PROJECTILE_LAYER;
 
 	pBody = app->physics->CreateRectangle(position, 8, 8, this, b2_dynamicBody, app->physics->ENEMY_LAYER);
 
