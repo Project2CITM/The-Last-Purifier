@@ -69,13 +69,12 @@ void NPC::PreUpdate()
 
 void NPC::Update()
 {
-
 		if (nearNpc) {
 			if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN||app->input->GetControllerButton(BUTTON_A)==KEY_DOWN)
 			{
 				speak = true;
 
-				int num = rand() % (4);
+				int num = rand() % 4;
 				
 				if (!speaking) {
 					speaking = true;
@@ -83,7 +82,7 @@ void NPC::Update()
 				}
 				if (sentenceOrder >= sentences.count())
 				{
-					text->SetText(" ");
+					text->SetText("");
 				}
 				else
 				{
