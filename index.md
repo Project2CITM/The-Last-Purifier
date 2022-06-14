@@ -221,7 +221,77 @@ Debug Keys:
 <summary>▶ Features</summary>
   <br>
 <pre>
-> > These are the gold features
+  ● Webpage
+    ● Intro
+    ● Trailer
+    ● Team members
+    ● Feature list
+
+  ● Gamepad
+    ● Menu movement
+    ● All mechanics
+
+  ● Particle System
+    ● Blood (player hit)
+    ● Collecting souls
+    ● Fire (marks the exit when winning the run)
+
+  ● Objects
+    ● Hp orb
+    ● Pneuma Spell
+
+  ● Entities
+    ● Miniboss
+    ● Boss
+      ● AI
+      ● Pathfinding
+      ● 3 Attacks
+      ● Transition
+
+  ● UI
+    ● Animated Main Menu
+    ● Torch animation
+    ● Animated Pause Menu
+    ● Animated Option Menu
+    ● Animated Card Inventory
+    ● Animated + Updated HUD
+    ● Weapon selector
+    ● Health bar HUD
+
+
+  ● Ability Tree
+    ● Completed Tree
+    ● All elements show description when hovering
+    ● Switching trees with TAB
+
+  ● Audio
+    ● 15-20 new sfx
+    ● Boss battle theme music
+
+  ● General features
+    ● Sage teleport effect
+    ● Revenant dash effect
+    ● New player sprite implementation
+    ● Sage class balancing
+    ● Spell stats update
+    ● Healing purified sword
+
+  ● Bugs
+    ● Puzzle design errors
+    ● Puzzle 2 barrel colliders not destroying
+    ● Enemy knockback while deactivated
+    ● Entity collider not destroying after death
+    ● Enemy parents destroying before children
+    ● Trigger class calling errors
+    ● Projectile scaling errors, offsets & rotation
+    ● Boss fight music corruption
+    ● Max spell slots
+    ● Saving system errors
+    ● Trees crashing the game when not having any soul
+    ● Hub roof sprite error when going indoors and outdoors
+    ● Movement Blocked when exiting with instructor
+    ● Fullscreen hover box rendering in wrong position
+    ● Blocked spells spawning
 </pre>
 </details>
 <br>
