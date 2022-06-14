@@ -100,6 +100,7 @@ private:
 
 	uint HitFX = NULL;
 	uint idleFX = NULL;
+	uint explodeSFX;
 };
 
 #endif // !__KABOOM_H__

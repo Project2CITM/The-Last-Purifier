@@ -15,9 +15,6 @@ ParticleAttackKaboom::ParticleAttackKaboom(iPoint position) :Particle(position, 
 	anim.duration = 0.106f;
 
 	anim.hasIdle = false;
-
-	explodeSFX = app->audio->LoadFx("Audio/SFX/Enemies/Kaboom/sfx_kaboomDeath.wav");
-	app->audio->PlayFx(explodeSFX);
 }
 
 ParticleAttackKaboom::~ParticleAttackKaboom()

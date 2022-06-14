@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <stats>
-	<currentClass class="1" />
+	<currentClass class="0" />
 	<common>
-		<souls quantity="106229" gain="1.0f" />
+		<souls quantity="101321" gain="1.0f" />
 		<luck quantity="1.0f" />
 		<speed movement="9.0f" dash="5.0f" />
 		<shield quantity="0" />

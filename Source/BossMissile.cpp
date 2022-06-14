@@ -68,6 +68,7 @@ void BossMissile::Update()
 			iPoint attackOffset = { -10, -10 };
 
 			explotion = new ParticleAttackKaboom(position + attackOffset);
+			app->audio->PlayFx(explodeSFX);
 		}
 	}
 	else if(explotion)

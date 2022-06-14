@@ -40,7 +40,9 @@ bool ModulePhysics::Start()
 UpdateStatus ModulePhysics::PreUpdate()
 {
 	if (app->isPause) return UPDATE_CONTINUE;
-	world->Step(app->frameTime, 6, 2);
+
+	if (app->vsync)world->Step(app->frameTime, 6, 2);
+	else world->Step(app->deltaTime, 6, 2);
 
 	return UPDATE_CONTINUE;
 }

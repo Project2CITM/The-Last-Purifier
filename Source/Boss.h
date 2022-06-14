@@ -138,7 +138,6 @@ private:
 	// SFX------------
 
 	bool laserSound = false;
-	bool musicStarted = false;
 
 	uint dieSFX;
 	uint laserSFX;
