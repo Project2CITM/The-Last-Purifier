@@ -2,7 +2,6 @@
 #include "CommonTree.h"
 #include "ClassTree.h"
 
-
 PlayerStats::PlayerStats(Player* player)
 {
 	this->listenTo[0] = GameEvent::SAVE_GAME;
@@ -80,7 +79,6 @@ void PlayerStats::GameEventTriggered(GameEvent id)
 		break;
 	}
 	SavePlayerProgress();
-	
 }
 
 void PlayerStats::CleanUp()

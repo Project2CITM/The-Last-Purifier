@@ -10,7 +10,6 @@
 #include "ModuleScene.h"
 #include "IntLabel.h"
 #include "PlayerCombat.h"
-#include "ModuleEvents.h"
 #include "ModuleAudio.h"
 #include "ModuleWindow.h"
 #include "Minimap.h"
@@ -35,7 +34,6 @@ bool HubScene::InitScene()
 	{
 		iPoint pos = { app->map->mapObjects[i].position.x + 16, app->map->mapObjects[i].position.y + 16 };
 		GameObject* g = nullptr;
-
 
 		switch (app->map->mapObjects[i].id)
 		{
@@ -128,10 +126,13 @@ bool HubScene::Start()
 
 	quest2 = new Quest("quest2", { 1181,1314 });
 	quest2->Start();
+
 	quest3 = new Quest("quest3", { 1205,2014 });
 	quest3->Start();
+
 	quest4 = new Quest("quest4", { 191,1823 });
 	quest4->Start();
+
 /*	quest5 = new Quest("quest5", {940,1900});
 	quest5->Start();*/
 	std::string sentenceInput;
@@ -193,7 +194,7 @@ bool HubScene::PreUpdate()
 		//Pause Menu
 		if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || app->input->GetControllerButton(BUTTON_START) == KEY_DOWN) app->TogglePause(!app->isPause);
 		//Roof switch
-		if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN) app->map->roof = !app->map->roof;
+		// if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN) app->map->roof = !app->map->roof;
 
 		if (app->input->usingGameController)
 		{
@@ -250,7 +251,6 @@ bool HubScene::Update()
 	int x = player->controller->GetPosition().x;
 	int y = player->controller->GetPosition().y;
 	
-
 	revenantTree->Update();	
 
 	//Quest
@@ -283,7 +283,6 @@ bool HubScene::Update()
 	//	//testEmitter1->MoveEmitter({ 970, 1485 });
 	//}
 
-
 	Scene::Update();
 	return true;
 }
@@ -301,7 +300,6 @@ bool HubScene::PostUpdate()
 	return true;
 }
 
-
 /*GUI*/
 void HubScene::AddGUIPause(GUI* gui)
 {
@@ -317,4 +315,3 @@ void HubScene::AddGUISettingsP(GUI* gui)
 {
 	hudInGame->AddGUISettingsP(gui);
 }
-

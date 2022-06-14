@@ -1,8 +1,5 @@
 #include "Quest.h"
 
-
-
-
 Quest::Quest(std::string name, iPoint position):GameObject(name, "Quest")
 {
 	this->position = position;
@@ -30,11 +27,11 @@ Quest::Quest(std::string name, iPoint position):GameObject(name, "Quest")
 	dialogNPCFX[3] = app->audio->LoadFx("Audio/SFX/NPCs/sfx_npcPhrase4.wav");
 
 	configDialog = app->config.child("quest");
-	 npcNode = configDialog.child("english").child(name.c_str());
+	npcNode = configDialog.child("english").child(name.c_str());
 	sentenceNum = npcNode.attribute("Num").as_int();
 	active = npcNode.attribute("active").as_bool();
-	 defaultNode = npcNode.child("default");
-	 doneNode = npcNode.child("done");
+	defaultNode = npcNode.child("default");
+	doneNode = npcNode.child("done");
 }
 
 Quest::~Quest()
@@ -43,14 +40,12 @@ Quest::~Quest()
 
 void Quest::Start()
 {
-
 	text = new Text(textPosition, " ");
 	text->ChangeDrawMode();
 	scene = (SceneGame*)Application::GetInstance()->scene->scenes[Application::GetInstance()->scene->currentScene];
 	
-	
-
-	if (active) {
+	if (active)
+	{
 		for (int i = 1; i <= sentenceNum; i++)
 		{
 			std::string temporalSentence = "Sentence" + std::to_string(i);
@@ -58,7 +53,8 @@ void Quest::Start()
 			sentences.add(defaultNode.child(temporalSentence.c_str()).child_value());
 		}
 	}
-	else if(!active) {
+	else
+	{
 		for (int i = 1; i <= sentenceNum; i++)
 		{
 			std::string temporalSentence = "Sentence" + std::to_string(i);
@@ -67,7 +63,6 @@ void Quest::Start()
 			sentences.add(doneNode.child(temporalSentence.c_str()).child_value());
 		}
 	}
-
 }
 
 void Quest::PreUpdate()
@@ -76,29 +71,27 @@ void Quest::PreUpdate()
 
 void Quest::Update()
 {
-	if (nearNpc) {
-		if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN || app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)
-		{
-			speak = true;
-			int num = rand() % (4);
+	if (!nearNpc) return;
 
-			if (!speaking) {
-				speaking = true;
-				app->audio->PlayFx(dialogNPCFX[num]);
-			}
-			if (sentenceOrder >= sentences.count())
-			{
-				text->SetText(" ");
-			}
-			else
-			{
-				text->SetText(sentences[sentenceOrder]);
-				sentenceOrder++;
-			}
+	if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN || app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)
+	{
+		speak = true;
+		int num = rand() % (4);
+
+		if (!speaking) {
+			speaking = true;
+			app->audio->PlayFx(dialogNPCFX[num]);
+		}
+		if (sentenceOrder >= sentences.count())
+		{
+			text->SetText(" ");
+		}
+		else
+		{
+			text->SetText(sentences[sentenceOrder]);
+			sentenceOrder++;
 		}
 	}
-
-
 }
 
 void Quest::PostUpdate()
@@ -107,7 +100,6 @@ void Quest::PostUpdate()
 
 	if (exterior && !app->map->roof) return;
 	if (!exterior && app->map->roof) return;
-
 
 	idleAnim.Update();
 	renderObjects[0].section = idleAnim.GetCurrentFrame();
@@ -126,10 +118,10 @@ void Quest::OnTriggerEnter(std::string trigger, PhysBody* col)
 	{
 		nearNpc = true;
 
-		LOG("Enter");
+		//LOG("Enter");
+
 		if (!speaking)
 		{
-
 			if (app->input->usingGameController)text->SetText("               Press A to talk");
 			else text->SetText("               Press F to talk");
 		}
@@ -142,13 +134,14 @@ void Quest::OnTriggerExit(std::string trigger, PhysBody* col)
 
 	if (col->gameObject->name == "Player")
 	{
-		LOG("Exit");
+		//LOG("Exit");
 		nearNpc = false;
 		speaking = false;
 		text->SetText(" ");
 		sentenceOrder = 0;
 
-		if (!active) {
+		if (!active) 
+		{
 			pendingToDelete = true;
 			scene->player->AddSouls(150);
 		}

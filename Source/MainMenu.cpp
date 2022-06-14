@@ -179,7 +179,6 @@ bool MainMenu::Update()
 			if (ControllerPos == 3)	app->renderer->AddRenderObjectRenderQueue(QuitController);
 			if (ControllerPos == 4)	app->renderer->AddRenderObjectRenderQueue(LinkController);*/
 		}
-
 		
 		if (PlayBUT->doAction || (ControllerPos == 0 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN))
 		{
@@ -213,7 +212,6 @@ bool MainMenu::Update()
 			ShellExecuteA(NULL, "open", "https://github.com/Project2CITM/The-last-purifier/wiki", NULL, NULL, SW_SHOWNORMAL);		//change the url for the url of the web
 			LinkBUT->PressButton();
 			LinkBUT->doAction = false;
-
 		}
 	}
 
@@ -432,7 +430,6 @@ bool MainMenu::PostUpdate()
 				titulo.destRect = { 65,26,0,0 };
 				titulo.scale = 0.5f;
 			}
-
 		}
 	}
 

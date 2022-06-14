@@ -1,4 +1,6 @@
-#pragma once
+#ifndef __BUTTON_OBJECT_H__
+#define __BUTTON_OBJECT_H__
+
 #include "GameObject.h"
 
 class Timer;
@@ -36,10 +38,11 @@ private:
 	int resetingMS = 200;
 	int currentResetMS = 0;
 
-	bool isResetting;
+	bool isResetting = false;
 
-	uint buttonPressSFX;
+	uint buttonPressSFX = 0;
 
 	//uint buttonpressSFX;
 };
 
+#endif // !__BUTTON_OBJECT_H__

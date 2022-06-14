@@ -58,6 +58,7 @@ protected:
 	std::string spellName = "";
 
 	pugi::xml_node spellStats;
+
 	pugi::xml_document doc;
 };
 #endif

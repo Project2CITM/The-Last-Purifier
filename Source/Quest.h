@@ -1,9 +1,10 @@
-#pragma once
+#ifndef __QUEST_H__
+#define __QUEST_H__
+
 #include "GameObject.h"
 #include "NPC.h"
 #include "Trigger.h"
 #include "ModuleInput.h"
-#include "Application.h"
 #include "ModulePhysics.h"
 #include "Text.h"
 #include "ModuleAudio.h"
@@ -11,9 +12,6 @@
 #include "ModuleScene.h"
 #include "SceneGame.h"
 #include "Player.h"
-
-class Text;
-class Trigger;
 
 class Quest : public GameObject
 {
@@ -73,14 +71,17 @@ private:
 	int sentenceNum = 0;
 
 	pugi::xml_node npcNode;
+
 	pugi::xml_node defaultNode;
+
 	pugi::xml_node doneNode;
+
 	SceneGame* scene = nullptr;
+
 public:
 
 	bool speak = false;
 	bool active = true;
-
-
 };
 
+#endif // !__QUEST_H__

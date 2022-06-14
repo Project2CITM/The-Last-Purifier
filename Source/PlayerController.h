@@ -6,8 +6,6 @@
 #include "Animation.h"
 #include "Trigger.h"
 #include "ModuleEvents.h"
-#include "Timer.h"
-
 
 #define PLAYER_ANIMATIONS_NUM 8
 

@@ -1,7 +1,5 @@
 #include "WeaponChoosingHUD.h"
-#include "Application.h"
 #include "ModuleTextures.h"
-#include "ModuleEvents.h"
 #include "SceneGame.h"
 #include "PlayerCombat.h"
 #include "PlayerController.h"
@@ -91,12 +89,6 @@ WeaponChoosingHUD::WeaponChoosingHUD(PlayerClass playerClass)
 	Torch2Anim.hasIdle = false;
 }
 
-
-
-	
-
-
-
 void WeaponChoosingHUD::Start()
 {
 	// Triggers an event that stops player from moving.
@@ -184,5 +176,3 @@ void WeaponChoosingHUD::GamepadControl()
 		buttons[currentOption]->PressButton(true);
 	}
 }
-
-

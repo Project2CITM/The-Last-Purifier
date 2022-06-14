@@ -224,4 +224,3 @@ void MapLoader::CreateEnemies(Room* r)
 		}
 	}
 }
-

@@ -1,8 +1,6 @@
 #include "BossProjectile.h"
-#include "Trigger.h"
 #include "ModulePhysics.h"
 #include "PlayerController.h"
-#include "ModuleInput.h" // Test
 #include "ModuleAudio.h"
 
 BossProjectile::BossProjectile(iPoint position, PlayerController* target) :Enemy("bossProjectile")

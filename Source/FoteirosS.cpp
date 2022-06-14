@@ -4,6 +4,7 @@
 #include "PlayerController.h"
 #include "Player.h"
 #include "ModulePhysics.h"
+
 FoteirosS::FoteirosS()
 {
 	spellStats = spellStats.child("foteiros");
@@ -26,10 +27,6 @@ void FoteirosS::Execute(int level)
 	int rot = player->controller->combat->GetProjectileRotation();
 
 	new Projectile(player->controller->GetPosition() + offset, damage[level - 1], rot, direction * 20);
-}
-
-void FoteirosS::Update()
-{
 }
 
 void FoteirosS::CleanUp()

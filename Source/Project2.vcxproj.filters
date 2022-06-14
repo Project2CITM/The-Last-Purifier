@@ -285,7 +285,7 @@
     <ClInclude Include="ClassTreeHud.h">
       <Filter>Archivos de encabezado\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="TestScene.h">
+    <ClInclude Include="Level1Scene.h">
       <Filter>Archivos de encabezado\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="MainMenu.h">
@@ -644,7 +644,7 @@
     <ClCompile Include="MainMenu.cpp">
       <Filter>Archivos de origen\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="TestScene.cpp">
+    <ClCompile Include="Level1Scene.cpp">
       <Filter>Archivos de origen\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="LogoScene.cpp">

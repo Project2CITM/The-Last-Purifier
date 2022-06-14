@@ -203,7 +203,7 @@
     <ClInclude Include="SpellObject.h" />
     <ClInclude Include="SpellSpawnManager.h" />
     <ClInclude Include="StateMachine.h" />
-    <ClInclude Include="TestScene.h" />
+    <ClInclude Include="Level1Scene.h" />
     <ClInclude Include="TestSpell.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="Timer.h" />
@@ -319,7 +319,7 @@
     <ClCompile Include="SpellObject.cpp" />
     <ClCompile Include="SpellSpawnManager.cpp" />
     <ClCompile Include="StateMachine.cpp" />
-    <ClCompile Include="TestScene.cpp" />
+    <ClCompile Include="Level1Scene.cpp" />
     <ClCompile Include="TestSpell.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Trigger.cpp" />

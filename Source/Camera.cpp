@@ -29,31 +29,31 @@ void Camera::Update()
 
 	//if (!app->debug->debugCamera) return;
 
-	if (app->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
-	{
-		debug = !debug;
-	}
+	//if (app->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
+	//{
+	//	debug = !debug;
+	//}
 
-	if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-	{
-		y -= cameraSpeed;
-		//printf_s("Camera_X: %d, Camera_Y: %d\n", x, y);
-	}
-	if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-	{
-		y += cameraSpeed;
-		//printf_s("Camera_X: %d, Camera_Y: %d\n", x, y);
-	}
-	if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-	{
-		x -= cameraSpeed;
-		//printf_s("Camera_X: %d, Camera_Y: %d\n",x, y);
-	}
-	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-	{
-		x += cameraSpeed;
-		//printf_s("Camera_X: %d, Camera_Y: %d\n", x, y);
-	}
+	//if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+	//{
+	//	y -= cameraSpeed;
+	//	//printf_s("Camera_X: %d, Camera_Y: %d\n", x, y);
+	//}
+	//if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+	//{
+	//	y += cameraSpeed;
+	//	//printf_s("Camera_X: %d, Camera_Y: %d\n", x, y);
+	//}
+	//if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+	//{
+	//	x -= cameraSpeed;
+	//	//printf_s("Camera_X: %d, Camera_Y: %d\n",x, y);
+	//}
+	//if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+	//{
+	//	x += cameraSpeed;
+	//	//printf_s("Camera_X: %d, Camera_Y: %d\n", x, y);
+	//}
 }
 
 void Camera::UpdatePosition()

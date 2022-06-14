@@ -1,11 +1,12 @@
-#pragma once
+#ifndef __SOULS_H__
+#define __SOULS_H__
+
 #include "GameObject.h"
 #include "Animation.h"
 #include "Player.h"
 #include "ModuleEvents.h"
 
 class Trigger;
-
 
 class Souls : public GameObject, EventListener
 {
@@ -50,3 +51,4 @@ protected:
 	int soulsAmount = 0;
 };
 
+#endif // !__SOULS_H__

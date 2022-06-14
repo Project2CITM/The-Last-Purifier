@@ -1,4 +1,6 @@
-#pragma once
+#ifndef __PLAYER_CONVERTER_H__
+#define __PLAYER_CONVERTER_H__
+
 #include "GameObject.h"
 
 class Trigger;
@@ -52,3 +54,4 @@ private:
     bool exterior = true;
 };
 
+#endif // !__PLAYER_CONVERTER_H__

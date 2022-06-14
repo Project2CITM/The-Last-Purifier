@@ -1,10 +1,8 @@
 #include "BossMissile.h"
-#include "Trigger.h"
 #include "ModulePhysics.h"
 #include "PlayerController.h"
 #include "ModuleRender.h"
 #include "ParticleAttackKaboom.h"
-#include "ModuleInput.h" // Test
 #include "ModuleAudio.h"
 
 BossMissile::BossMissile(PlayerController* target) :Enemy("bossMissile")
@@ -42,11 +40,6 @@ BossMissile::~BossMissile()
 void BossMissile::Update()
 {
 	missileTimer.Update();
-
-	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
-	{
-		AttackRequest();
-	}
 
 	if (attackRequest)
 	{

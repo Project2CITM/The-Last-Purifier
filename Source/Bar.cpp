@@ -34,7 +34,6 @@ void Bar::SetValuePercentage(float percentage)
 	currentRectWidth = totalRectWidth * percentage;
 
 	currentRect.w = currentRectWidth;
-
 }
 
 void Bar::PostUpdate()

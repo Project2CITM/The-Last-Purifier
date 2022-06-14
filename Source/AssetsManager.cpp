@@ -52,9 +52,7 @@ SDL_Surface* ModuleAssetsManager::LoadPhysfsTexture(const char* path) const
 		
 		return surface;
 	}
-	else
-		return nullptr;
-
+	else return nullptr;
 }
 
 Mix_Chunk* ModuleAssetsManager::LoadPhysfsFx(const char* path) const
@@ -71,8 +69,7 @@ Mix_Chunk* ModuleAssetsManager::LoadPhysfsFx(const char* path) const
 
 		return c;
 	}
-	else
-		return nullptr;
+	else return nullptr;
 }
 
 Mix_Music* ModuleAssetsManager::LoadPhysfsMusic(const char* path) const
@@ -89,8 +86,7 @@ Mix_Music* ModuleAssetsManager::LoadPhysfsMusic(const char* path) const
 
 		return m;
 	}
-	else
-		return nullptr;
+	else return nullptr;
 }
 
 pugi::xml_document* ModuleAssetsManager::LoadPhysfsXML(const char* path) const
@@ -113,8 +109,7 @@ pugi::xml_document* ModuleAssetsManager::LoadPhysfsXML(const char* path) const
 		}
 		return d;
 	}
-	else
-		return nullptr;
+	else return nullptr;
 }
 
 
@@ -146,5 +141,3 @@ uint ModuleAssetsManager::LoadData(const char* path, char** buffer) const
 
 	return ret;
 }
-
-

@@ -1,4 +1,3 @@
-#include "HUDInGame.h"
 #include "ModuleRender.h"
 #include "ModuleTextures.h"
 #include "ModuleScene.h"

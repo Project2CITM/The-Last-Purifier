@@ -40,7 +40,6 @@ void SoulShieldS::Execute(int level)
 	new ParticleSoulShield(player->controller->GetPosition(), player->controller, particlelifetimeinseconds);
 
 	Application::GetInstance()->audio->PlayFx(executeSFX);
-
 }
 
 void SoulShieldS::Update()

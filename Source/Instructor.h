@@ -1,12 +1,14 @@
-#pragma once
+#ifndef __INSTRUCTOR_H__
+#define __INSTRUCTOR_H__
+
 #include "NPC.h"
 #include "ClassTreeHud.h"
-
 
 class Instructor : public NPC
 {
 public:
 	Instructor(std::string sentence, std::string name, iPoint position, PlayerClass pClass);
+
 	~Instructor();
 
 	void Start() override;
@@ -20,6 +22,7 @@ public:
 	void CleanUp() override;
 
 	void OnTriggerEnter(std::string trigger, PhysBody* col) override;
+
 	void OnTriggerExit(std::string trigger, PhysBody* col) override;
 
 public:
@@ -31,7 +34,6 @@ public:
 
 private:
 	
-
 	bool toggle = false;
 
 	struct DATA
@@ -41,3 +43,4 @@ private:
 	}npcData;
 };
 
+#endif // !__INSTRUCTOR_H__

@@ -58,10 +58,7 @@ void ButtonObject::OnCollisionEnter(PhysBody* col)
 {
 	if (col->gameObject == nullptr) return;
 
-	if (col->gameObject->name == "Player" && !isResetting)
-	{
-		PressButton();
-	}
+	if (col->gameObject->name == "Player" && !isResetting) PressButton();
 }
 
 void ButtonObject::PressButton()

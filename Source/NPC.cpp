@@ -6,7 +6,6 @@
 #include "ModuleRender.h"
 #include "PlayerController.h"
 #include "SceneGame.h"
-#include "Trigger.h"
 #include "ModulePhysics.h"
 #include "ModuleMap.h"
 #include "ModuleAudio.h"
@@ -14,11 +13,15 @@
 NPC::NPC(std::string name, iPoint position) : GameObject(name,"NPC")
 {
 	this->position = position;
+
 	textPosition = { position.x-npcData.w, position.y - npcData.h };
+
 	trigger = new Trigger({position.x+10,position.y+10}, 50, this,"triggerNpc",false);
 
 	b2Filter filter;
+
 	filter.categoryBits = app->physics->TRIGGER_LAYER;
+
 	trigger->pBody->body->GetFixtureList()->SetFilterData(filter);
 
 	InitRenderObjectWithXml("npc");
@@ -27,10 +30,12 @@ NPC::NPC(std::string name, iPoint position) : GameObject(name,"NPC")
 	{
 		idleAnim.PushBack({70*i,0,70,95});
 	}
-	idleAnim.loop = true;
-	idleAnim.duration = 0.320;
-	idleAnim.hasIdle = false;	
 
+	idleAnim.loop = true;
+
+	idleAnim.duration = 0.320;
+
+	idleAnim.hasIdle = false;	
 	
 	dialogNPCFX[0] = app->audio->LoadFx("Audio/SFX/NPCs/sfx_npcPhrase1.wav");
 	dialogNPCFX[1] = app->audio->LoadFx("Audio/SFX/NPCs/sfx_npcPhrase2.wav");
@@ -45,7 +50,6 @@ NPC::~NPC()
 
 void NPC::Start()
 {
-	
 	text = new Text(textPosition," ");
 	text->ChangeDrawMode();
 	configDialog = app->config.child("dialogText");
@@ -59,7 +63,6 @@ void NPC::Start()
 		
 		sentences.add(npcNode.child(temporalSentence.c_str()).child_value());
 	}
-
 }
 
 void NPC::PreUpdate()
@@ -69,29 +72,29 @@ void NPC::PreUpdate()
 
 void NPC::Update()
 {
-		if (nearNpc) {
-			if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN||app->input->GetControllerButton(BUTTON_A)==KEY_DOWN)
-			{
-				speak = true;
+	if (nearNpc)
+	{
+		if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN || app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)
+		{
+			speak = true;
 
-				int num = rand() % 4;
-				
-				if (!speaking) {
-					speaking = true;
-					app->audio->PlayFx(dialogNPCFX[num]);
-				}
-				if (sentenceOrder >= sentences.count())
-				{
-					text->SetText("");
-				}
-				else
-				{
-					text->SetText(sentences[sentenceOrder]);
-					sentenceOrder++;
-				}
+			int num = rand() % 4;
+
+			if (!speaking) {
+				speaking = true;
+				app->audio->PlayFx(dialogNPCFX[num]);
+			}
+			if (sentenceOrder >= sentences.count())
+			{
+				text->SetText("");
+			}
+			else
+			{
+				text->SetText(sentences[sentenceOrder]);
+				sentenceOrder++;
 			}
 		}
-	
+	}
 }
 
 void NPC::PostUpdate()

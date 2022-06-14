@@ -3,7 +3,7 @@
 #include "ModuleAudio.h"
 #include "ModuleWindow.h"
 #include "ModuleRender.h"
-#include "TestScene.h"
+#include "Level1Scene.h"
 #include "HubScene.h"
 #include "MainMenu.h"
 #include "LogoScene.h"
@@ -17,7 +17,7 @@ ModuleScene::ModuleScene(bool start_enabled) : Module(start_enabled)
 	scenes[LOGO] = new LogoScene();
 	scenes[MAIN_MENU] = new MainMenu();
 	scenes[HUB] = new HubScene();
-	scenes[LEVEL_1] = new TestScene();
+	scenes[LEVEL_1] = new Level1Scene();
 	scenes[GAME_OVER] = new GameOverScene();
 	scenes[WIN] = new WinScene();
 

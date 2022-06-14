@@ -9,11 +9,11 @@ class SpellSpawnManager;
 class WeaponChoosingHUD;
 class MenuManager;
 
-class TestScene :  public SceneGame
+class Level1Scene :  public SceneGame
 {
 public:
 
-	TestScene();
+	Level1Scene();
 
 	bool Start() override;
 

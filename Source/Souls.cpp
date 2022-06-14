@@ -1,6 +1,4 @@
 #include "Souls.h"
-#include "Trigger.h"
-#include "Application.h"
 #include "ModulePhysics.h"
 #include "ModuleRender.h"
 #include "ModuleTextures.h"

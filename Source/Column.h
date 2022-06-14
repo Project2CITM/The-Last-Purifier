@@ -1,4 +1,6 @@
-#pragma once
+#ifndef __COLUMN_H__
+#define __COLUMN_H__
+
 #include "Enemy.h"
 
 class Timer;
@@ -27,3 +29,4 @@ private:
 	Timer* columnTimer = nullptr;
 };
 
+#endif // !__COLUMN_H__

@@ -1,7 +1,8 @@
-#pragma once
+#ifndef __INTLABEL_H__
+#define __INTLABEL_H__
+
 #include "GameObject.h"
 #include "Text.h"
-
 
 class Sensor;
 class Trigger;
@@ -42,3 +43,4 @@ private:
 	Trigger* trigger = nullptr;
 };
 
+#endif // !__INTLABEL_H__

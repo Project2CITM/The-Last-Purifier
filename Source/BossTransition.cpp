@@ -1,6 +1,5 @@
 #include "BossTransition.h"
 #include "ModuleTextures.h"
-#include "Application.h"
 #include "ModuleRender.h"
 
 BossTransition::BossTransition()

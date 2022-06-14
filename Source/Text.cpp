@@ -110,7 +110,6 @@ void Text::ChangeDrawMode()
 
 void Text::DrawTextStepToStep()
 {
-
 }
 
 void Text::SaveTextInAscii()

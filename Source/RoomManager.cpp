@@ -159,16 +159,16 @@ void RoomManager::PostUpdate(iPoint playerPos)
 
 void RoomManager::CleanUp()
 {
-	for (int i = 0; i < MAX_ROOMS_COLUMNS; ++i) {
-		for (int j = 0; j < MAX_ROOMS_ROWS; j++) {
+	for (int i = 0; i < MAX_ROOMS_COLUMNS; ++i)
+	{
+		for (int j = 0; j < MAX_ROOMS_ROWS; j++) 
+		{
 			roomPositions[i][j] = nullptr;
 		}
 	}
 
-	for (int i = 0; i < rooms.count(); i++)
-	{
-		rooms[i]->CleanUp();
-	}
+	for (int i = 0; i < rooms.count(); i++) rooms[i]->CleanUp();
+
 	rooms.clearPtr();
 
 	RELEASE(mapLoader);
@@ -190,14 +190,15 @@ void RoomManager::CleanUp()
 void RoomManager::GenerateMap(short RoomNumber)
 {
 	//if the Room number is too big or too little
-	if (RoomNumber < 1 || RoomNumber > MAX_ROOMS_ROWS * MAX_ROOMS_COLUMNS)
-		return;
+	if (RoomNumber < 1 || RoomNumber > MAX_ROOMS_ROWS * MAX_ROOMS_COLUMNS) return;
 
 	//Seed
-	if (mapSave->CurrentSeed() == 0) {
+	if (mapSave->CurrentSeed() == 0)
+	{
 		mapSave->GenerateSeed();
 	}
-	else {
+	else
+	{
 		mapSave->UseCurrentSeed();
 	}
 
@@ -268,7 +269,8 @@ void RoomManager::GenerateMap(short RoomNumber)
 	iPoint startRoomPos = rooms[0]->roomPosition;
 	int adjacentSpaces = 3;	//Blank spaces that the Boss room should have
 
-	do {	//check all rooms that have 3 spaces left
+	do 
+	{	//check all rooms that have 3 spaces left
 		for (int i = 0; i < MAX_ROOMS_COLUMNS; ++i) 
 		{
 			for (int j = 0; j < MAX_ROOMS_ROWS; ++j) 
@@ -390,8 +392,7 @@ void RoomManager::CreateDoors()
 		Room* cr = currentRoom->data;
 
 		//Reset wallcolliders
-		for (int i = 0; i < 4; ++i)
-			cr->wallColliders[i] = nullptr;
+		for (int i = 0; i < 4; ++i) cr->wallColliders[i] = nullptr;
 
 		DoorOrientations doorOrient = DoorOrientations::RIGHT;
 
@@ -402,7 +403,8 @@ void RoomManager::CreateDoors()
 			cr->doors.add(new Door(cr->GetDoorPos(doorOrient), cr->GetDoorSize(doorOrient), doorOrient));
 		}
 		//No Door -> WallCollider
-		else {
+		else 
+		{
 			doorOrient = DoorOrientations::RIGHT;
 			iPoint colSize = cr->GetDoorSize(doorOrient);
 			cr->wallColliders[0] = app->physics->CreateRectangle(cr->GetDoorPos(doorOrient), colSize.x, colSize.y, nullptr, b2_staticBody);
@@ -415,7 +417,8 @@ void RoomManager::CreateDoors()
 			cr->doors.add(new Door(cr->GetDoorPos(doorOrient), cr->GetDoorSize(doorOrient), doorOrient));
 		}
 		//No Door -> WallCollider
-		else {
+		else 
+		{
 			doorOrient = DoorOrientations::BOTTOM;
 			iPoint colSize = cr->GetDoorSize(doorOrient);
 			cr->wallColliders[1] = app->physics->CreateRectangle(cr->GetDoorPos(doorOrient), colSize.x, colSize.y, nullptr, b2_staticBody);
@@ -503,18 +506,19 @@ Room* RoomManager::CreateRoom(iPoint mapPosition, short mapId)
 //Pseudo-print the rooms
 void RoomManager::DrawRooms()
 {
-	for (int i = 0; i < rooms.count(); ++i)
-		rooms[i]->DrawRoom();
+	for (int i = 0; i < rooms.count(); ++i) rooms[i]->DrawRoom();
 }
 
 //Pseudo-print the doors
 void RoomManager::DrawDoors()
 {
-	for (int i = 0; i < rooms.count(); ++i) {
+	for (int i = 0; i < rooms.count(); ++i) 
+	{
 		Room* r = rooms[i];
 		int k = r->doors.count();
 
-		for (int j = 0; j < k; ++j) {
+		for (int j = 0; j < k; ++j) 
+		{
 			Door* d = r->doors[j];
 			if (d->orientation == DoorOrientations::TOP)
 				app->renderer->AddTextureRenderQueue(doorTopTexture, d->GetPosition() - d->size, { 0,0,0,0 }, TILE_SIZE / 16.0f, 3);
@@ -523,8 +527,10 @@ void RoomManager::DrawDoors()
 		}
 
 		//Draw Spikes
-		if (r->closedDoors) {
-			for (int j = 0; j < k; ++j) {
+		if (r->closedDoors) 
+		{
+			for (int j = 0; j < k; ++j) 
+			{
 				Door* d = r->doors[j];
 				iPoint p = d->GetPosition() - d->size;
 				switch (d->orientation) {

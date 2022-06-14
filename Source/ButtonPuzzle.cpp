@@ -80,11 +80,6 @@ void ButtonPuzzle::PreUpdate()
 		ResetPuzzle();
 		app->audio->PlayFx(failSFX);
 	}
-
-}
-
-void ButtonPuzzle::Update()
-{
 }
 
 void ButtonPuzzle::CleanUp()
@@ -136,5 +131,4 @@ void ButtonPuzzle::ResetPuzzle()
 		buttons[i]->ResetButton();
 		buttonPressed[i] = -1;
 	}
-
 }

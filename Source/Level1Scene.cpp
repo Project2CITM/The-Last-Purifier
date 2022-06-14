@@ -1,4 +1,4 @@
-﻿#include "TestScene.h"
+﻿#include "Level1Scene.h"
 #include "PlayerController.h"
 #include "Particle.h"
 #include "PlayerRevenant.h"
@@ -25,12 +25,12 @@
 #include "MenuManager.h"
 
 
-TestScene::TestScene() : SceneGame("testScene")
+Level1Scene::Level1Scene() : SceneGame("testScene")
 {
 
 }
 
-bool TestScene::Start()
+bool Level1Scene::Start()
 {
     PlayerClass playerClass;
 
@@ -82,7 +82,7 @@ bool TestScene::Start()
     return true;
 }
 
-bool TestScene::PreUpdate()
+bool Level1Scene::PreUpdate()
 {
     roomManager.PreUpdate(player->controller->GetPosition());
 
@@ -97,12 +97,12 @@ bool TestScene::PreUpdate()
     return true;
 }
 
-void TestScene::OptickUpdate()
+void Level1Scene::OptickUpdate()
 {
 
 }
 
-bool TestScene::Update()
+bool Level1Scene::Update()
 {
     roomManager.Update(player->controller->GetPosition());
 
@@ -113,7 +113,7 @@ bool TestScene::Update()
     return true;
 }
 
-bool TestScene::PostUpdate()
+bool Level1Scene::PostUpdate()
 {
     roomManager.PostUpdate(player->controller->GetPosition());
 
@@ -126,7 +126,7 @@ bool TestScene::PostUpdate()
     return true;
 }
 
-bool TestScene::CleanUp()
+bool Level1Scene::CleanUp()
 {
     app->events->TriggerEvent(GameEvent::DELETING_SCENE);
 
@@ -155,17 +155,17 @@ bool TestScene::CleanUp()
     return false;
 }
 
-void TestScene::AddGUIPause(GUI* gui)
+void Level1Scene::AddGUIPause(GUI* gui)
 {
     hudInGame->AddGUIPause(gui);
 }
 
-void TestScene::AddGUIControls(GUI* gui)
+void Level1Scene::AddGUIControls(GUI* gui)
 {
     hudInGame->AddGUIControls(gui);
 }
 
-void TestScene::AddGUISettingsP(GUI* gui)
+void Level1Scene::AddGUISettingsP(GUI* gui)
 {
     hudInGame->AddGUISettingsP(gui);
 }

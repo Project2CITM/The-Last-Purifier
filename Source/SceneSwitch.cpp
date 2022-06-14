@@ -14,23 +14,9 @@ SceneSwitch::~SceneSwitch()
 
 }
 
-void SceneSwitch::CleanUp()
-{
-
-}
-
 void SceneSwitch::OnCollisionEnter(PhysBody* col)
 {
 	if (col->gameObject == nullptr) return;
 
-	if (col->gameObject->CompareTag("Player"))
-	{
-		app->scene->ChangeCurrentSceneRequest(destination);
-	}
-
-}
-
-void SceneSwitch::OnCollisionExit(PhysBody* col)
-{
-
+	if (col->gameObject->CompareTag("Player")) app->scene->ChangeCurrentSceneRequest(destination);
 }

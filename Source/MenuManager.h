@@ -1,12 +1,16 @@
-#pragma once
+#ifndef __MENU_MANAGER_H__
+#define __MENU_MANAGER_H__
 
 class Application;
 
 class MenuManager
 {
 private:
+
 	MenuManager();
+
 	~MenuManager();
+
 	static MenuManager* instance;
 
 public:
@@ -25,5 +29,6 @@ public:
 private:
 
 	Application* app = nullptr;
-
 };
+
+#endif

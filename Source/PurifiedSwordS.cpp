@@ -1,9 +1,7 @@
 #include "PurifiedSwordS.h"
 #include <string>
 #include "Player.h"
-#include "Application.h"
 #include "ModuleAudio.h"
-
 
 PurifiedSwordS::PurifiedSwordS() : Spell()
 {
@@ -31,7 +29,6 @@ PurifiedSwordS::PurifiedSwordS() : Spell()
 
 PurifiedSwordS::~PurifiedSwordS()
 {
-
 }
 
 void PurifiedSwordS::Execute(int level)

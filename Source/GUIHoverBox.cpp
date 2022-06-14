@@ -28,7 +28,6 @@ void GUIHoverBox::Update()
 		float screenOffset = app->FullScreenDesktop ? (float)app->renderer->displayMode.h / 720.0f : 1;;
 		iPoint mousePos = { app->input->GetMouseX() / (int)(app->window->scale * screenOffset), app->input->GetMouseY() / (int)(app->window->scale * screenOffset) };
 
-
 		this->position = mousePos;
 
 		//Visual Enhancment on top of the mouse
@@ -36,7 +35,6 @@ void GUIHoverBox::Update()
 		position.y = position.y - boxShape.h;
 		text->position = position;
 	}
-
 }
 
 void GUIHoverBox::PostUpdate()
@@ -59,5 +57,4 @@ void GUIHoverBox::SetData(std::string txt, int cost, bool controller, iPoint pos
 		text->position = position;
 	}
 	this->controller = controller;
-
 }

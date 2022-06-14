@@ -1,4 +1,6 @@
-#pragma once
+#ifndef __HUB_SCENE_H__
+#define __HUB_SCENE_H__
+
 #include "SceneGame.h"
 #include "HUDInGame.h"
 #include "Instructor.h"
@@ -66,3 +68,5 @@ public:
 	bool done3 = false;
 	bool done4 = false;
 };
+
+#endif // !__HUB_SCENE_H__

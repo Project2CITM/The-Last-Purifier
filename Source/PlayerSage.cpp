@@ -1,6 +1,5 @@
 #include "PlayerSage.h"
 #include "PlayerStats.h"
-#include "Application.h"
 #include "ModuleTextures.h"
 #include "Animation.h"
 #include "PlayerController.h"
@@ -11,4 +10,3 @@ PlayerSage::PlayerSage() : Player()
 	stats = new PlayerStats(this);
 	InitClassSprites(playerClass);
 }
-

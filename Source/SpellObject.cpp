@@ -46,8 +46,7 @@ void SpellObject::OnCollisionEnter(PhysBody* col)
 			pendingToDelete = true;
 			app->audio->PlayFx(pickupspellFX);
 		}
-	}
-	
+	}	
 }
 
 void SpellObject::SetColorFromLevel()

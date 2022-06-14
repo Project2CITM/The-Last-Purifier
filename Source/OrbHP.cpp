@@ -1,12 +1,10 @@
 #include "OrbHP.h"
 #include "SceneGame.h"
-#include "Application.h"
 #include "PlayerController.h"
 #include "ModuleScene.h"
 #include "ModuleRender.h"
 #include "ModuleTextures.h"
 #include "ModulePhysics.h"
-
 
 OrbHP::OrbHP(iPoint position):GameObject("OrbHP","OrbHP")
 {
