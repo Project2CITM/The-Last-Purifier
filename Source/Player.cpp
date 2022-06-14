@@ -102,7 +102,7 @@ void Player::InitRevenantSprites()
 
 	for (int i = 0; i < PLAYER_ANIMATIONS_NUM; i++)
 	{
-		controller->animations[i].duration = 0.16f;
+		controller->animations[i].duration = 0.28f;
 		controller->animations[i].hasIdle = false;
 	}
 
@@ -156,7 +156,7 @@ void Player::InitSageSprites()
 	
 	for (int i = 0; i < PLAYER_ANIMATIONS_NUM; i++)
 	{
-		controller->animations[i].duration = 0.16f;
+		controller->animations[i].duration = 0.28f;
 		controller->animations[i].hasIdle = false;
 	}
 

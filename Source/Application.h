@@ -51,6 +51,7 @@ public:
 	float averageFps = 0.0f;
 	float dt = 0.0f;
 	float frameTime = 1.0f / 60.0f;
+	float deltaTime = 0;
 	bool vsync = false;
 
 	mutable bool saveGameRequested = false;
@@ -116,7 +117,7 @@ private:
 
 	void UpdateTitle();
 
-	float deltaTime = 0, sleepTime = 0;
+	float sleepTime = 0;
 
 	void AddModule(Module* mod);
 

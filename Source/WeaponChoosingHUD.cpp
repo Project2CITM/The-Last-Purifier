@@ -44,7 +44,7 @@ WeaponChoosingHUD::WeaponChoosingHUD(PlayerClass playerClass)
 		height2 = 303;
 
 		pos1 = { 100, 20 };
-		pos2 = { 500, 20 };
+		pos2 = { 465, 20 };
 	}
 	if (playerClass == PlayerClass::SAGE)
 	{
@@ -60,7 +60,7 @@ WeaponChoosingHUD::WeaponChoosingHUD(PlayerClass playerClass)
 		width2 = 282;
 		height2 = 216;
 
-		pos1 = { 30, 50 };
+		pos1 = { 30, 80 };
 		pos2 = { 350, 50 };
 	}
 

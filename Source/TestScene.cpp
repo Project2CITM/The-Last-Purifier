@@ -30,10 +30,6 @@ TestScene::TestScene() : SceneGame("testScene")
 
 }
 
-TestScene::~TestScene()
-{
-}
-
 bool TestScene::Start()
 {
     PlayerClass playerClass;
@@ -74,15 +70,6 @@ bool TestScene::Start()
 
     app->renderer->camera->SetTarget(player->controller);
 
-    //new Slime((player->controller->GetPosition() + iPoint{ 40, 40 }));
-
-    //new Boss((player->controller->GetPosition() + iPoint{ 40, 40 }));
-
-    //spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-40, 0));
-    //spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-80, 0));
-    //spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-60, 0));
-    //spawnManager->SpawnSpell(player->controller->GetPosition() + iPoint(-20, 0));
-
     for (int i = 0; i < roomManager.rooms.count(); i++)
     {
         if (roomManager.rooms[i]->id == -6)
@@ -97,23 +84,6 @@ bool TestScene::Start()
 
 bool TestScene::PreUpdate()
 {
-   /* if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
-    {
-        roomManager.CleanUp();
-        roomManager.Start();
-    }*/
-    // Test Code-------------
-    if (app->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
-    {
-        SpellInfo spell;
-        spell.id = (SpellID)((rand() % 10) + (1));
-        spell.spellLevel = rand() % 4;
-        if (!player->controller->combat->AddSpell(spell))
-        {
-            printf("No more empty spell nor deck Slots!!\n");
-        }
-    }
-    
     roomManager.PreUpdate(player->controller->GetPosition());
 
     hudInGame->PreUpdate();
@@ -134,20 +104,6 @@ void TestScene::OptickUpdate()
 
 bool TestScene::Update()
 {
-
-    //if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-    //    roomManager.mapMovement.x -= 10;
-
-    //if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-    //    roomManager.mapMovement.x += 10;
-
-    //if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-    //    roomManager.mapMovement.y -= 10;
-
-    //if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-    //    roomManager.mapMovement.y += 10;
-
-   
     roomManager.Update(player->controller->GetPosition());
 
     hudInGame->Update();

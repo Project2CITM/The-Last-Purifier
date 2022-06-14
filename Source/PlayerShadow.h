@@ -14,6 +14,6 @@ public:
 
 private:
 	GameObject* follow = nullptr;
-	iPoint offset = { -4,4 };
+	iPoint offset = { -4,8 };
 };
 #endif	
