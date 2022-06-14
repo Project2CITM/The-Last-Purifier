@@ -42,6 +42,7 @@ enum class LookingDirection
 class Player;
 class PlayerCombat;
 class PlayerShadow;
+class ParticleEmissor;
 
 class PlayerController : public GameObject, public EventListener
 {
@@ -144,6 +145,9 @@ private:
 	PlayerShadow* playerShadow = nullptr;
 
 	friend class PlayerCombat;
+
+	ParticleEmissor* pParticles = nullptr;
+
 };
 
 #endif

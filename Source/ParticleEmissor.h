@@ -11,7 +11,8 @@ enum EmissorType
 {
 	EMISSOR_TYPE_NONE = -1,
 	EMISSOR_TYPE_FIRE,
-	EMISSOR_TYPE_BLOOD
+	EMISSOR_TYPE_BLOOD,
+	EMISSOR_TYPE_SOUL
 };
 
 class ParticleEmissor
@@ -64,7 +65,7 @@ public:
 	int GetPoolSize() const;
 	void StartEmission(double timer = -1.0f);
 	void StopEmission(double timer = 0.0f);
-	void MoveEmitter(fPoint newPos);
+	void MoveEmitter(fPoint newPos = {0,0});
 	fPoint GetEmitterPos() const;
 };
 

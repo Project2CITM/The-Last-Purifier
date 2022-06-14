@@ -130,10 +130,10 @@ void ParticleEmissor::StopEmission(double timer)
 
 void ParticleEmissor::MoveEmitter(fPoint newPos)
 {
-	pos = newPos;
+	this->pos = newPos;
 }
 
 fPoint ParticleEmissor::GetEmitterPos() const
 {
-	return pos;
+	return this->pos;
 }

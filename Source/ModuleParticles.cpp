@@ -31,6 +31,8 @@ bool ModuleParticles::Init(pugi::xml_node& config)
 			LoadEmitterData(emissors, EmissorType::EMISSOR_TYPE_FIRE);
 		else if (emissorType == "blood")
 			LoadEmitterData(emissors, EmissorType::EMISSOR_TYPE_BLOOD);
+		else if (emissorType == "soul")
+			LoadEmitterData(emissors, EmissorType::EMISSOR_TYPE_SOUL);
 
 	}
 	return ret;

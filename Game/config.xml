@@ -356,7 +356,7 @@
 					<emitNumber value="2" />
 					<emitVariance value="0" />
 					<maxParticleLife value="15" />
-					<textureRect x="0" y="0" w="128" h="128" />
+					<textureRect x="192" y="0" w="64" h="64" />
 					<startColor r="255" g="100" b="0" a="255" />
 					<endColor r="210" g="210" b="210" a="255" />
 					<blendMode mode="add" />
@@ -369,11 +369,24 @@
 					<emitNumber value="5" />
 					<emitVariance value="1" />
 					<maxParticleLife value="30" />
-					<textureRect x="129" y="0" w="16" h="16" />
+					<textureRect x="128" y="0" w="16" h="16" />
 					<startColor r="255" g="0" b="0" a="255" />
 					<endColor r="200" g="0" b="0" a="0" />
 					<blendMode mode="add" />
 					<lifetime value="5" />
+				</emitter>
+				<emitter type="soul">
+					<angleRange min="60" max="120" />
+					<maxSpeed value="65" />
+					<maxSize value="55" />
+					<emitNumber value="1" />
+					<emitVariance value="0" />
+					<maxParticleLife value="40" />
+					<textureRect x="128" y="16" w="16" h="16" />
+					<startColor r="80" g="34" b="110" a="255" />
+					<endColor r="96" g="41" b="132" a="255" />
+					<blendMode mode="add" />
+					<lifetime value="800" />
 				</emitter>
 			</particleAtlas>
 		</emitters>

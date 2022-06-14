@@ -180,6 +180,13 @@ void PlayerController::Update()
 
 	// Update animation
 	animations[(int)currentAnim].Update();	
+
+	//Particles
+	if (pParticles != nullptr)
+	{
+		fPoint npp = { (float)GetPosition().x, (float)GetPosition().y };
+		pParticles->MoveEmitter(npp);
+	}
 }
 
 void PlayerController::PostUpdate()
@@ -556,6 +563,13 @@ void PlayerController::OnTriggerEnter(std::string trigger, PhysBody* col)
 {
 	if (col->gameObject == nullptr) return;
 
+	if (col->gameObject->CompareTag("SoulsDetectPlayer"))
+	{
+		fPoint npp = { (float)GetPosition().x, (float)GetPosition().y };
+		pParticles = app->psystem->AddEmiter(npp, EmissorType::EMISSOR_TYPE_SOUL);
+	}
+
+	//Immunity
 	if (isInvulnerable) return;
 
 	if (col->gameObject->name == "DamageArea")
@@ -579,6 +593,7 @@ void PlayerController::OnTriggerEnter(std::string trigger, PhysBody* col)
 void PlayerController::Hit(int damage)
 {
 	if (godMode) return;
+
 	fPoint f = { (float)GetPosition().x, (float)GetPosition().y };
 	app->psystem->AddEmiter(f, EmissorType::EMISSOR_TYPE_BLOOD);
 

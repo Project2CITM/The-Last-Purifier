@@ -219,12 +219,18 @@ bool HubScene::PreUpdate()
 	{
 		player->controller->SetPosition({ 926, 1579 });
 	}*/
-
-	/*if (app->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
+	fPoint pp = { (float)player->controller->GetPosition().x +10,(float)player->controller->GetPosition().y+10 };
+	
+	if (app->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
 	{
-		app->psystem->AddEmiter({ 970, 1485 }, EmissorType::EMISSOR_TYPE_BLOOD);
+		em = app->psystem->AddEmiter({ 970, 1525 }, EmissorType::EMISSOR_TYPE_FIRE);
+	}
 
-	}*/
+	if (em != nullptr)
+	{
+		em->MoveEmitter(pp);
+	}
+	
 
 	//PreUpdates
 	hudInGame->PreUpdate();

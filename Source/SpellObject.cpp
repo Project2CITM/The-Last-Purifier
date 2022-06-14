@@ -58,7 +58,7 @@ void SpellObject::SetColorFromLevel()
 		renderObjects[0].SetColor({ 0,155,0,255 });
 		break;
 	case 3:
-		renderObjects[0].SetColor({ 75,75,0,255 });
+		renderObjects[0].SetColor({ 255,255,0,255 });
 		break;
 	}
 }

@@ -30,11 +30,23 @@ void SpellSpawnManager::SpawnSpell(iPoint p)
     if (pClass == PlayerClass::REVENANT)
     {
         randomSpell = rand() % revenantSpells;
+
+        while (classTree->getCurrentLevel(currentRevenantSpells[randomSpell]) <= 0)
+        {
+            randomSpell = rand() % revenantSpells;
+        }
+
         new SpellObject(p, (SpellID)currentRevenantSpells[randomSpell], CalculateSpellLevel((SpellID)currentRevenantSpells[randomSpell]));
     }
     else 
     {
         randomSpell = rand() % sageSpells;
+
+        while (classTree->getCurrentLevel(currentSageSpells[randomSpell]) <= 0)
+        {
+            randomSpell = rand() % sageSpells;
+        }
+
         new SpellObject(p, (SpellID)currentSageSpells[randomSpell], CalculateSpellLevel((SpellID)currentSageSpells[randomSpell]));
     }
  

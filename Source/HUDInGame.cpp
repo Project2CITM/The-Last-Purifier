@@ -748,8 +748,8 @@ void HUDInGame::SetSpellDrawInfo(int slot, bool isDeck)
 		else spellSlots[slot].SetColor({ 0,155,0,255 });
 		break;
 	case 3:
-		if(isDeck) deckSlots[slot].SetColor({ 75,75,0,255 });
-		else spellSlots[slot].SetColor({ 75,75,0,255 });
+		if(isDeck) deckSlots[slot].SetColor({ 255,255,0,255 });
+		else spellSlots[slot].SetColor({ 255,255,0,255 });
 		break;
 	}
 }

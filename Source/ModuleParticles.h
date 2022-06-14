@@ -11,7 +11,7 @@
 enum EmissorType;
 class ParticleEmissor;
 
-#define MAX_NUM_EMITTERS_TYPE 3
+#define MAX_NUM_EMITTERS_TYPE 4
 
 class ModuleParticles : public Module
 {
