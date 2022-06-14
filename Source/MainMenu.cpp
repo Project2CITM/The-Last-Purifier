@@ -224,13 +224,13 @@ bool MainMenu::Update()
 			if ((leftYOptions > 10000 || app->input->GetControllerButton(BUTTON_DOWN) == KEY_DOWN) && !AxisPress)
 			{
 				ControllerPosOpY += 1;
-				if (ControllerPosOpY > 3) ControllerPosOpY = 0;
+				if (ControllerPosOpY > 4) ControllerPosOpY = 0;
 				AxisPress = true;
 			}
 			else if ((leftYOptions < -10000 || app->input->GetControllerButton(BUTTON_UP) == KEY_DOWN) && !AxisPress)
 			{
 				ControllerPosOpY -= 1;
-				if (ControllerPosOpY < 0) ControllerPosOpY = 3;
+				if (ControllerPosOpY < 0) ControllerPosOpY = 4;
 				AxisPress = true;
 			}
 			else if (abs(leftYOptions) < 1000)
@@ -250,6 +250,9 @@ bool MainMenu::Update()
 				if (!FullScreenCHK->isActive) FullScreenCHK->checkboxState = CheckboxState::FOCUS;
 				break;
 			case 3:
+				if (!VSyncCHK->isActive) VSyncCHK->checkboxState = CheckboxState::FOCUS;
+				break;
+			case 4:
 				CloseOptBUT->HoverButton();
 				break;
 			}
@@ -277,7 +280,7 @@ bool MainMenu::Update()
 			}
 		}
 
-		if (CloseOptBUT->doAction || (ControllerPosOpY == 3 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN) || app->input->GetControllerButton(BUTTON_B) == KEY_DOWN)
+		if (CloseOptBUT->doAction || (ControllerPosOpY == 4 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN) || app->input->GetControllerButton(BUTTON_B) == KEY_DOWN)
 		{
 			currentMenu = CurrentMenu::Main;
 			ControllerPosOpY = 0;
@@ -296,12 +299,12 @@ bool MainMenu::Update()
 			FullScreenCHK->ChangeState(false);
 		}
 
-		if ((VSyncCHK->isActive || (ControllerPosOpY == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)) && !app->vsync)
+		if ((VSyncCHK->isActive || (ControllerPosOpY == 3 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)) && !app->vsync)
 		{
 			app->vsync = true;
 			VSyncCHK->ChangeState(true);
 		}
-		else if ((!VSyncCHK->isActive || (ControllerPosOpY == 2 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)) && app->vsync)
+		else if ((!VSyncCHK->isActive || (ControllerPosOpY == 3 && app->input->GetControllerButton(BUTTON_A) == KEY_DOWN)) && app->vsync)
 		{
 			app->vsync = false;
 			VSyncCHK->ChangeState(false);
