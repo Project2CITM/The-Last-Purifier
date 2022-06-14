@@ -11,7 +11,7 @@ Thank you in advance for any help you can provide.
 ***
 ## The Last Purifier Logo:
 
-![gameLogo](https://raw.githubusercontent.com/Loproxi/Project2CITM/The-Last-Purifier/main/Game/Assets/Sprites/UI/logoGame.png)
+![gameLogo](https://raw.githubusercontent.com/Project2CITM/The-Last-Purifier/main/Game/Assets/Sprites/UI/logoGame.png)
 
 
 ***
@@ -21,7 +21,7 @@ TRAILER
 
 ## Black Pearl Games Logo:
 
-![TeamLogo](https://raw.githubusercontent.com/Loproxi/Project2CITM/The-Last-Purifier/main/Game/Assets/Sprites/UI/Team_Logo.png)
+![TeamLogo](https://raw.githubusercontent.com/Project2CITM/The-Last-Purifier/main/Game/Assets/Sprites/UI/Team_Logo.png)
 
 ***
 ## Our Team:
