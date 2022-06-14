@@ -232,3 +232,7 @@ Debug Keys:
 **Main Menu**
 
 ![MainMenu](https://raw.githubusercontent.com/Project2CITM/The-Last-Purifier/gh-pages/IN-GAME-MAINMENU(7).png)
+
+**Hub**
+
+![hub](https://raw.githubusercontent.com/Project2CITM/The-Last-Purifier/gh-pages/IN-GAME(1).png)
