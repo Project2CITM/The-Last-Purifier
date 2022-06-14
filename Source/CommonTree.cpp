@@ -180,10 +180,11 @@ bool CommonTree::Upgrade(int* points, int id)
 
 	if (*points < element->cost)
 	{
-		toReturn = false;
+		return false;
 	}
+	if (element->unlocked == true) return false;
 	
-	element->unlocked = toReturn;
+	element->unlocked = true;
 	if (toReturn)
 	{ //Money out
 		*points -= element->cost;

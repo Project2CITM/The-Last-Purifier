@@ -7,11 +7,13 @@
 #include "Minimap.h"
 #include "ModuleInput.h"
 #include "GameOverScene.h"
+#include "ParticleEmissor.h"
 
 void RoomManager::Start()
 {
 	this->listenTo[0] = GameEvent::SAVE_GAME_WIN;
 	this->listenTo[1] = GameEvent::SAVE_GAME_LOSE;
+	this->listenTo[2] = GameEvent::BOSS_DIES;
 	app->events->AddListener(this);
 
 	doorTopTexture = app->textures->Load("Maps/TestDoor_top.png");
@@ -574,5 +576,13 @@ void RoomManager::GameEventTriggered(GameEvent id)
 	{
 		mapSave->ClearSeed();
 		mapSave->ClearRoomStates();
+	}
+	if (id == GameEvent::BOSS_DIES)
+	{
+		fPoint left = { (float)exitTrigger->GetPosition().x - 47.0f, (float)exitTrigger->GetPosition().y -5.0f };
+		fPoint right = { (float) exitTrigger->GetPosition().x + 32.0f, (float) exitTrigger->GetPosition().y - 5.0f };
+
+		app->psystem->AddEmiter(left, EMISSOR_TYPE_FIRE);
+		app->psystem->AddEmiter(right, EMISSOR_TYPE_FIRE);
 	}
 }

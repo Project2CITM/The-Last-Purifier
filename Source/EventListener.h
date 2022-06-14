@@ -22,7 +22,8 @@ enum class GameEvent
 	UPDATE_PLAYER_HP,
 	GO_TO_HUB,
 	ENEMY_HIT,
-	MAX
+	BOSS_DIES,
+	MAX,
 };
 
 class Application;

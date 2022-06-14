@@ -8,6 +8,7 @@
 #include "ModuleAudio.h"
 #include "BossTransition.h"
 #include "MenuManager.h"
+#include "ModuleEvents.h"
 
 Boss::Boss(iPoint pos) : Enemy("boss")
 {
@@ -235,6 +236,9 @@ void Boss::Die(bool spawnPower, bool spawnSoul, bool spawnOrb)
 	app->audio->PlayFx(bossFinalSFX);
 	// Fade Out music once the boss is defeated
 	Mix_FadeOutMusic(1.0f);
+
+	app->events->TriggerEvent(GameEvent::BOSS_DIES);
+
 }
 
 void Boss::UpdateStates()
