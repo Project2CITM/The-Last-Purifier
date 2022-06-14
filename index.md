@@ -20,7 +20,7 @@ TRAILER
 
 ## Black Pearl Games Logo:
 
-![TeamLogo](https://raw.githubusercontent.com/Loproxi/The-Last-Purifier/blob/main/Game/Assets/Sprites/UI/Team_Logo.png)
+![TeamLogo](https://raw.githubusercontent.com/Loproxi/Project2CITM/The-Last-Purifier/blob/main/Game/Assets/Sprites/UI/Team_Logo.png)
 
 ***
 ## Our Team:
