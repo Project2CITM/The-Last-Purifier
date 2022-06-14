@@ -166,7 +166,7 @@ bool CommonTree::Upgrade(int* points, int id)
 	{
 		if (!getElement(req1)->unlocked)
 		{
-			toReturn = false;
+			return false;
 		}
 	}
 
@@ -174,7 +174,7 @@ bool CommonTree::Upgrade(int* points, int id)
 	{
 		if (!getElement(req2)->unlocked)
 		{
-			toReturn = false;
+			return false;
 		}
 	}
 
