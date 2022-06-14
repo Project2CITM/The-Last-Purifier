@@ -577,7 +577,11 @@ void RoomManager::DrawDoors()
 
 void RoomManager::GameEventTriggered(GameEvent id)
 {
-	if (id == GameEvent::SAVE_GAME_WIN) mapSave->SaveRoomStates(&rooms);
+	if (id == GameEvent::SAVE_GAME_WIN)
+	{
+		mapSave->SaveRoomStates(&rooms);
+		app->psystem->RemoveAllEmitters();
+	}
 	else if (id == GameEvent::SAVE_GAME_LOSE)
 	{
 		mapSave->ClearSeed();

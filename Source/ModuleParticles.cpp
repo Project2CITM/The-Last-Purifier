@@ -52,9 +52,6 @@ UpdateStatus ModuleParticles::PreUpdate()
 
 UpdateStatus ModuleParticles::Update()
 {
-	//if (emittersList.size() == 0) return UpdateStatus::UPDATE_CONTINUE;
-	//std::list<ParticleEmissor*>::const_iterator it;
-
 	ListItem<ParticleEmissor*>* it = emittersList.start;
 
 	while (it != NULL)
@@ -67,21 +64,11 @@ UpdateStatus ModuleParticles::Update()
 		it = it->next;
 	}
 
-	/*for (it = emittersList.begin(); it != emittersList.end(); ++it)
-	{
-		if ((*it) != nullptr)
-			(*it)->Update(app->dt);
-	}*/
-
 	return UpdateStatus::UPDATE_CONTINUE;
 }
 
 UpdateStatus ModuleParticles::PostUpdate()
 {
-	//if (emittersList.size() == 0) return UpdateStatus::UPDATE_CONTINUE;
-	//std::list<ParticleEmissor*>::const_iterator it;
-	
-	//ListItem<ParticleEmissor*>* it = emittersList.start;
 
 	for (int i = 0; i < emittersList.count(); i++)
 	{
@@ -91,52 +78,11 @@ UpdateStatus ModuleParticles::PostUpdate()
 		}
 	}
 
-	//while (it != nullptr)
-	//{
-	//	if (it->data != nullptr && it->data->toDestroy)
-	//	{
-	//		//delete (it);
-	//		emittersList.delPtr(it);
-	//	}
-	//	it = it->next;
-	//}
-
-	/*for (it = emittersList.begin(); it != emittersList.end(); ++it)
-	{
-		if ((*it)->toDestroy)
-		{
-			delete (*it);
-			emittersList.erase(it);
-		}
-		if (emittersList.size() == 0) return UpdateStatus::UPDATE_CONTINUE;
-	}*/
-
 	return UpdateStatus::UPDATE_CONTINUE;
 }
 
 bool ModuleParticles::CleanUp()
 {
-
-
-	//std::list<ParticleEmissor*>::const_iterator it;
-	/*ListItem<ParticleEmissor*>* it = emittersList.start;
-
-	while (it != NULL)
-	{
-		if (it->data != nullptr)
-		{
-			delete it;
-			emittersList.del(it);
-		}
-		it = it->next;
-	}*/
-
-	/*for (it = emittersList.begin(); it != emittersList.end(); ++it)
-	{
-		if ((*it) != nullptr)
-			delete (*it);
-	}*/
-
 	emittersList.clearPtr();
 	app->textures->Unload(particleAtlas);
 
@@ -146,7 +92,6 @@ bool ModuleParticles::CleanUp()
 ParticleEmissor* ModuleParticles::AddEmiter(fPoint pos, EmissorType type)
 {
 	ParticleEmissor* tmp_emitter = new ParticleEmissor(pos, vecEmitterData[type].emitNumber, vecEmitterData[type].emitVariance, vecEmitterData[type].maxParticleLife, vecEmitterData[type].angleRange, vecEmitterData[type].maxSpeed, vecEmitterData[type].maxSize, vecEmitterData[type].textureRect, vecEmitterData[type].startColor, vecEmitterData[type].endColor, vecEmitterData[type].blendMode, vecEmitterData[type].lifetime);
-	//emittersList.push_back(tmp_emitter);
 	emittersList.add(tmp_emitter);
 
 	return tmp_emitter;
@@ -167,18 +112,6 @@ bool ModuleParticles::RemoveEmitter(ParticleEmissor& emitter)
 		it = it->next;
 	}
 
-	/*std::list<ParticleEmissor*>::const_iterator it;
-
-	for (it = emittersList.begin(); it != emittersList.end(); ++it)
-	{
-
-		if ((*it) == &emitter)
-		{
-			(*it)->toDestroy = true;
-			return true;
-		}
-	}*/
-
 	return false;
 }
 
@@ -186,25 +119,7 @@ bool ModuleParticles::RemoveAllEmitters()
 {
 	bool ret = false;
 
-	ListItem<ParticleEmissor*>* it = emittersList.start;
-
-	while (it != NULL)
-	{
-		if (it->data != nullptr)
-		{
-			it->data->toDestroy;
-			ret = true;
-		}
-		it = it->next;
-	}
-
-	/*std::list<ParticleEmissor*>::const_iterator it;
-
-	for (it = emittersList.begin(); it != emittersList.end(); ++it)
-	{
-		if ((*it) != nullptr) (*it)->toDestroy = true;
-		ret = true;
-	}*/
+	emittersList.clearPtr();
 
 	return ret;
 }
