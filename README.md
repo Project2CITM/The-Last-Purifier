@@ -23,7 +23,7 @@ Others:
 - 	Pause			→	Escape  /  Start
 - 	Attack			→	Left Click  /  X - Square
 - 	Interact		→	F  /  Y - Triangle
-- 	Zoom Minimap → TAB / SELECT - SHARE
+- 	Zoom Minimap → TAB / SHARE - SELECT
 
 Debug Keys:
 - 	Show Hitbox		→	F1
