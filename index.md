@@ -12,6 +12,17 @@ Thank you in advance for any help you can provide.
 TRAILER
 
 ***
+## The Last Purifier Logo:
+
+![gameLogo](https://raw.githubusercontent.com/Project2CITM/The-Last-Purifier/blob/main/Game/Assets/Sprites/UI/logoGame.png)
+
+***
+
+## Black Pearl Games Logo:
+
+![TeamLogo](https://raw.githubusercontent.com/Project2CITM/The-Last-Purifier/blob/main/Game/Assets/Sprites/UI/Team_Logo.png)
+
+***
 ## Our Team:
 
 **Biel Rabasa**
