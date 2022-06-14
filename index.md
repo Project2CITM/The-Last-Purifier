@@ -225,7 +225,10 @@ Debug Keys:
 </details>
 <br>
 
+***
+
 ### A few images IN-GAME:
 
+**Main Menu**
 
 ![MainMenu](https://raw.githubusercontent.com/Project2CITM/The-Last-Purifier/gh-pages/IN-GAME-MAINMENU(7).png)
