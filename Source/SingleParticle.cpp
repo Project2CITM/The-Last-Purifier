@@ -42,7 +42,7 @@ void SingleParticle::Draw()
 	// SDL_Texture* texture, float alpha, int x, int y, const SDL_Rect* section, const SDL_Rect* rectSize, float speed, double angle, int pivot_x, int pivot_y
 	//Application::GetInstance()->renderer->BlitParticle(Application::GetInstance()->psystem->GetParticleAtlas(), (int)centerX, (int)centerY, &pState.pLive.pRect, &pState.pLive.rectSize, RgbInterpolation(pState.pLive.startColor, pState.pLive.endColor, pState.pLive.t), pState.pLive.blendMode);
 	//Application::GetInstance()->renderer->AddTextureRenderQueue(Application::GetInstance()->psystem->GetParticleAtlas(), { (int)centerX, (int)centerY }, pState.pLive.pRect, 0.25f, 4, 10);
-	Application::GetInstance()->renderer->BlitParticle(Application::GetInstance()->psystem->GetParticleAtlas(), { (int)centerX, (int)centerY }, pState.pLive.pRect, 0.25f, 4, 10, RgbInterpolation(pState.pLive.startColor, pState.pLive.endColor, pState.pLive.t), pState.pLive.blendMode);
+	Application::GetInstance()->renderer->BlitParticle(Application::GetInstance()->psystem->GetParticleAtlas(), { (int)centerX, (int)centerY }, pState.pLive.pRect, 0.25f, 3, 20, RgbInterpolation(pState.pLive.startColor, pState.pLive.endColor, pState.pLive.t), pState.pLive.blendMode);
 
 	pState.pLive.t += (1.0f / (float)startLife);
 
