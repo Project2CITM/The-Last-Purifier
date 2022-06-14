@@ -14,7 +14,7 @@ TRAILER
 ***
 ## The Last Purifier Logo:
 
-![gameLogo](https://raw.githubusercontent.com/Project2CITM/The-Last-Purifier/blob/main/Game/Assets/Sprites/UI/logoGame.png)
+![gameLogo](https://www.github.com/Project2CITM/The-Last-Purifier/blob/main/Game/Assets/Sprites/UI/logoGame.png)
 
 ***
 
