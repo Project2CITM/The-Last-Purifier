@@ -208,8 +208,10 @@ void Boss::Hit(int damage)
 
 	float percent = (float)health / (float)maxHealh;
 
-	if (percent <= 0.5f) moveSpeed = 4.0f;
-
+	if (percent <= 0.5f)
+	{
+		moveSpeed = 7.0f;
+	}
 	float hp = (bossHp.bg.w * percent);
 
 	if (percent <= 0) hp = 0;
@@ -356,11 +358,17 @@ void Boss::InitPhysics()
 	damageTrigger->pBody->body->GetFixtureList()->SetFilterData(filterB);
 
 	// Laser attack Trigger
+	b2Filter filterA;
+
+	filterA.categoryBits = app->physics->ENEMY_LAYER; // Who am I
+
+	filterA.maskBits = app->physics->EVERY_LAYER & ~app->physics->PROJECTILE_LAYER; // Who will coll with me
+
 	attack = new DamageArea(damageTrigger->GetPosition() + iPoint{50, 50}, 4, 240, damage);
 
 	attack->tag = "BossLaser";
 
-	attack->pBody->body->GetFixtureList()->SetFilterData(filterB);
+	attack->pBody->body->GetFixtureList()->SetFilterData(filterA);
 
 	attack->pBody->body->SetActive(false);
 

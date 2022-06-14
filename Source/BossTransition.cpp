@@ -14,7 +14,7 @@ BossTransition::BossTransition()
 	barBottom.InitAsTexture(tex, { 1000, 256}, { 0, 128, 320, 52 }, 2, 4, 100, 0, SDL_FLIP_NONE, 0);
 	barBottom.screenDetect = false;
 
-	boss.InitAsTexture(tex, { 800, 0}, { 320, 0, 180, 180 }, 2, 4, 100, 0, SDL_FLIP_NONE, 0);
+	boss.InitAsTexture(tex, { 800, 0}, { 320, 0, 180, 180 }, 2, 4, 101, 0, SDL_FLIP_NONE, 0);
 	boss.screenDetect = false;
 }
 
