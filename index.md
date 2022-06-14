@@ -248,3 +248,7 @@ Debug Keys:
 **Sage Ability Tree**
 
 ![SageAbilityTree](https://raw.githubusercontent.com/Project2CITM/The-Last-Purifier/gh-pages/IN-GAME-SAGETREE(2).png)
+
+#### In Dungeon
+
+![InDungeon](https://raw.githubusercontent.com/Project2CITM/The-Last-Purifier/gh-pages/IN-GAME(5).png)
