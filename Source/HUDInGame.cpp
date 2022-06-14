@@ -616,6 +616,9 @@ void HUDInGame::GameEventTriggered(GameEvent id)
 	float percent = (float)player->player->hpPlayer / (float)player->player->hpMax;
 
 	float hp = (playerHp.bg.w * percent);
+
+	if (percent <= 0) hp = 0;
+
 	// Call when player Hit
 	switch (id)
 	{

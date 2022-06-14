@@ -267,7 +267,7 @@ void PlayerController::CreatePhysBody()
 	}
 
 	// Initialize enemy trigger body
-	enemyTrigger = new Trigger(GetPosition(), 8, 16, this, "Player");
+	enemyTrigger = new Trigger(GetPosition(), 8, 12, this, "Player");
 	enemyTrigger->positionOffset = { 8, -12 };
 	enemyTrigger->pBody->body->GetFixtureList()[0].SetFilterData(filter);
 }

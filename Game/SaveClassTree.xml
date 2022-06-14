@@ -2,24 +2,24 @@
 <classes>
 	<class_tree id="0" name="Revenant">
 		<tree_element id="1" level="3" />
-		<tree_element id="2" level="0" />
-		<tree_element id="3" level="0" />
-		<tree_element id="4" level="0" />
-		<tree_element id="5" level="0" />
+		<tree_element id="2" level="3" />
+		<tree_element id="3" level="3" />
+		<tree_element id="4" level="3" />
+		<tree_element id="5" level="3" />
 		<tree_element id="6" level="3" />
-		<tree_element id="7" level="0" />
-		<tree_element id="8" level="0" />
-		<tree_element id="9" level="0" />
-		<tree_element id="10" level="0" />
+		<tree_element id="7" level="3" />
+		<tree_element id="8" level="3" />
+		<tree_element id="9" level="3" />
+		<tree_element id="10" level="3" />
 		<tree_element id="11" level="3" />
-		<tree_element id="12" level="0" />
-		<tree_element id="13" level="0" />
-		<tree_element id="14" level="0" />
-		<tree_element id="15" level="0" />
-		<tree_element id="16" level="0" />
-		<tree_element id="17" level="0" />
-		<tree_element id="18" level="0" />
-		<tree_element id="19" level="0" />
-		<tree_element id="20" level="0" />
+		<tree_element id="12" level="3" />
+		<tree_element id="13" level="3" />
+		<tree_element id="14" level="3" />
+		<tree_element id="15" level="3" />
+		<tree_element id="16" level="3" />
+		<tree_element id="17" level="3" />
+		<tree_element id="18" level="3" />
+		<tree_element id="19" level="3" />
+		<tree_element id="20" level="3" />
 	</class_tree>
 </classes>

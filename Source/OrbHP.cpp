@@ -88,7 +88,7 @@ void OrbHP::GameEventTriggered(GameEvent id)
 void OrbHP::PlusHP()
 {
 	if(player->hpPlayer < player->hpMax)
-		player->hpPlayer += 20;
+		player->hpPlayer += 10;
 
 	if(player->hpPlayer > player->hpMax)
 		player->hpPlayer = player->hpMax;

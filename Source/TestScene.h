@@ -15,8 +15,6 @@ public:
 
 	TestScene();
 
-	~TestScene();
-
 	bool Start() override;
 
 	bool PreUpdate() override;

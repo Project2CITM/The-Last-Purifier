@@ -1,12 +1,13 @@
 #include "Boss.h"
 #include "SceneGame.h"
 #include "ModuleScene.h"
-#include "ModuleInput.h"
 #include "ModulePhysics.h"
 #include "DamageArea.h"
 #include "BossProjectile.h"
 #include "ModuleRender.h"
 #include "ModuleAudio.h"
+#include "BossTransition.h"
+#include "MenuManager.h"
 
 Boss::Boss(iPoint pos) : Enemy("boss")
 {
@@ -67,14 +68,6 @@ Boss::Boss(iPoint pos) : Enemy("boss")
 	// Init HpUI
 	bossHp.bg = bossHp.delayHp = bossHp.currentHp = { 50, 320, 500, 15 };
 
-	// Init attack time
-
-	attack1CoolDown = (rand() % 5000 + 5000);  // 5 - 10 s
-
-	attack2CoolDown = (rand() % 10000 + 10000); // 10 - 20 s
-
-	attack3CoolDown = (rand() % 20000 + 15000); // 15 - 35 s
-
 	// Sfxs------------
 
 	for (int i = 0; i < 4; i++)
@@ -86,23 +79,22 @@ Boss::Boss(iPoint pos) : Enemy("boss")
 	dieSFX = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Boss/sfx_bossDie.wav", false);
 	laserSFX = app->audio->LoadFx("Assets/Audio/SFX/Enemies/Boss/sfx_bossLaserFire.wav", false);
 	bossFinalSFX = app->audio->LoadFx("Assets/Audio/Music/mus_boss1Final.wav", false);
+
+	// Transition
+	transition = new BossTransition();
 }
 
 Boss::~Boss()
 {
 	// Stop laserSFX in case it is playing on that moment.
 	app->audio->StopFX(laserSFX);
+
+	if (transition) RELEASE(transition);
 }
 
 void Boss::PreUpdate()
 {
-	if (isDie) return;
-
-	if (!musicStarted)
-	{
-		musicStarted = true;
-		app->audio->PlayMusic("Audio/Music/mus_boss1.mp3", 0, false);
-	}
+	if (isDie || !enable || transition) return;
 
 	bossTimer.Update();
 
@@ -115,7 +107,47 @@ void Boss::PreUpdate()
 
 void Boss::Update()
 {
-	if (isDie) return;
+	if(transition)
+	{
+		if(!transition->transitionStart)
+		{
+			transition->transitionStart = true;
+
+			app->events->TriggerEvent(GameEvent::STOP_PLAYER_MOVEMENT);
+
+			app->renderer->camera->SetTarget(this);
+
+			// play boss music
+			app->audio->PlayMusic("Audio/Music/mus_boss1.ogg", 0, false);
+
+			MenuManager::GetInstance()->canPause = false;
+		}
+
+		transition->Update();
+
+		if (transition->transitionEnd)
+		{
+			RELEASE(transition);
+
+			app->events->TriggerEvent(GameEvent::RESUME_PLAYER_MOVEMENT);
+
+			app->renderer->camera->SetTarget(playerController);
+
+			// Init attack time
+
+			attack1CoolDown = (rand() % 5000 + 5000);  // 5 - 10 s
+
+			attack2CoolDown = (rand() % 10000 + 10000); // 10 - 20 s
+
+			attack3CoolDown = (rand() % 20000 + 15000); // 15 - 35 s
+
+			MenuManager::GetInstance()->canPause = true;
+		}
+
+		return;
+	}
+
+	if (isDie || !enable) return;
 
 	stateMachine.Update();
 
@@ -126,7 +158,9 @@ void Boss::Update()
 
 void Boss::PostUpdate()
 {
-	if (isDie) return;
+	if (isDie || !enable) return;
+
+		if (transition) transition->PostUpdate();
 
 	if (hitEffectCount > 0)
 	{
@@ -159,7 +193,7 @@ void Boss::PostUpdate()
 
 void Boss::Hit(int damage)
 {
-	if (invulnarable) return;
+	if (invulnarable || !enable) return;
 
 	// Play SFX
 	int randomNum = rand() % 4;
@@ -176,6 +210,8 @@ void Boss::Hit(int damage)
 	if (percent <= 0.5f) moveSpeed = 4.0f;
 
 	float hp = (bossHp.bg.w * percent);
+
+	if (percent <= 0) hp = 0;
 
 	bossHp.currentHp.w = (int)hp;
 }

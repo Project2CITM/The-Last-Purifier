@@ -11,6 +11,7 @@
 class BossProjectile;
 class DamageArea;
 class Room;
+class BossTransition;
 
 enum class BossState
 {
@@ -132,10 +133,11 @@ private:
 
 	BossMissile* missiles[MISSILE_NUM] = { nullptr };
 
+	BossTransition* transition = nullptr;
+
 	// SFX------------
 
 	bool laserSound = false;
-	bool musicStarted = false;
 
 	uint dieSFX;
 	uint laserSFX;

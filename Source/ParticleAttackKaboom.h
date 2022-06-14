@@ -12,10 +12,6 @@ public:
 	void PreUpdate() override;
 
 	void PostUpdate() override;
-
-private:
-
-	uint explodeSFX;
 };
 
 #endif // !__PARTICLE_ATTACK_KABOOM_H__
