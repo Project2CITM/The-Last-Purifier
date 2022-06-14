@@ -135,6 +135,8 @@ private:
 
 	BossTransition* transition = nullptr;
 
+	bool phase2 = false;
+
 	// SFX------------
 
 	bool laserSound = false;

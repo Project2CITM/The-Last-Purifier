@@ -211,6 +211,7 @@ void Boss::Hit(int damage)
 	if (percent <= 0.5f)
 	{
 		moveSpeed = 7.0f;
+		phase2 = true;
 	}
 	float hp = (bossHp.bg.w * percent);
 
@@ -521,7 +522,8 @@ void Boss::DoAttack()
 
 		projectile->SetActive(true);
 
-		projectile->Attack(7);
+		if (!phase2)projectile->Attack(7);
+		else projectile->Attack(10);
 
 		stateMachine.ChangeState((int)BossState::RUN);
 	}

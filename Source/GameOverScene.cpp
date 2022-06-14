@@ -36,8 +36,6 @@ bool GameOverScene::Start()
     souls = new RenderObject();
     souls->InitAsTexture(app->textures->Load("Sprites/Soul/soul.png"), { 295, 210 }, { 0,0,50,89 }, 0.25f, 4, 0, 0, SDL_FLIP_NONE, 0);
     gameOverBG->InitAsTexture(app->textures->Load("Assets/Sprites/UI/GameOver/GameOverScreen.png"), { 0,0 }, { 0,0,0,0 }, 0.5f, 1, 0.9f);
-  /*  pressKeyToTryAgain[0]->InitAsTexture(app->textures->Load("Assets/Sprites/UI/GameOver/PressKeyToTryAgain.png"), { 190,270 }, { 0,0,538,64 }, 0.5f);
-    pressKeyToTryAgain[1]->InitAsTexture(app->textures->Load("Assets/Sprites/UI/GameOver/PressKeyToTryAgain.png"), { 190,270 }, { 0,72,538,64 }, 0.5f);*/
     
     text = new Text({ 260,220 }, "");
     text2 = new Text({ 310,220 }, "");

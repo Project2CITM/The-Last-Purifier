@@ -32,8 +32,6 @@ bool WinScene::Start()
     soul = new RenderObject();
     soul->InitAsTexture(app->textures->Load("Sprites/Soul/soul.png"), { 390, 207 }, { 0,0,50,89 }, 0.25f, 4, 0, 0, SDL_FLIP_NONE, 0);
     winBG->InitAsTexture(app->textures->Load("Assets/Sprites/UI/GameOver/WinScreen.png"), { 0,0 }, { 0,0,0,0 }, 0.5f, 1, 0.9f);
-  /*  pressKeyToReturnToHub[0]->InitAsTexture(app->textures->Load("Assets/Sprites/UI/GameOver/PressKeyToTryAgain.png"), { 190,270 }, { 0,0,538,64 }, 0.5f);
-    pressKeyToReturnToHub[1]->InitAsTexture(app->textures->Load("Assets/Sprites/UI/GameOver/PressKeyToTryAgain.png"), { 190,270 }, { 0,72,538,64 }, 0.5f);*/
 
     text = new Text({ 355,220 }, "");
     text2 = new Text({ 405,220 }, "");
