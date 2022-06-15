@@ -31,7 +31,7 @@ bool WinScene::Start()
     pressKeyToReturnToHub[1] = new RenderObject();
     soul = new RenderObject();
     soul->InitAsTexture(app->textures->Load("Sprites/Soul/soul.png"), { 390, 207 }, { 0,0,50,89 }, 0.25f, 4, 0, 0, SDL_FLIP_NONE, 0);
-    winBG->InitAsTexture(app->textures->Load("Assets/Sprites/UI/GameOver/WinScreen.png"), { 0,0 }, { 0,0,0,0 }, 0.5f, 1, 0.9f);
+    winBG->InitAsTexture(app->textures->Load("Sprites/UI/GameOver/WinScreen.png"), { 0,0 }, { 0,0,0,0 }, 0.5f, 1, 0.9f);
 
     text = new Text({ 355,220 }, "");
     text2 = new Text({ 405,220 }, "");
@@ -41,9 +41,9 @@ bool WinScene::Start()
 
     // GUI 
 
-    retryButton = new GUIButton({ 200,300 }, 60, 16, app->textures->Load("Assets/Sprites/UI/Continue.png", false));
+    retryButton = new GUIButton({ 200,300 }, 60, 16, app->textures->Load("Sprites/UI/Continue.png", false));
 
-    mainMenuButton = new GUIButton({ 400,300 }, 60, 16, app->textures->Load("Assets/Sprites/UI/QuitBUT.png", false));
+    mainMenuButton = new GUIButton({ 400,300 }, 60, 16, app->textures->Load("Sprites/UI/QuitBUT.png", false));
 
 	return true;
 }

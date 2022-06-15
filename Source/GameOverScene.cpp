@@ -35,7 +35,7 @@ bool GameOverScene::Start()
     pressKeyToTryAgain[1] = new RenderObject();
     souls = new RenderObject();
     souls->InitAsTexture(app->textures->Load("Sprites/Soul/soul.png"), { 295, 210 }, { 0,0,50,89 }, 0.25f, 4, 0, 0, SDL_FLIP_NONE, 0);
-    gameOverBG->InitAsTexture(app->textures->Load("Assets/Sprites/UI/GameOver/GameOverScreen.png"), { 0,0 }, { 0,0,0,0 }, 0.5f, 1, 0.9f);
+    gameOverBG->InitAsTexture(app->textures->Load("Sprites/UI/GameOver/GameOverScreen.png"), { 0,0 }, { 0,0,0,0 }, 0.5f, 1, 0.9f);
     
     text = new Text({ 260,220 }, "");
     text2 = new Text({ 310,220 }, "");
@@ -45,9 +45,9 @@ bool GameOverScene::Start()
 
     // GUI 
 
-    retryButton = new GUIButton({ 200,300 }, 60, 16, app->textures->Load("Assets/Sprites/UI/Continue.png", false));
+    retryButton = new GUIButton({ 200,300 }, 60, 16, app->textures->Load("Sprites/UI/Continue.png", false));
  
-    mainMenuButton = new GUIButton({ 400,300 }, 60, 16, app->textures->Load("Assets/Sprites/UI/QuitBUT.png", false));
+    mainMenuButton = new GUIButton({ 400,300 }, 60, 16, app->textures->Load("Sprites/UI/QuitBUT.png", false));
 
     return true;
 }
